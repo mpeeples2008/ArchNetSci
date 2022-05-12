@@ -1529,20 +1529,9 @@ Fig. 6.24. An example of three frames from a network animation.
 
 Figure 6.24 was created using the ndtv package and the same data produced above for figure 6.23. We simply rendered the animation as above and then output to an interactive html widget. The figure in the book represents 3 screen shots from the video. See the ndtv documentation for more details.
 
-```{r Fig6_24, warning=F, message=F, eval=T}
-render.d3movie(SanPedro, vertex.col=mycol[factor(SP_attr$SWSN_MacroGroup)], output.mode = "htmlWidget")
+```{r Fig6_24, warning=F, message=F, eval=T, results='asis'}
+render.d3movie(SanPedro, vertex.col=mycol[factor(SP_attr$SWSN_MacroGroup)], output.mode = "inline")
 ```
-
-
-```{r Fig6_24a, warning=F, message=F, echo=F}
-
-render.d3movie(SanPedro,filename='images/SanPedro_ani.html',vertex.col=mycol[factor(SP_attr$SWSN_MacroGroup)],
-                                launchBrowser=FALSE, 
-                                script.type='remoteSrc')
-
-```
-
-<iframe width=800 height=800 src='images/SanPedro_ani.html'></iframe>
 
 ### Figure 6.25: Interactive Networks {#Figure_6_25}
 
