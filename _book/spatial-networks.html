@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Section 7 Spatial Networks | Online Companion to Archaeological Network Science by Brughmans and Peeples</title>
+  <meta name="description" content="<p>This bookdown document accompanies the Cambridge Manuals in Archaeology book
+<em>Archaeological Network Science</em> by Tom Brughmans and Matthew A. Peeples.</p>" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Section 7 Spatial Networks | Online Companion to Archaeological Network Science by Brughmans and Peeples" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://archnetworks.net" />
+  
+  <meta property="og:description" content="<p>This bookdown document accompanies the Cambridge Manuals in Archaeology book
+<em>Archaeological Network Science</em> by Tom Brughmans and Matthew A. Peeples.</p>" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Section 7 Spatial Networks | Online Companion to Archaeological Network Science by Brughmans and Peeples" />
+  
+  <meta name="twitter:description" content="<p>This bookdown document accompanies the Cambridge Manuals in Archaeology book
+<em>Archaeological Network Science</em> by Tom Brughmans and Matthew A. Peeples.</p>" />
+  
+
+<meta name="author" content="Matthew A. Peeples and Tom Brughmans" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="network-visualization.html"/>
+<link rel="next" href="references-and-r-packages.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="libs/d3-4.5.0/d3.min.js"></script>
+<script src="libs/forceNetwork-binding-0.4/forceNetwork.js"></script>
+<link href="libs/vis-9.1.0/vis-network.min.css" rel="stylesheet" />
+<script src="libs/vis-9.1.0/vis-network.min.js"></script>
+<script src="libs/visNetwork-binding-2.1.0/visNetwork.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Archaeological Network Science</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome</a></li>
+<li class="chapter" data-level="2" data-path="getting-started.html"><a href="getting-started.html"><i class="fa fa-check"></i><b>2</b> Getting Started</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="getting-started.html"><a href="getting-started.html#datasets"><i class="fa fa-check"></i><b>2.1</b> Datasets</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="getting-started.html"><a href="getting-started.html#Everything"><i class="fa fa-check"></i><b>2.1.1</b> Just Give Me Everything</a></li>
+<li class="chapter" data-level="2.1.2" data-path="getting-started.html"><a href="getting-started.html#roman-road-networks"><i class="fa fa-check"></i><b>2.1.2</b> Roman Road Networks</a></li>
+<li class="chapter" data-level="2.1.3" data-path="getting-started.html"><a href="getting-started.html#southwest-social-networks-project-ceramic-similarity-networks"><i class="fa fa-check"></i><b>2.1.3</b> Southwest Social Networks Project Ceramic Similarity Networks</a></li>
+<li class="chapter" data-level="2.1.4" data-path="getting-started.html"><a href="getting-started.html#cibola-region-technological-similarity-network"><i class="fa fa-check"></i><b>2.1.4</b> Cibola Region Technological Similarity Network</a></li>
+<li class="chapter" data-level="2.1.5" data-path="getting-started.html"><a href="getting-started.html#himalayan-visibility-networks"><i class="fa fa-check"></i><b>2.1.5</b> Himalayan Visibility Networks</a></li>
+<li class="chapter" data-level="2.1.6" data-path="getting-started.html"><a href="getting-started.html#archaeological-publication-networks"><i class="fa fa-check"></i><b>2.1.6</b> Archaeological Publication Networks</a></li>
+<li class="chapter" data-level="2.1.7" data-path="getting-started.html"><a href="getting-started.html#iron-age-sites-in-southern-spain"><i class="fa fa-check"></i><b>2.1.7</b> Iron Age Sites in Southern Spain</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="getting-started.html"><a href="getting-started.html#importing-data-in-r"><i class="fa fa-check"></i><b>2.2</b> Importing Data in R</a></li>
+<li class="chapter" data-level="2.3" data-path="getting-started.html"><a href="getting-started.html#installing-r-packages"><i class="fa fa-check"></i><b>2.3</b> Installing R Packages</a></li>
+<li class="chapter" data-level="2.4" data-path="getting-started.html"><a href="getting-started.html#suggested-workspace-setup"><i class="fa fa-check"></i><b>2.4</b> Suggested Workspace Setup</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="NetworkData.html"><a href="NetworkData.html"><i class="fa fa-check"></i><b>3</b> Network Data</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="NetworkData.html"><a href="NetworkData.html#network-data-formats"><i class="fa fa-check"></i><b>3.1</b> Network Data Formats</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="NetworkData.html"><a href="NetworkData.html#Edgelist"><i class="fa fa-check"></i><b>3.1.1</b> Edge List</a></li>
+<li class="chapter" data-level="3.1.2" data-path="NetworkData.html"><a href="NetworkData.html#adjacency-list"><i class="fa fa-check"></i><b>3.1.2</b> Adjacency List</a></li>
+<li class="chapter" data-level="3.1.3" data-path="NetworkData.html"><a href="NetworkData.html#adjacency-matrix"><i class="fa fa-check"></i><b>3.1.3</b> Adjacency Matrix</a></li>
+<li class="chapter" data-level="3.1.4" data-path="NetworkData.html"><a href="NetworkData.html#incidence-matrix"><i class="fa fa-check"></i><b>3.1.4</b> Incidence Matrix</a></li>
+<li class="chapter" data-level="3.1.5" data-path="NetworkData.html"><a href="NetworkData.html#node-and-edge-information"><i class="fa fa-check"></i><b>3.1.5</b> Node and Edge Information</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="NetworkData.html"><a href="NetworkData.html#types-of-networks"><i class="fa fa-check"></i><b>3.2</b> Types of Networks</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="NetworkData.html"><a href="NetworkData.html#simple-networks"><i class="fa fa-check"></i><b>3.2.1</b> Simple Networks</a></li>
+<li class="chapter" data-level="3.2.2" data-path="NetworkData.html"><a href="NetworkData.html#directed-networks"><i class="fa fa-check"></i><b>3.2.2</b> Directed Networks</a></li>
+<li class="chapter" data-level="3.2.3" data-path="NetworkData.html"><a href="NetworkData.html#signed-categorized-and-valued-networks"><i class="fa fa-check"></i><b>3.2.3</b> Signed, Categorized, and Valued Networks</a></li>
+<li class="chapter" data-level="3.2.4" data-path="NetworkData.html"><a href="NetworkData.html#two-mode-networks-and-affiliation-networks"><i class="fa fa-check"></i><b>3.2.4</b> Two-mode Networks and Affiliation Networks</a></li>
+<li class="chapter" data-level="3.2.5" data-path="NetworkData.html"><a href="NetworkData.html#similarity-networks"><i class="fa fa-check"></i><b>3.2.5</b> Similarity Networks</a></li>
+<li class="chapter" data-level="3.2.6" data-path="NetworkData.html"><a href="NetworkData.html#ego-networks"><i class="fa fa-check"></i><b>3.2.6</b> Ego Networks</a></li>
+<li class="chapter" data-level="3.2.7" data-path="NetworkData.html"><a href="NetworkData.html#multilayer-networks"><i class="fa fa-check"></i><b>3.2.7</b> Multilayer Networks</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html"><i class="fa fa-check"></i><b>4</b> Exploratory Network Analysis</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#example-network-objects"><i class="fa fa-check"></i><b>4.1</b> Example Network Objects</a></li>
+<li class="chapter" data-level="4.2" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#CalcMetric"><i class="fa fa-check"></i><b>4.2</b> Calculating Network Metrics in R</a></li>
+<li class="chapter" data-level="4.3" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#centrality"><i class="fa fa-check"></i><b>4.3</b> Centrality</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#degree-centrality"><i class="fa fa-check"></i><b>4.3.1</b> Degree Centrality</a></li>
+<li class="chapter" data-level="4.3.2" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#betweenness-centrality"><i class="fa fa-check"></i><b>4.3.2</b> Betweenness Centrality</a></li>
+<li class="chapter" data-level="4.3.3" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#eigenvector-centrality"><i class="fa fa-check"></i><b>4.3.3</b> Eigenvector Centrality</a></li>
+<li class="chapter" data-level="4.3.4" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#page-rank-centrality"><i class="fa fa-check"></i><b>4.3.4</b> Page Rank Centrality</a></li>
+<li class="chapter" data-level="4.3.5" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#closeness-centrality"><i class="fa fa-check"></i><b>4.3.5</b> Closeness Centrality</a></li>
+<li class="chapter" data-level="4.3.6" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#hubs-and-authorities"><i class="fa fa-check"></i><b>4.3.6</b> Hubs and Authorities</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#triads-and-clustering"><i class="fa fa-check"></i><b>4.4</b> Triads and clustering</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#triads"><i class="fa fa-check"></i><b>4.4.1</b> Triads</a></li>
+<li class="chapter" data-level="4.4.2" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#transitivity-and-clustering"><i class="fa fa-check"></i><b>4.4.2</b> Transitivity and Clustering</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#walks-paths-and-distance"><i class="fa fa-check"></i><b>4.5</b> Walks, Paths, and Distance</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#distance"><i class="fa fa-check"></i><b>4.5.1</b> Distance</a></li>
+<li class="chapter" data-level="4.5.2" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#shortest-paths"><i class="fa fa-check"></i><b>4.5.2</b> Shortest Paths</a></li>
+<li class="chapter" data-level="4.5.3" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#diameter"><i class="fa fa-check"></i><b>4.5.3</b> Diameter</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#components-and-bridges"><i class="fa fa-check"></i><b>4.6</b> Components and Bridges</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#identifying-components"><i class="fa fa-check"></i><b>4.6.1</b> Identifying Components</a></li>
+<li class="chapter" data-level="4.6.2" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#cutpoints"><i class="fa fa-check"></i><b>4.6.2</b> Cutpoints</a></li>
+<li class="chapter" data-level="4.6.3" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#bridges"><i class="fa fa-check"></i><b>4.6.3</b> Bridges</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#cliques-and-communities"><i class="fa fa-check"></i><b>4.7</b> Cliques and Communities</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#cliques"><i class="fa fa-check"></i><b>4.7.1</b> Cliques</a></li>
+<li class="chapter" data-level="4.7.2" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#k-cores"><i class="fa fa-check"></i><b>4.7.2</b> K-cores</a></li>
+<li class="chapter" data-level="4.7.3" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#cluster-detection-algorithms"><i class="fa fa-check"></i><b>4.7.3</b> Cluster Detection Algorithms</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#case-study"><i class="fa fa-check"></i><b>4.8</b> Case Study</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="quantifying-uncertainty.html"><a href="quantifying-uncertainty.html"><i class="fa fa-check"></i><b>5</b> Quantifying Uncertainty</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="quantifying-uncertainty.html"><a href="quantifying-uncertainty.html#a-general-approach-to-uncertainty"><i class="fa fa-check"></i><b>5.1</b> A General Approach to Uncertainty</a></li>
+<li class="chapter" data-level="5.2" data-path="quantifying-uncertainty.html"><a href="quantifying-uncertainty.html#missing-at-random"><i class="fa fa-check"></i><b>5.2</b> Missing at Random</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="quantifying-uncertainty.html"><a href="quantifying-uncertainty.html#nodes-missing-at-random"><i class="fa fa-check"></i><b>5.2.1</b> Nodes Missing at Random</a></li>
+<li class="chapter" data-level="5.2.2" data-path="quantifying-uncertainty.html"><a href="quantifying-uncertainty.html#edges-missing-at-random"><i class="fa fa-check"></i><b>5.2.2</b> Edges Missing at Random</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="quantifying-uncertainty.html"><a href="quantifying-uncertainty.html#assessing-indivdiual-nodesedges"><i class="fa fa-check"></i><b>5.3</b> Assessing Indivdiual Nodes/Edges</a></li>
+<li class="chapter" data-level="5.4" data-path="quantifying-uncertainty.html"><a href="quantifying-uncertainty.html#missing-due-to-biased-sampling"><i class="fa fa-check"></i><b>5.4</b> Missing Due to Biased Sampling</a></li>
+<li class="chapter" data-level="5.5" data-path="quantifying-uncertainty.html"><a href="quantifying-uncertainty.html#edge-probability-modeling"><i class="fa fa-check"></i><b>5.5</b> Edge Probability Modeling</a></li>
+<li class="chapter" data-level="5.6" data-path="quantifying-uncertainty.html"><a href="quantifying-uncertainty.html#small-or-variable-sample-size"><i class="fa fa-check"></i><b>5.6</b> Small or Variable Sample Size</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="network-visualization.html"><a href="network-visualization.html"><i class="fa fa-check"></i><b>6</b> Network Visualization</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="network-visualization.html"><a href="network-visualization.html#datasets-and-r-setup"><i class="fa fa-check"></i><b>6.1</b> Datasets and R Setup</a></li>
+<li class="chapter" data-level="6.2" data-path="network-visualization.html"><a href="network-visualization.html#visualizing-networks-in-r"><i class="fa fa-check"></i><b>6.2</b> Visualizing Networks in R</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="network-visualization.html"><a href="network-visualization.html#networkstatnet"><i class="fa fa-check"></i><b>6.2.1</b> network/statnet</a></li>
+<li class="chapter" data-level="6.2.2" data-path="network-visualization.html"><a href="network-visualization.html#igraph"><i class="fa fa-check"></i><b>6.2.2</b> igraph</a></li>
+<li class="chapter" data-level="6.2.3" data-path="network-visualization.html"><a href="network-visualization.html#ggraph"><i class="fa fa-check"></i><b>6.2.3</b> ggraph</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="network-visualization.html"><a href="network-visualization.html#network-visualization-options"><i class="fa fa-check"></i><b>6.3</b> Network Visualization Options</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="network-visualization.html"><a href="network-visualization.html#graph-layout"><i class="fa fa-check"></i><b>6.3.1</b> Graph Layout</a></li>
+<li class="chapter" data-level="6.3.2" data-path="network-visualization.html"><a href="network-visualization.html#node-and-edge-options"><i class="fa fa-check"></i><b>6.3.2</b> Node and Edge Options</a></li>
+<li class="chapter" data-level="6.3.3" data-path="network-visualization.html"><a href="network-visualization.html#label-options"><i class="fa fa-check"></i><b>6.3.3</b> Label Options</a></li>
+<li class="chapter" data-level="6.3.4" data-path="network-visualization.html"><a href="network-visualization.html#be-kind-to-the-color-blind"><i class="fa fa-check"></i><b>6.3.4</b> Be Kind to the Color Blind</a></li>
+<li class="chapter" data-level="6.3.5" data-path="network-visualization.html"><a href="network-visualization.html#communities-and-groups"><i class="fa fa-check"></i><b>6.3.5</b> Communities and Groups</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="network-visualization.html"><a href="network-visualization.html#replicating-the-book-figures"><i class="fa fa-check"></i><b>6.4</b> Replicating the Book Figures</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_1"><i class="fa fa-check"></i><b>6.4.1</b> Figure 6.1: Manual Layout</a></li>
+<li class="chapter" data-level="6.4.2" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_2"><i class="fa fa-check"></i><b>6.4.2</b> Figure 6.2: Examples of Common Network Plot Formats</a></li>
+<li class="chapter" data-level="6.4.3" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_3"><i class="fa fa-check"></i><b>6.4.3</b> Figure 6.3: Examples of Rare Network Plot Formats</a></li>
+<li class="chapter" data-level="6.4.4" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_4"><i class="fa fa-check"></i><b>6.4.4</b> Figure 6.4: Simple Network with Clusters</a></li>
+<li class="chapter" data-level="6.4.5" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_5"><i class="fa fa-check"></i><b>6.4.5</b> Figure 6.5: Interactive Layout</a></li>
+<li class="chapter" data-level="6.4.6" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_6"><i class="fa fa-check"></i><b>6.4.6</b> Figure 6.6: Absolute Geographic Layout</a></li>
+<li class="chapter" data-level="6.4.7" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_7"><i class="fa fa-check"></i><b>6.4.7</b> Figure 6.7: Distorted Geographic Layout</a></li>
+<li class="chapter" data-level="6.4.8" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_8"><i class="fa fa-check"></i><b>6.4.8</b> Figure 6.8: Graph Layout Algorithms</a></li>
+<li class="chapter" data-level="6.4.9" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_9"><i class="fa fa-check"></i><b>6.4.9</b> Figure 6.9: Heirarchical Graph Layouts</a></li>
+<li class="chapter" data-level="6.4.10" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_10"><i class="fa fa-check"></i><b>6.4.10</b> Figure 6.10: Be kind to the color blind</a></li>
+<li class="chapter" data-level="6.4.11" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_11"><i class="fa fa-check"></i><b>6.4.11</b> Figure 6.11: Node Symbol and Color Schemes</a></li>
+<li class="chapter" data-level="6.4.12" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_12"><i class="fa fa-check"></i><b>6.4.12</b> Figure 6.12: Image for Node</a></li>
+<li class="chapter" data-level="6.4.13" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_13"><i class="fa fa-check"></i><b>6.4.13</b> Figure 6.13: Images for Nodes</a></li>
+<li class="chapter" data-level="6.4.14" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_14"><i class="fa fa-check"></i><b>6.4.14</b> Figure 6.14: Edge Thickness and Color</a></li>
+<li class="chapter" data-level="6.4.15" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_15"><i class="fa fa-check"></i><b>6.4.15</b> Figure 6.15: Edge Direction</a></li>
+<li class="chapter" data-level="6.4.16" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_16"><i class="fa fa-check"></i><b>6.4.16</b> Figure 6.16: Edge Binarization</a></li>
+<li class="chapter" data-level="6.4.17" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_17"><i class="fa fa-check"></i><b>6.4.17</b> Figure 6.17: Edge Bundling</a></li>
+<li class="chapter" data-level="6.4.18" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_18"><i class="fa fa-check"></i><b>6.4.18</b> Figure 6.18: Group-in-a-box</a></li>
+<li class="chapter" data-level="6.4.19" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_19"><i class="fa fa-check"></i><b>6.4.19</b> Figure 6.19: Weighted Adjacency Matrix</a></li>
+<li class="chapter" data-level="6.4.20" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_20"><i class="fa fa-check"></i><b>6.4.20</b> Figure 6.20: Nodetrix Diagram</a></li>
+<li class="chapter" data-level="6.4.21" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_21"><i class="fa fa-check"></i><b>6.4.21</b> Figure 6.21: The Filmstrip Approach</a></li>
+<li class="chapter" data-level="6.4.22" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_22"><i class="fa fa-check"></i><b>6.4.22</b> Figure 6.22: Similtaneous Display</a></li>
+<li class="chapter" data-level="6.4.23" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_23"><i class="fa fa-check"></i><b>6.4.23</b> Figure 6:23: Timelines and Time Prisms</a></li>
+<li class="chapter" data-level="6.4.24" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_24"><i class="fa fa-check"></i><b>6.4.24</b> Figure 6.24: Animation</a></li>
+<li class="chapter" data-level="6.4.25" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_25"><i class="fa fa-check"></i><b>6.4.25</b> Figure 6.25: Interactive Networks</a></li>
+<li class="chapter" data-level="6.4.26" data-path="network-visualization.html"><a href="network-visualization.html#figure-6.26-swsn-example-1"><i class="fa fa-check"></i><b>6.4.26</b> Figure 6.26: SWSN Example 1</a></li>
+<li class="chapter" data-level="6.4.27" data-path="network-visualization.html"><a href="network-visualization.html#figure-6.27-swsn-example-2"><i class="fa fa-check"></i><b>6.4.27</b> Figure 6.27: SWSN Example 2</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="spatial-networks.html"><a href="spatial-networks.html"><i class="fa fa-check"></i><b>7</b> Spatial Networks</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="spatial-networks.html"><a href="spatial-networks.html#dataset-and-setup"><i class="fa fa-check"></i><b>7.1</b> Dataset and Setup</a></li>
+<li class="chapter" data-level="7.2" data-path="spatial-networks.html"><a href="spatial-networks.html#planar-networks-and-trees"><i class="fa fa-check"></i><b>7.2</b> Planar Networks and Trees</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="spatial-networks.html"><a href="spatial-networks.html#evaluating-planarity"><i class="fa fa-check"></i><b>7.2.1</b> Evaluating Planarity</a></li>
+<li class="chapter" data-level="7.2.2" data-path="spatial-networks.html"><a href="spatial-networks.html#defining-trees"><i class="fa fa-check"></i><b>7.2.2</b> Defining Trees</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="spatial-networks.html"><a href="spatial-networks.html#spatial-network-models"><i class="fa fa-check"></i><b>7.3</b> Spatial Network Models</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="spatial-networks.html"><a href="spatial-networks.html#relative-neighborhood-networks"><i class="fa fa-check"></i><b>7.3.1</b> Relative Neighborhood Networks</a></li>
+<li class="chapter" data-level="7.3.2" data-path="spatial-networks.html"><a href="spatial-networks.html#gabriel-graphs"><i class="fa fa-check"></i><b>7.3.2</b> Gabriel Graphs</a></li>
+<li class="chapter" data-level="7.3.3" data-path="spatial-networks.html"><a href="spatial-networks.html#beta-skeletons"><i class="fa fa-check"></i><b>7.3.3</b> Beta Skeletons</a></li>
+<li class="chapter" data-level="7.3.4" data-path="spatial-networks.html"><a href="spatial-networks.html#minimum-spanning-trees"><i class="fa fa-check"></i><b>7.3.4</b> Minimum Spanning Trees</a></li>
+<li class="chapter" data-level="7.3.5" data-path="spatial-networks.html"><a href="spatial-networks.html#delaunay-triangulation"><i class="fa fa-check"></i><b>7.3.5</b> Delaunay Triangulation</a></li>
+<li class="chapter" data-level="7.3.6" data-path="spatial-networks.html"><a href="spatial-networks.html#k-nearest-neighbors"><i class="fa fa-check"></i><b>7.3.6</b> K-nearest Neighbors</a></li>
+<li class="chapter" data-level="7.3.7" data-path="spatial-networks.html"><a href="spatial-networks.html#maximum-distance-networks"><i class="fa fa-check"></i><b>7.3.7</b> Maximum Distance Networks</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="spatial-networks.html"><a href="spatial-networks.html#case-studies"><i class="fa fa-check"></i><b>7.4</b> Case Studies</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="spatial-networks.html"><a href="spatial-networks.html#proximity-of-iron-age-sites-in-southern-spain"><i class="fa fa-check"></i><b>7.4.1</b> Proximity of Iron Age sites in Southern Spain</a></li>
+<li class="chapter" data-level="7.4.2" data-path="spatial-networks.html"><a href="spatial-networks.html#networks-in-space-in-the-u.s.-southwest"><i class="fa fa-check"></i><b>7.4.2</b> Networks in Space in the U.S. Southwest</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references-and-r-packages.html"><a href="references-and-r-packages.html"><i class="fa fa-check"></i>References and R Packages</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Online Companion to <em>Archaeological Network Science</em> by Brughmans and Peeples</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="spatial-networks" class="section level1" number="7">
+<h1><span class="header-section-number">Section 7</span> Spatial Networks</h1>
+<p>This section follows along with Chapter 7 of Brughmans and Peeples (2022) to provide information on how to implement spatial network models and analyses in R.</p>
+<div id="dataset-and-setup" class="section level2" number="7.1">
+<h2><span class="header-section-number">7.1</span> Dataset and Setup</h2>
+<p>For the initial examples in this section we will use the Roman Road data from the Iberian Penninsula. This dataset consists of a <a href="data/Hispania_nodes.csv">csv file of a set of Roman settlements</a> and a <a href="data/Hispania_roads">csv file of an edge list</a> defining connections among those settlements in terms of roads.</p>
+<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb292-1"><a href="spatial-networks.html#cb292-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(igraph)</span>
+<span id="cb292-2"><a href="spatial-networks.html#cb292-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggmap)</span>
+<span id="cb292-3"><a href="spatial-networks.html#cb292-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb292-4"><a href="spatial-networks.html#cb292-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb292-5"><a href="spatial-networks.html#cb292-5" aria-hidden="true" tabindex="-1"></a>edges1 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/Hispania_roads.csv&quot;</span>, <span class="at">header=</span>T)</span>
+<span id="cb292-6"><a href="spatial-networks.html#cb292-6" aria-hidden="true" tabindex="-1"></a>nodes <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/Hispania_nodes.csv&quot;</span>, <span class="at">header=</span>T)</span>
+<span id="cb292-7"><a href="spatial-networks.html#cb292-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb292-8"><a href="spatial-networks.html#cb292-8" aria-hidden="true" tabindex="-1"></a>road_net <span class="ot">&lt;-</span> <span class="fu">graph_from_edgelist</span>(<span class="fu">as.matrix</span>(edges1[,<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]), <span class="at">directed=</span><span class="cn">FALSE</span>)</span>
+<span id="cb292-9"><a href="spatial-networks.html#cb292-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb292-10"><a href="spatial-networks.html#cb292-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert attribute location data to sf coordinates</span></span>
+<span id="cb292-11"><a href="spatial-networks.html#cb292-11" aria-hidden="true" tabindex="-1"></a>locations_sf <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(nodes, <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">&quot;long&quot;</span>, <span class="st">&quot;lat&quot;</span>), <span class="at">crs =</span> <span class="dv">4326</span>)</span>
+<span id="cb292-12"><a href="spatial-networks.html#cb292-12" aria-hidden="true" tabindex="-1"></a>coord1 <span class="ot">&lt;-</span> <span class="fu">do.call</span>(rbind, <span class="fu">st_geometry</span>(locations_sf)) <span class="sc">%&gt;%</span> </span>
+<span id="cb292-13"><a href="spatial-networks.html#cb292-13" aria-hidden="true" tabindex="-1"></a>  tibble<span class="sc">::</span><span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span> <span class="fu">setNames</span>(<span class="fu">c</span>(<span class="st">&quot;lon&quot;</span>,<span class="st">&quot;lat&quot;</span>))</span>
+<span id="cb292-14"><a href="spatial-networks.html#cb292-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb292-15"><a href="spatial-networks.html#cb292-15" aria-hidden="true" tabindex="-1"></a>xy <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(coord1)</span>
+<span id="cb292-16"><a href="spatial-networks.html#cb292-16" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(xy) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;x&#39;</span>,<span class="st">&#39;y&#39;</span>)</span>
+<span id="cb292-17"><a href="spatial-networks.html#cb292-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb292-18"><a href="spatial-networks.html#cb292-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract edgelist from network object</span></span>
+<span id="cb292-19"><a href="spatial-networks.html#cb292-19" aria-hidden="true" tabindex="-1"></a>edgelist <span class="ot">&lt;-</span> <span class="fu">get.edgelist</span>(road_net)</span>
+<span id="cb292-20"><a href="spatial-networks.html#cb292-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb292-21"><a href="spatial-networks.html#cb292-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Create dataframe of beginning and ending points of edges</span></span>
+<span id="cb292-22"><a href="spatial-networks.html#cb292-22" aria-hidden="true" tabindex="-1"></a>edges <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">matrix</span>(<span class="cn">NA</span>,<span class="fu">nrow</span>(edgelist),<span class="dv">4</span>))</span>
+<span id="cb292-23"><a href="spatial-networks.html#cb292-23" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(edges) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;X1&quot;</span>,<span class="st">&quot;Y1&quot;</span>,<span class="st">&quot;X2&quot;</span>,<span class="st">&quot;Y2&quot;</span>)</span>
+<span id="cb292-24"><a href="spatial-networks.html#cb292-24" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(edgelist)) {</span>
+<span id="cb292-25"><a href="spatial-networks.html#cb292-25" aria-hidden="true" tabindex="-1"></a>edges[i,] <span class="ot">&lt;-</span> <span class="fu">c</span>(nodes[<span class="fu">which</span>(nodes<span class="sc">$</span>Id<span class="sc">==</span>edgelist[i,<span class="dv">1</span>]),<span class="dv">3</span>],nodes[<span class="fu">which</span>(nodes<span class="sc">$</span>Id<span class="sc">==</span>edgelist[i,<span class="dv">1</span>]),<span class="dv">2</span>],</span>
+<span id="cb292-26"><a href="spatial-networks.html#cb292-26" aria-hidden="true" tabindex="-1"></a>               nodes[<span class="fu">which</span>(nodes<span class="sc">$</span>Id<span class="sc">==</span>edgelist[i,<span class="dv">2</span>]),<span class="dv">3</span>],nodes[<span class="fu">which</span>(nodes<span class="sc">$</span>Id<span class="sc">==</span>edgelist[i,<span class="dv">2</span>]),<span class="dv">2</span>])</span>
+<span id="cb292-27"><a href="spatial-networks.html#cb292-27" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb292-28"><a href="spatial-networks.html#cb292-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb292-29"><a href="spatial-networks.html#cb292-29" aria-hidden="true" tabindex="-1"></a>myMap <span class="ot">&lt;-</span> <span class="fu">get_stamenmap</span>(<span class="at">bbox =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">9.5</span>,<span class="dv">36</span>,<span class="dv">3</span>,<span class="fl">43.8</span>),<span class="at">maptype =</span> <span class="st">&quot;watercolor&quot;</span>,<span class="at">zoom =</span> <span class="dv">6</span>)</span>
+<span id="cb292-30"><a href="spatial-networks.html#cb292-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb292-31"><a href="spatial-networks.html#cb292-31" aria-hidden="true" tabindex="-1"></a><span class="fu">ggmap</span>(myMap) <span class="sc">+</span></span>
+<span id="cb292-32"><a href="spatial-networks.html#cb292-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="at">data =</span> edges, <span class="fu">aes</span>(<span class="at">x=</span>X1, <span class="at">y=</span>Y1, <span class="at">xend=</span>X2, <span class="at">yend=</span>Y2), <span class="at">col=</span><span class="st">&#39;black&#39;</span>, <span class="at">size=</span><span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb292-33"><a href="spatial-networks.html#cb292-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> xy, <span class="fu">aes</span>(x,y), <span class="at">alpha=</span><span class="fl">0.8</span>, <span class="at">col=</span><span class="st">&#39;black&#39;</span>, <span class="at">fill=</span><span class="st">&quot;white&quot;</span>, <span class="at">shape=</span><span class="dv">21</span>, <span class="at">size=</span><span class="dv">2</span>, <span class="at">show.legend=</span>F) <span class="sc">+</span></span>
+<span id="cb292-34"><a href="spatial-networks.html#cb292-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/spatial_networks-1.png" width="768" /></p>
+</div>
+<div id="planar-networks-and-trees" class="section level2" number="7.2">
+<h2><span class="header-section-number">7.2</span> Planar Networks and Trees</h2>
+<div id="evaluating-planarity" class="section level3" number="7.2.1">
+<h3><span class="header-section-number">7.2.1</span> Evaluating Planarity</h3>
+<p>A planar network is a network that can be drawn on a plane where the edges do not cross but instead always end in nodes. In many small networks it is relatively easy to determine whether or not a network is planar by simply viewing a network graph. In larger graphs, this can sometimes be difficult.</p>
+<p>There is a package available for R called RBGL which is an R implementation of something called the Boost Graph Library. This set of routines includes many powerful tools for characterizing network topology including planarity. This package is not, however, in the CRAN archive where the packages we have worked with so far reside so it needs to be installed from another archive called Bioconductor. In order to install this libary, run the following lines of code.</p>
+<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb293-1"><a href="spatial-networks.html#cb293-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">&quot;BiocManager&quot;</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb293-2"><a href="spatial-networks.html#cb293-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">install.packages</span>(<span class="st">&quot;BiocManager&quot;</span>)</span>
+<span id="cb293-3"><a href="spatial-networks.html#cb293-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb293-4"><a href="spatial-networks.html#cb293-4" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">&quot;RBGL&quot;</span>)</span></code></pre></div>
+<p>With this in place we can now preform an analysis called the Boyer-Myrvold planarity test (Boyer and Myrvold 2004). This analysis performs a set of operations on a graph structure to evaluate whether or not it can be defined as a planar graph (see publication for more details).</p>
+<p>Let’s take a look at our Roman Road data.</p>
+<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb294-1"><a href="spatial-networks.html#cb294-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RBGL)</span>
+<span id="cb294-2"><a href="spatial-networks.html#cb294-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb294-3"><a href="spatial-networks.html#cb294-3" aria-hidden="true" tabindex="-1"></a><span class="co"># First convert to a graphNEL object for planarity test</span></span>
+<span id="cb294-4"><a href="spatial-networks.html#cb294-4" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">as_graphnel</span>(road_net)</span>
+<span id="cb294-5"><a href="spatial-networks.html#cb294-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Implement test</span></span>
+<span id="cb294-6"><a href="spatial-networks.html#cb294-6" aria-hidden="true" tabindex="-1"></a><span class="fu">boyerMyrvoldPlanarityTest</span>(g)</span></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<p>This results suggests that our Roman Road data is not planar. We can plot the data to evaluate this and do see crossed edges that could not be repositioned.</p>
+<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb296-1"><a href="spatial-networks.html#cb296-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggraph)</span>
+<span id="cb296-2"><a href="spatial-networks.html#cb296-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb296-3"><a href="spatial-networks.html#cb296-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">5364</span>)</span>
+<span id="cb296-4"><a href="spatial-networks.html#cb296-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggraph</span>(road_net, <span class="at">layout=</span><span class="st">&#39;kk&#39;</span>) <span class="sc">+</span></span>
+<span id="cb296-5"><a href="spatial-networks.html#cb296-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>() <span class="sc">+</span></span>
+<span id="cb296-6"><a href="spatial-networks.html#cb296-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb296-7"><a href="spatial-networks.html#cb296-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Network of Roman Roads&quot;</span>) <span class="sc">+</span></span>
+<span id="cb296-8"><a href="spatial-networks.html#cb296-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_graph</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-81-1.png" width="768" /></p>
+<p>Now, by way of example, we can generate a small random network that is planar and see the results of the test. Note that in the network graph that is produced the visual is not planar but could be a small number of nodes were moved. Unfortunately planar graph drawing is not currently implemented into igraph or other packages so you cannot automatically plot a graph as planar even if it meets the criteria of a planar graph.</p>
+<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb297-1"><a href="spatial-networks.html#cb297-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">49</span>)</span>
+<span id="cb297-2"><a href="spatial-networks.html#cb297-2" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">erdos.renyi.game</span>(<span class="dv">20</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">8</span>)</span>
+<span id="cb297-3"><a href="spatial-networks.html#cb297-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb297-4"><a href="spatial-networks.html#cb297-4" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">939</span>)</span>
+<span id="cb297-5"><a href="spatial-networks.html#cb297-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggraph</span>(g, <span class="at">layout=</span><span class="st">&quot;stress&quot;</span>) <span class="sc">+</span></span>
+<span id="cb297-6"><a href="spatial-networks.html#cb297-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>() <span class="sc">+</span></span>
+<span id="cb297-7"><a href="spatial-networks.html#cb297-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="at">size=</span><span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb297-8"><a href="spatial-networks.html#cb297-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_graph</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-82-1.png" width="768" /></p>
+<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb298-1"><a href="spatial-networks.html#cb298-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">as_graphnel</span>(g)</span>
+<span id="cb298-2"><a href="spatial-networks.html#cb298-2" aria-hidden="true" tabindex="-1"></a><span class="fu">boyerMyrvoldPlanarityTest</span>(g)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p>Here is another example where the graph layout algorithm happens to produce a planar graph.</p>
+<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb300-1"><a href="spatial-networks.html#cb300-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">4957</span>)</span>
+<span id="cb300-2"><a href="spatial-networks.html#cb300-2" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">erdos.renyi.game</span>(<span class="dv">20</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">8</span>)</span>
+<span id="cb300-3"><a href="spatial-networks.html#cb300-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb300-4"><a href="spatial-networks.html#cb300-4" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">939</span>)</span>
+<span id="cb300-5"><a href="spatial-networks.html#cb300-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggraph</span>(g, <span class="at">layout=</span><span class="st">&quot;stress&quot;</span>) <span class="sc">+</span></span>
+<span id="cb300-6"><a href="spatial-networks.html#cb300-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>() <span class="sc">+</span></span>
+<span id="cb300-7"><a href="spatial-networks.html#cb300-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="at">size=</span><span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb300-8"><a href="spatial-networks.html#cb300-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_graph</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-83-1.png" width="768" /></p>
+<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb301-1"><a href="spatial-networks.html#cb301-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">as_graphnel</span>(g)</span>
+<span id="cb301-2"><a href="spatial-networks.html#cb301-2" aria-hidden="true" tabindex="-1"></a><span class="fu">boyerMyrvoldPlanarityTest</span>(g)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+</div>
+<div id="defining-trees" class="section level3" number="7.2.2">
+<h3><span class="header-section-number">7.2.2</span> Defining Trees</h3>
+<p>A tree is a network that is connected and acyclic. Trees contain the minimum number of edges for a set of nodes to be connected, which results in an acyclic network with some interesting properties:</p>
+<ul>
+<li>Every edge in a tree is a bridge, in that its removal would increase the number of components (see section 4.4.5).</li>
+<li>The number of edges in a tree is equal to the number of nodes minus one.</li>
+<li>There can be only one single path between every pair of nodes in a tree.</li>
+</ul>
+<p>In R using the igraph package it is possible to both generate trees and also to take an existing network and define what is called the minimum spanning tree of that graph or the minimum acyclic component.</p>
+<p>Let’s create a simple tree using the “make_tree” function in igraph.</p>
+<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb303-1"><a href="spatial-networks.html#cb303-1" aria-hidden="true" tabindex="-1"></a>tree1 <span class="ot">&lt;-</span> <span class="fu">make_tree</span>(<span class="at">n=</span><span class="dv">50</span>, <span class="at">children=</span><span class="dv">5</span>, <span class="at">mode=</span><span class="st">&quot;undirected&quot;</span>)</span>
+<span id="cb303-2"><a href="spatial-networks.html#cb303-2" aria-hidden="true" tabindex="-1"></a>tree1</span></code></pre></div>
+<pre><code>## IGRAPH 5f11c87 U--- 50 49 -- Tree
+## + attr: name (g/c), children (g/n), mode (g/c)
+## + edges from 5f11c87:
+##  [1]  1-- 2  1-- 3  1-- 4  1-- 5  1-- 6  2-- 7  2-- 8  2-- 9  2--10  2--11
+## [11]  3--12  3--13  3--14  3--15  3--16  4--17  4--18  4--19  4--20  4--21
+## [21]  5--22  5--23  5--24  5--25  5--26  6--27  6--28  6--29  6--30  6--31
+## [31]  7--32  7--33  7--34  7--35  7--36  8--37  8--38  8--39  8--40  8--41
+## [41]  9--42  9--43  9--44  9--45  9--46 10--47 10--48 10--49 10--50</code></pre>
+<div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb305-1"><a href="spatial-networks.html#cb305-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(tree1)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-84-1.png" width="768" /></p>
+<p>In the example here you can see the branch and leaf structure of the network where there are central nodes that are hubs to a number of other nodes and so on, but there are no cycles back to the previous nodes. Thus, such a tree is inherently hierarchical.In the next sub-section, we will discuss the use of minimum spanning trees.</p>
+<p>It is also possible plot trees with a heirarchical network layout where nodes are arranged at levels of the hierarchy. In this case you need to specify the node or nodes that represent the first layer using the “root” call within the ggraph call.</p>
+<div class="sourceCode" id="cb306"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb306-1"><a href="spatial-networks.html#cb306-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggraph</span>(tree1, <span class="at">layout =</span> <span class="st">&#39;igraph&#39;</span>, <span class="at">algorithm =</span> <span class="st">&#39;tree&#39;</span>, <span class="at">root=</span><span class="dv">1</span>) <span class="sc">+</span> </span>
+<span id="cb306-2"><a href="spatial-networks.html#cb306-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_diagonal</span>(<span class="at">edge_width =</span> <span class="fl">0.5</span>, <span class="at">alpha =</span>.<span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb306-3"><a href="spatial-networks.html#cb306-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">V</span>(tree1)), <span class="at">size=</span><span class="fl">3.5</span>) <span class="sc">+</span></span>
+<span id="cb306-4"><a href="spatial-networks.html#cb306-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>() </span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-85-1.png" width="768" /></p>
+</div>
+</div>
+<div id="spatial-network-models" class="section level2" number="7.3">
+<h2><span class="header-section-number">7.3</span> Spatial Network Models</h2>
+<p>In Chapter 7.5 in Brughmans and Peeples (2022) we go over a series of spatial network models that provide a number of different ways of defining networks from spatial data. In this sub-section we demonstrate how to define and analyze networks using these approaches.</p>
+<div id="relative-neighborhood-networks" class="section level3" number="7.3.1">
+<h3><span class="header-section-number">7.3.1</span> Relative Neighborhood Networks</h3>
+<p>Relative neighborhood graph: a pair of nodes are connected if there are no other nodes in the area marked by the overlap of a circle around each node with a radius equal to the distance between the nodes.</p>
+<p>The R package cccd contains functions to define relative neighborhood networks from distance data using the “rng” function. This function can either take a distance matrix object as created above or a set of coordinates to calculate the distance within the call. The output of this function is an igraph object. For large graphs it is also possible to limit the search for possible neighbors to k neighbors.</p>
+<p>Let’s use our previously created distance matrix and plot the results.</p>
+<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb307-1"><a href="spatial-networks.html#cb307-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cccd)</span>
+<span id="cb307-2"><a href="spatial-networks.html#cb307-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb307-3"><a href="spatial-networks.html#cb307-3" aria-hidden="true" tabindex="-1"></a>rng1 <span class="ot">&lt;-</span> <span class="fu">rng</span>(nodes[,<span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">2</span>)])</span>
+<span id="cb307-4"><a href="spatial-networks.html#cb307-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb307-5"><a href="spatial-networks.html#cb307-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggraph</span>(rng1, <span class="at">layout=</span><span class="st">&quot;kk&quot;</span>) <span class="sc">+</span></span>
+<span id="cb307-6"><a href="spatial-networks.html#cb307-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>() <span class="sc">+</span></span>
+<span id="cb307-7"><a href="spatial-networks.html#cb307-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="at">size=</span><span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb307-8"><a href="spatial-networks.html#cb307-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_graph</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-86-1.png" width="768" /></p>
+<p>We can also plot the results using geographic coordinates.</p>
+<div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb308-1"><a href="spatial-networks.html#cb308-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggraph</span>(rng1, <span class="at">layout=</span><span class="st">&quot;manual&quot;</span>,</span>
+<span id="cb308-2"><a href="spatial-networks.html#cb308-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">x=</span>nodes[,<span class="dv">3</span>], <span class="at">y=</span>nodes[,<span class="dv">2</span>]) <span class="sc">+</span></span>
+<span id="cb308-3"><a href="spatial-networks.html#cb308-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>() <span class="sc">+</span></span>
+<span id="cb308-4"><a href="spatial-networks.html#cb308-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="at">size=</span><span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb308-5"><a href="spatial-networks.html#cb308-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_graph</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-87-1.png" width="768" /></p>
+</div>
+<div id="gabriel-graphs" class="section level3" number="7.3.2">
+<h3><span class="header-section-number">7.3.2</span> Gabriel Graphs</h3>
+<p>Gabriel graph: a pair of nodes are connected in a Gabriel graph if no other nodes lie within the circular region with a diameter equal to the distance between the pair of nodes.</p>
+<p>Again we can use a function in the cccd package to define Gabriel Graph igraph objects from x and y coordinates. Let’s take a look using the Roman Road data. See ?gg for details on the options including different algorithms for calculating Gabriel Graphs. We define a Gabriel graph here and plot it using an algorithmic layout and then geographic coordinates.</p>
+<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb309-1"><a href="spatial-networks.html#cb309-1" aria-hidden="true" tabindex="-1"></a>gg1 <span class="ot">&lt;-</span> <span class="fu">gg</span>(<span class="at">x=</span>nodes[,<span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">2</span>)])</span>
+<span id="cb309-2"><a href="spatial-networks.html#cb309-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb309-3"><a href="spatial-networks.html#cb309-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggraph</span>(gg1, <span class="at">layout=</span><span class="st">&quot;stress&quot;</span>) <span class="sc">+</span></span>
+<span id="cb309-4"><a href="spatial-networks.html#cb309-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>() <span class="sc">+</span></span>
+<span id="cb309-5"><a href="spatial-networks.html#cb309-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="at">size=</span><span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb309-6"><a href="spatial-networks.html#cb309-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_graph</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-88-1.png" width="768" /></p>
+<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb310-1"><a href="spatial-networks.html#cb310-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggraph</span>(gg1, <span class="at">layout=</span><span class="st">&quot;manual&quot;</span>,</span>
+<span id="cb310-2"><a href="spatial-networks.html#cb310-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">x=</span>nodes[,<span class="dv">3</span>], <span class="at">y=</span>nodes[,<span class="dv">2</span>]) <span class="sc">+</span></span>
+<span id="cb310-3"><a href="spatial-networks.html#cb310-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>() <span class="sc">+</span></span>
+<span id="cb310-4"><a href="spatial-networks.html#cb310-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="at">size=</span><span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb310-5"><a href="spatial-networks.html#cb310-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_graph</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-88-2.png" width="768" /></p>
+</div>
+<div id="beta-skeletons" class="section level3" number="7.3.3">
+<h3><span class="header-section-number">7.3.3</span> Beta Skeletons</h3>
+<p>Beta skeleton: a Gabriel graph in which the diameter of the circle is controlled by a parameter beta.</p>
+<p>In R the gg function for producing Gabriel Graphs has the procedure for beta skeletons built directly in. The argument r in the gg function controls the beta parameter. When r=1 a traditional Gabriel graph is returned. When the parameter r &gt; 1 there is a stricter definition of connection resulting in fewer ties and when r &lt; 1 link criteria are loosened. See ?gg for more details.</p>
+<div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb311-1"><a href="spatial-networks.html#cb311-1" aria-hidden="true" tabindex="-1"></a>beta_s <span class="ot">&lt;-</span> <span class="fu">gg</span>(<span class="at">x=</span>nodes[,<span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">2</span>)], <span class="at">r=</span><span class="fl">1.5</span>)</span>
+<span id="cb311-2"><a href="spatial-networks.html#cb311-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb311-3"><a href="spatial-networks.html#cb311-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggraph</span>(beta_s, <span class="at">layout=</span><span class="st">&quot;manual&quot;</span>,</span>
+<span id="cb311-4"><a href="spatial-networks.html#cb311-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">x=</span>nodes[,<span class="dv">3</span>], <span class="at">y=</span>nodes[,<span class="dv">2</span>]) <span class="sc">+</span></span>
+<span id="cb311-5"><a href="spatial-networks.html#cb311-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>() <span class="sc">+</span></span>
+<span id="cb311-6"><a href="spatial-networks.html#cb311-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="at">size=</span><span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb311-7"><a href="spatial-networks.html#cb311-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_graph</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-89-1.png" width="768" /></p>
+</div>
+<div id="minimum-spanning-trees" class="section level3" number="7.3.4">
+<h3><span class="header-section-number">7.3.4</span> Minimum Spanning Trees</h3>
+<p>Minimum spanning tree: in a set of nodes in the Euclidean plane, edges are created between pairs of nodes to form a tree where each node can be reached by each other node, such that the sum of the Euclidean edge lengths is less than the sum for any other spanning tree.</p>
+<p>Perhaps the most common use-case for trees in archaeological networks is to define the minimum spanning tree of a given graph or the minimum set of nodes and edges required for a fully connected graph. The igraph package has a built-in function that defines the minimum spanning tree for a given graph. Let’s try this with the Roman Road and then plot it as a node-link diagram and a map.</p>
+<div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb312-1"><a href="spatial-networks.html#cb312-1" aria-hidden="true" tabindex="-1"></a>mst_net <span class="ot">&lt;-</span> igraph<span class="sc">::</span><span class="fu">mst</span>(road_net)</span>
+<span id="cb312-2"><a href="spatial-networks.html#cb312-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb312-3"><a href="spatial-networks.html#cb312-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">4643</span>)</span>
+<span id="cb312-4"><a href="spatial-networks.html#cb312-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggraph</span>(mst_net, <span class="at">layout=</span><span class="st">&quot;kk&quot;</span>) <span class="sc">+</span></span>
+<span id="cb312-5"><a href="spatial-networks.html#cb312-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>() <span class="sc">+</span></span>
+<span id="cb312-6"><a href="spatial-networks.html#cb312-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="at">size=</span><span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb312-7"><a href="spatial-networks.html#cb312-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_graph</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-90-1.png" width="768" /></p>
+<div class="sourceCode" id="cb313"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb313-1"><a href="spatial-networks.html#cb313-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract edgelist from network object</span></span>
+<span id="cb313-2"><a href="spatial-networks.html#cb313-2" aria-hidden="true" tabindex="-1"></a>edgelist <span class="ot">&lt;-</span> <span class="fu">get.edgelist</span>(mst_net)</span>
+<span id="cb313-3"><a href="spatial-networks.html#cb313-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb313-4"><a href="spatial-networks.html#cb313-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create dataframe of beginning and ending points of edges</span></span>
+<span id="cb313-5"><a href="spatial-networks.html#cb313-5" aria-hidden="true" tabindex="-1"></a>edges <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">matrix</span>(<span class="cn">NA</span>,<span class="fu">nrow</span>(edgelist),<span class="dv">4</span>))</span>
+<span id="cb313-6"><a href="spatial-networks.html#cb313-6" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(edges) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;X1&quot;</span>,<span class="st">&quot;Y1&quot;</span>,<span class="st">&quot;X2&quot;</span>,<span class="st">&quot;Y2&quot;</span>)</span>
+<span id="cb313-7"><a href="spatial-networks.html#cb313-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(edgelist)) {</span>
+<span id="cb313-8"><a href="spatial-networks.html#cb313-8" aria-hidden="true" tabindex="-1"></a>edges[i,] <span class="ot">&lt;-</span> <span class="fu">c</span>(nodes[<span class="fu">which</span>(nodes<span class="sc">$</span>Id<span class="sc">==</span>edgelist[i,<span class="dv">1</span>]),<span class="dv">3</span>],nodes[<span class="fu">which</span>(nodes<span class="sc">$</span>Id<span class="sc">==</span>edgelist[i,<span class="dv">1</span>]),<span class="dv">2</span>],</span>
+<span id="cb313-9"><a href="spatial-networks.html#cb313-9" aria-hidden="true" tabindex="-1"></a>               nodes[<span class="fu">which</span>(nodes<span class="sc">$</span>Id<span class="sc">==</span>edgelist[i,<span class="dv">2</span>]),<span class="dv">3</span>],nodes[<span class="fu">which</span>(nodes<span class="sc">$</span>Id<span class="sc">==</span>edgelist[i,<span class="dv">2</span>]),<span class="dv">2</span>])</span>
+<span id="cb313-10"><a href="spatial-networks.html#cb313-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb313-11"><a href="spatial-networks.html#cb313-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb313-12"><a href="spatial-networks.html#cb313-12" aria-hidden="true" tabindex="-1"></a><span class="fu">ggmap</span>(myMap) <span class="sc">+</span></span>
+<span id="cb313-13"><a href="spatial-networks.html#cb313-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="at">data =</span> edges, <span class="fu">aes</span>(<span class="at">x=</span>X1, <span class="at">y=</span>Y1, <span class="at">xend=</span>X2, <span class="at">yend=</span>Y2), <span class="at">col=</span><span class="st">&#39;black&#39;</span>, <span class="at">size=</span><span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb313-14"><a href="spatial-networks.html#cb313-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> nodes[,<span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">2</span>)], <span class="fu">aes</span>(long,lat), <span class="at">alpha=</span><span class="fl">0.8</span>, <span class="at">col=</span><span class="st">&#39;black&#39;</span>, <span class="at">fill=</span><span class="st">&quot;white&quot;</span>, <span class="at">shape=</span><span class="dv">21</span>, <span class="at">size=</span><span class="fl">1.5</span>, <span class="at">show.legend=</span>F) <span class="sc">+</span></span>
+<span id="cb313-15"><a href="spatial-networks.html#cb313-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span></code></pre></div>
+<pre><code>## Warning: Removed 2 rows containing missing values (geom_point).</code></pre>
+<p><img src="_main_files/figure-html/unnamed-chunk-90-2.png" width="768" /></p>
+<p>Note that minimum spanning trees can also be used for weighted graphs such that weighted connections will be preferred in defining tree structure. See ?mst for more details.</p>
+</div>
+<div id="delaunay-triangulation" class="section level3" number="7.3.5">
+<h3><span class="header-section-number">7.3.5</span> Delaunay Triangulation</h3>
+<p>Delaunay triangulation: a pair of nodes are connected by an edge if and only if their corresponding regions in a Voronoi diagram share a side.</p>
+<p>Voronoi diagram or Thiessen polygons: for each node in a set of nodes in a Euclidean plane, a region is created covering the area that is closer or equidistant to that node than it is to any other node in the set.</p>
+<p>The package deldir in R allows for the calculation of Delaunay triangles with x and y coordinates as input. By default the deldir function will define a boundary that extends slightly beyond the xy coordinates of all points included in the analysis. This boundary can also be specified within the call using the “rw” argument. See ?deldir for more details.</p>
+<p>The results of this function can be directly plotted and the output also contains coordinates necessary to integrate the results into another type of figure like a ggmap. Let’s take a look.</p>
+<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb315-1"><a href="spatial-networks.html#cb315-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(deldir)</span>
+<span id="cb315-2"><a href="spatial-networks.html#cb315-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb315-3"><a href="spatial-networks.html#cb315-3" aria-hidden="true" tabindex="-1"></a>dt1 <span class="ot">&lt;-</span> <span class="fu">deldir</span>(nodes[,<span class="dv">3</span>],nodes[,<span class="dv">2</span>])</span>
+<span id="cb315-4"><a href="spatial-networks.html#cb315-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb315-5"><a href="spatial-networks.html#cb315-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dt1)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-91-1.png" width="768" /></p>
+<div class="sourceCode" id="cb316"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb316-1"><a href="spatial-networks.html#cb316-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract Voronoi polygons for plotting</span></span>
+<span id="cb316-2"><a href="spatial-networks.html#cb316-2" aria-hidden="true" tabindex="-1"></a>mapdat <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(dt1<span class="sc">$</span>dirsgs)</span>
+<span id="cb316-3"><a href="spatial-networks.html#cb316-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract network for plotting</span></span>
+<span id="cb316-4"><a href="spatial-networks.html#cb316-4" aria-hidden="true" tabindex="-1"></a>mapdat2 <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(dt1<span class="sc">$</span>delsgs)</span>
+<span id="cb316-5"><a href="spatial-networks.html#cb316-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb316-6"><a href="spatial-networks.html#cb316-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggmap</span>(myMap) <span class="sc">+</span></span>
+<span id="cb316-7"><a href="spatial-networks.html#cb316-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="at">data=</span>mapdat, <span class="fu">aes</span>(<span class="at">x=</span>x1, <span class="at">y=</span>y1, <span class="at">xend=</span>x2, <span class="at">yend=</span>y2), <span class="at">col=</span><span class="st">&#39;black&#39;</span>, <span class="at">size=</span><span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb316-8"><a href="spatial-networks.html#cb316-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="at">data=</span>mapdat2, <span class="fu">aes</span>(<span class="at">x=</span>x1, <span class="at">y=</span>y1, <span class="at">xend=</span>x2, <span class="at">yend=</span>y2), <span class="at">col=</span><span class="st">&#39;red&#39;</span>, <span class="at">size=</span><span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb316-9"><a href="spatial-networks.html#cb316-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> nodes, <span class="fu">aes</span>(long,lat), <span class="at">alpha=</span><span class="fl">0.8</span>, <span class="at">col=</span><span class="st">&#39;black&#39;</span>, <span class="at">fill=</span><span class="st">&quot;white&quot;</span>, <span class="at">shape=</span><span class="dv">21</span>, <span class="at">size=</span><span class="dv">3</span>, <span class="at">show.legend=</span>F) <span class="sc">+</span></span>
+<span id="cb316-10"><a href="spatial-networks.html#cb316-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-91-2.png" width="768" /></p>
+</div>
+<div id="k-nearest-neighbors" class="section level3" number="7.3.6">
+<h3><span class="header-section-number">7.3.6</span> K-nearest Neighbors</h3>
+<p>K-nearest neighbor network: each node is connected to K other nodes closest to it.</p>
+<p>The cccd package has a routine that allows for the calculation of K-nearest neighbor graphs from geographic coordinates or a precomputed distance matrix. In this example we use the Roman Road data and calculate K=1 and K=6 nearest neighbor networks and plot the both simultaneously.</p>
+<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb317-1"><a href="spatial-networks.html#cb317-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate k=1 nearest neighbor graph</span></span>
+<span id="cb317-2"><a href="spatial-networks.html#cb317-2" aria-hidden="true" tabindex="-1"></a>nn1 <span class="ot">&lt;-</span> <span class="fu">nng</span>(<span class="at">x=</span>nodes[,<span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">2</span>)], <span class="at">k=</span><span class="dv">1</span>)</span>
+<span id="cb317-3"><a href="spatial-networks.html#cb317-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb317-4"><a href="spatial-networks.html#cb317-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate k=6 nearest neighbor graph</span></span>
+<span id="cb317-5"><a href="spatial-networks.html#cb317-5" aria-hidden="true" tabindex="-1"></a>nn6 <span class="ot">&lt;-</span> <span class="fu">nng</span>(<span class="at">x=</span>nodes[,<span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">2</span>)], <span class="at">k=</span><span class="dv">6</span>)</span>
+<span id="cb317-6"><a href="spatial-networks.html#cb317-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb317-7"><a href="spatial-networks.html#cb317-7" aria-hidden="true" tabindex="-1"></a>EL1 <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">rbind</span>(<span class="fu">cbind</span>(<span class="fu">get.edgelist</span>(nn6), <span class="fu">rep</span>(<span class="st">&quot;K=6&quot;</span>, <span class="fu">nrow</span>(<span class="fu">get.edgelist</span>(nn1)))),</span>
+<span id="cb317-8"><a href="spatial-networks.html#cb317-8" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(<span class="fu">get.edgelist</span>(nn1), <span class="fu">rep</span>(<span class="st">&quot;K=1&quot;</span>, <span class="fu">nrow</span>(<span class="fu">get.edgelist</span>(nn1))))))</span>
+<span id="cb317-9"><a href="spatial-networks.html#cb317-9" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(EL1) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;from&quot;</span>,<span class="st">&quot;to&quot;</span>,<span class="st">&quot;K&quot;</span>)</span>
+<span id="cb317-10"><a href="spatial-networks.html#cb317-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb317-11"><a href="spatial-networks.html#cb317-11" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">graph_from_data_frame</span>(EL1)</span>
+<span id="cb317-12"><a href="spatial-networks.html#cb317-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb317-13"><a href="spatial-networks.html#cb317-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot both graphs</span></span>
+<span id="cb317-14"><a href="spatial-networks.html#cb317-14" aria-hidden="true" tabindex="-1"></a><span class="fu">ggraph</span>(g, <span class="at">layout=</span><span class="st">&quot;manual&quot;</span>,</span>
+<span id="cb317-15"><a href="spatial-networks.html#cb317-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">x=</span>nodes[,<span class="dv">3</span>], <span class="at">y=</span>nodes[,<span class="dv">2</span>]) <span class="sc">+</span></span>
+<span id="cb317-16"><a href="spatial-networks.html#cb317-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>(<span class="fu">aes</span>(<span class="at">color=</span><span class="fu">factor</span>(K)), <span class="at">width=</span><span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb317-17"><a href="spatial-networks.html#cb317-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="at">size=</span><span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb317-18"><a href="spatial-networks.html#cb317-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">edge_color=</span><span class="st">&quot;K&quot;</span>) <span class="sc">+</span></span>
+<span id="cb317-19"><a href="spatial-networks.html#cb317-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_graph</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-92-1.png" width="768" /></p>
+</div>
+<div id="maximum-distance-networks" class="section level3" number="7.3.7">
+<h3><span class="header-section-number">7.3.7</span> Maximum Distance Networks</h3>
+<p>Maximum distance network: each node is connected to all other nodes at a distance closer than or equal to a threshold value. In order define a maximum distance network we simply need to define a threshold distance and define all nodes greater than that distance as unconnected and nodes within that distance as connected. This can be done in base R using the dist function we used above.</p>
+<p>Since the coordinates we are using here are in decimal degrees we need to calculate distances based on “great circles” across the globe rather than Euclidean distances on a projected plane. There is a function called “distm” in the “geosphere” package that allows us to do this. If you are working with projected data, you can simply use the “dist” function in the place of “distm” like the example below.</p>
+<p>Next, in order to define a minimum distance network we simply binarize this matrix. We can do this using the “event2dichot” function within the statnet package and easily create an R network objects. Let’s try it out with the Roman Road data for thresholds of 100,000 and 250,000 meters.</p>
+<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb318-1"><a href="spatial-networks.html#cb318-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(statnet)</span>
+<span id="cb318-2"><a href="spatial-networks.html#cb318-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(geosphere)</span>
+<span id="cb318-3"><a href="spatial-networks.html#cb318-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb318-4"><a href="spatial-networks.html#cb318-4" aria-hidden="true" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> <span class="fu">distm</span>(nodes[,<span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">2</span>)])</span>
+<span id="cb318-5"><a href="spatial-networks.html#cb318-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb318-6"><a href="spatial-networks.html#cb318-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Note we use the leq=TRUE argument here as we want nodes less than the threshold to count.</span></span>
+<span id="cb318-7"><a href="spatial-networks.html#cb318-7" aria-hidden="true" tabindex="-1"></a>net100 <span class="ot">&lt;-</span> <span class="fu">network</span>(<span class="fu">event2dichot</span>(d1, <span class="at">method=</span><span class="st">&#39;absolute&#39;</span>, <span class="at">thresh=</span><span class="dv">100000</span>, <span class="at">leq=</span><span class="cn">TRUE</span>), <span class="at">directed=</span>F)</span>
+<span id="cb318-8"><a href="spatial-networks.html#cb318-8" aria-hidden="true" tabindex="-1"></a>net250 <span class="ot">&lt;-</span> <span class="fu">network</span>(<span class="fu">event2dichot</span>(d1, <span class="at">method=</span><span class="st">&#39;absolute&#39;</span>, <span class="at">thresh=</span><span class="dv">250000</span>, <span class="at">leq=</span><span class="cn">TRUE</span>), <span class="at">directed=</span>F)</span>
+<span id="cb318-9"><a href="spatial-networks.html#cb318-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb318-10"><a href="spatial-networks.html#cb318-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot 100 Km network</span></span>
+<span id="cb318-11"><a href="spatial-networks.html#cb318-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ggraph</span>(net100, <span class="at">layout=</span><span class="st">&quot;manual&quot;</span>,</span>
+<span id="cb318-12"><a href="spatial-networks.html#cb318-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">x=</span>nodes[,<span class="dv">3</span>], <span class="at">y=</span>nodes[,<span class="dv">2</span>]) <span class="sc">+</span></span>
+<span id="cb318-13"><a href="spatial-networks.html#cb318-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>() <span class="sc">+</span></span>
+<span id="cb318-14"><a href="spatial-networks.html#cb318-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="at">size=</span><span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb318-15"><a href="spatial-networks.html#cb318-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_graph</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-93-1.png" width="768" /></p>
+<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb319-1"><a href="spatial-networks.html#cb319-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot 250 Km network</span></span>
+<span id="cb319-2"><a href="spatial-networks.html#cb319-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggraph</span>(net250, <span class="at">layout=</span><span class="st">&quot;manual&quot;</span>,</span>
+<span id="cb319-3"><a href="spatial-networks.html#cb319-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">x=</span>nodes[,<span class="dv">3</span>], <span class="at">y=</span>nodes[,<span class="dv">2</span>]) <span class="sc">+</span></span>
+<span id="cb319-4"><a href="spatial-networks.html#cb319-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>() <span class="sc">+</span></span>
+<span id="cb319-5"><a href="spatial-networks.html#cb319-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="at">size=</span><span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb319-6"><a href="spatial-networks.html#cb319-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_graph</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-93-2.png" width="768" /></p>
+</div>
+</div>
+<div id="case-studies" class="section level2" number="7.4">
+<h2><span class="header-section-number">7.4</span> Case Studies</h2>
+<div id="proximity-of-iron-age-sites-in-southern-spain" class="section level3" number="7.4.1">
+<h3><span class="header-section-number">7.4.1</span> Proximity of Iron Age sites in Southern Spain</h3>
+<p>The first case study in Chapter 7 of Brughmans and Peeples (2022) is an example of several of the methods for defining networks using spatial data outlined above using the locations of 86 sites in the Guadalquivir river valley in Southern Spain. In the code chunks below, we replicate the analyses presented in the book.</p>
+<p>First we read in the data which represents site location information in lat/long decimal degrees.</p>
+<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb320-1"><a href="spatial-networks.html#cb320-1" aria-hidden="true" tabindex="-1"></a>guad <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/Guadalquivir.csv&quot;</span>, <span class="at">header=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<p>Next we create a distance matrix based on the decimal degrees locations using the “distm” function.</p>
+<div class="sourceCode" id="cb321"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb321-1"><a href="spatial-networks.html#cb321-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(geosphere)</span>
+<span id="cb321-2"><a href="spatial-networks.html#cb321-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb321-3"><a href="spatial-networks.html#cb321-3" aria-hidden="true" tabindex="-1"></a>g_dist1 <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(<span class="fu">distm</span>(guad[,<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>)]))</span>
+<span id="cb321-4"><a href="spatial-networks.html#cb321-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb321-5"><a href="spatial-networks.html#cb321-5" aria-hidden="true" tabindex="-1"></a>g_dist1[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]</span></code></pre></div>
+<pre><code>##          [,1]     [,2]     [,3]     [,4]
+## [1,]     0.00 69995.82 42265.58 51296.53
+## [2,] 69995.82     0.00 28240.50 29202.84
+## [3,] 42265.58 28240.50     0.00 23692.10
+## [4,] 51296.53 29202.84 23692.10     0.00</code></pre>
+<p>From here we can create maximum distance networks at both the 10km and 18km distance and plot it using the geographic location of nodes for node placement.</p>
+<div class="sourceCode" id="cb323"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb323-1"><a href="spatial-networks.html#cb323-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(intergraph)</span>
+<span id="cb323-2"><a href="spatial-networks.html#cb323-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb323-3"><a href="spatial-networks.html#cb323-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Note we use the leq=TRUE argument here as we want nodes less than the threshold to count.</span></span>
+<span id="cb323-4"><a href="spatial-networks.html#cb323-4" aria-hidden="true" tabindex="-1"></a>net10 <span class="ot">&lt;-</span> <span class="fu">asIgraph</span>(<span class="fu">network</span>(<span class="fu">event2dichot</span>(g_dist1, <span class="at">method=</span><span class="st">&#39;absolute&#39;</span>, <span class="at">thresh=</span><span class="dv">10000</span>, <span class="at">leq=</span><span class="cn">TRUE</span>), <span class="at">directed=</span>F))</span>
+<span id="cb323-5"><a href="spatial-networks.html#cb323-5" aria-hidden="true" tabindex="-1"></a>net18 <span class="ot">&lt;-</span> <span class="fu">asIgraph</span>(<span class="fu">network</span>(<span class="fu">event2dichot</span>(g_dist1, <span class="at">method=</span><span class="st">&#39;absolute&#39;</span>, <span class="at">thresh=</span><span class="dv">18000</span>, <span class="at">leq=</span><span class="cn">TRUE</span>), <span class="at">directed=</span>F))</span>
+<span id="cb323-6"><a href="spatial-networks.html#cb323-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb323-7"><a href="spatial-networks.html#cb323-7" aria-hidden="true" tabindex="-1"></a>g10_deg <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(igraph<span class="sc">::</span><span class="fu">degree</span>(net10))</span>
+<span id="cb323-8"><a href="spatial-networks.html#cb323-8" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(g10_deg) <span class="ot">&lt;-</span> <span class="st">&#39;degree&#39;</span></span>
+<span id="cb323-9"><a href="spatial-networks.html#cb323-9" aria-hidden="true" tabindex="-1"></a>g18_deg <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(igraph<span class="sc">::</span><span class="fu">degree</span>(net18))</span>
+<span id="cb323-10"><a href="spatial-networks.html#cb323-10" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(g18_deg) <span class="ot">&lt;-</span> <span class="st">&#39;degree&#39;</span></span>
+<span id="cb323-11"><a href="spatial-networks.html#cb323-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb323-12"><a href="spatial-networks.html#cb323-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot histogram of degree for 10km network</span></span>
+<span id="cb323-13"><a href="spatial-networks.html#cb323-13" aria-hidden="true" tabindex="-1"></a>h10 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>g10_deg) <span class="sc">+</span></span>
+<span id="cb323-14"><a href="spatial-networks.html#cb323-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x=</span>degree),<span class="at">bins=</span><span class="dv">15</span>)</span>
+<span id="cb323-15"><a href="spatial-networks.html#cb323-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb323-16"><a href="spatial-networks.html#cb323-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot histogram of degree for 18km network</span></span>
+<span id="cb323-17"><a href="spatial-networks.html#cb323-17" aria-hidden="true" tabindex="-1"></a>h18 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>g18_deg) <span class="sc">+</span></span>
+<span id="cb323-18"><a href="spatial-networks.html#cb323-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x=</span>degree),<span class="at">bins=</span><span class="dv">15</span>)</span>
+<span id="cb323-19"><a href="spatial-networks.html#cb323-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb323-20"><a href="spatial-networks.html#cb323-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot 10 Km network</span></span>
+<span id="cb323-21"><a href="spatial-networks.html#cb323-21" aria-hidden="true" tabindex="-1"></a>g10 <span class="ot">&lt;-</span> <span class="fu">ggraph</span>(net10, <span class="at">layout=</span><span class="st">&quot;manual&quot;</span>,</span>
+<span id="cb323-22"><a href="spatial-networks.html#cb323-22" aria-hidden="true" tabindex="-1"></a>       <span class="at">x=</span>guad[,<span class="dv">2</span>], <span class="at">y=</span>guad[,<span class="dv">3</span>]) <span class="sc">+</span></span>
+<span id="cb323-23"><a href="spatial-networks.html#cb323-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>() <span class="sc">+</span></span>
+<span id="cb323-24"><a href="spatial-networks.html#cb323-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="at">size=</span><span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb323-25"><a href="spatial-networks.html#cb323-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_graph</span>()</span>
+<span id="cb323-26"><a href="spatial-networks.html#cb323-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb323-27"><a href="spatial-networks.html#cb323-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot 18 Km network</span></span>
+<span id="cb323-28"><a href="spatial-networks.html#cb323-28" aria-hidden="true" tabindex="-1"></a>g18 <span class="ot">&lt;-</span> <span class="fu">ggraph</span>(net18, <span class="at">layout=</span><span class="st">&quot;manual&quot;</span>,</span>
+<span id="cb323-29"><a href="spatial-networks.html#cb323-29" aria-hidden="true" tabindex="-1"></a>       <span class="at">x=</span>guad[,<span class="dv">2</span>], <span class="at">y=</span>guad[,<span class="dv">3</span>]) <span class="sc">+</span></span>
+<span id="cb323-30"><a href="spatial-networks.html#cb323-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>() <span class="sc">+</span></span>
+<span id="cb323-31"><a href="spatial-networks.html#cb323-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="at">size=</span><span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb323-32"><a href="spatial-networks.html#cb323-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_graph</span>()</span>
+<span id="cb323-33"><a href="spatial-networks.html#cb323-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb323-34"><a href="spatial-networks.html#cb323-34" aria-hidden="true" tabindex="-1"></a>g18</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-96-1.png" width="768" /></p>
+<p>If we want to combine the degree distribution plot and the network into the same frame, we can use the “inset_element” function in the “patchwork” library.</p>
+<div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb324-1"><a href="spatial-networks.html#cb324-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb324-2"><a href="spatial-networks.html#cb324-2" aria-hidden="true" tabindex="-1"></a>plot_a <span class="ot">&lt;-</span> g10 <span class="sc">+</span> <span class="fu">inset_element</span>(h10, <span class="at">left =</span> <span class="dv">0</span>, <span class="at">bottom =</span> <span class="fl">0.7</span>, <span class="at">right =</span> <span class="fl">0.25</span>, <span class="at">top =</span> <span class="fl">0.99</span>)</span>
+<span id="cb324-3"><a href="spatial-networks.html#cb324-3" aria-hidden="true" tabindex="-1"></a>plot_b <span class="ot">&lt;-</span> g18 <span class="sc">+</span> <span class="fu">inset_element</span>(h18, <span class="at">left =</span> <span class="dv">0</span>, <span class="at">bottom =</span> <span class="fl">0.7</span>, <span class="at">right =</span> <span class="fl">0.25</span>, <span class="at">top =</span> <span class="fl">0.99</span>)</span>
+<span id="cb324-4"><a href="spatial-networks.html#cb324-4" aria-hidden="true" tabindex="-1"></a>plot_a</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-97-1.png" width="960" /></p>
+<div class="sourceCode" id="cb325"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb325-1"><a href="spatial-networks.html#cb325-1" aria-hidden="true" tabindex="-1"></a>plot_b</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-97-2.png" width="960" /></p>
+<p>Next, we calculate a relative neighborhood graph for the site locations and plot it with nodes positioned in geographic space.</p>
+<div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb326-1"><a href="spatial-networks.html#cb326-1" aria-hidden="true" tabindex="-1"></a>rng1 <span class="ot">&lt;-</span> <span class="fu">rng</span>(guad[,<span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>])</span>
+<span id="cb326-2"><a href="spatial-networks.html#cb326-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb326-3"><a href="spatial-networks.html#cb326-3" aria-hidden="true" tabindex="-1"></a>g_rng <span class="ot">&lt;-</span> <span class="fu">ggraph</span>(rng1, <span class="at">layout=</span><span class="st">&quot;manual&quot;</span>,</span>
+<span id="cb326-4"><a href="spatial-networks.html#cb326-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">x=</span>guad[,<span class="dv">2</span>], <span class="at">y=</span>guad[,<span class="dv">3</span>]) <span class="sc">+</span></span>
+<span id="cb326-5"><a href="spatial-networks.html#cb326-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>() <span class="sc">+</span></span>
+<span id="cb326-6"><a href="spatial-networks.html#cb326-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="at">size=</span><span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb326-7"><a href="spatial-networks.html#cb326-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_graph</span>()</span>
+<span id="cb326-8"><a href="spatial-networks.html#cb326-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb326-9"><a href="spatial-networks.html#cb326-9" aria-hidden="true" tabindex="-1"></a>g_rng_deg <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(igraph<span class="sc">::</span><span class="fu">degree</span>(rng1))</span>
+<span id="cb326-10"><a href="spatial-networks.html#cb326-10" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(g_rng_deg) <span class="ot">&lt;-</span> <span class="st">&#39;degree&#39;</span></span>
+<span id="cb326-11"><a href="spatial-networks.html#cb326-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb326-12"><a href="spatial-networks.html#cb326-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot histogram of degree for relative neighborhood network</span></span>
+<span id="cb326-13"><a href="spatial-networks.html#cb326-13" aria-hidden="true" tabindex="-1"></a>h_rng <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>g_rng_deg) <span class="sc">+</span></span>
+<span id="cb326-14"><a href="spatial-networks.html#cb326-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x=</span>degree),<span class="at">bins=</span><span class="dv">3</span>)</span>
+<span id="cb326-15"><a href="spatial-networks.html#cb326-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb326-16"><a href="spatial-networks.html#cb326-16" aria-hidden="true" tabindex="-1"></a>plot_c <span class="ot">&lt;-</span> g_rng <span class="sc">+</span> <span class="fu">inset_element</span>(h_rng, <span class="at">left =</span> <span class="dv">0</span>, <span class="at">bottom =</span> <span class="fl">0.7</span>, <span class="at">right =</span> <span class="fl">0.25</span>, <span class="at">top =</span> <span class="fl">0.99</span>)</span>
+<span id="cb326-17"><a href="spatial-networks.html#cb326-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb326-18"><a href="spatial-networks.html#cb326-18" aria-hidden="true" tabindex="-1"></a>plot_c</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-98-1.png" width="768" /></p>
+<p>The chunk of code below then calculates and plots the Gabrial graph with the associated degree distribution plot.</p>
+<div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb327-1"><a href="spatial-networks.html#cb327-1" aria-hidden="true" tabindex="-1"></a>gg1 <span class="ot">&lt;-</span> <span class="fu">gg</span>(<span class="at">x=</span>guad[,<span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>])</span>
+<span id="cb327-2"><a href="spatial-networks.html#cb327-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb327-3"><a href="spatial-networks.html#cb327-3" aria-hidden="true" tabindex="-1"></a>g_gg <span class="ot">&lt;-</span> <span class="fu">ggraph</span>(gg1, <span class="at">layout=</span><span class="st">&quot;manual&quot;</span>,</span>
+<span id="cb327-4"><a href="spatial-networks.html#cb327-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">x=</span>guad[,<span class="dv">2</span>], <span class="at">y=</span>guad[,<span class="dv">3</span>]) <span class="sc">+</span></span>
+<span id="cb327-5"><a href="spatial-networks.html#cb327-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>() <span class="sc">+</span></span>
+<span id="cb327-6"><a href="spatial-networks.html#cb327-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="at">size=</span><span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb327-7"><a href="spatial-networks.html#cb327-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_graph</span>()</span>
+<span id="cb327-8"><a href="spatial-networks.html#cb327-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb327-9"><a href="spatial-networks.html#cb327-9" aria-hidden="true" tabindex="-1"></a>g_gg_deg <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(igraph<span class="sc">::</span><span class="fu">degree</span>(gg1))</span>
+<span id="cb327-10"><a href="spatial-networks.html#cb327-10" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(g_gg_deg) <span class="ot">&lt;-</span> <span class="st">&#39;degree&#39;</span></span>
+<span id="cb327-11"><a href="spatial-networks.html#cb327-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb327-12"><a href="spatial-networks.html#cb327-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot histogram of degree for relative neighborhood network</span></span>
+<span id="cb327-13"><a href="spatial-networks.html#cb327-13" aria-hidden="true" tabindex="-1"></a>h_gg <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>g_gg_deg) <span class="sc">+</span></span>
+<span id="cb327-14"><a href="spatial-networks.html#cb327-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x=</span>degree),<span class="at">bins=</span><span class="dv">5</span>)</span>
+<span id="cb327-15"><a href="spatial-networks.html#cb327-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb327-16"><a href="spatial-networks.html#cb327-16" aria-hidden="true" tabindex="-1"></a>plot_d <span class="ot">&lt;-</span> g_gg <span class="sc">+</span> <span class="fu">inset_element</span>(h_gg, <span class="at">left =</span> <span class="dv">0</span>, <span class="at">bottom =</span> <span class="fl">0.7</span>, <span class="at">right =</span> <span class="fl">0.25</span>, <span class="at">top =</span> <span class="fl">0.99</span>)</span>
+<span id="cb327-17"><a href="spatial-networks.html#cb327-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb327-18"><a href="spatial-networks.html#cb327-18" aria-hidden="true" tabindex="-1"></a>plot_d</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-99-1.png" width="768" /></p>
+<p>And we’ll combine these four plots into a single figure.</p>
+<div class="sourceCode" id="cb328"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb328-1"><a href="spatial-networks.html#cb328-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpubr)</span>
+<span id="cb328-2"><a href="spatial-networks.html#cb328-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb328-3"><a href="spatial-networks.html#cb328-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggarrange</span>(plot_a,plot_b,plot_c,plot_d,<span class="at">nrow=</span><span class="dv">2</span>,<span class="at">ncol=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-100-1.png" width="1152" /></p>
+<p>Next, we’ll plot the K-nearest neighbors graphs for k= 2, 3, 4, and 6 with the associated degree distribution for each.</p>
+<div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb329-1"><a href="spatial-networks.html#cb329-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate k=2,3,4, and 6 nearest neighbor graphs</span></span>
+<span id="cb329-2"><a href="spatial-networks.html#cb329-2" aria-hidden="true" tabindex="-1"></a>nn2 <span class="ot">&lt;-</span> <span class="fu">nng</span>(<span class="at">x=</span>guad[,<span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>], <span class="at">k=</span><span class="dv">2</span>)</span>
+<span id="cb329-3"><a href="spatial-networks.html#cb329-3" aria-hidden="true" tabindex="-1"></a>nn3 <span class="ot">&lt;-</span> <span class="fu">nng</span>(<span class="at">x=</span>guad[,<span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>], <span class="at">k=</span><span class="dv">3</span>)</span>
+<span id="cb329-4"><a href="spatial-networks.html#cb329-4" aria-hidden="true" tabindex="-1"></a>nn4 <span class="ot">&lt;-</span> <span class="fu">nng</span>(<span class="at">x=</span>guad[,<span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>], <span class="at">k=</span><span class="dv">4</span>)</span>
+<span id="cb329-5"><a href="spatial-networks.html#cb329-5" aria-hidden="true" tabindex="-1"></a>nn6 <span class="ot">&lt;-</span> <span class="fu">nng</span>(<span class="at">x=</span>guad[,<span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>], <span class="at">k=</span><span class="dv">6</span>)</span>
+<span id="cb329-6"><a href="spatial-networks.html#cb329-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb329-7"><a href="spatial-networks.html#cb329-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialiize network graph for each k value</span></span>
+<span id="cb329-8"><a href="spatial-networks.html#cb329-8" aria-hidden="true" tabindex="-1"></a>g_nn2 <span class="ot">&lt;-</span> <span class="fu">ggraph</span>(nn2, <span class="at">layout=</span><span class="st">&quot;manual&quot;</span>,</span>
+<span id="cb329-9"><a href="spatial-networks.html#cb329-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">x=</span>guad[,<span class="dv">2</span>], <span class="at">y=</span>guad[,<span class="dv">3</span>]) <span class="sc">+</span></span>
+<span id="cb329-10"><a href="spatial-networks.html#cb329-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>() <span class="sc">+</span></span>
+<span id="cb329-11"><a href="spatial-networks.html#cb329-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="at">size=</span><span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb329-12"><a href="spatial-networks.html#cb329-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_graph</span>()</span>
+<span id="cb329-13"><a href="spatial-networks.html#cb329-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb329-14"><a href="spatial-networks.html#cb329-14" aria-hidden="true" tabindex="-1"></a>g_nn3 <span class="ot">&lt;-</span> <span class="fu">ggraph</span>(nn3, <span class="at">layout=</span><span class="st">&quot;manual&quot;</span>,</span>
+<span id="cb329-15"><a href="spatial-networks.html#cb329-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">x=</span>guad[,<span class="dv">2</span>], <span class="at">y=</span>guad[,<span class="dv">3</span>]) <span class="sc">+</span></span>
+<span id="cb329-16"><a href="spatial-networks.html#cb329-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>() <span class="sc">+</span></span>
+<span id="cb329-17"><a href="spatial-networks.html#cb329-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="at">size=</span><span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb329-18"><a href="spatial-networks.html#cb329-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_graph</span>()</span>
+<span id="cb329-19"><a href="spatial-networks.html#cb329-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb329-20"><a href="spatial-networks.html#cb329-20" aria-hidden="true" tabindex="-1"></a>g_nn4 <span class="ot">&lt;-</span> <span class="fu">ggraph</span>(nn4, <span class="at">layout=</span><span class="st">&quot;manual&quot;</span>,</span>
+<span id="cb329-21"><a href="spatial-networks.html#cb329-21" aria-hidden="true" tabindex="-1"></a>       <span class="at">x=</span>guad[,<span class="dv">2</span>], <span class="at">y=</span>guad[,<span class="dv">3</span>]) <span class="sc">+</span></span>
+<span id="cb329-22"><a href="spatial-networks.html#cb329-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>() <span class="sc">+</span></span>
+<span id="cb329-23"><a href="spatial-networks.html#cb329-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="at">size=</span><span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb329-24"><a href="spatial-networks.html#cb329-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_graph</span>()</span>
+<span id="cb329-25"><a href="spatial-networks.html#cb329-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb329-26"><a href="spatial-networks.html#cb329-26" aria-hidden="true" tabindex="-1"></a>g_nn6 <span class="ot">&lt;-</span> <span class="fu">ggraph</span>(nn6, <span class="at">layout=</span><span class="st">&quot;manual&quot;</span>,</span>
+<span id="cb329-27"><a href="spatial-networks.html#cb329-27" aria-hidden="true" tabindex="-1"></a>       <span class="at">x=</span>guad[,<span class="dv">2</span>], <span class="at">y=</span>guad[,<span class="dv">3</span>]) <span class="sc">+</span></span>
+<span id="cb329-28"><a href="spatial-networks.html#cb329-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>() <span class="sc">+</span></span>
+<span id="cb329-29"><a href="spatial-networks.html#cb329-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="at">size=</span><span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb329-30"><a href="spatial-networks.html#cb329-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_graph</span>()</span>
+<span id="cb329-31"><a href="spatial-networks.html#cb329-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb329-32"><a href="spatial-networks.html#cb329-32" aria-hidden="true" tabindex="-1"></a><span class="co"># Set up dataframes of degree distribution for each network</span></span>
+<span id="cb329-33"><a href="spatial-networks.html#cb329-33" aria-hidden="true" tabindex="-1"></a>nn2_deg <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(igraph<span class="sc">::</span><span class="fu">degree</span>(nn2))</span>
+<span id="cb329-34"><a href="spatial-networks.html#cb329-34" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(nn2_deg) <span class="ot">&lt;-</span> <span class="st">&#39;degree&#39;</span></span>
+<span id="cb329-35"><a href="spatial-networks.html#cb329-35" aria-hidden="true" tabindex="-1"></a>nn3_deg <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(igraph<span class="sc">::</span><span class="fu">degree</span>(nn3))</span>
+<span id="cb329-36"><a href="spatial-networks.html#cb329-36" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(nn3_deg) <span class="ot">&lt;-</span> <span class="st">&#39;degree&#39;</span></span>
+<span id="cb329-37"><a href="spatial-networks.html#cb329-37" aria-hidden="true" tabindex="-1"></a>nn4_deg <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(igraph<span class="sc">::</span><span class="fu">degree</span>(nn4))</span>
+<span id="cb329-38"><a href="spatial-networks.html#cb329-38" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(nn4_deg) <span class="ot">&lt;-</span> <span class="st">&#39;degree&#39;</span></span>
+<span id="cb329-39"><a href="spatial-networks.html#cb329-39" aria-hidden="true" tabindex="-1"></a>nn6_deg <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(igraph<span class="sc">::</span><span class="fu">degree</span>(nn6))</span>
+<span id="cb329-40"><a href="spatial-networks.html#cb329-40" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(nn6_deg) <span class="ot">&lt;-</span> <span class="st">&#39;degree&#39;</span></span>
+<span id="cb329-41"><a href="spatial-networks.html#cb329-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb329-42"><a href="spatial-networks.html#cb329-42" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize histogram plot for each degree distribution</span></span>
+<span id="cb329-43"><a href="spatial-networks.html#cb329-43" aria-hidden="true" tabindex="-1"></a>h_nn2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>nn2_deg) <span class="sc">+</span></span>
+<span id="cb329-44"><a href="spatial-networks.html#cb329-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x=</span>degree),<span class="at">bins=</span><span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb329-45"><a href="spatial-networks.html#cb329-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">max</span>(nn2_deg)))</span>
+<span id="cb329-46"><a href="spatial-networks.html#cb329-46" aria-hidden="true" tabindex="-1"></a>h_nn3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>nn3_deg) <span class="sc">+</span></span>
+<span id="cb329-47"><a href="spatial-networks.html#cb329-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x=</span>degree),<span class="at">bins=</span><span class="dv">6</span>)<span class="sc">+</span></span>
+<span id="cb329-48"><a href="spatial-networks.html#cb329-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">max</span>(nn3_deg)))</span>
+<span id="cb329-49"><a href="spatial-networks.html#cb329-49" aria-hidden="true" tabindex="-1"></a>h_nn4 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>nn4_deg) <span class="sc">+</span></span>
+<span id="cb329-50"><a href="spatial-networks.html#cb329-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x=</span>degree),<span class="at">bins=</span><span class="dv">6</span>)<span class="sc">+</span></span>
+<span id="cb329-51"><a href="spatial-networks.html#cb329-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">max</span>(nn4_deg)))</span>
+<span id="cb329-52"><a href="spatial-networks.html#cb329-52" aria-hidden="true" tabindex="-1"></a>h_nn6 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>nn6_deg) <span class="sc">+</span></span>
+<span id="cb329-53"><a href="spatial-networks.html#cb329-53" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x=</span>degree),<span class="at">bins=</span><span class="dv">5</span>)<span class="sc">+</span></span>
+<span id="cb329-54"><a href="spatial-networks.html#cb329-54" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">max</span>(nn6_deg)))</span>
+<span id="cb329-55"><a href="spatial-networks.html#cb329-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb329-56"><a href="spatial-networks.html#cb329-56" aria-hidden="true" tabindex="-1"></a>plot_a <span class="ot">&lt;-</span> g_nn2 <span class="sc">+</span> <span class="fu">inset_element</span>(h_nn2, <span class="at">left =</span> <span class="dv">0</span>, <span class="at">bottom =</span> <span class="fl">0.7</span>, <span class="at">right =</span> <span class="fl">0.25</span>, <span class="at">top =</span> <span class="fl">0.99</span>)</span>
+<span id="cb329-57"><a href="spatial-networks.html#cb329-57" aria-hidden="true" tabindex="-1"></a>plot_b <span class="ot">&lt;-</span> g_nn3 <span class="sc">+</span> <span class="fu">inset_element</span>(h_nn3, <span class="at">left =</span> <span class="dv">0</span>, <span class="at">bottom =</span> <span class="fl">0.7</span>, <span class="at">right =</span> <span class="fl">0.25</span>, <span class="at">top =</span> <span class="fl">0.99</span>)</span>
+<span id="cb329-58"><a href="spatial-networks.html#cb329-58" aria-hidden="true" tabindex="-1"></a>plot_c <span class="ot">&lt;-</span> g_nn4 <span class="sc">+</span> <span class="fu">inset_element</span>(h_nn4, <span class="at">left =</span> <span class="dv">0</span>, <span class="at">bottom =</span> <span class="fl">0.7</span>, <span class="at">right =</span> <span class="fl">0.25</span>, <span class="at">top =</span> <span class="fl">0.99</span>)</span>
+<span id="cb329-59"><a href="spatial-networks.html#cb329-59" aria-hidden="true" tabindex="-1"></a>plot_d <span class="ot">&lt;-</span> g_nn6 <span class="sc">+</span> <span class="fu">inset_element</span>(h_nn6, <span class="at">left =</span> <span class="dv">0</span>, <span class="at">bottom =</span> <span class="fl">0.7</span>, <span class="at">right =</span> <span class="fl">0.25</span>, <span class="at">top =</span> <span class="fl">0.99</span>)</span>
+<span id="cb329-60"><a href="spatial-networks.html#cb329-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb329-61"><a href="spatial-networks.html#cb329-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb329-62"><a href="spatial-networks.html#cb329-62" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpubr)</span>
+<span id="cb329-63"><a href="spatial-networks.html#cb329-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb329-64"><a href="spatial-networks.html#cb329-64" aria-hidden="true" tabindex="-1"></a><span class="fu">ggarrange</span>(plot_a,plot_b,plot_c,plot_d,<span class="at">nrow=</span><span class="dv">2</span>,<span class="at">ncol=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-101-1.png" width="1152" /></p>
+</div>
+<div id="networks-in-space-in-the-u.s.-southwest" class="section level3" number="7.4.2">
+<h3><span class="header-section-number">7.4.2</span> Networks in Space in the U.S. Southwest</h3>
+<p>The second case study in Chapter 7 of Brughmans and Peeples (2022) provides an example of how we can use spatial network methods to analyze material cultural network data. We use the Chaco World data here and you can download the <a href="data/map.RData">map data</a>, <a href="data/AD1050attr.csv">the site attribute data</a>, and <a href="data/AD1050cer.csv">the ceramic frequency data</a> to follow along.</p>
+<p>The first analysis expores the degree to which similarities in ceramics (in terms of Brainerd-Robinson similarity based on wares) can be explained by spatial distance. To do this we simply define a ceramic similarity matrix, a Euclidean distance matrix, and the fit a model using distance to explain ceramic similarity using a general additive model (gam) approach. The gam function we use here is in the mgcv package. Note that the object “dmat” is created using the “dist” function as the data we started with are already projected site locations using UTM coordinates.</p>
+<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb330-1"><a href="spatial-networks.html#cb330-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mgcv)</span>
+<span id="cb330-2"><a href="spatial-networks.html#cb330-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb330-3"><a href="spatial-networks.html#cb330-3" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&#39;data/map.RData&#39;</span>)</span>
+<span id="cb330-4"><a href="spatial-networks.html#cb330-4" aria-hidden="true" tabindex="-1"></a>attr <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&#39;data/AD1050attr.csv&#39;</span>,<span class="at">row.names=</span><span class="dv">1</span>)</span>
+<span id="cb330-5"><a href="spatial-networks.html#cb330-5" aria-hidden="true" tabindex="-1"></a>cer <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&#39;data/AD1050cer.csv&#39;</span>, <span class="at">header=</span>T, <span class="at">row.names=</span><span class="dv">1</span>)</span>
+<span id="cb330-6"><a href="spatial-networks.html#cb330-6" aria-hidden="true" tabindex="-1"></a>sim <span class="ot">&lt;-</span> (<span class="dv">2</span><span class="sc">-</span><span class="fu">as.matrix</span>(vegan<span class="sc">::</span><span class="fu">vegdist</span>(<span class="fu">prop.table</span>(<span class="fu">as.matrix</span>(cer),<span class="dv">1</span>), <span class="at">method=</span><span class="st">&#39;manhattan&#39;</span>)))<span class="sc">/</span><span class="dv">2</span></span>
+<span id="cb330-7"><a href="spatial-networks.html#cb330-7" aria-hidden="true" tabindex="-1"></a>dmat <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(<span class="fu">dist</span>(attr[,<span class="dv">9</span><span class="sc">:</span><span class="dv">10</span>]))</span>
+<span id="cb330-8"><a href="spatial-networks.html#cb330-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb330-9"><a href="spatial-networks.html#cb330-9" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">gam</span>(<span class="fu">as.vector</span>(sim)<span class="sc">~</span><span class="fu">as.vector</span>(dmat))</span>
+<span id="cb330-10"><a href="spatial-networks.html#cb330-10" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)</span></code></pre></div>
+<pre><code>## 
+## Family: gaussian 
+## Link function: identity 
+## 
+## Formula:
+## as.vector(sim) ~ as.vector(dmat)
+## 
+## Parametric coefficients:
+##                   Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)      7.979e-01  2.547e-03   313.3   &lt;2e-16 ***
+## as.vector(dmat) -2.487e-06  1.448e-08  -171.8   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## 
+## R-sq.(adj) =  0.372   Deviance explained = 37.2%
+## GCV = 0.082702  Scale est. = 0.082699  n = 49729</code></pre>
+<p>As these results show and as described in the book, spatial distance is a statistically significant predictor of ceramic similarity and distance appear to explain about 37.2% of the variation in ceramic similarity.</p>
+<p>The next analysis presented the book creates a series of minimum distance networks from 36Kms all the way out to nearly 400Kms in concentric days travel (36Kms is about one day of travel on foot) and explore the proportion of variance explained by networks constrained on each distance.</p>
+<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb332-1"><a href="spatial-networks.html#cb332-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a sequence of distances from 36km to 400kms by concentric days travel on foot</span></span>
+<span id="cb332-2"><a href="spatial-networks.html#cb332-2" aria-hidden="true" tabindex="-1"></a>kms <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">36000</span>,<span class="dv">400000</span>,<span class="at">by=</span><span class="dv">36000</span>)</span>
+<span id="cb332-3"><a href="spatial-networks.html#cb332-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb332-4"><a href="spatial-networks.html#cb332-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Define minimum distance networks for each item in &quot;kms&quot; and the calculate variance explained </span></span>
+<span id="cb332-5"><a href="spatial-networks.html#cb332-5" aria-hidden="true" tabindex="-1"></a>temp.out <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb332-6"><a href="spatial-networks.html#cb332-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(kms)) {</span>
+<span id="cb332-7"><a href="spatial-networks.html#cb332-7" aria-hidden="true" tabindex="-1"></a>dmat.temp <span class="ot">&lt;-</span> dmat</span>
+<span id="cb332-8"><a href="spatial-networks.html#cb332-8" aria-hidden="true" tabindex="-1"></a>dmat.temp[dmat<span class="sc">&gt;</span>kms[i]] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb332-9"><a href="spatial-networks.html#cb332-9" aria-hidden="true" tabindex="-1"></a>dmat.temp[dmat.temp<span class="sc">&gt;</span><span class="dv">0</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb332-10"><a href="spatial-networks.html#cb332-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate gam model and output r^2 value</span></span>
+<span id="cb332-11"><a href="spatial-networks.html#cb332-11" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">gam</span>(<span class="fu">as.vector</span>(sim[<span class="fu">lower.tri</span>(sim)])<span class="sc">~</span><span class="fu">as.vector</span>(dmat.temp[<span class="fu">lower.tri</span>(dmat.temp)]))</span>
+<span id="cb332-12"><a href="spatial-networks.html#cb332-12" aria-hidden="true" tabindex="-1"></a>temp.out[i] <span class="ot">&lt;-</span> <span class="fu">summary</span>(temp)<span class="sc">$</span>r.sq}</span>
+<span id="cb332-13"><a href="spatial-networks.html#cb332-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb332-14"><a href="spatial-networks.html#cb332-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Create data frame of output</span></span>
+<span id="cb332-15"><a href="spatial-networks.html#cb332-15" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">cbind</span>(kms<span class="sc">/</span><span class="dv">1000</span>,temp.out))</span>
+<span id="cb332-16"><a href="spatial-networks.html#cb332-16" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(dat) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;Dist&#39;</span>,<span class="st">&#39;Cor&#39;</span>)</span>
+<span id="cb332-17"><a href="spatial-networks.html#cb332-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb332-18"><a href="spatial-networks.html#cb332-18" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb332-19"><a href="spatial-networks.html#cb332-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb332-20"><a href="spatial-networks.html#cb332-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the results</span></span>
+<span id="cb332-21"><a href="spatial-networks.html#cb332-21" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>dat) <span class="sc">+</span></span>
+<span id="cb332-22"><a href="spatial-networks.html#cb332-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x=</span>Dist, <span class="at">y=</span>Cor)) <span class="sc">+</span></span>
+<span id="cb332-23"><a href="spatial-networks.html#cb332-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x=</span>Dist, <span class="at">y=</span>Cor),<span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb332-24"><a href="spatial-networks.html#cb332-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Maximum Distance Network Threshold (Km)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb332-25"><a href="spatial-networks.html#cb332-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Proportion of Variance Explained&quot;</span>) <span class="sc">+</span></span>
+<span id="cb332-26"><a href="spatial-networks.html#cb332-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb332-27"><a href="spatial-networks.html#cb332-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="fu">rel</span>(<span class="fl">1.5</span>)),<span class="at">axis.text.y=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="fu">rel</span>(<span class="fl">1.5</span>)),</span>
+<span id="cb332-28"><a href="spatial-networks.html#cb332-28" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="fu">rel</span>(<span class="fl">1.5</span>)),<span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="fu">rel</span>(<span class="fl">1.5</span>)))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-103-1.png" width="768" /></p>
+<p>Finally, let’s recreate figure 7.8 from the book to display the 36km minimum distance network for the Chaco region ca. AD 1050-1100. This follows the same basic format for plotting minimum distance networks we defined above.</p>
+<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb333-1"><a href="spatial-networks.html#cb333-1" aria-hidden="true" tabindex="-1"></a>d36 <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(<span class="fu">dist</span>(attr[,<span class="dv">9</span><span class="sc">:</span><span class="dv">10</span>]))</span>
+<span id="cb333-2"><a href="spatial-networks.html#cb333-2" aria-hidden="true" tabindex="-1"></a>d36[d36<span class="sc">&lt;</span><span class="dv">36001</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb333-3"><a href="spatial-networks.html#cb333-3" aria-hidden="true" tabindex="-1"></a>d36[d36<span class="sc">&gt;</span><span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb333-4"><a href="spatial-networks.html#cb333-4" aria-hidden="true" tabindex="-1"></a>g36.net <span class="ot">&lt;-</span> <span class="fu">graph_from_adjacency_matrix</span>(d36, <span class="at">mode=</span><span class="st">&quot;undirected&quot;</span>)</span>
+<span id="cb333-5"><a href="spatial-networks.html#cb333-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb333-6"><a href="spatial-networks.html#cb333-6" aria-hidden="true" tabindex="-1"></a>locations_sf <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(attr, <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">&quot;EASTING&quot;</span>, <span class="st">&quot;NORTHING&quot;</span>), <span class="at">crs =</span> <span class="dv">26912</span>)</span>
+<span id="cb333-7"><a href="spatial-networks.html#cb333-7" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(locations_sf,<span class="at">crs=</span><span class="dv">4326</span>)</span>
+<span id="cb333-8"><a href="spatial-networks.html#cb333-8" aria-hidden="true" tabindex="-1"></a>coord1 <span class="ot">&lt;-</span> <span class="fu">do.call</span>(rbind, <span class="fu">st_geometry</span>(z)) <span class="sc">%&gt;%</span> </span>
+<span id="cb333-9"><a href="spatial-networks.html#cb333-9" aria-hidden="true" tabindex="-1"></a>  tibble<span class="sc">::</span><span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span> <span class="fu">setNames</span>(<span class="fu">c</span>(<span class="st">&quot;lon&quot;</span>,<span class="st">&quot;lat&quot;</span>))</span>
+<span id="cb333-10"><a href="spatial-networks.html#cb333-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb333-11"><a href="spatial-networks.html#cb333-11" aria-hidden="true" tabindex="-1"></a>xy <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">cbind</span>(attr<span class="sc">$</span>SWSN_Site, coord1))</span>
+<span id="cb333-12"><a href="spatial-networks.html#cb333-12" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(xy) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;site&#39;</span>,<span class="st">&#39;x&#39;</span>,<span class="st">&#39;y&#39;</span>)</span>
+<span id="cb333-13"><a href="spatial-networks.html#cb333-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb333-14"><a href="spatial-networks.html#cb333-14" aria-hidden="true" tabindex="-1"></a>base <span class="ot">&lt;-</span> <span class="fu">get_stamenmap</span>(<span class="at">bbox=</span><span class="fu">c</span>(<span class="sc">-</span><span class="fl">110.75</span>,<span class="fl">33.5</span>,<span class="sc">-</span><span class="dv">107</span>,<span class="dv">38</span>),<span class="at">zoom=</span><span class="dv">8</span>,<span class="at">maptype=</span><span class="st">&quot;terrain-background&quot;</span>,<span class="at">color=</span><span class="st">&quot;bw&quot;</span>)</span>
+<span id="cb333-15"><a href="spatial-networks.html#cb333-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb333-16"><a href="spatial-networks.html#cb333-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb333-17"><a href="spatial-networks.html#cb333-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract edgelist from network object</span></span>
+<span id="cb333-18"><a href="spatial-networks.html#cb333-18" aria-hidden="true" tabindex="-1"></a>edgelist <span class="ot">&lt;-</span> <span class="fu">get.edgelist</span>(g36.net)</span>
+<span id="cb333-19"><a href="spatial-networks.html#cb333-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb333-20"><a href="spatial-networks.html#cb333-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Create dataframe of beginning and ending points of edges</span></span>
+<span id="cb333-21"><a href="spatial-networks.html#cb333-21" aria-hidden="true" tabindex="-1"></a>edges <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">matrix</span>(<span class="cn">NA</span>,<span class="fu">nrow</span>(edgelist),<span class="dv">4</span>))</span>
+<span id="cb333-22"><a href="spatial-networks.html#cb333-22" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(edges) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;X1&quot;</span>,<span class="st">&quot;Y1&quot;</span>,<span class="st">&quot;X2&quot;</span>,<span class="st">&quot;Y2&quot;</span>)</span>
+<span id="cb333-23"><a href="spatial-networks.html#cb333-23" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(edgelist)) {</span>
+<span id="cb333-24"><a href="spatial-networks.html#cb333-24" aria-hidden="true" tabindex="-1"></a>edges[i,] <span class="ot">&lt;-</span> <span class="fu">c</span>(xy[<span class="fu">which</span>(xy<span class="sc">$</span>site<span class="sc">==</span>edgelist[i,<span class="dv">1</span>]),<span class="dv">2</span>],xy[<span class="fu">which</span>(xy<span class="sc">$</span>site<span class="sc">==</span>edgelist[i,<span class="dv">1</span>]),<span class="dv">3</span>],</span>
+<span id="cb333-25"><a href="spatial-networks.html#cb333-25" aria-hidden="true" tabindex="-1"></a>               xy[<span class="fu">which</span>(xy<span class="sc">$</span>site<span class="sc">==</span>edgelist[i,<span class="dv">2</span>]),<span class="dv">2</span>],xy[<span class="fu">which</span>(xy<span class="sc">$</span>site<span class="sc">==</span>edgelist[i,<span class="dv">2</span>]),<span class="dv">3</span>])</span>
+<span id="cb333-26"><a href="spatial-networks.html#cb333-26" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb333-27"><a href="spatial-networks.html#cb333-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb333-28"><a href="spatial-networks.html#cb333-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb333-29"><a href="spatial-networks.html#cb333-29" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">ggmap</span>(base,<span class="at">darken=</span><span class="fl">0.15</span>) <span class="sc">+</span></span>
+<span id="cb333-30"><a href="spatial-networks.html#cb333-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="at">data =</span> edges, <span class="fu">aes</span>(<span class="at">x=</span>X1, <span class="at">y=</span>Y1, <span class="at">xend=</span>X2, <span class="at">yend=</span>Y2), <span class="at">col=</span><span class="st">&#39;white&#39;</span>, <span class="at">size=</span><span class="fl">0.10</span>, <span class="at">show.legend=</span>F) <span class="sc">+</span></span>
+<span id="cb333-31"><a href="spatial-networks.html#cb333-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> xy,<span class="fu">aes</span>(x,y),<span class="at">alpha=</span><span class="fl">0.65</span>, <span class="at">size=</span><span class="dv">1</span>, <span class="at">col=</span><span class="st">&#39;red&#39;</span>, <span class="at">show.legend=</span>F) <span class="sc">+</span></span>
+<span id="cb333-32"><a href="spatial-networks.html#cb333-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span>
+<span id="cb333-33"><a href="spatial-networks.html#cb333-33" aria-hidden="true" tabindex="-1"></a>m1</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-104-1.png" width="960" /></p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="network-visualization.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references-and-r-packages.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": null,
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection",
+"scroll_highlight": true
+},
+"toolbar": null,
+"position": "static"
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,1457 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Section 4 Exploratory Network Analysis | Online Companion to Archaeological Network Science by Brughmans and Peeples</title>
+  <meta name="description" content="<p>This bookdown document accompanies the Cambridge Manuals in Archaeology book
+<em>Archaeological Network Science</em> by Tom Brughmans and Matthew A. Peeples.</p>" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Section 4 Exploratory Network Analysis | Online Companion to Archaeological Network Science by Brughmans and Peeples" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://archnetworks.net" />
+  
+  <meta property="og:description" content="<p>This bookdown document accompanies the Cambridge Manuals in Archaeology book
+<em>Archaeological Network Science</em> by Tom Brughmans and Matthew A. Peeples.</p>" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Section 4 Exploratory Network Analysis | Online Companion to Archaeological Network Science by Brughmans and Peeples" />
+  
+  <meta name="twitter:description" content="<p>This bookdown document accompanies the Cambridge Manuals in Archaeology book
+<em>Archaeological Network Science</em> by Tom Brughmans and Matthew A. Peeples.</p>" />
+  
+
+<meta name="author" content="Matthew A. Peeples and Tom Brughmans" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="NetworkData.html"/>
+<link rel="next" href="quantifying-uncertainty.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="libs/d3-4.5.0/d3.min.js"></script>
+<script src="libs/forceNetwork-binding-0.4/forceNetwork.js"></script>
+<link href="libs/vis-9.1.0/vis-network.min.css" rel="stylesheet" />
+<script src="libs/vis-9.1.0/vis-network.min.js"></script>
+<script src="libs/visNetwork-binding-2.1.0/visNetwork.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Archaeological Network Science</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome</a></li>
+<li class="chapter" data-level="2" data-path="getting-started.html"><a href="getting-started.html"><i class="fa fa-check"></i><b>2</b> Getting Started</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="getting-started.html"><a href="getting-started.html#datasets"><i class="fa fa-check"></i><b>2.1</b> Datasets</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="getting-started.html"><a href="getting-started.html#Everything"><i class="fa fa-check"></i><b>2.1.1</b> Just Give Me Everything</a></li>
+<li class="chapter" data-level="2.1.2" data-path="getting-started.html"><a href="getting-started.html#roman-road-networks"><i class="fa fa-check"></i><b>2.1.2</b> Roman Road Networks</a></li>
+<li class="chapter" data-level="2.1.3" data-path="getting-started.html"><a href="getting-started.html#southwest-social-networks-project-ceramic-similarity-networks"><i class="fa fa-check"></i><b>2.1.3</b> Southwest Social Networks Project Ceramic Similarity Networks</a></li>
+<li class="chapter" data-level="2.1.4" data-path="getting-started.html"><a href="getting-started.html#cibola-region-technological-similarity-network"><i class="fa fa-check"></i><b>2.1.4</b> Cibola Region Technological Similarity Network</a></li>
+<li class="chapter" data-level="2.1.5" data-path="getting-started.html"><a href="getting-started.html#himalayan-visibility-networks"><i class="fa fa-check"></i><b>2.1.5</b> Himalayan Visibility Networks</a></li>
+<li class="chapter" data-level="2.1.6" data-path="getting-started.html"><a href="getting-started.html#archaeological-publication-networks"><i class="fa fa-check"></i><b>2.1.6</b> Archaeological Publication Networks</a></li>
+<li class="chapter" data-level="2.1.7" data-path="getting-started.html"><a href="getting-started.html#iron-age-sites-in-southern-spain"><i class="fa fa-check"></i><b>2.1.7</b> Iron Age Sites in Southern Spain</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="getting-started.html"><a href="getting-started.html#importing-data-in-r"><i class="fa fa-check"></i><b>2.2</b> Importing Data in R</a></li>
+<li class="chapter" data-level="2.3" data-path="getting-started.html"><a href="getting-started.html#installing-r-packages"><i class="fa fa-check"></i><b>2.3</b> Installing R Packages</a></li>
+<li class="chapter" data-level="2.4" data-path="getting-started.html"><a href="getting-started.html#suggested-workspace-setup"><i class="fa fa-check"></i><b>2.4</b> Suggested Workspace Setup</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="NetworkData.html"><a href="NetworkData.html"><i class="fa fa-check"></i><b>3</b> Network Data</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="NetworkData.html"><a href="NetworkData.html#network-data-formats"><i class="fa fa-check"></i><b>3.1</b> Network Data Formats</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="NetworkData.html"><a href="NetworkData.html#Edgelist"><i class="fa fa-check"></i><b>3.1.1</b> Edge List</a></li>
+<li class="chapter" data-level="3.1.2" data-path="NetworkData.html"><a href="NetworkData.html#adjacency-list"><i class="fa fa-check"></i><b>3.1.2</b> Adjacency List</a></li>
+<li class="chapter" data-level="3.1.3" data-path="NetworkData.html"><a href="NetworkData.html#adjacency-matrix"><i class="fa fa-check"></i><b>3.1.3</b> Adjacency Matrix</a></li>
+<li class="chapter" data-level="3.1.4" data-path="NetworkData.html"><a href="NetworkData.html#incidence-matrix"><i class="fa fa-check"></i><b>3.1.4</b> Incidence Matrix</a></li>
+<li class="chapter" data-level="3.1.5" data-path="NetworkData.html"><a href="NetworkData.html#node-and-edge-information"><i class="fa fa-check"></i><b>3.1.5</b> Node and Edge Information</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="NetworkData.html"><a href="NetworkData.html#types-of-networks"><i class="fa fa-check"></i><b>3.2</b> Types of Networks</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="NetworkData.html"><a href="NetworkData.html#simple-networks"><i class="fa fa-check"></i><b>3.2.1</b> Simple Networks</a></li>
+<li class="chapter" data-level="3.2.2" data-path="NetworkData.html"><a href="NetworkData.html#directed-networks"><i class="fa fa-check"></i><b>3.2.2</b> Directed Networks</a></li>
+<li class="chapter" data-level="3.2.3" data-path="NetworkData.html"><a href="NetworkData.html#signed-categorized-and-valued-networks"><i class="fa fa-check"></i><b>3.2.3</b> Signed, Categorized, and Valued Networks</a></li>
+<li class="chapter" data-level="3.2.4" data-path="NetworkData.html"><a href="NetworkData.html#two-mode-networks-and-affiliation-networks"><i class="fa fa-check"></i><b>3.2.4</b> Two-mode Networks and Affiliation Networks</a></li>
+<li class="chapter" data-level="3.2.5" data-path="NetworkData.html"><a href="NetworkData.html#similarity-networks"><i class="fa fa-check"></i><b>3.2.5</b> Similarity Networks</a></li>
+<li class="chapter" data-level="3.2.6" data-path="NetworkData.html"><a href="NetworkData.html#ego-networks"><i class="fa fa-check"></i><b>3.2.6</b> Ego Networks</a></li>
+<li class="chapter" data-level="3.2.7" data-path="NetworkData.html"><a href="NetworkData.html#multilayer-networks"><i class="fa fa-check"></i><b>3.2.7</b> Multilayer Networks</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html"><i class="fa fa-check"></i><b>4</b> Exploratory Network Analysis</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#example-network-objects"><i class="fa fa-check"></i><b>4.1</b> Example Network Objects</a></li>
+<li class="chapter" data-level="4.2" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#CalcMetric"><i class="fa fa-check"></i><b>4.2</b> Calculating Network Metrics in R</a></li>
+<li class="chapter" data-level="4.3" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#centrality"><i class="fa fa-check"></i><b>4.3</b> Centrality</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#degree-centrality"><i class="fa fa-check"></i><b>4.3.1</b> Degree Centrality</a></li>
+<li class="chapter" data-level="4.3.2" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#betweenness-centrality"><i class="fa fa-check"></i><b>4.3.2</b> Betweenness Centrality</a></li>
+<li class="chapter" data-level="4.3.3" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#eigenvector-centrality"><i class="fa fa-check"></i><b>4.3.3</b> Eigenvector Centrality</a></li>
+<li class="chapter" data-level="4.3.4" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#page-rank-centrality"><i class="fa fa-check"></i><b>4.3.4</b> Page Rank Centrality</a></li>
+<li class="chapter" data-level="4.3.5" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#closeness-centrality"><i class="fa fa-check"></i><b>4.3.5</b> Closeness Centrality</a></li>
+<li class="chapter" data-level="4.3.6" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#hubs-and-authorities"><i class="fa fa-check"></i><b>4.3.6</b> Hubs and Authorities</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#triads-and-clustering"><i class="fa fa-check"></i><b>4.4</b> Triads and clustering</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#triads"><i class="fa fa-check"></i><b>4.4.1</b> Triads</a></li>
+<li class="chapter" data-level="4.4.2" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#transitivity-and-clustering"><i class="fa fa-check"></i><b>4.4.2</b> Transitivity and Clustering</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#walks-paths-and-distance"><i class="fa fa-check"></i><b>4.5</b> Walks, Paths, and Distance</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#distance"><i class="fa fa-check"></i><b>4.5.1</b> Distance</a></li>
+<li class="chapter" data-level="4.5.2" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#shortest-paths"><i class="fa fa-check"></i><b>4.5.2</b> Shortest Paths</a></li>
+<li class="chapter" data-level="4.5.3" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#diameter"><i class="fa fa-check"></i><b>4.5.3</b> Diameter</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#components-and-bridges"><i class="fa fa-check"></i><b>4.6</b> Components and Bridges</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#identifying-components"><i class="fa fa-check"></i><b>4.6.1</b> Identifying Components</a></li>
+<li class="chapter" data-level="4.6.2" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#cutpoints"><i class="fa fa-check"></i><b>4.6.2</b> Cutpoints</a></li>
+<li class="chapter" data-level="4.6.3" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#bridges"><i class="fa fa-check"></i><b>4.6.3</b> Bridges</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#cliques-and-communities"><i class="fa fa-check"></i><b>4.7</b> Cliques and Communities</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#cliques"><i class="fa fa-check"></i><b>4.7.1</b> Cliques</a></li>
+<li class="chapter" data-level="4.7.2" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#k-cores"><i class="fa fa-check"></i><b>4.7.2</b> K-cores</a></li>
+<li class="chapter" data-level="4.7.3" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#cluster-detection-algorithms"><i class="fa fa-check"></i><b>4.7.3</b> Cluster Detection Algorithms</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#case-study"><i class="fa fa-check"></i><b>4.8</b> Case Study</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="quantifying-uncertainty.html"><a href="quantifying-uncertainty.html"><i class="fa fa-check"></i><b>5</b> Quantifying Uncertainty</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="quantifying-uncertainty.html"><a href="quantifying-uncertainty.html#a-general-approach-to-uncertainty"><i class="fa fa-check"></i><b>5.1</b> A General Approach to Uncertainty</a></li>
+<li class="chapter" data-level="5.2" data-path="quantifying-uncertainty.html"><a href="quantifying-uncertainty.html#missing-at-random"><i class="fa fa-check"></i><b>5.2</b> Missing at Random</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="quantifying-uncertainty.html"><a href="quantifying-uncertainty.html#nodes-missing-at-random"><i class="fa fa-check"></i><b>5.2.1</b> Nodes Missing at Random</a></li>
+<li class="chapter" data-level="5.2.2" data-path="quantifying-uncertainty.html"><a href="quantifying-uncertainty.html#edges-missing-at-random"><i class="fa fa-check"></i><b>5.2.2</b> Edges Missing at Random</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="quantifying-uncertainty.html"><a href="quantifying-uncertainty.html#assessing-indivdiual-nodesedges"><i class="fa fa-check"></i><b>5.3</b> Assessing Indivdiual Nodes/Edges</a></li>
+<li class="chapter" data-level="5.4" data-path="quantifying-uncertainty.html"><a href="quantifying-uncertainty.html#missing-due-to-biased-sampling"><i class="fa fa-check"></i><b>5.4</b> Missing Due to Biased Sampling</a></li>
+<li class="chapter" data-level="5.5" data-path="quantifying-uncertainty.html"><a href="quantifying-uncertainty.html#edge-probability-modeling"><i class="fa fa-check"></i><b>5.5</b> Edge Probability Modeling</a></li>
+<li class="chapter" data-level="5.6" data-path="quantifying-uncertainty.html"><a href="quantifying-uncertainty.html#small-or-variable-sample-size"><i class="fa fa-check"></i><b>5.6</b> Small or Variable Sample Size</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="network-visualization.html"><a href="network-visualization.html"><i class="fa fa-check"></i><b>6</b> Network Visualization</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="network-visualization.html"><a href="network-visualization.html#datasets-and-r-setup"><i class="fa fa-check"></i><b>6.1</b> Datasets and R Setup</a></li>
+<li class="chapter" data-level="6.2" data-path="network-visualization.html"><a href="network-visualization.html#visualizing-networks-in-r"><i class="fa fa-check"></i><b>6.2</b> Visualizing Networks in R</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="network-visualization.html"><a href="network-visualization.html#networkstatnet"><i class="fa fa-check"></i><b>6.2.1</b> network/statnet</a></li>
+<li class="chapter" data-level="6.2.2" data-path="network-visualization.html"><a href="network-visualization.html#igraph"><i class="fa fa-check"></i><b>6.2.2</b> igraph</a></li>
+<li class="chapter" data-level="6.2.3" data-path="network-visualization.html"><a href="network-visualization.html#ggraph"><i class="fa fa-check"></i><b>6.2.3</b> ggraph</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="network-visualization.html"><a href="network-visualization.html#network-visualization-options"><i class="fa fa-check"></i><b>6.3</b> Network Visualization Options</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="network-visualization.html"><a href="network-visualization.html#graph-layout"><i class="fa fa-check"></i><b>6.3.1</b> Graph Layout</a></li>
+<li class="chapter" data-level="6.3.2" data-path="network-visualization.html"><a href="network-visualization.html#node-and-edge-options"><i class="fa fa-check"></i><b>6.3.2</b> Node and Edge Options</a></li>
+<li class="chapter" data-level="6.3.3" data-path="network-visualization.html"><a href="network-visualization.html#label-options"><i class="fa fa-check"></i><b>6.3.3</b> Label Options</a></li>
+<li class="chapter" data-level="6.3.4" data-path="network-visualization.html"><a href="network-visualization.html#be-kind-to-the-color-blind"><i class="fa fa-check"></i><b>6.3.4</b> Be Kind to the Color Blind</a></li>
+<li class="chapter" data-level="6.3.5" data-path="network-visualization.html"><a href="network-visualization.html#communities-and-groups"><i class="fa fa-check"></i><b>6.3.5</b> Communities and Groups</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="network-visualization.html"><a href="network-visualization.html#replicating-the-book-figures"><i class="fa fa-check"></i><b>6.4</b> Replicating the Book Figures</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_1"><i class="fa fa-check"></i><b>6.4.1</b> Figure 6.1: Manual Layout</a></li>
+<li class="chapter" data-level="6.4.2" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_2"><i class="fa fa-check"></i><b>6.4.2</b> Figure 6.2: Examples of Common Network Plot Formats</a></li>
+<li class="chapter" data-level="6.4.3" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_3"><i class="fa fa-check"></i><b>6.4.3</b> Figure 6.3: Examples of Rare Network Plot Formats</a></li>
+<li class="chapter" data-level="6.4.4" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_4"><i class="fa fa-check"></i><b>6.4.4</b> Figure 6.4: Simple Network with Clusters</a></li>
+<li class="chapter" data-level="6.4.5" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_5"><i class="fa fa-check"></i><b>6.4.5</b> Figure 6.5: Interactive Layout</a></li>
+<li class="chapter" data-level="6.4.6" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_6"><i class="fa fa-check"></i><b>6.4.6</b> Figure 6.6: Absolute Geographic Layout</a></li>
+<li class="chapter" data-level="6.4.7" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_7"><i class="fa fa-check"></i><b>6.4.7</b> Figure 6.7: Distorted Geographic Layout</a></li>
+<li class="chapter" data-level="6.4.8" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_8"><i class="fa fa-check"></i><b>6.4.8</b> Figure 6.8: Graph Layout Algorithms</a></li>
+<li class="chapter" data-level="6.4.9" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_9"><i class="fa fa-check"></i><b>6.4.9</b> Figure 6.9: Heirarchical Graph Layouts</a></li>
+<li class="chapter" data-level="6.4.10" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_10"><i class="fa fa-check"></i><b>6.4.10</b> Figure 6.10: Be kind to the color blind</a></li>
+<li class="chapter" data-level="6.4.11" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_11"><i class="fa fa-check"></i><b>6.4.11</b> Figure 6.11: Node Symbol and Color Schemes</a></li>
+<li class="chapter" data-level="6.4.12" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_12"><i class="fa fa-check"></i><b>6.4.12</b> Figure 6.12: Image for Node</a></li>
+<li class="chapter" data-level="6.4.13" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_13"><i class="fa fa-check"></i><b>6.4.13</b> Figure 6.13: Images for Nodes</a></li>
+<li class="chapter" data-level="6.4.14" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_14"><i class="fa fa-check"></i><b>6.4.14</b> Figure 6.14: Edge Thickness and Color</a></li>
+<li class="chapter" data-level="6.4.15" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_15"><i class="fa fa-check"></i><b>6.4.15</b> Figure 6.15: Edge Direction</a></li>
+<li class="chapter" data-level="6.4.16" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_16"><i class="fa fa-check"></i><b>6.4.16</b> Figure 6.16: Edge Binarization</a></li>
+<li class="chapter" data-level="6.4.17" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_17"><i class="fa fa-check"></i><b>6.4.17</b> Figure 6.17: Edge Bundling</a></li>
+<li class="chapter" data-level="6.4.18" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_18"><i class="fa fa-check"></i><b>6.4.18</b> Figure 6.18: Group-in-a-box</a></li>
+<li class="chapter" data-level="6.4.19" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_19"><i class="fa fa-check"></i><b>6.4.19</b> Figure 6.19: Weighted Adjacency Matrix</a></li>
+<li class="chapter" data-level="6.4.20" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_20"><i class="fa fa-check"></i><b>6.4.20</b> Figure 6.20: Nodetrix Diagram</a></li>
+<li class="chapter" data-level="6.4.21" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_21"><i class="fa fa-check"></i><b>6.4.21</b> Figure 6.21: The Filmstrip Approach</a></li>
+<li class="chapter" data-level="6.4.22" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_22"><i class="fa fa-check"></i><b>6.4.22</b> Figure 6.22: Similtaneous Display</a></li>
+<li class="chapter" data-level="6.4.23" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_23"><i class="fa fa-check"></i><b>6.4.23</b> Figure 6:23: Timelines and Time Prisms</a></li>
+<li class="chapter" data-level="6.4.24" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_24"><i class="fa fa-check"></i><b>6.4.24</b> Figure 6.24: Animation</a></li>
+<li class="chapter" data-level="6.4.25" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_25"><i class="fa fa-check"></i><b>6.4.25</b> Figure 6.25: Interactive Networks</a></li>
+<li class="chapter" data-level="6.4.26" data-path="network-visualization.html"><a href="network-visualization.html#figure-6.26-swsn-example-1"><i class="fa fa-check"></i><b>6.4.26</b> Figure 6.26: SWSN Example 1</a></li>
+<li class="chapter" data-level="6.4.27" data-path="network-visualization.html"><a href="network-visualization.html#figure-6.27-swsn-example-2"><i class="fa fa-check"></i><b>6.4.27</b> Figure 6.27: SWSN Example 2</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="spatial-networks.html"><a href="spatial-networks.html"><i class="fa fa-check"></i><b>7</b> Spatial Networks</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="spatial-networks.html"><a href="spatial-networks.html#dataset-and-setup"><i class="fa fa-check"></i><b>7.1</b> Dataset and Setup</a></li>
+<li class="chapter" data-level="7.2" data-path="spatial-networks.html"><a href="spatial-networks.html#planar-networks-and-trees"><i class="fa fa-check"></i><b>7.2</b> Planar Networks and Trees</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="spatial-networks.html"><a href="spatial-networks.html#evaluating-planarity"><i class="fa fa-check"></i><b>7.2.1</b> Evaluating Planarity</a></li>
+<li class="chapter" data-level="7.2.2" data-path="spatial-networks.html"><a href="spatial-networks.html#defining-trees"><i class="fa fa-check"></i><b>7.2.2</b> Defining Trees</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="spatial-networks.html"><a href="spatial-networks.html#spatial-network-models"><i class="fa fa-check"></i><b>7.3</b> Spatial Network Models</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="spatial-networks.html"><a href="spatial-networks.html#relative-neighborhood-networks"><i class="fa fa-check"></i><b>7.3.1</b> Relative Neighborhood Networks</a></li>
+<li class="chapter" data-level="7.3.2" data-path="spatial-networks.html"><a href="spatial-networks.html#gabriel-graphs"><i class="fa fa-check"></i><b>7.3.2</b> Gabriel Graphs</a></li>
+<li class="chapter" data-level="7.3.3" data-path="spatial-networks.html"><a href="spatial-networks.html#beta-skeletons"><i class="fa fa-check"></i><b>7.3.3</b> Beta Skeletons</a></li>
+<li class="chapter" data-level="7.3.4" data-path="spatial-networks.html"><a href="spatial-networks.html#minimum-spanning-trees"><i class="fa fa-check"></i><b>7.3.4</b> Minimum Spanning Trees</a></li>
+<li class="chapter" data-level="7.3.5" data-path="spatial-networks.html"><a href="spatial-networks.html#delaunay-triangulation"><i class="fa fa-check"></i><b>7.3.5</b> Delaunay Triangulation</a></li>
+<li class="chapter" data-level="7.3.6" data-path="spatial-networks.html"><a href="spatial-networks.html#k-nearest-neighbors"><i class="fa fa-check"></i><b>7.3.6</b> K-nearest Neighbors</a></li>
+<li class="chapter" data-level="7.3.7" data-path="spatial-networks.html"><a href="spatial-networks.html#maximum-distance-networks"><i class="fa fa-check"></i><b>7.3.7</b> Maximum Distance Networks</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="spatial-networks.html"><a href="spatial-networks.html#case-studies"><i class="fa fa-check"></i><b>7.4</b> Case Studies</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="spatial-networks.html"><a href="spatial-networks.html#proximity-of-iron-age-sites-in-southern-spain"><i class="fa fa-check"></i><b>7.4.1</b> Proximity of Iron Age sites in Southern Spain</a></li>
+<li class="chapter" data-level="7.4.2" data-path="spatial-networks.html"><a href="spatial-networks.html#networks-in-space-in-the-u.s.-southwest"><i class="fa fa-check"></i><b>7.4.2</b> Networks in Space in the U.S. Southwest</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references-and-r-packages.html"><a href="references-and-r-packages.html"><i class="fa fa-check"></i>References and R Packages</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Online Companion to <em>Archaeological Network Science</em> by Brughmans and Peeples</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="exploratory-network-analysis" class="section level1" number="4">
+<h1><span class="header-section-number">Section 4</span> Exploratory Network Analysis</h1>
+<p>This section serves as a companion to Chapter 4 in Brughmans and Peeples 2022 and provides basic examples of the exploratory network analytical methods outlined in the book as well as a few others.</p>
+<div id="example-network-objects" class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> Example Network Objects</h2>
+<p>In order to facilitate the exploratory analysis examples in this section, we want to first create a set of igraph network objects that will serve our purposes across all of the analyses below. Specifically, we will generate and define:</p>
+<ul>
+<li>simple_net - A simple undirected binary network with isolates</li>
+<li>simple_net_noiso - A simple undirected binary network without isolates</li>
+<li>directed_net - A directed binary network</li>
+<li>weighted_net - An undirected weighted network</li>
+<li>sim_net_i - A similarity network with edges weighted by similarity in the igraph format</li>
+<li>sim_net - A similarity network with edges weighted by similarity in the statnet/network format</li>
+<li>sim_mat - A data frame object containing a weighted similarity matrix</li>
+</ul>
+<p>Each of these will be used as appropriate to illustrate particular methods.</p>
+<p>In the following chunk of code we initialize all of the packages that we will use in this section and define all of the network objects that we will use (using the object names above). In these examples we will once again use the Cibola technological similarity data we used in the Network Data section previously.</p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="exploratory-network-analysis.html#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="co"># initialize packages</span></span>
+<span id="cb87-2"><a href="exploratory-network-analysis.html#cb87-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(igraph)</span>
+<span id="cb87-3"><a href="exploratory-network-analysis.html#cb87-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(statnet)</span>
+<span id="cb87-4"><a href="exploratory-network-analysis.html#cb87-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(intergraph)</span>
+<span id="cb87-5"><a href="exploratory-network-analysis.html#cb87-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vegan)</span>
+<span id="cb87-6"><a href="exploratory-network-analysis.html#cb87-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb87-7"><a href="exploratory-network-analysis.html#cb87-7" aria-hidden="true" tabindex="-1"></a><span class="co"># read in csv data</span></span>
+<span id="cb87-8"><a href="exploratory-network-analysis.html#cb87-8" aria-hidden="true" tabindex="-1"></a>Cibola_edgelist <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="at">file=</span><span class="st">&quot;data/Cibola_edgelist.csv&quot;</span>, <span class="at">header=</span><span class="cn">TRUE</span>) </span>
+<span id="cb87-9"><a href="exploratory-network-analysis.html#cb87-9" aria-hidden="true" tabindex="-1"></a>Cibola_adj_mat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="at">file=</span><span class="st">&quot;data/Cibola_adj.csv&quot;</span>, <span class="at">header=</span>T, <span class="at">row.names=</span><span class="dv">1</span>)</span>
+<span id="cb87-10"><a href="exploratory-network-analysis.html#cb87-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb87-11"><a href="exploratory-network-analysis.html#cb87-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Simple network with isolates</span></span>
+<span id="cb87-12"><a href="exploratory-network-analysis.html#cb87-12" aria-hidden="true" tabindex="-1"></a>simple_net <span class="ot">&lt;-</span> igraph<span class="sc">::</span><span class="fu">graph_from_adjacency_matrix</span>(<span class="fu">as.matrix</span>(Cibola_adj_mat), <span class="at">mode=</span><span class="st">&quot;undirected&quot;</span>)</span>
+<span id="cb87-13"><a href="exploratory-network-analysis.html#cb87-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb87-14"><a href="exploratory-network-analysis.html#cb87-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Simple network with no isolates</span></span>
+<span id="cb87-15"><a href="exploratory-network-analysis.html#cb87-15" aria-hidden="true" tabindex="-1"></a>simple_net_noiso <span class="ot">&lt;-</span> igraph<span class="sc">::</span><span class="fu">graph_from_edgelist</span>(<span class="fu">as.matrix</span>(Cibola_edgelist), <span class="at">directed=</span><span class="cn">FALSE</span>)</span>
+<span id="cb87-16"><a href="exploratory-network-analysis.html#cb87-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb87-17"><a href="exploratory-network-analysis.html#cb87-17" aria-hidden="true" tabindex="-1"></a><span class="co">#Create a directed network by subsampling edgelist</span></span>
+<span id="cb87-18"><a href="exploratory-network-analysis.html#cb87-18" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">45325</span>)</span>
+<span id="cb87-19"><a href="exploratory-network-analysis.html#cb87-19" aria-hidden="true" tabindex="-1"></a>EL2 <span class="ot">&lt;-</span> Cibola_edgelist[<span class="fu">sample</span>(<span class="fu">seq</span>(<span class="dv">1</span>,<span class="fu">nrow</span>(Cibola_edgelist)), <span class="dv">125</span>, <span class="at">replace=</span><span class="cn">FALSE</span>),]</span>
+<span id="cb87-20"><a href="exploratory-network-analysis.html#cb87-20" aria-hidden="true" tabindex="-1"></a>directed_net <span class="ot">&lt;-</span> igraph<span class="sc">::</span><span class="fu">graph_from_edgelist</span>(<span class="fu">as.matrix</span>(EL2), <span class="at">directed=</span><span class="cn">TRUE</span>)</span>
+<span id="cb87-21"><a href="exploratory-network-analysis.html#cb87-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb87-22"><a href="exploratory-network-analysis.html#cb87-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a weighted undirected network by adding column of random weights to edgelist</span></span>
+<span id="cb87-23"><a href="exploratory-network-analysis.html#cb87-23" aria-hidden="true" tabindex="-1"></a>Cibola_edgelist<span class="sc">$</span>Weight <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">seq</span>(<span class="dv">1</span>,<span class="dv">4</span>), <span class="fu">nrow</span>(Cibola_edgelist), <span class="at">replace=</span><span class="cn">TRUE</span>)</span>
+<span id="cb87-24"><a href="exploratory-network-analysis.html#cb87-24" aria-hidden="true" tabindex="-1"></a>weighted_net <span class="ot">&lt;-</span> igraph<span class="sc">::</span><span class="fu">graph_from_edgelist</span>(<span class="fu">as.matrix</span>(Cibola_edgelist[,<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]), <span class="at">directed=</span><span class="cn">FALSE</span>)</span>
+<span id="cb87-25"><a href="exploratory-network-analysis.html#cb87-25" aria-hidden="true" tabindex="-1"></a><span class="fu">E</span>(weighted_net)<span class="sc">$</span>weight <span class="ot">&lt;-</span> Cibola_edgelist<span class="sc">$</span>Weight</span>
+<span id="cb87-26"><a href="exploratory-network-analysis.html#cb87-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb87-27"><a href="exploratory-network-analysis.html#cb87-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a similarity network using the Brainerd-Robinson metric</span></span>
+<span id="cb87-28"><a href="exploratory-network-analysis.html#cb87-28" aria-hidden="true" tabindex="-1"></a>Cibola_clust <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="at">file=</span><span class="st">&quot;data/Cibola_clust.csv&quot;</span>, <span class="at">header=</span><span class="cn">TRUE</span>, <span class="at">row.names=</span><span class="dv">1</span>)</span>
+<span id="cb87-29"><a href="exploratory-network-analysis.html#cb87-29" aria-hidden="true" tabindex="-1"></a>clust_p <span class="ot">&lt;-</span> <span class="fu">prop.table</span>(<span class="fu">as.matrix</span>(Cibola_clust), <span class="at">margin =</span> <span class="dv">1</span>) </span>
+<span id="cb87-30"><a href="exploratory-network-analysis.html#cb87-30" aria-hidden="true" tabindex="-1"></a>sim_mat <span class="ot">&lt;-</span> (<span class="dv">2</span><span class="sc">-</span><span class="fu">as.matrix</span>(vegan<span class="sc">::</span><span class="fu">vegdist</span>(clust_p, <span class="at">method=</span><span class="st">&#39;manhattan&#39;</span>)))<span class="sc">/</span><span class="dv">2</span></span>
+<span id="cb87-31"><a href="exploratory-network-analysis.html#cb87-31" aria-hidden="true" tabindex="-1"></a>sim_net <span class="ot">&lt;-</span> <span class="fu">network</span>(sim_mat, <span class="at">directed=</span><span class="cn">FALSE</span>, <span class="at">ignore.eval=</span><span class="cn">FALSE</span>, <span class="at">names.eval=</span><span class="st">&#39;weight&#39;</span>)</span>
+<span id="cb87-32"><a href="exploratory-network-analysis.html#cb87-32" aria-hidden="true" tabindex="-1"></a>sim_net_i <span class="ot">&lt;-</span> <span class="fu">asIgraph</span>(sim_net)</span></code></pre></div>
+</div>
+<div id="CalcMetric" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> Calculating Network Metrics in R</h2>
+<p>Although the calculations behind the scenes for centrality metrics, clustering algorithms, and other network measures may be somewhat complicated, calculating these measures in R using network objects is usually quite straight forward and typically only involves a single function and a couple of arguments within it. There are, however, some things that need to be kept in mind when applying these methods to network data. In this appendix, we provide examples of some of the most common functions you may use as well as a few caveats and potential problems.</p>
+<p>One thing to keep in mind when working with R network data and using multiple packages at the same time is that different packages may have functions with the same name so it often is good practice to specify which package you mean to use directly in your code. For example, the function to calculate degree centrality in both igraph and sna (part of the statnet suite of packages) is simply “degree.” If you type “degree(simple_net)” at the console, R will attempt to use the “degree” function from whichever package was called more recently. This may not be what you want. In order to avoid ambiguity, you can add the package name to the call like this “igraph::degree(simple_net)” since “simple_net” is an igraph object, this will work correctly and return results. On the other hand “sna::degree(simple_net)” would create an error as the sna version of the degree function expects a different format of network object.</p>
+<p>In addition to potential overlap in function names, another thing that you need to keep in mind is that certain network metrics require networks with specific properties and may produce unexpected results if the wrong kind of network is used. For example, closeness centrality is only well defined for binary networks that have no isolates. If you were to use the “igraph::closeness” command to calculate closeness centrality on a network with isolates, you would get results but you would also get a warning telling you “closeness centrality is not well-defined for disconnected graphs.” For other functions if you provide data that does not meet the criteria required by that function you my instead get an error and have no results returned. In some cases, however, a function may simply return results and not provide any warning so it is important that you are careful when selecting methods to avoid providing data that violates assumptions of the method provided. Remember, that if you have questions about how a function works or what it requires you can type “?function_name” at the console with the function in question and you will get the help document that should provide more information. You can also include package names in the help call to avoid getting something unexpected (i.e., “?igraph::degree”)</p>
+</div>
+<div id="centrality" class="section level2" number="4.3">
+<h2><span class="header-section-number">4.3</span> Centrality</h2>
+<p>One of the most common kinds of exploratory network analysis involves calculating basic network centrality and centralization statistics. There are a wide array of methods available in R through the igraph and statnet packages. In this section we highlight a few examples as well as a few caveats to keep in mind.</p>
+<div id="degree-centrality" class="section level3" number="4.3.1">
+<h3><span class="header-section-number">4.3.1</span> Degree Centrality</h3>
+<p>Degree centrality can be calculated using the “igraph::degree” function for simple networks with or without isolates as well as simple directed networks. This method is not, however, appropriate for weighted networks or similarity networks (because it expects binary values). If you apply the “igraph::degree” function to a weighted network object you will simply get the binary network degree centrality values. The alternative for calculating weighted degree for weighted and similarity networks is to simply calculate the row sums of the underlying similarity matrix (minus 1 to account for self loops) or adjacency matrix. For the degree function the returned output is a vector of values representing degree centrality which can further be assigned to an R object, plotted, or otherwise used. We provide a few examples here to illustrate. Note that for directed graphs you can also specify the mode as “in” for indegree or “out” for outdegree or “all” for the sum of both.</p>
+<p>Graph level degree centralization is equally simple to call using the centr_degree function. This function returns an object with multiple parts including a vector of degree centrality scores, the graph level centralization metric, and the theoretical maximum number of edges (n * [n-1]). This metric can be normalized such that the maximum centralization value would be 1 using the “normalize=TRUE” argument as we demonstrate below.</p>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="exploratory-network-analysis.html#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="co"># simple network with isolates</span></span>
+<span id="cb88-2"><a href="exploratory-network-analysis.html#cb88-2" aria-hidden="true" tabindex="-1"></a>igraph<span class="sc">::</span><span class="fu">degree</span>(simple_net) </span></code></pre></div>
+<pre><code>##          Apache.Creek               Atsinna           Baca.Pueblo 
+##                    11                     8                     1 
+##          Casa.Malpais               Cienega          Coyote.Creek 
+##                    11                    13                    11 
+##          Foote.Canyon          Garcia.Ranch          Heshotauthla 
+##                     6                    13                    14 
+##               Hinkson          Hooper.Ranch       Horse.Camp.Mill 
+##                    18                    11                    12 
+##         Hubble.Corner               Jarlosa          Los.Gigantes 
+##                    13                    11                    12 
+##  Mineral.Creek.Pueblo               Mirabal            Ojo.Bonito 
+##                    12                    13                    14 
+##       Pescado.Cluster           Platt.Ranch Pueblo.de.los.Muertos 
+##                    11                     5                    10 
+##       Rudd.Creek.Ruin              Scribe.S             Spier.170 
+##                    12                    13                    13 
+##       Techado.Springs                Tinaja          Tri.R.Pueblo 
+##                     9                    14                    13 
+##                 UG481                 UG494              WS.Ranch 
+##                    14                     6                     0 
+##           Yellowhouse 
+##                    10</code></pre>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="exploratory-network-analysis.html#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="co"># simple network no isolates</span></span>
+<span id="cb90-2"><a href="exploratory-network-analysis.html#cb90-2" aria-hidden="true" tabindex="-1"></a>igraph<span class="sc">::</span><span class="fu">degree</span>(simple_net_noiso) </span></code></pre></div>
+<pre><code>##          Apache Creek          Casa Malpais          Coyote Creek 
+##                    11                    11                    11 
+##          Hooper Ranch       Horse Camp Mill         Hubble Corner 
+##                    11                    12                    13 
+##  Mineral Creek Pueblo       Rudd Creek Ruin       Techado Springs 
+##                    12                    12                     9 
+##          Tri-R Pueblo                 UG481                 UG494 
+##                    13                    14                     6 
+##               Atsinna               Cienega          Los Gigantes 
+##                     8                    13                    12 
+##               Mirabal            Ojo Bonito Pueblo de los Muertos 
+##                    13                    14                    10 
+##              Scribe S             Spier 170                Tinaja 
+##                    13                    13                    14 
+##           Baca Pueblo          Garcia Ranch               Hinkson 
+##                     1                    13                    18 
+##          Heshotauthla               Jarlosa       Pescado Cluster 
+##                    14                    11                    11 
+##           Yellowhouse          Foote Canyon           Platt Ranch 
+##                    10                     6                     5</code></pre>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="exploratory-network-analysis.html#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="co"># directed network</span></span>
+<span id="cb92-2"><a href="exploratory-network-analysis.html#cb92-2" aria-hidden="true" tabindex="-1"></a>igraph<span class="sc">::</span><span class="fu">degree</span>(directed_net, <span class="at">mode=</span><span class="st">&quot;in&quot;</span>) <span class="co"># indegree</span></span></code></pre></div>
+<pre><code>##          Coyote Creek       Techado Springs         Hubble Corner 
+##                     1                     6                     5 
+##          Tri-R Pueblo          Heshotauthla Pueblo de los Muertos 
+##                     6                     2                     5 
+##       Rudd Creek Ruin               Hinkson          Los Gigantes 
+##                     7                     4                     3 
+##           Yellowhouse               Mirabal              Scribe S 
+##                    10                     5                     8 
+##          Hooper Ranch               Cienega             Spier 170 
+##                     2                     1                     8 
+##          Garcia Ranch       Pescado Cluster                 UG494 
+##                     2                     4                     3 
+##                Tinaja  Mineral Creek Pueblo               Jarlosa 
+##                     9                     6                     2 
+##       Horse Camp Mill          Foote Canyon          Casa Malpais 
+##                     6                     0                     1 
+##           Platt Ranch          Apache Creek               Atsinna 
+##                     2                     0                     0 
+##            Ojo Bonito                 UG481           Baca Pueblo 
+##                     6                    11                     0</code></pre>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="exploratory-network-analysis.html#cb94-1" aria-hidden="true" tabindex="-1"></a>igraph<span class="sc">::</span><span class="fu">degree</span>(directed_net, <span class="at">mode=</span><span class="st">&quot;out&quot;</span>) <span class="co"># outdegree</span></span></code></pre></div>
+<pre><code>##          Coyote Creek       Techado Springs         Hubble Corner 
+##                     6                     2                     5 
+##          Tri-R Pueblo          Heshotauthla Pueblo de los Muertos 
+##                     2                    11                     1 
+##       Rudd Creek Ruin               Hinkson          Los Gigantes 
+##                     3                     9                     5 
+##           Yellowhouse               Mirabal              Scribe S 
+##                     0                     7                     2 
+##          Hooper Ranch               Cienega             Spier 170 
+##                     7                     7                     2 
+##          Garcia Ranch       Pescado Cluster                 UG494 
+##                     9                     4                     0 
+##                Tinaja  Mineral Creek Pueblo               Jarlosa 
+##                     1                     1                     5 
+##       Horse Camp Mill          Foote Canyon          Casa Malpais 
+##                     4                     4                     7 
+##           Platt Ranch          Apache Creek               Atsinna 
+##                     1                     7                     7 
+##            Ojo Bonito                 UG481           Baca Pueblo 
+##                     4                     1                     1</code></pre>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="exploratory-network-analysis.html#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="co"># weighted network - rowSums of adjacency matrix</span></span>
+<span id="cb96-2"><a href="exploratory-network-analysis.html#cb96-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rowSums</span>(<span class="fu">as.matrix</span>(<span class="fu">as_adjacency_matrix</span>(weighted_net, <span class="at">attr=</span><span class="st">&quot;weight&quot;</span>)))<span class="sc">-</span><span class="dv">1</span></span></code></pre></div>
+<pre><code>##          Apache Creek          Casa Malpais          Coyote Creek 
+##                    25                    29                    21 
+##          Hooper Ranch       Horse Camp Mill         Hubble Corner 
+##                    18                    27                    35 
+##  Mineral Creek Pueblo       Rudd Creek Ruin       Techado Springs 
+##                    24                    23                    26 
+##          Tri-R Pueblo                 UG481                 UG494 
+##                    33                    23                    17 
+##               Atsinna               Cienega          Los Gigantes 
+##                    14                    34                    35 
+##               Mirabal            Ojo Bonito Pueblo de los Muertos 
+##                    31                    32                    23 
+##              Scribe S             Spier 170                Tinaja 
+##                    27                    27                    35 
+##           Baca Pueblo          Garcia Ranch               Hinkson 
+##                     2                    23                    37 
+##          Heshotauthla               Jarlosa       Pescado Cluster 
+##                    32                    18                    34 
+##           Yellowhouse          Foote Canyon           Platt Ranch 
+##                    21                    14                    10</code></pre>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="exploratory-network-analysis.html#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="co"># similarity network</span></span>
+<span id="cb98-2"><a href="exploratory-network-analysis.html#cb98-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rowSums</span>(sim_mat)<span class="sc">-</span><span class="dv">1</span> <span class="co"># note we use the similarity matrix here and not the network object</span></span></code></pre></div>
+<pre><code>##          Apache Creek               Atsinna           Baca Pueblo 
+##              16.00848              15.87024              14.77997 
+##          Casa Malpais               Cienega          Coyote Creek 
+##              17.30358              17.09394              16.51137 
+##          Foote Canyon          Garcia Ranch          Heshotauthla 
+##              16.39800              18.86633              17.56933 
+##               Hinkson          Hooper Ranch       Horse Camp Mill 
+##              19.65702              15.66441              17.46148 
+##         Hubble Corner               Jarlosa          Los Gigantes 
+##              17.19686              15.91820              16.15846 
+##  Mineral Creek Pueblo               Mirabal            Ojo Bonito 
+##              18.21639              16.58203              17.53557 
+##       Pescado Cluster           Platt Ranch Pueblo de los Muertos 
+##              16.18044              17.42528              16.39842 
+##       Rudd Creek Ruin              Scribe S             Spier 170 
+##              16.38749              17.55555              16.47111 
+##       Techado Springs                Tinaja          Tri-R Pueblo 
+##              14.51971              17.45952              16.85153 
+##                 UG481                 UG494              WS Ranch 
+##              18.20736              15.45871              12.95816 
+##           Yellowhouse 
+##              14.55062</code></pre>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="exploratory-network-analysis.html#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="co"># If you want to normalize your degree centrality metric by the number of nodes present</span></span>
+<span id="cb100-2"><a href="exploratory-network-analysis.html#cb100-2" aria-hidden="true" tabindex="-1"></a><span class="co"># you can do that by adding the normalize=TRUE command to the function calls above.</span></span>
+<span id="cb100-3"><a href="exploratory-network-analysis.html#cb100-3" aria-hidden="true" tabindex="-1"></a><span class="co"># for weighted and similarity networks you can simply divide by the number of nodes minus 1.</span></span>
+<span id="cb100-4"><a href="exploratory-network-analysis.html#cb100-4" aria-hidden="true" tabindex="-1"></a>igraph<span class="sc">::</span><span class="fu">degree</span>(simple_net, <span class="at">normalize=</span>T)</span></code></pre></div>
+<pre><code>##          Apache.Creek               Atsinna           Baca.Pueblo 
+##            0.36666667            0.26666667            0.03333333 
+##          Casa.Malpais               Cienega          Coyote.Creek 
+##            0.36666667            0.43333333            0.36666667 
+##          Foote.Canyon          Garcia.Ranch          Heshotauthla 
+##            0.20000000            0.43333333            0.46666667 
+##               Hinkson          Hooper.Ranch       Horse.Camp.Mill 
+##            0.60000000            0.36666667            0.40000000 
+##         Hubble.Corner               Jarlosa          Los.Gigantes 
+##            0.43333333            0.36666667            0.40000000 
+##  Mineral.Creek.Pueblo               Mirabal            Ojo.Bonito 
+##            0.40000000            0.43333333            0.46666667 
+##       Pescado.Cluster           Platt.Ranch Pueblo.de.los.Muertos 
+##            0.36666667            0.16666667            0.33333333 
+##       Rudd.Creek.Ruin              Scribe.S             Spier.170 
+##            0.40000000            0.43333333            0.43333333 
+##       Techado.Springs                Tinaja          Tri.R.Pueblo 
+##            0.30000000            0.46666667            0.43333333 
+##                 UG481                 UG494              WS.Ranch 
+##            0.46666667            0.20000000            0.00000000 
+##           Yellowhouse 
+##            0.33333333</code></pre>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="exploratory-network-analysis.html#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="co"># it is also possible to directly plot the degree distribution for a given network</span></span>
+<span id="cb102-2"><a href="exploratory-network-analysis.html#cb102-2" aria-hidden="true" tabindex="-1"></a><span class="co"># using the degree.distribution function. Here we embed that call directly in a </span></span>
+<span id="cb102-3"><a href="exploratory-network-analysis.html#cb102-3" aria-hidden="true" tabindex="-1"></a><span class="co"># call for a histogram plot using the hist function</span></span>
+<span id="cb102-4"><a href="exploratory-network-analysis.html#cb102-4" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(igraph<span class="sc">::</span><span class="fu">degree.distribution</span>(simple_net))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="exploratory-network-analysis.html#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="co"># graph level centralization</span></span>
+<span id="cb103-2"><a href="exploratory-network-analysis.html#cb103-2" aria-hidden="true" tabindex="-1"></a>igraph<span class="sc">::</span><span class="fu">centr_degree</span>(simple_net)</span></code></pre></div>
+<pre><code>## $res
+##  [1] 11  8  1 11 13 11  6 13 14 18 11 12 13 11 12 12 13 14 11  5 10 12 13 13  9
+## [26] 14 13 14  6  0 10
+## 
+## $centralization
+## [1] 0.2408602
+## 
+## $theoretical_max
+## [1] 930</code></pre>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="exploratory-network-analysis.html#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="co"># to calculate centralization score for a similarity matrix, use the sna::centralization function</span></span>
+<span id="cb105-2"><a href="exploratory-network-analysis.html#cb105-2" aria-hidden="true" tabindex="-1"></a>sna<span class="sc">::</span><span class="fu">centralization</span>(sim_mat, <span class="at">normalize=</span><span class="cn">TRUE</span>, sna<span class="sc">::</span>degree)</span></code></pre></div>
+<pre><code>## [1] 0.1082207</code></pre>
+<p>If you are interested in calculating graph level density you can do this using the “edge_density” function. Note that just like the degree function above, this only works for binary networks and if you submit a weighted network object you will simply get the binary edge density value.</p>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="exploratory-network-analysis.html#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="fu">edge_density</span>(simple_net_noiso)</span></code></pre></div>
+<pre><code>## [1] 0.383908</code></pre>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="exploratory-network-analysis.html#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="fu">edge_density</span>(weighted_net)</span></code></pre></div>
+<pre><code>## [1] 0.383908</code></pre>
+</div>
+<div id="betweenness-centrality" class="section level3" number="4.3.2">
+<h3><span class="header-section-number">4.3.2</span> Betweenness Centrality</h3>
+<p>The betweenness functions work very much like the degree function calls above. Betweenness centrality in igraph can be calculated for simple networks with and without isolates, directed networks, and weighted networks. In the case of weighted networks or similarity networks, the shortest paths between sets of nodes are calculated such that the path of greatest weight is taken at each juncture. You can normalize your results by using “normalize=TRUE” just like you could for degree. The “igraph::betweenness” function will automatically detect if a graph is directed or weighted and use the appropriate method but you can also specify a particular edge attribute to use for weight if you perhaps have more than one weighting scheme.</p>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="exploratory-network-analysis.html#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate betweenness for simple network</span></span>
+<span id="cb111-2"><a href="exploratory-network-analysis.html#cb111-2" aria-hidden="true" tabindex="-1"></a>igraph<span class="sc">::</span><span class="fu">betweenness</span>(simple_net)</span></code></pre></div>
+<pre><code>##          Apache.Creek               Atsinna           Baca.Pueblo 
+##             1.1250000             0.0000000             0.0000000 
+##          Casa.Malpais               Cienega          Coyote.Creek 
+##             8.8253059             8.0328650             3.2862641 
+##          Foote.Canyon          Garcia.Ranch          Heshotauthla 
+##             0.2500000            58.7048084            15.6031093 
+##               Hinkson          Hooper.Ranch       Horse.Camp.Mill 
+##           142.3305364             1.1250000             9.0503059 
+##         Hubble.Corner               Jarlosa          Los.Gigantes 
+##            11.9501530             6.2604913             1.2590038 
+##  Mineral.Creek.Pueblo               Mirabal            Ojo.Bonito 
+##            12.8566507             8.0328650            41.0052110 
+##       Pescado.Cluster           Platt.Ranch Pueblo.de.los.Muertos 
+##             0.5722222             2.7950980             0.2844828 
+##       Rudd.Creek.Ruin              Scribe.S             Spier.170 
+##             9.0503059            15.3558646             8.0328650 
+##       Techado.Springs                Tinaja          Tri.R.Pueblo 
+##             0.0000000            16.0653473            11.9501530 
+##                 UG481                 UG494              WS.Ranch 
+##            17.0225282             0.0000000             0.0000000 
+##           Yellowhouse 
+##             2.1735632</code></pre>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="exploratory-network-analysis.html#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate betweenness for weighted network</span></span>
+<span id="cb113-2"><a href="exploratory-network-analysis.html#cb113-2" aria-hidden="true" tabindex="-1"></a>igraph<span class="sc">::</span><span class="fu">betweenness</span>(weighted_net, <span class="at">directed=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>##          Apache Creek          Casa Malpais          Coyote Creek 
+##            20.9442338            18.9625928            17.6782863 
+##          Hooper Ranch       Horse Camp Mill         Hubble Corner 
+##            15.6685277             2.7803603             7.6666667 
+##  Mineral Creek Pueblo       Rudd Creek Ruin       Techado Springs 
+##            28.7124872            55.2913965             0.0000000 
+##          Tri-R Pueblo                 UG481                 UG494 
+##             2.8409091            50.0026062             0.0000000 
+##               Atsinna               Cienega          Los Gigantes 
+##             8.0155123             0.9448773             3.9171717 
+##               Mirabal            Ojo Bonito Pueblo de los Muertos 
+##             4.5814935            93.4976551             3.1785714 
+##              Scribe S             Spier 170                Tinaja 
+##            20.5347403             5.5688312            33.2419553 
+##           Baca Pueblo          Garcia Ranch               Hinkson 
+##             0.0000000            98.8990651           102.7018007 
+##          Heshotauthla               Jarlosa       Pescado Cluster 
+##            16.9579004            57.7828448             0.0000000 
+##           Yellowhouse          Foote Canyon           Platt Ranch 
+##             1.6544012             5.3428571             0.0000000</code></pre>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="exploratory-network-analysis.html#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate betweenness for weighted network specifying weight attribute</span></span>
+<span id="cb115-2"><a href="exploratory-network-analysis.html#cb115-2" aria-hidden="true" tabindex="-1"></a>igraph<span class="sc">::</span><span class="fu">betweenness</span>(weighted_net, <span class="at">weights=</span><span class="fu">E</span>(weighted_net)<span class="sc">$</span>weight)</span></code></pre></div>
+<pre><code>##          Apache Creek          Casa Malpais          Coyote Creek 
+##            20.9442338            18.9625928            17.6782863 
+##          Hooper Ranch       Horse Camp Mill         Hubble Corner 
+##            15.6685277             2.7803603             7.6666667 
+##  Mineral Creek Pueblo       Rudd Creek Ruin       Techado Springs 
+##            28.7124872            55.2913965             0.0000000 
+##          Tri-R Pueblo                 UG481                 UG494 
+##             2.8409091            50.0026062             0.0000000 
+##               Atsinna               Cienega          Los Gigantes 
+##             8.0155123             0.9448773             3.9171717 
+##               Mirabal            Ojo Bonito Pueblo de los Muertos 
+##             4.5814935            93.4976551             3.1785714 
+##              Scribe S             Spier 170                Tinaja 
+##            20.5347403             5.5688312            33.2419553 
+##           Baca Pueblo          Garcia Ranch               Hinkson 
+##             0.0000000            98.8990651           102.7018007 
+##          Heshotauthla               Jarlosa       Pescado Cluster 
+##            16.9579004            57.7828448             0.0000000 
+##           Yellowhouse          Foote Canyon           Platt Ranch 
+##             1.6544012             5.3428571             0.0000000</code></pre>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="exploratory-network-analysis.html#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate graph level centralization</span></span>
+<span id="cb117-2"><a href="exploratory-network-analysis.html#cb117-2" aria-hidden="true" tabindex="-1"></a><span class="fu">centr_betw</span>(simple_net)</span></code></pre></div>
+<pre><code>## $res
+##  [1]   1.1250000   0.0000000   0.0000000   8.8253059   8.0328650   3.2862641
+##  [7]   0.2500000  58.7048084  15.6031093 142.3305364   1.1250000   9.0503059
+## [13]  11.9501530   6.2604913   1.2590038  12.8566507   8.0328650  41.0052110
+## [19]   0.5722222   2.7950980   0.2844828   9.0503059  15.3558646   8.0328650
+## [25]   0.0000000  16.0653473  11.9501530  17.0225282   0.0000000   0.0000000
+## [31]   2.1735632
+## 
+## $centralization
+## [1] 0.3064557
+## 
+## $theoretical_max
+## [1] 13050</code></pre>
+</div>
+<div id="eigenvector-centrality" class="section level3" number="4.3.3">
+<h3><span class="header-section-number">4.3.3</span> Eigenvector Centrality</h3>
+<p>The “igraph::eigen_centrality” function can be calculated for simple networks with and without isolates, directed networks, and weighted networks. By default scores are scaled such that the maximum score of 1. You can turn this scaling of by using the “scale=FALSE” argument. This function automatically detects whether a network object is directed or weighted but you can also call edge attributes to specify a particular weight attribute. By default this function outputs many other features of the analysis such as the number of steps toward convergence and the number of iterations but if you just want the centrality results you can use the atomic vector call to $vector.</p>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="exploratory-network-analysis.html#cb119-1" aria-hidden="true" tabindex="-1"></a><span class="fu">eigen_centrality</span>(simple_net, <span class="at">scale=</span><span class="cn">TRUE</span>)<span class="sc">$</span>vector</span></code></pre></div>
+<pre><code>##          Apache.Creek               Atsinna           Baca.Pueblo 
+##            0.46230981            0.54637071            0.07114132 
+##          Casa.Malpais               Cienega          Coyote.Creek 
+##            0.53026366            0.85007181            0.49562276 
+##          Foote.Canyon          Garcia.Ranch          Heshotauthla 
+##            0.33029706            0.70213609            0.88689660 
+##               Hinkson          Hooper.Ranch       Horse.Camp.Mill 
+##            1.00000000            0.46230981            0.57200439 
+##         Hubble.Corner               Jarlosa          Los.Gigantes 
+##            0.56392007            0.71724727            0.77369018 
+##  Mineral.Creek.Pueblo               Mirabal            Ojo.Bonito 
+##            0.54647608            0.85007181            0.86025176 
+##       Pescado.Cluster           Platt.Ranch Pueblo.de.los.Muertos 
+##            0.73195749            0.32635046            0.67002143 
+##       Rudd.Creek.Ruin              Scribe.S             Spier.170 
+##            0.57200439            0.84891759            0.85007181 
+##       Techado.Springs                Tinaja          Tri.R.Pueblo 
+##            0.40025173            0.90370210            0.56392007 
+##                 UG481                 UG494              WS.Ranch 
+##            0.61755036            0.26599780            0.00000000 
+##           Yellowhouse 
+##            0.63999991</code></pre>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="exploratory-network-analysis.html#cb121-1" aria-hidden="true" tabindex="-1"></a><span class="fu">eigen_centrality</span>(weighted_net, <span class="at">weights=</span><span class="fu">E</span>(weighted_net)<span class="sc">$</span>weight, <span class="at">directed=</span><span class="cn">FALSE</span>, <span class="at">scale=</span><span class="cn">FALSE</span>)<span class="sc">$</span>vector</span></code></pre></div>
+<pre><code>##          Apache Creek          Casa Malpais          Coyote Creek 
+##            0.08116512            0.10608344            0.07254989 
+##          Hooper Ranch       Horse Camp Mill         Hubble Corner 
+##            0.05355994            0.10123595            0.10910432 
+##  Mineral Creek Pueblo       Rudd Creek Ruin       Techado Springs 
+##            0.08413746            0.07625776            0.08447282 
+##          Tri-R Pueblo                 UG481                 UG494 
+##            0.10895556            0.07774168            0.05405234 
+##               Atsinna               Cienega          Los Gigantes 
+##            0.13955196            0.30115914            0.30169689 
+##               Mirabal            Ojo Bonito Pueblo de los Muertos 
+##            0.28497508            0.26014833            0.22489789 
+##              Scribe S             Spier 170                Tinaja 
+##            0.24715956            0.24475384            0.29249400 
+##           Baca Pueblo          Garcia Ranch               Hinkson 
+##            0.02677487            0.13528182            0.20949749 
+##          Heshotauthla               Jarlosa       Pescado Cluster 
+##            0.27176745            0.16928366            0.30678791 
+##           Yellowhouse          Foote Canyon           Platt Ranch 
+##            0.18740871            0.05703852            0.07672358</code></pre>
+</div>
+<div id="page-rank-centrality" class="section level3" number="4.3.4">
+<h3><span class="header-section-number">4.3.4</span> Page Rank Centrality</h3>
+<p>The “igraph::page_rank” function can be calculated for simple networks with and without isolates, directed networks, and weighted networks. By default scores are scaled such that the maximum score is 1. You can turn this scaling off by using the “scale=FALSE” argument. This function automatically detects whether a network object is directed or weighted but you can also call edge attributes to specify a particular weight attribute. You can change the algorithm used to implement the page rank algorithm (see help for details) and can also change the damping factor if desired.</p>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="exploratory-network-analysis.html#cb123-1" aria-hidden="true" tabindex="-1"></a><span class="fu">page_rank</span>(directed_net, <span class="at">directed=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## $vector
+##          Coyote Creek       Techado Springs         Hubble Corner 
+##            0.01375364            0.03433734            0.02521968 
+##          Tri-R Pueblo          Heshotauthla Pueblo de los Muertos 
+##            0.04722743            0.01549665            0.02764172 
+##       Rudd Creek Ruin               Hinkson          Los Gigantes 
+##            0.02688472            0.01836421            0.01753448 
+##           Yellowhouse               Mirabal              Scribe S 
+##            0.14152350            0.02093896            0.03621715 
+##          Hooper Ranch               Cienega             Spier 170 
+##            0.01588291            0.01375364            0.03717403 
+##          Garcia Ranch       Pescado Cluster                 UG494 
+##            0.01654066            0.02484170            0.11486692 
+##                Tinaja  Mineral Creek Pueblo               Jarlosa 
+##            0.08069154            0.02587238            0.01519626 
+##       Horse Camp Mill          Foote Canyon          Casa Malpais 
+##            0.02259737            0.01226440            0.01375364 
+##           Platt Ranch          Apache Creek               Atsinna 
+##            0.01556097            0.01226440            0.01226440 
+##            Ojo Bonito                 UG481           Baca Pueblo 
+##            0.03372781            0.09534309            0.01226440 
+## 
+## $value
+## [1] 1
+## 
+## $options
+## NULL</code></pre>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="exploratory-network-analysis.html#cb125-1" aria-hidden="true" tabindex="-1"></a><span class="fu">page_rank</span>(weighted_net, <span class="at">weights=</span><span class="fu">E</span>(weighted_net)<span class="sc">$</span>weight, <span class="at">directed=</span><span class="cn">FALSE</span>, <span class="at">algo=</span><span class="st">&quot;prpack&quot;</span>)</span></code></pre></div>
+<pre><code>## $vector
+##          Apache Creek          Casa Malpais          Coyote Creek 
+##           0.033408370           0.037619401           0.029012546 
+##          Hooper Ranch       Horse Camp Mill         Hubble Corner 
+##           0.026100007           0.035514772           0.044908000 
+##  Mineral Creek Pueblo       Rudd Creek Ruin       Techado Springs 
+##           0.032792641           0.031475846           0.034442169 
+##          Tri-R Pueblo                 UG481                 UG494 
+##           0.042761060           0.031862128           0.024881892 
+##               Atsinna               Cienega          Los Gigantes 
+##           0.021022779           0.042391852           0.043870781 
+##               Mirabal            Ojo Bonito Pueblo de los Muertos 
+##           0.038954388           0.044079292           0.030274554 
+##              Scribe S             Spier 170                Tinaja 
+##           0.034530275           0.034699053           0.043523141 
+##           Baca Pueblo          Garcia Ranch               Hinkson 
+##           0.008406127           0.031427598           0.046735307 
+##          Heshotauthla               Jarlosa       Pescado Cluster 
+##           0.040758010           0.025200790           0.042215972 
+##           Yellowhouse          Foote Canyon           Platt Ranch 
+##           0.028800300           0.021398935           0.016932015 
+## 
+## $value
+## [1] 1
+## 
+## $options
+## NULL</code></pre>
+</div>
+<div id="closeness-centrality" class="section level3" number="4.3.5">
+<h3><span class="header-section-number">4.3.5</span> Closeness Centrality</h3>
+<p>The “igraph::closeness” function calculates closeness centrality and can be calculated for directed and undirected simple or weighted networks with no isolates. This function can also be used for networks with isolates, but you will receive an additional message suggesting that closeness is undefined for networks that are not fully connected. For very large networks you can use the “igraph::estimate_closeness” function with a cutoff setting that will consider paths of length up to cutoff to calculate closeness scores. For directed networks you can also specify whether connections in, out, or in both directions should be used.</p>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="exploratory-network-analysis.html#cb127-1" aria-hidden="true" tabindex="-1"></a>igraph<span class="sc">::</span><span class="fu">closeness</span>(simple_net)</span></code></pre></div>
+<pre><code>## Warning in igraph::closeness(simple_net): At centrality.c:2874 :closeness
+## centrality is not well-defined for disconnected graphs</code></pre>
+<pre><code>##          Apache.Creek               Atsinna           Baca.Pueblo 
+##           0.010101010           0.010101010           0.009345794 
+##          Casa.Malpais               Cienega          Coyote.Creek 
+##           0.011904762           0.012345679           0.011363636 
+##          Foote.Canyon          Garcia.Ranch          Heshotauthla 
+##           0.011235955           0.013157895           0.012658228 
+##               Hinkson          Hooper.Ranch       Horse.Camp.Mill 
+##           0.014084507           0.010101010           0.012048193 
+##         Hubble.Corner               Jarlosa          Los.Gigantes 
+##           0.012195122           0.012048193           0.010638298 
+##  Mineral.Creek.Pueblo               Mirabal            Ojo.Bonito 
+##           0.012048193           0.012345679           0.012658228 
+##       Pescado.Cluster           Platt.Ranch Pueblo.de.los.Muertos 
+##           0.010526316           0.011111111           0.010416667 
+##       Rudd.Creek.Ruin              Scribe.S             Spier.170 
+##           0.012048193           0.012500000           0.012345679 
+##       Techado.Springs                Tinaja          Tri.R.Pueblo 
+##           0.009900990           0.012658228           0.012195122 
+##                 UG481                 UG494              WS.Ranch 
+##           0.012345679           0.009615385           0.001075269 
+##           Yellowhouse 
+##           0.010309278</code></pre>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="exploratory-network-analysis.html#cb130-1" aria-hidden="true" tabindex="-1"></a>igraph<span class="sc">::</span><span class="fu">closeness</span>(simple_net_noiso)</span></code></pre></div>
+<pre><code>##          Apache Creek          Casa Malpais          Coyote Creek 
+##            0.01470588            0.01886792            0.01754386 
+##          Hooper Ranch       Horse Camp Mill         Hubble Corner 
+##            0.01470588            0.01923077            0.01960784 
+##  Mineral Creek Pueblo       Rudd Creek Ruin       Techado Springs 
+##            0.01923077            0.01923077            0.01428571 
+##          Tri-R Pueblo                 UG481                 UG494 
+##            0.01960784            0.02000000            0.01369863 
+##               Atsinna               Cienega          Los Gigantes 
+##            0.01470588            0.02000000            0.01587302 
+##               Mirabal            Ojo Bonito Pueblo de los Muertos 
+##            0.02000000            0.02083333            0.01538462 
+##              Scribe S             Spier 170                Tinaja 
+##            0.02040816            0.02000000            0.02083333 
+##           Baca Pueblo          Garcia Ranch               Hinkson 
+##            0.01315789            0.02222222            0.02500000 
+##          Heshotauthla               Jarlosa       Pescado Cluster 
+##            0.02083333            0.01923077            0.01562500 
+##           Yellowhouse          Foote Canyon           Platt Ranch 
+##            0.01515152            0.01724138            0.01694915</code></pre>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="exploratory-network-analysis.html#cb132-1" aria-hidden="true" tabindex="-1"></a>igraph<span class="sc">::</span><span class="fu">closeness</span>(weighted_net, <span class="at">weights=</span><span class="fu">E</span>(weighted_net)<span class="sc">$</span>weight)</span></code></pre></div>
+<pre><code>##          Apache Creek          Casa Malpais          Coyote Creek 
+##           0.010101010           0.012987013           0.012195122 
+##          Hooper Ranch       Horse Camp Mill         Hubble Corner 
+##           0.011111111           0.010638298           0.011904762 
+##  Mineral Creek Pueblo       Rudd Creek Ruin       Techado Springs 
+##           0.012987013           0.013888889           0.009615385 
+##          Tri-R Pueblo                 UG481                 UG494 
+##           0.011111111           0.012658228           0.007874016 
+##               Atsinna               Cienega          Los Gigantes 
+##           0.010869565           0.010416667           0.010752688 
+##               Mirabal            Ojo Bonito Pueblo de los Muertos 
+##           0.010989011           0.014492754           0.011363636 
+##              Scribe S             Spier 170                Tinaja 
+##           0.011627907           0.011764706           0.013333333 
+##           Baca Pueblo          Garcia Ranch               Hinkson 
+##           0.006535948           0.014925373           0.015151515 
+##          Heshotauthla               Jarlosa       Pescado Cluster 
+##           0.012987013           0.013698630           0.010101010 
+##           Yellowhouse          Foote Canyon           Platt Ranch 
+##           0.010869565           0.011627907           0.010526316</code></pre>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="exploratory-network-analysis.html#cb134-1" aria-hidden="true" tabindex="-1"></a>igraph<span class="sc">::</span><span class="fu">closeness</span>(directed_net, <span class="at">mode=</span><span class="st">&quot;in&quot;</span>)</span></code></pre></div>
+<pre><code>## Warning in igraph::closeness(directed_net, mode = &quot;in&quot;): At
+## centrality.c:2874 :closeness centrality is not well-defined for disconnected
+## graphs</code></pre>
+<pre><code>##          Coyote Creek       Techado Springs         Hubble Corner 
+##           0.001189061           0.001984127           0.001782531 
+##          Tri-R Pueblo          Heshotauthla Pueblo de los Muertos 
+##           0.002114165           0.001426534           0.001980198 
+##       Rudd Creek Ruin               Hinkson          Los Gigantes 
+##           0.001893939           0.001492537           0.001615509 
+##           Yellowhouse               Mirabal              Scribe S 
+##           0.003003003           0.001626016           0.002123142 
+##          Hooper Ranch               Cienega             Spier 170 
+##           0.001275510           0.001189061           0.002109705 
+##          Garcia Ranch       Pescado Cluster                 UG494 
+##           0.001275510           0.001976285           0.002531646 
+##                Tinaja  Mineral Creek Pueblo               Jarlosa 
+##           0.002583979           0.001890359           0.001545595 
+##       Horse Camp Mill          Foote Canyon          Casa Malpais 
+##           0.001709402           0.001149425           0.001189061 
+##           Platt Ranch          Apache Creek               Atsinna 
+##           0.001547988           0.001149425           0.001149425 
+##            Ojo Bonito                 UG481           Baca Pueblo 
+##           0.001886792           0.002409639           0.001149425</code></pre>
+</div>
+<div id="hubs-and-authorities" class="section level3" number="4.3.6">
+<h3><span class="header-section-number">4.3.6</span> Hubs and Authorities</h3>
+<p>In directed networks it is possible to calculate hub and authority scores to identify nodes that are characterized by high indegree and high outdegree in particular. Because this is a measure that depends on direction it is only appropriate for directed network objects. If you run this function for an undirected network hub scores and authority scores will be identical. These functions can also be applied networks that are both directed and weighted. If you do not want all options printed you can use the atomic vector $vector call as well.</p>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="exploratory-network-analysis.html#cb137-1" aria-hidden="true" tabindex="-1"></a>igraph<span class="sc">::</span><span class="fu">hub_score</span>(directed_net)<span class="sc">$</span>vector</span></code></pre></div>
+<pre><code>##          Coyote Creek       Techado Springs         Hubble Corner 
+##           0.319987436           0.122658318           0.307404093 
+##          Tri-R Pueblo          Heshotauthla Pueblo de los Muertos 
+##           0.084507972           1.000000000           0.122816074 
+##       Rudd Creek Ruin               Hinkson          Los Gigantes 
+##           0.166019620           0.643450794           0.554451472 
+##           Yellowhouse               Mirabal              Scribe S 
+##           0.000000000           0.748983983           0.241641653 
+##          Hooper Ranch               Cienega             Spier 170 
+##           0.414687961           0.628845892           0.241641653 
+##          Garcia Ranch       Pescado Cluster                 UG494 
+##           0.676530960           0.501275171           0.000000000 
+##                Tinaja  Mineral Creek Pueblo               Jarlosa 
+##           0.118825579           0.074972539           0.476521878 
+##       Horse Camp Mill          Foote Canyon          Casa Malpais 
+##           0.204246560           0.191774909           0.359129249 
+##           Platt Ranch          Apache Creek               Atsinna 
+##           0.118825579           0.277582949           0.624799840 
+##            Ojo Bonito                 UG481           Baca Pueblo 
+##           0.417189057           0.009535434           0.090153273</code></pre>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="exploratory-network-analysis.html#cb139-1" aria-hidden="true" tabindex="-1"></a>igraph<span class="sc">::</span><span class="fu">authority_score</span>(directed_net)<span class="sc">$</span>vector</span></code></pre></div>
+<pre><code>##          Coyote Creek       Techado Springs         Hubble Corner 
+##            0.05372558            0.32708203            0.28835263 
+##          Tri-R Pueblo          Heshotauthla Pueblo de los Muertos 
+##            0.35970234            0.25265287            0.64749966 
+##       Rudd Creek Ruin               Hinkson          Los Gigantes 
+##            0.58040612            0.51570940            0.40670628 
+##           Yellowhouse               Mirabal              Scribe S 
+##            0.89632254            0.65295655            1.00000000 
+##          Hooper Ranch               Cienega             Spier 170 
+##            0.13144157            0.12092866            0.95846193 
+##          Garcia Ranch       Pescado Cluster                 UG494 
+##            0.10662631            0.54096988            0.07192748 
+##                Tinaja  Mineral Creek Pueblo               Jarlosa 
+##            0.92642355            0.48608217            0.31808635 
+##       Horse Camp Mill          Foote Canyon          Casa Malpais 
+##            0.52090872            0.00000000            0.05372558 
+##           Platt Ranch          Apache Creek               Atsinna 
+##            0.25547962            0.00000000            0.00000000 
+##            Ojo Bonito                 UG481           Baca Pueblo 
+##            0.68004222            0.56553123            0.00000000</code></pre>
+</div>
+</div>
+<div id="triads-and-clustering" class="section level2" number="4.4">
+<h2><span class="header-section-number">4.4</span> Triads and clustering</h2>
+<p>Another important topic in network science concerns considerations of the overall structure and clustering of connections across a network as a whole. There are a variety of methods which have been developed to characterize the overall degree of clustering and closure in networks, many of which are based on counting triads of various configurations. In this section, we briefly outline approaches toward evaluating triads, transitivity, and clustering in R.</p>
+<div id="triads" class="section level3" number="4.4.1">
+<h3><span class="header-section-number">4.4.1</span> Triads</h3>
+<p>A triad is simply a set of three nodes and a description of the configuration of edges among them. For undirected graphs, there are four possibilities for describing the connections among those nodes (empty graph, 1 connection, 2 connections, 3 connections). For directed graphs the situation is considerably more complicated because ties can be considered in both directions and an edge in one direction isn’t necessarily reciprocated. Thus there are 16 different configurations that can exist (see Brughmans and Peeples 2022: Figure 4.4).</p>
+<p>One common method for outlining the overall structural properties of a network is to conduct a “triad census” which counts each of the 4 or 16 possible triads for a given network. Although a triad census can be conducted on an undirected network using the igraph::triad_census function, a warning will be returned along with 0 results for all impossible triad configurations so be aware. The results are returned as a vector of counts of each possible node configuration in an order outlined in the help document associated with the function (see ?triad_census for more).</p>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="exploratory-network-analysis.html#cb141-1" aria-hidden="true" tabindex="-1"></a>igraph<span class="sc">::</span><span class="fu">triad_census</span>(directed_net)</span></code></pre></div>
+<pre><code>##  [1] 1404 2007    0  134  146  174    0    0  195    0    0    0    0    0    0
+## [16]    0</code></pre>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="exploratory-network-analysis.html#cb143-1" aria-hidden="true" tabindex="-1"></a>igraph<span class="sc">::</span><span class="fu">triad_census</span>(simple_net)</span></code></pre></div>
+<pre><code>## Warning in igraph::triad_census(simple_net): At motifs.c:1055 :Triad census
+## called on an undirected graph</code></pre>
+<pre><code>##  [1] 1033    0 2551    0    0    0    0    0    0    0  441    0    0    0    0
+## [16]  470</code></pre>
+<p>Often can be useful to visualize the motifs defined for each entry in the triad census and this can be done using the “graph_from_isomorphism_class()” function and a little bit of additional data wrangling and plotting using the ggraph and ggpubr packages. These packages are described in more detail in the visualization section of this appendix.</p>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="exploratory-network-analysis.html#cb146-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggraph)</span>
+<span id="cb146-2"><a href="exploratory-network-analysis.html#cb146-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpubr)</span>
+<span id="cb146-3"><a href="exploratory-network-analysis.html#cb146-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb146-4"><a href="exploratory-network-analysis.html#cb146-4" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb146-5"><a href="exploratory-network-analysis.html#cb146-5" aria-hidden="true" tabindex="-1"></a>xy <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>),<span class="at">nrow=</span><span class="dv">3</span>,<span class="at">ncol=</span><span class="dv">2</span>,<span class="at">byrow=</span>T))</span>
+<span id="cb146-6"><a href="exploratory-network-analysis.html#cb146-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb146-7"><a href="exploratory-network-analysis.html#cb146-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">15</span>) {</span>
+<span id="cb146-8"><a href="exploratory-network-analysis.html#cb146-8" aria-hidden="true" tabindex="-1"></a>  g_temp <span class="ot">&lt;-</span> <span class="fu">graph_from_isomorphism_class</span>(<span class="at">size=</span><span class="dv">3</span>, <span class="at">number=</span>i, <span class="at">directed=</span>T)</span>
+<span id="cb146-9"><a href="exploratory-network-analysis.html#cb146-9" aria-hidden="true" tabindex="-1"></a>  g[[i<span class="sc">+</span><span class="dv">1</span>]] <span class="ot">&lt;-</span> <span class="fu">ggraph</span>(g_temp, <span class="at">layout=</span><span class="st">&quot;manual&quot;</span>,</span>
+<span id="cb146-10"><a href="exploratory-network-analysis.html#cb146-10" aria-hidden="true" tabindex="-1"></a>                     <span class="at">x=</span>xy[,<span class="dv">1</span>], <span class="at">y=</span>xy[,<span class="dv">2</span>]) <span class="sc">+</span></span>
+<span id="cb146-11"><a href="exploratory-network-analysis.html#cb146-11" aria-hidden="true" tabindex="-1"></a>                <span class="fu">geom_node_point</span>(<span class="at">size=</span><span class="dv">8</span>,<span class="at">col=</span><span class="st">&quot;purple&quot;</span>) <span class="sc">+</span></span>
+<span id="cb146-12"><a href="exploratory-network-analysis.html#cb146-12" aria-hidden="true" tabindex="-1"></a>                <span class="fu">geom_edge_fan</span>(<span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="dv">4</span>, <span class="st">&#39;mm&#39;</span>), <span class="at">type=</span><span class="st">&quot;closed&quot;</span>),</span>
+<span id="cb146-13"><a href="exploratory-network-analysis.html#cb146-13" aria-hidden="true" tabindex="-1"></a>                 <span class="at">end_cap =</span> <span class="fu">circle</span>(<span class="dv">6</span>, <span class="st">&#39;mm&#39;</span>), <span class="at">start_cap =</span> <span class="fu">circle</span>(<span class="dv">6</span>, <span class="st">&#39;mm&#39;</span>), </span>
+<span id="cb146-14"><a href="exploratory-network-analysis.html#cb146-14" aria-hidden="true" tabindex="-1"></a>                 <span class="at">edge_colour =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb146-15"><a href="exploratory-network-analysis.html#cb146-15" aria-hidden="true" tabindex="-1"></a>                <span class="fu">theme_graph</span>(<span class="at">plot_margin =</span> <span class="fu">margin</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>),<span class="at">border=</span>T,<span class="at">foreground=</span><span class="st">&quot;black&quot;</span>)</span>
+<span id="cb146-16"><a href="exploratory-network-analysis.html#cb146-16" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb146-17"><a href="exploratory-network-analysis.html#cb146-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb146-18"><a href="exploratory-network-analysis.html#cb146-18" aria-hidden="true" tabindex="-1"></a><span class="co"># motifs ordered by order in triad_census function</span></span>
+<span id="cb146-19"><a href="exploratory-network-analysis.html#cb146-19" aria-hidden="true" tabindex="-1"></a><span class="fu">ggarrange</span>(g[[<span class="dv">1</span>]],g[[<span class="dv">2</span>]],g[[<span class="dv">4</span>]],g[[<span class="dv">7</span>]],</span>
+<span id="cb146-20"><a href="exploratory-network-analysis.html#cb146-20" aria-hidden="true" tabindex="-1"></a>          g[[<span class="dv">3</span>]],g[[<span class="dv">5</span>]],g[[<span class="dv">6</span>]],g[[<span class="dv">10</span>]],</span>
+<span id="cb146-21"><a href="exploratory-network-analysis.html#cb146-21" aria-hidden="true" tabindex="-1"></a>          g[[<span class="dv">8</span>]],g[[<span class="dv">12</span>]],g[[<span class="dv">11</span>]],g[[<span class="dv">9</span>]],</span>
+<span id="cb146-22"><a href="exploratory-network-analysis.html#cb146-22" aria-hidden="true" tabindex="-1"></a>          g[[<span class="dv">13</span>]],g[[<span class="dv">14</span>]],g[[<span class="dv">15</span>]],g[[<span class="dv">16</span>]],</span>
+<span id="cb146-23"><a href="exploratory-network-analysis.html#cb146-23" aria-hidden="true" tabindex="-1"></a>          <span class="at">nrow=</span><span class="dv">4</span>, <span class="at">ncol=</span><span class="dv">4</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-38-1.png" width="1152" /></p>
+</div>
+<div id="transitivity-and-clustering" class="section level3" number="4.4.2">
+<h3><span class="header-section-number">4.4.2</span> Transitivity and Clustering</h3>
+<p>A network’s global average transitivity (or clustering coefficient) is the number of closed triads over the total number of triads in a network. This measure can be calculated using “igraph::transitivity” for simple networks with or without isolates, directed networks, and weighted networks. There are options within the function to determine the specific type of transitivity (global transitivity is the default) and for how to treat isolates. See the help document (?igraph::transitivity) for more details. If you want to calculate local transitivity for a particular node you can use the “type=‘local’” argument. This will return a NA value for nodes that are not part of any triads (isolates and nodes with a single connection).</p>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="exploratory-network-analysis.html#cb147-1" aria-hidden="true" tabindex="-1"></a>igraph<span class="sc">::</span><span class="fu">transitivity</span>(simple_net, <span class="at">type=</span><span class="st">&quot;global&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] 0.7617504</code></pre>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="exploratory-network-analysis.html#cb149-1" aria-hidden="true" tabindex="-1"></a>igraph<span class="sc">::</span><span class="fu">transitivity</span>(simple_net, <span class="at">type=</span><span class="st">&quot;local&quot;</span>)</span></code></pre></div>
+<pre><code>##  [1] 0.8727273 1.0000000       NaN 0.8363636 0.8333333 0.8727273 0.8666667
+##  [8] 0.4358974 0.7252747 0.4183007 0.8727273 0.8333333 0.7435897 0.8000000
+## [15] 0.8787879 0.7272727 0.8333333 0.6703297 0.9272727 0.7000000 0.9555556
+## [22] 0.8333333 0.7692308 0.8333333 1.0000000 0.7582418 0.7435897 0.7142857
+## [29] 1.0000000       NaN 0.8222222</code></pre>
+</div>
+</div>
+<div id="walks-paths-and-distance" class="section level2" number="4.5">
+<h2><span class="header-section-number">4.5</span> Walks, Paths, and Distance</h2>
+<p>There are a variety of network metrics which rely on distance and paths across networks that can be calculated in R. There are a great many functions available and we highlight just a few here.</p>
+<div id="distance" class="section level3" number="4.5.1">
+<h3><span class="header-section-number">4.5.1</span> Distance</h3>
+<p>In some cases, you may simply want information about the graph distance between nodes in general or perhaps the average distance. There are a variety of functions that can help with this including “igraph::distances” and “igraph::mean_distance.” These work on simple networks, directed networks, and weighted networks.</p>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="exploratory-network-analysis.html#cb151-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create matrix of all distances among nodes and view the first few rows and columns</span></span>
+<span id="cb151-2"><a href="exploratory-network-analysis.html#cb151-2" aria-hidden="true" tabindex="-1"></a>igraph<span class="sc">::</span><span class="fu">distances</span>(simple_net)[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]</span></code></pre></div>
+<pre><code>##              Apache.Creek Atsinna Baca.Pueblo Casa.Malpais
+## Apache.Creek            0       4           4            1
+## Atsinna                 4       0           2            3
+## Baca.Pueblo             4       2           0            3
+## Casa.Malpais            1       3           3            0</code></pre>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="exploratory-network-analysis.html#cb153-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the mean distance for a network</span></span>
+<span id="cb153-2"><a href="exploratory-network-analysis.html#cb153-2" aria-hidden="true" tabindex="-1"></a>igraph<span class="sc">::</span><span class="fu">mean_distance</span>(simple_net)</span></code></pre></div>
+<pre><code>## [1] 1.949425</code></pre>
+</div>
+<div id="shortest-paths" class="section level3" number="4.5.2">
+<h3><span class="header-section-number">4.5.2</span> Shortest Paths</h3>
+<p>If you want to identify particular shortest paths to or from nodes in a network you can use the “igraph::shortest_paths” function or alternatively the igraph::all_shortest_paths if you want all shortest paths originating at a particular node. To call this function you simply need to provide a network object and an id for the origin and destination of the path. The simplest solution is just to call the node number. This function works with directed and undirected networks with or without weights. Although it can be applied to networks with isolates, the isolates themselves will produce NA results.</p>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="exploratory-network-analysis.html#cb155-1" aria-hidden="true" tabindex="-1"></a><span class="co"># track shortest path from Apache Creek to Pueblo de los Muertos</span></span>
+<span id="cb155-2"><a href="exploratory-network-analysis.html#cb155-2" aria-hidden="true" tabindex="-1"></a>igraph<span class="sc">::</span><span class="fu">shortest_paths</span>(simple_net, <span class="at">from=</span><span class="dv">1</span>, <span class="at">to=</span><span class="dv">21</span>)</span></code></pre></div>
+<pre><code>## $vpath
+## $vpath[[1]]
+## + 5/31 vertices, named, from 6ba47dd:
+## [1] Apache.Creek          Casa.Malpais          Garcia.Ranch         
+## [4] Heshotauthla          Pueblo.de.los.Muertos
+## 
+## 
+## $epath
+## NULL
+## 
+## $predecessors
+## NULL
+## 
+## $inbound_edges
+## NULL</code></pre>
+<p>The output provides the ids for all nodes crossed in the path from origin to destination.</p>
+</div>
+<div id="diameter" class="section level3" number="4.5.3">
+<h3><span class="header-section-number">4.5.3</span> Diameter</h3>
+<p>The “igraph::diameter” function calculates the diameter of a network (the longest shortest path) and you can also use the “farthest_vertices” function to get the ids of the nodes that form the ends of that longest shortest path. This metric can be calculated for directed and undirected, weighted and unweighted networks, with or without isolates.</p>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="exploratory-network-analysis.html#cb157-1" aria-hidden="true" tabindex="-1"></a>igraph<span class="sc">::</span><span class="fu">diameter</span>(directed_net, <span class="at">directed=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## [1] 4</code></pre>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="exploratory-network-analysis.html#cb159-1" aria-hidden="true" tabindex="-1"></a>igraph<span class="sc">::</span><span class="fu">farthest_vertices</span>(directed_net, <span class="at">directed=</span>T)</span></code></pre></div>
+<pre><code>## $vertices
+## + 2/30 vertices, named, from 6ba5687:
+## [1] Apache Creek          Pueblo de los Muertos
+## 
+## $distance
+## [1] 4</code></pre>
+</div>
+</div>
+<div id="components-and-bridges" class="section level2" number="4.6">
+<h2><span class="header-section-number">4.6</span> Components and Bridges</h2>
+<p>Identifying fully connected subgraphs within a large network is a common analytical procedure and is quite straight forward in R using the igraph package. If you first want to know whether or not a given network is fully connected you can use the “igraph::is_connected” function to check.</p>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="exploratory-network-analysis.html#cb161-1" aria-hidden="true" tabindex="-1"></a>igraph<span class="sc">::</span><span class="fu">is_connected</span>(simple_net)</span></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="exploratory-network-analysis.html#cb163-1" aria-hidden="true" tabindex="-1"></a>igraph<span class="sc">::</span><span class="fu">is_connected</span>(simple_net_noiso)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p>You can also count components using the “count_components” function.</p>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="exploratory-network-analysis.html#cb165-1" aria-hidden="true" tabindex="-1"></a>igraph<span class="sc">::</span><span class="fu">count_components</span>(simple_net)</span></code></pre></div>
+<pre><code>## [1] 2</code></pre>
+<div id="identifying-components" class="section level3" number="4.6.1">
+<h3><span class="header-section-number">4.6.1</span> Identifying Components</h3>
+<p>If you want to decompose a network object into its distinct components you can use the “igraph::decompose” function which outputs a list object with each entry representing a distinct component. Each object in the list can then be called using [[k]] where k is the number of the item in the list.</p>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="exploratory-network-analysis.html#cb167-1" aria-hidden="true" tabindex="-1"></a>components <span class="ot">&lt;-</span> igraph<span class="sc">::</span><span class="fu">decompose</span>(simple_net, <span class="at">min.vertices =</span> <span class="dv">1</span>)</span>
+<span id="cb167-2"><a href="exploratory-network-analysis.html#cb167-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb167-3"><a href="exploratory-network-analysis.html#cb167-3" aria-hidden="true" tabindex="-1"></a>components</span></code></pre></div>
+<pre><code>## [[1]]
+## IGRAPH 6debace UN-- 30 167 -- 
+## + attr: name (v/c)
+## + edges from 6debace (vertex names):
+##  [1] Apache.Creek--Casa.Malpais          Apache.Creek--Coyote.Creek         
+##  [3] Apache.Creek--Hooper.Ranch          Apache.Creek--Horse.Camp.Mill      
+##  [5] Apache.Creek--Hubble.Corner         Apache.Creek--Mineral.Creek.Pueblo 
+##  [7] Apache.Creek--Rudd.Creek.Ruin       Apache.Creek--Techado.Springs      
+##  [9] Apache.Creek--Tri.R.Pueblo          Apache.Creek--UG481                
+## [11] Apache.Creek--UG494                 Atsinna     --Cienega              
+## [13] Atsinna     --Los.Gigantes          Atsinna     --Mirabal              
+## [15] Atsinna     --Ojo.Bonito            Atsinna     --Pueblo.de.los.Muertos
+## + ... omitted several edges
+## 
+## [[2]]
+## IGRAPH 6debace UN-- 1 0 -- 
+## + attr: name (v/c)
+## + edges from 6debace (vertex names):</code></pre>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="exploratory-network-analysis.html#cb169-1" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(components[[<span class="dv">2</span>]])<span class="sc">$</span>name</span></code></pre></div>
+<pre><code>## [1] &quot;WS.Ranch&quot;</code></pre>
+<p>In the example here this network is fully connected with the exception of 1 node (WS Ranch). When you run the decompose function it separates WS ranch into a component as an isolate with no edges.</p>
+</div>
+<div id="cutpoints" class="section level3" number="4.6.2">
+<h3><span class="header-section-number">4.6.2</span> Cutpoints</h3>
+<p>A cutpoint is a node, the removal which creates a network with a higher number of components. There is not a convenient igraph function for identifying cutpoints but there is a function in the “sna” package within the “statnet” suite. Using the intergraph package we can easily convert an igraph object to an sna object (using the asNetwork function) within the call to use this function.</p>
+<p>The sna::cutpoint function returns the node id for any cutpoints detected. We can use the numbers returned to find the name of the node in question.</p>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="exploratory-network-analysis.html#cb171-1" aria-hidden="true" tabindex="-1"></a>cut_p <span class="ot">&lt;-</span> <span class="fu">cutpoints</span>(<span class="fu">asNetwork</span>(simple_net))</span>
+<span id="cb171-2"><a href="exploratory-network-analysis.html#cb171-2" aria-hidden="true" tabindex="-1"></a>cut_p</span></code></pre></div>
+<pre><code>## [1] 18</code></pre>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="exploratory-network-analysis.html#cb173-1" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(simple_net)<span class="sc">$</span>name[cut_p]</span></code></pre></div>
+<pre><code>## [1] &quot;Ojo.Bonito&quot;</code></pre>
+<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="exploratory-network-analysis.html#cb175-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">4536</span>)</span>
+<span id="cb175-2"><a href="exploratory-network-analysis.html#cb175-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(simple_net)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-46-1.png" width="672" /></p>
+<p>The example here reveals that Ojo Bonito is a cutpoint and if we look at the figure we can see that it is the sole connection with Baca Pueblo which would otherwise become and isolate and distinct component if Ojo Bonito were removed.</p>
+</div>
+<div id="bridges" class="section level3" number="4.6.3">
+<h3><span class="header-section-number">4.6.3</span> Bridges</h3>
+<p>A bridge is an edge, the removal of which results in a network with a higher number of components. The function igraph::min_cut finds bridges in network objects for sets of nodes or for the graph as a whole. The output of this function includes a vector called $cut which provides the edges representing bridges. By default this function only outputs the cut value but you can use the argument value.only=FALSE to get the full output.</p>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="exploratory-network-analysis.html#cb176-1" aria-hidden="true" tabindex="-1"></a><span class="fu">min_cut</span>(simple_net_noiso,<span class="at">value.only=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>## $value
+## [1] 1
+## 
+## $cut
+## + 1/167 edge from 6ba4a50 (vertex names):
+## [1] Ojo Bonito--Baca Pueblo
+## 
+## $partition1
+## + 1/30 vertex, named, from 6ba4a50:
+## [1] Baca Pueblo
+## 
+## $partition2
+## + 29/30 vertices, named, from 6ba4a50:
+##  [1] Apache Creek          Casa Malpais          Coyote Creek         
+##  [4] Hooper Ranch          Horse Camp Mill       Hubble Corner        
+##  [7] Mineral Creek Pueblo  Rudd Creek Ruin       Techado Springs      
+## [10] Tri-R Pueblo          UG481                 UG494                
+## [13] Atsinna               Cienega               Los Gigantes         
+## [16] Mirabal               Ojo Bonito            Pueblo de los Muertos
+## [19] Scribe S              Spier 170             Tinaja               
+## [22] Garcia Ranch          Hinkson               Heshotauthla         
+## [25] Jarlosa               Pescado Cluster       Yellowhouse          
+## [28] Foote Canyon          Platt Ranch</code></pre>
+<p>As this example illustrates the edge between Ojo Bonito and Baca Pueblo is a bridge (perhaps not surprising as Ojo Bonito was a cut point).</p>
+</div>
+</div>
+<div id="cliques-and-communities" class="section level2" number="4.7">
+<h2><span class="header-section-number">4.7</span> Cliques and Communities</h2>
+<p>Another very common task in network analysis involves creating cohesive sub-groups of nodes in a larger network. There are wide variety of methods available for defining such groups and we highlight a few of the most common here.</p>
+<div id="cliques" class="section level3" number="4.7.1">
+<h3><span class="header-section-number">4.7.1</span> Cliques</h3>
+<p>A clique as a network science concept is arguably the strictest method of defining a cohesive subgroup. It is any set of three or more nodes in which each node is directly connected to all other nodes. It can be alternatively defined as a completely connected subnetwork, or a subnetwork with maximum density. The function “igraph::max_cliques” finds all maximal cliques in a network and outputs a list object with nodes in each set indicated. For the sake of space here we only output one clique of the 24 that were defined by this function call.</p>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="exploratory-network-analysis.html#cb178-1" aria-hidden="true" tabindex="-1"></a><span class="fu">max_cliques</span>(simple_net, <span class="at">min=</span><span class="dv">1</span>)[[<span class="dv">24</span>]]</span></code></pre></div>
+<pre><code>## + 9/31 vertices, named, from 6ba47dd:
+## [1] Los.Gigantes    Cienega         Tinaja          Spier.170      
+## [5] Scribe.S        Pescado.Cluster Mirabal         Heshotauthla   
+## [9] Yellowhouse</code></pre>
+<p>Note in this list that the same node can appear in more than one maximal clique.</p>
+</div>
+<div id="k-cores" class="section level3" number="4.7.2">
+<h3><span class="header-section-number">4.7.2</span> K-cores</h3>
+<p>A k-core is a maximal subnetwork in which each vertex has at least degree k within the subnetwork. In R this can be obtained using the “igraph::coreness” function and the filtering by value as appropriate. This function creates a vector of k values which can then be used to remove nodes as appropriate or symbolize them in plots.</p>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="exploratory-network-analysis.html#cb180-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define coreness of each node</span></span>
+<span id="cb180-2"><a href="exploratory-network-analysis.html#cb180-2" aria-hidden="true" tabindex="-1"></a>kcore <span class="ot">&lt;-</span> <span class="fu">coreness</span>(simple_net)</span>
+<span id="cb180-3"><a href="exploratory-network-analysis.html#cb180-3" aria-hidden="true" tabindex="-1"></a>kcore</span></code></pre></div>
+<pre><code>##          Apache.Creek               Atsinna           Baca.Pueblo 
+##                     9                     8                     1 
+##          Casa.Malpais               Cienega          Coyote.Creek 
+##                     9                     9                     9 
+##          Foote.Canyon          Garcia.Ranch          Heshotauthla 
+##                     6                     9                     9 
+##               Hinkson          Hooper.Ranch       Horse.Camp.Mill 
+##                     9                     9                     9 
+##         Hubble.Corner               Jarlosa          Los.Gigantes 
+##                     9                     9                     9 
+##  Mineral.Creek.Pueblo               Mirabal            Ojo.Bonito 
+##                     9                     9                     9 
+##       Pescado.Cluster           Platt.Ranch Pueblo.de.los.Muertos 
+##                     9                     5                     9 
+##       Rudd.Creek.Ruin              Scribe.S             Spier.170 
+##                     9                     9                     9 
+##       Techado.Springs                Tinaja          Tri.R.Pueblo 
+##                     9                     9                     9 
+##                 UG481                 UG494              WS.Ranch 
+##                     9                     6                     0 
+##           Yellowhouse 
+##                     9</code></pre>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="exploratory-network-analysis.html#cb182-1" aria-hidden="true" tabindex="-1"></a><span class="co"># set up colorscale</span></span>
+<span id="cb182-2"><a href="exploratory-network-analysis.html#cb182-2" aria-hidden="true" tabindex="-1"></a>col_set <span class="ot">&lt;-</span> <span class="fu">heat.colors</span>(<span class="fu">max</span>(kcore), <span class="at">rev=</span><span class="cn">TRUE</span>)</span>
+<span id="cb182-3"><a href="exploratory-network-analysis.html#cb182-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2509</span>)</span>
+<span id="cb182-4"><a href="exploratory-network-analysis.html#cb182-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(simple_net, <span class="at">vertex.color=</span>col_set[kcore])</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-49-1.png" width="672" /></p>
+<p>In the plot shown here the darker read colors represent higher maximal k-core values.</p>
+</div>
+<div id="cluster-detection-algorithms" class="section level3" number="4.7.3">
+<h3><span class="header-section-number">4.7.3</span> Cluster Detection Algorithms</h3>
+<p>R allows you to use a variety of common cluster detection algorithms to define groups of nodes in a network using a variety of different assumptions. We highlight a few of the most common here.</p>
+<div id="girvan-newman-clustering" class="section level4" number="4.7.3.1">
+<h4><span class="header-section-number">4.7.3.1</span> Girvan-Newman Clustering</h4>
+<p>Girvan-Newman clustering is a divisive algorithm based on betweenness that defines a partition of network that maximizes modularity by removing nodes with high betweenness iteratively (see discussion in Brughmans and Peeples 2022 Chapter 4.6). In R this is referred to as the igraph::edge.betweenness.community function. This function can be used on directed or undirected networks with or without edge weights. This function outputs a variety of information including individual edge betweenness scores, modularity information, and partition membership. See the help documents for more information</p>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="exploratory-network-analysis.html#cb183-1" aria-hidden="true" tabindex="-1"></a>GN <span class="ot">&lt;-</span> igraph<span class="sc">::</span><span class="fu">edge.betweenness.community</span>(simple_net)</span>
+<span id="cb183-2"><a href="exploratory-network-analysis.html#cb183-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">4353</span>)</span>
+<span id="cb183-3"><a href="exploratory-network-analysis.html#cb183-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(simple_net, <span class="at">vertex.color=</span>GN<span class="sc">$</span>membership)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-50-1.png" width="672" /></p>
+</div>
+<div id="walktrap-algorithm" class="section level4" number="4.7.3.2">
+<h4><span class="header-section-number">4.7.3.2</span> Walktrap Algorithm</h4>
+<p>The walktrap algorithm is designed to work for either binary or weighted networks and defines communities by generating a large number of short random walks and determining which sets of nodes consistently fall along the same short random walks. This can called using the “igraph::cluster_walktrap” function. The “steps” argument determines the length of the short walks and is set to 4 by default.</p>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="exploratory-network-analysis.html#cb184-1" aria-hidden="true" tabindex="-1"></a>WT <span class="ot">&lt;-</span> igraph<span class="sc">::</span><span class="fu">cluster_walktrap</span>(simple_net, <span class="at">steps=</span><span class="dv">4</span>)</span>
+<span id="cb184-2"><a href="exploratory-network-analysis.html#cb184-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">4353</span>)</span>
+<span id="cb184-3"><a href="exploratory-network-analysis.html#cb184-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(simple_net, <span class="at">vertex.color=</span>WT<span class="sc">$</span>membership)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-51-1.png" width="672" /></p>
+</div>
+<div id="louvain-modularity" class="section level4" number="4.7.3.3">
+<h4><span class="header-section-number">4.7.3.3</span> Louvain Modularity</h4>
+<p>Louvain modularity is a cluster detection algorithm based on modularity. The algorithm iteratively moves nodes among community definitions in a way that optimizes modularity. This measure can be calculated on simple networks, directed networks, and weighted networks and is implemented in R through the “igraph::cluster_louvain” function.</p>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="exploratory-network-analysis.html#cb185-1" aria-hidden="true" tabindex="-1"></a>LV <span class="ot">&lt;-</span> igraph<span class="sc">::</span><span class="fu">cluster_louvain</span>(simple_net)</span>
+<span id="cb185-2"><a href="exploratory-network-analysis.html#cb185-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">4353</span>)</span>
+<span id="cb185-3"><a href="exploratory-network-analysis.html#cb185-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(simple_net, <span class="at">vertex.color=</span>LV<span class="sc">$</span>membership)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-52-1.png" width="672" /></p>
+</div>
+<div id="calculating-modularity-for-partitions" class="section level4" number="4.7.3.4">
+<h4><span class="header-section-number">4.7.3.4</span> Calculating Modularity for Partitions</h4>
+<p>If you would like to compare modularity scores among partitions of the same graph, this can be achieved using the “igraph::modularity” function. In the modularity call you simply supply an argument indicating the partition membership for each node. Note that this can also be used for attribute data such as regional designations. In the following chunk of code we will compare modularity for each of the clustering methods described above as well using subregion designations <a href="data/Cibola_attr.csv">from the original Cibola region attribute data</a></p>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="exploratory-network-analysis.html#cb186-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Modularity for Girvan-Newman</span></span>
+<span id="cb186-2"><a href="exploratory-network-analysis.html#cb186-2" aria-hidden="true" tabindex="-1"></a><span class="fu">modularity</span>(simple_net, <span class="at">membership=</span><span class="fu">membership</span>(GN))</span></code></pre></div>
+<pre><code>## [1] 0.4103589</code></pre>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="exploratory-network-analysis.html#cb188-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Modularity for walktrap</span></span>
+<span id="cb188-2"><a href="exploratory-network-analysis.html#cb188-2" aria-hidden="true" tabindex="-1"></a><span class="fu">modularity</span>(simple_net, <span class="at">membership=</span><span class="fu">membership</span>(WT))</span></code></pre></div>
+<pre><code>## [1] 0.4157195</code></pre>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="exploratory-network-analysis.html#cb190-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Modularity for Louvain clustering</span></span>
+<span id="cb190-2"><a href="exploratory-network-analysis.html#cb190-2" aria-hidden="true" tabindex="-1"></a><span class="fu">modularity</span>(simple_net, <span class="at">membership=</span><span class="fu">membership</span>(LV))</span></code></pre></div>
+<pre><code>## [1] 0.4131378</code></pre>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="exploratory-network-analysis.html#cb192-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Modularity for subregion</span></span>
+<span id="cb192-2"><a href="exploratory-network-analysis.html#cb192-2" aria-hidden="true" tabindex="-1"></a>Cibola_attr <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/Cibola_attr.csv&quot;</span>)</span>
+<span id="cb192-3"><a href="exploratory-network-analysis.html#cb192-3" aria-hidden="true" tabindex="-1"></a><span class="fu">modularity</span>(simple_net, <span class="at">membership=</span><span class="fu">as.factor</span>(Cibola_attr<span class="sc">$</span>Region))</span></code></pre></div>
+<pre><code>## [1] 0.1325612</code></pre>
+<p>Note that although modularity can be useful in comparing among partitions like this approach has been shown to be poor at detecting small communities within a network so will not always be appropriate.</p>
+</div>
+<div id="finding-edges-within-and-between-communities" class="section level4" number="4.7.3.5">
+<h4><span class="header-section-number">4.7.3.5</span> Finding Edges Within and Between Communities</h4>
+<p>In many cases you may be interested in identifying edges that remain within or extend between some network partition. This can be done using the “igraph::crossing” function. This function expects a igraph cluster definition object and an igraph network and will return a list of true and false values for each edge where true indicates an edge that extends beyond the cluster assigned to the nodes. Let’s take a look at the first 10 edges in our simple_net object based on the Louvain cluster definition.</p>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="exploratory-network-analysis.html#cb194-1" aria-hidden="true" tabindex="-1"></a>igraph<span class="sc">::</span><span class="fu">crossing</span>(LV, simple_net)[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code></pre></div>
+<pre><code>##         Apache.Creek|Casa.Malpais         Apache.Creek|Coyote.Creek 
+##                             FALSE                             FALSE 
+##         Apache.Creek|Hooper.Ranch      Apache.Creek|Horse.Camp.Mill 
+##                             FALSE                             FALSE 
+##        Apache.Creek|Hubble.Corner Apache.Creek|Mineral.Creek.Pueblo 
+##                             FALSE                             FALSE 
+##      Apache.Creek|Rudd.Creek.Ruin      Apache.Creek|Techado.Springs 
+##                             FALSE                             FALSE 
+##         Apache.Creek|Tri.R.Pueblo                Apache.Creek|UG481 
+##                             FALSE                             FALSE</code></pre>
+<p>Beyond this, if you plot an igraph object and add a cluster definition to the call it will produce a network graph with the clusters outlined and with nodes that extend between clusters shown in red.</p>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="exploratory-network-analysis.html#cb196-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">54</span>)</span>
+<span id="cb196-2"><a href="exploratory-network-analysis.html#cb196-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(LV, simple_net)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-55-1.png" width="672" /></p>
+</div>
+</div>
+</div>
+<div id="case-study" class="section level2" number="4.8">
+<h2><span class="header-section-number">4.8</span> Case Study</h2>
+<p>In the case study provided at the end of Chapter 4 of Brughmans and Peeples (2022) we take a simple network based on Roman era roads and spatial proximity of settlements in the Iberian Peninsula and calculate some basic exploratory network statistics. As described in the book, we can create different definitions and criteria for network edges and these can have impacts on the network and node level properties. In this case, we define three different networks as follows:</p>
+<ul>
+<li>A basic network where every road connecting two settlements is an edge</li>
+<li>A network that retains all of the ties of the above network but also connects isolated nodes that are within 50 Kms of one of the road network settlements</li>
+<li>A network that retains all of the ties of the first road network but connects each isolate to its nearest neighbor among the road network settlements</li>
+</ul>
+<p>First let’s read in the <a href="data/road_networks.RData">data file</a> that contains all three networks and start by plotting them in turn on a map. For more details on how these plots work, see section 6 on network visualization.</p>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="exploratory-network-analysis.html#cb197-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(igraph)</span>
+<span id="cb197-2"><a href="exploratory-network-analysis.html#cb197-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggmap)</span>
+<span id="cb197-3"><a href="exploratory-network-analysis.html#cb197-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb197-4"><a href="exploratory-network-analysis.html#cb197-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb197-5"><a href="exploratory-network-analysis.html#cb197-5" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;data/road_networks.RData&quot;</span>)</span>
+<span id="cb197-6"><a href="exploratory-network-analysis.html#cb197-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb197-7"><a href="exploratory-network-analysis.html#cb197-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert attribute location data to sf coordinates</span></span>
+<span id="cb197-8"><a href="exploratory-network-analysis.html#cb197-8" aria-hidden="true" tabindex="-1"></a>locations_sf <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(nodes, <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">&quot;long&quot;</span>, <span class="st">&quot;lat&quot;</span>), <span class="at">crs =</span> <span class="dv">4326</span>)</span>
+<span id="cb197-9"><a href="exploratory-network-analysis.html#cb197-9" aria-hidden="true" tabindex="-1"></a>coord1 <span class="ot">&lt;-</span> <span class="fu">do.call</span>(rbind, <span class="fu">st_geometry</span>(locations_sf)) <span class="sc">%&gt;%</span> </span>
+<span id="cb197-10"><a href="exploratory-network-analysis.html#cb197-10" aria-hidden="true" tabindex="-1"></a>  tibble<span class="sc">::</span><span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span> <span class="fu">setNames</span>(<span class="fu">c</span>(<span class="st">&quot;lon&quot;</span>,<span class="st">&quot;lat&quot;</span>))</span>
+<span id="cb197-11"><a href="exploratory-network-analysis.html#cb197-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb197-12"><a href="exploratory-network-analysis.html#cb197-12" aria-hidden="true" tabindex="-1"></a>xy <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(coord1)</span>
+<span id="cb197-13"><a href="exploratory-network-analysis.html#cb197-13" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(xy) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;x&#39;</span>,<span class="st">&#39;y&#39;</span>)</span>
+<span id="cb197-14"><a href="exploratory-network-analysis.html#cb197-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb197-15"><a href="exploratory-network-analysis.html#cb197-15" aria-hidden="true" tabindex="-1"></a>myMap <span class="ot">&lt;-</span> <span class="fu">get_stamenmap</span>(<span class="at">bbox =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">9.5</span>,<span class="dv">36</span>,<span class="dv">3</span>,<span class="fl">43.8</span>),<span class="at">maptype =</span> <span class="st">&quot;watercolor&quot;</span>,<span class="at">zoom =</span> <span class="dv">6</span>)</span>
+<span id="cb197-16"><a href="exploratory-network-analysis.html#cb197-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb197-17"><a href="exploratory-network-analysis.html#cb197-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb197-18"><a href="exploratory-network-analysis.html#cb197-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract edgelist from network object for road_net</span></span>
+<span id="cb197-19"><a href="exploratory-network-analysis.html#cb197-19" aria-hidden="true" tabindex="-1"></a>edgelist1 <span class="ot">&lt;-</span> <span class="fu">get.edgelist</span>(road_net)</span>
+<span id="cb197-20"><a href="exploratory-network-analysis.html#cb197-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb197-21"><a href="exploratory-network-analysis.html#cb197-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Create dataframe of beginning and ending points of edges</span></span>
+<span id="cb197-22"><a href="exploratory-network-analysis.html#cb197-22" aria-hidden="true" tabindex="-1"></a>edges1 <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">matrix</span>(<span class="cn">NA</span>,<span class="fu">nrow</span>(edgelist1),<span class="dv">4</span>))</span>
+<span id="cb197-23"><a href="exploratory-network-analysis.html#cb197-23" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(edges1) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;X1&quot;</span>,<span class="st">&quot;Y1&quot;</span>,<span class="st">&quot;X2&quot;</span>,<span class="st">&quot;Y2&quot;</span>)</span>
+<span id="cb197-24"><a href="exploratory-network-analysis.html#cb197-24" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(edgelist1)) {</span>
+<span id="cb197-25"><a href="exploratory-network-analysis.html#cb197-25" aria-hidden="true" tabindex="-1"></a>edges1[i,] <span class="ot">&lt;-</span> <span class="fu">c</span>(nodes[<span class="fu">which</span>(nodes<span class="sc">$</span>Id<span class="sc">==</span>edgelist1[i,<span class="dv">1</span>]),<span class="dv">3</span>],nodes[<span class="fu">which</span>(nodes<span class="sc">$</span>Id<span class="sc">==</span>edgelist1[i,<span class="dv">1</span>]),<span class="dv">2</span>],</span>
+<span id="cb197-26"><a href="exploratory-network-analysis.html#cb197-26" aria-hidden="true" tabindex="-1"></a>               nodes[<span class="fu">which</span>(nodes<span class="sc">$</span>Id<span class="sc">==</span>edgelist1[i,<span class="dv">2</span>]),<span class="dv">3</span>],nodes[<span class="fu">which</span>(nodes<span class="sc">$</span>Id<span class="sc">==</span>edgelist1[i,<span class="dv">2</span>]),<span class="dv">2</span>])</span>
+<span id="cb197-27"><a href="exploratory-network-analysis.html#cb197-27" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb197-28"><a href="exploratory-network-analysis.html#cb197-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb197-29"><a href="exploratory-network-analysis.html#cb197-29" aria-hidden="true" tabindex="-1"></a>basic_net <span class="ot">&lt;-</span> <span class="fu">ggmap</span>(myMap) <span class="sc">+</span></span>
+<span id="cb197-30"><a href="exploratory-network-analysis.html#cb197-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="at">data =</span> edges1, <span class="fu">aes</span>(<span class="at">x=</span>X1, <span class="at">y=</span>Y1, <span class="at">xend=</span>X2, <span class="at">yend=</span>Y2), <span class="at">col=</span><span class="st">&#39;black&#39;</span>, <span class="at">size=</span><span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb197-31"><a href="exploratory-network-analysis.html#cb197-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> xy, <span class="fu">aes</span>(x,y), <span class="at">alpha=</span><span class="fl">0.8</span>, <span class="at">col=</span><span class="st">&#39;black&#39;</span>, <span class="at">fill=</span><span class="st">&quot;white&quot;</span>, <span class="at">shape=</span><span class="dv">21</span>, <span class="at">size=</span><span class="dv">2</span>, <span class="at">show.legend=</span>F) <span class="sc">+</span></span>
+<span id="cb197-32"><a href="exploratory-network-analysis.html#cb197-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Basic Network&quot;</span>) <span class="sc">+</span></span>
+<span id="cb197-33"><a href="exploratory-network-analysis.html#cb197-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span>
+<span id="cb197-34"><a href="exploratory-network-analysis.html#cb197-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb197-35"><a href="exploratory-network-analysis.html#cb197-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb197-36"><a href="exploratory-network-analysis.html#cb197-36" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract edgelist from network object for road_net2</span></span>
+<span id="cb197-37"><a href="exploratory-network-analysis.html#cb197-37" aria-hidden="true" tabindex="-1"></a>edgelist2 <span class="ot">&lt;-</span> <span class="fu">get.edgelist</span>(road_net2)</span>
+<span id="cb197-38"><a href="exploratory-network-analysis.html#cb197-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb197-39"><a href="exploratory-network-analysis.html#cb197-39" aria-hidden="true" tabindex="-1"></a><span class="co"># Create dataframe of beginning and ending points of edges</span></span>
+<span id="cb197-40"><a href="exploratory-network-analysis.html#cb197-40" aria-hidden="true" tabindex="-1"></a>edges2 <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">matrix</span>(<span class="cn">NA</span>,<span class="fu">nrow</span>(edgelist2),<span class="dv">4</span>))</span>
+<span id="cb197-41"><a href="exploratory-network-analysis.html#cb197-41" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(edges2) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;X1&quot;</span>,<span class="st">&quot;Y1&quot;</span>,<span class="st">&quot;X2&quot;</span>,<span class="st">&quot;Y2&quot;</span>)</span>
+<span id="cb197-42"><a href="exploratory-network-analysis.html#cb197-42" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(edgelist2)) {</span>
+<span id="cb197-43"><a href="exploratory-network-analysis.html#cb197-43" aria-hidden="true" tabindex="-1"></a>edges2[i,] <span class="ot">&lt;-</span> <span class="fu">c</span>(nodes[<span class="fu">which</span>(nodes<span class="sc">$</span>Id<span class="sc">==</span>edgelist2[i,<span class="dv">1</span>]),<span class="dv">3</span>],nodes[<span class="fu">which</span>(nodes<span class="sc">$</span>Id<span class="sc">==</span>edgelist2[i,<span class="dv">1</span>]),<span class="dv">2</span>],</span>
+<span id="cb197-44"><a href="exploratory-network-analysis.html#cb197-44" aria-hidden="true" tabindex="-1"></a>               nodes[<span class="fu">which</span>(nodes<span class="sc">$</span>Id<span class="sc">==</span>edgelist2[i,<span class="dv">2</span>]),<span class="dv">3</span>],nodes[<span class="fu">which</span>(nodes<span class="sc">$</span>Id<span class="sc">==</span>edgelist2[i,<span class="dv">2</span>]),<span class="dv">2</span>])</span>
+<span id="cb197-45"><a href="exploratory-network-analysis.html#cb197-45" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb197-46"><a href="exploratory-network-analysis.html#cb197-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb197-47"><a href="exploratory-network-analysis.html#cb197-47" aria-hidden="true" tabindex="-1"></a>basic_net_50 <span class="ot">&lt;-</span> <span class="fu">ggmap</span>(myMap) <span class="sc">+</span></span>
+<span id="cb197-48"><a href="exploratory-network-analysis.html#cb197-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="at">data =</span> edges2, <span class="fu">aes</span>(<span class="at">x=</span>X1, <span class="at">y=</span>Y1, <span class="at">xend=</span>X2, <span class="at">yend=</span>Y2), <span class="at">col=</span><span class="st">&#39;black&#39;</span>, <span class="at">size=</span><span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb197-49"><a href="exploratory-network-analysis.html#cb197-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> xy, <span class="fu">aes</span>(x,y), <span class="at">alpha=</span><span class="fl">0.8</span>, <span class="at">col=</span><span class="st">&#39;black&#39;</span>, <span class="at">fill=</span><span class="st">&quot;white&quot;</span>, <span class="at">shape=</span><span class="dv">21</span>, <span class="at">size=</span><span class="dv">2</span>, <span class="at">show.legend=</span>F) <span class="sc">+</span></span>
+<span id="cb197-50"><a href="exploratory-network-analysis.html#cb197-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Basic Network + 50Km Buffer&quot;</span>) <span class="sc">+</span></span>
+<span id="cb197-51"><a href="exploratory-network-analysis.html#cb197-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span>
+<span id="cb197-52"><a href="exploratory-network-analysis.html#cb197-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb197-53"><a href="exploratory-network-analysis.html#cb197-53" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract edgelist from network object for road_net 3</span></span>
+<span id="cb197-54"><a href="exploratory-network-analysis.html#cb197-54" aria-hidden="true" tabindex="-1"></a>edgelist3 <span class="ot">&lt;-</span> <span class="fu">get.edgelist</span>(road_net3)</span>
+<span id="cb197-55"><a href="exploratory-network-analysis.html#cb197-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb197-56"><a href="exploratory-network-analysis.html#cb197-56" aria-hidden="true" tabindex="-1"></a><span class="co"># Create dataframe of beginning and ending points of edges</span></span>
+<span id="cb197-57"><a href="exploratory-network-analysis.html#cb197-57" aria-hidden="true" tabindex="-1"></a>edges3 <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">matrix</span>(<span class="cn">NA</span>,<span class="fu">nrow</span>(edgelist3),<span class="dv">4</span>))</span>
+<span id="cb197-58"><a href="exploratory-network-analysis.html#cb197-58" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(edges3) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;X1&quot;</span>,<span class="st">&quot;Y1&quot;</span>,<span class="st">&quot;X2&quot;</span>,<span class="st">&quot;Y2&quot;</span>)</span>
+<span id="cb197-59"><a href="exploratory-network-analysis.html#cb197-59" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(edgelist3)) {</span>
+<span id="cb197-60"><a href="exploratory-network-analysis.html#cb197-60" aria-hidden="true" tabindex="-1"></a>edges3[i,] <span class="ot">&lt;-</span> <span class="fu">c</span>(nodes[<span class="fu">which</span>(nodes<span class="sc">$</span>Id<span class="sc">==</span>edgelist3[i,<span class="dv">1</span>]),<span class="dv">3</span>],nodes[<span class="fu">which</span>(nodes<span class="sc">$</span>Id<span class="sc">==</span>edgelist3[i,<span class="dv">1</span>]),<span class="dv">2</span>],</span>
+<span id="cb197-61"><a href="exploratory-network-analysis.html#cb197-61" aria-hidden="true" tabindex="-1"></a>               nodes[<span class="fu">which</span>(nodes<span class="sc">$</span>Id<span class="sc">==</span>edgelist3[i,<span class="dv">2</span>]),<span class="dv">3</span>],nodes[<span class="fu">which</span>(nodes<span class="sc">$</span>Id<span class="sc">==</span>edgelist3[i,<span class="dv">2</span>]),<span class="dv">2</span>])</span>
+<span id="cb197-62"><a href="exploratory-network-analysis.html#cb197-62" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb197-63"><a href="exploratory-network-analysis.html#cb197-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb197-64"><a href="exploratory-network-analysis.html#cb197-64" aria-hidden="true" tabindex="-1"></a>basic_net_nn <span class="ot">&lt;-</span> <span class="fu">ggmap</span>(myMap) <span class="sc">+</span></span>
+<span id="cb197-65"><a href="exploratory-network-analysis.html#cb197-65" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="at">data =</span> edges3, <span class="fu">aes</span>(<span class="at">x=</span>X1, <span class="at">y=</span>Y1, <span class="at">xend=</span>X2, <span class="at">yend=</span>Y2), <span class="at">col=</span><span class="st">&#39;black&#39;</span>, <span class="at">size=</span><span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb197-66"><a href="exploratory-network-analysis.html#cb197-66" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> xy, <span class="fu">aes</span>(x,y), <span class="at">alpha=</span><span class="fl">0.8</span>, <span class="at">col=</span><span class="st">&#39;black&#39;</span>, <span class="at">fill=</span><span class="st">&quot;white&quot;</span>, <span class="at">shape=</span><span class="dv">21</span>, <span class="at">size=</span><span class="dv">2</span>, <span class="at">show.legend=</span>F) <span class="sc">+</span></span>
+<span id="cb197-67"><a href="exploratory-network-analysis.html#cb197-67" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Basic Network + Nearest Neighbor Isolates&quot;</span>) <span class="sc">+</span></span>
+<span id="cb197-68"><a href="exploratory-network-analysis.html#cb197-68" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span>
+<span id="cb197-69"><a href="exploratory-network-analysis.html#cb197-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb197-70"><a href="exploratory-network-analysis.html#cb197-70" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpubr)</span>
+<span id="cb197-71"><a href="exploratory-network-analysis.html#cb197-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb197-72"><a href="exploratory-network-analysis.html#cb197-72" aria-hidden="true" tabindex="-1"></a><span class="fu">ggarrange</span>(basic_net, basic_net_50, basic_net_nn, <span class="at">nrow=</span><span class="dv">1</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/iberian_roads-1.png" width="1152" /></p>
+<p>Now that we’ve replicated the visuals, we want to replicate network statistics. Since we’re going to calculate several of the same network statistics for the networks in question, we can wrap this all into a function to save a bit of time. The following function expects an igraph network object and calculates each of the 10 variables show in the example in the book and returns them as a matrix.</p>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="exploratory-network-analysis.html#cb198-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(igraph)</span>
+<span id="cb198-2"><a href="exploratory-network-analysis.html#cb198-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(intergraph)</span>
+<span id="cb198-3"><a href="exploratory-network-analysis.html#cb198-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb198-4"><a href="exploratory-network-analysis.html#cb198-4" aria-hidden="true" tabindex="-1"></a>net_stats <span class="ot">&lt;-</span> <span class="cf">function</span>(net) {</span>
+<span id="cb198-5"><a href="exploratory-network-analysis.html#cb198-5" aria-hidden="true" tabindex="-1"></a>  out <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="cn">NA</span>,<span class="dv">10</span>,<span class="dv">2</span>)</span>
+<span id="cb198-6"><a href="exploratory-network-analysis.html#cb198-6" aria-hidden="true" tabindex="-1"></a>  out[,<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Nodes&quot;</span>, <span class="st">&quot;Edges&quot;</span>, <span class="st">&quot;Isolates&quot;</span>, <span class="st">&quot;Density&quot;</span>, <span class="st">&quot;Average Degree&quot;</span>, <span class="st">&quot;Average Shortest Path&quot;</span>,</span>
+<span id="cb198-7"><a href="exploratory-network-analysis.html#cb198-7" aria-hidden="true" tabindex="-1"></a>               <span class="st">&quot;Diamater&quot;</span>, <span class="st">&quot;Clustering Coefficient&quot;</span>, <span class="st">&quot;Closed Triad Count&quot;</span>, <span class="st">&quot;Open Triad Count&quot;</span>)</span>
+<span id="cb198-8"><a href="exploratory-network-analysis.html#cb198-8" aria-hidden="true" tabindex="-1"></a>  out[<span class="dv">1</span>,<span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="fu">vcount</span>(net) <span class="co"># number of nodes</span></span>
+<span id="cb198-9"><a href="exploratory-network-analysis.html#cb198-9" aria-hidden="true" tabindex="-1"></a>  out[<span class="dv">2</span>,<span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="fu">ecount</span>(net) <span class="co"># number of edges</span></span>
+<span id="cb198-10"><a href="exploratory-network-analysis.html#cb198-10" aria-hidden="true" tabindex="-1"></a>  out[<span class="dv">3</span>,<span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">isolates</span>(<span class="fu">asNetwork</span>(net))) <span class="co"># number of isolates</span></span>
+<span id="cb198-11"><a href="exploratory-network-analysis.html#cb198-11" aria-hidden="true" tabindex="-1"></a>  out[<span class="dv">4</span>,<span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">edge_density</span>(net),<span class="dv">3</span>) <span class="co"># network density rounding to the third digit</span></span>
+<span id="cb198-12"><a href="exploratory-network-analysis.html#cb198-12" aria-hidden="true" tabindex="-1"></a>  out[<span class="dv">5</span>,<span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">mean</span>(igraph<span class="sc">::</span><span class="fu">degree</span>(net)),<span class="dv">3</span>) <span class="co"># mean degree rounding to the third digit</span></span>
+<span id="cb198-13"><a href="exploratory-network-analysis.html#cb198-13" aria-hidden="true" tabindex="-1"></a>  out[<span class="dv">6</span>,<span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="fu">round</span>(igraph<span class="sc">::</span><span class="fu">mean_distance</span>(net),<span class="dv">3</span>) <span class="co"># mean shortest path length rounding to the third digit</span></span>
+<span id="cb198-14"><a href="exploratory-network-analysis.html#cb198-14" aria-hidden="true" tabindex="-1"></a>  out[<span class="dv">7</span>,<span class="dv">2</span>] <span class="ot">&lt;-</span> igraph<span class="sc">::</span><span class="fu">diameter</span>(net) <span class="co"># network diameter</span></span>
+<span id="cb198-15"><a href="exploratory-network-analysis.html#cb198-15" aria-hidden="true" tabindex="-1"></a>  out[<span class="dv">8</span>,<span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="fu">round</span>(igraph<span class="sc">::</span><span class="fu">transitivity</span>(net, <span class="at">type=</span><span class="st">&#39;average&#39;</span>),<span class="dv">3</span>) <span class="co"># average global transitivity rounding to the third digit</span></span>
+<span id="cb198-16"><a href="exploratory-network-analysis.html#cb198-16" aria-hidden="true" tabindex="-1"></a>  out[<span class="dv">9</span>,<span class="dv">2</span>] <span class="ot">&lt;-</span> igraph<span class="sc">::</span><span class="fu">triad_census</span>(net)[<span class="dv">16</span>] <span class="co"># closed triads in triad_census</span></span>
+<span id="cb198-17"><a href="exploratory-network-analysis.html#cb198-17" aria-hidden="true" tabindex="-1"></a>  out[<span class="dv">10</span>,<span class="dv">2</span>] <span class="ot">&lt;-</span> igraph<span class="sc">::</span><span class="fu">triad_census</span>(net)[<span class="dv">11</span>] <span class="co"># open triads in triad_census</span></span>
+<span id="cb198-18"><a href="exploratory-network-analysis.html#cb198-18" aria-hidden="true" tabindex="-1"></a><span class="fu">return</span>(out)</span>
+<span id="cb198-19"><a href="exploratory-network-analysis.html#cb198-19" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Now let’s run it for each of the three networks in turn to reproduce the results in the book.</p>
+<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="exploratory-network-analysis.html#cb199-1" aria-hidden="true" tabindex="-1"></a><span class="fu">net_stats</span>(road_net)</span></code></pre></div>
+<pre><code>##       [,1]                     [,2]   
+##  [1,] &quot;Nodes&quot;                  &quot;122&quot;  
+##  [2,] &quot;Edges&quot;                  &quot;127&quot;  
+##  [3,] &quot;Isolates&quot;               &quot;33&quot;   
+##  [4,] &quot;Density&quot;                &quot;0.017&quot;
+##  [5,] &quot;Average Degree&quot;         &quot;2.082&quot;
+##  [6,] &quot;Average Shortest Path&quot;  &quot;6.603&quot;
+##  [7,] &quot;Diamater&quot;               &quot;15&quot;   
+##  [8,] &quot;Clustering Coefficient&quot; &quot;0.162&quot;
+##  [9,] &quot;Closed Triad Count&quot;     &quot;19&quot;   
+## [10,] &quot;Open Triad Count&quot;       &quot;241&quot;</code></pre>
+<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="exploratory-network-analysis.html#cb201-1" aria-hidden="true" tabindex="-1"></a><span class="fu">net_stats</span>(road_net2)</span></code></pre></div>
+<pre><code>##       [,1]                     [,2]   
+##  [1,] &quot;Nodes&quot;                  &quot;122&quot;  
+##  [2,] &quot;Edges&quot;                  &quot;144&quot;  
+##  [3,] &quot;Isolates&quot;               &quot;22&quot;   
+##  [4,] &quot;Density&quot;                &quot;0.02&quot; 
+##  [5,] &quot;Average Degree&quot;         &quot;2.361&quot;
+##  [6,] &quot;Average Shortest Path&quot;  &quot;6.758&quot;
+##  [7,] &quot;Diamater&quot;               &quot;15&quot;   
+##  [8,] &quot;Clustering Coefficient&quot; &quot;0.199&quot;
+##  [9,] &quot;Closed Triad Count&quot;     &quot;23&quot;   
+## [10,] &quot;Open Triad Count&quot;       &quot;279&quot;</code></pre>
+<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="exploratory-network-analysis.html#cb203-1" aria-hidden="true" tabindex="-1"></a><span class="fu">net_stats</span>(road_net3)</span></code></pre></div>
+<pre><code>##       [,1]                     [,2]   
+##  [1,] &quot;Nodes&quot;                  &quot;122&quot;  
+##  [2,] &quot;Edges&quot;                  &quot;160&quot;  
+##  [3,] &quot;Isolates&quot;               &quot;0&quot;    
+##  [4,] &quot;Density&quot;                &quot;0.022&quot;
+##  [5,] &quot;Average Degree&quot;         &quot;2.623&quot;
+##  [6,] &quot;Average Shortest Path&quot;  &quot;7.088&quot;
+##  [7,] &quot;Diamater&quot;               &quot;16&quot;   
+##  [8,] &quot;Clustering Coefficient&quot; &quot;0.136&quot;
+##  [9,] &quot;Closed Triad Count&quot;     &quot;19&quot;   
+## [10,] &quot;Open Triad Count&quot;       &quot;331&quot;</code></pre>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="NetworkData.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="quantifying-uncertainty.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": null,
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection",
+"scroll_highlight": true
+},
+"toolbar": null,
+"position": "static"
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

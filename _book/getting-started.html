@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Section 2 Getting Started | Online Companion to Archaeological Network Science by Brughmans and Peeples</title>
+  <meta name="description" content="<p>This bookdown document accompanies the Cambridge Manuals in Archaeology book
+<em>Archaeological Network Science</em> by Tom Brughmans and Matthew A. Peeples.</p>" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Section 2 Getting Started | Online Companion to Archaeological Network Science by Brughmans and Peeples" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://archnetworks.net" />
+  
+  <meta property="og:description" content="<p>This bookdown document accompanies the Cambridge Manuals in Archaeology book
+<em>Archaeological Network Science</em> by Tom Brughmans and Matthew A. Peeples.</p>" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Section 2 Getting Started | Online Companion to Archaeological Network Science by Brughmans and Peeples" />
+  
+  <meta name="twitter:description" content="<p>This bookdown document accompanies the Cambridge Manuals in Archaeology book
+<em>Archaeological Network Science</em> by Tom Brughmans and Matthew A. Peeples.</p>" />
+  
+
+<meta name="author" content="Matthew A. Peeples and Tom Brughmans" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="NetworkData.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="libs/d3-4.5.0/d3.min.js"></script>
+<script src="libs/forceNetwork-binding-0.4/forceNetwork.js"></script>
+<link href="libs/vis-9.1.0/vis-network.min.css" rel="stylesheet" />
+<script src="libs/vis-9.1.0/vis-network.min.js"></script>
+<script src="libs/visNetwork-binding-2.1.0/visNetwork.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Archaeological Network Science</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome</a></li>
+<li class="chapter" data-level="2" data-path="getting-started.html"><a href="getting-started.html"><i class="fa fa-check"></i><b>2</b> Getting Started</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="getting-started.html"><a href="getting-started.html#datasets"><i class="fa fa-check"></i><b>2.1</b> Datasets</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="getting-started.html"><a href="getting-started.html#Everything"><i class="fa fa-check"></i><b>2.1.1</b> Just Give Me Everything</a></li>
+<li class="chapter" data-level="2.1.2" data-path="getting-started.html"><a href="getting-started.html#roman-road-networks"><i class="fa fa-check"></i><b>2.1.2</b> Roman Road Networks</a></li>
+<li class="chapter" data-level="2.1.3" data-path="getting-started.html"><a href="getting-started.html#southwest-social-networks-project-ceramic-similarity-networks"><i class="fa fa-check"></i><b>2.1.3</b> Southwest Social Networks Project Ceramic Similarity Networks</a></li>
+<li class="chapter" data-level="2.1.4" data-path="getting-started.html"><a href="getting-started.html#cibola-region-technological-similarity-network"><i class="fa fa-check"></i><b>2.1.4</b> Cibola Region Technological Similarity Network</a></li>
+<li class="chapter" data-level="2.1.5" data-path="getting-started.html"><a href="getting-started.html#himalayan-visibility-networks"><i class="fa fa-check"></i><b>2.1.5</b> Himalayan Visibility Networks</a></li>
+<li class="chapter" data-level="2.1.6" data-path="getting-started.html"><a href="getting-started.html#archaeological-publication-networks"><i class="fa fa-check"></i><b>2.1.6</b> Archaeological Publication Networks</a></li>
+<li class="chapter" data-level="2.1.7" data-path="getting-started.html"><a href="getting-started.html#iron-age-sites-in-southern-spain"><i class="fa fa-check"></i><b>2.1.7</b> Iron Age Sites in Southern Spain</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="getting-started.html"><a href="getting-started.html#importing-data-in-r"><i class="fa fa-check"></i><b>2.2</b> Importing Data in R</a></li>
+<li class="chapter" data-level="2.3" data-path="getting-started.html"><a href="getting-started.html#installing-r-packages"><i class="fa fa-check"></i><b>2.3</b> Installing R Packages</a></li>
+<li class="chapter" data-level="2.4" data-path="getting-started.html"><a href="getting-started.html#suggested-workspace-setup"><i class="fa fa-check"></i><b>2.4</b> Suggested Workspace Setup</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="NetworkData.html"><a href="NetworkData.html"><i class="fa fa-check"></i><b>3</b> Network Data</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="NetworkData.html"><a href="NetworkData.html#network-data-formats"><i class="fa fa-check"></i><b>3.1</b> Network Data Formats</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="NetworkData.html"><a href="NetworkData.html#Edgelist"><i class="fa fa-check"></i><b>3.1.1</b> Edge List</a></li>
+<li class="chapter" data-level="3.1.2" data-path="NetworkData.html"><a href="NetworkData.html#adjacency-list"><i class="fa fa-check"></i><b>3.1.2</b> Adjacency List</a></li>
+<li class="chapter" data-level="3.1.3" data-path="NetworkData.html"><a href="NetworkData.html#adjacency-matrix"><i class="fa fa-check"></i><b>3.1.3</b> Adjacency Matrix</a></li>
+<li class="chapter" data-level="3.1.4" data-path="NetworkData.html"><a href="NetworkData.html#incidence-matrix"><i class="fa fa-check"></i><b>3.1.4</b> Incidence Matrix</a></li>
+<li class="chapter" data-level="3.1.5" data-path="NetworkData.html"><a href="NetworkData.html#node-and-edge-information"><i class="fa fa-check"></i><b>3.1.5</b> Node and Edge Information</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="NetworkData.html"><a href="NetworkData.html#types-of-networks"><i class="fa fa-check"></i><b>3.2</b> Types of Networks</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="NetworkData.html"><a href="NetworkData.html#simple-networks"><i class="fa fa-check"></i><b>3.2.1</b> Simple Networks</a></li>
+<li class="chapter" data-level="3.2.2" data-path="NetworkData.html"><a href="NetworkData.html#directed-networks"><i class="fa fa-check"></i><b>3.2.2</b> Directed Networks</a></li>
+<li class="chapter" data-level="3.2.3" data-path="NetworkData.html"><a href="NetworkData.html#signed-categorized-and-valued-networks"><i class="fa fa-check"></i><b>3.2.3</b> Signed, Categorized, and Valued Networks</a></li>
+<li class="chapter" data-level="3.2.4" data-path="NetworkData.html"><a href="NetworkData.html#two-mode-networks-and-affiliation-networks"><i class="fa fa-check"></i><b>3.2.4</b> Two-mode Networks and Affiliation Networks</a></li>
+<li class="chapter" data-level="3.2.5" data-path="NetworkData.html"><a href="NetworkData.html#similarity-networks"><i class="fa fa-check"></i><b>3.2.5</b> Similarity Networks</a></li>
+<li class="chapter" data-level="3.2.6" data-path="NetworkData.html"><a href="NetworkData.html#ego-networks"><i class="fa fa-check"></i><b>3.2.6</b> Ego Networks</a></li>
+<li class="chapter" data-level="3.2.7" data-path="NetworkData.html"><a href="NetworkData.html#multilayer-networks"><i class="fa fa-check"></i><b>3.2.7</b> Multilayer Networks</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html"><i class="fa fa-check"></i><b>4</b> Exploratory Network Analysis</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#example-network-objects"><i class="fa fa-check"></i><b>4.1</b> Example Network Objects</a></li>
+<li class="chapter" data-level="4.2" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#CalcMetric"><i class="fa fa-check"></i><b>4.2</b> Calculating Network Metrics in R</a></li>
+<li class="chapter" data-level="4.3" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#centrality"><i class="fa fa-check"></i><b>4.3</b> Centrality</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#degree-centrality"><i class="fa fa-check"></i><b>4.3.1</b> Degree Centrality</a></li>
+<li class="chapter" data-level="4.3.2" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#betweenness-centrality"><i class="fa fa-check"></i><b>4.3.2</b> Betweenness Centrality</a></li>
+<li class="chapter" data-level="4.3.3" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#eigenvector-centrality"><i class="fa fa-check"></i><b>4.3.3</b> Eigenvector Centrality</a></li>
+<li class="chapter" data-level="4.3.4" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#page-rank-centrality"><i class="fa fa-check"></i><b>4.3.4</b> Page Rank Centrality</a></li>
+<li class="chapter" data-level="4.3.5" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#closeness-centrality"><i class="fa fa-check"></i><b>4.3.5</b> Closeness Centrality</a></li>
+<li class="chapter" data-level="4.3.6" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#hubs-and-authorities"><i class="fa fa-check"></i><b>4.3.6</b> Hubs and Authorities</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#triads-and-clustering"><i class="fa fa-check"></i><b>4.4</b> Triads and clustering</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#triads"><i class="fa fa-check"></i><b>4.4.1</b> Triads</a></li>
+<li class="chapter" data-level="4.4.2" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#transitivity-and-clustering"><i class="fa fa-check"></i><b>4.4.2</b> Transitivity and Clustering</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#walks-paths-and-distance"><i class="fa fa-check"></i><b>4.5</b> Walks, Paths, and Distance</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#distance"><i class="fa fa-check"></i><b>4.5.1</b> Distance</a></li>
+<li class="chapter" data-level="4.5.2" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#shortest-paths"><i class="fa fa-check"></i><b>4.5.2</b> Shortest Paths</a></li>
+<li class="chapter" data-level="4.5.3" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#diameter"><i class="fa fa-check"></i><b>4.5.3</b> Diameter</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#components-and-bridges"><i class="fa fa-check"></i><b>4.6</b> Components and Bridges</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#identifying-components"><i class="fa fa-check"></i><b>4.6.1</b> Identifying Components</a></li>
+<li class="chapter" data-level="4.6.2" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#cutpoints"><i class="fa fa-check"></i><b>4.6.2</b> Cutpoints</a></li>
+<li class="chapter" data-level="4.6.3" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#bridges"><i class="fa fa-check"></i><b>4.6.3</b> Bridges</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#cliques-and-communities"><i class="fa fa-check"></i><b>4.7</b> Cliques and Communities</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#cliques"><i class="fa fa-check"></i><b>4.7.1</b> Cliques</a></li>
+<li class="chapter" data-level="4.7.2" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#k-cores"><i class="fa fa-check"></i><b>4.7.2</b> K-cores</a></li>
+<li class="chapter" data-level="4.7.3" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#cluster-detection-algorithms"><i class="fa fa-check"></i><b>4.7.3</b> Cluster Detection Algorithms</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="exploratory-network-analysis.html"><a href="exploratory-network-analysis.html#case-study"><i class="fa fa-check"></i><b>4.8</b> Case Study</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="quantifying-uncertainty.html"><a href="quantifying-uncertainty.html"><i class="fa fa-check"></i><b>5</b> Quantifying Uncertainty</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="quantifying-uncertainty.html"><a href="quantifying-uncertainty.html#a-general-approach-to-uncertainty"><i class="fa fa-check"></i><b>5.1</b> A General Approach to Uncertainty</a></li>
+<li class="chapter" data-level="5.2" data-path="quantifying-uncertainty.html"><a href="quantifying-uncertainty.html#missing-at-random"><i class="fa fa-check"></i><b>5.2</b> Missing at Random</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="quantifying-uncertainty.html"><a href="quantifying-uncertainty.html#nodes-missing-at-random"><i class="fa fa-check"></i><b>5.2.1</b> Nodes Missing at Random</a></li>
+<li class="chapter" data-level="5.2.2" data-path="quantifying-uncertainty.html"><a href="quantifying-uncertainty.html#edges-missing-at-random"><i class="fa fa-check"></i><b>5.2.2</b> Edges Missing at Random</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="quantifying-uncertainty.html"><a href="quantifying-uncertainty.html#assessing-indivdiual-nodesedges"><i class="fa fa-check"></i><b>5.3</b> Assessing Indivdiual Nodes/Edges</a></li>
+<li class="chapter" data-level="5.4" data-path="quantifying-uncertainty.html"><a href="quantifying-uncertainty.html#missing-due-to-biased-sampling"><i class="fa fa-check"></i><b>5.4</b> Missing Due to Biased Sampling</a></li>
+<li class="chapter" data-level="5.5" data-path="quantifying-uncertainty.html"><a href="quantifying-uncertainty.html#edge-probability-modeling"><i class="fa fa-check"></i><b>5.5</b> Edge Probability Modeling</a></li>
+<li class="chapter" data-level="5.6" data-path="quantifying-uncertainty.html"><a href="quantifying-uncertainty.html#small-or-variable-sample-size"><i class="fa fa-check"></i><b>5.6</b> Small or Variable Sample Size</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="network-visualization.html"><a href="network-visualization.html"><i class="fa fa-check"></i><b>6</b> Network Visualization</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="network-visualization.html"><a href="network-visualization.html#datasets-and-r-setup"><i class="fa fa-check"></i><b>6.1</b> Datasets and R Setup</a></li>
+<li class="chapter" data-level="6.2" data-path="network-visualization.html"><a href="network-visualization.html#visualizing-networks-in-r"><i class="fa fa-check"></i><b>6.2</b> Visualizing Networks in R</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="network-visualization.html"><a href="network-visualization.html#networkstatnet"><i class="fa fa-check"></i><b>6.2.1</b> network/statnet</a></li>
+<li class="chapter" data-level="6.2.2" data-path="network-visualization.html"><a href="network-visualization.html#igraph"><i class="fa fa-check"></i><b>6.2.2</b> igraph</a></li>
+<li class="chapter" data-level="6.2.3" data-path="network-visualization.html"><a href="network-visualization.html#ggraph"><i class="fa fa-check"></i><b>6.2.3</b> ggraph</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="network-visualization.html"><a href="network-visualization.html#network-visualization-options"><i class="fa fa-check"></i><b>6.3</b> Network Visualization Options</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="network-visualization.html"><a href="network-visualization.html#graph-layout"><i class="fa fa-check"></i><b>6.3.1</b> Graph Layout</a></li>
+<li class="chapter" data-level="6.3.2" data-path="network-visualization.html"><a href="network-visualization.html#node-and-edge-options"><i class="fa fa-check"></i><b>6.3.2</b> Node and Edge Options</a></li>
+<li class="chapter" data-level="6.3.3" data-path="network-visualization.html"><a href="network-visualization.html#label-options"><i class="fa fa-check"></i><b>6.3.3</b> Label Options</a></li>
+<li class="chapter" data-level="6.3.4" data-path="network-visualization.html"><a href="network-visualization.html#be-kind-to-the-color-blind"><i class="fa fa-check"></i><b>6.3.4</b> Be Kind to the Color Blind</a></li>
+<li class="chapter" data-level="6.3.5" data-path="network-visualization.html"><a href="network-visualization.html#communities-and-groups"><i class="fa fa-check"></i><b>6.3.5</b> Communities and Groups</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="network-visualization.html"><a href="network-visualization.html#replicating-the-book-figures"><i class="fa fa-check"></i><b>6.4</b> Replicating the Book Figures</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_1"><i class="fa fa-check"></i><b>6.4.1</b> Figure 6.1: Manual Layout</a></li>
+<li class="chapter" data-level="6.4.2" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_2"><i class="fa fa-check"></i><b>6.4.2</b> Figure 6.2: Examples of Common Network Plot Formats</a></li>
+<li class="chapter" data-level="6.4.3" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_3"><i class="fa fa-check"></i><b>6.4.3</b> Figure 6.3: Examples of Rare Network Plot Formats</a></li>
+<li class="chapter" data-level="6.4.4" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_4"><i class="fa fa-check"></i><b>6.4.4</b> Figure 6.4: Simple Network with Clusters</a></li>
+<li class="chapter" data-level="6.4.5" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_5"><i class="fa fa-check"></i><b>6.4.5</b> Figure 6.5: Interactive Layout</a></li>
+<li class="chapter" data-level="6.4.6" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_6"><i class="fa fa-check"></i><b>6.4.6</b> Figure 6.6: Absolute Geographic Layout</a></li>
+<li class="chapter" data-level="6.4.7" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_7"><i class="fa fa-check"></i><b>6.4.7</b> Figure 6.7: Distorted Geographic Layout</a></li>
+<li class="chapter" data-level="6.4.8" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_8"><i class="fa fa-check"></i><b>6.4.8</b> Figure 6.8: Graph Layout Algorithms</a></li>
+<li class="chapter" data-level="6.4.9" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_9"><i class="fa fa-check"></i><b>6.4.9</b> Figure 6.9: Heirarchical Graph Layouts</a></li>
+<li class="chapter" data-level="6.4.10" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_10"><i class="fa fa-check"></i><b>6.4.10</b> Figure 6.10: Be kind to the color blind</a></li>
+<li class="chapter" data-level="6.4.11" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_11"><i class="fa fa-check"></i><b>6.4.11</b> Figure 6.11: Node Symbol and Color Schemes</a></li>
+<li class="chapter" data-level="6.4.12" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_12"><i class="fa fa-check"></i><b>6.4.12</b> Figure 6.12: Image for Node</a></li>
+<li class="chapter" data-level="6.4.13" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_13"><i class="fa fa-check"></i><b>6.4.13</b> Figure 6.13: Images for Nodes</a></li>
+<li class="chapter" data-level="6.4.14" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_14"><i class="fa fa-check"></i><b>6.4.14</b> Figure 6.14: Edge Thickness and Color</a></li>
+<li class="chapter" data-level="6.4.15" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_15"><i class="fa fa-check"></i><b>6.4.15</b> Figure 6.15: Edge Direction</a></li>
+<li class="chapter" data-level="6.4.16" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_16"><i class="fa fa-check"></i><b>6.4.16</b> Figure 6.16: Edge Binarization</a></li>
+<li class="chapter" data-level="6.4.17" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_17"><i class="fa fa-check"></i><b>6.4.17</b> Figure 6.17: Edge Bundling</a></li>
+<li class="chapter" data-level="6.4.18" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_18"><i class="fa fa-check"></i><b>6.4.18</b> Figure 6.18: Group-in-a-box</a></li>
+<li class="chapter" data-level="6.4.19" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_19"><i class="fa fa-check"></i><b>6.4.19</b> Figure 6.19: Weighted Adjacency Matrix</a></li>
+<li class="chapter" data-level="6.4.20" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_20"><i class="fa fa-check"></i><b>6.4.20</b> Figure 6.20: Nodetrix Diagram</a></li>
+<li class="chapter" data-level="6.4.21" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_21"><i class="fa fa-check"></i><b>6.4.21</b> Figure 6.21: The Filmstrip Approach</a></li>
+<li class="chapter" data-level="6.4.22" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_22"><i class="fa fa-check"></i><b>6.4.22</b> Figure 6.22: Similtaneous Display</a></li>
+<li class="chapter" data-level="6.4.23" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_23"><i class="fa fa-check"></i><b>6.4.23</b> Figure 6:23: Timelines and Time Prisms</a></li>
+<li class="chapter" data-level="6.4.24" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_24"><i class="fa fa-check"></i><b>6.4.24</b> Figure 6.24: Animation</a></li>
+<li class="chapter" data-level="6.4.25" data-path="network-visualization.html"><a href="network-visualization.html#Figure_6_25"><i class="fa fa-check"></i><b>6.4.25</b> Figure 6.25: Interactive Networks</a></li>
+<li class="chapter" data-level="6.4.26" data-path="network-visualization.html"><a href="network-visualization.html#figure-6.26-swsn-example-1"><i class="fa fa-check"></i><b>6.4.26</b> Figure 6.26: SWSN Example 1</a></li>
+<li class="chapter" data-level="6.4.27" data-path="network-visualization.html"><a href="network-visualization.html#figure-6.27-swsn-example-2"><i class="fa fa-check"></i><b>6.4.27</b> Figure 6.27: SWSN Example 2</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="spatial-networks.html"><a href="spatial-networks.html"><i class="fa fa-check"></i><b>7</b> Spatial Networks</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="spatial-networks.html"><a href="spatial-networks.html#dataset-and-setup"><i class="fa fa-check"></i><b>7.1</b> Dataset and Setup</a></li>
+<li class="chapter" data-level="7.2" data-path="spatial-networks.html"><a href="spatial-networks.html#planar-networks-and-trees"><i class="fa fa-check"></i><b>7.2</b> Planar Networks and Trees</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="spatial-networks.html"><a href="spatial-networks.html#evaluating-planarity"><i class="fa fa-check"></i><b>7.2.1</b> Evaluating Planarity</a></li>
+<li class="chapter" data-level="7.2.2" data-path="spatial-networks.html"><a href="spatial-networks.html#defining-trees"><i class="fa fa-check"></i><b>7.2.2</b> Defining Trees</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="spatial-networks.html"><a href="spatial-networks.html#spatial-network-models"><i class="fa fa-check"></i><b>7.3</b> Spatial Network Models</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="spatial-networks.html"><a href="spatial-networks.html#relative-neighborhood-networks"><i class="fa fa-check"></i><b>7.3.1</b> Relative Neighborhood Networks</a></li>
+<li class="chapter" data-level="7.3.2" data-path="spatial-networks.html"><a href="spatial-networks.html#gabriel-graphs"><i class="fa fa-check"></i><b>7.3.2</b> Gabriel Graphs</a></li>
+<li class="chapter" data-level="7.3.3" data-path="spatial-networks.html"><a href="spatial-networks.html#beta-skeletons"><i class="fa fa-check"></i><b>7.3.3</b> Beta Skeletons</a></li>
+<li class="chapter" data-level="7.3.4" data-path="spatial-networks.html"><a href="spatial-networks.html#minimum-spanning-trees"><i class="fa fa-check"></i><b>7.3.4</b> Minimum Spanning Trees</a></li>
+<li class="chapter" data-level="7.3.5" data-path="spatial-networks.html"><a href="spatial-networks.html#delaunay-triangulation"><i class="fa fa-check"></i><b>7.3.5</b> Delaunay Triangulation</a></li>
+<li class="chapter" data-level="7.3.6" data-path="spatial-networks.html"><a href="spatial-networks.html#k-nearest-neighbors"><i class="fa fa-check"></i><b>7.3.6</b> K-nearest Neighbors</a></li>
+<li class="chapter" data-level="7.3.7" data-path="spatial-networks.html"><a href="spatial-networks.html#maximum-distance-networks"><i class="fa fa-check"></i><b>7.3.7</b> Maximum Distance Networks</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="spatial-networks.html"><a href="spatial-networks.html#case-studies"><i class="fa fa-check"></i><b>7.4</b> Case Studies</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="spatial-networks.html"><a href="spatial-networks.html#proximity-of-iron-age-sites-in-southern-spain"><i class="fa fa-check"></i><b>7.4.1</b> Proximity of Iron Age sites in Southern Spain</a></li>
+<li class="chapter" data-level="7.4.2" data-path="spatial-networks.html"><a href="spatial-networks.html#networks-in-space-in-the-u.s.-southwest"><i class="fa fa-check"></i><b>7.4.2</b> Networks in Space in the U.S. Southwest</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references-and-r-packages.html"><a href="references-and-r-packages.html"><i class="fa fa-check"></i>References and R Packages</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Online Companion to <em>Archaeological Network Science</em> by Brughmans and Peeples</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="getting-started" class="section level1" number="2">
+<h1><span class="header-section-number">Section 2</span> Getting Started</h1>
+<p>This section provides downloadable files for the network datasets used in this online companion and in the book as well as information on the primary R packages used for analysis and visualization throughout this tutorial. We also provide very brief instructions for importing these data into R using R-studio and some guidance on setting up your R-studio working environment. For additional guidance see the resources provided in the introduction.</p>
+<div id="datasets" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Datasets</h2>
+<p>In the analyses illustrated in this online appendix we use a number of real and simulated archaeological datasets to serve as examples for particular data types and techniques. Most of the datasets used here are provided in .csv (comma separated value) or .RData formats and can be downloaded so that you can follow along with these analyses on your own computer. We encourage you to explore these files and see how they are formatted as a guide for setting up your own datasets.</p>
+<p>The data used here include a range of different network data formats and types. The primary datasets are described in detail in Brughmans and Peeples (2022) Chapter 2.8. Note that where spatial locations for archaeological sites are provided the locations have been randomly jittered up to 10 kilometers from their actual locations to maintain data security.</p>
+<p>For the files below you can right click and “save as” to save them for use locally. Note that there are many additional datasets relating to the replication of particular figures in the book that are provided where the code for that particular figure occurs. If you’d like to just download everything at once <a href="getting-started.html#Everything">see the next section</a></p>
+<div id="Everything" class="section level3" number="2.1.1">
+<h3><span class="header-section-number">2.1.1</span> Just Give Me Everything</h3>
+<p>Hey, we get it. You’re busy and just want all of the data in one convenient package. We provide all of the data used in the appendix here in a single .zip file for you to download. To follow along with the examples in this appendix you need to choose an R working directory and place the contents of the *.zip folder within it such that all of the individual files are contained within a folder called “data”. Note that this includes all of the additional files that are required for reproducing particular figures as well.</p>
+<p><a href="All_data.zip">All_data.zip</a> - A single compressed file containing all of the data files used in this appendix.</p>
+</div>
+<div id="roman-road-networks" class="section level3" number="2.1.2">
+<h3><span class="header-section-number">2.1.2</span> Roman Road Networks</h3>
+<p>The development of an elaborate road system is one of the most enduring legacies of the Roman Republic and Empire. Areas that came under Roman control were connected to Rome and important provincial centers through entirely new roads as well as redeveloped existing roads. From roughly the second century AD onward this resulted in an integrated terrestrial transport network connecting North-Africa, the Middle East, and western and southern Europe. Much of the subsequent development of transport systems in these regions built on this Roman system.</p>
+<p>Our primary source for roads of the entire Roman world is the Barrington Atlas of the Greek and Roman World (Talbert 2000) and their digitization by the Ancient World Mapping Center (2012). In many of our examples we will focus in particular on the roads of the Iberian Peninsula, which have been digitized in great detail by Pau de Soto (de Soto and Carreras 2021). In our analyses of the Roman road network ancient settlements are represented as nodes and the existence of a road between two settlements is represented by an edge. We also include the length of a road as an edge attribute.</p>
+<ul>
+<li><a href="data/Hispania_nodes.csv">Hispania_nodes</a> - NodeIDs and names for Roman era settlements in the Iberian Peninsula along with names and latitude and longitude locations in decimal degrees.</li>
+<li><a href="data/Hispania_roads.csv">Hispania_roads</a> - Edge list of road connections using NodeIDs from Hispania_nodes file. This file contains a “weight” variable defined for each edge which denotes the length of the road segment.</li>
+</ul>
+</div>
+<div id="southwest-social-networks-project-ceramic-similarity-networks" class="section level3" number="2.1.3">
+<h3><span class="header-section-number">2.1.3</span> Southwest Social Networks Project Ceramic Similarity Networks</h3>
+<p>The Southwest Social Networks (SWSN) Project (and subsequent <a href="https://cybersw.org">cyberSW</a> project) is a large collaborative effort focused on exploring methods and models for network analysis of archaeological data to better understand patterns of interaction, population movement, and demographic change across the U.S. Southwest and Mexican Northwest through time (ca. A.D. 800-1800; Borck et al. 2015; Giomi et al. 2021; Mills et al. 2013a; 2013b; 2015; 2018; Peeples and Haas 2013; Peeples et al. 2016; Peeples and Roberts 2013). During the interval considered by this project the region was inhabited largely by sedentary agricultural populations (though more mobile populations were also present throughout this period) with communities as large as several thousand people at the peak. The region is blessed with excellent archaeological preservation, a fine grained chronology anchored by dendrochronological dates, and nearly 150 years of focused archaeological research.</p>
+<p>The SWSN/cyberSW project team has gathered a massive database with information on the location and size of tens of thousands of archaeological sites and ceramic and other material cultural typological frequency data consisting of millions of objects to explore how patterns of material similarity, exchange, and technology change across time and space in the study area. These data as well as tools needed to analyze them are available in an online platform called <a href="https://cybersw.org">cyberSW (cyberSW.org)</a>. This online platform even allows you to explore these data directly in your internet browser. The size and complexity of the SWSN/cyberSW data make it a particularly good example for discussing the decision processes involved in visualizing and analyzing large networks.</p>
+<p>In several sections of this book we also use subsets of this larger dataset; the San Pedro Valley, and the Chaco World. The San Pedro Valley in southern Arizona is a well-studied portion of the SWSN study area (see Clark and Lyons 2012; Gerald 2019) that was an early focus of network methodological exploration by the team (Mills et al. 2013b). This data subset includes detailed ceramic typological frequency for all known major settlements across this region during the late pre-Hispanic period (ca. A.D. 1200-1450). The Chaco World is a large-scale social and political system that spanned much of the Colorado Plateau ca. A.D. 800-1150. This settlement system was marked by the construction of massive public architectural features known as great houses and great kivas. This subset of the database includes information on architecture and ceramic typological data for a large portion of the known Chacoan architectural complexes throughout the U.S. Southwest. The Chaco World has been a major focus of the SWSN/cyberSW project (Giomi et al. 2021; Giomi and Peeples 2019; Mills et al. 2018).</p>
+<p>In these networks, individual settlements are treated as nodes and edges are defined and weighted based on similarities in the ceramic wares recovered at those settlements. Ceramic data used to generate networks are apportioned into a sequence of 50-year chronological intervals using methods described in detail by Roberts and colleagues (2012) and Ortman (2016; see discussion in Mills et al. 2018) so that we are able to explore change through time. Site locations and other site attribute data are also considered in some examples. R implementations of these chronological apportioning methods are available on GitHub as well (<a href="https://github.com/mpeeples2008/CeramicApportioning">R implementation of Roberts et al. 2012</a>, <a href="https://github.com/mpeeples2008/UniformProbabilityDensityAnalysis">R implementation of Ortman 2016</a>).</p>
+<ul>
+<li><a href="data/AD1300attr.csv">SWSN Attribute Data AD 1300-1350</a> - Attribute data for SWSN sites dating between AD 1300 and 1350 including site name, site sub-region (Macro), and jittered easting and northing UTM coordinates.</li>
+<li><a href="data/AD1300sim.csv">SWSN Similarity Data AD 1300-1350</a> - Symmetric similarity matrix based on Brainerd-Robinson similarities for all SWSN sites dating between AD 1300 and 1350.</li>
+<li><a href="data/AD1050attr.csv">The Chaco World Attribute Data AD 1050-1100</a> - Attribute data for sites with Chacoan architectural features dating between AD 1050 and 1100 including site IDs, site names, site sub-regions, counts of different kinds of public architectural features, and jittered easting and northing site locations.</li>
+<li><a href="data/AD1050cer.csv">The Chaco World Ceramic Data AD 1050-1100</a> - Ceramic count data by ware for sites with Chacoan architectural features dating between AD 1050 and 1100.</li>
+<li><a href="data/AD1050net.csv">The Chaco World Network AD 1050-1100</a> - Adjacency matrix of binarized network of ceramic similarity for sites with Chacoan architectural features dating between AD 1050 and 1100.</li>
+<li><a href="data/Figure6_20.Rdata">San Pedro Networks throgh Time</a> - An .RData file that contains igraph network objects for the San Pedro region ceramic similarity networks for AD1250-1300, AD1300-1350, and AD1350-1400.</li>
+</ul>
+</div>
+<div id="cibola-region-technological-similarity-network" class="section level3" number="2.1.4">
+<h3><span class="header-section-number">2.1.4</span> Cibola Region Technological Similarity Network</h3>
+<p>The Cibola region along the Arizona and New Mexico border in the U.S. Southwest is a large and diverse physiographic region spanning the southern edge of the Colorado Plateau and the ancestral homeland of the contemporary Zuni (A:shiwi) people. Peeples and colleagues (Peeples 2011, 2018; Peeples et al. 2021) have explored patterns of technological similarity and communities of practice in this region at a series of sites dating ca. A.D. 1100-1350 through explorations of corrugated ceramic cooking pots. Corrugated pots, which are produced across much of the U.S. Southwest from at least the 9th through the 14th centuries, are coiled ceramic vessels where the coils used to make the vessel are never fully smoothed. Thus, these ceramics retain substantial amounts of evidence of the specific techniques used to produce them.</p>
+<p>In the book we use data on ceramic technological production techniques to generate similarity networks originally published by Peeples (2011; 2018). In these networks each settlement is treated as a node with similarity metrics defining the weights of edges between pairs of sites based on an analysis of a number of metric and coded attributes of individual ceramic vessels. In addition to these material cultural data, we also have additional site attributes such as location and the types and frequency of public architectural features.</p>
+<p>Ceramic technological data from Peeples (2018): Additional data and documentation from this project is available on tDAR <a href="https://core.tdar.org/project/427899/connected-communities-networks-identity-and-social-change-in-the-ancient-cibola-world">in this collection</a>. Nodes are defined as individual settlements with edges defined based on similarities in the technological attributes of cooking pots recovered at those settlements. For more details on the methods and assumptions used to define these networks see Peeples (2018, pg. 100-104).</p>
+<ul>
+<li><a href="data/Cibola_clust.csv">Cibola Ceramic Technological Clusters</a> - Counts of ceramic technological clusters for sites in the Cibola region sample.</li>
+<li><a href="data/Cibola_attr.csv">Cibola Site Attributes</a> - Site location, public architectural feature types, and sub-region designations for sites in the Cibola region sample.</li>
+<li><a href="data/Cibola_edgelist.csv">Cibola Binary Network Edge List</a> - Binary edge list of Cibola technological similarity network.</li>
+<li><a href="data/Cibola_adj.csv">Cibola Binary Network Adjacency Matrix</a> - Binary adjacency matrix of Cibola technological similarity network.</li>
+<li><a href="data/Peeples2018.Rdata">Peeples2018.Rdata</a> - This file contains a number of objects in R format including the site attributes (site_info), a symmetric Brainerd-Robinson similarity matrix (ceramicBR), a binary network object in the statnet/network format (BRnet), and a weighted network object in the statnet/network format (BRnet_w)</li>
+</ul>
+</div>
+<div id="himalayan-visibility-networks" class="section level3" number="2.1.5">
+<h3><span class="header-section-number">2.1.5</span> Himalayan Visibility Networks</h3>
+<p>Hundreds of forts and small fortified structures are located on mountain tops and ridges in the central Himalayan region of Garhwal in Uttarakhand (India). Despite being such a prominent feature of the history of the region that is interwoven with local folklore (Garhwal is derived from ‘land of forts’), this fortification phenomenon has received very little research attention. It might have had its origins during the downfall of the Katyuri dynasty in the 11th century and continued up to the 15th century when the region was consolidated by the Parmar dynasty and possibly even later as attested by Mughal, Tibetan, and British aggressions.</p>
+<p>In the book we use this research context as an example of spatial networks and more specifically visibility networks.This is made possible thanks to the survey of forts in the region performed in the context of the PhD project by Dr Nagendra Singh Rawat (2017). We use a catalog of 193 sites (Rawat et al. 2020, Appendix S1), and use the case of Chaundkot fort and its surroundings as a particular case study. Chaundkot fort is theorized to have been one of the key strongholds in the region and is also the only one to have been partly excavated (Rawat and Nautiyal 2020). In these case studies we represent strongholds as nodes, and the ability for a line-of-sight to exist between observers located at a pair of strongholds is represented by a directed edge. The length of each line-of-sight is represented by an edge attribute.</p>
+<ul>
+<li><a href="data/Himalaya_nodes.csv">Himalayan Node data</a> - Node attribute data for the Himalayan sites including locations in lat/long, elevation, site name/type, and descriptions of landscape features.</li>
+<li><a href="data/Himalaya_visiblity.csv">Himalayan Edge List</a> - Edge list data with information on connections among nodes within 25kms of each other with information on the distance and whether or not the target site is visible from the source. Note that only edges with “Visible = TRUE” should be included as activated edges.</li>
+</ul>
+</div>
+<div id="archaeological-publication-networks" class="section level3" number="2.1.6">
+<h3><span class="header-section-number">2.1.6</span> Archaeological Publication Networks</h3>
+<p>Our knowledge and stories of past human behavior are as much shaped by the material remains we excavate, as they are by the actions and interactions of the archaeologists that study them. Aspects of these actions and interactions are formally represented in publications. Such papers can be co-authored, reflecting scientific collaboration networks and communities of practice. Authors cite other authors’ works to indicate explicitly that they were influenced by it or that it is related to the paper’s subject matter.</p>
+<p>In previous work, we have turned the tools of archaeological network science on archaeological network researchers themselves (Brughmans 2013; Brughmans and Peeples 2017). We studied the co-authorship and citation practices of the more than 250 publications that have applied formal network methods to archaeological research topics from 1968 to the present. From a list of publications, an undirected co-authorship network can be made by representing individual authors as nodes, and connecting a pair of authors with an edge if they have been co-authors on one or more papers, with edge values representing the number of papers they co-authored. Moreover, a directed citation network can be made from the bibliographies of this list of publications. In a citation network, each node represents an individual publication which is connected to all other publications in its bibliography with a directed edge. The edge goes from the citing publication to the cited publication, so it represents the source and direction of academic influence as explicitly expressed in publication. We use networks of archaeological network research publications throughout this volume to illustrate concepts like the acyclic structure of citation networks.</p>
+<ul>
+<li><a href="data/biblio_attr.csv">Publication Networks Attribute Data</a> - Attribute data table including information on publications including a unique key identifier, publication type, publication title, publication date, and the author list separated by semi-colons.</li>
+<li><a href="data/biblio_dat.csv">Publication Networks Co-Authorship Incidence Matrix</a> - An incidence matrix with unique publications as rows and authors as columns.</li>
+</ul>
+</div>
+<div id="iron-age-sites-in-southern-spain" class="section level3" number="2.1.7">
+<h3><span class="header-section-number">2.1.7</span> Iron Age Sites in Southern Spain</h3>
+<p>The Guadalquivir river valley in the south of Spain between present-day Seville and Córdoba was densely urbanized in the late Iron Age (early 5th c. BC to late 3rd c. BC). Many settlements were dotted along the rivers and the southern part of the valley (Fig. 2.6), and this settlement pattern was focused on nuclear settlements sometimes referred to as oppida. Some of these reveal defensive architecture and many are located on elevations. Previous studies of Iron Age settlements in the region have explored possible explanations for their locations (Keay and Earl 2011; Brughmans et al. 2014, 2015). Given their elevated locations, one theory that has received considerable attention was intervisibility. Could small settlements surrounding oppida be seen from them, and could oppida be located partly to allow for visual control over surrounding settlements? Did groups of Iron Age settlements tend to be intervisible, forming communities that were visible on a daily basis? Were there chains of intervisibility that allowed for passing on information from one site to another via visual smoke or fire signals, and did these chains follow the other key communication medium in the area: the navigable rivers?</p>
+<p>These questions have been explored in previous research using GIS and network methods, using a dataset of 86 sites and lines-of-sight connecting pairs of Iron Age settlements at distances up to 20km at which large fire and smoke signals would be visible (more about this dataset and research topic: Keay and Earl 2011; Brughmans et al. 2014, 2015). To account for errors in the Digital Elevation Model (DEM), a probabilistic line-of-sight analysis was performed that introduces random errors into the DEM which can have a blocking or enhancing effect on the lines-of-sight. The locations of these 86 sites and the network displayed in figure 2.9 are also available as Appendix A in Brughmans et al. 2014. These locations are used in Chapter 7 of the book to illustrate spatial network models that explore different geographical structures that might underlie the settlement pattern.</p>
+<ul>
+<li><a href="data/Guadalquivir.csv">Guadalquivir settlement data</a> - Site number and locations in decimal degrees for all sites in the Guadalquivir survey area.</li>
+</ul>
+</div>
+</div>
+<div id="importing-data-in-r" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> Importing Data in R</h2>
+<p>This section briefly describes how the data provided above (or your own data) can be imported in to R for further analyses. Before running the code below, however, you need to ensure that your R session is set to the correct working directory (the location where you placed the .csv files you just downloaded). To do that, go to the menu bar at the top and click Session &gt; Set Working Directory &gt; Choose Directory and navigate to the place on your hard drive where these files reside (alternatively you can hit Ctrl + Shift + H and then navigate to the appropriate directory).</p>
+<p>For this example we will read in the Cibola_edgelist.csv file and define an object called “EL1” which includes the data in that file using the read.csv() command. Note that in this case the file we want to read is in a sub-folder of our working directory called “data” so we need to use the “data/” prefix before the file name to correctly call that file. If you do not chose to use a sub-folder or if you call your folder something else, you will need to modify the “data/” section of the code.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="getting-started.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># read in data with first row representing column names (header=TRUE)</span></span>
+<span id="cb1-2"><a href="getting-started.html#cb1-2" aria-hidden="true" tabindex="-1"></a>EL1 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="at">file=</span><span class="st">&quot;data/Cibola_edgelist.csv&quot;</span>, <span class="at">header=</span><span class="cn">TRUE</span>)</span>
+<span id="cb1-3"><a href="getting-started.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># look at the first few rows</span></span>
+<span id="cb1-4"><a href="getting-started.html#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(EL1)</span></code></pre></div>
+<pre><code>##           FROM                   TO
+## 1 Apache Creek         Casa Malpais
+## 2 Apache Creek         Coyote Creek
+## 3 Apache Creek         Hooper Ranch
+## 4 Apache Creek      Horse Camp Mill
+## 5 Apache Creek        Hubble Corner
+## 6 Apache Creek Mineral Creek Pueblo</code></pre>
+<p>In addition to the .csv files, several examples in this book and several of the datasets above are provide as .RData files which can be read directly in R and can contain multiple R objects. These can be read directly into the R environment using the “load()” function. See the example below. Again note that you must specify the specific directory within the working directory where the file is located.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="getting-started.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;data/map.RData&quot;</span>)</span></code></pre></div>
+</div>
+<div id="installing-r-packages" class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> Installing R Packages</h2>
+<p>In this appendix we rely on a number of pre-existing R packages. In order to use these packages in a new installation of R and R-studio, you first need to install them. Note that you will only need to do this once on a new installation of R. To install packages, you can click on the “Packages” tab in the window in the bottom right of R studio, then click the “Install” button at the top and type the names of the packages separated by commas. Alternatively you can install packages from the console by simply typing “install.packages(”nameofpackagehere”)” without the outer quotation marks.</p>
+<p>install.packages(c(“statnet”,“tnet”))</p>
+<p>We use a number of R packages in the modules here and in the book for manipulating and analyzing network data and for other general analyses and procedures. The most frequently used network packages include:</p>
+<ul>
+<li><a href="https://igraph.org/">igraph (Csardi and Nepusz 2006)</a> - analytical routines for simple graphs and graph analysis</li>
+<li><a href="http://statnet.org/">statnet (Krivitsky et al. 2020)</a> - A suite of packages designed for the management and statistical analysis of networks</li>
+<li><a href="https://cran.r-project.org/web/packages/intergraph/intergraph.pdf">intergraph (Bojanowski 2015)</a> - a set of routines for coercing objects between common network formats in R</li>
+<li><a href="https://CRAN.R-project.org/package=ggraph">ggraph (Pederson 2021)</a> - a powerful graph visualization package that is based off of the ggplot2 plotting format</li>
+</ul>
+<p>In order to install all of the packages that will be used in this appendix, you can run the following chunk of code. Specific packages will be initialized along with the specific sections where they are required. Note that the code below will not reinstall packages already installed in your current version of R.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="getting-started.html#cb4-1" aria-hidden="true" tabindex="-1"></a>packages <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;igraph&quot;</span>, <span class="st">&quot;statnet&quot;</span>, <span class="st">&quot;intergraph&quot;</span>, <span class="st">&quot;tnet&quot;</span>, <span class="st">&quot;ggplot2&quot;</span>,</span>
+<span id="cb4-2"><a href="getting-started.html#cb4-2" aria-hidden="true" tabindex="-1"></a>              <span class="st">&quot;deldir&quot;</span>,<span class="st">&quot;rjson&quot;</span>,<span class="st">&quot;d3r&quot;</span>,<span class="st">&quot;cccd&quot;</span>,<span class="st">&quot;RBGL&quot;</span>,<span class="st">&quot;graph&quot;</span>,<span class="st">&quot;BiocGenerics&quot;</span>,</span>
+<span id="cb4-3"><a href="getting-started.html#cb4-3" aria-hidden="true" tabindex="-1"></a>              <span class="st">&quot;networkD3&quot;</span>,<span class="st">&quot;visNetwork&quot;</span>,<span class="st">&quot;GISTools&quot;</span>,<span class="st">&quot;rgeos&quot;</span>,<span class="st">&quot;maptools&quot;</span>,<span class="st">&quot;sp&quot;</span>,</span>
+<span id="cb4-4"><a href="getting-started.html#cb4-4" aria-hidden="true" tabindex="-1"></a>              <span class="st">&quot;ndtv&quot;</span>,<span class="st">&quot;gridExtra&quot;</span>,<span class="st">&quot;png&quot;</span>,<span class="st">&quot;scales&quot;</span>,<span class="st">&quot;ape&quot;</span>,<span class="st">&quot;graphlayouts&quot;</span>,<span class="st">&quot;igraphdata&quot;</span>,</span>
+<span id="cb4-5"><a href="getting-started.html#cb4-5" aria-hidden="true" tabindex="-1"></a>              <span class="st">&quot;ggrepel&quot;</span>,<span class="st">&quot;ggsn&quot;</span>,<span class="st">&quot;tidyverse&quot;</span>,<span class="st">&quot;edgebundle&quot;</span>,<span class="st">&quot;superheat&quot;</span>,</span>
+<span id="cb4-6"><a href="getting-started.html#cb4-6" aria-hidden="true" tabindex="-1"></a>              <span class="st">&quot;ggplotify&quot;</span>,<span class="st">&quot;ggforce&quot;</span>,<span class="st">&quot;colorspace&quot;</span>,<span class="st">&quot;ggmap&quot;</span>,<span class="st">&quot;sf&quot;</span>,<span class="st">&quot;dplyr&quot;</span>,<span class="st">&quot;ggpubr&quot;</span>,</span>
+<span id="cb4-7"><a href="getting-started.html#cb4-7" aria-hidden="true" tabindex="-1"></a>              <span class="st">&quot;ggraph&quot;</span>,<span class="st">&quot;ggplot2&quot;</span>,<span class="st">&quot;reshape2&quot;</span>,<span class="st">&quot;multinet&quot;</span>,<span class="st">&quot;RColorBrewer&quot;</span>,<span class="st">&quot;Rcpp&quot;</span>,</span>
+<span id="cb4-8"><a href="getting-started.html#cb4-8" aria-hidden="true" tabindex="-1"></a>              <span class="st">&quot;vegan&quot;</span>,<span class="st">&quot;intergraph&quot;</span>,<span class="st">&quot;networkDynamic&quot;</span>,<span class="st">&quot;scatterplot3d&quot;</span>)</span>
+<span id="cb4-9"><a href="getting-started.html#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="getting-started.html#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">setdiff</span>(packages, <span class="fu">rownames</span>(<span class="fu">installed.packages</span>())))  </span>
+<span id="cb4-11"><a href="getting-started.html#cb4-11" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;liamgilbey/ggwaffle&quot;</span>)</span></code></pre></div>
+<p>Here is a list of all package versions used in the creation of this document:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="getting-started.html#cb5-1" aria-hidden="true" tabindex="-1"></a>        deldir          rjson            d3r           cccd           RBGL          graph   BiocGenerics      networkD3 </span>
+<span id="cb5-2"><a href="getting-started.html#cb5-2" aria-hidden="true" tabindex="-1"></a>       <span class="st">&quot;0.2-3&quot;</span>       <span class="st">&quot;0.2.20&quot;</span>        <span class="st">&quot;0.9.1&quot;</span>          <span class="st">&quot;1.5&quot;</span>       <span class="st">&quot;1.64.0&quot;</span>       <span class="st">&quot;1.66.0&quot;</span>       <span class="st">&quot;0.34.0&quot;</span>          <span class="st">&quot;0.4&quot;</span> </span>
+<span id="cb5-3"><a href="getting-started.html#cb5-3" aria-hidden="true" tabindex="-1"></a>    visNetwork       GISTools          rgeos           MASS       maptools             sp           ndtv      animation </span>
+<span id="cb5-4"><a href="getting-started.html#cb5-4" aria-hidden="true" tabindex="-1"></a>       <span class="st">&quot;2.0.9&quot;</span>        <span class="st">&quot;0.7-4&quot;</span>        <span class="st">&quot;0.5-5&quot;</span>       <span class="st">&quot;7.3-54&quot;</span>        <span class="st">&quot;1.0-2&quot;</span>        <span class="st">&quot;1.4-5&quot;</span>       <span class="st">&quot;0.13.0&quot;</span>          <span class="st">&quot;2.6&quot;</span> </span>
+<span id="cb5-5"><a href="getting-started.html#cb5-5" aria-hidden="true" tabindex="-1"></a>     gridExtra            png         scales            ape   graphlayouts     igraphdata        ggrepel           ggsn </span>
+<span id="cb5-6"><a href="getting-started.html#cb5-6" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;2.3&quot;</span>        <span class="st">&quot;0.1-7&quot;</span>        <span class="st">&quot;1.1.1&quot;</span>        <span class="st">&quot;5.4-1&quot;</span>        <span class="st">&quot;0.7.1&quot;</span>        <span class="st">&quot;1.0.1&quot;</span>        <span class="st">&quot;0.9.1&quot;</span>        <span class="st">&quot;0.5.0&quot;</span> </span>
+<span id="cb5-7"><a href="getting-started.html#cb5-7" aria-hidden="true" tabindex="-1"></a>       forcats        stringr          purrr          readr          tidyr         tibble      tidyverse       ggwaffle </span>
+<span id="cb5-8"><a href="getting-started.html#cb5-8" aria-hidden="true" tabindex="-1"></a>       <span class="st">&quot;0.5.1&quot;</span>        <span class="st">&quot;1.4.0&quot;</span>        <span class="st">&quot;0.3.4&quot;</span>        <span class="st">&quot;1.4.0&quot;</span>        <span class="st">&quot;1.1.3&quot;</span>        <span class="st">&quot;3.1.0&quot;</span>        <span class="st">&quot;1.3.1&quot;</span>        <span class="st">&quot;0.2.2&quot;</span> </span>
+<span id="cb5-9"><a href="getting-started.html#cb5-9" aria-hidden="true" tabindex="-1"></a>    edgebundle      superheat      ggplotify        ggforce     colorspace          ggmap             sf          dplyr</span>
+<span id="cb5-10"><a href="getting-started.html#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;0.1.0.9000&quot;</span>        <span class="st">&quot;1.0.0&quot;</span>        <span class="st">&quot;0.0.7&quot;</span>        <span class="st">&quot;0.3.2&quot;</span>        <span class="st">&quot;2.0-2&quot;</span>        <span class="st">&quot;3.0.0&quot;</span>        <span class="st">&quot;1.0-0&quot;</span>        <span class="st">&quot;1.0.5&quot;</span> </span>
+<span id="cb5-11"><a href="getting-started.html#cb5-11" aria-hidden="true" tabindex="-1"></a>        ggpubr           tnet       survival         ggraph        ggplot2       reshape2       multinet   RColorBrewer </span>
+<span id="cb5-12"><a href="getting-started.html#cb5-12" aria-hidden="true" tabindex="-1"></a>       <span class="st">&quot;0.4.0&quot;</span>       <span class="st">&quot;3.0.16&quot;</span>        <span class="st">&quot;3.2-7&quot;</span>        <span class="st">&quot;2.0.5&quot;</span>        <span class="st">&quot;3.3.5&quot;</span>        <span class="st">&quot;1.4.4&quot;</span>          <span class="st">&quot;4.0&quot;</span>        <span class="st">&quot;1.1-2&quot;</span> </span>
+<span id="cb5-13"><a href="getting-started.html#cb5-13" aria-hidden="true" tabindex="-1"></a>          Rcpp          vegan        lattice        permute     intergraph        statnet           tsna            sna </span>
+<span id="cb5-14"><a href="getting-started.html#cb5-14" aria-hidden="true" tabindex="-1"></a>       <span class="st">&quot;1.0.7&quot;</span>        <span class="st">&quot;2.5-7&quot;</span>      <span class="st">&quot;0.20-41&quot;</span>        <span class="st">&quot;0.9-5&quot;</span>        <span class="st">&quot;2.0-2&quot;</span>       <span class="st">&quot;2019.6&quot;</span>        <span class="st">&quot;0.3.3&quot;</span>          <span class="st">&quot;2.6&quot;</span> </span>
+<span id="cb5-15"><a href="getting-started.html#cb5-15" aria-hidden="true" tabindex="-1"></a>statnet.common     ergm.count          tergm networkDynamic           ergm        network         igraph </span>
+<span id="cb5-16"><a href="getting-started.html#cb5-16" aria-hidden="true" tabindex="-1"></a>       <span class="st">&quot;4.5.0&quot;</span>        <span class="st">&quot;4.0.2&quot;</span>        <span class="st">&quot;4.0.1&quot;</span>       <span class="st">&quot;0.11.0&quot;</span>        <span class="st">&quot;4.0.1&quot;</span>       <span class="st">&quot;1.17.1&quot;</span>        <span class="st">&quot;1.2.6&quot;</span> </span></code></pre></div>
+</div>
+<div id="suggested-workspace-setup" class="section level2" number="2.4">
+<h2><span class="header-section-number">2.4</span> Suggested Workspace Setup</h2>
+<p>In order to follow along with the examples in the appendix it will be easiest if you set up your R working directory in a similar format to that used in creating it. Specifically, we suggest you create a new working directory and create an R studio project tied to that specific directory. Further, we suggest that you create a sub-folder of that working directory called “data” and place all of the files you downloaded above or from any other place in this appendix in that folder. Note that if you chose the “Just Give Me Everything” download you will have a .zip file that already contains a sub-folder called “data” so be sure you’re not double nesting your folders (you want “working_directory/data” not “working_directory/data/data”).</p>
+<p>This document was created in R version 4.04 “Lost Library Book” and we suggest you run a current installation of R and R-studio.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="NetworkData.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": null,
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection",
+"scroll_highlight": true
+},
+"toolbar": null,
+"position": "static"
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
