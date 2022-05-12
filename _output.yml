@@ -1,0 +1,17 @@
+bookdown::gitbook:
+  output:
+    revealjs_presentation:
+      css: style.css
+  highlight: tango
+  css: style.css
+  config:
+    toolbar:
+    position: static
+    edit: null
+    toc: 
+      collapse: subsection
+      scroll_highlight: true
+      before: |
+        <li><a href="./">Archaeological Network Science</a></li>
+      after: |
+        <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
