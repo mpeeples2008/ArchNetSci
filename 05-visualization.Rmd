@@ -803,100 +803,7 @@ ggmap(myMap) +
 
 Fig. 6.7. This ceramic similarity network of the San Pedro River Valley in Arizona shows the challenges of creating geographic network layouts. Figure 6.7a shows sites in their original locations whereas figure 6.7b shifts locations to improve the visibility of network structure. Note how the distorted geographic layout retains the basic relationships among the nodes while altering their locations slightly.
 
-Unfortunately as the first map contains real site locations we cannot share those data here. The second map can still be reproduced given nothing but the code below.
-
-```{r Fig6_7, warning=F, message=F, fig.width=12, fig.height=8}
-
-library(igraph)
-library(sf)
-library(ggmap)
-library(ggsn)
-library(ggrepel)
-library(ggpubr)
-
-load("data/Figure6_7a.Rdata")
-# attr - site attribute data for San Pedro sites
-# g.net - igraph network object of San Pedro sites based on ceramic similarity
-
-
-# Convert attribute location data to sf coordinates
-locations_sf <- st_as_sf(attr, coords = c("Easting", "Northing"), crs = 26912)
-loc_trans <- st_transform(locations_sf,crs=4326)
-coord1 <- do.call(rbind, st_geometry(loc_trans)) %>% 
-  tibble::as_tibble() %>% setNames(c("lon","lat"))
-
-xy <- as.data.frame(coord1)
-colnames(xy) <- c('x','y')
-
-# Define coordinates of "jittered" points
-# These points were originally created using the "jitter" function
-# until a reasonable set of points were found.
-coord <- c(-110.7985, 32.97888,
--110.7472, 32.89950,
--110.6965, 32.83496,
--110.6899, 32.91499,
--110.5508, 32.72260,
--110.4752, 32.60533,
--110.3367, 32.33341,
--110.5930, 32.43487,
--110.8160, 32.86185,
--110.6650, 32.64882,
--110.4558, 32.56866,
--110.6879, 32.60055,
--110.7428, 32.93124,
--110.4173, 32.34401,
--110.7000, 32.73344)
-
-# Convert coordinates to data frame
-zz <- as.data.frame(matrix(coord,nrow=15,byrow=TRUE))
-colnames(zz) <- c('x','y')
-
-# Get basemap "terrain-background" data for map in black and white
-base3 <- get_stamenmap(bbox=c(-111,32.2,-110,33.1),zoom=10,maptype="terrain-background",color="bw")
-
-# Extract edgelist from network object
-edgelist <- get.edgelist(g.net)
-
-# Create dataframe of beginning and ending points of edges
-edges <- data.frame(xy[edgelist[,1],], xy[edgelist[,2],])
-colnames(edges) <- c("X1","Y1","X2","Y2")
-
-# Create dataframe of beginning and ending points of edges
-edges2 <- data.frame(zz[edgelist[,1],], zz[edgelist[,2],])
-colnames(edges2) <- c("X1","Y1","X2","Y2")
-
-# Plot original data on map
-m1 <- ggmap(base3,darken=0.35) +
-  geom_segment(data = edges, aes(x=X1, y=Y1, xend=X2, yend=Y2), col='white',size=1) +
-  geom_point(data = xy,aes(x,y),alpha=0.8, col='red', size=5, show.legend=F) +
-  geom_text_repel(aes(x=x, y=y, label=attr$Sites), data=xy, size=3) +
-  scalebar(x.min = -111, x.max = -110.75,
-           y.min = 32.25, y.max = 33,
-           dist = 10, dist_unit = "km",
-           st.bottom = FALSE, transform = TRUE, 
-           model = "WGS84") +
-  theme_void()
-
-# Plot jittered coordinates on map
-m2 <- ggmap(base3,darken=0.35) +
-  geom_segment(data = edges2, aes(x=X1, y=Y1, xend=X2, yend=Y2), col='white',size=1) +
-  geom_point(data = zz,aes(x,y),alpha=0.8, col='red', size=5, show.legend=F) +
-  geom_text_repel(aes(x=x, y=y, label=attr$Sites), data=zz, size=3) +
-  scalebar(x.min = -111, x.max = -110.75,
-           y.min = 32.25, y.max = 33,
-           dist = 10, dist_unit = "km",
-           st.bottom = FALSE, transform = TRUE, 
-           model = "WGS84") +
-  theme_void()
-
-figure_6_7 <- ggarrange(m1,m2,
-                    labels = c("(a)", "(b)"),
-                    ncol = 2, nrow = 1,
-                    font.label=list(size=20))
-figure_6_7
-```
-
-Code for producing Fig. 6.7. B alone
+Unfortunately as the first map contains real site locations we cannot share those data here. The second map can still be reproduced given nothing but the code below. The only difference required to produce Figure 6.7a would be to replace the "coord" site coordinates with the actual site locations.
 
 ```{r, message=F, warning=F, fig.height=6, fig.width=6}
 library(igraph)
@@ -928,6 +835,10 @@ coord <- c(-110.7985, 32.97888,
 -110.4173, 32.34401,
 -110.7000, 32.73344)
 
+attr <- c("Swingle's Sample","Ash Terrace","Lost Mound","Dudleyville Mound","Leaverton",        
+          "High Mesa","Elliott Site","Bayless Ruin","Flieger","Big Bell","111 Ranch",
+          "Twin Hawks","Artifact Hill","Jose Solas Ruin","Wright")
+
 # Convert coordinates to data frame
 zz <- as.data.frame(matrix(coord,nrow=15,byrow=TRUE))
 colnames(zz) <- c('x','y')
@@ -943,10 +854,10 @@ edges2 <- data.frame(zz[edgelist[,1],], zz[edgelist[,2],])
 colnames(edges2) <- c("X1","Y1","X2","Y2")
 
 # Plot jittered coordinates on map
-m2 <- ggmap(base3,darken=0.35) +
+figure_6_7 <- ggmap(base3,darken=0.35) +
   geom_segment(data = edges2, aes(x=X1, y=Y1, xend=X2, yend=Y2), col='white',size=1) +
   geom_point(data = zz,aes(x,y),alpha=0.8, col='red', size=5, show.legend=F) +
-  geom_text_repel(aes(x=x, y=y, label=attr$Sites), data=zz, size=3) +
+  geom_text_repel(aes(x=x, y=y, label=attr), data=zz, size=3) +
   scalebar(x.min = -111, x.max = -110.75,
            y.min = 32.25, y.max = 33,
            dist = 10, dist_unit = "km",
@@ -954,7 +865,7 @@ m2 <- ggmap(base3,darken=0.35) +
            model = "WGS84") +
   theme_void()
 
-m2
+figure_6_7
 ```
 
 ### Figure 6.8: Graph Layout Algorithms {#Figure_6_8}
@@ -1618,8 +1529,8 @@ Fig. 6.24. An example of three frames from a network animation.
 
 Figure 6.24 was created using the ndtv package and the same data produced above for figure 6.23. We simply rendered the animation as above and then output to an interactive html widget. The figure in the book represents 3 screen shots from the video. See the ndtv documentation for more details.
 
-```{r Fig6_24, warning=F, message=F, eval=F}
-render.d3movie(SanPedro, vertex.col=mycol[factor(SP_attr$SWSN_MacroGroup)], output.mode = "HTML")
+```{r Fig6_24, warning=F, message=F, eval=T}
+render.d3movie(SanPedro, vertex.col=mycol[factor(SP_attr$SWSN_MacroGroup)], output.mode = "htmlWidget")
 ```
 
 

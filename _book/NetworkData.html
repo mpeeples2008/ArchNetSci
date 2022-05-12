@@ -57,6 +57,11 @@
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
 <script src="libs/d3-4.5.0/d3.min.js"></script>
+<link href="libs/d3.slider.js-0/d3.slider.css" rel="stylesheet" />
+<script src="libs/d3.slider.js-0/d3.slider.js"></script>
+<link href="libs/ndtv-d3-0.2-14/css/styles.css" rel="stylesheet" />
+<script src="libs/ndtv-d3-0.2-14/js/ndtv-d3.js"></script>
+<script src="libs/ndtvAnimationWidget-binding-0.13.2/ndtvAnimationWidget.js"></script>
 <script src="libs/forceNetwork-binding-0.4/forceNetwork.js"></script>
 <link href="libs/vis-9.1.0/vis-network.min.css" rel="stylesheet" />
 <script src="libs/vis-9.1.0/vis-network.min.js"></script>
@@ -382,9 +387,9 @@ div.csl-indent {
 <span id="cb9-4"><a href="NetworkData.html#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-5"><a href="NetworkData.html#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Display igraph network object and then plot a simple node-link diagram</span></span>
 <span id="cb9-6"><a href="NetworkData.html#cb9-6" aria-hidden="true" tabindex="-1"></a>Cibola_net</span></code></pre></div>
-<pre><code>## IGRAPH 684f838 UN-- 30 167 -- 
+<pre><code>## IGRAPH c884894 UN-- 30 167 -- 
 ## + attr: name (v/c)
-## + edges from 684f838 (vertex names):
+## + edges from c884894 (vertex names):
 ##  [1] Apache Creek--Casa Malpais          Apache Creek--Coyote Creek         
 ##  [3] Apache Creek--Hooper Ranch          Apache Creek--Horse Camp Mill      
 ##  [5] Apache Creek--Hubble Corner         Apache Creek--Mineral Creek Pueblo 
@@ -407,7 +412,7 @@ div.csl-indent {
 <span id="cb12-3"><a href="NetworkData.html#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-4"><a href="NetworkData.html#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># examine adjacency list for the site Apache Creek</span></span>
 <span id="cb12-5"><a href="NetworkData.html#cb12-5" aria-hidden="true" tabindex="-1"></a>adj_list<span class="sc">$</span><span class="st">`</span><span class="at">Apache Creek</span><span class="st">`</span></span></code></pre></div>
-<pre><code>## + 11/167 edges from 684f838 (vertex names):
+<pre><code>## + 11/167 edges from c884894 (vertex names):
 ##  [1] Apache Creek--Casa Malpais         Apache Creek--Coyote Creek        
 ##  [3] Apache Creek--Hooper Ranch         Apache Creek--Horse Camp Mill     
 ##  [5] Apache Creek--Hubble Corner        Apache Creek--Mineral Creek Pueblo
@@ -417,7 +422,7 @@ div.csl-indent {
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="NetworkData.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># It is also possible to call specific nodes by number. In this case,</span></span>
 <span id="cb14-2"><a href="NetworkData.html#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># site 2 is Casa Malpais</span></span>
 <span id="cb14-3"><a href="NetworkData.html#cb14-3" aria-hidden="true" tabindex="-1"></a>adj_list[[<span class="dv">2</span>]] </span></code></pre></div>
-<pre><code>## + 11/167 edges from 684f838 (vertex names):
+<pre><code>## + 11/167 edges from c884894 (vertex names):
 ##  [1] Apache Creek--Casa Malpais    Casa Malpais--Coyote Creek   
 ##  [3] Casa Malpais--Hooper Ranch    Casa Malpais--Horse Camp Mill
 ##  [5] Casa Malpais--Hubble Corner   Casa Malpais--Rudd Creek Ruin
@@ -581,9 +586,9 @@ div.csl-indent {
 <span id="cb21-2"><a href="NetworkData.html#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co"># multiple=TRUE as we want this defined as a bipartite network.</span></span>
 <span id="cb21-3"><a href="NetworkData.html#cb21-3" aria-hidden="true" tabindex="-1"></a>Cibola_inc <span class="ot">&lt;-</span> igraph<span class="sc">::</span><span class="fu">graph_from_incidence_matrix</span>(Cibola_clust, <span class="at">directed=</span><span class="cn">FALSE</span>, <span class="at">multiple=</span><span class="cn">TRUE</span>)</span>
 <span id="cb21-4"><a href="NetworkData.html#cb21-4" aria-hidden="true" tabindex="-1"></a>Cibola_inc</span></code></pre></div>
-<pre><code>## IGRAPH 689c063 UN-B 41 2214 -- 
+<pre><code>## IGRAPH c8d4b62 UN-B 41 2214 -- 
 ## + attr: type (v/l), name (v/c)
-## + edges from 689c063 (vertex names):
+## + edges from c8d4b62 (vertex names):
 ##  [1] Apache Creek--Clust1 Apache Creek--Clust1 Apache Creek--Clust1
 ##  [4] Apache Creek--Clust1 Apache Creek--Clust1 Apache Creek--Clust1
 ##  [7] Apache Creek--Clust1 Apache Creek--Clust2 Apache Creek--Clust2
@@ -648,9 +653,9 @@ div.csl-indent {
 <span id="cb29-4"><a href="NetworkData.html#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert to a network object using igraph</span></span>
 <span id="cb29-5"><a href="NetworkData.html#cb29-5" aria-hidden="true" tabindex="-1"></a>simple_net_i <span class="ot">&lt;-</span> igraph<span class="sc">::</span><span class="fu">graph_from_adjacency_matrix</span>(<span class="fu">as.matrix</span>(adj_mat2), <span class="at">mode=</span><span class="st">&quot;undirected&quot;</span>)</span>
 <span id="cb29-6"><a href="NetworkData.html#cb29-6" aria-hidden="true" tabindex="-1"></a>simple_net_i</span></code></pre></div>
-<pre><code>## IGRAPH 6975565 UN-- 31 167 -- 
+<pre><code>## IGRAPH c9b8786 UN-- 31 167 -- 
 ## + attr: name (v/c)
-## + edges from 6975565 (vertex names):
+## + edges from c9b8786 (vertex names):
 ##  [1] Apache.Creek--Casa.Malpais          Apache.Creek--Coyote.Creek         
 ##  [3] Apache.Creek--Hooper.Ranch          Apache.Creek--Horse.Camp.Mill      
 ##  [5] Apache.Creek--Hubble.Corner         Apache.Creek--Mineral.Creek.Pueblo 
@@ -695,9 +700,9 @@ div.csl-indent {
 <span id="cb33-9"><a href="NetworkData.html#cb33-9" aria-hidden="true" tabindex="-1"></a><span class="co"># to ensure this is treated as a directed network object.</span></span>
 <span id="cb33-10"><a href="NetworkData.html#cb33-10" aria-hidden="true" tabindex="-1"></a>directed_net <span class="ot">&lt;-</span> igraph<span class="sc">::</span><span class="fu">graph_from_edgelist</span>(<span class="fu">as.matrix</span>(EL2), <span class="at">directed=</span><span class="cn">TRUE</span>)</span>
 <span id="cb33-11"><a href="NetworkData.html#cb33-11" aria-hidden="true" tabindex="-1"></a>directed_net</span></code></pre></div>
-<pre><code>## IGRAPH 697d6e5 DN-- 30 125 -- 
+<pre><code>## IGRAPH c9c1a20 DN-- 30 125 -- 
 ## + attr: name (v/c)
-## + edges from 697d6e5 (vertex names):
+## + edges from c9c1a20 (vertex names):
 ##  [1] Coyote Creek   -&gt;Techado Springs      
 ##  [2] Hubble Corner  -&gt;Tri-R Pueblo         
 ##  [3] Hubble Corner  -&gt;Techado Springs      
@@ -882,9 +887,9 @@ div.csl-indent {
 <span id="cb43-3"><a href="NetworkData.html#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create network from incidence matrix based on presence/absence of a cluster at a site</span></span>
 <span id="cb43-4"><a href="NetworkData.html#cb43-4" aria-hidden="true" tabindex="-1"></a>Cibola_inc <span class="ot">&lt;-</span> igraph<span class="sc">::</span><span class="fu">graph_from_incidence_matrix</span>(Cibola_clust, <span class="at">directed=</span><span class="cn">FALSE</span>, <span class="at">multiple=</span><span class="cn">TRUE</span>)</span>
 <span id="cb43-5"><a href="NetworkData.html#cb43-5" aria-hidden="true" tabindex="-1"></a>Cibola_inc</span></code></pre></div>
-<pre><code>## IGRAPH 69c6e32 UN-B 41 2214 -- 
+<pre><code>## IGRAPH ca0d752 UN-B 41 2214 -- 
 ## + attr: type (v/l), name (v/c)
-## + edges from 69c6e32 (vertex names):
+## + edges from ca0d752 (vertex names):
 ##  [1] Apache Creek--Clust1 Apache Creek--Clust1 Apache Creek--Clust1
 ##  [4] Apache Creek--Clust1 Apache Creek--Clust1 Apache Creek--Clust1
 ##  [7] Apache Creek--Clust1 Apache Creek--Clust2 Apache Creek--Clust2
@@ -1137,9 +1142,9 @@ div.csl-indent {
 <p>In most of the examples in this document we have been using the igraph package but for the similarity networks we chose to use statnet due to the convenience of functions for working directly with similarity matrices. Not to worry as it is easy to convert one format to another and preserve all of the attributes using a package called intergraph. By way of example below we can covert the weighted network object we created in the previous step and convert it to a igraph object and view the attributes using the “asIgraph” function. If we wanted to go the other direction and covert a igraph object to a statnet/network object we would instead use “asNetwrok”.</p>
 <div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="NetworkData.html#cb68-1" aria-hidden="true" tabindex="-1"></a>Mor_wt_i <span class="ot">&lt;-</span> <span class="fu">asIgraph</span>(Mor_wt)</span>
 <span id="cb68-2"><a href="NetworkData.html#cb68-2" aria-hidden="true" tabindex="-1"></a>Mor_wt_i</span></code></pre></div>
-<pre><code>## IGRAPH 6b2b3c9 U-W- 31 465 -- 
+<pre><code>## IGRAPH cb72f2f U-W- 31 465 -- 
 ## + attr: na (v/l), vertex.names (v/c), na (e/l), weight (e/n)
-## + edges from 6b2b3c9:
+## + edges from cb72f2f:
 ##   [1] 1-- 2 1-- 3 1-- 4 1-- 5 1-- 6 1-- 7 1-- 8 1-- 9 1--10 1--11 1--12 1--13
 ##  [13] 1--14 1--15 1--16 1--17 1--18 1--19 1--20 1--21 1--22 1--23 1--24 1--25
 ##  [25] 1--26 1--27 1--28 1--29 1--30 1--31 2-- 3 2-- 4 2-- 5 2-- 6 2-- 7 2-- 8
@@ -1171,9 +1176,9 @@ div.csl-indent {
 <span id="cb72-10"><a href="NetworkData.html#cb72-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb72-11"><a href="NetworkData.html#cb72-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Examine the first ego-network</span></span>
 <span id="cb72-12"><a href="NetworkData.html#cb72-12" aria-hidden="true" tabindex="-1"></a>ego_nets[[<span class="dv">1</span>]]</span></code></pre></div>
-<pre><code>## IGRAPH 6b3269c UN-- 12 59 -- 
+<pre><code>## IGRAPH cb7a478 UN-- 12 59 -- 
 ## + attr: name (v/c)
-## + edges from 6b3269c (vertex names):
+## + edges from cb7a478 (vertex names):
 ##  [1] Apache Creek   --Casa Malpais         Apache Creek   --Coyote Creek        
 ##  [3] Casa Malpais   --Coyote Creek         Apache Creek   --Hooper Ranch        
 ##  [5] Casa Malpais   --Hooper Ranch         Coyote Creek   --Hooper Ranch        
@@ -1220,37 +1225,37 @@ div.csl-indent {
 <span id="cb83-2"><a href="NetworkData.html#cb83-2" aria-hidden="true" tabindex="-1"></a><span class="co"># multilayer network, the multinet package can help us do that directly</span></span>
 <span id="cb83-3"><a href="NetworkData.html#cb83-3" aria-hidden="true" tabindex="-1"></a><span class="co"># and quite simply.</span></span>
 <span id="cb83-4"><a href="NetworkData.html#cb83-4" aria-hidden="true" tabindex="-1"></a>multinet<span class="sc">::</span><span class="fu">degree_ml</span>(florentine)</span></code></pre></div>
-<pre><code>##  [1]  3  6  6  6  6  3  1  4  7  3  4  3 11  2  5</code></pre>
+<pre><code>##  [1]  7  4  3  4  2 11  3  5  6  3  6  6  6  3  1</code></pre>
 <div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="NetworkData.html#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Similarly, we could apply cluster detection algorithms to all layers</span></span>
 <span id="cb85-2"><a href="NetworkData.html#cb85-2" aria-hidden="true" tabindex="-1"></a><span class="co"># of a multilayer network simultaneously.</span></span>
 <span id="cb85-3"><a href="NetworkData.html#cb85-3" aria-hidden="true" tabindex="-1"></a>multinet<span class="sc">::</span><span class="fu">glouvain_ml</span>(florentine)</span></code></pre></div>
 <pre><code>##           actor    layer cid
-## 1      Guadagni business   0
-## 2      Guadagni marriage   0
-## 3    Castellani business   0
-## 4    Castellani marriage   0
-## 5      Bischeri business   0
-## 6      Bischeri marriage   0
-## 7       Strozzi marriage   0
-## 8       Peruzzi business   0
-## 9       Peruzzi marriage   0
-## 10 Lamberteschi business   0
-## 11 Lamberteschi marriage   0
-## 12       Ginori business   1
-## 13       Ginori marriage   1
-## 14    Barbadori business   1
-## 15    Barbadori marriage   1
-## 16      Albizzi marriage   1
-## 17   Acciaiuoli marriage   1
-## 18      Ridolfi marriage   1
-## 19   Tornabuoni business   1
-## 20   Tornabuoni marriage   1
-## 21     Salviati business   1
-## 22     Salviati marriage   1
-## 23       Medici business   1
-## 24       Medici marriage   1
-## 25        Pazzi business   1
-## 26        Pazzi marriage   1</code></pre>
+## 1       Peruzzi marriage   0
+## 2       Peruzzi business   0
+## 3       Strozzi marriage   0
+## 4  Lamberteschi marriage   0
+## 5  Lamberteschi business   0
+## 6      Guadagni marriage   0
+## 7      Guadagni business   0
+## 8    Castellani marriage   0
+## 9    Castellani business   0
+## 10     Bischeri marriage   0
+## 11     Bischeri business   0
+## 12      Ridolfi marriage   1
+## 13   Tornabuoni marriage   1
+## 14   Tornabuoni business   1
+## 15        Pazzi marriage   1
+## 16        Pazzi business   1
+## 17       Medici marriage   1
+## 18       Medici business   1
+## 19     Salviati marriage   1
+## 20     Salviati business   1
+## 21       Ginori marriage   1
+## 22       Ginori business   1
+## 23    Barbadori marriage   1
+## 24    Barbadori business   1
+## 25      Albizzi marriage   1
+## 26   Acciaiuoli marriage   1</code></pre>
 
 </div>
 </div>

@@ -57,6 +57,11 @@
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
 <script src="libs/d3-4.5.0/d3.min.js"></script>
+<link href="libs/d3.slider.js-0/d3.slider.css" rel="stylesheet" />
+<script src="libs/d3.slider.js-0/d3.slider.js"></script>
+<link href="libs/ndtv-d3-0.2-14/css/styles.css" rel="stylesheet" />
+<script src="libs/ndtv-d3-0.2-14/js/ndtv-d3.js"></script>
+<script src="libs/ndtvAnimationWidget-binding-0.13.2/ndtvAnimationWidget.js"></script>
 <script src="libs/forceNetwork-binding-0.4/forceNetwork.js"></script>
 <link href="libs/vis-9.1.0/vis-network.min.css" rel="stylesheet" />
 <script src="libs/vis-9.1.0/vis-network.min.js"></script>
@@ -1011,7 +1016,7 @@ div.csl-indent {
 <span id="cb155-2"><a href="exploratory-network-analysis.html#cb155-2" aria-hidden="true" tabindex="-1"></a>igraph<span class="sc">::</span><span class="fu">shortest_paths</span>(simple_net, <span class="at">from=</span><span class="dv">1</span>, <span class="at">to=</span><span class="dv">21</span>)</span></code></pre></div>
 <pre><code>## $vpath
 ## $vpath[[1]]
-## + 5/31 vertices, named, from 6ba47dd:
+## + 5/31 vertices, named, from cbec0d7:
 ## [1] Apache.Creek          Casa.Malpais          Garcia.Ranch         
 ## [4] Heshotauthla          Pueblo.de.los.Muertos
 ## 
@@ -1033,7 +1038,7 @@ div.csl-indent {
 <pre><code>## [1] 4</code></pre>
 <div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="exploratory-network-analysis.html#cb159-1" aria-hidden="true" tabindex="-1"></a>igraph<span class="sc">::</span><span class="fu">farthest_vertices</span>(directed_net, <span class="at">directed=</span>T)</span></code></pre></div>
 <pre><code>## $vertices
-## + 2/30 vertices, named, from 6ba5687:
+## + 2/30 vertices, named, from cbecd0f:
 ## [1] Apache Creek          Pueblo de los Muertos
 ## 
 ## $distance
@@ -1057,9 +1062,9 @@ div.csl-indent {
 <span id="cb167-2"><a href="exploratory-network-analysis.html#cb167-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb167-3"><a href="exploratory-network-analysis.html#cb167-3" aria-hidden="true" tabindex="-1"></a>components</span></code></pre></div>
 <pre><code>## [[1]]
-## IGRAPH 6debace UN-- 30 167 -- 
+## IGRAPH ce16f2e UN-- 30 167 -- 
 ## + attr: name (v/c)
-## + edges from 6debace (vertex names):
+## + edges from ce16f2e (vertex names):
 ##  [1] Apache.Creek--Casa.Malpais          Apache.Creek--Coyote.Creek         
 ##  [3] Apache.Creek--Hooper.Ranch          Apache.Creek--Horse.Camp.Mill      
 ##  [5] Apache.Creek--Hubble.Corner         Apache.Creek--Mineral.Creek.Pueblo 
@@ -1071,9 +1076,9 @@ div.csl-indent {
 ## + ... omitted several edges
 ## 
 ## [[2]]
-## IGRAPH 6debace UN-- 1 0 -- 
+## IGRAPH ce16f2e UN-- 1 0 -- 
 ## + attr: name (v/c)
-## + edges from 6debace (vertex names):</code></pre>
+## + edges from ce16f2e (vertex names):</code></pre>
 <div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="exploratory-network-analysis.html#cb169-1" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(components[[<span class="dv">2</span>]])<span class="sc">$</span>name</span></code></pre></div>
 <pre><code>## [1] &quot;WS.Ranch&quot;</code></pre>
 <p>In the example here this network is fully connected with the exception of 1 node (WS Ranch). When you run the decompose function it separates WS ranch into a component as an isolate with no edges.</p>
@@ -1100,15 +1105,15 @@ div.csl-indent {
 ## [1] 1
 ## 
 ## $cut
-## + 1/167 edge from 6ba4a50 (vertex names):
+## + 1/167 edge from cbec5ba (vertex names):
 ## [1] Ojo Bonito--Baca Pueblo
 ## 
 ## $partition1
-## + 1/30 vertex, named, from 6ba4a50:
+## + 1/30 vertex, named, from cbec5ba:
 ## [1] Baca Pueblo
 ## 
 ## $partition2
-## + 29/30 vertices, named, from 6ba4a50:
+## + 29/30 vertices, named, from cbec5ba:
 ##  [1] Apache Creek          Casa Malpais          Coyote Creek         
 ##  [4] Hooper Ranch          Horse Camp Mill       Hubble Corner        
 ##  [7] Mineral Creek Pueblo  Rudd Creek Ruin       Techado Springs      
@@ -1129,7 +1134,7 @@ div.csl-indent {
 <h3><span class="header-section-number">4.7.1</span> Cliques</h3>
 <p>A clique as a network science concept is arguably the strictest method of defining a cohesive subgroup. It is any set of three or more nodes in which each node is directly connected to all other nodes. It can be alternatively defined as a completely connected subnetwork, or a subnetwork with maximum density. The function “igraph::max_cliques” finds all maximal cliques in a network and outputs a list object with nodes in each set indicated. For the sake of space here we only output one clique of the 24 that were defined by this function call.</p>
 <div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="exploratory-network-analysis.html#cb178-1" aria-hidden="true" tabindex="-1"></a><span class="fu">max_cliques</span>(simple_net, <span class="at">min=</span><span class="dv">1</span>)[[<span class="dv">24</span>]]</span></code></pre></div>
-<pre><code>## + 9/31 vertices, named, from 6ba47dd:
+<pre><code>## + 9/31 vertices, named, from cbec0d7:
 ## [1] Los.Gigantes    Cienega         Tinaja          Spier.170      
 ## [5] Scribe.S        Pescado.Cluster Mirabal         Heshotauthla   
 ## [9] Yellowhouse</code></pre>
