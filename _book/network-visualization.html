@@ -11,11 +11,11 @@
 
   <meta property="og:title" content="Section 6 Network Visualization | Online Companion to Archaeological Network Science by Brughmans and Peeples" />
   <meta property="og:type" content="book" />
-  <meta property="og:url" content="https://archnetworks.net" />
+  <meta property="og:url" content="https://book.archnetworks.net" />
   
   <meta property="og:description" content="<p>This bookdown document accompanies the Cambridge Manuals in Archaeology book
 <em>Archaeological Network Science</em> by Tom Brughmans and Matthew A. Peeples.</p>" />
-  <meta name="github-repo" content="rstudio/bookdown-demo" />
+  
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Section 6 Network Visualization | Online Companion to Archaeological Network Science by Brughmans and Peeples" />
@@ -27,6 +27,7 @@
 <meta name="author" content="Matthew A. Peeples and Tom Brughmans" />
 
 
+<meta name="date" content="2022-05-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -370,9 +371,9 @@ div.csl-indent {
 <span id="cb225-9"><a href="network-visualization.html#cb225-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Create network in igraph format</span></span>
 <span id="cb225-10"><a href="network-visualization.html#cb225-10" aria-hidden="true" tabindex="-1"></a>Cibola_i <span class="ot">&lt;-</span> igraph<span class="sc">::</span><span class="fu">graph_from_adjacency_matrix</span>(<span class="fu">as.matrix</span>(Cibola), <span class="at">mode=</span><span class="st">&quot;undirected&quot;</span>)</span>
 <span id="cb225-11"><a href="network-visualization.html#cb225-11" aria-hidden="true" tabindex="-1"></a>Cibola_i</span></code></pre></div>
-<pre><code>## IGRAPH fddf0af UN-- 31 167 -- 
+<pre><code>## IGRAPH 8f55f54 UN-- 31 167 -- 
 ## + attr: name (v/c)
-## + edges from fddf0af (vertex names):
+## + edges from 8f55f54 (vertex names):
 ##  [1] Apache.Creek--Casa.Malpais          Apache.Creek--Coyote.Creek         
 ##  [3] Apache.Creek--Hooper.Ranch          Apache.Creek--Horse.Camp.Mill      
 ##  [5] Apache.Creek--Hubble.Corner         Apache.Creek--Mineral.Creek.Pueblo 

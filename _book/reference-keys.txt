@@ -127,5 +127,3 @@ maximum-distance-networks
 case-studies
 proximity-of-iron-age-sites-in-southern-spain
 networks-in-space-in-the-u.s.-southwest
-section
-note-that-this-is-a-pre-release-version-of-this-document.-be-aware-that-there-are-formatting-issues-and-there-may-be-lingering-error-currently-under-investigation.-please-check-back-here-for-updates-in-the-coming-months-for-the-full-release-version-of-this-document.

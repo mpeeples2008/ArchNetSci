@@ -11,11 +11,11 @@
 
   <meta property="og:title" content="Section 4 Exploratory Network Analysis | Online Companion to Archaeological Network Science by Brughmans and Peeples" />
   <meta property="og:type" content="book" />
-  <meta property="og:url" content="https://archnetworks.net" />
+  <meta property="og:url" content="https://book.archnetworks.net" />
   
   <meta property="og:description" content="<p>This bookdown document accompanies the Cambridge Manuals in Archaeology book
 <em>Archaeological Network Science</em> by Tom Brughmans and Matthew A. Peeples.</p>" />
-  <meta name="github-repo" content="rstudio/bookdown-demo" />
+  
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Section 4 Exploratory Network Analysis | Online Companion to Archaeological Network Science by Brughmans and Peeples" />
@@ -27,6 +27,7 @@
 <meta name="author" content="Matthew A. Peeples and Tom Brughmans" />
 
 
+<meta name="date" content="2022-05-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1011,7 +1012,7 @@ div.csl-indent {
 <span id="cb155-2"><a href="exploratory-network-analysis.html#cb155-2" aria-hidden="true" tabindex="-1"></a>igraph<span class="sc">::</span><span class="fu">shortest_paths</span>(simple_net, <span class="at">from=</span><span class="dv">1</span>, <span class="at">to=</span><span class="dv">21</span>)</span></code></pre></div>
 <pre><code>## $vpath
 ## $vpath[[1]]
-## + 5/31 vertices, named, from 93e23c9:
+## + 5/31 vertices, named, from 26ceefb:
 ## [1] Apache.Creek          Casa.Malpais          Garcia.Ranch         
 ## [4] Heshotauthla          Pueblo.de.los.Muertos
 ## 
@@ -1033,7 +1034,7 @@ div.csl-indent {
 <pre><code>## [1] 4</code></pre>
 <div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="exploratory-network-analysis.html#cb159-1" aria-hidden="true" tabindex="-1"></a>igraph<span class="sc">::</span><span class="fu">farthest_vertices</span>(directed_net, <span class="at">directed=</span>T)</span></code></pre></div>
 <pre><code>## $vertices
-## + 2/30 vertices, named, from 93e3001:
+## + 2/30 vertices, named, from 26cf8c0:
 ## [1] Apache Creek          Pueblo de los Muertos
 ## 
 ## $distance
@@ -1057,9 +1058,9 @@ div.csl-indent {
 <span id="cb167-2"><a href="exploratory-network-analysis.html#cb167-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb167-3"><a href="exploratory-network-analysis.html#cb167-3" aria-hidden="true" tabindex="-1"></a>components</span></code></pre></div>
 <pre><code>## [[1]]
-## IGRAPH 9609acd UN-- 30 167 -- 
+## IGRAPH 28f6648 UN-- 30 167 -- 
 ## + attr: name (v/c)
-## + edges from 9609acd (vertex names):
+## + edges from 28f6648 (vertex names):
 ##  [1] Apache.Creek--Casa.Malpais          Apache.Creek--Coyote.Creek         
 ##  [3] Apache.Creek--Hooper.Ranch          Apache.Creek--Horse.Camp.Mill      
 ##  [5] Apache.Creek--Hubble.Corner         Apache.Creek--Mineral.Creek.Pueblo 
@@ -1071,9 +1072,9 @@ div.csl-indent {
 ## + ... omitted several edges
 ## 
 ## [[2]]
-## IGRAPH 9609acd UN-- 1 0 -- 
+## IGRAPH 28f6648 UN-- 1 0 -- 
 ## + attr: name (v/c)
-## + edges from 9609acd (vertex names):</code></pre>
+## + edges from 28f6648 (vertex names):</code></pre>
 <div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="exploratory-network-analysis.html#cb169-1" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(components[[<span class="dv">2</span>]])<span class="sc">$</span>name</span></code></pre></div>
 <pre><code>## [1] &quot;WS.Ranch&quot;</code></pre>
 <p>In the example here this network is fully connected with the exception of 1 node (WS Ranch). When you run the decompose function it separates WS ranch into a component as an isolate with no edges.</p>
@@ -1100,15 +1101,15 @@ div.csl-indent {
 ## [1] 1
 ## 
 ## $cut
-## + 1/167 edge from 93e28ac (vertex names):
+## + 1/167 edge from 26cf16c (vertex names):
 ## [1] Ojo Bonito--Baca Pueblo
 ## 
 ## $partition1
-## + 1/30 vertex, named, from 93e28ac:
+## + 1/30 vertex, named, from 26cf16c:
 ## [1] Baca Pueblo
 ## 
 ## $partition2
-## + 29/30 vertices, named, from 93e28ac:
+## + 29/30 vertices, named, from 26cf16c:
 ##  [1] Apache Creek          Casa Malpais          Coyote Creek         
 ##  [4] Hooper Ranch          Horse Camp Mill       Hubble Corner        
 ##  [7] Mineral Creek Pueblo  Rudd Creek Ruin       Techado Springs      
@@ -1129,7 +1130,7 @@ div.csl-indent {
 <h3><span class="header-section-number">4.7.1</span> Cliques</h3>
 <p>A clique as a network science concept is arguably the strictest method of defining a cohesive subgroup. It is any set of three or more nodes in which each node is directly connected to all other nodes. It can be alternatively defined as a completely connected subnetwork, or a subnetwork with maximum density. The function “igraph::max_cliques” finds all maximal cliques in a network and outputs a list object with nodes in each set indicated. For the sake of space here we only output one clique of the 24 that were defined by this function call.</p>
 <div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="exploratory-network-analysis.html#cb178-1" aria-hidden="true" tabindex="-1"></a><span class="fu">max_cliques</span>(simple_net, <span class="at">min=</span><span class="dv">1</span>)[[<span class="dv">24</span>]]</span></code></pre></div>
-<pre><code>## + 9/31 vertices, named, from 93e23c9:
+<pre><code>## + 9/31 vertices, named, from 26ceefb:
 ## [1] Los.Gigantes    Cienega         Tinaja          Spier.170      
 ## [5] Scribe.S        Pescado.Cluster Mirabal         Heshotauthla   
 ## [9] Yellowhouse</code></pre>
