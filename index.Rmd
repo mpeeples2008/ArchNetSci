@@ -8,7 +8,7 @@ output:
 documentclass: book
 bibliography:
 - references.bib
-url: https://archnetworks.net
+url: https://book.archnetworks.net
 description: |
   This bookdown document accompanies the Cambridge Manuals in Archaeology book
   *Archaeological Network Science* by Tom Brughmans and Matthew A. Peeples.
