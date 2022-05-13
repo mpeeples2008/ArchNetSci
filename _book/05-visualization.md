@@ -28,9 +28,9 @@ Cibola_attr <- read.csv(file="data/Cibola_attr.csv", header=TRUE)
 Cibola_i <- igraph::graph_from_adjacency_matrix(as.matrix(Cibola),
                                                 mode="undirected")
 Cibola_i
-#> IGRAPH 20c6ff6 UN-- 31 167 -- 
+#> IGRAPH f07d5c7 UN-- 31 167 -- 
 #> + attr: name (v/c)
-#> + edges from 20c6ff6 (vertex names):
+#> + edges from f07d5c7 (vertex names):
 #>  [1] Apache.Creek--Casa.Malpais        
 #>  [2] Apache.Creek--Coyote.Creek        
 #>  [3] Apache.Creek--Hooper.Ranch        
@@ -845,7 +845,7 @@ figure_6_3 <- ggarrange(F6.3a, F6.3b, F6.3c, F6.3d, nrow=2, ncol=2,
 figure_6_3
 ```
 
-![](images/Figure_6_3.jpg.jpeg){width=75%}
+![](images/Figure_6_3.jpg.jpeg){width=100%}
 
 ### Figure 6.4: Simple Network with Clusters {#Figure_6_4}
 
@@ -913,7 +913,7 @@ Coords <- tkplot.getcoords(locs)
 
 This will bring up a window like the example below and when you click "Close" it will automatically create the variables with the locational information for plotting.
 
-![](images/interactive.jpg){width=75%}
+![](images/interactive.jpg){width=100%}
 
 
 
@@ -1372,7 +1372,7 @@ Fig. 6.12. Network graph showing similarity among carved faces from Banés, Holg
 
 Figure 6.12 was used with permission by Angus Mol and the original was produced for his 2014 book. 
 
-![](images/Fig6_12.jpg){width=75%}
+![](images/Fig6_12.jpg){width=100%}
 
 ### Figure 6.13: Images for Nodes {#Figure_6_13}
 
@@ -1584,7 +1584,7 @@ The group-in-a-box network format is, as far as we are aware, currently only imp
 
 For more details on how to use NodeXL see the extensive documentation online. There are commercial versions of the software available but the group-in-a-box example shown here can be produced in the free version.
 
-![](images/group-in-a-box.jpg){width=75%} 
+![](images/group-in-a-box.jpg){width=100%} 
 
 To download an Excel workbook set up for the example provided in the book [click here]("data/NodeXLGraph1.xlsx").
 
