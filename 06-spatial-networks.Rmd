@@ -6,7 +6,7 @@ This section follows along with Chapter 7 of Brughmans and Peeples (2022) to pro
 
 For the initial examples in this section we will use the Roman Road data from the Iberian Penninsula. This dataset consists of a [csv file of a set of Roman settlements](data/Hispania_nodes.csv) and a [csv file of an edge list](data/Hispania_roads) defining connections among those settlements in terms of roads.
 
-```{r spatial_networks, warning=F, message=F, fig.height=6, fig.width=8}
+```{r spatial_networks, warning=F, message=F, fig.height=5, fig.width=7}
 
 library(igraph)
 library(ggmap)
@@ -32,15 +32,20 @@ edgelist <- get.edgelist(road_net)
 edges <- as.data.frame(matrix(NA,nrow(edgelist),4))
 colnames(edges) <- c("X1","Y1","X2","Y2")
 for (i in 1:nrow(edgelist)) {
-edges[i,] <- c(nodes[which(nodes$Id==edgelist[i,1]),3],nodes[which(nodes$Id==edgelist[i,1]),2],
-               nodes[which(nodes$Id==edgelist[i,2]),3],nodes[which(nodes$Id==edgelist[i,2]),2])
+edges[i,] <- c(nodes[which(nodes$Id==edgelist[i,1]),3],
+               nodes[which(nodes$Id==edgelist[i,1]),2],
+               nodes[which(nodes$Id==edgelist[i,2]),3],
+               nodes[which(nodes$Id==edgelist[i,2]),2])
 }
 
-myMap <- get_stamenmap(bbox = c(-9.5,36,3,43.8),maptype = "watercolor",zoom = 6)
+myMap <- get_stamenmap(bbox = c(-9.5,36,3,43.8),
+                       maptype = "watercolor", zoom = 6)
 
 ggmap(myMap) +
-  geom_segment(data = edges, aes(x=X1, y=Y1, xend=X2, yend=Y2), col='black', size=1) +
-  geom_point(data = xy, aes(x,y), alpha=0.8, col='black', fill="white", shape=21, size=2, show.legend=F) +
+  geom_segment(data = edges, aes(x=X1, y=Y1, xend=X2, yend=Y2),
+               col='black', size=1) +
+  geom_point(data = xy, aes(x,y), alpha=0.8, col='black', fill="white",
+             shape=21, size=2, show.legend=F) +
   theme_void()
 ```
 
@@ -52,7 +57,7 @@ A planar network is a network that can be drawn on a plane where the edges do no
 
 There is a package available for R called RBGL which is an R implementation of something called the Boost Graph Library. This set of routines includes many powerful tools for characterizing network topology including planarity. This package is not, however, in the CRAN archive where the packages we have worked with so far reside so it needs to be installed from another archive called Bioconductor. In order to install this libary, run the following lines of code.
 
-```{r, eval=F, fig.height=6, fig.width=8, warning=F, message=F}
+```{r, eval=F, warning=F, message=F}
 if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 
@@ -63,7 +68,7 @@ With this in place we can now preform an analysis called the Boyer-Myrvold plana
 
 Let's take a look at our Roman Road data.
 
-```{r, warning=F, message=F, fig.height=6, fig.width=8}
+```{r, warning=F, message=F, fig.height=7, fig.width=7}
 library(RBGL)
 
 # First convert to a graphNEL object for planarity test
@@ -74,7 +79,7 @@ boyerMyrvoldPlanarityTest(g)
 
 This results suggests that our Roman Road data is not planar. We can plot the data to evaluate this and do see crossed edges that could not be repositioned. 
 
-```{r, warning=F, message=F, fig.height=6, fig.width=8}
+```{r, warning=F, message=F, fig.height=7, fig.width=7}
 library(ggraph)
 
 set.seed(5364)
@@ -87,7 +92,7 @@ ggraph(road_net, layout='kk') +
 
 Now, by way of example, we can generate a small random network that is planar and see the results of the test. Note that in the network graph that is produced the visual is not planar but could be a small number of nodes were moved. Unfortunately planar graph drawing is not currently implemented into igraph or other packages so you cannot automatically plot a graph as planar even if it meets the criteria of a planar graph. 
 
-```{r, fig.height=6, fig.width=8}
+```{r, fig.height=5, fig.width=7}
 set.seed(49)
 g <- erdos.renyi.game(20, 1/8)
 
@@ -103,7 +108,7 @@ boyerMyrvoldPlanarityTest(g)
 
 Here is another example where the graph layout algorithm happens to produce a planar graph.
 
-```{r, fig.height=6, fig.width=8}
+```{r, fig.height=5, fig.width=7}
 set.seed(4957)
 g <- erdos.renyi.game(20, 1/8)
 
@@ -129,7 +134,7 @@ In R using the igraph package it is possible to both generate trees and also to 
 
 Let's create a simple tree using the "make_tree" function in igraph.
 
-```{r, fig.height=6, fig.width=8}
+```{r, fig.height=5, fig.width=7}
 tree1 <- make_tree(n=50, children=5, mode="undirected")
 tree1
 
@@ -140,7 +145,7 @@ In the example here you can see the branch and leaf structure of the network whe
 
 It is also possible plot trees with a heirarchical network layout where nodes are arranged at levels of the hierarchy. In this case you need to specify the node or nodes that represent the first layer using the "root" call within the ggraph call. 
 
-```{r, warning=F, message=F,fig.height=6, fig.width=8}
+```{r, warning=F, message=F,fig.height=5, fig.width=7}
 ggraph(tree1, layout = 'igraph', algorithm = 'tree', root=1) + 
   geom_edge_diagonal(edge_width = 0.5, alpha =.4) +
   geom_node_text(aes(label = V(tree1)), size=3.5) +
@@ -162,7 +167,7 @@ The R package cccd contains functions to define relative neighborhood networks f
 Let's use our previously created distance matrix and plot the results. 
 
 
-```{r, message=F, warning=F, fig.height=6, fig.width=8}
+```{r, message=F, warning=F, fig.height=5, fig.width=7}
 library(cccd)
 
 rng1 <- rng(nodes[,c(3,2)])
@@ -175,7 +180,7 @@ ggraph(rng1, layout="kk") +
 
 We can also plot the results using geographic coordinates.
 
-```{r, fig.height=6, fig.width=8}
+```{r, fig.height=5, fig.width=7}
 ggraph(rng1, layout="manual",
        x=nodes[,3], y=nodes[,2]) +
   geom_edge_link() +
@@ -189,7 +194,7 @@ Gabriel graph: a pair of nodes are connected in a Gabriel graph if no other node
 
 Again we can use a function in the cccd package to define Gabriel Graph igraph objects from x and y coordinates. Let's take a look using the Roman Road data. See ?gg for details on the options including different algorithms for calculating Gabriel Graphs. We define a Gabriel graph here and plot it using an algorithmic layout and then geographic coordinates.
 
-```{r, fig.height=6, fig.width=8}
+```{r, fig.height=5, fig.width=7}
 gg1 <- gg(x=nodes[,c(3,2)])
 
 ggraph(gg1, layout="stress") +
@@ -210,7 +215,7 @@ Beta skeleton: a Gabriel graph in which the diameter of the circle is controlled
 
 In R the gg function for producing Gabriel Graphs has the procedure for beta skeletons built directly in. The argument r in the gg function controls the beta parameter. When r=1 a traditional Gabriel graph is returned. When the parameter r > 1 there is a stricter definition of connection resulting in fewer ties and when r < 1 link criteria are loosened. See ?gg for more details.
 
-```{r, fig.height=6, fig.width=8}
+```{r, fig.height=5, fig.width=7}
 beta_s <- gg(x=nodes[,c(3,2)], r=1.5)
 
 ggraph(beta_s, layout="manual",
@@ -226,7 +231,7 @@ Minimum spanning tree: in a set of nodes in the Euclidean plane, edges are creat
 
 Perhaps the most common use-case for trees in archaeological networks is to define the minimum spanning tree of a given graph or the minimum set of nodes and edges required for a fully connected graph. The igraph package has a built-in function that defines the minimum spanning tree for a given graph. Let's try this with the Roman Road and then plot it as a node-link diagram and a map.
 
-```{r, fig.height=6, fig.width=8}
+```{r, fig.height=5, fig.width=7}
 mst_net <- igraph::mst(road_net)
 
 set.seed(4643)
@@ -243,13 +248,18 @@ edgelist <- get.edgelist(mst_net)
 edges <- as.data.frame(matrix(NA,nrow(edgelist),4))
 colnames(edges) <- c("X1","Y1","X2","Y2")
 for (i in 1:nrow(edgelist)) {
-edges[i,] <- c(nodes[which(nodes$Id==edgelist[i,1]),3],nodes[which(nodes$Id==edgelist[i,1]),2],
-               nodes[which(nodes$Id==edgelist[i,2]),3],nodes[which(nodes$Id==edgelist[i,2]),2])
+edges[i,] <- c(nodes[which(nodes$Id==edgelist[i,1]),3],
+               nodes[which(nodes$Id==edgelist[i,1]),2],
+               nodes[which(nodes$Id==edgelist[i,2]),3],
+               nodes[which(nodes$Id==edgelist[i,2]),2])
 }
 
 ggmap(myMap) +
-  geom_segment(data = edges, aes(x=X1, y=Y1, xend=X2, yend=Y2), col='black', size=1) +
-  geom_point(data = nodes[,c(3,2)], aes(long,lat), alpha=0.8, col='black', fill="white", shape=21, size=1.5, show.legend=F) +
+  geom_segment(data = edges, aes(x=X1, y=Y1, xend=X2, yend=Y2),
+               col='black', size=1) +
+  geom_point(data = nodes[,c(3,2)], aes(long,lat), alpha=0.8, 
+             col='black', fill="white", shape=21, size=1.5, 
+             show.legend=F) +
   theme_void()
 ```
 
@@ -265,7 +275,7 @@ The package deldir in R allows for the calculation of Delaunay triangles with x 
 
 The results of this function can be directly plotted and the output also contains coordinates necessary to integrate the results into another type of figure like a ggmap. Let's take a look.
 
-```{r, warning=F, message=F, fig.height=6, fig.width=8}
+```{r, warning=F, message=F, fig.height=5, fig.width=7}
 library(deldir)
 
 dt1 <- deldir(nodes[,3],nodes[,2])
@@ -278,9 +288,12 @@ mapdat <- as.data.frame(dt1$dirsgs)
 mapdat2 <- as.data.frame(dt1$delsgs)
 
 ggmap(myMap) +
-  geom_segment(data=mapdat, aes(x=x1, y=y1, xend=x2, yend=y2), col='black', size=1) +
-  geom_segment(data=mapdat2, aes(x=x1, y=y1, xend=x2, yend=y2), col='red', size=1) +
-  geom_point(data = nodes, aes(long,lat), alpha=0.8, col='black', fill="white", shape=21, size=3, show.legend=F) +
+  geom_segment(data=mapdat, aes(x=x1, y=y1, xend=x2, yend=y2), 
+               col='black', size=1) +
+  geom_segment(data=mapdat2, aes(x=x1, y=y1, xend=x2, yend=y2), 
+               col='red', size=1) +
+  geom_point(data = nodes, aes(long,lat), alpha=0.8, col='black',
+             fill="white", shape=21, size=3, show.legend=F) +
   theme_void()
 ```
 
@@ -290,15 +303,17 @@ K-nearest neighbor network: each node is connected to K other nodes closest to i
 
 The cccd package has a routine that allows for the calculation of K-nearest neighbor graphs from geographic coordinates or a precomputed distance matrix. In this example we use the Roman Road data and calculate K=1 and K=6 nearest neighbor networks and plot the both simultaneously.
 
-```{r, warning=F, message=F, fig.height=6, fig.width=8}
+```{r, warning=F, message=F, fig.height=5, fig.width=7}
 # Calculate k=1 nearest neighbor graph
 nn1 <- nng(x=nodes[,c(3,2)], k=1)
 
 # Calculate k=6 nearest neighbor graph
 nn6 <- nng(x=nodes[,c(3,2)], k=6)
 
-EL1 <- as.data.frame(rbind(cbind(get.edgelist(nn6), rep("K=6", nrow(get.edgelist(nn1)))),
+EL1 <- as.data.frame(rbind(cbind(get.edgelist(nn6), 
+                                 rep("K=6", nrow(get.edgelist(nn1)))),
 cbind(get.edgelist(nn1), rep("K=1", nrow(get.edgelist(nn1))))))
+
 colnames(EL1) <- c("from","to","K")
 
 g <- graph_from_data_frame(EL1)
@@ -320,15 +335,18 @@ Since the coordinates we are using here are in decimal degrees we need to calcul
 
 Next, in order to define a minimum distance network we simply binarize this matrix. We can do this using the "event2dichot" function within the statnet package and easily create an R network objects. Let's try it out with the Roman Road data for thresholds of 100,000 and 250,000 meters.
 
-```{r, warning=F, message=F, fig.height=6, fig.width=8}
+```{r, warning=F, message=F, fig.height=5, fig.width=7}
 library(statnet)
 library(geosphere)
 
 d1 <- distm(nodes[,c(3,2)])
 
-# Note we use the leq=TRUE argument here as we want nodes less than the threshold to count.
-net100 <- network(event2dichot(d1, method='absolute', thresh=100000, leq=TRUE), directed=F)
-net250 <- network(event2dichot(d1, method='absolute', thresh=250000, leq=TRUE), directed=F)
+# Note we use the leq=TRUE argument here as we want nodes less than
+# the threshold to count.
+net100 <- network(event2dichot(d1, method='absolute', thresh=100000,
+                               leq=TRUE), directed=F)
+net250 <- network(event2dichot(d1, method='absolute', thresh=250000,
+                               leq=TRUE), directed=F)
 
 # Plot 100 Km network
 ggraph(net100, layout="manual",
@@ -359,7 +377,7 @@ guad <- read.csv("data/Guadalquivir.csv", header=TRUE)
 
 Next we create a distance matrix based on the decimal degrees locations using the "distm" function.
 
-```{r, message=F, warning=F, fig.height=6, fig.width=8}
+```{r, message=F, warning=F, fig.height=5, fig.width=7}
 library(geosphere)
 
 g_dist1 <- as.matrix(distm(guad[,c(2,3)]))
@@ -369,12 +387,16 @@ g_dist1[1:4,1:4]
 
 From here we can create maximum distance networks at both the 10km and 18km distance and plot it using the geographic location of nodes for node placement.
 
-```{r, message=F, warning=F, fig.height=6, fig.width=8}
+```{r, message=F, warning=F, fig.height=5, fig.width=7}
 library(intergraph)
 
 # Note we use the leq=TRUE argument here as we want nodes less than the threshold to count.
-net10 <- asIgraph(network(event2dichot(g_dist1, method='absolute', thresh=10000, leq=TRUE), directed=F))
-net18 <- asIgraph(network(event2dichot(g_dist1, method='absolute', thresh=18000, leq=TRUE), directed=F))
+net10 <- asIgraph(network(event2dichot(g_dist1, method='absolute',
+                                       thresh=10000, leq=TRUE),
+                          directed=F))
+net18 <- asIgraph(network(event2dichot(g_dist1, method='absolute',
+                                       thresh=18000, leq=TRUE),
+                          directed=F))
 
 g10_deg <- as.data.frame(igraph::degree(net10))
 colnames(g10_deg) <- 'degree'
@@ -408,17 +430,19 @@ g18
 
 If we want to combine the degree distribution plot and the network into the same frame, we can use the "inset_element" function in the "patchwork" library.
 
-```{r, message=F, warning=F, fig.height=6,fig.width=10}
+```{r, message=F, warning=F, fig.height=4,fig.width=7}
 library(patchwork)
-plot_a <- g10 + inset_element(h10, left = 0, bottom = 0.7, right = 0.25, top = 0.99)
-plot_b <- g18 + inset_element(h18, left = 0, bottom = 0.7, right = 0.25, top = 0.99)
+plot_a <- g10 + inset_element(h10, left = 0, bottom = 0.7, 
+                              right = 0.25, top = 0.99)
+plot_b <- g18 + inset_element(h18, left = 0, bottom = 0.7, 
+                              right = 0.25, top = 0.99)
 plot_a
 plot_b
 ```
 
 Next, we calculate a relative neighborhood graph for the site locations and plot it with nodes positioned in geographic space.
 
-```{r, fig.height=6, fig.width=8}
+```{r, fig.height=5, fig.width=7}
 rng1 <- rng(guad[,2:3])
 
 g_rng <- ggraph(rng1, layout="manual",
@@ -434,14 +458,15 @@ colnames(g_rng_deg) <- 'degree'
 h_rng <- ggplot(data=g_rng_deg) +
   geom_histogram(aes(x=degree),bins=3)
 
-plot_c <- g_rng + inset_element(h_rng, left = 0, bottom = 0.7, right = 0.25, top = 0.99)
+plot_c <- g_rng + inset_element(h_rng, left = 0, bottom = 0.7, 
+                                right = 0.25, top = 0.99)
 
 plot_c
 ```
 
 The chunk of code below then calculates and plots the Gabrial graph with the associated degree distribution plot.
 
-```{r, fig.height=6, fig.width=8}
+```{r, fig.height=5, fig.width=7}
 gg1 <- gg(x=guad[,2:3])
 
 g_gg <- ggraph(gg1, layout="manual",
@@ -457,22 +482,15 @@ colnames(g_gg_deg) <- 'degree'
 h_gg <- ggplot(data=g_gg_deg) +
   geom_histogram(aes(x=degree),bins=5)
 
-plot_d <- g_gg + inset_element(h_gg, left = 0, bottom = 0.7, right = 0.25, top = 0.99)
+plot_d <- g_gg + inset_element(h_gg, left = 0, bottom = 0.7, 
+                               right = 0.25, top = 0.99)
 
 plot_d
 ```
 
-And we'll combine these four plots into a single figure.
-
-```{r, message=F, warning=F, fig.width=12, fig.height=10}
-library(ggpubr)
-
-ggarrange(plot_a,plot_b,plot_c,plot_d,nrow=2,ncol=2)
-```
-
 Next, we'll plot the K-nearest neighbors graphs for k= 2, 3, 4, and 6 with the associated degree distribution for each.
 
-```{r, warning=F, message=F, fig.height=10, fig.width=12}
+```{r, warning=F, message=F, fig.height=6, fig.width=7}
 # Calculate k=2,3,4, and 6 nearest neighbor graphs
 nn2 <- nng(x=guad[,2:3], k=2)
 nn3 <- nng(x=guad[,2:3], k=3)
@@ -528,15 +546,20 @@ h_nn6 <- ggplot(data=nn6_deg) +
   geom_histogram(aes(x=degree),bins=5)+
   scale_x_continuous(limits = c(0, max(nn6_deg)))
 
-plot_a <- g_nn2 + inset_element(h_nn2, left = 0, bottom = 0.7, right = 0.25, top = 0.99)
-plot_b <- g_nn3 + inset_element(h_nn3, left = 0, bottom = 0.7, right = 0.25, top = 0.99)
-plot_c <- g_nn4 + inset_element(h_nn4, left = 0, bottom = 0.7, right = 0.25, top = 0.99)
-plot_d <- g_nn6 + inset_element(h_nn6, left = 0, bottom = 0.7, right = 0.25, top = 0.99)
+plot_a <- g_nn2 + inset_element(h_nn2, left = 0, bottom = 0.7, 
+                                right = 0.25, top = 0.99)
+plot_b <- g_nn3 + inset_element(h_nn3, left = 0, bottom = 0.7, 
+                                right = 0.25, top = 0.99)
+plot_c <- g_nn4 + inset_element(h_nn4, left = 0, bottom = 0.7, 
+                                right = 0.25, top = 0.99)
+plot_d <- g_nn6 + inset_element(h_nn6, left = 0, bottom = 0.7, 
+                                right = 0.25, top = 0.99)
 
 
-library(ggpubr)
-
-ggarrange(plot_a,plot_b,plot_c,plot_d,nrow=2,ncol=2)
+plot_a
+plot_b
+plot_c
+plot_d
 ```
 
 
@@ -563,18 +586,21 @@ As these results show and as described in the book, spatial distance is a statis
 
 The next analysis presented the book creates a series of minimum distance networks from 36Kms all the way out to nearly 400Kms in concentric days travel (36Kms is about one day of travel on foot) and explore the proportion of variance explained by networks constrained on each distance.
 
-```{r, warning=F, message=F, fig.width=8, fig.height=6}
-# Create a sequence of distances from 36km to 400kms by concentric days travel on foot
+```{r, warning=F, message=F, fig.width=7, fig.height=5}
+# Create a sequence of distances from 36km to 400kms by concentric
+# days travel on foot
 kms <- seq(36000,400000,by=36000)
 
-# Define minimum distance networks for each item in "kms" and the calculate variance explained 
+# Define minimum distance networks for each item in "kms" and the 
+# calculate variance explained 
 temp.out <- NULL
 for(i in 1:length(kms)) {
 dmat.temp <- dmat
 dmat.temp[dmat>kms[i]] <- 0
 dmat.temp[dmat.temp>0] <- 1
 # Calculate gam model and output r^2 value
-temp <- gam(as.vector(sim[lower.tri(sim)])~as.vector(dmat.temp[lower.tri(dmat.temp)]))
+temp <- gam(as.vector(sim[lower.tri(sim)])~
+              as.vector(dmat.temp[lower.tri(dmat.temp)]))
 temp.out[i] <- summary(temp)$r.sq}
 
 # Create data frame of output
@@ -590,20 +616,23 @@ ggplot(data=dat) +
   xlab("Maximum Distance Network Threshold (Km)") +
   ylab("Proportion of Variance Explained") +
   theme_bw() +
-  theme(axis.text.x=element_text(size=rel(1.5)),axis.text.y=element_text(size=rel(1.5)),
-        axis.title.x = element_text(size=rel(1.5)),axis.title.y = element_text(size=rel(1.5)))
+  theme(axis.text.x=element_text(size=rel(1.5)),
+        axis.text.y=element_text(size=rel(1.5)),
+        axis.title.x = element_text(size=rel(1.5)),
+        axis.title.y = element_text(size=rel(1.5)))
 ```
 
 
 Finally, let's recreate figure 7.8 from the book to display the 36km minimum distance network for the Chaco region ca. AD 1050-1100. This follows the same basic format for plotting minimum distance networks we defined above.
 
-```{r, warning=F, message=F, fig.height=10, fig.width=10}
+```{r, warning=F, message=F, fig.height=7, fig.width=7}
 d36 <- as.matrix(dist(attr[,9:10]))
 d36[d36<36001] <- 1
 d36[d36>1] <- 0
 g36.net <- graph_from_adjacency_matrix(d36, mode="undirected")
 
-locations_sf <- st_as_sf(attr, coords = c("EASTING", "NORTHING"), crs = 26912)
+locations_sf <- st_as_sf(attr, coords = c("EASTING", "NORTHING"), 
+                         crs = 26912)
 z <- st_transform(locations_sf,crs=4326)
 coord1 <- do.call(rbind, st_geometry(z)) %>% 
   tibble::as_tibble() %>% setNames(c("lon","lat"))
@@ -611,7 +640,8 @@ coord1 <- do.call(rbind, st_geometry(z)) %>%
 xy <- as.data.frame(cbind(attr$SWSN_Site, coord1))
 colnames(xy) <- c('site','x','y')
 
-base <- get_stamenmap(bbox=c(-110.75,33.5,-107,38),zoom=8,maptype="terrain-background",color="bw")
+base <- get_stamenmap(bbox=c(-110.75,33.5,-107,38), zoom=8,
+                      maptype="terrain-background", color="bw")
 
 
 # Extract edgelist from network object
@@ -621,14 +651,18 @@ edgelist <- get.edgelist(g36.net)
 edges <- as.data.frame(matrix(NA,nrow(edgelist),4))
 colnames(edges) <- c("X1","Y1","X2","Y2")
 for (i in 1:nrow(edgelist)) {
-edges[i,] <- c(xy[which(xy$site==edgelist[i,1]),2],xy[which(xy$site==edgelist[i,1]),3],
-               xy[which(xy$site==edgelist[i,2]),2],xy[which(xy$site==edgelist[i,2]),3])
+edges[i,] <- c(xy[which(xy$site==edgelist[i,1]),2],
+               xy[which(xy$site==edgelist[i,1]),3],
+               xy[which(xy$site==edgelist[i,2]),2],
+               xy[which(xy$site==edgelist[i,2]),3])
 }
 
 
 m1 <- ggmap(base,darken=0.15) +
-  geom_segment(data = edges, aes(x=X1, y=Y1, xend=X2, yend=Y2), col='white', size=0.10, show.legend=F) +
-  geom_point(data = xy,aes(x,y),alpha=0.65, size=1, col='red', show.legend=F) +
+  geom_segment(data = edges, aes(x=X1, y=Y1, xend=X2, yend=Y2),
+               col='white', size=0.10, show.legend=F) +
+  geom_point(data = xy,aes(x,y),alpha=0.65, size=1, col='red',
+             show.legend=F) +
   theme_void()
 m1
 ```

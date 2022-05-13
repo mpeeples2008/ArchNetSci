@@ -40,23 +40,25 @@ head(Cibola_edgelist)
 #> 5 Apache Creek        Hubble Corner
 #> 6 Apache Creek Mineral Creek Pueblo
 
-# Create graph object. The dataframe is converted to a matrix as that is required 
-# by this specific function. Since this is an undirected network directed = FALSE.
-Cibola_net <- igraph::graph_from_edgelist(as.matrix(Cibola_edgelist), directed=FALSE)
+# Create graph object. The dataframe is converted to a matrix as that
+#is required by this specific function. Since this is an undirected 
+# network directed = FALSE.
+Cibola_net <- igraph::graph_from_edgelist(as.matrix(Cibola_edgelist), 
+                                          directed=FALSE)
 
 # Display igraph network object and then plot a simple node-link diagram
 Cibola_net
-#> IGRAPH 8bcc04d UN-- 30 167 -- 
+#> IGRAPH a7b9759 UN-- 30 167 -- 
 #> + attr: name (v/c)
-#> + edges from 8bcc04d (vertex names):
-#>  [1] Apache Creek--Casa Malpais          Apache Creek--Coyote Creek         
-#>  [3] Apache Creek--Hooper Ranch          Apache Creek--Horse Camp Mill      
-#>  [5] Apache Creek--Hubble Corner         Apache Creek--Mineral Creek Pueblo 
-#>  [7] Apache Creek--Rudd Creek Ruin       Apache Creek--Techado Springs      
-#>  [9] Apache Creek--Tri-R Pueblo          Apache Creek--UG481                
-#> [11] Apache Creek--UG494                 Atsinna     --Cienega              
-#> [13] Atsinna     --Los Gigantes          Atsinna     --Mirabal              
-#> [15] Atsinna     --Ojo Bonito            Atsinna     --Pueblo de los Muertos
+#> + edges from a7b9759 (vertex names):
+#>  [1] Apache Creek--Casa Malpais        
+#>  [2] Apache Creek--Coyote Creek        
+#>  [3] Apache Creek--Hooper Ranch        
+#>  [4] Apache Creek--Horse Camp Mill     
+#>  [5] Apache Creek--Hubble Corner       
+#>  [6] Apache Creek--Mineral Creek Pueblo
+#>  [7] Apache Creek--Rudd Creek Ruin     
+#>  [8] Apache Creek--Techado Springs     
 #> + ... omitted several edges
 set.seed(3523) # set random seed to ensure graph layout stays the same each time.
 plot(Cibola_net)
@@ -77,24 +79,34 @@ adj_list <- igraph::as_adj_edge_list(Cibola_net)
 
 # examine adjacency list for the site Apache Creek
 adj_list$`Apache Creek`
-#> + 11/167 edges from 8bcc04d (vertex names):
-#>  [1] Apache Creek--Casa Malpais         Apache Creek--Coyote Creek        
-#>  [3] Apache Creek--Hooper Ranch         Apache Creek--Horse Camp Mill     
-#>  [5] Apache Creek--Hubble Corner        Apache Creek--Mineral Creek Pueblo
-#>  [7] Apache Creek--Rudd Creek Ruin      Apache Creek--Techado Springs     
-#>  [9] Apache Creek--Tri-R Pueblo         Apache Creek--UG481               
-#> [11] Apache Creek--UG494
+#> + 11/167 edges from a7b9759 (vertex names):
+#>  [1] Apache Creek--Casa Malpais        
+#>  [2] Apache Creek--Coyote Creek        
+#>  [3] Apache Creek--Hooper Ranch        
+#>  [4] Apache Creek--Horse Camp Mill     
+#>  [5] Apache Creek--Hubble Corner       
+#>  [6] Apache Creek--Mineral Creek Pueblo
+#>  [7] Apache Creek--Rudd Creek Ruin     
+#>  [8] Apache Creek--Techado Springs     
+#>  [9] Apache Creek--Tri-R Pueblo        
+#> [10] Apache Creek--UG481               
+#> + ... omitted several edges
 
 # It is also possible to call specific nodes by number. In this case,
 # site 2 is Casa Malpais
 adj_list[[2]] 
-#> + 11/167 edges from 8bcc04d (vertex names):
-#>  [1] Apache Creek--Casa Malpais    Casa Malpais--Coyote Creek   
-#>  [3] Casa Malpais--Hooper Ranch    Casa Malpais--Horse Camp Mill
-#>  [5] Casa Malpais--Hubble Corner   Casa Malpais--Rudd Creek Ruin
-#>  [7] Casa Malpais--Techado Springs Casa Malpais--Tri-R Pueblo   
-#>  [9] Casa Malpais--UG481           Casa Malpais--Garcia Ranch   
-#> [11] Casa Malpais--Hinkson
+#> + 11/167 edges from a7b9759 (vertex names):
+#>  [1] Apache Creek--Casa Malpais   
+#>  [2] Casa Malpais--Coyote Creek   
+#>  [3] Casa Malpais--Hooper Ranch   
+#>  [4] Casa Malpais--Horse Camp Mill
+#>  [5] Casa Malpais--Hubble Corner  
+#>  [6] Casa Malpais--Rudd Creek Ruin
+#>  [7] Casa Malpais--Techado Springs
+#>  [8] Casa Malpais--Tri-R Pueblo   
+#>  [9] Casa Malpais--UG481          
+#> [10] Casa Malpais--Garcia Ranch   
+#> + ... omitted several edges
 ```
 
 The output for a particular node can be called by either referencing the name using the "$" call or by using 
@@ -108,76 +120,29 @@ We can obtain an adjacency matrix object in R by converting our network object c
 
 
 ```r
-# Convert to adjacency matrix then display
+# Convert to adjacency matrix then display first few rows/columns
 adj_mat <- igraph::as_adjacency_matrix(Cibola_net)
-adj_mat
-#> 30 x 30 sparse Matrix of class "dgCMatrix"
-#>                                                                                
-#> Apache Creek          . 1 1 1 1 1 1 1 1 1 1 1 . . . . . . . . . . . . . . . . .
-#> Casa Malpais          1 . 1 1 1 1 . 1 1 1 1 . . . . . . . . . . . 1 1 . . . . .
-#> Coyote Creek          1 1 . 1 1 1 1 1 1 1 1 . . . . . . . . . . . 1 . . . . . .
-#> Hooper Ranch          1 1 1 . 1 1 1 1 1 1 1 1 . . . . . . . . . . . . . . . . .
-#> Horse Camp Mill       1 1 1 1 . 1 1 1 1 1 1 . . . . . . . . . . . 1 1 . . . . .
-#> Hubble Corner         1 1 1 1 1 . 1 1 1 1 1 1 . . . . . . . . . . . 1 . . . . 1
-#> Mineral Creek Pueblo  1 . 1 1 1 1 . 1 . 1 1 1 . . . . . . . . . . 1 1 . . . . 1
-#> Rudd Creek Ruin       1 1 1 1 1 1 1 . 1 1 1 . . . . . . . . . . . 1 1 . . . . .
-#> Techado Springs       1 1 1 1 1 1 . 1 . 1 1 . . . . . . . . . . . . . . . . . .
-#> Tri-R Pueblo          1 1 1 1 1 1 1 1 1 . 1 1 . . . . . . . . . . . 1 . . . . 1
-#> UG481                 1 1 1 1 1 1 1 1 1 1 . 1 . . . . . . . . . . 1 1 . . . . 1
-#> UG494                 1 . . 1 . 1 1 . . 1 1 . . . . . . . . . . . . . . . . . .
-#> Atsinna               . . . . . . . . . . . . . 1 1 1 1 1 1 1 1 . . . . . . . .
-#> Cienega               . . . . . . . . . . . . 1 . 1 1 1 1 1 1 1 . . 1 1 1 1 1 .
-#> Los Gigantes          . . . . . . . . . . . . 1 1 . 1 1 1 1 1 1 . . . 1 1 1 1 .
-#> Mirabal               . . . . . . . . . . . . 1 1 1 . 1 1 1 1 1 . . 1 1 1 1 1 .
-#> Ojo Bonito            . . . . . . . . . . . . 1 1 1 1 . 1 1 1 1 1 1 1 1 1 1 . .
-#> Pueblo de los Muertos . . . . . . . . . . . . 1 1 1 1 1 . 1 1 1 . . . 1 . 1 . .
-#> Scribe S              . . . . . . . . . . . . 1 1 1 1 1 1 . 1 1 . 1 1 1 . 1 1 .
-#> Spier 170             . . . . . . . . . . . . 1 1 1 1 1 1 1 . 1 . . 1 1 1 1 1 .
-#> Tinaja                . . . . . . . . . . . . 1 1 1 1 1 1 1 1 . . 1 1 1 1 1 1 .
-#> Baca Pueblo           . . . . . . . . . . . . . . . . 1 . . . . . . . . . . . .
-#> Garcia Ranch          . 1 1 . 1 . 1 1 . . 1 . . . . . 1 . 1 . 1 . . 1 1 . . . 1
-#> Hinkson               . 1 . . 1 1 1 1 . 1 1 . . 1 . 1 1 . 1 1 1 . 1 . 1 1 . . 1
-#> Heshotauthla          . . . . . . . . . . . . . 1 1 1 1 1 1 1 1 . 1 1 . 1 1 1 .
-#> Jarlosa               . . . . . . . . . . . . . 1 1 1 1 . . 1 1 . . 1 1 . 1 1 .
-#> Pescado Cluster       . . . . . . . . . . . . . 1 1 1 1 1 1 1 1 . . . 1 1 . 1 .
-#> Yellowhouse           . . . . . . . . . . . . . 1 1 1 . . 1 1 1 . . . 1 1 1 . .
-#> Foote Canyon          . . . . . 1 1 . . 1 1 . . . . . . . . . . . 1 1 . . . . .
-#> Platt Ranch           . . . . . . . . . . . . . . . . . . . . . . 1 1 1 1 . 1 .
-#>                        
-#> Apache Creek          .
-#> Casa Malpais          .
-#> Coyote Creek          .
-#> Hooper Ranch          .
-#> Horse Camp Mill       .
-#> Hubble Corner         .
-#> Mineral Creek Pueblo  .
-#> Rudd Creek Ruin       .
-#> Techado Springs       .
-#> Tri-R Pueblo          .
-#> UG481                 .
-#> UG494                 .
-#> Atsinna               .
-#> Cienega               .
-#> Los Gigantes          .
-#> Mirabal               .
-#> Ojo Bonito            .
-#> Pueblo de los Muertos .
-#> Scribe S              .
-#> Spier 170             .
-#> Tinaja                .
-#> Baca Pueblo           .
-#> Garcia Ranch          1
-#> Hinkson               1
-#> Heshotauthla          1
-#> Jarlosa               1
-#> Pescado Cluster       .
-#> Yellowhouse           1
-#> Foote Canyon          .
-#> Platt Ranch           .
+head(adj_mat)
+#> 6 x 30 sparse Matrix of class "dgCMatrix"
+#>                                                            
+#> Apache Creek    . 1 1 1 1 1 1 1 1 1 1 1 . . . . . . . . . .
+#> Casa Malpais    1 . 1 1 1 1 . 1 1 1 1 . . . . . . . . . . .
+#> Coyote Creek    1 1 . 1 1 1 1 1 1 1 1 . . . . . . . . . . .
+#> Hooper Ranch    1 1 1 . 1 1 1 1 1 1 1 1 . . . . . . . . . .
+#> Horse Camp Mill 1 1 1 1 . 1 1 1 1 1 1 . . . . . . . . . . .
+#> Hubble Corner   1 1 1 1 1 . 1 1 1 1 1 1 . . . . . . . . . .
+#>                                
+#> Apache Creek    . . . . . . . .
+#> Casa Malpais    1 1 . . . . . .
+#> Coyote Creek    1 . . . . . . .
+#> Hooper Ranch    . . . . . . . .
+#> Horse Camp Mill 1 1 . . . . . .
+#> Hubble Corner   . 1 . . . . 1 .
 
 # Read in adjacency matrix and convert to network object for plotting
 adj_mat2 <- read.csv(file="data/Cibola_adj.csv", header=T, row.names=1)
-Cibola_net2 <- igraph::graph_from_adjacency_matrix(as.matrix(adj_mat2), mode="undirected")
+Cibola_net2 <- igraph::graph_from_adjacency_matrix(as.matrix(adj_mat2), 
+                                                   mode="undirected")
 set.seed(4352)
 plot(Cibola_net2)
 ```
@@ -198,87 +163,42 @@ After creating the network object we plot it as a simple two-mode network with c
 ```r
 # Read in two-way table of sites and ceramic technological clusters
 Cibola_clust <- read.csv(file="data/Cibola_clust.csv", header=TRUE, row.names=1)
-Cibola_clust
-#>                       Clust1 Clust2 Clust3 Clust4 Clust5 Clust6 Clust7 Clust8
-#> Apache Creek               7      3      6     16      6      1      1      2
-#> Atsinna                    0     12     26      5      0      1      6      0
-#> Baca Pueblo                0      9      3     12      1      2      5      0
-#> Casa Malpais               2     15      7     28     17     16      2      5
-#> Cienega                    2     28     34      2      0     10     11      0
-#> Coyote Creek              10     13      8     30     20      5      1      8
-#> Foote Canyon              12     21      1     12      8      8      3     15
-#> Garcia Ranch               2      8      6      4      6      4      1      0
-#> Heshotauthla               0     41     22      9      1     12      4      0
-#> Hinkson                    2     27     17     23      5     10      3      1
-#> Hooper Ranch              15      8      8     28     25      3      5      4
-#> Horse Camp Mill            9     13     13     38     18      4      4      4
-#> Hubble Corner             14     11      8     21      8      5      0      7
-#> Jarlosa                    0     17      7      1      0     10      4      0
-#> Los Gigantes               0     31     33      0      0      8      3      0
-#> Mineral Creek Pueblo      14     13     11     14      5      3      4      2
-#> Mirabal                    0     37     46      3      1     12      1      0
-#> Ojo Bonito                 0      9      5      3      0      2      3      0
-#> Pescado Cluster            1     59     49      4      2     13      0      0
-#> Platt Ranch                8     34     13      9      5     29      3      5
-#> Pueblo de los Muertos      0     31     49      4      0      7      3      0
-#> Rudd Creek Ruin            3      8      2     14      7      0      1      1
-#> Scribe S                   0     29     41     10      1      8      2      0
-#> Spier 170                  0     11      8      0      1      3      4      0
-#> Techado Springs            7      4      4     30     10      2      2      3
-#> Tinaja                     0     10     14      1      2      4      1      0
-#> Tri-R Pueblo              15      8      4     18      7      6      1      3
-#> UG481                     12     15     10     26     15      4      3      3
-#> UG494                      8      2      4      4      2      1      2      2
-#> WS Ranch                  15      8      1     23      8      0     22      3
-#> Yellowhouse                0      3      2      0      0      2      0      0
-#>                       Clust9 Clust10
-#> Apache Creek               0       0
-#> Atsinna                    7       0
-#> Baca Pueblo               16       1
-#> Casa Malpais               1       0
-#> Cienega                    5       1
-#> Coyote Creek               0       5
-#> Foote Canyon               1       1
-#> Garcia Ranch               0       0
-#> Heshotauthla               1       0
-#> Hinkson                    3       1
-#> Hooper Ranch               0       0
-#> Horse Camp Mill            3       0
-#> Hubble Corner              0       1
-#> Jarlosa                    2       0
-#> Los Gigantes               2       0
-#> Mineral Creek Pueblo       0       3
-#> Mirabal                    3       0
-#> Ojo Bonito                 4       0
-#> Pescado Cluster            1       0
-#> Platt Ranch                0       0
-#> Pueblo de los Muertos     11       0
-#> Rudd Creek Ruin            1       2
-#> Scribe S                   0       0
-#> Spier 170                  5       0
-#> Techado Springs            1       3
-#> Tinaja                     3       0
-#> Tri-R Pueblo               1       0
-#> UG481                      2       3
-#> UG494                      0       0
-#> WS Ranch                  17       4
-#> Yellowhouse                0       0
+head(Cibola_clust)
+#>              Clust1 Clust2 Clust3 Clust4 Clust5 Clust6
+#> Apache Creek      7      3      6     16      6      1
+#> Atsinna           0     12     26      5      0      1
+#> Baca Pueblo       0      9      3     12      1      2
+#> Casa Malpais      2     15      7     28     17     16
+#> Cienega           2     28     34      2      0     10
+#> Coyote Creek     10     13      8     30     20      5
+#>              Clust7 Clust8 Clust9 Clust10
+#> Apache Creek      1      2      0       0
+#> Atsinna           6      0      7       0
+#> Baca Pueblo       5      0     16       1
+#> Casa Malpais      2      5      1       0
+#> Cienega          11      0      5       1
+#> Coyote Creek      1      8      0       5
+
 # Convert into a network object using the incidence matrix format. Note that 
 # multiple=TRUE as we want this defined as a bipartite network.
 Cibola_inc <- igraph::graph_from_incidence_matrix(Cibola_clust, directed=FALSE, multiple=TRUE)
-Cibola_inc
-#> IGRAPH 8c1b474 UN-B 41 2214 -- 
-#> + attr: type (v/l), name (v/c)
-#> + edges from 8c1b474 (vertex names):
-#>  [1] Apache Creek--Clust1 Apache Creek--Clust1 Apache Creek--Clust1
-#>  [4] Apache Creek--Clust1 Apache Creek--Clust1 Apache Creek--Clust1
-#>  [7] Apache Creek--Clust1 Apache Creek--Clust2 Apache Creek--Clust2
-#> [10] Apache Creek--Clust2 Apache Creek--Clust3 Apache Creek--Clust3
-#> [13] Apache Creek--Clust3 Apache Creek--Clust3 Apache Creek--Clust3
-#> [16] Apache Creek--Clust3 Apache Creek--Clust4 Apache Creek--Clust4
-#> [19] Apache Creek--Clust4 Apache Creek--Clust4 Apache Creek--Clust4
-#> [22] Apache Creek--Clust4 Apache Creek--Clust4 Apache Creek--Clust4
-#> + ... omitted several edges
+head(Cibola_inc)
+#> 6 x 41 sparse Matrix of class "dgCMatrix"
+#>                                                           
+#> Apache Creek . . . . . . . . . . . . . . . . . . . . . . .
+#> Atsinna      . . . . . . . . . . . . . . . . . . . . . . .
+#> Baca Pueblo  . . . . . . . . . . . . . . . . . . . . . . .
+#> Casa Malpais . . . . . . . . . . . . . . . . . . . . . . .
+#> Cienega      . . . . . . . . . . . . . . . . . . . . . . .
+#> Coyote Creek . . . . . . . . . . . . . . . . . . . . . . .
+#>                                                         
+#> Apache Creek . . . . . . . .  7  3  6 16  6  1  1 2  . .
+#> Atsinna      . . . . . . . .  . 12 26  5  .  1  6 .  7 .
+#> Baca Pueblo  . . . . . . . .  .  9  3 12  1  2  5 . 16 1
+#> Casa Malpais . . . . . . . .  2 15  7 28 17 16  2 5  1 .
+#> Cienega      . . . . . . . .  2 28 34  2  . 10 11 .  5 1
+#> Coyote Creek . . . . . . . . 10 13  8 30 20  5  1 8  . 5
+
 set.seed(4543)
 # Plot as two-mode network
 plot(Cibola_inc, vertex.color = as.numeric(V(Cibola_inc)$type)+1)
@@ -295,15 +215,22 @@ In the following example we use [this file](data/Cibola_attr.csv) which includes
 
 ```r
 # Read in attribute data and look at the first few rows.
-Cibola_attr <- read.csv(file="data/Cibola_attr.csv", header=T)
+Cibola_attr <- read.csv(file="data/Cibola_attr.csv", header=TRUE)
 head(Cibola_attr)
-#>           Site      x       y             Great.Kiva                Region
-#> 1 Apache Creek 724125 3747310 Rectangular Great Kiva    Mogollon Highlands
-#> 2      Atsinna 726741 3895499                   none       El Morro Valley
-#> 3  Baca Pueblo 651431 3797143                   none Upper Little Colorado
-#> 4 Casa Malpais 659021 3786211 Rectangular Great Kiva Upper Little Colorado
-#> 5      Cienega 738699 3887985                   none       El Morro Valley
-#> 6 Coyote Creek 671154 3780509 Rectangular Great Kiva Upper Little Colorado
+#>           Site      x       y             Great.Kiva
+#> 1 Apache Creek 724125 3747310 Rectangular Great Kiva
+#> 2      Atsinna 726741 3895499                   none
+#> 3  Baca Pueblo 651431 3797143                   none
+#> 4 Casa Malpais 659021 3786211 Rectangular Great Kiva
+#> 5      Cienega 738699 3887985                   none
+#> 6 Coyote Creek 671154 3780509 Rectangular Great Kiva
+#>                  Region
+#> 1    Mogollon Highlands
+#> 2       El Morro Valley
+#> 3 Upper Little Colorado
+#> 4 Upper Little Colorado
+#> 5       El Morro Valley
+#> 6 Upper Little Colorado
 ```
 
 In order to assign an attribute to a particular node or edge we can use the V and E (vertex and edge) calls in igraph. For example, in the following example, we will assign a region variable to each node in the network we created above using the V function to assign a vertex attribute. You simply type the name of the network object in the parenthesis after V and use the "$" atomic variable symbol to assign a name to the attribute that will be associated with that network object.
@@ -316,23 +243,34 @@ V(Cibola_net2)$region <- Cibola_attr$Region
 
 # If we now call that attribute we get a vector listing each assigned value
 V(Cibola_net2)$region
-#>  [1] "Mogollon Highlands"    "El Morro Valley"       "Upper Little Colorado"
-#>  [4] "Upper Little Colorado" "El Morro Valley"       "Upper Little Colorado"
-#>  [7] "Mogollon Highlands"    "Carrizo Wash"          "Pescado Basin"        
-#> [10] "West Zuni"             "Upper Little Colorado" "Mariana Mesa"         
-#> [13] "Mariana Mesa"          "West Zuni"             "El Morro Valley"      
-#> [16] "Vernon Area"           "El Morro Valley"       "West Zuni"            
-#> [19] "Pescado Basin"         "Carrizo Wash"          "El Morro Valley"      
-#> [22] "Upper Little Colorado" "El Morro Valley"       "West Zuni"            
-#> [25] "Mariana Mesa"          "El Morro Valley"       "Mariana Mesa"         
-#> [28] "Mariana Mesa"          "Mariana Mesa"          "Mogollon Highlands"   
+#>  [1] "Mogollon Highlands"    "El Morro Valley"      
+#>  [3] "Upper Little Colorado" "Upper Little Colorado"
+#>  [5] "El Morro Valley"       "Upper Little Colorado"
+#>  [7] "Mogollon Highlands"    "Carrizo Wash"         
+#>  [9] "Pescado Basin"         "West Zuni"            
+#> [11] "Upper Little Colorado" "Mariana Mesa"         
+#> [13] "Mariana Mesa"          "West Zuni"            
+#> [15] "El Morro Valley"       "Vernon Area"          
+#> [17] "El Morro Valley"       "West Zuni"            
+#> [19] "Pescado Basin"         "Carrizo Wash"         
+#> [21] "El Morro Valley"       "Upper Little Colorado"
+#> [23] "El Morro Valley"       "West Zuni"            
+#> [25] "Mariana Mesa"          "El Morro Valley"      
+#> [27] "Mariana Mesa"          "Mariana Mesa"         
+#> [29] "Mariana Mesa"          "Mogollon Highlands"   
 #> [31] "Pescado Basin"
-# This can further be used for plotting or other analyses by calling the variable as a factor
+```
+
+This can further be used for plotting or other analyses by calling the variable as a factor
+
+
+```r
+
 set.seed(43534)
 plot(Cibola_net2, vertex.color=as.factor(V(Cibola_net2)$region))
 ```
 
-<img src="02-network-data-formats_files/figure-html/unnamed-chunk-7-1.png" width="672" />
+<img src="02-network-data-formats_files/figure-html/unnamed-chunk-8-1.png" width="672" />
 
 ## Types of Networks
 
@@ -348,19 +286,20 @@ Simple networks are unweighted and undirected one-mode networks. By way of examp
 adj_mat2 <- read.csv(file="data/Cibola_adj.csv", header=T, row.names=1)
 
 # Convert to a network object using igraph
-simple_net_i <- igraph::graph_from_adjacency_matrix(as.matrix(adj_mat2), mode="undirected")
+simple_net_i <- igraph::graph_from_adjacency_matrix(as.matrix(adj_mat2), 
+                                                    mode="undirected")
 simple_net_i
-#> IGRAPH 8cf4bbd UN-- 31 167 -- 
+#> IGRAPH a8ef2aa UN-- 31 167 -- 
 #> + attr: name (v/c)
-#> + edges from 8cf4bbd (vertex names):
-#>  [1] Apache.Creek--Casa.Malpais          Apache.Creek--Coyote.Creek         
-#>  [3] Apache.Creek--Hooper.Ranch          Apache.Creek--Horse.Camp.Mill      
-#>  [5] Apache.Creek--Hubble.Corner         Apache.Creek--Mineral.Creek.Pueblo 
-#>  [7] Apache.Creek--Rudd.Creek.Ruin       Apache.Creek--Techado.Springs      
-#>  [9] Apache.Creek--Tri.R.Pueblo          Apache.Creek--UG481                
-#> [11] Apache.Creek--UG494                 Atsinna     --Cienega              
-#> [13] Atsinna     --Los.Gigantes          Atsinna     --Mirabal              
-#> [15] Atsinna     --Ojo.Bonito            Atsinna     --Pueblo.de.los.Muertos
+#> + edges from a8ef2aa (vertex names):
+#>  [1] Apache.Creek--Casa.Malpais        
+#>  [2] Apache.Creek--Coyote.Creek        
+#>  [3] Apache.Creek--Hooper.Ranch        
+#>  [4] Apache.Creek--Horse.Camp.Mill     
+#>  [5] Apache.Creek--Hubble.Corner       
+#>  [6] Apache.Creek--Mineral.Creek.Pueblo
+#>  [7] Apache.Creek--Rudd.Creek.Ruin     
+#>  [8] Apache.Creek--Techado.Springs     
 #> + ... omitted several edges
 
 # Covert to a network object using statnet/network
@@ -396,17 +335,19 @@ By way of example here we will modify the Cibola network edge list to remove som
 # Read in edgelist file as dataframe
 Cibola_edgelist <- read.csv(file="data/Cibola_edgelist.csv", header=TRUE) 
 
-# Create a random sub-sample of 125 edges out of the total 167 using the "sample" function
+# Create a random sub-sample of 125 edges out of the total 167 using 
+# the "sample" function
 set.seed(45325)
-EL2 <- Cibola_edgelist[sample(seq(1,nrow(Cibola_edgelist)), 125, replace=FALSE),]
+EL2 <- Cibola_edgelist[sample(seq(1,nrow(Cibola_edgelist)), 125, 
+                              replace=FALSE),]
 
 # Create graph object from the edge list using the directed=TRUE argument
 # to ensure this is treated as a directed network object.
 directed_net <- igraph::graph_from_edgelist(as.matrix(EL2), directed=TRUE)
 directed_net
-#> IGRAPH 8cfd493 DN-- 30 125 -- 
+#> IGRAPH a8f8a28 DN-- 30 125 -- 
 #> + attr: name (v/c)
-#> + edges from 8cfd493 (vertex names):
+#> + edges from a8f8a28 (vertex names):
 #>  [1] Coyote Creek   ->Techado Springs      
 #>  [2] Hubble Corner  ->Tri-R Pueblo         
 #>  [3] Hubble Corner  ->Techado Springs      
@@ -418,77 +359,29 @@ directed_net
 #> + ... omitted several edges
 
 # View as adjacency matrix of direted network object
-as_adjacency_matrix(directed_net)
-#> 30 x 30 sparse Matrix of class "dgCMatrix"
-#>                                                                                
-#> Coyote Creek          . 1 1 . . . 1 . . . . . 1 . . . . . . . . 1 . . . . . . 1
-#> Techado Springs       . . . 1 . . . . . . . . . . . . . . . . . . . . . . . . 1
-#> Hubble Corner         . 1 . 1 . . 1 . . . . . . . . . . . . 1 . . . . . . . . 1
-#> Tri-R Pueblo          . . . . . . . . . . . . . . . . . 1 . . . . . . . . . . 1
-#> Heshotauthla          . . . . . 1 . 1 1 1 1 1 . . 1 . 1 . 1 . 1 . . . . . . 1 .
-#> Pueblo de los Muertos . . . . . . . . . . . . . . . . . . 1 . . . . . . . . . .
-#> Rudd Creek Ruin       . 1 . 1 . . . . . . . . . . . . . . . . . . . . . . . . 1
-#> Hinkson               . . . 1 . . 1 . . . 1 1 . . . . . . . 1 1 1 . . 1 . . 1 .
-#> Los Gigantes          . . . . . 1 . . . 1 . 1 . . 1 . . . . . . . . . . . . 1 .
-#> Yellowhouse           . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-#> Mirabal               . . . . . 1 . . . 1 . 1 . . 1 . 1 . 1 . . . . . . . . 1 .
-#> Scribe S              . . . . . . . . . 1 . . . . . . . . 1 . . . . . . . . . .
-#> Hooper Ranch          . 1 1 1 . . 1 . . . . . . . . . . . . 1 . 1 . . . . . . 1
-#> Cienega               . . . . 1 . . 1 . 1 1 . . . 1 . 1 . 1 . . . . . . . . . .
-#> Spier 170             . . . . . . . . . 1 . . . . . . . . 1 . . . . . . . . . .
-#> Garcia Ranch          . . . . 1 . 1 1 . . . 1 . . . . . . 1 1 . 1 . . 1 . . . 1
-#> Pescado Cluster       . . . . . . . . . 1 . 1 . . 1 . . . 1 . . . . . . . . . .
-#> UG494                 . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-#> Tinaja                . . . . . . . . . 1 . . . . . . . . . . . . . . . . . . .
-#> Mineral Creek Pueblo  . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1
-#> Jarlosa               . . . . . . . . 1 1 1 . . . 1 . . . . . . . . . . . . 1 .
-#> Horse Camp Mill       . 1 1 1 . . . . . . . . . . . . . . . . . . . . . . . . 1
-#> Foote Canyon          . . 1 . . . . . . . . . . . . 1 . . . 1 . . . . . . . . 1
-#> Casa Malpais          . . 1 . . . 1 1 . . . . 1 . . 1 . . . . . 1 . . . . . . 1
-#> Platt Ranch           . . . . . . . . . 1 . . . . . . . . . . . . . . . . . . .
-#> Apache Creek          1 1 . . . . 1 . . . . . . . . . . 1 . 1 . 1 . 1 . . . . .
-#> Atsinna               . . . . . 1 . . 1 . 1 1 . 1 1 . . . 1 . . . . . . . . . .
-#> Ojo Bonito            . . . . . 1 . . . . . 1 . . 1 . 1 . . . . . . . . . . . .
-#> UG481                 . . . . . . . . . . . . . . . . . 1 . . . . . . . . . . .
-#> Baca Pueblo           . . . . . . . . . . . . . . . . . . . . . . . . . . . 1 .
-#>                        
-#> Coyote Creek          .
-#> Techado Springs       .
-#> Hubble Corner         .
-#> Tri-R Pueblo          .
-#> Heshotauthla          .
-#> Pueblo de los Muertos .
-#> Rudd Creek Ruin       .
-#> Hinkson               .
-#> Los Gigantes          .
-#> Yellowhouse           .
-#> Mirabal               .
-#> Scribe S              .
-#> Hooper Ranch          .
-#> Cienega               .
-#> Spier 170             .
-#> Garcia Ranch          .
-#> Pescado Cluster       .
-#> UG494                 .
-#> Tinaja                .
-#> Mineral Creek Pueblo  .
-#> Jarlosa               .
-#> Horse Camp Mill       .
-#> Foote Canyon          .
-#> Casa Malpais          .
-#> Platt Ranch           .
-#> Apache Creek          .
-#> Atsinna               .
-#> Ojo Bonito            .
-#> UG481                 .
-#> Baca Pueblo           .
+head(as_adjacency_matrix(directed_net))
+#> 6 x 30 sparse Matrix of class "dgCMatrix"
+#>                                                            
+#> Coyote Creek          . 1 1 . . . 1 . . . . . 1 . . . . . .
+#> Techado Springs       . . . 1 . . . . . . . . . . . . . . .
+#> Hubble Corner         . 1 . 1 . . 1 . . . . . . . . . . . .
+#> Tri-R Pueblo          . . . . . . . . . . . . . . . . . 1 .
+#> Heshotauthla          . . . . . 1 . 1 1 1 1 1 . . 1 . 1 . 1
+#> Pueblo de los Muertos . . . . . . . . . . . . . . . . . . 1
+#>                                            
+#> Coyote Creek          . . 1 . . . . . . 1 .
+#> Techado Springs       . . . . . . . . . 1 .
+#> Hubble Corner         1 . . . . . . . . 1 .
+#> Tri-R Pueblo          . . . . . . . . . 1 .
+#> Heshotauthla          . 1 . . . . . . 1 . .
+#> Pueblo de los Muertos . . . . . . . . . . .
 
 # Plot network
 set.seed(4353)
 plot(directed_net)
 ```
 
-<img src="02-network-data-formats_files/figure-html/unnamed-chunk-9-1.png" width="672" />
+<img src="02-network-data-formats_files/figure-html/unnamed-chunk-10-1.png" width="672" />
 
 Notice that when we look at the igraph network plot it has arrows indicating the direction of connection in the edge list. If you are making your own directed edge list, the sending node by default will be in the left column and the receiving node in the right column. In the adjacency matrix the upper and lower triangles are no longer identical. Again, if you are generating your own adjacency matrix, you can simply mark edges sent from nodes denoted as rows and edges received from the same nodes as columns. Finally, in the plot, since R recognizes this as a directed igraph object when we plot the network, it automatically shows arrows indicating the direction of the edge.
 
@@ -502,11 +395,13 @@ In this example, we will random generate edge weights for the Cibola network edg
 ```r
 # Read in edge list file as data frame
 Cibola_edgelist <- read.csv(file="data/Cibola_edgelist.csv", header=TRUE) 
-# Add additional column of weights as random integers between 1 and 4 for each edge
+# Add additional column of weights as random integers between 1 and 4 
+# for each edge
 Cibola_edgelist$Weight <- sample(seq(1,4), nrow(Cibola_edgelist), replace=TRUE)
 
 # Create weighted network object calling only the first two columns
-weighted_net <- igraph::graph_from_edgelist(as.matrix(Cibola_edgelist[,1:2]), directed=FALSE)
+weighted_net <- igraph::graph_from_edgelist(as.matrix(Cibola_edgelist[,1:2]), 
+                                            directed=FALSE)
 # add edge attribute to indicate weight
 E(weighted_net)$weight <- Cibola_edgelist$Weight
 
@@ -522,77 +417,29 @@ head(get.data.frame(weighted_net))
 
 # View network as adjacency matrix. Notice the attr="weight" command that 
 # indicates which edge attribute to use for values in the matrix
-as_adjacency_matrix(weighted_net, attr="weight")
-#> 30 x 30 sparse Matrix of class "dgCMatrix"
-#>                                                                                
-#> Apache Creek          . 4 1 1 3 4 4 3 4 3 3 1 . . . . . . . . . . . . . . . . .
-#> Casa Malpais          4 . 1 1 2 3 . 4 4 3 2 . . . . . . . . . . . 2 1 . . . . .
-#> Coyote Creek          1 1 . 1 4 2 3 2 2 1 2 . . . . . . . . . . . 4 . . . . . .
-#> Hooper Ranch          1 1 1 . 4 1 2 2 3 3 1 3 . . . . . . . . . . . . . . . . .
-#> Horse Camp Mill       3 2 4 4 . 2 1 3 1 4 4 . . . . . . . . . . . 2 4 . . . . .
-#> Hubble Corner         4 3 2 1 2 . 2 3 1 1 2 4 . . . . . . . . . . . 4 . . . . 3
-#> Mineral Creek Pueblo  4 . 3 2 1 2 . 2 . 1 4 1 . . . . . . . . . . 4 1 . . . . 3
-#> Rudd Creek Ruin       3 4 2 2 3 3 2 . 1 2 3 . . . . . . . . . . . 4 4 . . . . .
-#> Techado Springs       4 4 2 3 1 1 . 1 . 2 4 . . . . . . . . . . . . . . . . . .
-#> Tri-R Pueblo          3 3 1 3 4 1 1 2 2 . 4 1 . . . . . . . . . . . 1 . . . . 2
-#> UG481                 3 2 2 1 4 2 4 3 4 4 . 3 . . . . . . . . . . 1 2 . . . . 1
-#> UG494                 1 . . 3 . 4 1 . . 1 3 . . . . . . . . . . . . . . . . . .
-#> Atsinna               . . . . . . . . . . . . . 2 3 2 1 2 4 4 1 . . . . . . . .
-#> Cienega               . . . . . . . . . . . . 2 . 2 1 3 2 3 4 1 . . 1 3 2 1 4 .
-#> Los Gigantes          . . . . . . . . . . . . 3 2 . 4 1 2 2 1 4 . . . 4 2 3 3 .
-#> Mirabal               . . . . . . . . . . . . 2 1 4 . 1 4 1 2 4 . . 2 1 2 4 1 .
-#> Ojo Bonito            . . . . . . . . . . . . 1 3 1 1 . 3 4 1 3 3 4 1 1 3 3 . .
-#> Pueblo de los Muertos . . . . . . . . . . . . 2 2 2 4 3 . 4 4 1 . . . 2 . 3 . .
-#> Scribe S              . . . . . . . . . . . . 4 3 2 1 4 4 . 1 2 . 3 3 2 . 4 2 .
-#> Spier 170             . . . . . . . . . . . . 4 4 1 2 1 4 1 . 1 . . 1 2 1 4 3 .
-#> Tinaja                . . . . . . . . . . . . 1 1 4 4 3 1 2 1 . . 1 4 3 3 2 1 .
-#> Baca Pueblo           . . . . . . . . . . . . . . . . 3 . . . . . . . . . . . .
-#> Garcia Ranch          . 2 4 . 2 . 4 4 . . 1 . . . . . 4 . 3 . 1 . . 2 1 . . . 4
-#> Hinkson               . 1 . . 4 4 1 4 . 1 2 . . 1 . 2 1 . 3 1 4 . 2 . 1 2 . . 4
-#> Heshotauthla          . . . . . . . . . . . . . 3 4 1 1 2 2 2 3 . 1 1 . 4 1 2 .
-#> Jarlosa               . . . . . . . . . . . . . 2 2 2 3 . . 1 3 . . 2 4 . 3 2 .
-#> Pescado Cluster       . . . . . . . . . . . . . 1 3 4 3 3 4 4 2 . . . 1 3 . 1 .
-#> Yellowhouse           . . . . . . . . . . . . . 4 3 1 . . 2 3 1 . . . 2 2 1 . .
-#> Foote Canyon          . . . . . 3 3 . . 2 1 . . . . . . . . . . . 4 4 . . . . .
-#> Platt Ranch           . . . . . . . . . . . . . . . . . . . . . . 4 1 3 4 . 3 .
-#>                        
-#> Apache Creek          .
-#> Casa Malpais          .
-#> Coyote Creek          .
-#> Hooper Ranch          .
-#> Horse Camp Mill       .
-#> Hubble Corner         .
-#> Mineral Creek Pueblo  .
-#> Rudd Creek Ruin       .
-#> Techado Springs       .
-#> Tri-R Pueblo          .
-#> UG481                 .
-#> UG494                 .
-#> Atsinna               .
-#> Cienega               .
-#> Los Gigantes          .
-#> Mirabal               .
-#> Ojo Bonito            .
-#> Pueblo de los Muertos .
-#> Scribe S              .
-#> Spier 170             .
-#> Tinaja                .
-#> Baca Pueblo           .
-#> Garcia Ranch          4
-#> Hinkson               1
-#> Heshotauthla          3
-#> Jarlosa               4
-#> Pescado Cluster       .
-#> Yellowhouse           3
-#> Foote Canyon          .
-#> Platt Ranch           .
+head(as_adjacency_matrix(weighted_net, attr="weight"))
+#> 6 x 30 sparse Matrix of class "dgCMatrix"
+#>                                                            
+#> Apache Creek    . 4 1 1 3 4 4 3 4 3 3 1 . . . . . . . . . .
+#> Casa Malpais    4 . 1 1 2 3 . 4 4 3 2 . . . . . . . . . . .
+#> Coyote Creek    1 1 . 1 4 2 3 2 2 1 2 . . . . . . . . . . .
+#> Hooper Ranch    1 1 1 . 4 1 2 2 3 3 1 3 . . . . . . . . . .
+#> Horse Camp Mill 3 2 4 4 . 2 1 3 1 4 4 . . . . . . . . . . .
+#> Hubble Corner   4 3 2 1 2 . 2 3 1 1 2 4 . . . . . . . . . .
+#>                                
+#> Apache Creek    . . . . . . . .
+#> Casa Malpais    2 1 . . . . . .
+#> Coyote Creek    4 . . . . . . .
+#> Hooper Ranch    . . . . . . . .
+#> Horse Camp Mill 2 4 . . . . . .
+#> Hubble Corner   . 4 . . . . 3 .
 
 # Plot the network
 set.seed(574)
 plot(weighted_net, edge.width=E(weighted_net)$weight)
 ```
 
-<img src="02-network-data-formats_files/figure-html/unnamed-chunk-10-1.png" width="672" />
+<img src="02-network-data-formats_files/figure-html/unnamed-chunk-11-1.png" width="672" />
 
 Notice in the final plot that line thickness is used to indicate edges with various weights. We will explore further options for such visualizations in the network visualizations section of this appendix.
 
@@ -605,28 +452,32 @@ Two-mode network data are typically recorded in a two-way table with rows and co
 
 ```r
 # Read in two-way table of sites and ceramic technological clusters
-Cibola_clust <- read.csv(file="data/Cibola_clust.csv", header=TRUE, row.names=1)
-# Create network from incidence matrix based on presence/absence of a cluster at a site
-Cibola_inc <- igraph::graph_from_incidence_matrix(Cibola_clust, directed=FALSE, multiple=TRUE)
+Cibola_clust <- read.csv(file="data/Cibola_clust.csv", header=TRUE,
+                         row.names=1)
+# Create network from incidence matrix based on presence/absence of 
+# a cluster at a site
+Cibola_inc <- igraph::graph_from_incidence_matrix(Cibola_clust,
+                                                  directed=FALSE,
+                                                  multiple=TRUE)
 Cibola_inc
-#> IGRAPH 8d46bdf UN-B 41 2214 -- 
+#> IGRAPH a942175 UN-B 41 2214 -- 
 #> + attr: type (v/l), name (v/c)
-#> + edges from 8d46bdf (vertex names):
-#>  [1] Apache Creek--Clust1 Apache Creek--Clust1 Apache Creek--Clust1
-#>  [4] Apache Creek--Clust1 Apache Creek--Clust1 Apache Creek--Clust1
-#>  [7] Apache Creek--Clust1 Apache Creek--Clust2 Apache Creek--Clust2
-#> [10] Apache Creek--Clust2 Apache Creek--Clust3 Apache Creek--Clust3
-#> [13] Apache Creek--Clust3 Apache Creek--Clust3 Apache Creek--Clust3
-#> [16] Apache Creek--Clust3 Apache Creek--Clust4 Apache Creek--Clust4
-#> [19] Apache Creek--Clust4 Apache Creek--Clust4 Apache Creek--Clust4
-#> [22] Apache Creek--Clust4 Apache Creek--Clust4 Apache Creek--Clust4
+#> + edges from a942175 (vertex names):
+#>  [1] Apache Creek--Clust1 Apache Creek--Clust1
+#>  [3] Apache Creek--Clust1 Apache Creek--Clust1
+#>  [5] Apache Creek--Clust1 Apache Creek--Clust1
+#>  [7] Apache Creek--Clust1 Apache Creek--Clust2
+#>  [9] Apache Creek--Clust2 Apache Creek--Clust2
+#> [11] Apache Creek--Clust3 Apache Creek--Clust3
+#> [13] Apache Creek--Clust3 Apache Creek--Clust3
+#> [15] Apache Creek--Clust3 Apache Creek--Clust3
 #> + ... omitted several edges
 set.seed(4537643)
 # Plot as two-mode network
 plot(Cibola_inc, vertex.color = as.numeric(V(Cibola_inc)$type)+1)
 ```
 
-<img src="02-network-data-formats_files/figure-html/unnamed-chunk-11-1.png" width="672" />
+<img src="02-network-data-formats_files/figure-html/unnamed-chunk-12-1.png" width="672" />
 
 In this case since most clusters are present at most sites, this creates a pretty busy network that may not be particularly useful. An alternative to this is to define some threshold (either in terms of raw count or proportion) to define an edge between a node of one class and another. We provide an example here and build a function that you could modify to do this for your own data. In this function you can set the proportion threshold that you would like to used to define an edge between two classes of nodes. If the proportion of that cluster at that site is greater than or equal to that threshold an edge will be present.
 
@@ -636,7 +487,8 @@ In this case since most clusters are present at most sites, this creates a prett
 two_mode <- function (x, thresh=0.25) {
   # Create matrix of proportions from x input into function
   temp <- prop.table(as.matrix(x), 1) 
-  # Define anything with greater than or equal to threshold as present (1) 
+  # Define anything with greater than or equal to threshold as 
+  # present (1) 
   temp[temp>=thresh] <- 1 
   # Define all other cells as absent (0)
   temp[temp<1] <- 0 
@@ -644,32 +496,35 @@ two_mode <- function (x, thresh=0.25) {
 return(temp)}
 
 # Run the function and create network object
-mod_clust <- two_mode(Cibola_clust, thresh=0.25) # thresh is set to 0.25 but could be any values from 0-1
+# thresh is set to 0.25 but could be any values from 0-1
+mod_clust <- two_mode(Cibola_clust, thresh=0.25) 
 # Examine the first few rows
 head(mod_clust)
-#>              Clust1 Clust2 Clust3 Clust4 Clust5 Clust6 Clust7 Clust8 Clust9
-#> Apache Creek      0      0      0      1      0      0      0      0      0
-#> Atsinna           0      0      1      0      0      0      0      0      0
-#> Baca Pueblo       0      0      0      0      0      0      0      0      1
-#> Casa Malpais      0      0      0      1      0      0      0      0      0
-#> Cienega           0      1      1      0      0      0      0      0      0
-#> Coyote Creek      0      0      0      1      0      0      0      0      0
-#>              Clust10
-#> Apache Creek       0
-#> Atsinna            0
-#> Baca Pueblo        0
-#> Casa Malpais       0
-#> Cienega            0
-#> Coyote Creek       0
+#>              Clust1 Clust2 Clust3 Clust4 Clust5 Clust6
+#> Apache Creek      0      0      0      1      0      0
+#> Atsinna           0      0      1      0      0      0
+#> Baca Pueblo       0      0      0      0      0      0
+#> Casa Malpais      0      0      0      1      0      0
+#> Cienega           0      1      1      0      0      0
+#> Coyote Creek      0      0      0      1      0      0
+#>              Clust7 Clust8 Clust9 Clust10
+#> Apache Creek      0      0      0       0
+#> Atsinna           0      0      0       0
+#> Baca Pueblo       0      0      1       0
+#> Casa Malpais      0      0      0       0
+#> Cienega           0      0      0       0
+#> Coyote Creek      0      0      0       0
 # Create a graph matrix from the new incidence matrix
-two_mode_net <- igraph::graph_from_incidence_matrix(mod_clust, directed=FALSE, multiple=TRUE)
+two_mode_net <- igraph::graph_from_incidence_matrix(mod_clust,
+                                                    directed=FALSE,
+                                                    multiple=TRUE)
 
 # Plot results
 set.seed(4537)
 plot(two_mode_net, vertex.color = as.numeric(V(Cibola_inc)$type)+1)
 ```
 
-<img src="02-network-data-formats_files/figure-html/unnamed-chunk-12-1.png" width="672" />
+<img src="02-network-data-formats_files/figure-html/unnamed-chunk-13-1.png" width="672" />
 
 Notice how there are now far fewer ties and if you are familiar with the sites in question you might notice some clear regional patterning. 
 
@@ -677,39 +532,48 @@ It is also possible to create one-mode projections of the two-mode data here usi
 
 
 ```r
-# In R the command "%*%" indicates matrix multiplication and "t()" gives
-# the transpose of the matrix within the parentheses.
+# In R the command "%*%" indicates matrix multiplication and "t()" 
+# gives the transpose of the matrix within the parentheses.
 # Lets first create a one-mode projection focused on sites
 site_mode <- mod_clust %*% t(mod_clust)
-site_net <- igraph::graph_from_adjacency_matrix(site_mode, mode="undirected", diag=FALSE)
+site_net <- igraph::graph_from_adjacency_matrix(site_mode,
+                                                mode="undirected",
+                                                diag=FALSE)
 plot(site_net)
 ```
 
-<img src="02-network-data-formats_files/figure-html/unnamed-chunk-13-1.png" width="672" />
+<img src="02-network-data-formats_files/figure-html/unnamed-chunk-14-1.png" width="672" />
 
 ```r
 
-# Now lets create a one-mode projection focused on ceramic technological clusters.
-# Notice that the only change is we switch which side of the matrix multiplication
-# we transpose.
+# Now lets create a one-mode projection focused on ceramic 
+# technological clusters.
+# Notice that the only change is we switch which side of the 
+# matrix multiplication we transpose.
 clust_mode <- t(mod_clust) %*% mod_clust
-clust_mode
-#>         Clust1 Clust2 Clust3 Clust4 Clust5 Clust6 Clust7 Clust8 Clust9 Clust10
-#> Clust1       1      0      0      0      0      0      0      0      0       0
-#> Clust2       0     16      9      1      0      2      0      0      0       0
-#> Clust3       0      9     10      0      0      1      0      0      0       0
-#> Clust4       0      1      0     11      1      0      0      0      0       0
-#> Clust5       0      0      0      1      1      0      0      0      0       0
-#> Clust6       0      2      1      0      0      2      0      0      0       0
-#> Clust7       0      0      0      0      0      0      0      0      0       0
-#> Clust8       0      0      0      0      0      0      0      0      0       0
-#> Clust9       0      0      0      0      0      0      0      0      1       0
-#> Clust10      0      0      0      0      0      0      0      0      0       0
-clust_net <- igraph::graph_from_adjacency_matrix(clust_mode, mode="undirected", diag=FALSE)
+head(clust_mode)
+#>        Clust1 Clust2 Clust3 Clust4 Clust5 Clust6 Clust7
+#> Clust1      1      0      0      0      0      0      0
+#> Clust2      0     16      9      1      0      2      0
+#> Clust3      0      9     10      0      0      1      0
+#> Clust4      0      1      0     11      1      0      0
+#> Clust5      0      0      0      1      1      0      0
+#> Clust6      0      2      1      0      0      2      0
+#>        Clust8 Clust9 Clust10
+#> Clust1      0      0       0
+#> Clust2      0      0       0
+#> Clust3      0      0       0
+#> Clust4      0      0       0
+#> Clust5      0      0       0
+#> Clust6      0      0       0
+
+clust_net <- igraph::graph_from_adjacency_matrix(clust_mode,
+                                                 mode="undirected",
+                                                 diag=FALSE)
 plot(clust_net)
 ```
 
-<img src="02-network-data-formats_files/figure-html/unnamed-chunk-13-2.png" width="672" />
+<img src="02-network-data-formats_files/figure-html/unnamed-chunk-14-2.png" width="672" />
 
 ### Similarity Networks
 
@@ -739,15 +603,21 @@ clust_p <- prop.table(as.matrix(Cibola_clust), margin = 1)
 # to calculate the Brainard-Robinson similarity score. Since vegdist
 # by default defines an unscaled distance we must subtract the results
 # from 2 and then divide by 2 to get a similarity scaled from 0 to 1.
-Cibola_BR <- (2-as.matrix(vegan::vegdist(clust_p, method='manhattan')))/2
+Cibola_BR <- (2-as.matrix(vegan::vegdist(clust_p, 
+                                         method='manhattan')))/2
 
 # Lets look at the first few rows.
 Cibola_BR[1:4,1:4]
-#>              Apache Creek   Atsinna Baca Pueblo Casa Malpais
-#> Apache Creek    1.0000000 0.3433584   0.4455782    0.7050691
-#> Atsinna         0.3433584 1.0000000   0.5750090    0.3740804
-#> Baca Pueblo     0.4455782 0.5750090   1.0000000    0.5608953
-#> Casa Malpais    0.7050691 0.3740804   0.5608953    1.0000000
+#>              Apache Creek   Atsinna Baca Pueblo
+#> Apache Creek    1.0000000 0.3433584   0.4455782
+#> Atsinna         0.3433584 1.0000000   0.5750090
+#> Baca Pueblo     0.4455782 0.5750090   1.0000000
+#> Casa Malpais    0.7050691 0.3740804   0.5608953
+#>              Casa Malpais
+#> Apache Creek    0.7050691
+#> Atsinna         0.3740804
+#> Baca Pueblo     0.5608953
+#> Casa Malpais    1.0000000
 ```
 
 At this point we could simply define this as a weighted network object where weights are equal to the similarity scores, or we could define a threshold for defining edges as present or absent. We will discuss these options in detail after presenting other similarity/distance metrics.
@@ -770,14 +640,21 @@ This metric ranges from 0 (where no categories overlap at all) to 1 where the ca
 
 
 ```r
-# Calculate matrix of Morisita similarities based on the Cibola_clust two-way table.
-Cibola_Mor <- 1-as.matrix(vegan::vegdist(Cibola_clust, method='morisita'))
+# Calculate matrix of Morisita similarities based on the 
+# Cibola_clust two-way table.
+Cibola_Mor <- 1-as.matrix(vegan::vegdist(Cibola_clust, 
+                                         method='morisita'))
 Cibola_Mor[1:4,1:4]
-#>              Apache Creek   Atsinna Baca Pueblo Casa Malpais
-#> Apache Creek    1.0000000 0.4885799   0.6014729    0.9060751
-#> Atsinna         0.4885799 1.0000000   0.5885682    0.4459998
-#> Baca Pueblo     0.6014729 0.5885682   1.0000000    0.6529069
-#> Casa Malpais    0.9060751 0.4459998   0.6529069    1.0000000
+#>              Apache Creek   Atsinna Baca Pueblo
+#> Apache Creek    1.0000000 0.4885799   0.6014729
+#> Atsinna         0.4885799 1.0000000   0.5885682
+#> Baca Pueblo     0.6014729 0.5885682   1.0000000
+#> Casa Malpais    0.9060751 0.4459998   0.6529069
+#>              Casa Malpais
+#> Apache Creek    0.9060751
+#> Atsinna         0.4459998
+#> Baca Pueblo     0.6529069
+#> Casa Malpais    1.0000000
 ```
 
 
@@ -796,8 +673,10 @@ The code for calculating $\chi^{2}$ distances is defined in the chunk below and 
 ```r
 # Define function for calculating chi-squared distance
 chi_dist <- function(x) {
-  rowprof <- x/apply(x,1,sum) # calculates the profile for every row
-  avgprof <- apply(x,2,sum)/sum(x) # calculates the average profile
+  # calculates the profile for every row
+  rowprof <- x/apply(x,1,sum) 
+  # calculates the average profile
+  avgprof <- apply(x,2,sum)/sum(x) 
   # creates a distance object of chi-squared distances
   chid <- dist(as.matrix(rowprof)%*%diag(1/sqrt(avgprof))) 
   # return the results
@@ -808,11 +687,16 @@ Cibola_X <- chi_dist(Cibola_clust)
 Cibola_X01 <- 1-(Cibola_X/max(Cibola_X))
 
 Cibola_X01[1:4,1:4]
-#>              Apache Creek   Atsinna Baca Pueblo Casa Malpais
-#> Apache Creek    1.0000000 0.2904662   0.1010795    0.6166508
-#> Atsinna         0.2904662 1.0000000   0.3393173    0.2999925
-#> Baca Pueblo     0.1010795 0.3393173   1.0000000    0.1469591
-#> Casa Malpais    0.6166508 0.2999925   0.1469591    1.0000000
+#>              Apache Creek   Atsinna Baca Pueblo
+#> Apache Creek    1.0000000 0.2904662   0.1010795
+#> Atsinna         0.2904662 1.0000000   0.3393173
+#> Baca Pueblo     0.1010795 0.3393173   1.0000000
+#> Casa Malpais    0.6166508 0.2999925   0.1469591
+#>              Casa Malpais
+#> Apache Creek    0.6166508
+#> Atsinna         0.2999925
+#> Baca Pueblo     0.1469591
+#> Casa Malpais    1.0000000
 ```
 
 #### Creating Network Objects from Similarity Matrices {-}
@@ -828,8 +712,10 @@ In the code below, the event2dichot function (from the "statnet" package) takes 
 
 ```r
 # Define our binary network object from BR similarity
-BRnet <- network(event2dichot(Cibola_BR, method='absolute', thresh=0.65), directed=FALSE)
-# Now let's add names for our nodes based on the row names of our original matrix
+BRnet <- network(event2dichot(Cibola_BR, method='absolute', thresh=0.65),
+                 directed=FALSE)
+# Now let's add names for our nodes based on the row names 
+# of our original matrix
 BRnet %v% 'vertex.names' <- row.names(Cibola_clust)
 # look at the results.
 BRnet
@@ -854,14 +740,16 @@ set.seed(7564)
 plot(BRnet)
 ```
 
-<img src="02-network-data-formats_files/figure-html/unnamed-chunk-17-1.png" width="672" />
+<img src="02-network-data-formats_files/figure-html/unnamed-chunk-18-1.png" width="672" />
 
 In the next chunk of code we will use the $\chi^2$ distances to create binary networks. This time, we will not use an absolute value to define ties as present, but instead will define those similarities greater than 80 percent of all similarities as present. We will then once again plot just as above.
 
 
 ```r
-# Note we use 1 minus chacoX01 here so to convert a distance to a similarity
-Xnet <- network(event2dichot(Cibola_X01, method='quantile', thresh=0.80), directed=FALSE)
+# Note we use 1 minus chacoX01 here so to convert a distance 
+# to a similarity
+Xnet <- network(event2dichot(Cibola_X01, method='quantile', thresh=0.80),
+                directed=FALSE)
 # Once again add vertext names
 Xnet %v% 'vertex.names' <- row.names(Cibola_clust)
 # look at the results
@@ -887,7 +775,7 @@ set.seed(346)
 plot(Xnet)
 ```
 
-<img src="02-network-data-formats_files/figure-html/unnamed-chunk-18-1.png" width="960" />
+<img src="02-network-data-formats_files/figure-html/unnamed-chunk-19-1.png" width="672" />
 
 ##### Creating Weighted Network Objects {-}
 
@@ -897,8 +785,10 @@ If you do, however, chose do create a weighted network object from a similarity 
 
 
 ```r
-# create weighted network object from co-occurrence matrix by adding the ignore.eval=F argument
-Mor_wt <- network(Cibola_Mor, directed=FALSE, ignore.eval=FALSE, names.eval='weight')
+# create weighted network object from co-occurrence matrix by 
+# adding the ignore.eval=F argument
+Mor_wt <- network(Cibola_Mor, directed=FALSE, ignore.eval=FALSE,
+                  names.eval='weight')
 Mor_wt %v% 'vertex.names' <- row.names(Cibola_Mor)
 Mor_wt
 #>  Network attributes:
@@ -923,7 +813,7 @@ set.seed(4634)
 plot(Mor_wt)
 ```
 
-<img src="02-network-data-formats_files/figure-html/unnamed-chunk-19-1.png" width="960" />
+<img src="02-network-data-formats_files/figure-html/unnamed-chunk-20-1.png" width="672" />
 
 The resulting network is nearly complete so it is a bit unwieldy for plotting but calculating network statistics on this weighted network can often still be useful as we will see in the exploratory analysis section.
 
@@ -935,23 +825,23 @@ In most of the examples in this document we have been using the igraph package b
 ```r
 Mor_wt_i <- asIgraph(Mor_wt)
 Mor_wt_i
-#> IGRAPH 8ea37ac U-W- 31 465 -- 
-#> + attr: na (v/l), vertex.names (v/c), na (e/l), weight (e/n)
-#> + edges from 8ea37ac:
-#>   [1] 1-- 2 1-- 3 1-- 4 1-- 5 1-- 6 1-- 7 1-- 8 1-- 9 1--10 1--11 1--12 1--13
-#>  [13] 1--14 1--15 1--16 1--17 1--18 1--19 1--20 1--21 1--22 1--23 1--24 1--25
-#>  [25] 1--26 1--27 1--28 1--29 1--30 1--31 2-- 3 2-- 4 2-- 5 2-- 6 2-- 7 2-- 8
-#>  [37] 2-- 9 2--10 2--11 2--12 2--13 2--14 2--15 2--16 2--17 2--18 2--19 2--20
-#>  [49] 2--21 2--22 2--23 2--24 2--25 2--26 2--27 2--28 2--29 2--30 2--31 3-- 4
-#>  [61] 3-- 5 3-- 6 3-- 7 3-- 8 3-- 9 3--10 3--11 3--12 3--13 3--14 3--15 3--16
-#>  [73] 3--17 3--18 3--19 3--20 3--21 3--22 3--23 3--24 3--25 3--26 3--27 3--28
-#>  [85] 3--29 3--30 3--31 4-- 5 4-- 6 4-- 7 4-- 8 4-- 9 4--10 4--11 4--12 4--13
+#> IGRAPH aa94341 U-W- 31 465 -- 
+#> + attr: na (v/l), vertex.names (v/c), na (e/l),
+#> | weight (e/n)
+#> + edges from aa94341:
+#>  [1] 1-- 2 1-- 3 1-- 4 1-- 5 1-- 6 1-- 7 1-- 8 1-- 9 1--10
+#> [10] 1--11 1--12 1--13 1--14 1--15 1--16 1--17 1--18 1--19
+#> [19] 1--20 1--21 1--22 1--23 1--24 1--25 1--26 1--27 1--28
+#> [28] 1--29 1--30 1--31 2-- 3 2-- 4 2-- 5 2-- 6 2-- 7 2-- 8
+#> [37] 2-- 9 2--10 2--11 2--12 2--13 2--14 2--15 2--16 2--17
+#> [46] 2--18 2--19 2--20 2--21 2--22 2--23 2--24 2--25 2--26
+#> [55] 2--27 2--28 2--29 2--30 2--31 3-- 4 3-- 5 3-- 6 3-- 7
 #> + ... omitted several edges
 
 # view first 10 edge weights to show that they are retained
 E(Mor_wt_i)$weight[1:10]
-#>  [1] 0.4885799 0.6014729 0.9060751 0.4049019 1.0000000 0.7087214 0.7724938
-#>  [8] 0.4521581 0.7996468 1.0000000
+#>  [1] 0.4885799 0.6014729 0.9060751 0.4049019 1.0000000
+#>  [6] 0.7087214 0.7724938 0.4521581 0.7996468 1.0000000
 ```
 
 ### Ego Networks
@@ -965,26 +855,28 @@ Extracting an ego-network from an existing igraph network object in R is very ea
 # Read in edgelist file as dataframe
 Cibola_edgelist <- read.csv(file="data/Cibola_edgelist.csv", header=TRUE) 
 
-# Create graph object. The dataframe is converted to a matrix as that is required 
-# by this specific function. Since this is an undirected network directed = FALSE.
-Cibola_net <- igraph::graph_from_edgelist(as.matrix(Cibola_edgelist), directed=FALSE)
+# Create graph object. The dataframe is converted to a matrix as 
+# that is required by this specific function. Since this is an 
+# undirected network, directed = FALSE.
+Cibola_net <- igraph::graph_from_edgelist(as.matrix(Cibola_edgelist),
+                                          directed=FALSE)
 
 # Extract ego-networks
 ego_nets <- make_ego_graph(Cibola_net)
 
 # Examine the first ego-network
 ego_nets[[1]]
-#> IGRAPH 8eab1d3 UN-- 12 59 -- 
+#> IGRAPH aa9b618 UN-- 12 59 -- 
 #> + attr: name (v/c)
-#> + edges from 8eab1d3 (vertex names):
-#>  [1] Apache Creek   --Casa Malpais         Apache Creek   --Coyote Creek        
-#>  [3] Casa Malpais   --Coyote Creek         Apache Creek   --Hooper Ranch        
-#>  [5] Casa Malpais   --Hooper Ranch         Coyote Creek   --Hooper Ranch        
-#>  [7] Apache Creek   --Horse Camp Mill      Casa Malpais   --Horse Camp Mill     
-#>  [9] Coyote Creek   --Horse Camp Mill      Hooper Ranch   --Horse Camp Mill     
-#> [11] Apache Creek   --Hubble Corner        Casa Malpais   --Hubble Corner       
-#> [13] Coyote Creek   --Hubble Corner        Hooper Ranch   --Hubble Corner       
-#> [15] Horse Camp Mill--Hubble Corner        Apache Creek   --Mineral Creek Pueblo
+#> + edges from aa9b618 (vertex names):
+#>  [1] Apache Creek--Casa Malpais   
+#>  [2] Apache Creek--Coyote Creek   
+#>  [3] Casa Malpais--Coyote Creek   
+#>  [4] Apache Creek--Hooper Ranch   
+#>  [5] Casa Malpais--Hooper Ranch   
+#>  [6] Coyote Creek--Hooper Ranch   
+#>  [7] Apache Creek--Horse Camp Mill
+#>  [8] Casa Malpais--Horse Camp Mill
 #> + ... omitted several edges
 
 # Plot Apache Creek ego-network
@@ -992,7 +884,7 @@ set.seed(754)
 plot(ego_nets[[1]])
 ```
 
-<img src="02-network-data-formats_files/figure-html/unnamed-chunk-21-1.png" width="672" />
+<img src="02-network-data-formats_files/figure-html/unnamed-chunk-22-1.png" width="672" />
 
 ```r
 
@@ -1001,7 +893,7 @@ set.seed(45367)
 plot(ego_nets[[30]])
 ```
 
-<img src="02-network-data-formats_files/figure-html/unnamed-chunk-21-2.png" width="672" />
+<img src="02-network-data-formats_files/figure-html/unnamed-chunk-22-2.png" width="672" />
 
 In these ego-networks, only nodes connected to the target nodes (Apache Creek in the first example and then Platt Ranch in the second) are shown and only edges among those included nodes are shown.
 
@@ -1010,8 +902,8 @@ It is also possible to determine the size of ego-networks for an entire one-mode
 
 ```r
 ego_size(Cibola_net)
-#>  [1] 12 12 12 12 13 14 13 13 10 14 15  7  9 14 13 14 15 11 14 14 15  2 14 19 15
-#> [26] 12 12 11  7  6
+#>  [1] 12 12 12 12 13 14 13 13 10 14 15  7  9 14 13 14 15 11
+#> [19] 14 14 15  2 14 19 15 12 12 11  7  6
 ```
 
 
@@ -1039,7 +931,7 @@ summary(florentine)
 plot(florentine)
 ```
 
-<img src="02-network-data-formats_files/figure-html/unnamed-chunk-23-1.png" width="672" />
+<img src="02-network-data-formats_files/figure-html/unnamed-chunk-24-1.png" width="672" />
 
 The multinet network objects are essentially compatible with igraph and individual layers can be analyzed just like other igraph network objects. Where this multinet approach likely has greater utility is in conducting comparisons among layers or conducting analyses that take several layers into account simultaneously. A detailed exploration of this approach is beyond the scope of this document (but we provide a simple example below) and we suggest interested readers read the package information and tutorials associated with this package for more.
 
@@ -1049,38 +941,38 @@ The multinet network objects are essentially compatible with igraph and individu
 # multilayer network, the multinet package can help us do that directly
 # and quite simply.
 multinet::degree_ml(florentine)
-#>  [1]  3  4  3  4  7  2  3 11  5  6  6  6  3  6  1
+#>  [1]  4  3  7  4  2  3 11  6  5  6  3  6  6  3  1
 
 # Similarly, we could apply cluster detection algorithms to all layers
 # of a multilayer network simultaneously.
 multinet::glouvain_ml(florentine)
 #>           actor    layer cid
-#> 1       Strozzi marriage   0
-#> 2       Peruzzi marriage   0
-#> 3       Peruzzi business   0
-#> 4  Lamberteschi marriage   0
-#> 5  Lamberteschi business   0
-#> 6      Guadagni marriage   0
-#> 7      Guadagni business   0
-#> 8    Castellani marriage   0
-#> 9    Castellani business   0
-#> 10     Bischeri marriage   0
-#> 11     Bischeri business   0
-#> 12      Ridolfi marriage   1
-#> 13   Tornabuoni marriage   1
-#> 14   Tornabuoni business   1
-#> 15        Pazzi marriage   1
-#> 16        Pazzi business   1
-#> 17     Salviati marriage   1
-#> 18     Salviati business   1
-#> 19       Medici marriage   1
-#> 20       Medici business   1
-#> 21   Acciaiuoli marriage   1
-#> 22       Ginori marriage   2
-#> 23       Ginori business   2
-#> 24      Albizzi marriage   2
-#> 25    Barbadori marriage   2
-#> 26    Barbadori business   2
+#> 1        Ginori marriage   0
+#> 2        Ginori business   0
+#> 3     Barbadori marriage   0
+#> 4     Barbadori business   0
+#> 5       Albizzi marriage   0
+#> 6    Tornabuoni marriage   1
+#> 7    Tornabuoni business   1
+#> 8       Ridolfi marriage   1
+#> 9         Pazzi marriage   1
+#> 10        Pazzi business   1
+#> 11     Salviati marriage   1
+#> 12     Salviati business   1
+#> 13       Medici marriage   1
+#> 14       Medici business   1
+#> 15   Acciaiuoli marriage   1
+#> 16      Peruzzi marriage   2
+#> 17      Peruzzi business   2
+#> 18      Strozzi marriage   2
+#> 19     Bischeri marriage   2
+#> 20     Bischeri business   2
+#> 21 Lamberteschi marriage   2
+#> 22 Lamberteschi business   2
+#> 23     Guadagni marriage   2
+#> 24     Guadagni business   2
+#> 25   Castellani marriage   2
+#> 26   Castellani business   2
 ```
 
 

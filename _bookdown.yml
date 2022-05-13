@@ -1,3 +1,6 @@
+book_filename: "Archaeological_Network_Science"
+new_session: true
+before_chapter_script: _common.R
 delete_merged_file: true
 language:
   ui:

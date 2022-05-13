@@ -33,19 +33,24 @@ edgelist <- get.edgelist(road_net)
 edges <- as.data.frame(matrix(NA,nrow(edgelist),4))
 colnames(edges) <- c("X1","Y1","X2","Y2")
 for (i in 1:nrow(edgelist)) {
-edges[i,] <- c(nodes[which(nodes$Id==edgelist[i,1]),3],nodes[which(nodes$Id==edgelist[i,1]),2],
-               nodes[which(nodes$Id==edgelist[i,2]),3],nodes[which(nodes$Id==edgelist[i,2]),2])
+edges[i,] <- c(nodes[which(nodes$Id==edgelist[i,1]),3],
+               nodes[which(nodes$Id==edgelist[i,1]),2],
+               nodes[which(nodes$Id==edgelist[i,2]),3],
+               nodes[which(nodes$Id==edgelist[i,2]),2])
 }
 
-myMap <- get_stamenmap(bbox = c(-9.5,36,3,43.8),maptype = "watercolor",zoom = 6)
+myMap <- get_stamenmap(bbox = c(-9.5,36,3,43.8),
+                       maptype = "watercolor", zoom = 6)
 
 ggmap(myMap) +
-  geom_segment(data = edges, aes(x=X1, y=Y1, xend=X2, yend=Y2), col='black', size=1) +
-  geom_point(data = xy, aes(x,y), alpha=0.8, col='black', fill="white", shape=21, size=2, show.legend=F) +
+  geom_segment(data = edges, aes(x=X1, y=Y1, xend=X2, yend=Y2),
+               col='black', size=1) +
+  geom_point(data = xy, aes(x,y), alpha=0.8, col='black', fill="white",
+             shape=21, size=2, show.legend=F) +
   theme_void()
 ```
 
-<img src="06-spatial-networks_files/figure-html/spatial_networks-1.png" width="768" />
+<img src="06-spatial-networks_files/figure-html/spatial_networks-1.png" width="672" />
 
 ## Planar Networks and Trees
 
@@ -92,7 +97,7 @@ ggraph(road_net, layout='kk') +
   theme_graph()
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-3-1.png" width="768" />
+<img src="06-spatial-networks_files/figure-html/unnamed-chunk-3-1.png" width="672" />
 
 Now, by way of example, we can generate a small random network that is planar and see the results of the test. Note that in the network graph that is produced the visual is not planar but could be a small number of nodes were moved. Unfortunately planar graph drawing is not currently implemented into igraph or other packages so you cannot automatically plot a graph as planar even if it meets the criteria of a planar graph. 
 
@@ -108,7 +113,7 @@ ggraph(g, layout="stress") +
   theme_graph()
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-4-1.png" width="768" />
+<img src="06-spatial-networks_files/figure-html/unnamed-chunk-4-1.png" width="672" />
 
 ```r
 
@@ -131,7 +136,7 @@ ggraph(g, layout="stress") +
   theme_graph()
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-5-1.png" width="768" />
+<img src="06-spatial-networks_files/figure-html/unnamed-chunk-5-1.png" width="672" />
 
 ```r
 
@@ -156,19 +161,21 @@ Let's create a simple tree using the "make_tree" function in igraph.
 ```r
 tree1 <- make_tree(n=50, children=5, mode="undirected")
 tree1
-#> IGRAPH 8df1d62 U--- 50 49 -- Tree
+#> IGRAPH 904d15e U--- 50 49 -- Tree
 #> + attr: name (g/c), children (g/n), mode (g/c)
-#> + edges from 8df1d62:
-#>  [1]  1-- 2  1-- 3  1-- 4  1-- 5  1-- 6  2-- 7  2-- 8  2-- 9  2--10  2--11
-#> [11]  3--12  3--13  3--14  3--15  3--16  4--17  4--18  4--19  4--20  4--21
-#> [21]  5--22  5--23  5--24  5--25  5--26  6--27  6--28  6--29  6--30  6--31
-#> [31]  7--32  7--33  7--34  7--35  7--36  8--37  8--38  8--39  8--40  8--41
-#> [41]  9--42  9--43  9--44  9--45  9--46 10--47 10--48 10--49 10--50
+#> + edges from 904d15e:
+#>  [1]  1-- 2  1-- 3  1-- 4  1-- 5  1-- 6  2-- 7  2-- 8  2-- 9
+#>  [9]  2--10  2--11  3--12  3--13  3--14  3--15  3--16  4--17
+#> [17]  4--18  4--19  4--20  4--21  5--22  5--23  5--24  5--25
+#> [25]  5--26  6--27  6--28  6--29  6--30  6--31  7--32  7--33
+#> [33]  7--34  7--35  7--36  8--37  8--38  8--39  8--40  8--41
+#> [41]  9--42  9--43  9--44  9--45  9--46 10--47 10--48 10--49
+#> [49] 10--50
 
 plot(tree1)
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-6-1.png" width="768" />
+<img src="06-spatial-networks_files/figure-html/unnamed-chunk-6-1.png" width="672" />
 
 In the example here you can see the branch and leaf structure of the network where there are central nodes that are hubs to a number of other nodes and so on, but there are no cycles back to the previous nodes. Thus, such a tree is inherently hierarchical.In the next sub-section, we will discuss the use of minimum spanning trees.
 
@@ -182,7 +189,7 @@ ggraph(tree1, layout = 'igraph', algorithm = 'tree', root=1) +
   theme_void() 
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-7-1.png" width="768" />
+<img src="06-spatial-networks_files/figure-html/unnamed-chunk-7-1.png" width="672" />
 
 
 
@@ -211,7 +218,7 @@ ggraph(rng1, layout="kk") +
   theme_graph()
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-8-1.png" width="768" />
+<img src="06-spatial-networks_files/figure-html/unnamed-chunk-8-1.png" width="672" />
 
 We can also plot the results using geographic coordinates.
 
@@ -224,7 +231,7 @@ ggraph(rng1, layout="manual",
   theme_graph()
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-9-1.png" width="768" />
+<img src="06-spatial-networks_files/figure-html/unnamed-chunk-9-1.png" width="672" />
 
 ### Gabriel Graphs
 
@@ -242,7 +249,7 @@ ggraph(gg1, layout="stress") +
   theme_graph()
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-10-1.png" width="768" />
+<img src="06-spatial-networks_files/figure-html/unnamed-chunk-10-1.png" width="672" />
 
 ```r
 
@@ -253,7 +260,7 @@ ggraph(gg1, layout="manual",
   theme_graph()
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-10-2.png" width="768" />
+<img src="06-spatial-networks_files/figure-html/unnamed-chunk-10-2.png" width="672" />
 
 ### Beta Skeletons
 
@@ -272,7 +279,7 @@ ggraph(beta_s, layout="manual",
   theme_graph()
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-11-1.png" width="768" />
+<img src="06-spatial-networks_files/figure-html/unnamed-chunk-11-1.png" width="672" />
 
 ### Minimum Spanning Trees
 
@@ -291,7 +298,7 @@ ggraph(mst_net, layout="kk") +
   theme_graph()
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-12-1.png" width="768" />
+<img src="06-spatial-networks_files/figure-html/unnamed-chunk-12-1.png" width="672" />
 
 ```r
 
@@ -303,18 +310,24 @@ edgelist <- get.edgelist(mst_net)
 edges <- as.data.frame(matrix(NA,nrow(edgelist),4))
 colnames(edges) <- c("X1","Y1","X2","Y2")
 for (i in 1:nrow(edgelist)) {
-edges[i,] <- c(nodes[which(nodes$Id==edgelist[i,1]),3],nodes[which(nodes$Id==edgelist[i,1]),2],
-               nodes[which(nodes$Id==edgelist[i,2]),3],nodes[which(nodes$Id==edgelist[i,2]),2])
+edges[i,] <- c(nodes[which(nodes$Id==edgelist[i,1]),3],
+               nodes[which(nodes$Id==edgelist[i,1]),2],
+               nodes[which(nodes$Id==edgelist[i,2]),3],
+               nodes[which(nodes$Id==edgelist[i,2]),2])
 }
 
 ggmap(myMap) +
-  geom_segment(data = edges, aes(x=X1, y=Y1, xend=X2, yend=Y2), col='black', size=1) +
-  geom_point(data = nodes[,c(3,2)], aes(long,lat), alpha=0.8, col='black', fill="white", shape=21, size=1.5, show.legend=F) +
+  geom_segment(data = edges, aes(x=X1, y=Y1, xend=X2, yend=Y2),
+               col='black', size=1) +
+  geom_point(data = nodes[,c(3,2)], aes(long,lat), alpha=0.8, 
+             col='black', fill="white", shape=21, size=1.5, 
+             show.legend=F) +
   theme_void()
-#> Warning: Removed 2 rows containing missing values (geom_point).
+#> Warning: Removed 2 rows containing missing values
+#> (geom_point).
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-12-2.png" width="768" />
+<img src="06-spatial-networks_files/figure-html/unnamed-chunk-12-2.png" width="672" />
 
 Note that minimum spanning trees can also be used for weighted graphs such that weighted connections will be preferred in defining tree structure. See ?mst for more details.
 
@@ -337,7 +350,7 @@ dt1 <- deldir(nodes[,3],nodes[,2])
 plot(dt1)
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-13-1.png" width="768" />
+<img src="06-spatial-networks_files/figure-html/unnamed-chunk-13-1.png" width="672" />
 
 ```r
 
@@ -347,13 +360,16 @@ mapdat <- as.data.frame(dt1$dirsgs)
 mapdat2 <- as.data.frame(dt1$delsgs)
 
 ggmap(myMap) +
-  geom_segment(data=mapdat, aes(x=x1, y=y1, xend=x2, yend=y2), col='black', size=1) +
-  geom_segment(data=mapdat2, aes(x=x1, y=y1, xend=x2, yend=y2), col='red', size=1) +
-  geom_point(data = nodes, aes(long,lat), alpha=0.8, col='black', fill="white", shape=21, size=3, show.legend=F) +
+  geom_segment(data=mapdat, aes(x=x1, y=y1, xend=x2, yend=y2), 
+               col='black', size=1) +
+  geom_segment(data=mapdat2, aes(x=x1, y=y1, xend=x2, yend=y2), 
+               col='red', size=1) +
+  geom_point(data = nodes, aes(long,lat), alpha=0.8, col='black',
+             fill="white", shape=21, size=3, show.legend=F) +
   theme_void()
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-13-2.png" width="768" />
+<img src="06-spatial-networks_files/figure-html/unnamed-chunk-13-2.png" width="672" />
 
 ### K-nearest Neighbors
 
@@ -369,8 +385,10 @@ nn1 <- nng(x=nodes[,c(3,2)], k=1)
 # Calculate k=6 nearest neighbor graph
 nn6 <- nng(x=nodes[,c(3,2)], k=6)
 
-EL1 <- as.data.frame(rbind(cbind(get.edgelist(nn6), rep("K=6", nrow(get.edgelist(nn1)))),
+EL1 <- as.data.frame(rbind(cbind(get.edgelist(nn6), 
+                                 rep("K=6", nrow(get.edgelist(nn1)))),
 cbind(get.edgelist(nn1), rep("K=1", nrow(get.edgelist(nn1))))))
+
 colnames(EL1) <- c("from","to","K")
 
 g <- graph_from_data_frame(EL1)
@@ -384,7 +402,7 @@ ggraph(g, layout="manual",
   theme_graph()
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-14-1.png" width="768" />
+<img src="06-spatial-networks_files/figure-html/unnamed-chunk-14-1.png" width="672" />
 
 ### Maximum Distance Networks
 
@@ -401,9 +419,12 @@ library(geosphere)
 
 d1 <- distm(nodes[,c(3,2)])
 
-# Note we use the leq=TRUE argument here as we want nodes less than the threshold to count.
-net100 <- network(event2dichot(d1, method='absolute', thresh=100000, leq=TRUE), directed=F)
-net250 <- network(event2dichot(d1, method='absolute', thresh=250000, leq=TRUE), directed=F)
+# Note we use the leq=TRUE argument here as we want nodes less than
+# the threshold to count.
+net100 <- network(event2dichot(d1, method='absolute', thresh=100000,
+                               leq=TRUE), directed=F)
+net250 <- network(event2dichot(d1, method='absolute', thresh=250000,
+                               leq=TRUE), directed=F)
 
 # Plot 100 Km network
 ggraph(net100, layout="manual",
@@ -413,7 +434,7 @@ ggraph(net100, layout="manual",
   theme_graph()
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-15-1.png" width="768" />
+<img src="06-spatial-networks_files/figure-html/unnamed-chunk-15-1.png" width="672" />
 
 ```r
 
@@ -425,7 +446,7 @@ ggraph(net250, layout="manual",
   theme_graph()
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-15-2.png" width="768" />
+<img src="06-spatial-networks_files/figure-html/unnamed-chunk-15-2.png" width="672" />
 
 ## Case Studies
 
@@ -463,8 +484,12 @@ From here we can create maximum distance networks at both the 10km and 18km dist
 library(intergraph)
 
 # Note we use the leq=TRUE argument here as we want nodes less than the threshold to count.
-net10 <- asIgraph(network(event2dichot(g_dist1, method='absolute', thresh=10000, leq=TRUE), directed=F))
-net18 <- asIgraph(network(event2dichot(g_dist1, method='absolute', thresh=18000, leq=TRUE), directed=F))
+net10 <- asIgraph(network(event2dichot(g_dist1, method='absolute',
+                                       thresh=10000, leq=TRUE),
+                          directed=F))
+net18 <- asIgraph(network(event2dichot(g_dist1, method='absolute',
+                                       thresh=18000, leq=TRUE),
+                          directed=F))
 
 g10_deg <- as.data.frame(igraph::degree(net10))
 colnames(g10_deg) <- 'degree'
@@ -496,25 +521,27 @@ g18 <- ggraph(net18, layout="manual",
 g18
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-18-1.png" width="768" />
+<img src="06-spatial-networks_files/figure-html/unnamed-chunk-18-1.png" width="672" />
 
 If we want to combine the degree distribution plot and the network into the same frame, we can use the "inset_element" function in the "patchwork" library.
 
 
 ```r
 library(patchwork)
-plot_a <- g10 + inset_element(h10, left = 0, bottom = 0.7, right = 0.25, top = 0.99)
-plot_b <- g18 + inset_element(h18, left = 0, bottom = 0.7, right = 0.25, top = 0.99)
+plot_a <- g10 + inset_element(h10, left = 0, bottom = 0.7, 
+                              right = 0.25, top = 0.99)
+plot_b <- g18 + inset_element(h18, left = 0, bottom = 0.7, 
+                              right = 0.25, top = 0.99)
 plot_a
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-19-1.png" width="960" />
+<img src="06-spatial-networks_files/figure-html/unnamed-chunk-19-1.png" width="672" />
 
 ```r
 plot_b
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-19-2.png" width="960" />
+<img src="06-spatial-networks_files/figure-html/unnamed-chunk-19-2.png" width="672" />
 
 Next, we calculate a relative neighborhood graph for the site locations and plot it with nodes positioned in geographic space.
 
@@ -535,12 +562,13 @@ colnames(g_rng_deg) <- 'degree'
 h_rng <- ggplot(data=g_rng_deg) +
   geom_histogram(aes(x=degree),bins=3)
 
-plot_c <- g_rng + inset_element(h_rng, left = 0, bottom = 0.7, right = 0.25, top = 0.99)
+plot_c <- g_rng + inset_element(h_rng, left = 0, bottom = 0.7, 
+                                right = 0.25, top = 0.99)
 
 plot_c
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-20-1.png" width="768" />
+<img src="06-spatial-networks_files/figure-html/unnamed-chunk-20-1.png" width="672" />
 
 The chunk of code below then calculates and plots the Gabrial graph with the associated degree distribution plot.
 
@@ -561,23 +589,13 @@ colnames(g_gg_deg) <- 'degree'
 h_gg <- ggplot(data=g_gg_deg) +
   geom_histogram(aes(x=degree),bins=5)
 
-plot_d <- g_gg + inset_element(h_gg, left = 0, bottom = 0.7, right = 0.25, top = 0.99)
+plot_d <- g_gg + inset_element(h_gg, left = 0, bottom = 0.7, 
+                               right = 0.25, top = 0.99)
 
 plot_d
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-21-1.png" width="768" />
-
-And we'll combine these four plots into a single figure.
-
-
-```r
-library(ggpubr)
-
-ggarrange(plot_a,plot_b,plot_c,plot_d,nrow=2,ncol=2)
-```
-
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-22-1.png" width="1152" />
+<img src="06-spatial-networks_files/figure-html/unnamed-chunk-21-1.png" width="672" />
 
 Next, we'll plot the K-nearest neighbors graphs for k= 2, 3, 4, and 6 with the associated degree distribution for each.
 
@@ -638,18 +656,38 @@ h_nn6 <- ggplot(data=nn6_deg) +
   geom_histogram(aes(x=degree),bins=5)+
   scale_x_continuous(limits = c(0, max(nn6_deg)))
 
-plot_a <- g_nn2 + inset_element(h_nn2, left = 0, bottom = 0.7, right = 0.25, top = 0.99)
-plot_b <- g_nn3 + inset_element(h_nn3, left = 0, bottom = 0.7, right = 0.25, top = 0.99)
-plot_c <- g_nn4 + inset_element(h_nn4, left = 0, bottom = 0.7, right = 0.25, top = 0.99)
-plot_d <- g_nn6 + inset_element(h_nn6, left = 0, bottom = 0.7, right = 0.25, top = 0.99)
+plot_a <- g_nn2 + inset_element(h_nn2, left = 0, bottom = 0.7, 
+                                right = 0.25, top = 0.99)
+plot_b <- g_nn3 + inset_element(h_nn3, left = 0, bottom = 0.7, 
+                                right = 0.25, top = 0.99)
+plot_c <- g_nn4 + inset_element(h_nn4, left = 0, bottom = 0.7, 
+                                right = 0.25, top = 0.99)
+plot_d <- g_nn6 + inset_element(h_nn6, left = 0, bottom = 0.7, 
+                                right = 0.25, top = 0.99)
 
 
-library(ggpubr)
-
-ggarrange(plot_a,plot_b,plot_c,plot_d,nrow=2,ncol=2)
+plot_a
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-23-1.png" width="1152" />
+<img src="06-spatial-networks_files/figure-html/unnamed-chunk-22-1.png" width="672" />
+
+```r
+plot_b
+```
+
+<img src="06-spatial-networks_files/figure-html/unnamed-chunk-22-2.png" width="672" />
+
+```r
+plot_c
+```
+
+<img src="06-spatial-networks_files/figure-html/unnamed-chunk-22-3.png" width="672" />
+
+```r
+plot_d
+```
+
+<img src="06-spatial-networks_files/figure-html/unnamed-chunk-22-4.png" width="672" />
 
 
 ### Networks in Space in the U.S. Southwest
@@ -682,7 +720,8 @@ summary(fit)
 #> (Intercept)      7.979e-01  2.547e-03   313.3   <2e-16 ***
 #> as.vector(dmat) -2.487e-06  1.448e-08  -171.8   <2e-16 ***
 #> ---
-#> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+#> Signif. codes:  
+#> 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> 
 #> 
 #> R-sq.(adj) =  0.372   Deviance explained = 37.2%
@@ -695,17 +734,20 @@ The next analysis presented the book creates a series of minimum distance networ
 
 
 ```r
-# Create a sequence of distances from 36km to 400kms by concentric days travel on foot
+# Create a sequence of distances from 36km to 400kms by concentric
+# days travel on foot
 kms <- seq(36000,400000,by=36000)
 
-# Define minimum distance networks for each item in "kms" and the calculate variance explained 
+# Define minimum distance networks for each item in "kms" and the 
+# calculate variance explained 
 temp.out <- NULL
 for(i in 1:length(kms)) {
 dmat.temp <- dmat
 dmat.temp[dmat>kms[i]] <- 0
 dmat.temp[dmat.temp>0] <- 1
 # Calculate gam model and output r^2 value
-temp <- gam(as.vector(sim[lower.tri(sim)])~as.vector(dmat.temp[lower.tri(dmat.temp)]))
+temp <- gam(as.vector(sim[lower.tri(sim)])~
+              as.vector(dmat.temp[lower.tri(dmat.temp)]))
 temp.out[i] <- summary(temp)$r.sq}
 
 # Create data frame of output
@@ -721,11 +763,13 @@ ggplot(data=dat) +
   xlab("Maximum Distance Network Threshold (Km)") +
   ylab("Proportion of Variance Explained") +
   theme_bw() +
-  theme(axis.text.x=element_text(size=rel(1.5)),axis.text.y=element_text(size=rel(1.5)),
-        axis.title.x = element_text(size=rel(1.5)),axis.title.y = element_text(size=rel(1.5)))
+  theme(axis.text.x=element_text(size=rel(1.5)),
+        axis.text.y=element_text(size=rel(1.5)),
+        axis.title.x = element_text(size=rel(1.5)),
+        axis.title.y = element_text(size=rel(1.5)))
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-25-1.png" width="768" />
+<img src="06-spatial-networks_files/figure-html/unnamed-chunk-24-1.png" width="672" />
 
 
 Finally, let's recreate figure 7.8 from the book to display the 36km minimum distance network for the Chaco region ca. AD 1050-1100. This follows the same basic format for plotting minimum distance networks we defined above.
@@ -737,7 +781,8 @@ d36[d36<36001] <- 1
 d36[d36>1] <- 0
 g36.net <- graph_from_adjacency_matrix(d36, mode="undirected")
 
-locations_sf <- st_as_sf(attr, coords = c("EASTING", "NORTHING"), crs = 26912)
+locations_sf <- st_as_sf(attr, coords = c("EASTING", "NORTHING"), 
+                         crs = 26912)
 z <- st_transform(locations_sf,crs=4326)
 coord1 <- do.call(rbind, st_geometry(z)) %>% 
   tibble::as_tibble() %>% setNames(c("lon","lat"))
@@ -745,7 +790,8 @@ coord1 <- do.call(rbind, st_geometry(z)) %>%
 xy <- as.data.frame(cbind(attr$SWSN_Site, coord1))
 colnames(xy) <- c('site','x','y')
 
-base <- get_stamenmap(bbox=c(-110.75,33.5,-107,38),zoom=8,maptype="terrain-background",color="bw")
+base <- get_stamenmap(bbox=c(-110.75,33.5,-107,38), zoom=8,
+                      maptype="terrain-background", color="bw")
 
 
 # Extract edgelist from network object
@@ -755,18 +801,22 @@ edgelist <- get.edgelist(g36.net)
 edges <- as.data.frame(matrix(NA,nrow(edgelist),4))
 colnames(edges) <- c("X1","Y1","X2","Y2")
 for (i in 1:nrow(edgelist)) {
-edges[i,] <- c(xy[which(xy$site==edgelist[i,1]),2],xy[which(xy$site==edgelist[i,1]),3],
-               xy[which(xy$site==edgelist[i,2]),2],xy[which(xy$site==edgelist[i,2]),3])
+edges[i,] <- c(xy[which(xy$site==edgelist[i,1]),2],
+               xy[which(xy$site==edgelist[i,1]),3],
+               xy[which(xy$site==edgelist[i,2]),2],
+               xy[which(xy$site==edgelist[i,2]),3])
 }
 
 
 m1 <- ggmap(base,darken=0.15) +
-  geom_segment(data = edges, aes(x=X1, y=Y1, xend=X2, yend=Y2), col='white', size=0.10, show.legend=F) +
-  geom_point(data = xy,aes(x,y),alpha=0.65, size=1, col='red', show.legend=F) +
+  geom_segment(data = edges, aes(x=X1, y=Y1, xend=X2, yend=Y2),
+               col='white', size=0.10, show.legend=F) +
+  geom_point(data = xy,aes(x,y),alpha=0.65, size=1, col='red',
+             show.legend=F) +
   theme_void()
 m1
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-26-1.png" width="960" />
+<img src="06-spatial-networks_files/figure-html/unnamed-chunk-25-1.png" width="672" />
 
 

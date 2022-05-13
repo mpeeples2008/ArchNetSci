@@ -1,17 +1,12 @@
-bookdown::gitbook:
-  output:
-    revealjs_presentation:
-      css: style.css
-  highlight: tango
-  css: style.css
-  config:
-    toolbar:
-    position: static
-    edit: null
-    toc: 
-      collapse: subsection
-      scroll_highlight: true
-      before: |
-        <li><a href="./">Archaeological Network Science</a></li>
-      after: |
-        <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+bookdown::bs4_book:
+  css: bs4_style.css
+  theme:
+    primary: "#096B72"
+  repo: https://github.com/mpeeples2008/Archaeological_Network_Science
+bookdown::pdf_book:
+  includes:
+    in_header: preamble.tex
+  latex_engine: xelatex
+  citation_package: natbib
+  keep_tex: yes
+bookdown::epub_book: default

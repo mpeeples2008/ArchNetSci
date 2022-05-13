@@ -120,11 +120,12 @@ In order to install all of the packages that will be used in this appendix, you 
 packages <- c("igraph", "statnet", "intergraph", "tnet", "ggplot2",
               "deldir","rjson","d3r","cccd","RBGL","graph","BiocGenerics",
               "networkD3","visNetwork","GISTools","rgeos","maptools","sp",
-              "ndtv","gridExtra","png","scales","ape","graphlayouts","igraphdata",
-              "ggrepel","ggsn","tidyverse","edgebundle","superheat",
-              "ggplotify","ggforce","colorspace","ggmap","sf","dplyr","ggpubr",
-              "ggraph","ggplot2","reshape2","multinet","RColorBrewer","Rcpp",
-              "vegan","intergraph","networkDynamic","scatterplot3d")
+              "ndtv","gridExtra","png","scales","ape","graphlayouts",
+              "igraphdata","ggrepel","ggsn","tidyverse","edgebundle",
+              "superheat","ggplotify","ggforce","colorspace","ggmap","sf",
+              "dplyr","ggpubr","ggraph","ggplot2","reshape2","multinet",
+              "RColorBrewer","Rcpp","vegan","intergraph",
+              "networkDynamic","scatterplot3d")
 
 install.packages(setdiff(packages, rownames(installed.packages())))  
 devtools::install_github("liamgilbey/ggwaffle")

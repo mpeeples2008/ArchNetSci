@@ -4,9 +4,7 @@ author: "Matthew A. Peeples and Tom Brughmans"
 date: "2022-05-13"
 site: bookdown::bookdown_site
 documentclass: book
-output: bookdown::bs4_book
-bibliography:
-- references.bib
+bibliography: references.bib
 url: https://book.archnetworks.net
 description: |
   This bookdown document accompanies the Cambridge Manuals in Archaeology book

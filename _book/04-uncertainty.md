@@ -35,7 +35,8 @@ library(statnet)
 # Import adjacency matrix and covert to network
 chaco <- read.csv(file='data/AD1050net.csv',row.names=1)
 
-chaco_net <- igraph::graph_from_adjacency_matrix(as.matrix(chaco), mode="undirected")
+chaco_net <- igraph::graph_from_adjacency_matrix(as.matrix(chaco),
+                                                 mode="undirected")
 ```
 
 Now we need to define a function that removes a specified proportion of nodes at random, assesses the specified metric of interest, and compares each sub-sample to the original sample in terms of the rank order correlation (Spearman's $\rho$) among nodes for the metric in question. We have attempted to write this function to be as general as possible so that you can modify it and use it to meet your own needs in your own research. In subsequent steps in this document we will modify this basic function to assess different data perturbations.
@@ -56,17 +57,26 @@ To briefly describe how this works, the inner portion of this function contains 
 
 
 ```r
-# Function for assessing the impact of nodes missing at random on betweenness centrality
-nodes_missing_at_random_bw <- function(net, nsim=1000, props=c(0.9,0.8,0.7,0.6,0.5,0.4,0.3,0.2,0.1)) {
-  met_orig <- igraph::betweenness(net) # insert measure of interest here
+# Function for assessing the impact of nodes missing at random on 
+# betweenness centrality
+nodes_missing_at_random_bw <- function(net, nsim=1000,
+                                       props=c(0.9, 0.8, 0.7, 0.6, 
+                                               0.5, 0.4, 0.3, 0.2, 
+                                               0.1)) {
+  # insert measure of interest in line below
+  met_orig <- igraph::betweenness(net) 
   output <- matrix(NA,nsim,length(props))
   colnames(output) <- as.character(props)
     for (j in 1:length(props)) {
       for (i in 1:nsim) {
-        sub_samp <- sample(seq(1,vcount(net)), size=round(vcount(net)*props[j], 0))
+        sub_samp <- sample(seq(1,vcount(net)), size = 
+                             round(vcount(net)*props[j], 0))
         sub_net <- igraph::induced_subgraph(net, sort(sub_samp))
-        temp_stats <- igraph::betweenness(sub_net) # insert measure of interest here (same as above)
-        output[i,j] <- suppressWarnings(cor(temp_stats, met_orig[sort(sub_samp)], method='spearman'))
+        # insert measure of interest in line below (same as above)
+        temp_stats <- igraph::betweenness(sub_net) 
+        output[i,j] <- suppressWarnings(cor(temp_stats,
+                                            met_orig[sort(sub_samp)],
+                                            method='spearman'))
       }
     }
   return(output)
@@ -74,18 +84,23 @@ nodes_missing_at_random_bw <- function(net, nsim=1000, props=c(0.9,0.8,0.7,0.6,0
 
 # Run the function
 set.seed(4561)
-bw_test <- nodes_missing_at_random_bw(net=chaco_net, nsim=1000, props=c(0.9,0.8,0.7,0.6,0.5,0.4,0.3,0.2,0.1))
+bw_test <- nodes_missing_at_random_bw(net=chaco_net, nsim=1000,
+                              props=c(0.9, 0.8, 0.7, 0.6, 0.5,
+                                      0.4, 0.3, 0.2, 0.1))
 
-# visuzlize the results as a boxplot using ggplot
-df <- melt(as.data.frame(bw_test)) # melt wide data format into long data format
+# Visuzlize the results as a boxplot using ggplot.
+# Melt wide data format into long data format first.
+df <- melt(as.data.frame(bw_test)) 
 
 ggplot(data=df) +
   geom_boxplot(aes(x=variable, y=value)) +
   xlab("Sub-Sample Size as Proportion of Original") +
   ylab(expression("Spearman's"~rho)) +
     theme_bw() +
-  theme(axis.text.x=element_text(size=rel(2)),axis.text.y=element_text(size=rel(2)),
-        axis.title.x = element_text(size=rel(2)),axis.title.y = element_text(size=rel(2)),
+  theme(axis.text.x=element_text(size=rel(2)),
+        axis.text.y=element_text(size=rel(2)),
+        axis.title.x = element_text(size=rel(2)),
+        axis.title.y = element_text(size=rel(2)),
         legend.text = element_text(size=rel(1)))
 ```
 
@@ -95,17 +110,25 @@ Now let's run the same function for eigenvector centrality, this time using the 
 
 
 ```r
-# Function for assessing the impact of nodes missing at random on betweenness centrality
-nodes_missing_at_random_ev <- function(net, nsim=1000, props=c(0.9,0.8,0.7,0.6,0.5,0.4,0.3,0.2,0.1)) {
-  met_orig <- igraph::eigen_centrality(net)$vector # insert measure of interest here
+# Function for assessing the impact of nodes missing at random on
+# betweenness centrality
+nodes_missing_at_random_ev <- function(net, nsim=1000,
+                              props=c(0.9, 0.8, 0.7, 0.6, 0.5, 
+                                      0.4, 0.3, 0.2, 0.1)) {
+  # insert measure of interest in line below
+  met_orig <- igraph::eigen_centrality(net)$vector 
   output <- matrix(NA,nsim,length(props))
   colnames(output) <- as.character(props)
     for (j in 1:length(props)) {
       for (i in 1:nsim) {
-        sub_samp <- sample(seq(1,vcount(net)), size=round(vcount(net)*props[j], 0))
+        sub_samp <- sample(seq(1,vcount(net)),
+                           size=round(vcount(net)*props[j], 0))
         sub_net <- igraph::induced_subgraph(net, sort(sub_samp))
-        temp_stats <- igraph::eigen_centrality(sub_net)$vector # insert measure of interest here (same as above)
-        output[i,j] <- suppressWarnings(cor(temp_stats, met_orig[sort(sub_samp)], method='spearman'))
+        # insert measure of interest in line below (same as above)
+        temp_stats <- igraph::eigen_centrality(sub_net)$vector 
+        output[i,j] <- suppressWarnings(cor(temp_stats,
+                                            met_orig[sort(sub_samp)],
+                                            method='spearman'))
       }
     }
   return(output)
@@ -115,16 +138,19 @@ nodes_missing_at_random_ev <- function(net, nsim=1000, props=c(0.9,0.8,0.7,0.6,0
 set.seed(5609)
 ev_test <- nodes_missing_at_random_ev(net=chaco_net)
 
-# visuzlize the results as a boxplot
-df <- melt(as.data.frame(ev_test)) # melt wide data format into long data format
+# Visuzlize the results as a boxplot.
+# Melt wide data format into long data format
+df <- melt(as.data.frame(ev_test)) 
 
 ggplot(data=df) +
   geom_boxplot(aes(x=variable, y=value)) +
   xlab("Sub-Sample Size as Proportion of Original") +
   ylab(expression("Spearman's"~rho)) +
     theme_bw() +
-  theme(axis.text.x=element_text(size=rel(2)),axis.text.y=element_text(size=rel(2)),
-        axis.title.x = element_text(size=rel(2)),axis.title.y = element_text(size=rel(2)),
+  theme(axis.text.x=element_text(size=rel(2)),
+        axis.text.y=element_text(size=rel(2)),
+        axis.title.x = element_text(size=rel(2)),
+        axis.title.y = element_text(size=rel(2)),
         legend.text = element_text(size=rel(1)))
 ```
 
@@ -136,17 +162,25 @@ We can also modify the function we defined above a little more to assess the imp
 
 
 ```r
-# Function for assessing the impact of edges missing at random on degree centrality
-edges_missing_at_random_dg <- function(net, nsim=1000, props=c(0.9,0.8,0.7,0.6,0.5,0.4,0.3,0.2,0.1)) {
-  met_orig <- igraph::degree(net) # insert measure of interest here
+# Function for assessing the impact of edges missing at random on 
+# degree centrality
+edges_missing_at_random_dg <- function(net, nsim=1000,
+                               props=c(0.9, 0.8, 0.7, 0.6, 0.5, 
+                                       0.4, 0.3, 0.2, 0.1)) {
+  # insert measure of interest in line below
+  met_orig <- igraph::degree(net) 
   output <- matrix(NA,nsim,length(props))
   colnames(output) <- as.character(props)
     for (j in 1:length(props)) {
       for (i in 1:nsim) {
-        sub_samp <- sample(seq(1,ecount(net)), size=round(ecount(net)*props[j], 0)) # modify for edges
-        sub_net <- igraph::delete_edges(net, which(!(seq(1,ecount(net)) %in% sub_samp))) # modify for edges
-        temp_stats <- igraph::degree(sub_net) # insert measure of interest here (same as above)
-        output[i,j] <- suppressWarnings(cor(temp_stats, met_orig, method='spearman')) # modify for edges
+        sub_samp <- sample(seq(1,ecount(net)),
+                           size=round(ecount(net)*props[j], 0)) 
+        sub_net <- igraph::delete_edges(net, which(!(seq(1,ecount(net))
+                                                     %in% sub_samp))) 
+        # insert measure of interest in line below (same as above)
+        temp_stats <- igraph::degree(sub_net) 
+        output[i,j] <- suppressWarnings(cor(temp_stats, met_orig,
+                                            method='spearman')) 
       }
     }
   return(output)
@@ -156,16 +190,19 @@ edges_missing_at_random_dg <- function(net, nsim=1000, props=c(0.9,0.8,0.7,0.6,0
 set.seed(5609)
 dg_edge_test <- edges_missing_at_random_dg(net=chaco_net)
 
-# visuzlize the results as a boxplot
-df <- melt(as.data.frame(dg_edge_test)) # melt wide data format into long data format
+# Visuzlize the results as a boxplot.
+# Melt wide data format into long data format
+df <- melt(as.data.frame(dg_edge_test)) 
 
 ggplot(data=df) +
   geom_boxplot(aes(x=variable, y=value)) +
   xlab("Sub-Sample Size as Proportion of Original") +
   ylab(expression("Spearman's"~rho)) +
     theme_bw() +
-  theme(axis.text.x=element_text(size=rel(2)),axis.text.y=element_text(size=rel(2)),
-        axis.title.x = element_text(size=rel(2)),axis.title.y = element_text(size=rel(2)),
+  theme(axis.text.x=element_text(size=rel(2)),
+        axis.text.y=element_text(size=rel(2)),
+        axis.title.x = element_text(size=rel(2)),
+        axis.title.y = element_text(size=rel(2)),
         legend.text = element_text(size=rel(1)))
 ```
 
@@ -190,15 +227,19 @@ Briefly how this function works is it first determines which node number corresp
 ```r
 # Read in edgelist file as dataframe and create network object
 Cibola_edgelist <- read.csv(file="data/Cibola_edgelist.csv", header=TRUE) 
-Cibola_net <- igraph::graph_from_edgelist(as.matrix(Cibola_edgelist), directed=FALSE)
+Cibola_net <- igraph::graph_from_edgelist(as.matrix(Cibola_edgelist),
+                                          directed=FALSE)
 
-# Function for assessing the impact of rank order correlation in betweenness centrality to nodes missing at random
+# Function for assessing the impact of rank order correlation in
+# betweenness centrality to nodes missing at random
 individual_nodes_bw <- function(net, target, prop, nsim=1000) {
   output <- NULL
   for (i in 1:nsim) {
   target_number <- which(V(net)$name == target)
-  sub_samp <- sample(setdiff(1:vcount(net),target_number), size=round(vcount(net)* (1-prop), 0)) 
-  sub_net <- igraph::induced_subgraph(net, sort(setdiff(1:vcount(net),sub_samp))) 
+  sub_samp <- sample(setdiff(1:vcount(net),target_number),
+                     size=round(vcount(net)* (1-prop), 0)) 
+  sub_net <- igraph::induced_subgraph(net,
+                    sort(setdiff(1:vcount(net),sub_samp))) 
   temp_stats <- igraph::betweenness(sub_net)
   output[i] <- which(names(sort(temp_stats, decreasing=TRUE))==target)
   }
@@ -207,7 +248,8 @@ individual_nodes_bw <- function(net, target, prop, nsim=1000) {
 
 # Run the function
 set.seed(52793)
-GR <- individual_nodes_bw(net=Cibola_net, target="Garcia Ranch", prop=0.8, nsim=1000)
+GR <- individual_nodes_bw(net=Cibola_net, target="Garcia Ranch", 
+                          prop=0.8, nsim=1000)
 
 # Visualize the results
 df <- as.data.frame(GR)
@@ -216,9 +258,11 @@ colnames(df) <- "RankOrder"
 ggplot(df, aes(x=RankOrder)) + 
   geom_bar() + 
   theme_bw() +
-  labs(title=" ", x ="Rank Order", y = "Count")+
-  theme(axis.text.x=element_text(size=rel(2)),axis.text.y=element_text(size=rel(2)),
-        axis.title.x = element_text(size=rel(2)),axis.title.y = element_text(size=rel(2)))
+  labs(title=" ", x ="Rank Order", y = "Count") +
+  theme(axis.text.x=element_text(size=rel(2)),
+        axis.text.y=element_text(size=rel(2)),
+        axis.title.x = element_text(size=rel(2)),
+        axis.title.y = element_text(size=rel(2)))
 ```
 
 <img src="04-uncertainty_files/figure-html/unnamed-chunk-5-1.png" width="672" />
@@ -241,7 +285,9 @@ bib_dat <- as.matrix(read.csv('data/biblio_dat.csv',header=T,row.names=1))
 # Create adjacency matrix from incidence matrix using matrix algebra
 bib_adj <- t(bib_dat) %*% bib_dat
 # Convert to igraph network object removing self loops (diag=FALSE)
-bib_net <- igraph::graph_from_adjacency_matrix(bib_adj, mode="undirected", diag=FALSE)
+bib_net <- igraph::graph_from_adjacency_matrix(bib_adj, 
+                                               mode="undirected",
+                                               diag=FALSE)
 # Calculate Betweenness Centrality
 bw_all <- igraph::betweenness(bib_net)
   
@@ -249,7 +295,8 @@ bw_all <- igraph::betweenness(bib_net)
 set.seed(346)
 ggraph(bib_net, layout = "fr") +
   geom_edge_link0(width = 0.2) +
-  geom_node_point(shape = 21, aes(size = bw_all*5), fill='gray', alpha=0.75) +
+  geom_node_point(shape = 21, aes(size = bw_all*5), fill='gray',
+                  alpha=0.75) +
   theme_graph()+
   theme(legend.position = "none")
 ```
@@ -270,9 +317,11 @@ The first step is to create a new column in the lookup file called "prob" that d
 
 
 ```r
-# Create a dataframe of all unique combinations of publication code and year from attributes data
+# Create a dataframe of all unique combinations of publication code 
+# and year from attributes data
 lookup <- unique(bib[,c(1,4)])
-# Assign a probability for a publication to be retained inverse to the year it was published
+# Assign a probability for a publication to be retained inverse to
+# the year it was published
 lookup$prob <- (lookup$Publication.Year-min(lookup$Publication.Year))/
                 (max(lookup$Publication.Year)-min(lookup$Publication.Year))
 head(lookup)
@@ -296,19 +345,28 @@ Here we are going to run the function for nsim=1000 and for 3 sampling fractions
 
 
 ```r
-# Function for assessing the impact of data missing due to biased process on betweenness centrality
-nodes_missing_biased_bw <- function(net, inc, nsim=1000, props=c(0.9,0.8,0.7,0.6,0.5,0.4,0.3,0.2,0.1), lookup_dat) {
-  met_orig <- igraph::betweenness(net) # insert measure of interest here
+# Function for assessing the impact of data missing due to biased process 
+# on betweenness centrality
+nodes_missing_biased_bw <- function(net, inc, nsim=1000,
+                              props=c(0.9, 0.8, 0.7, 0.6, 0.5, 
+                                      0.4, 0.3, 0.2, 0.1), 
+                              lookup_dat) {
+  # insert measure of interest in line below
+  met_orig <- igraph::betweenness(net) 
   output <- matrix(NA,nsim,length(props))
   colnames(output) <- as.character(props)
     for (j in 1:length(props)) {
       for (i in 1:nsim) {
-        sub_samp <- sample(seq(1,nrow(lookup_dat)), size=round(nrow(lookup_dat)*props[j], 0), prob=lookup_dat$prob) # added prob argument
+        sub_samp <- sample(seq(1,nrow(lookup_dat)),
+                           size=round(nrow(lookup_dat)*props[j], 0),
+                           prob=lookup_dat$prob) # added prob argument
         sub <- which(rownames(bib_dat) %in% lookup$Key[sub_samp]) 
         sub_adj <- t(inc[sub,]) %*% inc[sub,]
         sub_net <- igraph::graph_from_adjacency_matrix(sub_adj)
-        temp_stats <- igraph::betweenness(sub_net) # insert measure of interest here (same as above)
-        output[i,j] <- suppressWarnings(cor(temp_stats, met_orig, method='spearman'))
+        # insert measure of interest in line below (same as above)
+        temp_stats <- igraph::betweenness(sub_net) 
+        output[i,j] <- suppressWarnings(cor(temp_stats, met_orig,
+                                            method='spearman'))
       }
     }
   return(output)
@@ -316,7 +374,9 @@ nodes_missing_biased_bw <- function(net, inc, nsim=1000, props=c(0.9,0.8,0.7,0.6
 
 # Run fuction
 set.seed(4634)
-bib_bias <- nodes_missing_biased_bw(net=bib_net, inc=bib_dat, lookup_dat=lookup, props=c(0.9,0.8,0.7))
+bib_bias <- nodes_missing_biased_bw(net=bib_net, inc=bib_dat,
+                                    lookup_dat=lookup,
+                                    props=c(0.9, 0.8, 0.7))
 head(bib_bias)
 #>            0.9       0.8       0.7
 #> [1,] 0.9327931 0.9314217 0.8433757
@@ -331,19 +391,28 @@ With this in place, we now need a function that deals with our incidence matrix 
 
 
 ```r
-# Function for assessing the impact of nodes missing at random on betweenness centrality
-nodes_missing_at_random_inc_bw <- function(net, inc, nsim=1000, props=c(0.9,0.8,0.7,0.6,0.5,0.4,0.3,0.2,0.1), lookup_dat) {
-  met_orig <- igraph::betweenness(net) # insert measure of interest here
+# Function for assessing the impact of nodes missing at random on 
+# betweenness centrality
+nodes_missing_at_random_inc_bw <- function(net, inc, nsim=1000,
+                                           props=c(0.9, 0.8, 0.7, 0.6, 
+                                                   0.5, 0.4, 0.3, 0.2,
+                                                   0.1), lookup_dat) {
+  # insert measure of interest in line below
+  met_orig <- igraph::betweenness(net) 
   output <- matrix(NA,nsim,length(props))
   colnames(output) <- as.character(props)
     for (j in 1:length(props)) {
       for (i in 1:nsim) {
-        sub_samp <- sample(seq(1,nrow(lookup_dat)), size=round(nrow(lookup_dat)*props[j], 0)) # removed prob argument
+        sub_samp <- sample(seq(1,nrow(lookup_dat)),
+                           size=round(nrow(lookup_dat)*props[j], 0))
+        # removed prob argument
         sub <- which(rownames(bib_dat) %in% lookup$Key[sub_samp])
         sub_adj <- t(inc[sub,]) %*% inc[sub,]
         sub_net <- igraph::graph_from_adjacency_matrix(sub_adj)
-        temp_stats <- igraph::betweenness(sub_net) # insert measure of interest here (same as above)
-        output[i,j] <- suppressWarnings(cor(temp_stats, met_orig, method='spearman'))
+        # insert measure of interest in line below (same as above)
+        temp_stats <- igraph::betweenness(sub_net) 
+        output[i,j] <- suppressWarnings(cor(temp_stats, met_orig,
+                                            method='spearman'))
       }
     }
   return(output)
@@ -351,7 +420,9 @@ nodes_missing_at_random_inc_bw <- function(net, inc, nsim=1000, props=c(0.9,0.8,
 
 # Run the function
 set.seed(4363)
-bib_rand <- nodes_missing_at_random_inc_bw(net=bib_net, inc=bib_dat, lookup_dat=lookup, props=c(0.9,0.8,0.7))
+bib_rand <- nodes_missing_at_random_inc_bw(net=bib_net, inc=bib_dat,
+                                           lookup_dat=lookup,
+                                           props=c(0.9,0.8,0.7))
 head(bib_rand)
 #>            0.9       0.8       0.7
 #> [1,] 0.9805339 0.9474142 0.8404082
@@ -373,7 +444,8 @@ df2 <- melt(bib_bias) # convert wide data to long format
 df1$Treatment <- rep("Random", nrow(df1))
 df2$Treatment <- rep("Biased", nrow(df2))
 
-# Bind into a single dataframe, convert sampling faction to factor and change order of levels for plotting
+# Bind into a single dataframe, convert sampling faction to factor 
+# and change order of levels for plotting
 df <- rbind(df1,df2)
 df$Var2 <- as.factor(df$Var2)
 df$Var2 <- factor(df$Var2, levels = c("0.9", "0.8", "0.7"))
@@ -385,8 +457,10 @@ ggplot(data=df) +
   xlab("Sub-Sample Size as Proportion of Original") +
   ylab(expression("Spearman's"~rho)) +
   theme_bw() +
-  theme(axis.text.x=element_text(size=rel(2)),axis.text.y=element_text(size=rel(2)),
-        axis.title.x = element_text(size=rel(2)),axis.title.y = element_text(size=rel(2)),
+  theme(axis.text.x=element_text(size=rel(2)),
+        axis.text.y=element_text(size=rel(2)),
+        axis.title.x = element_text(size=rel(2)),
+        axis.title.y = element_text(size=rel(2)),
         legend.text = element_text(size=rel(2)))
 ```
 
@@ -404,7 +478,9 @@ Since we do not have any data structured in exactly this way, we will again simu
 
 ```r
 # Create random weighted network edgelist with weights from list
-sim_edge <- as.matrix(rg_w(nodes=20,arcs=80,weights=c(0.2,0.4,0.6,0.8,1),directed=F,seed=41267))
+sim_edge <- as.matrix(rg_w(nodes=20, arcs=80, 
+                           weights=c(0.2,0.4,0.6,0.8,1), directed=F,
+                           seed=41267))
 
 # Create network object and assign edge weights and node names
 sim_net <- igraph:: graph_from_edgelist(sim_edge[,1:2])
@@ -417,13 +493,16 @@ edge_cols <- colorRampPalette(c('gray','darkblue'))(5)
 # Plot the resulting network
 set.seed(4364672)
 ggraph(sim_net, layout = "fr") +
-  geom_edge_link0(aes(width = E(sim_net)$weight*5), edge_colour=edge_cols[E(sim_net)$weight*5], show.legend=F) +
+  geom_edge_link0(aes(width = E(sim_net)$weight*5),
+                  edge_colour=edge_cols[E(sim_net)$weight*5],
+                  show.legend=F) +
   geom_node_point(shape = 21, size=igraph::degree(sim_net)+3, fill='red') +
-  geom_node_text(aes(label = as.character(name)), col='white', size=3.5, repel=F) +
+  geom_node_text(aes(label = as.character(name)), 
+                 col='white', size=3.5, repel=F) +
   theme_graph()
 ```
 
-<img src="04-uncertainty_files/figure-html/unnamed-chunk-11-1.png" width="576" />
+<img src="04-uncertainty_files/figure-html/unnamed-chunk-11-1.png" width="672" />
 
 In the next chunk of code we define a function that iterates over every edge in the simulated network we just created and defines each edge as either present or absent using a simple random binomial with the probability set by the edge weight as described above. The output of this function (edge_liklihood) is a list object that contains "nsim" igraph network objects that are candidate networks of the original.
 
@@ -431,7 +510,8 @@ Next, in order to extract values of interest from these candidate networks, we c
 
 
 ```r
-# Define function for assessing and retaining edges based on edge weight probabilities
+# Define function for assessing and retaining edges based on edge 
+# weight probabilities
 edge_prob <- function(net, nsim) {
   net_list <- list()
   for (i in 1:nsim) {
@@ -440,7 +520,8 @@ edge_prob <- function(net, nsim) {
       temp <- rbinom(1,1,prob=sim_edge[j,3])
       if (temp==1) {sub_set <- c(sub_set,j)}
     }
-    net_list[[i]] <- igraph::delete_edges(net, which(!(seq(1,ecount(net)) %in% sub_set)))
+    net_list[[i]] <- igraph::delete_edges(net, which(!(seq(1,ecount(net))
+                                                       %in% sub_set)))
   }
   return(net_list)
 }
@@ -449,7 +530,9 @@ edge_prob <- function(net, nsim) {
 compile_stat <- function(net_list, nsim) {
   out <- matrix(NA,length(net_list),nsim)
   for (i in 1:nsim) {
-  out[,i] <- igraph::degree(net_list[[i]])} # degree could be changed to any other igraph function that outputs a vector of length vcount
+    # degree could be changed to any other igraph function that outputs 
+    # a vector of length vcount
+  out[,i] <- igraph::degree(net_list[[i]])} 
   return(out)
 }
 ```
@@ -462,27 +545,36 @@ EL_test <- edge_prob(sim_net, nsim=1000)
 
 set.seed(9651)
 comp1 <- ggraph(EL_test[[1]], layout = "fr") +
-  geom_edge_link0(aes(width = E(EL_test[[1]])$weight), edge_colour=edge_cols[E(EL_test[[1]])$weight*5], show.legend=F) +
+  geom_edge_link0(aes(width = E(EL_test[[1]])$weight),
+                  edge_colour=edge_cols[E(EL_test[[1]])$weight*5],
+                  show.legend=F) +
   geom_node_point(shape = 21, size=igraph::degree(sim_net), fill='red') +
-  geom_node_text(aes(label = as.character(name)), col='white', size=2.5, repel=F) +
+  geom_node_text(aes(label = as.character(name)), col='white',
+                 size=2.5, repel=F) +
   theme_graph()
 
 comp2 <- ggraph(EL_test[[2]], layout = "fr") +
-  geom_edge_link0(aes(width = E(EL_test[[2]])$weight), edge_colour=edge_cols[E(EL_test[[2]])$weight*5], show.legend=F) +
+  geom_edge_link0(aes(width = E(EL_test[[2]])$weight),
+                  edge_colour=edge_cols[E(EL_test[[2]])$weight*5],
+                  show.legend=F) +
   geom_node_point(shape = 21, size=igraph::degree(sim_net), fill='red') +
-  geom_node_text(aes(label = as.character(name)), col='white', size=2.5, repel=F) +
+  geom_node_text(aes(label = as.character(name)), col='white', 
+                 size=2.5, repel=F) +
   theme_graph()
 
 comp3 <- ggraph(EL_test[[3]], layout = "fr") +
-  geom_edge_link0(aes(width = E(EL_test[[3]])$weight), edge_colour=edge_cols[E(EL_test[[3]])$weight*5], show.legend=F) +
+  geom_edge_link0(aes(width = E(EL_test[[3]])$weight),
+                  edge_colour=edge_cols[E(EL_test[[3]])$weight*5],
+                  show.legend=F) +
   geom_node_point(shape = 21, size=igraph::degree(sim_net), fill='red') +
-  geom_node_text(aes(label = as.character(name)), col='white', size=2.5, repel=F) +
+  geom_node_text(aes(label = as.character(name)), col='white', 
+                 size=2.5, repel=F) +
   theme_graph()
 
 ggarrange(comp1, comp2, comp3)
 ```
 
-<img src="04-uncertainty_files/figure-html/unnamed-chunk-13-1.png" width="768" />
+<img src="04-uncertainty_files/figure-html/unnamed-chunk-13-1.png" width="672" />
 
 We then use the compile_stat function to assess degree centrality for one particular node, displaying a histogram of values with mean indicated.
 
@@ -518,20 +610,25 @@ ceramic <- read.csv(file="data/AD1050cer.csv", header=TRUE, row.names=1)
 # Convert to proportion
 ceramic_p <- prop.table(as.matrix(ceramic), margin = 1) 
 # Convert to Brainerd-Robinson similarity matrix
-ceramic_BR <- (2-as.matrix(vegan::vegdist(ceramic_p, method='manhattan')))/2
+ceramic_BR <- (2-as.matrix(vegan::vegdist(ceramic_p,
+                                          method='manhattan')))/2
 
-# Create function for assessing impact of sampling error on weighted degree for similarity network
+# Create function for assessing impact of sampling error on 
+# weighted degree for similarity network
 sampling_error_sim <- function(cer, nsim=1000) {
     sim_list <- list()
     for (i in 1:nsim) {
     data_sim <-  NULL
-      # the for-loop below creates a random multinomial replicate of the ceramic data
+      # the for-loop below creates a random multinomial replicate 
+      # of the ceramic data
       for (j in 1:nrow(cer)) {
         data_sim <- rbind(data_sim,t(rmultinom(1,rowSums(cer)[j],prob=cer[j,])))
       }
-    # Convert simulated data to proportion, create similarity matrix, calculate degree, and assess correlation
+    # Convert simulated data to proportion, create similarity matrix,
+    # calculate degree, and assess correlation
     temp_p <- prop.table(as.matrix(data_sim), margin=1)
-    sim_list[[i]] <- (2-as.matrix(vegan::vegdist(temp_p, method='manhattan')))/2
+    sim_list[[i]] <- (2-as.matrix(vegan::vegdist(temp_p, 
+                                                 method='manhattan')))/2
     }
   return(sim_list)
 }
@@ -547,10 +644,12 @@ set.seed(4634)
 sim_nets <- sampling_error_sim(cer=ceramic, nsim=1000)
 
 sim_cor <- function(sim_nets, sim) {
-  dg_orig <- rowSums(sim) # change this line to use a different metric
+  # change this line to use a different metric
+  dg_orig <- rowSums(sim) 
   dg_cor <- NULL
   for (i in 1:length(sim_nets)) {
-    dg_temp <- rowSums(sim_nets[[i]]) # change this line to use a different metric
+    # change this line to use a different metric
+    dg_temp <- rowSums(sim_nets[[i]]) 
     dg_cor[i] <- suppressWarnings(cor(dg_orig, dg_temp, method="spearman"))
   }
   return(dg_cor)
@@ -563,9 +662,12 @@ df <- as.data.frame(dg_cor)
 ggplot(df, aes(x=dg_cor)) +
   geom_histogram(bins=100, color='white',fill='black') +
   theme_bw() + 
-  scale_x_continuous(name='Correlation in Degree Centraility',limits=c(0.9,1)) +
-  theme(axis.text.x=element_text(size=rel(1.5)),axis.text.y=element_text(size=rel(1.5)),
-        axis.title.x = element_text(size=rel(1.5)),axis.title.y = element_text(size=rel(1.5)),
+  scale_x_continuous(name='Correlation in Degree Centraility',
+                     limits=c(0.9,1)) +
+  theme(axis.text.x=element_text(size=rel(1.5)),
+        axis.text.y=element_text(size=rel(1.5)),
+        axis.title.x = element_text(size=rel(1.5)),
+        axis.title.y = element_text(size=rel(1.5)),
         legend.text = element_text(size=rel(1.5)))
 ```
 
@@ -578,9 +680,11 @@ To create this plot, we first iterate through every object in "sim_nets" and cal
 
 
 ```r
-# Create data frame containing degree and site id for nsim random similarity matrices
+# Create data frame containing degree and site id for nsim random 
+# similarity matrices
 df <- matrix(NA,1,2) # define empty matrix
-# calculate degree centrality for each random run and bind in matrix along with id
+# calculate degree centrality for each random run and bind in 
+# matrix along with id
 for(i in 1:length(sim_nets)) {
   temp <- cbind(seq(1,nrow(sim_nets[[i]])),rowSums(sim_nets[[i]]))
   df <- rbind(df,temp)
@@ -588,27 +692,35 @@ for(i in 1:length(sim_nets)) {
 df <- as.data.frame(df[-1,]) # remove first row in initial matrix
 colnames(df) <- c("site", "degree") # add column names
 
-# Use summarise function to create median, confidence intervals, and other statistics for degree by site.
+# Use summarise function to create median, confidence intervals, 
+# and other statistics for degree by site.
 out <- df%>%
   group_by(site)%>% 
-  summarise(Mean=mean(degree), Median=median(degree), Max=max(degree), Min=min(degree), Conf=sd(degree)*1.96) 
+  summarise(Mean=mean(degree), Median=median(degree), Max=max(degree),
+            Min=min(degree), Conf=sd(degree)*1.96) 
 out$site <- as.numeric(out$site)
 out <- out[order(rowSums(ceramic_BR)),]
 
-# Create dataframe of degree centrality for the original ceramic similarity matrix
+# Create dataframe of degree centrality for the original ceramic 
+# similarity matrix
 dg_wt <- as.data.frame(rowSums(ceramic_BR))
 colnames(dg_wt) <- "dg.wt"
 
 # Plot the results
 ggplot() +
-  geom_line(data=out, aes(x=reorder(site,Median), y=Median, group=1), col='red', lwd=1.5, alpha=0.5) +
-  geom_errorbar(data=out, aes(x = reorder(site,Median), ymin = Median-Conf, ymax = Median+Conf)) +
-  geom_path(data=sort(dg_wt), aes(x=order(dg.wt), y=dg.wt), col='blue', lwd=1.5, alpha=0.5) +
+  geom_line(data=out, aes(x=reorder(site,Median), y=Median, group=1),
+            col='red', lwd=1.5, alpha=0.5) +
+  geom_errorbar(data=out, aes(x = reorder(site,Median), 
+                              ymin = Median-Conf, ymax = Median+Conf)) +
+  geom_path(data=sort(dg_wt), aes(x=order(dg.wt), y=dg.wt), 
+            col='blue', lwd=1.5, alpha=0.5) +
    theme_bw() +
   ylab('Degree') +
   scale_x_discrete(name='Sites in Rank Order of Degree') +
-  theme(axis.text.x=element_blank(),axis.ticks.x=element_blank(), axis.text.y=element_text(size=rel(2)),
-        axis.title.x = element_text(size=rel(2)),axis.title.y = element_text(size=rel(2)),
+  theme(axis.text.x=element_blank(),axis.ticks.x=element_blank(),
+        axis.text.y=element_text(size=rel(2)),
+        axis.title.x = element_text(size=rel(2)),
+        axis.title.y = element_text(size=rel(2)),
         legend.text = element_text(size=rel(2)))
 ```
 
