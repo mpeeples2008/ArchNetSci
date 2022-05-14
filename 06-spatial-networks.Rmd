@@ -81,8 +81,7 @@ There is a package available for R called RBGL which is an R implementation of s
 if(!requireNamespace("BiocManager", quietly = TRUE))
   install.packages("BiocManager")
 
-BiocManager::install("RBGL"
-)
+BiocManager::install("RBGL")
 ```
 
 With this in place we can now preform an analysis called the Boyer-Myrvold planarity test (Boyer and Myrvold 2004). This analysis performs a set of operations on a graph structure to evaluate whether or not it can be defined as a planar graph (see publication for more details).

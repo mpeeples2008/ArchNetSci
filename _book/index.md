@@ -14,7 +14,7 @@ cover-image: "images/cover_test.png"
 
 ---
 
-# Welcome
+# Welcome {-}
 
 **Note that this is a pre-release version of this document. Be aware that there are formatting issues and there may be lingering errors currently under investigation. Please check back here for updates in the coming months for the full "release" version of this document.**
 

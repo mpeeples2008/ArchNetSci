@@ -134,36 +134,80 @@ packages <- c("igraph", "statnet", "intergraph", "tnet", "ggplot2",
               "igraphdata","ggrepel","ggsn","tidyverse","edgebundle",
               "superheat","ggplotify","ggforce","colorspace","ggmap","sf",
               "dplyr","ggpubr","ggraph","ggplot2","reshape2","multinet",
-              "RColorBrewer","Rcpp","vegan","intergraph",
-              "networkDynamic","scatterplot3d")
+              "RColorBrewer","Rcpp","vegan","intergraph","geosphere",
+              "networkDynamic","scatterplot3d","patchwork")
 
 install.packages(setdiff(packages, rownames(installed.packages())))  
+
 devtools::install_github("liamgilbey/ggwaffle")
 
-```
-
-Here is a list of all package versions used in the creation of this document:
-
-
-```r
-        deldir          rjson            d3r           cccd           RBGL          graph   BiocGenerics      networkD3 
-       "0.2-3"       "0.2.20"        "0.9.1"          "1.5"       "1.64.0"       "1.66.0"       "0.34.0"          "0.4" 
-    visNetwork       GISTools          rgeos           MASS       maptools             sp           ndtv      animation 
-       "2.0.9"        "0.7-4"        "0.5-5"       "7.3-54"        "1.0-2"        "1.4-5"       "0.13.0"          "2.6" 
-     gridExtra            png         scales            ape   graphlayouts     igraphdata        ggrepel           ggsn 
-         "2.3"        "0.1-7"        "1.1.1"        "5.4-1"        "0.7.1"        "1.0.1"        "0.9.1"        "0.5.0" 
-       forcats        stringr          purrr          readr          tidyr         tibble      tidyverse       ggwaffle 
-       "0.5.1"        "1.4.0"        "0.3.4"        "1.4.0"        "1.1.3"        "3.1.0"        "1.3.1"        "0.2.2" 
-    edgebundle      superheat      ggplotify        ggforce     colorspace          ggmap             sf          dplyr
-  "0.1.0.9000"        "1.0.0"        "0.0.7"        "0.3.2"        "2.0-2"        "3.0.0"        "1.0-0"        "1.0.5" 
-        ggpubr           tnet       survival         ggraph        ggplot2       reshape2       multinet   RColorBrewer 
-       "0.4.0"       "3.0.16"        "3.2-7"        "2.0.5"        "3.3.5"        "1.4.4"          "4.0"        "1.1-2" 
-          Rcpp          vegan        lattice        permute     intergraph        statnet           tsna            sna 
-       "1.0.7"        "2.5-7"      "0.20-41"        "0.9-5"        "2.0-2"       "2019.6"        "0.3.3"          "2.6" 
-statnet.common     ergm.count          tergm networkDynamic           ergm        network         igraph 
-       "4.5.0"        "4.0.2"        "4.0.1"       "0.11.0"        "4.0.1"       "1.17.1"        "1.2.6" 
+if(!requireNamespace("BiocManager", quietly = TRUE))
+  install.packages("BiocManager")
+BiocManager::install("RBGL")
 
 ```
+
+This version of the book was built with R version 4.1.2 (2021-11-01) and the following packages:
+
+
+|package        |version |source                       |
+|:--------------|:-------|:----------------------------|
+|animation      |2.7     |CRAN (R 4.1.2)               |
+|ape            |5.6-1   |CRAN (R 4.1.2)               |
+|cccd           |1.5     |CRAN (R 4.1.2)               |
+|colorspace     |2.0-2   |CRAN (R 4.1.2)               |
+|d3r            |1.0.0   |CRAN (R 4.1.2)               |
+|deldir         |1.0-6   |CRAN (R 4.1.1)               |
+|devtools       |2.4.3   |CRAN (R 4.1.2)               |
+|dplyr          |1.0.7   |CRAN (R 4.1.2)               |
+|edgebundle     |0.3.1   |CRAN (R 4.1.2)               |
+|ergm           |4.1.2   |CRAN (R 4.1.2)               |
+|geosphere      |1.5-14  |CRAN (R 4.1.3)               |
+|ggforce        |0.3.3   |CRAN (R 4.1.2)               |
+|ggmap          |3.0.0   |CRAN (R 4.1.2)               |
+|ggplot2        |3.3.5   |CRAN (R 4.1.2)               |
+|ggplotify      |0.1.0   |CRAN (R 4.1.2)               |
+|ggpubr         |0.4.0   |CRAN (R 4.1.2)               |
+|ggraph         |2.0.5   |CRAN (R 4.1.2)               |
+|ggrepel        |0.9.1   |CRAN (R 4.1.2)               |
+|ggsn           |0.5.0   |CRAN (R 4.1.2)               |
+|ggwaffle       |0.2.2   |Github (liamgilbey/ggwaffle) |
+|GISTools       |0.7-4   |CRAN (R 4.1.2)               |
+|graph          |1.72.0  |Bioconductor                 |
+|graphlayouts   |0.8.0   |CRAN (R 4.1.2)               |
+|gridExtra      |2.3     |CRAN (R 4.1.2)               |
+|igraph         |1.2.11  |CRAN (R 4.1.2)               |
+|igraphdata     |1.0.1   |CRAN (R 4.1.2)               |
+|intergraph     |2.0-2   |CRAN (R 4.1.2)               |
+|knitr          |1.37    |CRAN (R 4.1.2)               |
+|maptools       |1.1-2   |CRAN (R 4.1.2)               |
+|mgcv           |1.8-38  |CRAN (R 4.1.2)               |
+|multinet       |4.0.1   |CRAN (R 4.1.2)               |
+|ndtv           |0.13.2  |CRAN (R 4.1.2)               |
+|network        |1.17.1  |CRAN (R 4.1.2)               |
+|networkD3      |0.4     |CRAN (R 4.1.3)               |
+|networkDynamic |0.11.0  |CRAN (R 4.1.2)               |
+|patchwork      |1.1.1   |CRAN (R 4.1.3)               |
+|png            |0.1-7   |CRAN (R 4.1.1)               |
+|RBGL           |1.70.0  |Bioconductor                 |
+|RColorBrewer   |1.1-2   |CRAN (R 4.1.1)               |
+|Rcpp           |1.0.8   |CRAN (R 4.1.2)               |
+|reshape2       |1.4.4   |CRAN (R 4.1.2)               |
+|rgeos          |0.5-9   |CRAN (R 4.1.2)               |
+|rjson          |0.2.21  |CRAN (R 4.1.2)               |
+|scales         |1.1.1   |CRAN (R 4.1.2)               |
+|sf             |1.0-6   |CRAN (R 4.1.2)               |
+|sna            |2.6     |CRAN (R 4.1.2)               |
+|sp             |1.4-6   |CRAN (R 4.1.2)               |
+|statnet        |2019.6  |CRAN (R 4.1.2)               |
+|superheat      |0.1.0   |CRAN (R 4.1.2)               |
+|tergm          |4.0.2   |CRAN (R 4.1.2)               |
+|tibble         |3.1.6   |CRAN (R 4.1.2)               |
+|tidyverse      |1.3.1   |CRAN (R 4.1.2)               |
+|tnet           |3.0.16  |CRAN (R 4.1.2)               |
+|tsna           |0.3.5   |CRAN (R 4.1.2)               |
+|vegan          |2.5-7   |CRAN (R 4.1.2)               |
+|visNetwork     |2.1.0   |CRAN (R 4.1.2)               |
 
 ## Suggested Workspace Setup
 

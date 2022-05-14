@@ -124,33 +124,16 @@ packages <- c("igraph", "statnet", "intergraph", "tnet", "ggplot2",
               "igraphdata","ggrepel","ggsn","tidyverse","edgebundle",
               "superheat","ggplotify","ggforce","colorspace","ggmap","sf",
               "dplyr","ggpubr","ggraph","ggplot2","reshape2","multinet",
-              "RColorBrewer","Rcpp","vegan","intergraph",
-              "networkDynamic","scatterplot3d")
+              "RColorBrewer","Rcpp","vegan","intergraph","geosphere",
+              "networkDynamic","scatterplot3d","patchwork")
 
 install.packages(setdiff(packages, rownames(installed.packages())))  
+
 devtools::install_github("liamgilbey/ggwaffle")
 
-```
-
-Here is a list of all package versions used in the creation of this document:
-
-```{r, eval=F}
-        deldir          rjson            d3r           cccd           RBGL          graph   BiocGenerics      networkD3 
-       "0.2-3"       "0.2.20"        "0.9.1"          "1.5"       "1.64.0"       "1.66.0"       "0.34.0"          "0.4" 
-    visNetwork       GISTools          rgeos           MASS       maptools             sp           ndtv      animation 
-       "2.0.9"        "0.7-4"        "0.5-5"       "7.3-54"        "1.0-2"        "1.4-5"       "0.13.0"          "2.6" 
-     gridExtra            png         scales            ape   graphlayouts     igraphdata        ggrepel           ggsn 
-         "2.3"        "0.1-7"        "1.1.1"        "5.4-1"        "0.7.1"        "1.0.1"        "0.9.1"        "0.5.0" 
-       forcats        stringr          purrr          readr          tidyr         tibble      tidyverse       ggwaffle 
-       "0.5.1"        "1.4.0"        "0.3.4"        "1.4.0"        "1.1.3"        "3.1.0"        "1.3.1"        "0.2.2" 
-    edgebundle      superheat      ggplotify        ggforce     colorspace          ggmap             sf          dplyr
-  "0.1.0.9000"        "1.0.0"        "0.0.7"        "0.3.2"        "2.0-2"        "3.0.0"        "1.0-0"        "1.0.5" 
-        ggpubr           tnet       survival         ggraph        ggplot2       reshape2       multinet   RColorBrewer 
-       "0.4.0"       "3.0.16"        "3.2-7"        "2.0.5"        "3.3.5"        "1.4.4"          "4.0"        "1.1-2" 
-          Rcpp          vegan        lattice        permute     intergraph        statnet           tsna            sna 
-       "1.0.7"        "2.5-7"      "0.20-41"        "0.9-5"        "2.0-2"       "2019.6"        "0.3.3"          "2.6" 
-statnet.common     ergm.count          tergm networkDynamic           ergm        network         igraph 
-       "4.5.0"        "4.0.2"        "4.0.1"       "0.11.0"        "4.0.1"       "1.17.1"        "1.2.6" 
+if(!requireNamespace("BiocManager", quietly = TRUE))
+  install.packages("BiocManager")
+BiocManager::install("RBGL")
 
 ```
 
@@ -160,10 +143,13 @@ This version of the book was built with `r R.version.string` and the following p
 deps <- desc::desc_get_deps()
 pkgs <- sort(deps$package[deps$type == "Imports"])
 pkgs <- sessioninfo::package_info(pkgs, dependencies = FALSE)
+  source = gsub("@", "\\\\@", pkgs$source)
+  source[20] <- "Github (liamgilbey/ggwaffle)"
+
 df <- tibble::tibble(
   package = pkgs$package,
   version = pkgs$ondiskversion,
-  source = gsub("@", "\\\\@", pkgs$source)
+  source 
 )
 knitr::kable(df, format = "markdown")
 ```
