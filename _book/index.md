@@ -16,11 +16,11 @@ cover-image: "images/cover_test.png"
 
 # Welcome {-}
 
-**Note that this is a pre-release version of this document. Be aware that there are formatting issues and there may be lingering errors currently under investigation. Please check back here for updates in the coming months for the full "release" version of this document.**
+>Note that this is a pre-release version of this document. Be aware that there are formatting issues and there may be lingering errors currently under investigation. Please check back here for updates in the coming months for the full "release" version of this document.
 
 **Cite this document as:**
 
--   Peeples, Matthew A. and Tom Brughmans (2022). Online Companion to Archaeological Network Science by Brughmans and Peeples. <https://archnetworks.net>
+>   Peeples, Matthew A. and Tom Brughmans (2022). Online Companion to Archaeological Network Science by Brughmans and Peeples. <https://archnetworks.net>
 
 For more information on the book and for other resrouces including downloadable archaeological network data, code, and tutorials see [archnetworks.net](https://archnetworks.net).
 
