@@ -31,7 +31,7 @@ This document serves as a companion to the Cambridge Manuals in Archaeology book
 
 This appendix assumes you have a basic familiarity with R and R studio. If you are a first time R user and need help getting R and R studio installed and up and running, we suggest you follow the basic [RYouWithMe!](https://rladiessydney.org/courses/ryouwithme/) tutorials by the R-Ladies Sydney or the [ModernDive](https://moderndive.netlify.app/1-getting-started.html) Statistical Inference via Data Science basic tutorial (McConville et al. 2021). If you already have a basic familiarity with R and want to go further, there are numerous additional resources online (many are completely free) to help you learn. Some resources we would recommend include *R for Data Science* ([Wickham and Grolemund 2017](https://r4ds.had.co.nz/)), *Advanced R* ([Wickham 2019](https://adv-r.hadley.nz/)), *the R Cookbook, 2nd edition* [(Long and Teetor 2019)](https://rc2e.com/)), and *R in Action* and the associated *Quick-R* website [Kabacoff 2015](https://www.statmethods.net/). In addition to this [Ben Marwick](https://anthropology.washington.edu/people/ben-marwick) has created an excellent repository of [resources for using R in archaeology](https://github.com/benmarwick/ctv-archaeology) as well as an ever-growing list of archaeological publications that include R code. Reproducing published results is, in our experience, one of the best ways to learn advanced analytical techniques and data management in R.
 
-## Project License
+Project License {.unumbered}
 
 [![CCLicense](https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png)](http://creativecommons.org/licenses/by-nc-nd/4.0/)
 
