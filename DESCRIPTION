@@ -1,6 +1,7 @@
-Package: arch-net-sci
+Package: Archaeological Network Science
 Title: Online Companion to Archaeological Network Science
-Version: 0.0.0.9000
+Version: 0.0.9
+License: CC BY-NC-ND 4.0
 Authors@R: 
     c(person(given = "Matthew",
              family = "Peeples",
