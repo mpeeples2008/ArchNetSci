@@ -26,16 +26,18 @@ In this example, we import the Cibola dataset in this format as a data frame and
 
 ```{r, warning=F, message=F}
 # Read in edgelist file as dataframe
-Cibola_edgelist <- read.csv(file="data/Cibola_edgelist.csv", header=TRUE) 
+Cibola_edgelist <-
+  read.csv(file = "data/Cibola_edgelist.csv", header = TRUE)
 
 # Examine the first several rows
-head(Cibola_edgelist) 
+head(Cibola_edgelist)
 
 # Create graph object. The dataframe is converted to a matrix as that
-#is required by this specific function. Since this is an undirected 
+#is required by this specific function. Since this is an undirected
 # network directed = FALSE.
-Cibola_net <- igraph::graph_from_edgelist(as.matrix(Cibola_edgelist), 
-                                          directed=FALSE)
+Cibola_net <-
+  igraph::graph_from_edgelist(as.matrix(Cibola_edgelist),
+                              directed = FALSE)
 
 # Display igraph network object and then plot a simple node-link diagram
 Cibola_net
@@ -77,9 +79,13 @@ adj_mat <- igraph::as_adjacency_matrix(Cibola_net)
 head(adj_mat)
 
 # Read in adjacency matrix and convert to network object for plotting
-adj_mat2 <- read.csv(file="data/Cibola_adj.csv", header=T, row.names=1)
-Cibola_net2 <- igraph::graph_from_adjacency_matrix(as.matrix(adj_mat2), 
-                                                   mode="undirected")
+adj_mat2 <-
+  read.csv(file = "data/Cibola_adj.csv",
+           header = T,
+           row.names = 1)
+Cibola_net2 <-
+  igraph::graph_from_adjacency_matrix(as.matrix(adj_mat2),
+                                      mode = "undirected")
 set.seed(4352)
 plot(Cibola_net2)
 ```
@@ -96,17 +102,22 @@ After creating the network object we plot it as a simple two-mode network with c
 
 ```{r, warning=F, message=F}
 # Read in two-way table of sites and ceramic technological clusters
-Cibola_clust <- read.csv(file="data/Cibola_clust.csv", header=TRUE, row.names=1)
+Cibola_clust <-
+  read.csv(file = "data/Cibola_clust.csv",
+           header = TRUE,
+           row.names = 1)
 head(Cibola_clust)
 
-# Convert into a network object using the incidence matrix format. Note that 
+# Convert into a network object using the incidence matrix format. Note that
 # multiple=TRUE as we want this defined as a bipartite network.
-Cibola_inc <- igraph::graph_from_incidence_matrix(Cibola_clust, directed=FALSE, multiple=TRUE)
+Cibola_inc <-
+  igraph::graph_from_incidence_matrix(Cibola_clust, directed = FALSE, multiple =
+                                        TRUE)
 head(Cibola_inc)
 
 set.seed(4543)
 # Plot as two-mode network
-plot(Cibola_inc, vertex.color = as.numeric(V(Cibola_inc)$type)+1)
+plot(Cibola_inc, vertex.color = as.numeric(V(Cibola_inc)$type) + 1)
 ```
 
 ### Node and Edge Information
@@ -117,7 +128,7 @@ In the following example we use [this file](data/Cibola_attr.csv) which includes
 
 ```{r, warning=F, message=F}
 # Read in attribute data and look at the first few rows.
-Cibola_attr <- read.csv(file="data/Cibola_attr.csv", header=TRUE)
+Cibola_attr <- read.csv(file = "data/Cibola_attr.csv", header = TRUE)
 head(Cibola_attr)
 
 ```
@@ -138,7 +149,7 @@ This can further be used for plotting or other analyses by calling the variable 
 ```{r, warning=F, message=F}
 
 set.seed(43534)
-plot(Cibola_net2, vertex.color=as.factor(V(Cibola_net2)$region))
+plot(Cibola_net2, vertex.color = as.factor(V(Cibola_net2)$region))
 ```
 
 ## Types of Networks
@@ -151,15 +162,20 @@ Simple networks are unweighted and undirected one-mode networks. By way of examp
 
 ```{r, warning=F, message=F}
 # Read in raw adjacency matrix file
-adj_mat2 <- read.csv(file="data/Cibola_adj.csv", header=T, row.names=1)
+adj_mat2 <-
+  read.csv(file = "data/Cibola_adj.csv",
+           header = T,
+           row.names = 1)
 
 # Convert to a network object using igraph
-simple_net_i <- igraph::graph_from_adjacency_matrix(as.matrix(adj_mat2), 
-                                                    mode="undirected")
+simple_net_i <-
+  igraph::graph_from_adjacency_matrix(as.matrix(adj_mat2),
+                                      mode = "undirected")
 simple_net_i
 
 # Covert to a network object using statnet/network
-simple_net_s <- network::network(as.matrix(adj_mat2), directed=FALSE)
+simple_net_s <-
+  network::network(as.matrix(adj_mat2), directed = FALSE)
 simple_net_s
 ```
 
@@ -173,17 +189,19 @@ By way of example here we will modify the Cibola network edge list to remove som
 
 ```{r, message=F, warning=F}
 # Read in edgelist file as dataframe
-Cibola_edgelist <- read.csv(file="data/Cibola_edgelist.csv", header=TRUE) 
+Cibola_edgelist <-
+  read.csv(file = "data/Cibola_edgelist.csv", header = TRUE)
 
-# Create a random sub-sample of 125 edges out of the total 167 using 
+# Create a random sub-sample of 125 edges out of the total 167 using
 # the "sample" function
 set.seed(45325)
-EL2 <- Cibola_edgelist[sample(seq(1,nrow(Cibola_edgelist)), 125, 
-                              replace=FALSE),]
+EL2 <- Cibola_edgelist[sample(seq(1, nrow(Cibola_edgelist)), 125,
+                              replace = FALSE), ]
 
 # Create graph object from the edge list using the directed=TRUE argument
 # to ensure this is treated as a directed network object.
-directed_net <- igraph::graph_from_edgelist(as.matrix(EL2), directed=TRUE)
+directed_net <-
+  igraph::graph_from_edgelist(as.matrix(EL2), directed = TRUE)
 directed_net
 
 # View as adjacency matrix of direted network object
@@ -204,27 +222,30 @@ In this example, we will random generate edge weights for the Cibola network edg
 
 ```{r, warning=F, message=F}
 # Read in edge list file as data frame
-Cibola_edgelist <- read.csv(file="data/Cibola_edgelist.csv", header=TRUE) 
-# Add additional column of weights as random integers between 1 and 4 
+Cibola_edgelist <-
+  read.csv(file = "data/Cibola_edgelist.csv", header = TRUE)
+# Add additional column of weights as random integers between 1 and 4
 # for each edge
-Cibola_edgelist$Weight <- sample(seq(1,4), nrow(Cibola_edgelist), replace=TRUE)
+Cibola_edgelist$Weight <-
+  sample(seq(1, 4), nrow(Cibola_edgelist), replace = TRUE)
 
 # Create weighted network object calling only the first two columns
-weighted_net <- igraph::graph_from_edgelist(as.matrix(Cibola_edgelist[,1:2]), 
-                                            directed=FALSE)
+weighted_net <-
+  igraph::graph_from_edgelist(as.matrix(Cibola_edgelist[, 1:2]),
+                              directed = FALSE)
 # add edge attribute to indicate weight
 E(weighted_net)$weight <- Cibola_edgelist$Weight
 
 # Explore the first few rows of network object
 head(get.data.frame(weighted_net))
 
-# View network as adjacency matrix. Notice the attr="weight" command that 
+# View network as adjacency matrix. Notice the attr="weight" command that
 # indicates which edge attribute to use for values in the matrix
-head(as_adjacency_matrix(weighted_net, attr="weight"))
+head(as_adjacency_matrix(weighted_net, attr = "weight"))
 
 # Plot the network
 set.seed(574)
-plot(weighted_net, edge.width=E(weighted_net)$weight)
+plot(weighted_net, edge.width = E(weighted_net)$weight)
 
 ```
 
@@ -238,47 +259,51 @@ Two-mode network data are typically recorded in a two-way table with rows and co
 
 ```{r, warning=F, message=F}
 # Read in two-way table of sites and ceramic technological clusters
-Cibola_clust <- read.csv(file="data/Cibola_clust.csv", header=TRUE,
-                         row.names=1)
-# Create network from incidence matrix based on presence/absence of 
+Cibola_clust <- read.csv(file = "data/Cibola_clust.csv",
+                         header = TRUE,
+                         row.names = 1)
+# Create network from incidence matrix based on presence/absence of
 # a cluster at a site
 Cibola_inc <- igraph::graph_from_incidence_matrix(Cibola_clust,
-                                                  directed=FALSE,
-                                                  multiple=TRUE)
+                                                  directed = FALSE,
+                                                  multiple = TRUE)
 Cibola_inc
 set.seed(4537643)
 # Plot as two-mode network
-plot(Cibola_inc, vertex.color = as.numeric(V(Cibola_inc)$type)+1)
+plot(Cibola_inc, vertex.color = as.numeric(V(Cibola_inc)$type) + 1)
 ```
 
 In this case since most clusters are present at most sites, this creates a pretty busy network that may not be particularly useful. An alternative to this is to define some threshold (either in terms of raw count or proportion) to define an edge between a node of one class and another. We provide an example here and build a function that you could modify to do this for your own data. In this function you can set the proportion threshold that you would like to used to define an edge between two classes of nodes. If the proportion of that cluster at that site is greater than or equal to that threshold an edge will be present.
 
 ```{r, warning=F, message=F}
 # Define function for creating incidence matrix with threshold
-two_mode <- function (x, thresh=0.25) {
+two_mode <- function (x, thresh = 0.25) {
   # Create matrix of proportions from x input into function
-  temp <- prop.table(as.matrix(x), 1) 
-  # Define anything with greater than or equal to threshold as 
-  # present (1) 
-  temp[temp>=thresh] <- 1 
+  temp <- prop.table(as.matrix(x), 1)
+  # Define anything with greater than or equal to threshold as
+  # present (1)
+  temp[temp >= thresh] <- 1
   # Define all other cells as absent (0)
-  temp[temp<1] <- 0 
+  temp[temp < 1] <- 0
   # Return the new binarized table as output of the function
-return(temp)}
+  return(temp)
+}
 
 # Run the function and create network object
 # thresh is set to 0.25 but could be any values from 0-1
-mod_clust <- two_mode(Cibola_clust, thresh=0.25) 
+mod_clust <- two_mode(Cibola_clust, thresh = 0.25)
 # Examine the first few rows
 head(mod_clust)
 # Create a graph matrix from the new incidence matrix
-two_mode_net <- igraph::graph_from_incidence_matrix(mod_clust,
-                                                    directed=FALSE,
-                                                    multiple=TRUE)
+two_mode_net <- igraph::graph_from_incidence_matrix(
+                          mod_clust,
+                          directed = FALSE,
+                          multiple = TRUE)
 
 # Plot results
 set.seed(4537)
-plot(two_mode_net, vertex.color = as.numeric(V(Cibola_inc)$type)+1)
+plot(two_mode_net, 
+     vertex.color = as.numeric(V(Cibola_inc)$type) + 1)
 ```
 
 Notice how there are now far fewer ties and if you are familiar with the sites in question you might notice some clear regional patterning. 
@@ -286,25 +311,25 @@ Notice how there are now far fewer ties and if you are familiar with the sites i
 It is also possible to create one-mode projections of the two-mode data here using simple matrix algebra. All you need to do is multiply a matrix by the transpose of that matrix. The results will be a adjacency matrix for whichever set of nodes represented the rows in the first matrix in the matrix multiplication. Here is an example using the "mod_clust" incidence matrix with threshold created above. In the resulting incidence matrix individual cells will represent the number of different edges in common between the nodes in question and can be treated like an edge weight. The diagonal of the matrix will be the total number of clusters that were present in a site assemblage.
 
 ```{r, warning=F, message=F}
-# In R the command "%*%" indicates matrix multiplication and "t()" 
+# In R the command "%*%" indicates matrix multiplication and "t()"
 # gives the transpose of the matrix within the parentheses.
 # Lets first create a one-mode projection focused on sites
 site_mode <- mod_clust %*% t(mod_clust)
 site_net <- igraph::graph_from_adjacency_matrix(site_mode,
-                                                mode="undirected",
-                                                diag=FALSE)
+                                                mode = "undirected",
+                                                diag = FALSE)
 plot(site_net)
 
-# Now lets create a one-mode projection focused on ceramic 
+# Now lets create a one-mode projection focused on ceramic
 # technological clusters.
-# Notice that the only change is we switch which side of the 
+# Notice that the only change is we switch which side of the
 # matrix multiplication we transpose.
 clust_mode <- t(mod_clust) %*% mod_clust
 head(clust_mode)
 
 clust_net <- igraph::graph_from_adjacency_matrix(clust_mode,
-                                                 mode="undirected",
-                                                 diag=FALSE)
+                                                 mode = "undirected",
+                                                 diag = FALSE)
 plot(clust_net)
 ```
 
@@ -326,20 +351,23 @@ where, for all categories $k$, $x$ is the proportion of $k$ in the first assembl
 
 ```{r}
 # Read in raw data
-Cibola_clust <- read.csv(file="data/Cibola_clust.csv", header=TRUE, row.names=1)
+Cibola_clust <-
+  read.csv(file = "data/Cibola_clust.csv",
+           header = TRUE,
+           row.names = 1)
 
 # First we need to convert the ceramic technological clusters into proportions
-clust_p <- prop.table(as.matrix(Cibola_clust), margin = 1) 
+clust_p <- prop.table(as.matrix(Cibola_clust), margin = 1)
 
-# The following line uses the vegdist function in the vegan package 
+# The following line uses the vegdist function in the vegan package
 # to calculate the Brainard-Robinson similarity score. Since vegdist
 # by default defines an unscaled distance we must subtract the results
 # from 2 and then divide by 2 to get a similarity scaled from 0 to 1.
-Cibola_BR <- (2-as.matrix(vegan::vegdist(clust_p, 
-                                         method='manhattan')))/2
+Cibola_BR <- (2 - as.matrix(vegan::vegdist(clust_p,
+                                           method = 'manhattan'))) / 2
 
 # Lets look at the first few rows.
-Cibola_BR[1:4,1:4]
+Cibola_BR[1:4, 1:4]
 ```
 
 At this point we could simply define this as a weighted network object where weights are equal to the similarity scores, or we could define a threshold for defining edges as present or absent. We will discuss these options in detail after presenting other similarity/distance metrics.
@@ -361,11 +389,11 @@ $S$ is the total number of columns.
 This metric ranges from 0 (where no categories overlap at all) to 1 where the categories occur in the same proportions in both samples. Because this metric works on absolute counts we can run the vegdist function directly on the "Cibola_clust" object. Because we want a similarity rather than a distance (which is the default for this function in R) we subtract the results from 1. 
 
 ```{r}
-# Calculate matrix of Morisita similarities based on the 
+# Calculate matrix of Morisita similarities based on the
 # Cibola_clust two-way table.
-Cibola_Mor <- 1-as.matrix(vegan::vegdist(Cibola_clust, 
-                                         method='morisita'))
-Cibola_Mor[1:4,1:4]
+Cibola_Mor <- 1 - as.matrix(vegan::vegdist(Cibola_clust,
+                                           method = 'morisita'))
+Cibola_Mor[1:4, 1:4]
 ```
 
 
@@ -384,19 +412,20 @@ The code for calculating $\chi^{2}$ distances is defined in the chunk below and 
 # Define function for calculating chi-squared distance
 chi_dist <- function(x) {
   # calculates the profile for every row
-  rowprof <- x/apply(x,1,sum) 
+  rowprof <- x / apply(x, 1, sum)
   # calculates the average profile
-  avgprof <- apply(x,2,sum)/sum(x) 
+  avgprof <- apply(x, 2, sum) / sum(x)
   # creates a distance object of chi-squared distances
-  chid <- dist(as.matrix(rowprof)%*%diag(1/sqrt(avgprof))) 
+  chid <- dist(as.matrix(rowprof) %*% diag(1 / sqrt(avgprof)))
   # return the results
-  return(as.matrix(chid))} 
+  return(as.matrix(chid))
+}
 
 # Run the script and then create the rescaled 0-1 version
 Cibola_X <- chi_dist(Cibola_clust)
-Cibola_X01 <- 1-(Cibola_X/max(Cibola_X))
+Cibola_X01 <- 1 - (Cibola_X / max(Cibola_X))
 
-Cibola_X01[1:4,1:4]
+Cibola_X01[1:4, 1:4]
 ```
 
 #### Creating Network Objects from Similarity Matrices {-}
@@ -411,9 +440,10 @@ In the code below, the event2dichot function (from the "statnet" package) takes 
 
 ```{r}
 # Define our binary network object from BR similarity
-BRnet <- network(event2dichot(Cibola_BR, method='absolute', thresh=0.65),
-                 directed=FALSE)
-# Now let's add names for our nodes based on the row names 
+BRnet <-
+  network(event2dichot(Cibola_BR, method = 'absolute', thresh = 0.65),
+          directed = FALSE)
+# Now let's add names for our nodes based on the row names
 # of our original matrix
 BRnet %v% 'vertex.names' <- row.names(Cibola_clust)
 # look at the results.
@@ -427,10 +457,13 @@ plot(BRnet)
 In the next chunk of code we will use the $\chi^2$ distances to create binary networks. This time, we will not use an absolute value to define ties as present, but instead will define those similarities greater than 80 percent of all similarities as present. We will then once again plot just as above.
 
 ```{r }
-# Note we use 1 minus chacoX01 here so to convert a distance 
+# Note we use 1 minus chacoX01 here so to convert a distance
 # to a similarity
-Xnet <- network(event2dichot(Cibola_X01, method='quantile', thresh=0.80),
-                directed=FALSE)
+Xnet <-
+  network(event2dichot(Cibola_X01, 
+                       method = 'quantile', 
+                       thresh = 0.80),
+                       directed = FALSE)
 # Once again add vertext names
 Xnet %v% 'vertex.names' <- row.names(Cibola_clust)
 # look at the results
@@ -448,10 +481,15 @@ It is also possible to use R to create weighted networks where individual edges 
 If you do, however, chose do create a weighted network object from a similarity matrix it only requires a slight modification from the procedure above. In the chunk of code below, we will simply add the arguments "ignore.eval=F" and "names.eval='weight'" to let the network function know we would like weights to be retained and we would like that attribute called 'weight'. We will apply this to the matrix of Morisita similarities defined above and then plot the result. 
 
 ```{r }
-# create weighted network object from co-occurrence matrix by 
+# create weighted network object from co-occurrence matrix by
 # adding the ignore.eval=F argument
-Mor_wt <- network(Cibola_Mor, directed=FALSE, ignore.eval=FALSE,
-                  names.eval='weight')
+Mor_wt <- network(
+  Cibola_Mor,
+  directed = FALSE,
+  ignore.eval = FALSE,
+  names.eval = 'weight'
+)
+
 Mor_wt %v% 'vertex.names' <- row.names(Cibola_Mor)
 Mor_wt
 
@@ -483,13 +521,15 @@ Extracting an ego-network from an existing igraph network object in R is very ea
 
 ```{r, warning=F, message=F}
 # Read in edgelist file as dataframe
-Cibola_edgelist <- read.csv(file="data/Cibola_edgelist.csv", header=TRUE) 
+Cibola_edgelist <-
+  read.csv(file = "data/Cibola_edgelist.csv", header = TRUE)
 
-# Create graph object. The dataframe is converted to a matrix as 
-# that is required by this specific function. Since this is an 
+# Create graph object. The dataframe is converted to a matrix as
+# that is required by this specific function. Since this is an
 # undirected network, directed = FALSE.
-Cibola_net <- igraph::graph_from_edgelist(as.matrix(Cibola_edgelist),
-                                          directed=FALSE)
+Cibola_net <-
+  igraph::graph_from_edgelist(as.matrix(Cibola_edgelist),
+                              directed = FALSE)
 
 # Extract ego-networks
 ego_nets <- make_ego_graph(Cibola_net)
@@ -538,7 +578,7 @@ plot(florentine)
 The multinet network objects are essentially compatible with igraph and individual layers can be analyzed just like other igraph network objects. Where this multinet approach likely has greater utility is in conducting comparisons among layers or conducting analyses that take several layers into account simultaneously. A detailed exploration of this approach is beyond the scope of this document (but we provide a simple example below) and we suggest interested readers read the package information and tutorials associated with this package for more.
 
 ```{r}
-# If we want to calculate degree centrality across multiple layers of a 
+# If we want to calculate degree centrality across multiple layers of a
 # multilayer network, the multinet package can help us do that directly
 # and quite simply.
 multinet::degree_ml(florentine)

@@ -91,7 +91,7 @@ For this example we will read in the Cibola_edgelist.csv file and define an obje
 
 ```r
 # read in data with first row representing column names (header=TRUE)
-EL1 <- read.csv(file="data/Cibola_edgelist.csv", header=TRUE)
+EL1 <- read.csv(file = "data/Cibola_edgelist.csv", header = TRUE)
 # look at the first few rows
 head(EL1)
 #>           FROM                   TO
