@@ -11,12 +11,12 @@
 <meta property="og:title" content="Section 3 Exploratory Network Analysis | Online Companion to Archaeological Network Science by Brughmans and Peeples">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://book.archnetworks.net/exploratory-network-analysis.html">
-<meta property="og:image" content="https://book.archnetworks.net/images/cover_test.png">
+<meta property="og:image" content="https://book.archnetworks.net/images/cover.png">
 <meta property="og:description" content="This section serves as a companion to Chapter 4 in Brughmans and Peeples 2022 and provides basic examples of the exploratory network analytical methods outlined in the book as well as a few...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Section 3 Exploratory Network Analysis | Online Companion to Archaeological Network Science by Brughmans and Peeples">
 <meta name="twitter:description" content="This section serves as a companion to Chapter 4 in Brughmans and Peeples 2022 and provides basic examples of the exploratory network analytical methods outlined in the book as well as a few...">
-<meta name="twitter:image" content="https://book.archnetworks.net/images/cover_test.png">
+<meta name="twitter:image" content="https://book.archnetworks.net/images/cover.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -515,7 +515,7 @@
 <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/distances.html">shortest_paths</a></span><span class="op">(</span><span class="va">simple_net</span>, from <span class="op">=</span> <span class="fl">1</span>, to <span class="op">=</span> <span class="fl">21</span><span class="op">)</span>
 <span class="co">#&gt; $vpath</span>
 <span class="co">#&gt; $vpath[[1]]</span>
-<span class="co">#&gt; + 5/31 vertices, named, from 4cad003:</span>
+<span class="co">#&gt; + 5/31 vertices, named, from 836a0f7:</span>
 <span class="co">#&gt; [1] Apache.Creek          Casa.Malpais         </span>
 <span class="co">#&gt; [3] Garcia.Ranch          Heshotauthla         </span>
 <span class="co">#&gt; [5] Pueblo.de.los.Muertos</span>
@@ -542,7 +542,7 @@
 
 <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/diameter.html">farthest_vertices</a></span><span class="op">(</span><span class="va">directed_net</span>, directed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="co">#&gt; $vertices</span>
-<span class="co">#&gt; + 2/30 vertices, named, from 4cae11d:</span>
+<span class="co">#&gt; + 2/30 vertices, named, from 836b212:</span>
 <span class="co">#&gt; [1] Apache Creek          Pueblo de los Muertos</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $distance</span>
@@ -574,9 +574,9 @@
 
 <span class="va">components</span>
 <span class="co">#&gt; [[1]]</span>
-<span class="co">#&gt; IGRAPH 4ef2110 UN-- 30 167 -- </span>
+<span class="co">#&gt; IGRAPH 85e5890 UN-- 30 167 -- </span>
 <span class="co">#&gt; + attr: name (v/c)</span>
-<span class="co">#&gt; + edges from 4ef2110 (vertex names):</span>
+<span class="co">#&gt; + edges from 85e5890 (vertex names):</span>
 <span class="co">#&gt;  [1] Apache.Creek--Casa.Malpais        </span>
 <span class="co">#&gt;  [2] Apache.Creek--Coyote.Creek        </span>
 <span class="co">#&gt;  [3] Apache.Creek--Hooper.Ranch        </span>
@@ -588,9 +588,9 @@
 <span class="co">#&gt; + ... omitted several edges</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; [[2]]</span>
-<span class="co">#&gt; IGRAPH 4ef2110 UN-- 1 0 -- </span>
+<span class="co">#&gt; IGRAPH 85e5890 UN-- 1 0 -- </span>
 <span class="co">#&gt; + attr: name (v/c)</span>
-<span class="co">#&gt; + edges from 4ef2110 (vertex names):</span>
+<span class="co">#&gt; + edges from 85e5890 (vertex names):</span>
 
 <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html">V</a></span><span class="op">(</span><span class="va">components</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">$</span><span class="va">name</span>
 <span class="co">#&gt; [1] "WS.Ranch"</span></code></pre></div>
@@ -626,15 +626,15 @@
 <span class="co">#&gt; [1] 1</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $cut</span>
-<span class="co">#&gt; + 1/167 edge from 4cad757 (vertex names):</span>
+<span class="co">#&gt; + 1/167 edge from 836a84c (vertex names):</span>
 <span class="co">#&gt; [1] Ojo Bonito--Baca Pueblo</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $partition1</span>
-<span class="co">#&gt; + 1/30 vertex, named, from 4cad757:</span>
+<span class="co">#&gt; + 1/30 vertex, named, from 836a84c:</span>
 <span class="co">#&gt; [1] Baca Pueblo</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $partition2</span>
-<span class="co">#&gt; + 29/30 vertices, named, from 4cad757:</span>
+<span class="co">#&gt; + 29/30 vertices, named, from 836a84c:</span>
 <span class="co">#&gt;  [1] Apache Creek          Casa Malpais         </span>
 <span class="co">#&gt;  [3] Coyote Creek          Hooper Ranch         </span>
 <span class="co">#&gt;  [5] Horse Camp Mill       Hubble Corner        </span>
@@ -661,7 +661,7 @@
 <p>A clique as a network science concept is arguably the strictest method of defining a cohesive subgroup. It is any set of three or more nodes in which each node is directly connected to all other nodes. It can be alternatively defined as a completely connected subnetwork, or a subnetwork with maximum density. The function “igraph::max_cliques” finds all maximal cliques in a network and outputs a list object with nodes in each set indicated. For the sake of space here we only output one clique of the 24 that were defined by this function call.</p>
 <div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/cliques.html">max_cliques</a></span><span class="op">(</span><span class="va">simple_net</span>, min <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">[[</span><span class="fl">24</span><span class="op">]</span><span class="op">]</span>
-<span class="co">#&gt; + 9/31 vertices, named, from 4cad003:</span>
+<span class="co">#&gt; + 9/31 vertices, named, from 836a0f7:</span>
 <span class="co">#&gt; [1] Los.Gigantes    Cienega         Tinaja         </span>
 <span class="co">#&gt; [4] Spier.170       Scribe.S        Pescado.Cluster</span>
 <span class="co">#&gt; [7] Mirabal         Heshotauthla    Yellowhouse</span></code></pre></div>
@@ -1209,7 +1209,7 @@ Open Triad Count
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Online Companion to <em>Archaeological Network Science</em> by Brughmans and Peeples</strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-05-13.</p>
+    <p>"<strong>Online Companion to <em>Archaeological Network Science</em> by Brughmans and Peeples</strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-05-14.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
