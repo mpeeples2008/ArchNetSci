@@ -212,5 +212,3 @@ This version of the book was built with R version 4.1.2 (2021-11-01) and the fol
 ## Suggested Workspace Setup
 
 In order to follow along with the examples in the appendix it will be easiest if you set up your R working directory in a similar format to that used in creating it. Specifically, we suggest you create a new working directory and create an R studio project tied to that specific directory. Further, we suggest that you create a sub-folder of that working directory called "data" and place all of the files you downloaded above or from any other place in this appendix in that folder. Note that if you chose the "Just Give Me Everything" download you will have a .zip file that already contains a sub-folder called "data" so be sure you're not double nesting your folders (you want "working_directory/data" not "working_directory/data/data").
-
-This document was created in R version 4.04 "Lost Library Book" and we suggest you run a current installation of R and R-studio. 

@@ -67,17 +67,14 @@
 <p>This document serves as a companion to the Cambridge Manuals in Archaeology book <em>Archaeological Network Science</em> by Tom Brughmans and Matthew A. Peeples (2022).</p>
 <p><a href="https://book.archnetworks.net"><img src="images/cover.png" width="250" height="375" alt="Brughmans and Peeples Book Cover" align="right" style="margin: 0 1em 0 1em"></a></p>
 <p>This document outlines methods for managing, analyzing, and visualizing network data, primarily using the R programming language. We provide code and examples to replicate the analyses presented in the book as well as many other additional useful code snippets, examples, and tools. This Online Companion is designed to expand upon topics covered in the book and you may find it useful to follow along with these examples as you read. Sections 1 through 6 in this document correspond to the topics and information covered in Chapters 2 through 7 of the Brughmans and Peeples book. You can use the table of contents on the left-hand side of your screen to jump directly to a particular section and the table and contents on the right to navigate within each section.</p>
-<p>This document has been deployed using the Netlify platform and the badge below shows the current status of the build.</p>
-<p><a href="https://app.netlify.com/sites/archnetworks/deploys"><img src="https://api.netlify.com/api/v1/badges/266d5736-f13a-4de4-b812-141c023f3a09/deploy-status" alt="Netlify Status"></a></p>
-<p>The most recent version of this document was built with R version 4.1.2 (2021-11-01).</p>
-<hr>
-<p>The content of this document is meant to be as accessible and reproducible as possible. The source code used to produce this document along with all of the data used in analyses are available on <a href="https://github.com/mpeeples2008/Archaeological_Network_Science">GitHub</a>. This GitHub repository allows anyone who chooses to open issues, contribute to the document, or help fix typos or other errors (see information about contributing below). We have also opened a GitHub <strong>discussion board</strong> associated with this repository where users can ask questions about any data or code in the repository without making edits or issue requests directly.</p>
-<p>Finally, we have created an associated <a href="https://discord.gg/Z9UXwjASM5">Archaeological Network Science - Discord Server</a>, which we hope will provide an additional venue for archaeological network practitioners to collaborate and interact. If you are interested in becoming a moderator of this Discord server please email <a href="mailto:Matthew.Peeples@asu.edu">Matt at Matthew.Peeples@asu.edu</a></p>
-<div class="figure">
-<img src="images/Discord_Logo.png" width="300" alt=""><p class="caption">Join our Discord</p>
-</div>
-<p><a href="https://discord.gg/Z9UXwjASM5">Join our Discord</a></p>
-<p>For more information on the book and for other resources including downloadable archaeological network data, additional code, and tutorials see <a href="https://archnetworks.net">archnetworks.net</a>.</p>
+<p><strong>Cite this document as:</strong></p>
+<blockquote>
+<p>Peeples, Matthew A. and Tom Brughmans (2022). Online Companion to Archaeological Network Science by Brughmans and Peeples. <a href="https://archnetworks.net" class="uri">https://archnetworks.net</a></p>
+</blockquote>
+<p><strong>The associated book can be cited as</strong></p>
+<blockquote>
+<p>Brughmans, Tom and Matthew A. Peeples (in press). <em>Archaeological Network Science.</em> Cambridge Manuals in Archaeology. Cambridge University Press, Cambridge, UK.</p>
+</blockquote>
 <hr>
 <div class="warning" style="padding:0.1em; background-color:#E9D8FD; color:#69337A">
 <span>
@@ -90,38 +87,41 @@ Note that this is a pre-release version of this document. Be aware that there ar
 <p></p></span>
 </div>
 <hr>
-<p><strong>Cite this document as:</strong></p>
-<blockquote>
-<p>Peeples, Matthew A. and Tom Brughmans (2022). Online Companion to Archaeological Network Science by Brughmans and Peeples. <a href="https://archnetworks.net" class="uri">https://archnetworks.net</a></p>
-</blockquote>
-<p><strong>The associated book can be cited as</strong></p>
-<blockquote>
-<p>Brughmans, Tom and Matthew A. Peeples (in press). <em>Archaeological Network Science.</em> Cambridge Manuals in Archaeology. Cambridge University Press, Cambridge, UK.</p>
-</blockquote>
-<hr>
+<div id="reproducibility" class="section level2 unnumbered">
+<h2>Reproducibility<a class="anchor" aria-label="anchor" href="#reproducibility"><i class="fas fa-link"></i></a>
+</h2>
+<p>This document has been deployed using the Netlify platform and the badge below shows the current status of the build.</p>
+<p><a href="https://app.netlify.com/sites/archnetworks/deploys"><img src="https://api.netlify.com/api/v1/badges/266d5736-f13a-4de4-b812-141c023f3a09/deploy-status" alt="Netlify Status"></a></p>
+<p>The most recent version of this document was built with R version 4.1.2 (2021-11-01).</p>
+<p>The content of this document is meant to be as accessible and reproducible as possible. The source code used to produce this document along with all of the data used in analyses are available on <a href="https://github.com/mpeeples2008/Archaeological_Network_Science">GitHub</a>. This GitHub repository allows anyone who chooses to open issues, contribute to the document, or help fix typos or other errors (see information about contributing below). We have also opened a GitHub discussion board with this repository where users can ask questions about any data or code in the repository without making edits or issue requests directly.</p>
+<p>Finally, we have created an associated <a href="https://discord.gg/Z9UXwjASM5">Archaeological Network Science - Discord Server</a>, which we hope will provide an additional venue for archaeological network practitioners to collaborate, interact, and ask for help.</p>
+<div class="inline-figure"><img src="images/Discord_Logo.png" width="300"></div>
+<p><a href="https://discord.gg/Z9UXwjASM5">Join our Discord</a></p>
+<p>For more information on the book and for other resources including downloadable archaeological network data, additional code, and tutorials see <a href="https://archnetworks.net">archnetworks.net</a>.</p>
+</div>
 <div id="new-to-r-and-r-studio" class="section level2 unnumbered">
 <h2>New to R and R Studio?<a class="anchor" aria-label="anchor" href="#new-to-r-and-r-studio"><i class="fas fa-link"></i></a>
 </h2>
 <p>This document assumes you have a basic familiarity with R and R studio. If you are a first time R user and need help getting R and R studio installed and up and running, we suggest you follow the basic <a href="https://rladiessydney.org/courses/ryouwithme/">RYouWithMe!</a> tutorials by the R-Ladies Sydney or the <a href="https://moderndive.netlify.app/1-getting-started.html">ModernDive</a> Statistical Inference via Data Science basic tutorial (McConville et al. 2021). If you already have a basic familiarity with R and want to go further, there are numerous additional resources online (many are completely free) to help you learn. Some resources we would recommend include <em>R for Data Science</em> (<a href="https://r4ds.had.co.nz/">Wickham and Grolemund 2017</a>), <em>Advanced R</em> (<a href="https://adv-r.hadley.nz/">Wickham 2019</a>), <em>the R Cookbook, 2nd edition</em> <a href="https://rc2e.com/">(Long and Teetor 2019)</a>), and <em>R in Action</em> and the associated <em>Quick-R</em> website <a href="https://www.statmethods.net/">Kabacoff 2015</a>. In addition to this <a href="https://anthropology.washington.edu/people/ben-marwick">Ben Marwick</a> has created an excellent repository of <a href="https://github.com/benmarwick/ctv-archaeology">resources for using R in archaeology</a> as well as an ever-growing list of archaeological publications that include R code. Reproducing published results is, in our experience, one of the best ways to learn advanced analytical techniques and data management in R.</p>
 </div>
-<div id="contributing-to-this-project" class="section level2 unnumbered">
-<h2>Contributing to this project<a class="anchor" aria-label="anchor" href="#contributing-to-this-project"><i class="fas fa-link"></i></a>
+<div id="contribute-to-the-project" class="section level2 unnumbered">
+<h2>Contribute To the Project<a class="anchor" aria-label="anchor" href="#contribute-to-the-project"><i class="fas fa-link"></i></a>
 </h2>
 <p>We welcome contributions to this project from the community and the GitHub platform helps us facilitate that. You will first need to <a href="https://github.com/">sign up for a GitHub account</a> and log in. If you find something that needs updating or changing (typos or errors) you can simply click the “View source” link at the right sidebar on the relevant page and then click the edit icon found near the top of the code block and make your proposed changes. These changes will be saved in a new “fork” of the document and we will review these and implement them where relevant and happily add your name to our list of contributors.</p>
 <div class="figure">
-<img src="images/edit_button.jpg" width="300" alt=""><p class="caption">Edit_button</p>
+<img src="images/edit_button.jpg" width="300" alt=""><p class="caption">Edit button</p>
 </div>
-<p>If you detect a larger error such as code not running or if you would like to request a new feature or larger update, you can create an issue using the <a href="https://github.com/mpeeples2008/Archaeological_Network_Science/issues">issue tracker</a> page associated with the project repository.</p>
+<p>If you detect a larger error such as code not running or if you would like to request a new feature or update, you can create an issue using the <a href="https://github.com/mpeeples2008/Archaeological_Network_Science/issues">issue tracker</a> page associated with the project repository.</p>
 <p>All contributors must agree to adhere to our <a href="https://github.com/mpeeples2008/Archaeological_Network_Science/blob/main/CODE_OF_CONDUCT.md">code of conduct</a>.</p>
 </div>
 <div id="project-license" class="section level2 unnumbered">
 <h2>Project License<a class="anchor" aria-label="anchor" href="#project-license"><i class="fas fa-link"></i></a>
 </h2>
-<p><a href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" alt="CCLicense"></a></p>
+<p><a href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png"></a></p>
 <p>This Online Companion to Archaeological Network Science is licensed under a <a href="http://creativecommons.org/licenses/by-nc-nd/4.0/">Creative Commons Attribution-NonCommercial-NoDerivitives 4.0 International License</a>.</p>
 </div>
 <div id="help-support-this-project-and-build-the-community" class="section level2 unnumbered">
-<h2>Help support this project and build the community<a class="anchor" aria-label="anchor" href="#help-support-this-project-and-build-the-community"><i class="fas fa-link"></i></a>
+<h2>Help Support this Project and Build the Community<a class="anchor" aria-label="anchor" href="#help-support-this-project-and-build-the-community"><i class="fas fa-link"></i></a>
 </h2>
 <p>We are devoted to seeing the community of archaeological network practitioners grow and we hope our book and these online resources will help to make this happen. You can support the growth of our community too!</p>
 <ul>
@@ -151,10 +151,11 @@ Note that this is a pre-release version of this document. Be aware that there ar
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
 <li><a class="nav-link" href="#welcome">Welcome</a></li>
+<li><a class="nav-link" href="#reproducibility">Reproducibility</a></li>
 <li><a class="nav-link" href="#new-to-r-and-r-studio">New to R and R Studio?</a></li>
-<li><a class="nav-link" href="#contributing-to-this-project">Contributing to this project</a></li>
+<li><a class="nav-link" href="#contribute-to-the-project">Contribute To the Project</a></li>
 <li><a class="nav-link" href="#project-license">Project License</a></li>
-<li><a class="nav-link" href="#help-support-this-project-and-build-the-community">Help support this project and build the community</a></li>
+<li><a class="nav-link" href="#help-support-this-project-and-build-the-community">Help Support this Project and Build the Community</a></li>
 <li><a class="nav-link" href="#acknowledgements">Acknowledgements</a></li>
 </ul>
 
@@ -173,7 +174,7 @@ Note that this is a pre-release version of this document. Be aware that there ar
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Online Companion to <em>Archaeological Network Science</em> by Brughmans and Peeples</strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-05-14.</p>
+    <p>"<strong>Online Companion to <em>Archaeological Network Science</em> by Brughmans and Peeples</strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-05-15.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

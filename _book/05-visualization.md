@@ -33,9 +33,9 @@ Cibola_attr <- read.csv(file = "data/Cibola_attr.csv", header = TRUE)
 Cibola_i <- igraph::graph_from_adjacency_matrix(as.matrix(Cibola),
                                                 mode = "undirected")
 Cibola_i
-#> IGRAPH fd8eb34 UN-- 31 167 -- 
+#> IGRAPH 2e9fd8b UN-- 31 167 -- 
 #> + attr: name (v/c)
-#> + edges from fd8eb34 (vertex names):
+#> + edges from 2e9fd8b (vertex names):
 #>  [1] Apache.Creek--Casa.Malpais        
 #>  [2] Apache.Creek--Coyote.Creek        
 #>  [3] Apache.Creek--Hooper.Ranch        
