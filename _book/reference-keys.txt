@@ -126,3 +126,6 @@ maximum-distance-networks
 case-studies
 proximity-of-iron-age-sites-in-southern-spain
 networks-in-space-in-the-u.s.-southwest
+setting-up-your-working-environment
+installing-r-packages-1
+suggested-workspace-setup-1

@@ -756,6 +756,7 @@ This is a somewhat complicated plot that requires a couple of specialized librar
 
 ```{r Fig6_3d, message=F, warning=F, fig.width=6, fig.height=6}
 # Initialize libraries
+# devtools::install_github("liamgilbey/ggwaffle") # run this if ggwaffle not installed
 library(ggwaffle)
 library(tidyverse)
 
@@ -851,16 +852,6 @@ F6.3d <- Reduce("+", annot_list, p)
 F6.3d
 ```
 
-Combine all of the plots into a single figure
-
-```{r Fig6_3_all, fig.width=8, fig.height=8, eval=F}
-library(ggpubr)
-figure_6_3 <- ggarrange(F6.3a, F6.3b, F6.3c, F6.3d, nrow=2, ncol=2, 
-                        labels=c('(a)','(b)','(c)','(d)'), 
-                        font.label=list(size=22))
-
-figure_6_3
-```
 
 ![](images/Figure_6_3.jpg.jpeg){width=100%}
 

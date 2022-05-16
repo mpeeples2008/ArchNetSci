@@ -1,7 +1,7 @@
 ---
 title: "Online Companion to *Archaeological Network Science* by Brughmans and Peeples"
 author: "Matthew A. Peeples and Tom Brughmans"
-date: "2022-05-15"
+date: "2022-05-16"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: references.bib
@@ -18,7 +18,7 @@ cover-image: "images/cover.png"
 
 
 
-This document serves as a companion to the Cambridge Manuals in Archaeology book *Archaeological Network Science* by Tom Brughmans and Matthew A. Peeples (2022). 
+This project serves as a companion to the Cambridge Manuals in Archaeology book *Archaeological Network Science* by Tom Brughmans and Matthew A. Peeples (2022). 
 
 <a href="https://book.archnetworks.net"><img src="images/cover.png" width="250" height="375" alt="Brughmans and Peeples Book Cover" align="right" style="margin: 0 1em 0 1em" /></a>
 
@@ -33,7 +33,6 @@ This document outlines methods for managing, analyzing, and visualizing network 
 > Brughmans, Tom and Matthew A. Peeples (in press). *Archaeological Network Science.* Cambridge Manuals in Archaeology. Cambridge University Press, Cambridge, UK.
 
 ***
-
 <div class="warning" style='padding:0.1em; background-color:#E9D8FD; color:#69337A'>
 <span>
 <p style='margin-top:1em; text-align:center'>
@@ -51,17 +50,21 @@ This document has been deployed using the Netlify platform and the badge below s
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/266d5736-f13a-4de4-b812-141c023f3a09/deploy-status)](https://app.netlify.com/sites/archnetworks/deploys)
 
-The most recent version of this document was built with R version 4.1.2 (2021-11-01).
+The most recent version of this document was built with R version 4.2.0 (2022-04-22 ucrt).
 
 The content of this document is meant to be as accessible and reproducible as possible. The source code used to produce this document along with all of the data used in analyses are available on [GitHub](https://github.com/mpeeples2008/Archaeological_Network_Science). This GitHub repository allows anyone who chooses to open issues, contribute to the document, or help fix typos or other errors (see information about contributing below). We have also opened a GitHub discussion board with this repository where users can ask questions about any data or code in the repository without making edits or issue requests directly. 
 
-Finally, we have created an associated [Archaeological Network Science - Discord Server](https://discord.gg/Z9UXwjASM5), which we hope will provide an additional venue for archaeological network practitioners to collaborate, interact, and ask for help. 
+The easiest way to reproduce this document is to launch the project directly in your browser using [Binder](https://mybinder.org/). When you click on the link below it will open a browser based instance of R studio with all of the required packages and files. From there you can test and evaluate the code directly. Note that any changes made will not be retained after you close your browser. Note that opening the binder link below will likely take several minutes the first time. Go grab a cup of coffee, tea, Dr. Pepper, or any other beverage of your choice as the Binder does its thing.
+
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/mpeeples2008/Archaeological_Network_Science/main)
+
+## Discord Community{-}
+
+We have created an associated [Archaeological Network Science - Discord Server](https://discord.gg/Z9UXwjASM5), which we hope will provide an additional venue for archaeological network practitioners to collaborate, interact, and ask for help with this document or with archaeological networks broadly. We invite you to use this as a place to ask questions of the authors and the community at large. Note that this Discord is subject to the same [code of conduct](https://github.com/mpeeples2008/Archaeological_Network_Science/blob/main/CODE_OF_CONDUCT.md) we use for the GitHub repository and you must abide by that agreement to participate. We require that you have a Discord account with a verified email address.
 
 ![](images/Discord_Logo.png){width=300px}
 
 [Join our Discord](https://discord.gg/Z9UXwjASM5)
-
-For more information on the book and for other resources including downloadable archaeological network data, additional code, and tutorials see [archnetworks.net](https://archnetworks.net).
 
 ## New to R and R Studio?{-}
 

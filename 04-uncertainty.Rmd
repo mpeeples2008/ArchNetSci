@@ -294,10 +294,11 @@ First we need to provide two data files. The first is the [bibliographic attribu
 bib <- read.csv('data/biblio_attr.csv')
 # Read in incidence matrix of publication and author data
 bib_dat <-
-  as.matrix(read.csv(
-    'data/biblio_dat.csv',
+  as.matrix(read.table(
+    'data/biblio_dat2.csv',
     header = T,
-    row.names = 1
+    row.names = 1,
+    sep = ","
   ))
 # Create adjacency matrix from incidence matrix using matrix algebra
 bib_adj <- t(bib_dat) %*% bib_dat
@@ -444,7 +445,7 @@ Now we can combine the results into a single dataframe and plot them as paired b
 df1 <- melt(bib_rand) # convert wide data to long format
 df2 <- melt(bib_bias) # convert wide data to long format
 
-# Add a variable denoting which sample it came from
+# Add a variable denoting which sample design it came from
 df1$Treatment <- rep("Random", nrow(df1))
 df2$Treatment <- rep("Biased", nrow(df2))
 

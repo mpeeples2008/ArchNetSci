@@ -293,13 +293,10 @@ The "igraph::closeness" function calculates closeness centrality and can be calc
 
 ```r
 igraph::closeness(simple_net)[1:5]
-#> Warning in igraph::closeness(simple_net): At
-#> centrality.c:2874 :closeness centrality is not well-defined
-#> for disconnected graphs
 #> Apache.Creek      Atsinna  Baca.Pueblo Casa.Malpais 
-#>  0.010101010  0.010101010  0.009345794  0.011904762 
+#>   0.01470588   0.01470588   0.01315789   0.01886792 
 #>      Cienega 
-#>  0.012345679
+#>   0.02000000
 
 igraph::closeness(simple_net_noiso)[1:5]
 #>    Apache Creek    Casa Malpais    Coyote Creek 
@@ -314,13 +311,10 @@ igraph::closeness(weighted_net, weights = E(weighted_net)$weight)[1:5]
 #>      0.01111111      0.01063830
 
 igraph::closeness(directed_net, mode = "in")[1:5]
-#> Warning in igraph::closeness(directed_net, mode = "in"): At
-#> centrality.c:2874 :closeness centrality is not well-defined
-#> for disconnected graphs
 #>    Coyote Creek Techado Springs   Hubble Corner 
-#>     0.001189061     0.001984127     0.001782531 
+#>      1.00000000      0.04166667      0.04761905 
 #>    Tri-R Pueblo    Heshotauthla 
-#>     0.002114165     0.001426534
+#>      0.04347826      0.09090909
 ```
 
 ### Hubs and Authorities
@@ -359,8 +353,8 @@ igraph::triad_census(directed_net)
 #> [12]    0    0    0    0    0
 
 igraph::triad_census(simple_net)
-#> Warning in igraph::triad_census(simple_net): At
-#> motifs.c:1055 :Triad census called on an undirected graph
+#> Warning in igraph::triad_census(simple_net): At core/misc/
+#> motifs.c:1165 : Triad census called on an undirected graph.
 #>  [1] 1033    0 2551    0    0    0    0    0    0    0  441
 #> [12]    0    0    0    0  470
 ```
@@ -474,7 +468,7 @@ If you want to identify particular shortest paths to or from nodes in a network 
 igraph::shortest_paths(simple_net, from = 1, to = 21)
 #> $vpath
 #> $vpath[[1]]
-#> + 5/31 vertices, named, from bc2f392:
+#> + 5/31 vertices, named, from 7d87123:
 #> [1] Apache.Creek          Casa.Malpais         
 #> [3] Garcia.Ranch          Heshotauthla         
 #> [5] Pueblo.de.los.Muertos
@@ -503,7 +497,7 @@ igraph::diameter(directed_net, directed = TRUE)
 
 igraph::farthest_vertices(directed_net, directed = TRUE)
 #> $vertices
-#> + 2/30 vertices, named, from bc304ad:
+#> + 2/30 vertices, named, from 7d88448:
 #> [1] Apache Creek          Pueblo de los Muertos
 #> 
 #> $distance
@@ -541,9 +535,9 @@ components <- igraph::decompose(simple_net, min.vertices = 1)
 
 components
 #> [[1]]
-#> IGRAPH be9ab30 UN-- 30 167 -- 
+#> IGRAPH 7fd7531 UN-- 30 167 -- 
 #> + attr: name (v/c)
-#> + edges from be9ab30 (vertex names):
+#> + edges from 7fd7531 (vertex names):
 #>  [1] Apache.Creek--Casa.Malpais        
 #>  [2] Apache.Creek--Coyote.Creek        
 #>  [3] Apache.Creek--Hooper.Ranch        
@@ -555,9 +549,9 @@ components
 #> + ... omitted several edges
 #> 
 #> [[2]]
-#> IGRAPH be9ab30 UN-- 1 0 -- 
+#> IGRAPH 7fd7556 UN-- 1 0 -- 
 #> + attr: name (v/c)
-#> + edges from be9ab30 (vertex names):
+#> + edges from 7fd7556 (vertex names):
 
 V(components[[2]])$name
 #> [1] "WS.Ranch"
@@ -599,15 +593,15 @@ min_cut(simple_net_noiso, value.only = FALSE)
 #> [1] 1
 #> 
 #> $cut
-#> + 1/167 edge from bc2fae7 (vertex names):
+#> + 1/167 edge from 7d878cd (vertex names):
 #> [1] Ojo Bonito--Baca Pueblo
 #> 
 #> $partition1
-#> + 1/30 vertex, named, from bc2fae7:
+#> + 1/30 vertex, named, from 7d878cd:
 #> [1] Baca Pueblo
 #> 
 #> $partition2
-#> + 29/30 vertices, named, from bc2fae7:
+#> + 29/30 vertices, named, from 7d878cd:
 #>  [1] Apache Creek          Casa Malpais         
 #>  [3] Coyote Creek          Hooper Ranch         
 #>  [5] Horse Camp Mill       Hubble Corner        
@@ -634,7 +628,7 @@ A clique as a network science concept is arguably the strictest method of defini
 
 ```r
 max_cliques(simple_net, min = 1)[[24]]
-#> + 9/31 vertices, named, from bc2f392:
+#> + 9/31 vertices, named, from 7d87123:
 #> [1] Los.Gigantes    Cienega         Tinaja         
 #> [4] Spier.170       Scribe.S        Pescado.Cluster
 #> [7] Mirabal         Heshotauthla    Yellowhouse
@@ -725,7 +719,7 @@ modularity(simple_net, membership = membership(WT))
 
 # Modularity for Louvain clustering
 modularity(simple_net, membership = membership(LV))
-#> [1] 0.4131378
+#> [1] 0.4157195
 
 # Modularity for subregion
 Cibola_attr <- read.csv("data/Cibola_attr.csv")

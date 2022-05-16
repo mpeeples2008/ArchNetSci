@@ -33,9 +33,9 @@ Cibola_attr <- read.csv(file = "data/Cibola_attr.csv", header = TRUE)
 Cibola_i <- igraph::graph_from_adjacency_matrix(as.matrix(Cibola),
                                                 mode = "undirected")
 Cibola_i
-#> IGRAPH 2e9fd8b UN-- 31 167 -- 
+#> IGRAPH f1c3aed UN-- 31 167 -- 
 #> + attr: name (v/c)
-#> + edges from 2e9fd8b (vertex names):
+#> + edges from f1c3aed (vertex names):
 #>  [1] Apache.Creek--Casa.Malpais        
 #>  [2] Apache.Creek--Coyote.Creek        
 #>  [3] Apache.Creek--Hooper.Ranch        
@@ -866,6 +866,7 @@ This is a somewhat complicated plot that requires a couple of specialized librar
 
 ```r
 # Initialize libraries
+# devtools::install_github("liamgilbey/ggwaffle") # run this if ggwaffle not installed
 library(ggwaffle)
 library(tidyverse)
 
@@ -963,17 +964,6 @@ F6.3d
 
 <img src="05-visualization_files/figure-html/Fig6_3d-1.png" width="576" />
 
-Combine all of the plots into a single figure
-
-
-```r
-library(ggpubr)
-figure_6_3 <- ggarrange(F6.3a, F6.3b, F6.3c, F6.3d, nrow=2, ncol=2, 
-                        labels=c('(a)','(b)','(c)','(d)'), 
-                        font.label=list(size=22))
-
-figure_6_3
-```
 
 ![](images/Figure_6_3.jpg.jpeg){width=100%}
 
@@ -10961,8 +10951,8 @@ visOptions(visnet, highlightNearest = TRUE, selectedBy = "group")
 ```
 
 ```{=html}
-<div id="htmlwidget-039cb1ccaf3067b3f3ac" style="width:672px;height:672px;" class="visNetwork html-widget"></div>
-<script type="application/json" data-for="htmlwidget-039cb1ccaf3067b3f3ac">{"x":{"nodes":{"id":["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"],"group":[1,2,2,1,2,1,1,3,2,3,1,1,1,2,2,1,2,2,2,3,2,1,2,2,1,2,1,1,1,4,2],"shape":["dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot"],"shadow":[true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true],"borderWidth":[2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],"color.background":["slategrey","tomato","tomato","slategrey","tomato","slategrey","slategrey","gold","tomato","gold","slategrey","slategrey","slategrey","tomato","tomato","slategrey","tomato","tomato","tomato","gold","tomato","slategrey","tomato","tomato","slategrey","tomato","slategrey","slategrey","slategrey","purple","tomato"],"color.border":["black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black"],"color.highlight.background":["orange","orange","orange","orange","orange","orange","orange","orange","orange","orange","orange","orange","orange","orange","orange","orange","orange","orange","orange","orange","orange","orange","orange","orange","orange","orange","orange","orange","orange","orange","orange"],"color.highlight.border":["darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred"],"label":["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"]},"edges":{"from":[1,2,1,4,4,6,7,8,5,9,5,7,4,8,1,4,6,6,10,11,1,8,4,12,6,10,11,4,1,7,10,9,5,2,14,9,5,10,11,1,8,6,7,12,13,10,5,14,15,9,2,9,15,14,10,5,17,8,2,3,5,9,15,14,18,17,8,14,10,9,5,15,18,19,9,2,17,12,6,1,16,10,8,13,4,11,5,21,9,19,18,10,2,8,15,17,14,19,21,23,17,18,10,15,9,5,2,6,11,12,1,13,22,4,21,10,14,24,19,5,2,8,9,23,17,18,15,10,12,16,1,7,6,22,11,25,4,13,10,11,12,27,6,13,7,22,25,1,16,4,8,28,11,1,13,16,27,19,15,14,24,9,23,26,17,5,20],"to":[4,5,6,6,8,8,8,9,9,10,10,10,10,10,11,11,11,12,12,12,12,12,12,13,13,13,13,13,13,13,14,14,14,15,15,15,15,16,16,16,16,16,16,16,16,17,17,17,17,17,17,18,18,18,18,18,18,18,18,18,19,19,19,19,19,19,20,20,20,20,21,21,21,21,21,21,21,22,22,22,22,22,22,22,22,22,23,23,23,23,23,23,23,23,23,23,24,24,24,24,24,24,24,24,24,24,24,25,25,25,25,25,25,25,26,26,26,26,26,26,26,26,26,26,26,26,26,27,27,27,27,27,27,27,27,27,27,27,28,28,28,28,28,28,28,28,28,28,28,28,28,29,29,29,29,29,29,31,31,31,31,31,31,31,31,31,31]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot"},"manipulation":{"enabled":false}},"groups":["1","2","3","4"],"width":null,"height":null,"idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":true,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false,"variable":"group","main":"Select by group","values":[1,2,3,4]},"main":null,"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":true,"hoverNearest":false,"degree":1,"algorithm":"all","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":false,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-3a832cdad18925e43dde" style="width:672px;height:672px;" class="visNetwork html-widget"></div>
+<script type="application/json" data-for="htmlwidget-3a832cdad18925e43dde">{"x":{"nodes":{"id":["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"],"group":[1,2,2,1,2,1,1,3,2,3,1,1,1,2,2,1,2,2,2,3,2,1,2,2,1,2,1,1,1,4,2],"shape":["dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot"],"shadow":[true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true],"borderWidth":[2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],"color.background":["slategrey","tomato","tomato","slategrey","tomato","slategrey","slategrey","gold","tomato","gold","slategrey","slategrey","slategrey","tomato","tomato","slategrey","tomato","tomato","tomato","gold","tomato","slategrey","tomato","tomato","slategrey","tomato","slategrey","slategrey","slategrey","purple","tomato"],"color.border":["black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black"],"color.highlight.background":["orange","orange","orange","orange","orange","orange","orange","orange","orange","orange","orange","orange","orange","orange","orange","orange","orange","orange","orange","orange","orange","orange","orange","orange","orange","orange","orange","orange","orange","orange","orange"],"color.highlight.border":["darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred"],"label":["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"]},"edges":{"from":[1,2,1,4,4,6,7,8,5,9,5,7,4,8,1,4,6,6,10,11,1,8,4,12,6,10,11,4,1,7,10,9,5,2,14,9,5,10,11,1,8,6,7,12,13,10,5,14,15,9,2,9,15,14,10,5,17,8,2,3,5,9,15,14,18,17,8,14,10,9,5,15,18,19,9,2,17,12,6,1,16,10,8,13,4,11,5,21,9,19,18,10,2,8,15,17,14,19,21,23,17,18,10,15,9,5,2,6,11,12,1,13,22,4,21,10,14,24,19,5,2,8,9,23,17,18,15,10,12,16,1,7,6,22,11,25,4,13,10,11,12,27,6,13,7,22,25,1,16,4,8,28,11,1,13,16,27,19,15,14,24,9,23,26,17,5,20],"to":[4,5,6,6,8,8,8,9,9,10,10,10,10,10,11,11,11,12,12,12,12,12,12,13,13,13,13,13,13,13,14,14,14,15,15,15,15,16,16,16,16,16,16,16,16,17,17,17,17,17,17,18,18,18,18,18,18,18,18,18,19,19,19,19,19,19,20,20,20,20,21,21,21,21,21,21,21,22,22,22,22,22,22,22,22,22,23,23,23,23,23,23,23,23,23,23,24,24,24,24,24,24,24,24,24,24,24,25,25,25,25,25,25,25,26,26,26,26,26,26,26,26,26,26,26,26,26,27,27,27,27,27,27,27,27,27,27,27,28,28,28,28,28,28,28,28,28,28,28,28,28,29,29,29,29,29,29,31,31,31,31,31,31,31,31,31,31]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot"},"manipulation":{"enabled":false}},"groups":["1","2","3","4"],"width":null,"height":null,"idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":true,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false,"variable":"group","main":"Select by group","values":[1,2,3,4]},"main":null,"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":true,"hoverNearest":false,"degree":1,"algorithm":"all","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":false,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"}},"evals":[],"jsHooks":[]}</script>
 ```
 
 ### Figure 6.26: SWSN Example 1

@@ -17,7 +17,6 @@ Imports:
   mgcv,
   patchwork,
   devtools,
-  rgeos,
   geosphere,
   deldir,
   cccd,
@@ -70,11 +69,18 @@ Imports:
   ergm,
   network,
   igraph,
+  scatterplot3d,
+  reticulate,
+  tibble,
+  tergm,
+  BiocManager,
   RBGL
 Remotes:
   liamgilbey/ggwaffle
 Suggests:
     bslib,
     downlit,
+    bookdown,
+    rmarkdown,
     xml2
 Encoding: UTF-8
