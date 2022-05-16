@@ -75,8 +75,6 @@ Imports:
   concaveman,
   BiocManager,
   RBGL
-Remotes:
-  install_github("liamgilbey/ggwaffle")
 Suggests:
     bslib,
     downlit,
