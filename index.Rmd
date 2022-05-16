@@ -60,9 +60,15 @@ The most recent version of this document was built with `r R.version.string`.
 
 The content of this document is meant to be as accessible and reproducible as possible. The source code used to produce this document along with all of the data used in analyses are available on [GitHub](https://github.com/mpeeples2008/Archaeological_Network_Science). This GitHub repository allows anyone who chooses to open issues, contribute to the document, or help fix typos or other errors (see information about contributing below). We have also opened a GitHub discussion board with this repository where users can ask questions about any data or code in the repository without making edits or issue requests directly. 
 
-The easiest way to reproduce this document is to launch the project directly in your browser using [Binder](https://mybinder.org/). When you click on the link below it will open a browser based instance of R studio with all of the required packages and files. From there you can test and evaluate the code directly. Note that any changes made will not be retained after you close your browser. Note that opening the binder link below will likely take several minutes the first time. Go grab a cup of coffee, tea, Dr. Pepper, or any other beverage of your choice as the Binder does its thing.
+The easiest way to reproduce this document is to launch the project directly in your browser using [Binder](https://mybinder.org/). When you click on the link below it will open a browser based instance of R studio with all of the required packages and files. From there you can test and evaluate the code directly. 
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/mpeeples2008/Archaeological_Network_Science/main)
+
+You can also run the code and generate documents locally using R and R Studio. Download the entire R repository here: [main.zip](https://github.com/mpeeples2008/Archaeological_Network_Science/archive/refs/heads/main.zip). Unzip the file and then:
+
+* open the "Archaeological_Network_Science.Rproj" in R studio
+* use the "renv::restore()" command to install the required packages and dependencies
+* you will then be able to browse the files and execute code 
 
 ## Discord Community{-}
 

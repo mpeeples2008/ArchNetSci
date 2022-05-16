@@ -143,8 +143,7 @@ This version of the book was built with `r R.version.string` and the following p
 deps <- desc::desc_get_deps()
 pkgs <- sort(deps$package[deps$type == "Imports"])
 pkgs <- sessioninfo::package_info(pkgs, dependencies = FALSE)
-  source = gsub("@", "\\\\@", pkgs$source)
-  source[20] <- "Github (liamgilbey/ggwaffle)"
+  source <- gsub("@", "\\\\@", pkgs$source)
 
 df <- tibble::tibble(
   package = pkgs$package,

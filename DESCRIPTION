@@ -57,6 +57,8 @@ Imports:
   concaveman,
   edgebundle,
   reticulate
+Remotes:
+  liamgilbey/ggwaffle
 Suggests:
   knitr,
   bslib,
