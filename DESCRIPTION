@@ -1,4 +1,4 @@
-Package: Archaeological Network Science
+Package: ArchNetSci
 Title: Online Companion to Archaeological Network Science
 Version: 0.0.9
 License: CC BY-NC-ND 4.0
@@ -11,6 +11,8 @@ Authors@R:
              family = "Brughmans",
              role = "aut",
              email = "t.b@cas.au.dk"))
+Description:
+  Package to install Online Companion to Archaeological Network Science
 Depends: 
     R (>= 4.2.0)
 Imports:
@@ -18,8 +20,8 @@ Imports:
   statnet,
   intergraph,
   tnet,
-  ggplot2,
-  deldir,
+  ggplot2
+Suggests:
   rjson,
   d3r,
   cccd,
@@ -47,6 +49,7 @@ Imports:
   multinet,
   RColorBrewer,
   Rcpp,
+  deldir,
   vegan,
   geosphere,
   networkDynamic,
@@ -54,11 +57,11 @@ Imports:
   patchwork,
   concaveman,
   reticulate,
-  knitr
-Suggests:
-    bslib,
-    downlit,
-    bookdown,
-    rmarkdown,
-    xml2
+  knitr,
+  bslib,
+  downlit,
+  bookdown,
+  rmarkdown,
+  xml2
 Encoding: UTF-8
+RoxygenNote: 7.2.0
