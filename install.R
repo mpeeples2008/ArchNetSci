@@ -6,7 +6,7 @@ packages <- c("igraph", "statnet", "intergraph", "tnet", "ggplot2",
               "superheat","ggplotify","ggforce","colorspace","ggmap","sf",
               "dplyr","ggpubr","ggraph","ggplot2","reshape2","multinet",
               "RColorBrewer","Rcpp","vegan","intergraph","geosphere",
-              "networkDynamic","scatterplot3d","patchwork","BiocManager")
+              "networkDynamic","scatterplot3d","patchwork","BiocManager","devtools")
 
 install.packages(packages)  
 
