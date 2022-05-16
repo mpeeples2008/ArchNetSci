@@ -128,7 +128,7 @@ In order to install all of the packages that will be used in this appendix, you 
 
 ```r
 packages <- c("igraph", "statnet", "intergraph", "tnet", "ggplot2",
-              "deldir","rjson","d3r","cccd","RBGL","graph","BiocGenerics",
+              "deldir","rjson","d3r","cccd","RBGL","BiocGenerics",
               "networkD3","visNetwork","GISTools","rgeos","maptools","sp",
               "ndtv","gridExtra","png","scales","ape","graphlayouts",
               "igraphdata","ggrepel","ggsn","tidyverse","edgebundle",
@@ -154,8 +154,10 @@ This version of the book was built with R version 4.2.0 (2022-04-22 ucrt) and th
 |:--------------|:-------|:----------------------------|
 |animation      |2.7     |CRAN (R 4.2.0)               |
 |ape            |5.6-2   |CRAN (R 4.2.0)               |
+|BiocManager    |1.30.17 |CRAN (R 4.2.0)               |
 |cccd           |1.6     |CRAN (R 4.2.0)               |
 |colorspace     |2.0-3   |CRAN (R 4.2.0)               |
+|concaveman     |1.1.0   |CRAN (R 4.2.0)               |
 |d3r            |1.0.0   |CRAN (R 4.2.0)               |
 |deldir         |1.0-6   |CRAN (R 4.2.0)               |
 |devtools       |2.4.3   |CRAN (R 4.2.0)               |
@@ -169,9 +171,9 @@ This version of the book was built with R version 4.2.0 (2022-04-22 ucrt) and th
 |ggplotify      |0.1.0   |CRAN (R 4.2.0)               |
 |ggpubr         |0.4.0   |CRAN (R 4.2.0)               |
 |ggraph         |2.0.5   |CRAN (R 4.2.0)               |
-|ggrepel        |0.9.1   |CRAN (R 4.2.0)               |
+|ggrepel        |0.9.1   |Github (liamgilbey/ggwaffle) |
 |ggsn           |0.5.0   |CRAN (R 4.2.0)               |
-|GISTools       |0.7-4   |Github (liamgilbey/ggwaffle) |
+|GISTools       |0.7-4   |CRAN (R 4.2.0)               |
 |graph          |1.74.0  |Bioconductor                 |
 |graphlayouts   |0.8.0   |CRAN (R 4.2.0)               |
 |gridExtra      |2.3     |CRAN (R 4.2.0)               |
@@ -180,7 +182,6 @@ This version of the book was built with R version 4.2.0 (2022-04-22 ucrt) and th
 |intergraph     |2.0-2   |CRAN (R 4.2.0)               |
 |knitr          |1.39    |CRAN (R 4.2.0)               |
 |maptools       |1.1-4   |CRAN (R 4.2.0)               |
-|mgcv           |1.8-40  |CRAN (R 4.2.0)               |
 |multinet       |4.0.1   |CRAN (R 4.2.0)               |
 |ndtv           |0.13.2  |CRAN (R 4.2.0)               |
 |network        |1.17.1  |CRAN (R 4.2.0)               |
@@ -190,11 +191,13 @@ This version of the book was built with R version 4.2.0 (2022-04-22 ucrt) and th
 |png            |0.1-7   |CRAN (R 4.2.0)               |
 |RBGL           |1.72.0  |Bioconductor                 |
 |RColorBrewer   |1.1-3   |CRAN (R 4.2.0)               |
-|Rcpp           |1.0.8.3 |CRAN (R 4.2.0)               |
+|remotes        |2.4.2   |CRAN (R 4.2.0)               |
 |reshape2       |1.4.4   |CRAN (R 4.2.0)               |
+|reticulate     |1.25    |CRAN (R 4.2.0)               |
 |rgeos          |0.5-9   |CRAN (R 4.2.0)               |
 |rjson          |0.2.21  |CRAN (R 4.2.0)               |
 |scales         |1.2.0   |CRAN (R 4.2.0)               |
+|scatterplot3d  |0.3-41  |CRAN (R 4.2.0)               |
 |sf             |1.0-7   |CRAN (R 4.2.0)               |
 |sna            |2.6     |CRAN (R 4.2.0)               |
 |sp             |1.4-7   |CRAN (R 4.2.0)               |

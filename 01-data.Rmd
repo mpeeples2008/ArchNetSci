@@ -118,7 +118,7 @@ In order to install all of the packages that will be used in this appendix, you 
 
 ```{r, message=F, warning=F, eval=F}
 packages <- c("igraph", "statnet", "intergraph", "tnet", "ggplot2",
-              "deldir","rjson","d3r","cccd","RBGL","graph","BiocGenerics",
+              "deldir","rjson","d3r","cccd","RBGL","BiocGenerics",
               "networkD3","visNetwork","GISTools","rgeos","maptools","sp",
               "ndtv","gridExtra","png","scales","ape","graphlayouts",
               "igraphdata","ggrepel","ggsn","tidyverse","edgebundle",
