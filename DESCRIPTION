@@ -12,7 +12,7 @@ Authors@R:
              role = "aut",
              email = "t.b@cas.au.dk"))
 Depends: 
-    R (>= 4.0.0)
+    R (>= 4.2.0)
 Imports:
   igraph,
   statnet,
