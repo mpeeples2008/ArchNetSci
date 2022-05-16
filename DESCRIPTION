@@ -14,7 +14,6 @@ Authors@R:
 Depends: 
     R (>= 4.0.0)
 Imports:
-  mgcv,
   patchwork,
   devtools,
   geosphere,
@@ -39,7 +38,6 @@ Imports:
   igraphdata,
   ggrepel,
   ggsn,
-  grid,
   tibble,
   tidyverse,
   edgebundle,
