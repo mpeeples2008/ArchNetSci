@@ -14,7 +14,7 @@ Authors@R:
 Description:
   Package to install Online Companion to Archaeological Network Science
 Depends: 
-    R (>= 4.2.0)
+    R (>= 4.1.0)
 Imports:
   devtools,
   igraph,
