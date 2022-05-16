@@ -21,7 +21,9 @@ Imports:
   statnet,
   intergraph,
   tnet,
-  ggplot2
+  ggplot2,
+  edgebundle,
+  reticulate
 Suggests:
   rjson,
   d3r,
