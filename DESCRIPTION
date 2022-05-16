@@ -21,7 +21,6 @@ Imports:
   geosphere,
   deldir,
   cccd,
-  RBGL,
   graph,
   networkD3,
   visNetwork,
@@ -44,7 +43,6 @@ Imports:
   grid,
   tibble,
   tidyverse,
-  ggwaffle,
   edgebundle,
   superheat,
   ggplotify,
@@ -71,7 +69,10 @@ Imports:
   networkDynamic,
   ergm,
   network,
-  igraph
+  igraph,
+  RBGL
+Remotes:
+  liamgilbey/ggwaffle
 Suggests:
     bslib,
     downlit,
