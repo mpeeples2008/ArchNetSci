@@ -16,6 +16,7 @@ Description:
 Depends: 
     R (>= 4.2.0)
 Imports:
+  devtools,
   igraph,
   statnet,
   intergraph,
