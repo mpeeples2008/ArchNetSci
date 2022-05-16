@@ -22,9 +22,6 @@ Imports:
   intergraph,
   tnet,
   ggplot2,
-  edgebundle,
-  reticulate
-Suggests:
   rjson,
   d3r,
   cccd,
@@ -39,7 +36,6 @@ Suggests:
   ggrepel,
   ggsn,
   tidyverse,
-  edgebundle,
   superheat,
   ggplotify,
   ggforce,
@@ -59,7 +55,9 @@ Suggests:
   scatterplot3d,
   patchwork,
   concaveman,
-  reticulate,
+  edgebundle,
+  reticulate
+Suggests:
   knitr,
   bslib,
   downlit,
