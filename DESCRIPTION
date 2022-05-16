@@ -76,7 +76,7 @@ Imports:
   BiocManager,
   RBGL
 Remotes:
-  liamgilbey/ggwaffle
+  remotes::install_github("liamgilbey/ggwaffle")
 Suggests:
     bslib,
     downlit,
