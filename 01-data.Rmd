@@ -1,4 +1,4 @@
-# Getting Started
+# Data and Workspace Setup
 
 This section provides downloadable files for the network datasets used in this online companion and in the book as well as information on the primary R packages used for analysis and visualization throughout this tutorial. We also provide very brief instructions for importing these data into R using R-studio and some guidance on setting up your R-studio working environment. For additional guidance see the resources provided in the introduction. 
 

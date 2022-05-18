@@ -1,4 +1,4 @@
-# Getting Started
+# Data and Workspace Setup
 
 This section provides downloadable files for the network datasets used in this online companion and in the book as well as information on the primary R packages used for analysis and visualization throughout this tutorial. We also provide very brief instructions for importing these data into R using R-studio and some guidance on setting up your R-studio working environment. For additional guidance see the resources provided in the introduction. 
 
@@ -152,6 +152,7 @@ This version of the book was built with R version 4.2.0 (2022-04-22 ucrt) and th
 
 |package        |version |source         |
 |:--------------|:-------|:--------------|
+|ape            |5.6-2   |CRAN (R 4.2.0) |
 |cccd           |1.6     |CRAN (R 4.2.0) |
 |colorspace     |2.0-3   |CRAN (R 4.2.0) |
 |concaveman     |1.1.0   |CRAN (R 4.2.0) |

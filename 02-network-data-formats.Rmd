@@ -1,4 +1,4 @@
-# Network Data {#NetworkData}
+# Network Data Formats {#NetworkData}
 
 This section provides examples of many of the most common network formats and data types discussed in Chapter 3 of Brughmans and Peeples 2022. For most of the examples below we use the Cibola technological similarity network dataset (described in Chapter 2.8.3) because it is relatively small and easy to display in a variety of formats.
 

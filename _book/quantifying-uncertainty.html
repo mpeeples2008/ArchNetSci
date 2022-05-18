@@ -70,8 +70,9 @@
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
         <ul class="book-toc list-unstyled">
 <li><a class="" href="index.html">Welcome</a></li>
-<li><a class="" href="getting-started.html"><span class="header-section-number">1</span> Getting Started</a></li>
-<li><a class="" href="NetworkData.html"><span class="header-section-number">2</span> Network Data</a></li>
+<li><a class="" href="GettingStarted.html">Gettings Started with R</a></li>
+<li><a class="" href="data-and-workspace-setup.html"><span class="header-section-number">1</span> Data and Workspace Setup</a></li>
+<li><a class="" href="NetworkData.html"><span class="header-section-number">2</span> Network Data Formats</a></li>
 <li><a class="" href="exploratory-network-analysis.html"><span class="header-section-number">3</span> Exploratory Network Analysis</a></li>
 <li><a class="active" href="quantifying-uncertainty.html"><span class="header-section-number">4</span> Quantifying Uncertainty</a></li>
 <li><a class="" href="network-visualization.html"><span class="header-section-number">5</span> Network Visualization</a></li>
@@ -109,7 +110,7 @@
 </h2>
 <p>This sub-section accompanies the discussion of nodes or edges missing at random in Brughmans and Peeples (2022) Chapter 5.3.1. Here we take one interval of the Chaco World ceramic similarity network (ca. A.D. 1050-1100) and simulate the impact of nodes missing at random on network centrality statistics. Download the <a href="data/AD1050net.csv">ceramic similarity adjacency matrix</a> to follow along.</p>
 <p>The first thing we need to do is to initialize our required libraries and import the ceramic ware data and convert it into a network object. Here we will once again use the igraph package. For our example here we are using a simple undirected network.</p>
-<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://igraph.org">igraph</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hadley/reshape">reshape2</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
@@ -138,7 +139,7 @@
 </ul>
 <p>As we said, this function is designed to assess betweenness centrality but if you wish to assess another network metric, you simply need to modify the code in two places as marked below. Let’s initialize the script then take a look at the example from the book first using betweenness centrality and then modifying the code for eigenvector centrality. Note that depending on the size of your network and the number of simulations you specify, this could take from several seconds to several minutes.</p>
 <p>To briefly describe how this works, the inner portion of this function contains two nested “for” loops which iterate across all values of “props” and for every simulation 1 to “nsim”. The “sub_samp” object is a vector of random integers based on node ids that determine which nodes will be retained. The “sub_net” object is a subset of the larger graph which includes only those nodes indicated in “sub_samp.” Next, we then calculate betweenness centrality for the “sub_net” object and create a vector of those values called “temp_stats.” Finally, we compare rank order correlation of centrality scores in the “temp_stats” to the “met_orig” which is the vector of values in the original network and add to the output matrix. Once we run the script we can visualize the results.</p>
-<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb83"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Function for assessing the impact of nodes missing at random on</span>
 <span class="co"># betweenness centrality</span>
 <span class="va">nodes_missing_at_random_bw</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">net</span>,
@@ -192,7 +193,7 @@
   <span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="04-uncertainty_files/figure-html/unnamed-chunk-2-1.png" width="672"></div>
 <p>Now let’s run the same function for eigenvector centrality, this time using the default arguments in the function we created rather than calling them directly. Note that we modified two lines of code to change igraph::betweenness(net) to igraph::eign_centrality(net)$vector. Because the eigen_centrality function outputs more than just the centrality values, we need to include the vector call.</p>
-<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Function for assessing the impact of nodes missing at random on</span>
 <span class="co"># betweenness centrality</span>
 <span class="va">nodes_missing_at_random_ev</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">net</span>,
@@ -245,7 +246,7 @@
 <span class="header-section-number">4.2.2</span> Edges Missing at Random<a class="anchor" aria-label="anchor" href="#edges-missing-at-random"><i class="fas fa-link"></i></a>
 </h3>
 <p>We can also modify the function we defined above a little more to assess the impacts of edges missing at random. In this case we assess the impact of edges missing at random on degree centrality. We changed the same two lines “met_orig” and “temp_stats” to calculate degree and we also had to slightly change the lines beginning with “sub_samp,” “sub_net,” and “output[i,j]” to expect variation in edges rather than nodes. Specifically, in the line that starts with “sub_samp” we change “vcount” to “ecount” to get a sample of edges rather than nodes (vertices). In the next line we use that “sub_samp” object to “delete_edges” for all not in that sub sample. Finally, we remove the brackets after “met_orig” since all nodes are retained in this example.</p>
-<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb85"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Function for assessing the impact of edges missing at random on</span>
 <span class="co"># degree centrality</span>
 <span class="va">edges_missing_at_random_dg</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">net</span>,
@@ -311,7 +312,7 @@
 </ul>
 <p>Briefly how this function works is it first determines which node number corresponds with the “target” you wish to assess and creates a sub_sample that retains that target node. A subgraph is then induced (sub_net) and the metric of interest is calculated (betweenness in this case). The “output” object is a vector that records the specific rank order that the node in question fell in in terms of the metric in question.</p>
 <p><a href="data/Cibola_edgelist.csv">Use these data</a> to follow along.</p>
-<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb86"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Read in edgelist file as dataframe and create network object</span>
 <span class="va">Cibola_edgelist</span> <span class="op">&lt;-</span>
   <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"data/Cibola_edgelist.csv"</span>, header <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
@@ -368,7 +369,7 @@
 <p>This sub-section follows along with Brughmans and Peeples (2022) Chapter 5.3.3. There are many situations where we are interested in modeling situations where the data that are missing are not missing at random but instead are influenced by some biased sampling process. For example, say we have a study area where there have been lots of general reconnaissance surveys that have recorded most of the large sites but few full coverage surveys that have captured smaller sites. In that case, we may wish to model missingness such that small sites would more likely be missing than large sites.</p>
 <p>We illustrate this approach using the co-authorship network example presented in the book. In this case we start with an incidence matrix of publications and authors and we want to assess the potential impact of missing data. Since we gathered these data from digital repositories and citations, it is likely that we are missing some publication and it is reasonable to assume that we would be more likely to miss older publications than newer ones given the inclusion of newer publications in searchable digital indexes. Thus, in this example we want to assess missingness such that newer publications are more likely to be retained than older ones in our sample. We compare this to missing at random to assess how these results relate to one another.</p>
 <p>First we need to provide two data files. The first is the <a href="data/biblio_attr.csv">bibliographic attribute data</a> which includes date, publication type, and other information on each publication designated by a unique identifier. The second is an <a href="data/biblio_dat.csv">incidence matrix</a> of publications denoted by unique identifier and authors. We read this into R and then create an adjaceny matrix of author to author connections using matrix algebra, convert it into a igraph network object and then calculate betweenness centrality for all nodes. We then provide a simple network node link diagram to visualize these data.</p>
-<div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb87"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="co"># Read in publication and author attribute data</span>
 <span class="va">bib</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">'data/biblio_attr.csv'</span><span class="op">)</span>
@@ -410,7 +411,7 @@
 <li>lookup_dat - Finally, you must provide the lookup data which connects the publication key code to the year as that is the basis of our simulation. Note that this function is designed to work with a lookup file that has column names exactly as shown here (“Publication.Year”, “prob”, “Key”) and this would need to be modified to work with data with different columns.</li>
 </ul>
 <p>The first step is to create a new column in the lookup file called “prob” that defines the probability that a node will be retained in each random sub-sample. To do this we simply take the vector of publication years and rescale them such that the maximum value (most recent publication) equals 1 and older publications are less than 1. This will mean that older publications will more often be removed in our random sub-samples than newer ones.</p>
-<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb88"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Create a dataframe of all unique combinations of publication code</span>
 <span class="co"># and year from attributes data</span>
 <span class="va">lookup</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">bib</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">4</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>
@@ -435,7 +436,7 @@
 <li>Finally, we calculate betweenness centrality and rank order correlations and put the results in the output object.</li>
 </ul>
 <p>Here we are going to run the function for nsim=1000 and for 3 sampling fractions (0.9, 0.8, 0.7).</p>
-<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb89"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Function for assessing the impact of data missing due to biased process</span>
 <span class="co"># on betweenness centrality</span>
 <span class="va">nodes_missing_biased_bw</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">net</span>,
@@ -482,7 +483,7 @@
 <span class="co">#&gt; [5,] 0.9779243 0.8115974 0.8307865</span>
 <span class="co">#&gt; [6,] 0.9778791 0.9998792 0.7273099</span></code></pre></div>
 <p>With this in place, we now need a function that deals with our incidence matrix data but simulates missigness at random. This only requires a single argument to change from our last function. Specifically, all we need to do is remove the “prob=lookup_dat$prob” argument from the line beginning with “sub_samp” and we’re ready to go.</p>
-<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb90"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Function for assessing the impact of nodes missing at random on</span>
 <span class="co"># betweenness centrality</span>
 <span class="va">nodes_missing_at_random_inc_bw</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">net</span>,
@@ -530,7 +531,7 @@
 <span class="co">#&gt; [5,] 0.8576312 0.8242232 0.8278691</span>
 <span class="co">#&gt; [6,] 1.0000000 0.8433042 0.8883410</span></code></pre></div>
 <p>Now we can combine the results into a single dataframe and plot them as paired boxplots for comparison.</p>
-<div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb91"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">df1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/reshape2/man/melt.html">melt</a></span><span class="op">(</span><span class="va">bib_rand</span><span class="op">)</span> <span class="co"># convert wide data to long format</span>
 <span class="va">df2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/reshape2/man/melt.html">melt</a></span><span class="op">(</span><span class="va">bib_bias</span><span class="op">)</span> <span class="co"># convert wide data to long format</span>
 
@@ -567,7 +568,7 @@
 <p>In this section we take inspiration from some recent work in the area of “Dark Networks” (see Everton 2012). In this field, a number of methods have recently been developed that allow us to more directly incorporate our assessments of the reliability of specific edges into our analysis. This can be done in a number of different ways. Perhaps the most common approach for networks based on data gathered from intelligence sources (such as studies of terrorist networks) is to qualitatively assign different levels of confidence to ties between pairs of actors using an ordinal scale determined based on the source of the information (reliable, usually reliable,… unreliable). This ordinal scale of confidence can then be converted into a probability (from 0 to 1) and that probability value could be used to inform the creation of a range of “possible” networks given the underlying data.</p>
 <p>We are not aware of any archaeological examples where edges have been formally/qualitatively assigned “confidence levels” in exactly this way, but we think there are potential applications of this method. For example, we could define a network where we assign a low probability of a tie between two archaeological sites if they share an import from a third site/region and a higher probability for a tie between two sites if they share imports from each others region. Importantly, such methods can be used to combine information from different sources into a single assessment of the likelihood of connection.</p>
 <p>Since we do not have any data structured in exactly this way, we will again simulate a small example and then analyze it. Let’s create a network with ties associated with “probabilities” and the plot it. We use the “rg_w” function within the tnet package to simulate a random weighted network in this way.</p>
-<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb92"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Create random weighted network edgelist with weights from list</span>
 <span class="va">sim_edge</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/tnet/man/rg_w.html">rg_w</a></span><span class="op">(</span>
   nodes <span class="op">=</span> <span class="fl">20</span>,
@@ -604,7 +605,7 @@
 <div class="inline-figure"><img src="04-uncertainty_files/figure-html/unnamed-chunk-11-1.png" width="672"></div>
 <p>In the next chunk of code we define a function that iterates over every edge in the simulated network we just created and defines each edge as either present or absent using a simple random binomial with the probability set by the edge weight as described above. The output of this function (edge_liklihood) is a list object that contains “nsim” igraph network objects that are candidate networks of the original.</p>
 <p>Next, in order to extract values of interest from these candidate networks, we created another function called “compile_stat” that could be modified for any measure of interest. This function iterates over all “nsim” networks in the “net_list” list object and calculates “degree” in this case returning the results as a simple matrix. It is then possible to compare things like average degree or the distribution of degree for particular nodes across all of the canddiate networks.</p>
-<div class="sourceCode" id="cb75"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb93"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Define function for assessing and retaining edges based on edge</span>
 <span class="co"># weight probabilities</span>
 <span class="va">edge_prob</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">net</span>, <span class="va">nsim</span><span class="op">)</span> <span class="op">{</span>
@@ -637,7 +638,7 @@
   <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
 <p>Now we run the edge_prob function for nsim=1000 and display a few candidate networks.</p>
-<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb94"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">EL_test</span> <span class="op">&lt;-</span> <span class="fu">edge_prob</span><span class="op">(</span><span class="va">sim_net</span>, nsim <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">9651</span><span class="op">)</span>
@@ -689,7 +690,7 @@
 <span class="fu"><a href="https://rpkgs.datanovia.com/ggpubr/reference/ggarrange.html">ggarrange</a></span><span class="op">(</span><span class="va">comp1</span>, <span class="va">comp2</span>, <span class="va">comp3</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="04-uncertainty_files/figure-html/unnamed-chunk-13-1.png" width="672"></div>
 <p>We then use the compile_stat function to assess degree centrality for one particular node, displaying a histogram of values with mean indicated.</p>
-<div class="sourceCode" id="cb77"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb95"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dg_stat</span> <span class="op">&lt;-</span> <span class="fu">compile_stat</span><span class="op">(</span><span class="va">EL_test</span>, nsim <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span>
 
 <span class="va">dg_20</span> <span class="op">&lt;-</span> <span class="va">dg_stat</span><span class="op">[</span><span class="fl">20</span>, <span class="op">]</span>
@@ -709,7 +710,7 @@
 <p>The goal of this sub-section is to illustrate how you can use a bootstrappping approach to assess variability in network properties based on sampling error in the raw data underlying archaeological networks. In our example based on ceramic similarity networks here this involves creating a large number of random replicates of each row of our raw ceramic data with sample size held constant (as the observed sample size for that site) and with the probabilities that a given sherd will be a given type determined by the underlying multinomial frequency distribition of types at that site. In other words, we pull a bunch of random samples from the site with the probability that a given sample is a given type determined by the relative frequency of that type in the actual data. Once this procedure has been completed, we can then assess centrality metrics or any other graph, node, or edge level property and determine the degree to which absolute values and relative ranks are potentially influenced by sampling error.</p>
 <p>There are many ways to set up such a resampling procedure and many complications (for example, how do we deal with limited diversity of small samples?). For the purposes of illustration here, we will implement a very simple procedure where we simply generate new samples of a fixed size based on our observed data and determine the degree to which our network measures are robust to this perturbation. In the chunk of code below we create 1000 replicates based on our original ceramic data.</p>
 <p>The following chunk of code first reads in the ceramic data, converts it to a Brainerd-Robinson similarity matrix and then defines a function called “sampling_error_sim” which creates “nsim” random replciates of the ceramic data, converts them to similarity matrices, and ouputs those results as a list object.</p>
-<div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb96"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Read in raw ceramic data</span>
 <span class="va">ceramic</span> <span class="op">&lt;-</span>
   <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"data/AD1050cer.csv"</span>,
@@ -744,7 +745,7 @@
 <span class="op">}</span></code></pre></div>
 <p>The following chunk of code runs the “sampling_error_sim” function defined above for our Chaco ceramic data and then defines a new fucntion called “sim_cor” which takes the output of “sampling_error_sim” and the original ceramic similarity matrix (ceramic_BR) and calculates weighted degree centrality and the Speraman’s <span class="math inline">\(\rho\)</span> correlations between the original similarity matrix and each random replicate. This “sim_cor” script could be modified to use any network metric that outputs a vector. Once these results are returned we visualize the results as a histogram.</p>
 <p>Note that this could take several seconds to a few minutes depending on your computer.</p>
-<div class="sourceCode" id="cb79"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb97"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">4634</span><span class="op">)</span>
 <span class="va">sim_nets</span> <span class="op">&lt;-</span> <span class="fu">sampling_error_sim</span><span class="op">(</span>cer <span class="op">=</span> <span class="va">ceramic</span>, nsim <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span>
 
@@ -780,7 +781,7 @@
 <div class="inline-figure"><img src="04-uncertainty_files/figure-html/unnamed-chunk-16-1.png" width="672"></div>
 <p>As described in Chapter 5.3.5, in some cases we want to observe patterns of variation due to sampling error for individual sites or sets of sites. In the next chunk of code we illustrate how to produce figure 5.14 from the Brughmans and Peeples (2022) book. Specifically, this plot consists of a series of line plots where the x axis represents each node in the network ordered by degree centrality in the original observed network. For each node there is a vertical line which represents the 95% confidence interval around degree across the “nsim” random replicates produced to evaluate sampling error. The blue line represents degree in the original network and the red line represents median degree in the resampled networks.</p>
 <p>To create this plot, we first iterate through every object in “sim_nets” and calculate weighted degree centrality and then add that to a two-column matrix along with a node id. Once we have done this for all simulations, we use the “summarise” function to calculate the Mean and</p>
-<div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb98"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Create data frame containing degree and site id for nsim random</span>
 <span class="co"># similarity matrices</span>
 <span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span> <span class="co"># define empty matrix</span>
@@ -887,7 +888,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Online Companion to <em>Archaeological Network Science</em> by Brughmans and Peeples</strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-05-16.</p>
+    <p>"<strong>Online Companion to <em>Archaeological Network Science</em> by Brughmans and Peeples</strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-05-17.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

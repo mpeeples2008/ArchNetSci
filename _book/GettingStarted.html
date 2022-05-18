@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Gettings Started with R | Online Companion to Archaeological Network Science by Brughmans and Peeples</title>
+<meta name="author" content="Matthew A. Peeples and Tom Brughmans">
+<meta name="description" content="In order to follow along with the code and examples in this document, you will need recent installations of both R and R Studio on your computer. R and R studio are available for Windows, MacOS,...">
+<meta name="generator" content="bookdown 0.26 with bs4_book()">
+<meta property="og:title" content="Gettings Started with R | Online Companion to Archaeological Network Science by Brughmans and Peeples">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://book.archnetworks.net/GettingStarted.html">
+<meta property="og:image" content="https://book.archnetworks.net/images/cover.png">
+<meta property="og:description" content="In order to follow along with the code and examples in this document, you will need recent installations of both R and R Studio on your computer. R and R studio are available for Windows, MacOS,...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Gettings Started with R | Online Companion to Archaeological Network Science by Brughmans and Peeples">
+<meta name="twitter:description" content="In order to follow along with the code and examples in this document, you will need recent installations of both R and R Studio on your computer. R and R studio are available for Windows, MacOS,...">
+<meta name="twitter:image" content="https://book.archnetworks.net/images/cover.png">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="libs/vis-9.1.0/vis-network.min.css" rel="stylesheet">
+<script src="libs/vis-9.1.0/vis-network.min.js"></script><script src="libs/visNetwork-binding-2.1.0/visNetwork.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+<link rel="stylesheet" href="bs4_style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Online Companion to <em>Archaeological Network Science</em> by Brughmans and Peeples</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Welcome</a></li>
+<li><a class="active" href="GettingStarted.html">Gettings Started with R</a></li>
+<li><a class="" href="data-and-workspace-setup.html"><span class="header-section-number">1</span> Data and Workspace Setup</a></li>
+<li><a class="" href="NetworkData.html"><span class="header-section-number">2</span> Network Data Formats</a></li>
+<li><a class="" href="exploratory-network-analysis.html"><span class="header-section-number">3</span> Exploratory Network Analysis</a></li>
+<li><a class="" href="quantifying-uncertainty.html"><span class="header-section-number">4</span> Quantifying Uncertainty</a></li>
+<li><a class="" href="network-visualization.html"><span class="header-section-number">5</span> Network Visualization</a></li>
+<li><a class="" href="spatial-networks.html"><span class="header-section-number">6</span> Spatial Networks</a></li>
+<li><a class="" href="references-and-r-packages.html">References and R Packages</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/mpeeples2008/Archaeological_Network_Science">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="GettingStarted" class="section level1 unnumbered">
+<h1>Gettings Started with R<a class="anchor" aria-label="anchor" href="#GettingStarted"><i class="fas fa-link"></i></a>
+</h1>
+<p>In order to follow along with the code and examples in this document, you will need recent installations of both R and R Studio on your computer. R and R studio are available for Windows, MacOS, and Linux/Unix. This Section provides a very brief overview of how to get up and running.</p>
+<div id="download-and-install-r" class="section level2 unnumbered">
+<h2>Download and Install R<a class="anchor" aria-label="anchor" href="#download-and-install-r"><i class="fas fa-link"></i></a>
+</h2>
+<p>The first step is to install a recent version of R. Follow the instructions below for the appropriate operating system.</p>
+<ul>
+<li>The first step is to go to the R project website <a href="https://www.r-project.org">www.r-project.org</a> and click on the <a href="https://cran.r-project.org/mirrors.html">CRAN</a> link under “Downloads” on the lefthand side.</li>
+<li>Choose a mirror for your download selecting one in your country or the “cloud” option.</li>
+<li>Next, click on Windows, MacOS, or your Linux distribution and follow the instructions below.</li>
+</ul>
+<div id="windows" class="section level3 unnumbered">
+<h3>Windows<a class="anchor" aria-label="anchor" href="#windows"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li>Next, click the “base” sub-directory on the left hand side of the screen and then click “Download R-4.2.0 for Windows” (the version number should be 4.2 or later) to download the most recent version.</li>
+<li>Once your download is complete, run the *.exe file and answer questions as prompted to complete the installation.</li>
+</ul>
+</div>
+<div id="macos" class="section level3 unnumbered">
+<h3>MacOS<a class="anchor" aria-label="anchor" href="#macos"><i class="fas fa-link"></i></a>
+</h3>
+<p>You first need to know which processor chip your Mac has before proceeding. In order to determine which chip you have go to the Apple menu and select “About This Mac” and look for information under “Processor” or “Chip” in the window that pops up. It will either be Intel or M1.</p>
+<ul>
+<li>Next, click the on the link under “Latest release” for the *.pkg file for the appropriate Mac processor in your Mac. There is a separate notarized and signed .pkg file Macs with Intel processors and Macs with Apple M1 processors (mostly produced 2020 and later). Note, these .pkg files are not interchangeable so confirm which one you need.</li>
+<li>Once you have downloaded the appropriate .pkg, run it and answer the dialogs as required.</li>
+</ul>
+</div>
+<div id="linux" class="section level3 unnumbered">
+<h3>Linux<a class="anchor" aria-label="anchor" href="#linux"><i class="fas fa-link"></i></a>
+</h3>
+<p>Linux installations of R are primarily done through the console but the instructions are slightly different depending on the distribution you are using.</p>
+<ul>
+<li>Click on the link for the appropriate Linux distribution and then follow the detailed instructions provided.</li>
+<li>The “R-core” or “R-base” builds are the ones you want to choose.</li>
+</ul>
+</div>
+</div>
+<div id="download-and-install-r-studio" class="section level2 unnumbered">
+<h2>Download and Install R-Studio<a class="anchor" aria-label="anchor" href="#download-and-install-r-studio"><i class="fas fa-link"></i></a>
+</h2>
+<p>R-studio is an integrated development environment (IDE) for R, Python, and affiliated programming environments that provides additional features for running and debugging code and data management. We see this as essential to working with large and complex R projects.</p>
+<p>In order to install R-Studio:</p>
+<ul>
+<li>Go to the R-Studio website <a href="https://www.rstudio.com/">www.rstudio.com</a> and click “Download” at the top of the screen.</li>
+<li>Select the “RStudio Desktop” option.</li>
+<li>Download and run the latest “installer” file for the appropriate operating system.</li>
+<li>Run the downloaded file and answer questions at prompts as appropriate. R-Studio will automatically detect your installation of R.</li>
+</ul>
+</div>
+<div id="run-r-studio" class="section level2 unnumbered">
+<h2>Run R-Studio<a class="anchor" aria-label="anchor" href="#run-r-studio"><i class="fas fa-link"></i></a>
+</h2>
+<p>Once you’ve installed both R and R-Studio, open R-studio and look for the Console window (will typically be the left hand side of the screen). That will tell you the version of R that is associated with the installation of R-Studio. If all goes well, it should be the recent version of R you just installed.</p>
+<div class="figure">
+<img src="images/r-version.jpg" style="width:100.0%" alt=""><p class="caption">R Version Installed</p>
+</div>
+</div>
+<div id="r-and-r-studio-basics" class="section level2 unnumbered">
+<h2>R and R-Studio Basics<a class="anchor" aria-label="anchor" href="#r-and-r-studio-basics"><i class="fas fa-link"></i></a>
+</h2>
+<p>R is a powerful statistical analysis platform that can be used to conduct some quite complex analyses. The learning curve is a bit steep when first getting started but the payoff is HUGE because the ecosystem of existing R scripts and packages is huge. We cannot hope to cover everything R and R studio can do in this very short intro here but we have implemented a version of the introduction to R programming that Matt Peeples uses in the first week of classes focused on statistical analyses. Hopefully this will get you started.</p>
+<p>First off, let’s take a look at the R-Studio setup. When you first open R-Studio for the first time, you will see a screen divided into 3 panes. Before getting started click on “File” at the top of the screen and go to “New File &gt; R Script” to open a 4th pane. You should see something like the screen below (Note that the color of your screen may be different as I am using a “Dark Mode” here).</p>
+<div class="figure">
+<img src="images/r-studio.jpg" style="width:100.0%" alt=""><p class="caption">R-Studio</p>
+</div>
+<p>The pane in the top left contains the Workspace tabs which is where you can write code and other documents before executing them. The pane at the bottom left is the console where you can type and run commands directly. The pane at the upper right includes tabs for Environment (a list of objects and functions currently initialized) and History (a list of previous commands run at the console). Finally, the lower right pane has tabs for Files (which shows files in the current directory), Plots (where plots created in the console will be displayed), Packages (a list of additional packages installed and initialized in R), and Help (where you can get information about particular functions and packages).</p>
+<p>In this introductory tutorial we are mostly going to be concerned with the Workspace and Console panes for now. After we introduce a few basics of how R works, we will discuss the Workspace.</p>
+<div id="mathematical-operations" class="section level3 unnumbered">
+<h3>Mathematical Operations<a class="anchor" aria-label="anchor" href="#mathematical-operations"><i class="fas fa-link"></i></a>
+</h3>
+<p>Getting started with R is as simple as typing directly into the Console. You can use the R console like a calculator to conduct mathematical operations. Simply type the numbers and operators at the console and hit enter to calculate. The answer will output directly on the console by default. Try typing the following at the console:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fl">3</span><span class="op">+</span><span class="fl">3</span>
+<span class="co">#&gt; [1] 6</span>
+<span class="fl">4</span><span class="op">*</span><span class="fl">10</span>
+<span class="co">#&gt; [1] 40</span>
+<span class="fl">50</span><span class="op">/</span><span class="fl">5</span>
+<span class="co">#&gt; [1] 10</span></code></pre></div>
+<p>R uses <code>()</code> for bracketing groups of operations to set the order of operations. These can be nested to do more complex mathematical operations. For example compare the two equations below:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="op">(</span><span class="op">(</span><span class="fl">4</span><span class="op">*</span><span class="fl">5</span><span class="op">+</span><span class="fl">3</span><span class="op">)</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span><span class="op">*</span><span class="fl">12</span>
+<span class="co">#&gt; [1] 138</span>
+
+<span class="op">(</span><span class="op">(</span><span class="op">(</span><span class="fl">4</span><span class="op">*</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span><span class="op">+</span><span class="fl">3</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span><span class="op">*</span><span class="fl">12</span>
+<span class="co">#&gt; [1] 258</span></code></pre></div>
+<p>R uses typical mathematical operators including <code>+ - * /</code> for addition, subtraction, multiplication, and division and <code>^</code> to raise a number to an exponent.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fl">5</span><span class="op">^</span><span class="fl">2</span>
+<span class="co">#&gt; [1] 25</span>
+<span class="fl">5</span><span class="op">^</span><span class="op">(</span><span class="fl">2</span><span class="op">+</span><span class="fl">1</span><span class="op">)</span>
+<span class="co">#&gt; [1] 125</span></code></pre></div>
+</div>
+<div id="assigning-variables" class="section level3 unnumbered">
+<h3>Assigning Variables<a class="anchor" aria-label="anchor" href="#assigning-variables"><i class="fas fa-link"></i></a>
+</h3>
+<p>R can also assign numbers, characters, or more complex operations to variables which can then be used in mathematical operations. Typically, we assign values to a variable using the <code>&lt;-</code> arrow but <code>=</code> also works. For example:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">test_var</span> <span class="op">&lt;-</span> <span class="fl">50</span>
+<span class="va">test_var</span>
+<span class="co">#&gt; [1] 50</span>
+
+<span class="va">test2</span> <span class="op">=</span> <span class="fl">10</span> <span class="op">+</span> <span class="va">test_var</span>
+<span class="va">test2</span>
+<span class="co">#&gt; [1] 60</span>
+
+<span class="va">char1</span> <span class="op">&lt;-</span> <span class="st">"hello world"</span>
+<span class="va">char1</span>
+<span class="co">#&gt; [1] "hello world"</span></code></pre></div>
+</div>
+<div id="logical-operators" class="section level3 unnumbered">
+<h3>Logical Operators<a class="anchor" aria-label="anchor" href="#logical-operators"><i class="fas fa-link"></i></a>
+</h3>
+<p>R can also use logical operators such as <code>&lt;</code> less than, <code>&gt;</code> greater than, <code>&lt;=</code> less than or equal to, <code>&gt;=</code> greater than or equal to, <code>==</code> exactly equal to, and <code>!=</code> not equal to. These operators can be used in conjunction with other operations and return a value indicating <code>TRUE</code> or <code>FALSE</code>. These can be used in more complex functions and conditional statements as we will see below. For example:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">v</span> <span class="op">&lt;-</span> <span class="fl">50</span>
+<span class="va">v</span> <span class="op">&gt;</span> <span class="fl">20</span>
+<span class="co">#&gt; [1] TRUE</span>
+<span class="va">v</span> <span class="op">&lt;</span> <span class="fl">20</span>
+<span class="co">#&gt; [1] FALSE</span>
+<span class="va">v</span><span class="op">*</span><span class="fl">2</span> <span class="op">==</span> <span class="fl">100</span>
+<span class="co">#&gt; [1] TRUE</span></code></pre></div>
+</div>
+<div id="vectors" class="section level3 unnumbered">
+<h3>Vectors<a class="anchor" aria-label="anchor" href="#vectors"><i class="fas fa-link"></i></a>
+</h3>
+<p>R can also assign a vector of numbers or characters to a variable and preform operations using that vector. For example in the following we use the <code><a href="https://rdrr.io/r/base/c.html">c()</a></code> (c for combine) command to create a vector and subject it to a mathematical operation.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">4</span>,<span class="fl">6</span>,<span class="fl">8</span>,<span class="fl">10</span>,<span class="fl">12</span><span class="op">)</span>
+<span class="va">z</span><span class="op">/</span><span class="fl">2</span>
+<span class="co">#&gt; [1] 1 2 3 4 5 6</span></code></pre></div>
+<p>If you want to call a particular value or selection of values in a vector you can use the <code>[]</code> square brackets and indicate which item(s) you are interested in.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">z</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>
+<span class="co">#&gt; [1] 6</span>
+<span class="va">z</span><span class="op">[</span><span class="fl">4</span><span class="op">:</span><span class="fl">6</span><span class="op">]</span>
+<span class="co">#&gt; [1]  8 10 12</span>
+<span class="va">z</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">2</span>,<span class="fl">1</span><span class="op">)</span><span class="op">]</span>
+<span class="co">#&gt; [1] 6 4 2</span></code></pre></div>
+</div>
+<div id="using-basic-r-functions" class="section level3 unnumbered">
+<h3>Using Basic R Functions<a class="anchor" aria-label="anchor" href="#using-basic-r-functions"><i class="fas fa-link"></i></a>
+</h3>
+<p>R has a number of built-in functions that perform many common operations and assessments. These are typically used by typing the name of the function followed by a set of parenthesis that contain all of the arguments that the function expects. For example:</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">10</span>, <span class="fl">15</span>, <span class="fl">20</span>, <span class="fl">25</span>, <span class="fl">30</span>, <span class="fl">2000</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">v</span><span class="op">)</span>
+<span class="co">#&gt; [1] 2000</span>
+<span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">v</span><span class="op">)</span>
+<span class="co">#&gt; [1] 5</span>
+<span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">v</span><span class="op">)</span>
+<span class="co">#&gt; [1] 300.7143</span>
+<span class="fu"><a href="https://rdrr.io/r/stats/median.html">median</a></span><span class="op">(</span><span class="va">v</span><span class="op">)</span>
+<span class="co">#&gt; [1] 20</span></code></pre></div>
+<p>For a list of some of the most frequently used built-in functions see <a href="https://www.statmethods.net/management/functions.html">this Quick-R</a> page.</p>
+</div>
+<div id="matrices" class="section level3 unnumbered">
+<h3>Matrices<a class="anchor" aria-label="anchor" href="#matrices"><i class="fas fa-link"></i></a>
+</h3>
+<p>R can be used to create tabular/matrix data as well. Typically it is most convenient to read such data for a file for very large tabular data <a href="#WorkingWithFiles">(see working with files below)</a>, but we can also generate simple matrices directly in R using the <code><a href="https://rdrr.io/r/base/matrix.html">matrix()</a></code> function. In the following example we create a two-row, two-column matrix by converting a vector of numbers into a matrix by specifying the number of rows <code>nrow</code> and number of columns <code>ncol</code>. The assignments we make inside the <code><a href="https://rdrr.io/r/base/matrix.html">matrix()</a></code> function are called arguments.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">2</span>,<span class="fl">20</span><span class="op">)</span>
+<span class="va">mat1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">dat</span>, nrow <span class="op">=</span> <span class="fl">2</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
+<span class="va">mat1</span>
+<span class="co">#&gt;      [,1] [,2]</span>
+<span class="co">#&gt; [1,]    3    2</span>
+<span class="co">#&gt; [2,]    4   20</span></code></pre></div>
+<p>Note that the <code><a href="https://rdrr.io/r/base/matrix.html">matrix()</a></code> function read the numbers in first by column and then by row. If we want want to change that we can first investigate the options for this function using the <code>help()</code> function. In order to see the documentation for a given function simply type <code>help("NameOfFunction")</code> at the console or <code>?NameOfFunction</code>.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="op">?</span><span class="va">matrix</span></code></pre></div>
+<p><img src="images/help.jpg" style="width:100.0%" alt="help for matrix function"><img src="images/byrow.jpg" style="width:100.0%" alt="byrow argument"></p>
+<p>As we can see in the help materials for matrix, there is an additional argument we did not use called <code>byrow</code> which is set to <code>FALSE</code> by default. Let’s change that to <code>TRUE</code> and check the results. Note that you can use capital <code>F</code> and <code>T</code> in the place of <code>FALSE</code> and <code>TRUE</code> in functions. Note also that our function call can span multiple rows and will automatically end when we close the parentheses. This multi-line formatting will be essential for making longer function calls readable.</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mat2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span>
+  data <span class="op">=</span> <span class="va">dat</span>,
+  nrow <span class="op">=</span> <span class="fl">2</span>,
+  ncol <span class="op">=</span> <span class="fl">2</span>,
+  byrow <span class="op">=</span> <span class="cn">T</span>
+<span class="op">)</span>
+<span class="va">mat2</span>
+<span class="co">#&gt;      [,1] [,2]</span>
+<span class="co">#&gt; [1,]    3    4</span>
+<span class="co">#&gt; [2,]    2   20</span></code></pre></div>
+<p>We can also use matrices for many mathematical and statistical functions that are built directly into R. For example, let’s run a Fisher’s Exact Test using the <code>fisher.test</code> function.</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/fisher.test.html">fisher.test</a></span><span class="op">(</span><span class="va">mat2</span><span class="op">)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;  Fisher's Exact Test for Count Data</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; data:  mat2</span>
+<span class="co">#&gt; p-value = 0.07474</span>
+<span class="co">#&gt; alternative hypothesis: true odds ratio is not equal to 1</span>
+<span class="co">#&gt; 95 percent confidence interval:</span>
+<span class="co">#&gt;    0.5875228 107.8450263</span>
+<span class="co">#&gt; sample estimates:</span>
+<span class="co">#&gt; odds ratio </span>
+<span class="co">#&gt;   6.815654</span></code></pre></div>
+<p>The output includes information about the data we used to run the test, a p-value, the alternative hypothesis, confidence intervals, and odds ratio. The output we get from any given function will vary depending on the application.</p>
+</div>
+</div>
+<div id="the-workspace-tab" class="section level2 unnumbered">
+<h2>The Workspace Tab<a class="anchor" aria-label="anchor" href="#the-workspace-tab"><i class="fas fa-link"></i></a>
+</h2>
+<p>Now that we are starting to get into more complex calls and functions, it can be useful to write and edit the code before executing it rather than typing it directly into the Console. To do this, we work in the Workspace tab R script document we created at the beginning of this tutorial (Go to File &gt; New File &gt; R Script to open a new document). These .R documents can be edited and saved on your computer so that you can return to them later. Let’s take a look at how this works.</p>
+<p>Think of the R script document as a draft of what you plan to type to the Console.</p>
+<div id="setting-the-workspace-directory" class="section level4 unnumbered">
+<h4>Setting the Workspace Directory<a class="anchor" aria-label="anchor" href="#setting-the-workspace-directory"><i class="fas fa-link"></i></a>
+</h4>
+<p>Before we get started, let’s save the blank R file we just created. First, we want to define the “Working Directory” where files associated with this project will go. To do that go to the menu at the top of the screen and click “Session &gt; Set Working Directory &gt; Choose Working Directory” and then navigate to the location where you would like to save the file. Next, click on “File &gt; Save As” and define a name for your R script. This should end in .R as this is the extension R and R studio recognize for R Scripts.</p>
+</div>
+<div id="working-with-your-first-r-script" class="section level4 unnumbered">
+<h4>Working with your first R script<a class="anchor" aria-label="anchor" href="#working-with-your-first-r-script"><i class="fas fa-link"></i></a>
+</h4>
+<p>Now that you have saved this script, you can type mathematical operations, functions, and other code just as we did directly in the Console above. The main advantage is that if you make a mistake you can go back and fix it more easily. Go ahead and copy the code in the next code chunk below and paste it in your R script int he Workspace window and then save the document.</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mat3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span>
+  data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">1</span>, <span class="fl">5</span>, <span class="fl">1</span>, <span class="fl">5</span><span class="op">)</span>,
+  nrow <span class="op">=</span> <span class="fl">2</span>,
+  ncol <span class="op">=</span> <span class="fl">3</span>,
+  byrow <span class="op">=</span> <span class="cn">T</span>
+<span class="op">)</span>
+
+<span class="va">mat3</span><span class="op">^</span><span class="fl">2</span></code></pre></div>
+<p>Once you have this saved, highlight all of the code in the Workspace window and then click the “Run” button on the top right side of this pane (see yellow arrow below).</p>
+<div class="figure">
+<img src="images/workspace.jpg" style="width:100.0%" alt=""><p class="caption">Workspace</p>
+</div>
+<p>This will execute the code in your Console and print the results. Let’s say when we ran this code, we realized that we actually wanted to raise <code>mat3</code> to the 3rd power. We can make that change and then select the code and click run again to do this. This is the true power of scripts in that they allow us to make changes and modify our code easily as we go without retyping commands. Anything you can do in the console you can first set up in the Workspace pane.</p>
+</div>
+</div>
+<div id="installing-packages" class="section level2 unnumbered">
+<h2>Installing Packages<a class="anchor" aria-label="anchor" href="#installing-packages"><i class="fas fa-link"></i></a>
+</h2>
+<p>So far, everything we have done has involved packages include in “base” R and only internal built-in functions. One of the best things about R is the ecosystem of packages created and peer reviewed by others for all manner of statistical analyses you can imagine. There is a package out there for just about everything so it is always a good idea to check before you start to write any complex script on your own.</p>
+<p>In order to install external packages, you need to know the name of the package you want and you simply type <code>install.packages("NameOfPackage")</code> at the console. Let’s try installing the <code>vegan</code> package first which includes lots of useful functions for community ecology research.</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"vegan"</span><span class="op">)</span></code></pre></div>
+<p>Once our package installs, we can “call” it or initialize it using the <code>libaray()</code> function.</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/vegandevs/vegan">vegan</a></span><span class="op">)</span>
+<span class="co">#&gt; Loading required package: permute</span>
+<span class="co">#&gt; Loading required package: lattice</span>
+<span class="co">#&gt; This is vegan 2.6-2</span></code></pre></div>
+<p>Now we can use not just the base R functions, but also the functions within the <code>vegan</code> package. One useful function in this package is called <code><a href="https://rdrr.io/pkg/vegan/man/diversity.html">diversity()</a></code> which allows us to calculate all manner of common diversity measures. Remember to check <code><a href="https://rdrr.io/pkg/vegan/man/diversity.html">?diversity</a></code> if you want to learn more about the package and its arguments. Let’s give it a try by creating a vector and then calculating two different diversity indices on that vector:</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">vec1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">6</span>,<span class="fl">2</span>,<span class="fl">7</span>,<span class="fl">45</span>,<span class="fl">3</span>,<span class="fl">6</span>,<span class="fl">2</span>,<span class="fl">4</span>,<span class="fl">6</span>,<span class="fl">7</span>,<span class="fl">2</span><span class="op">)</span>
+
+<span class="fu"><a href="https://rdrr.io/pkg/vegan/man/diversity.html">diversity</a></span><span class="op">(</span><span class="va">vec1</span>, index <span class="op">=</span> <span class="st">"shannon"</span><span class="op">)</span>
+<span class="co">#&gt; [1] 1.831803</span>
+
+<span class="fu"><a href="https://rdrr.io/pkg/vegan/man/diversity.html">diversity</a></span><span class="op">(</span><span class="va">vec1</span>, index <span class="op">=</span> <span class="st">"simpson"</span><span class="op">)</span>
+<span class="co">#&gt; [1] 0.7259993</span></code></pre></div>
+<blockquote>
+<p>There are tons of useful packages out there and it can sometimes be a bit overwhelming trying to find them. Searching in a search engine for the simple letter “R” can also yield unexpected results. One helpful tip when searching for packages is to include “CRAN” or “package” in the search terms. CRAN stands for the Comprehensive R Archive Network and this is the archive that contains most of the peer reviewed and established packages for R. For example, say we are looking for a package focused on building gravity models. If we simply search for “gravity models” we get lots of results but if we search for “R gravity model package” we very quickly find what we’re looking for.</p>
+</blockquote>
+</div>
+<div id="working-with-files" class="section level2 unnumbered">
+<h2>Working with Files<a class="anchor" aria-label="anchor" href="#working-with-files"><i class="fas fa-link"></i></a>
+</h2>
+<p>In many cases we may wish to either write or read in external files into R. Frequently these files take the shape of spreadsheets such as Excel documents or csv (comma separated value) documents. R has many functions for reading in such data and most are built-in to base R. Let’s try this out by first writing a .csv file from a matrix we generate and then reading it back in. Note that any files you write from the console will go directly to the R working directory unless you otherwise specify.</p>
+<p>To write a csv file we use the <code><a href="https://rdrr.io/r/utils/write.table.html">write.csv()</a></code> function. First we will create a simple matrix, add row names and column names, and then export it.</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">vec2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">2</span>,<span class="fl">65</span>,<span class="fl">4</span>,<span class="fl">2</span>,<span class="fl">4</span>,<span class="fl">6</span>,<span class="fl">4</span>,<span class="fl">2</span><span class="op">)</span>
+<span class="co"># Notice in the matrix call below we don't enter 'nrow' </span>
+<span class="co"># and other argument names as R automatically expects</span>
+<span class="co"># them to occur in the order mentioned in the documentation</span>
+<span class="va">mat4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="va">vec2</span>, <span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span> <span class="co"># 3 row 3 column matrix</span>
+<span class="fu"><a href="https://rdrr.io/r/base/row.names.html">row.names</a></span><span class="op">(</span><span class="va">mat4</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"row 1"</span>, <span class="st">"row 2"</span>, <span class="st">"row 3"</span><span class="op">)</span> <span class="co"># assign row names</span>
+<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">mat4</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span><span class="op">)</span> <span class="co">#assign col names</span>
+<span class="va">mat4</span> <span class="co"># view matrix</span>
+<span class="co">#&gt;        A B C</span>
+<span class="co">#&gt; row 1  4 4 6</span>
+<span class="co">#&gt; row 2  2 2 4</span>
+<span class="co">#&gt; row 3 65 4 2</span>
+
+<span class="co"># Export the matrix as a csv file</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/write.table.html">write.csv</a></span><span class="op">(</span><span class="va">mat4</span>, file <span class="op">=</span> <span class="st">"output_mat.csv"</span><span class="op">)</span></code></pre></div>
+<p>Once you export this file, you should see it appear in the File pane in the bottom right of R-Studio within the working directory.</p>
+<div class="figure">
+<img src="images/files.jpg" alt=""><p class="caption">File pane</p>
+</div>
+<p>If you want to read this file back in, we can simply use the <code><a href="https://rdrr.io/r/utils/read.table.html">read.csv()</a></code> function. Let’s give it a try and create a new object called, <code>read_mat</code> from the results of the function. We use the argument <code>header = T</code> to indicate that the first row represents column names and <code>row.names = 1</code> to indicate that the first column includes the row names.</p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">read_mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"output_mat.csv"</span>, header <span class="op">=</span> <span class="cn">T</span>, row.names <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
+<span class="va">read_mat</span>
+<span class="co">#&gt;        A B C</span>
+<span class="co">#&gt; row 1  4 4 6</span>
+<span class="co">#&gt; row 2  2 2 4</span>
+<span class="co">#&gt; row 3 65 4 2</span></code></pre></div>
+<p>There are lots of different functions for reading in files in different formats and we will introduce some of these later in the subsequent sections of this tutorial.</p>
+</div>
+<div id="more-advanced-r-features" class="section level2 unnumbered">
+<h2>More Advanced R Features<a class="anchor" aria-label="anchor" href="#more-advanced-r-features"><i class="fas fa-link"></i></a>
+</h2>
+<div id="conditional-statements" class="section level3 unnumbered">
+<h3>Conditional Statements<a class="anchor" aria-label="anchor" href="#conditional-statements"><i class="fas fa-link"></i></a>
+</h3>
+</div>
+<div id="loops" class="section level3 unnumbered">
+<h3>Loops<a class="anchor" aria-label="anchor" href="#loops"><i class="fas fa-link"></i></a>
+</h3>
+</div>
+<div id="custom-functions" class="section level3 unnumbered">
+<h3>Custom Functions<a class="anchor" aria-label="anchor" href="#custom-functions"><i class="fas fa-link"></i></a>
+</h3>
+
+</div>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="index.html">Welcome</a></div>
+<div class="next"><a href="data-and-workspace-setup.html"><span class="header-section-number">1</span> Data and Workspace Setup</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#GettingStarted">Gettings Started with R</a></li>
+<li>
+<a class="nav-link" href="#download-and-install-r">Download and Install R</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#windows">Windows</a></li>
+<li><a class="nav-link" href="#macos">MacOS</a></li>
+<li><a class="nav-link" href="#linux">Linux</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#download-and-install-r-studio">Download and Install R-Studio</a></li>
+<li><a class="nav-link" href="#run-r-studio">Run R-Studio</a></li>
+<li>
+<a class="nav-link" href="#r-and-r-studio-basics">R and R-Studio Basics</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#mathematical-operations">Mathematical Operations</a></li>
+<li><a class="nav-link" href="#assigning-variables">Assigning Variables</a></li>
+<li><a class="nav-link" href="#logical-operators">Logical Operators</a></li>
+<li><a class="nav-link" href="#vectors">Vectors</a></li>
+<li><a class="nav-link" href="#using-basic-r-functions">Using Basic R Functions</a></li>
+<li><a class="nav-link" href="#matrices">Matrices</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#the-workspace-tab">The Workspace Tab</a></li>
+<li><a class="nav-link" href="#installing-packages">Installing Packages</a></li>
+<li><a class="nav-link" href="#working-with-files">Working with Files</a></li>
+<li>
+<a class="nav-link" href="#more-advanced-r-features">More Advanced R Features</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#conditional-statements">Conditional Statements</a></li>
+<li><a class="nav-link" href="#loops">Loops</a></li>
+<li><a class="nav-link" href="#custom-functions">Custom Functions</a></li>
+</ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/mpeeples2008/Archaeological_Network_Science/blob/master/index.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/mpeeples2008/Archaeological_Network_Science/edit/master/index.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Online Companion to <em>Archaeological Network Science</em> by Brughmans and Peeples</strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-05-17.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

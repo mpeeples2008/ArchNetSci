@@ -1,4 +1,4 @@
-# Network Data {#NetworkData}
+# Network Data Formats {#NetworkData}
 
 This section provides examples of many of the most common network formats and data types discussed in Chapter 3 of Brughmans and Peeples 2022. For most of the examples below we use the Cibola technological similarity network dataset (described in Chapter 2.8.3) because it is relatively small and easy to display in a variety of formats.
 
@@ -50,9 +50,9 @@ Cibola_net <-
 
 # Display igraph network object and then plot a simple node-link diagram
 Cibola_net
-#> IGRAPH 5b77447 UN-- 30 167 -- 
+#> IGRAPH 57ecb84 UN-- 30 167 -- 
 #> + attr: name (v/c)
-#> + edges from 5b77447 (vertex names):
+#> + edges from 57ecb84 (vertex names):
 #>  [1] Apache Creek--Casa Malpais        
 #>  [2] Apache Creek--Coyote Creek        
 #>  [3] Apache Creek--Hooper Ranch        
@@ -81,7 +81,7 @@ adj_list <- igraph::as_adj_edge_list(Cibola_net)
 
 # examine adjacency list for the site Apache Creek
 adj_list$`Apache Creek`
-#> + 11/167 edges from 5b77447 (vertex names):
+#> + 11/167 edges from 57ecb84 (vertex names):
 #>  [1] Apache Creek--Casa Malpais        
 #>  [2] Apache Creek--Coyote Creek        
 #>  [3] Apache Creek--Hooper Ranch        
@@ -97,7 +97,7 @@ adj_list$`Apache Creek`
 # It is also possible to call specific nodes by number. In this case,
 # site 2 is Casa Malpais
 adj_list[[2]] 
-#> + 11/167 edges from 5b77447 (vertex names):
+#> + 11/167 edges from 57ecb84 (vertex names):
 #>  [1] Apache Creek--Casa Malpais   
 #>  [2] Casa Malpais--Coyote Creek   
 #>  [3] Casa Malpais--Hooper Ranch   
@@ -304,9 +304,9 @@ simple_net_i <-
   igraph::graph_from_adjacency_matrix(as.matrix(adj_mat2),
                                       mode = "undirected")
 simple_net_i
-#> IGRAPH 5ca0893 UN-- 31 167 -- 
+#> IGRAPH 5905d88 UN-- 31 167 -- 
 #> + attr: name (v/c)
-#> + edges from 5ca0893 (vertex names):
+#> + edges from 5905d88 (vertex names):
 #>  [1] Apache.Creek--Casa.Malpais        
 #>  [2] Apache.Creek--Coyote.Creek        
 #>  [3] Apache.Creek--Hooper.Ranch        
@@ -363,9 +363,9 @@ EL2 <- Cibola_edgelist[sample(seq(1, nrow(Cibola_edgelist)), 125,
 directed_net <-
   igraph::graph_from_edgelist(as.matrix(EL2), directed = TRUE)
 directed_net
-#> IGRAPH 5ca93d9 DN-- 30 125 -- 
+#> IGRAPH 590dbfc DN-- 30 125 -- 
 #> + attr: name (v/c)
-#> + edges from 5ca93d9 (vertex names):
+#> + edges from 590dbfc (vertex names):
 #>  [1] Coyote Creek   ->Techado Springs      
 #>  [2] Hubble Corner  ->Tri-R Pueblo         
 #>  [3] Hubble Corner  ->Techado Springs      
@@ -482,9 +482,9 @@ Cibola_inc <- igraph::graph_from_incidence_matrix(Cibola_clust,
                                                   directed = FALSE,
                                                   multiple = TRUE)
 Cibola_inc
-#> IGRAPH 5cff901 UN-B 41 2214 -- 
+#> IGRAPH 59545ef UN-B 41 2214 -- 
 #> + attr: type (v/l), name (v/c)
-#> + edges from 5cff901 (vertex names):
+#> + edges from 59545ef (vertex names):
 #>  [1] Apache Creek--Clust1 Apache Creek--Clust1
 #>  [3] Apache Creek--Clust1 Apache Creek--Clust1
 #>  [5] Apache Creek--Clust1 Apache Creek--Clust1
@@ -863,10 +863,10 @@ In most of the examples in this document we have been using the igraph package b
 ```r
 Mor_wt_i <- asIgraph(Mor_wt)
 Mor_wt_i
-#> IGRAPH 5e75b0a U-W- 31 465 -- 
+#> IGRAPH 5aa53bc U-W- 31 465 -- 
 #> + attr: na (v/l), vertex.names (v/c), na (e/l),
 #> | weight (e/n)
-#> + edges from 5e75b0a:
+#> + edges from 5aa53bc:
 #>  [1] 1-- 2 1-- 3 1-- 4 1-- 5 1-- 6 1-- 7 1-- 8 1-- 9 1--10
 #> [10] 1--11 1--12 1--13 1--14 1--15 1--16 1--17 1--18 1--19
 #> [19] 1--20 1--21 1--22 1--23 1--24 1--25 1--26 1--27 1--28
@@ -906,9 +906,9 @@ ego_nets <- make_ego_graph(Cibola_net)
 
 # Examine the first ego-network
 ego_nets[[1]]
-#> IGRAPH 5e7d3e5 UN-- 12 59 -- 
+#> IGRAPH 5aaca7b UN-- 12 59 -- 
 #> + attr: name (v/c)
-#> + edges from 5e7d3e5 (vertex names):
+#> + edges from 5aaca7b (vertex names):
 #>  [1] Apache Creek--Casa Malpais   
 #>  [2] Apache Creek--Coyote Creek   
 #>  [3] Casa Malpais--Coyote Creek   
@@ -981,38 +981,38 @@ The multinet network objects are essentially compatible with igraph and individu
 # multilayer network, the multinet package can help us do that directly
 # and quite simply.
 multinet::degree_ml(florentine)
-#>  [1]  2  7  3  4  4  3 11  5  6  6  3  6  6  3  1
+#>  [1]  6  6  7  2 11  3  6  3  1  6  3  5  4  3  4
 
 # Similarly, we could apply cluster detection algorithms to all layers
 # of a multilayer network simultaneously.
 multinet::glouvain_ml(florentine)
 #>           actor    layer cid
-#> 1         Pazzi marriage   0
-#> 2         Pazzi business   0
-#> 3       Ridolfi marriage   0
-#> 4    Tornabuoni marriage   0
-#> 5    Tornabuoni business   0
+#> 1         Pazzi business   0
+#> 2         Pazzi marriage   0
+#> 3        Medici business   0
+#> 4        Medici marriage   0
+#> 5      Salviati business   0
 #> 6      Salviati marriage   0
-#> 7      Salviati business   0
-#> 8        Medici marriage   0
-#> 9        Medici business   0
+#> 7       Albizzi marriage   0
+#> 8    Acciaiuoli marriage   0
+#> 9        Ginori business   0
 #> 10       Ginori marriage   0
-#> 11       Ginori business   0
-#> 12    Barbadori marriage   0
-#> 13    Barbadori business   0
-#> 14      Albizzi marriage   0
-#> 15   Acciaiuoli marriage   0
-#> 16      Peruzzi marriage   1
-#> 17      Peruzzi business   1
-#> 18      Strozzi marriage   1
-#> 19 Lamberteschi marriage   1
-#> 20 Lamberteschi business   1
-#> 21     Guadagni marriage   1
-#> 22     Guadagni business   1
-#> 23   Castellani marriage   1
-#> 24   Castellani business   1
-#> 25     Bischeri marriage   1
-#> 26     Bischeri business   1
+#> 11      Ridolfi marriage   0
+#> 12   Tornabuoni business   0
+#> 13   Tornabuoni marriage   0
+#> 14   Castellani business   1
+#> 15   Castellani marriage   1
+#> 16      Peruzzi business   1
+#> 17      Peruzzi marriage   1
+#> 18    Barbadori business   1
+#> 19    Barbadori marriage   1
+#> 20      Strozzi marriage   1
+#> 21     Bischeri business   2
+#> 22     Bischeri marriage   2
+#> 23     Guadagni business   2
+#> 24     Guadagni marriage   2
+#> 25 Lamberteschi business   2
+#> 26 Lamberteschi marriage   2
 ```
 
 
