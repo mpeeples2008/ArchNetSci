@@ -12,7 +12,7 @@ If you plan on working through this entire tutorial and would like to download a
 
 ## Visualizing Networks in R
 
-There are many tools available for creating network visualizations in R including functions built directly into the igraph and statnet packages. Before we get into the details, we first briefly illustrate the primary network plotting options for igraph statnet and a visualization package called ggraph. We start here by initializing our required libraries and reading in an adjacency matrix and creating network objects in both the igraph and network/statnet format. These will be the basis for all examples in this section.
+There are many tools available for creating network visualizations in R including functions built directly into the `igraph` and `statnet` packages. Before we get into the details, we first briefly illustrate the primary network plotting options for `igraph`, `statnet` and a visualization package called `ggraph`. We start here by initializing our required libraries and reading in an adjacency matrix and creating network objects in both the `igraph` and `statnet` format. These will be the basis for all examples in this section.
 
 ```{r Chapter6_read_data, warning=F, message=F}
 library(igraph)
@@ -40,14 +40,14 @@ Cibola_n
 
 ### network/statnet
 
-All you need to do to plot a network/statnet network object is to simply type plot(nameofnetwork). By default, this creates a network plot where all nodes and edges are shown the same color and weight using the Fruchterman-Reingold graph layout by default. There are, however, many options that can be altered for this basic plot. In order to see the details you can type ?plot.network at the console for the associated document. 
+All you need to do to plot a `network/statnet` network object is to simply type `plot(nameofnetwork)`. By default, this creates a network plot where all nodes and edges are shown the same color and weight using the Fruchterman-Reingold graph layout by default. There are, however, many options that can be altered for this basic plot. In order to see the details you can type `?plot.network` at the console for the associated document. 
 
 ```{r Fig_net_simple}
 set.seed(6332)
 plot(Cibola_n)
 ```
 
-In order to change the color of nodes, the layout, symbols, or any other features, you can add arguments as detailed in the help document. These arguments can include calls to other functions, mathematical expressions, or even additional data in other attribute files. For example in the following plot, we calculate degree centrality directly within the plot call and then divide the result by 10 to ensure that the nodes are a reasonable size in the plot. We use the "vertex.cex" argument to set node size based on the results of that expression. Further we change the layout using the "mode" argument to produce a network graph using the Kamada-Kawai layout. We change the color of the nodes so that they represent the "Region" variable in the associated attribute file using the "vertex.col" argument and and set change all edge colors using the "edge.col" argument. Finally, we use "displayisolates=FALSE" to indicate that we do not want the single isolated node to be plotted. These are but a few of the many options.
+In order to change the color of nodes, the layout, symbols, or any other features, you can add arguments as detailed in the help document. These arguments can include calls to other functions, mathematical expressions, or even additional data in other attribute files. For example in the following plot, we calculate degree centrality directly within the plot call and then divide the result by 10 to ensure that the nodes are a reasonable size in the plot. We use the `vertex.cex` argument to set node size based on the results of that expression. Further we change the layout using the "mode" argument to produce a network graph using the Kamada-Kawai layout. We change the color of the nodes so that they represent the `Region` variable in the associated attribute file using the `vertex.col` argument and and set change all edge colors using the `edge.col` argument. Finally, we use `displayisolates = FALSE` to indicate that we do not want the single isolated node to be plotted. These are but a few of the many options.
 
 ```{r Fig_network_net}
 set.seed(436)
@@ -63,14 +63,14 @@ plot(
 
 ### igraph
 
-The igraph package also has a built in plotting function called plot.igraph. To call this you again just need to type plot(yournetworkhere) and provide an igraph object (R can tell what kind of object you have if you simply type plot). The default igraph plot again uses a Fruchterman-Reingold layout just like statnet/network but by default each node is labeled. 
+The `igraph` package also has a built in plotting function called `plot.igraph`. To call this you again just need to type `plot(yournetworkhere)` and provide an igraph object (R can tell what kind of object you have if you simply type plot). The default igraph plot again uses a Fruchterman-Reingold layout just like `statnet/network` but by default each node is labeled. 
 
 ```{r Fig_igraph_simple}
 set.seed(435)
 plot(Cibola_i)
 ```
 
-Let's take a look at a few of the options we can alter to change this plot. There are again many options to explore here and the help documents for igraph.plotting describe them in detail (type ?igraph.plotting at the console for more). If you want to explore igraph further, we suggest you check the [Network Visualization](https://kateto.net/network-visualization) tutorial linked above which provides a discussion of the wide variety of options. 
+Let's take a look at a few of the options we can alter to change this plot. There are again many options to explore here and the help documents for igraph.plotting describe them in detail (type ?igraph.plotting at the console for more). If you want to explore `igraph` further, we suggest you check the [Network Visualization](https://kateto.net/network-visualization) tutorial linked above which provides a discussion of the wide variety of options. 
 
 ```{r Fig_igraph}
 set.seed(3463)
@@ -87,13 +87,13 @@ plot(
 
 ### ggraph
 
-The ggraph package provides a powerful set of tools for plotting and visualizing network data in R. The format used for this package is a bit different from what we saw above and instead relies on the ggplot2 style of plots where a plot type is called and modifications are made with sets of lines with additional arguments separated by "+". Although this takes a bit of getting used to we have found that the ggplot format is often more intuitive for making complex graphics once you understand the basics.
+The `ggraph` package provides a powerful set of tools for plotting and visualizing network data in R. The format used for this package is a bit different from what we saw above and instead relies on the `ggplot2` style of plots where a plot type is called and modifications are made with sets of lines with additional arguments separated by `+`. Although this takes a bit of getting used to we have found that the ggplot format is often more intuitive for making complex graphics once you understand the basics.
 
-Essentially, the way the ggraph call works is you start with a ggraph function call which includes the network object and the layout information. You then provide lines specifying the edges "geom_edge_link" and nodes "geom_node_point" features and so on. Conveniently the ggraph function call will take either an igraph or a network/statnet object so you do not need to convert.
+Essentially, the way the `ggraph` call works is you start with a `ggraph` function call which includes the network object and the layout information. You then provide lines specifying the edges `geom_edge_link` and nodes `geom_node_point` features and so on. Conveniently the `ggraph` function call will take either an `igraph` or a `network/statnet` object so you do not need to convert.
 
-Here is an example. Here we first the call for the igraph network object "Cibola_i" and specify the Fruchterman-Reingold layout using layout="fr". Next, we call the "geom_edge_link" and specify edge colors. The "geom_node_point" call then specifies many attributes of the nodes including the fill color, outline color, transparency (alpha), shape, and size using the igraph::degree function). The "scale_size" call then tells the plot to scale the node size specified in the previous line to range between 1 and 4. Finally "theme_graph" is a basic call to the ggraph theme that tells the plot to make the background white and to remove the margins around the edge of the plot. Let's see how this looks. 
+Here is an example. Here we first the call for the igraph network object `Cibola_i` and specify the Fruchterman-Reingold layout using `layout = "fr"`. Next, we call the `geom_edge_link` and specify edge colors. The `geom_node_point` call then specifies many attributes of the nodes including the fill color, outline color, transparency (alpha), shape, and size using the `igraph::degree` function. The `scale_size` call then tells the plot to scale the node size specified in the previous line to range between 1 and 4. Finally `theme_graph` is a basic call to the `ggraph` theme that tells the plot to make the background white and to remove the margins around the edge of the plot. Let's see how this looks. 
 
-In the next section we go over the most common options in ggraph in detail.
+In the next section we go over the most common options in `ggraph` in detail.
 
 ```{r Fig_ggraph}
 set.seed(4368)
@@ -119,7 +119,7 @@ There are many options for the ggraph package and we recommend exploring the hel
 
 ## Network Visualization Options
 
-In this section we illustrate some of the most useful graphical options for visualizing networks, focusing in particular on the ggraph format. In most cases there are similar options available in the plotting functions for both statnet and igraph. Where relevant we reference specific figures from the book and this tutorial and the code for all of the figures produced in R is presented in the next session. For all of the examples in this section we will use the [Cibola technological similarity data (click here to download)](data/Peeples2018.Rdata). First we call the required packages and import the data.
+In this section we illustrate some of the most useful graphical options for visualizing networks, focusing in particular on the `ggraph` format. In most cases there are similar options available in the plotting functions for both `statnet` and `igraph`. Where relevant we reference specific figures from the book and this tutorial and the code for all of the figures produced in R is presented in the next session. For all of the examples in this section we will use the [Cibola technological similarity data (click here to download)](data/Peeples2018.Rdata). First we call the required packages and import the data.
 
 ```{r graph_layout, message=F, warning=FALSE}
 
@@ -185,7 +185,7 @@ ggraph(net,
   theme_graph()
 ```
 
-When working with geographic data, it is also sometimes useful to plot directly on top of some sort of base map. There are many options for this but one of the most convenient is to use the "sf" and "ggmap" packages to directly download the relevant base map layer and plot directly on top of it. This first requires converting points to latitude and longitude in decimal degrees if they are not already in that format. See the details on the [sf package](https://r-spatial.github.io/sf/) and [ggmap package](https://github.com/dkahle/ggmap) for more details. In addition to this example [Figure 6.7 in the book](#Figure_6_7) provides another example.
+When working with geographic data, it is also sometimes useful to plot directly on top of some sort of base map. There are many options for this but one of the most convenient is to use the `sf` and `ggmap` packages to directly download the relevant base map layer and plot directly on top of it. This first requires converting points to latitude and longitude in decimal degrees if they are not already in that format. See the details on the [sf package](https://r-spatial.github.io/sf/) and [ggmap package](https://github.com/dkahle/ggmap) for more details. In addition to this example [Figure 6.7 in the book](#Figure_6_7) provides another example.
 
 
 ```{r geo_layout, warning=F, message=F, fig.heigh=7, fig.width=7}
@@ -247,7 +247,7 @@ ggmap(base_cibola, darken = 0.35) +
 
 #### Shape-Based and Algorithmic Layouts
 
-There are a wide variety of shape-based and algorithmic layouts available for use in R. In most cases, all it takes to change layouts is to simply modify a single line the ggraph call to specify our desired layout. The ggraph package can use any of the igraph layouts as well as many that are built directly into the package. See ?ggraph for more details and to see the options. Here we show a few examples. Note that we leave the figures calls the same except for the argument layout="yourlayout" in each ggraph call and the ggtitle name. For the layouts that involve randomization, we use the "set.seed()" function to make sure they will always plot the same. See the discussion of [Figure 6.8](#Figure_6_8) below for more details. Beyond this [Figure 6.9](#Figure_6_9) provides additional options that can be used for hierarchical network data.
+There are a wide variety of shape-based and algorithmic layouts available for use in R. In most cases, all it takes to change layouts is to simply modify a single line the `ggraph` call to specify our desired layout. The `ggraph` package can use any of the `igraph` layouts as well as many that are built directly into the package. See `?ggraph` for more details and to see the options. Here we show a few examples. Note that we leave the figures calls the same except for the argument `layout = "yourlayout"` in each `ggraph` call and the `ggtitle` name. For the layouts that involve randomization, we use the `set.seed()` function to make sure they will always plot the same. See the discussion of [Figure 6.8](#Figure_6_8) below for more details. Beyond this [Figure 6.9](#Figure_6_9) provides additional options that can be used for hierarchical network data.
 
 ```{r layouts, message=F, warning=F, fig.width=7, fig.height=3}
 # circular layout
@@ -289,16 +289,16 @@ There are many options for altering color and symbol for nodes and edges within 
 
 #### Nodes
 
-In ggraph changing node options mostly consists of changing options within the "geom_node_point" call within the ggraph figure call. As we have already seen it is possible to set color for all nodes or by some variable, to change the size of points, and we can also scale points by some metric like centrality. Indeed, it is even possible to make the call to the centrality function in question directly within the figure code. 
+In `ggraph` changing node options mostly consists of changing options within the `geom_node_point` call within the `ggraph` figure call. As we have already seen it is possible to set color for all nodes or by some variable, to change the size of points, and we can also scale points by some metric like centrality. Indeed, it is even possible to make the call to the centrality function in question directly within the figure code. 
 
-When selecting point shapes you can use any of the shapes available in base R using pch point codes. Here are all of the available options:
+When selecting point shapes you can use any of the shapes available in base R using `pch` point codes. Here are all of the available options:
 
 ```{r pch_points, warning=F, message=F}
 library(ggpubr)
 ggpubr::show_point_shapes()
 ```
 
-There are many options for selecting colors for nodes and edges. These can be assigned using standard color names or can be assigned using rgb or hex codes. It is also possible to use standard palettes in packages like RColorBrewer or scales to specify categorical or continuous color schemes. This is often done using either the "scale_fill_brewer" or "scale_color_brewer" calls from RColorBrewer. Here are a couple of examples. In these examples, colors are grouped by site region, node size is scaled to degree centrality, and node and edge color and shape are specified in each call. Note the "alpha" command which controls the transparency of the relevant part of the plot. The scale_size call specifies the maximum and minimum size of points in the plot.
+There are many options for selecting colors for nodes and edges. These can be assigned using standard color names or can be assigned using rgb or hex codes. It is also possible to use standard palettes in packages like `RColorBrewer` or `scales` to specify categorical or continuous color schemes. This is often done using either the `scale_fill_brewer` or `scale_color_brewer` calls from `RColorBrewer`. Here are a couple of examples. In these examples, colors are grouped by site region, node size is scaled to degree centrality, and node and edge color and shape are specified in each call. Note the `alpha` command which controls the transparency of the relevant part of the plot. The scale_size call specifies the maximum and minimum size of points in the plot.
 
 The [R Graph Gallery](https://www.r-graph-gallery.com/38-rcolorbrewers-palettes.html) has a good overview of the available color palettes in RColorBrewer and when the can be used. 
 
@@ -338,9 +338,9 @@ There are also a number of more advanced methods for displaying nodes including 
 
 #### Edges
 
-Edges can be modified in terms of color, line type, thickness and many other features just like nodes and this is typically done using the "geom_edge_link" call within ggraph. Let's take a look at a couple of additional examples. In this case we're going to use a weighted network object in the original [Peeples2018.Rdata](data/Peeples2018.Rdata) file to show how we can vary edges in relation to edge attributes like weight. 
+Edges can be modified in terms of color, line type, thickness and many other features just like nodes and this is typically done using the `geom_edge_link` call within `ggraph`. Let's take a look at a couple of additional examples. In this case we're going to use a weighted network object in the original [Peeples2018.Rdata](data/Peeples2018.Rdata) file to show how we can vary edges in relation to edge attributes like weight. 
 
-In the example here we plot both the line thickness and transparency using the edge weights associated with the network object. We also are using the "scale_edge_color_viridis" to specify a continuous edge color scheme. For more details see ?scale_edge_colour
+In the example here we plot both the line thickness and transparency using the edge weights associated with the network object. We also are using the `scale_edge_color_viridis` to specify a continuous edge color scheme. For more details see `?scale_edge_color`
 
 ```{r edge_options1, message=F, warning=F}
 library(intergraph)
@@ -356,7 +356,7 @@ ggraph(net2, "stress") +
   theme_graph()
 ```
 
-Another feature of edges that is often important in visualizations is the presence or absence and type of arrows. Arrows can be modified in ggraph using the "arrow" argument within a "geom_edge_link" call. The most relevant options are the length of the arrow (which determines size), the "type" argument which specifies an open or closed arrow, and the spacing of the arrow which can be set by the "end_cap" and "start_cap" respectively which define the gap between the arrow point and the node. These values can all be set using absolute measurements as shown in the example below. Since this is an undirected network we use the argument "ends='first'" to simulated a directed network so that arrowheads will only be drawn the first time an edge appears in the edge list. See ?arrow for more details on options. 
+Another feature of edges that is often important in visualizations is the presence or absence and type of arrows. Arrows can be modified in ggraph using the `arrow` argument within a `geom_edge_link` call. The most relevant options are the length of the arrow (which determines size), the `type` argument which specifies an open or closed arrow, and the spacing of the arrow which can be set by the `end_cap` and `start_cap` respectively which define the gap between the arrow point and the node. These values can all be set using absolute measurements as shown in the example below. Since this is an undirected network we use the argument `ends='first'` to simulated a directed network so that arrowheads will only be drawn the first time an edge appears in the edge list. See `?arrow` for more details on options. 
 
 ```{r edge_options2, message=F, warning=F}
 set.seed(436)
@@ -385,7 +385,7 @@ ggraph(net, "kk") +
   theme_graph()
 ```
 
-It is also possible to not show edges at all but instead just a gradient scale representing the density of edges using the "geom_edge_density" call. This could be useful in very large and complex networks.
+It is also possible to not show edges at all but instead just a gradient scale representing the density of edges using the `geom_edge_density` call. This could be useful in very large and complex networks.
 
 ```{r edge_density}
 set.seed(436)
@@ -397,7 +397,7 @@ ggraph(net2, "kk") +
 
 ### Label Options
 
-In many cases you may want to label either the nodes, edges, or other features of a network. This is relatively easy to do in ggraph with the "geom_node_text()" command. This will place labels as specified on each node. If you use the "repel = TRUE" argument it will repel the names slightly from the node to make them more readable. As shown in the example for [Figure 6.4](#Figure_6_4) it is also possible to filter labels to label only certain nodes.
+In many cases you may want to label either the nodes, edges, or other features of a network. This is relatively easy to do in `ggraph` with the `geom_node_text()` command. This will place labels as specified on each node. If you use the `repel = TRUE` argument it will repel the names slightly from the node to make them more readable. As shown in the example for [Figure 6.4](#Figure_6_4) it is also possible to filter labels to label only certain nodes.
 
 ```{r node_label}
 # First set a node attribute called name based on site names
@@ -411,7 +411,7 @@ ggraph(net2, "fr") +
   theme_graph()
 ```
 
-It is also possible to label edges by adding an argument directly into the "geom_link_" command. In practice, this really only works with very small networks. In the next chunk of code, we create a small network and demonstrate this function.
+It is also possible to label edges by adding an argument directly into the `geom_link_` command. In practice, this really only works with very small networks. In the next chunk of code, we create a small network and demonstrate this function.
 
 ```{r edge_label}
 g <- graph(c("A", "B",
@@ -433,9 +433,9 @@ ggraph(g, layout = 'stress') +
 
 ### Be Kind to the Color Blind
 
-When selecting your color schemes, it is important to consider the impact of a particular color scheme on color blind readers. There is an excellent set of R scripts on GitHub in a package called [colorblindr](https://github.com/clauswilke/colorblindr) which can help you do just that. I have slightly modified the code from the colorblindr package and created a script called [colorblindr.R](data/colorblindr.R) which you can download and use to test out your network. Simply run the code in the script and then use the cvd_grid2() function on a ggplot or ggraph object to see simulated colors.
+When selecting your color schemes, it is important to consider the impact of a particular color scheme on color blind readers. There is an excellent set of R scripts on GitHub in a package called [colorblindr](https://github.com/clauswilke/colorblindr) which can help you do just that. I have slightly modified the code from the `colorblindr` package and created a script called [colorblindr.R](data/colorblindr.R) which you can download and use to test out your network. Simply run the code in the script and then use the `cvd_grid2()` function on a `ggplot` or `ggraph` object to see simulated colors.
 
-The chunk of code below loads the colorblindr.R script and then plots a figure using RColorBrewer color "Set2" in its original unmodified format and then as it might look to readers with some of the most common forms of color vision issues.
+The chunk of code below loads the `colorblindr.R` script and then plots a figure using `RColorBrewer` color `Set2` in its original unmodified format and then as it might look to readers with some of the most common forms of color vision issues.
 
 ```{r colorblind, warning=F, message=F, fig.height=7, fig.width=7}
 library(colorspace)
@@ -445,7 +445,7 @@ cvd_grid2(g1)
 
 ### Communities and Groups
 
-Showing communities or other groups in network visualizations can be as simple as color coding nodes or edges as we have seen in many examples here. It is sometimes also useful to highlight groups by creating a convex hull or circle around the relevant points. This can be done in ggraph using the "geom_mark_hull" command within the ggforce package. 
+Showing communities or other groups in network visualizations can be as simple as color coding nodes or edges as we have seen in many examples here. It is sometimes also useful to highlight groups by creating a convex hull or circle around the relevant points. This can be done in ggraph using the `geom_mark_hull` command within the `ggforce` package. 
 
 The following chunk of code provides a simple example using the Louvain clustering algorithm.
 
@@ -608,7 +608,7 @@ F6.2c
 
 Fig. 6.2d - This network graph is laid out using the Kamada-Kawai force directed algorithm with nodes color coded based on communities detected using the Louvain community detection algorithm. Each community is also indicated by a circle highlighting the relevant nodes. Edges within communities are shown in black and edges between communities are shown in red.
 
-In this plot we use the "as.ggplot" function to convert a traditional igraph plot to a ggraph plot to illustrate how this can be done.
+In this plot we use the `as.ggplot` function to convert a traditional `igraph` plot to a `ggraph` plot to illustrate how this can be done.
 
 ```{r Fig6_2d, message=F, warning=F, fig.width=7, fig.height=7}
 # convert network object to igraph object and calculate Louvain
@@ -629,7 +629,7 @@ F6.2d <- as.ggplot(
 F6.2d
 ```
 
-Finally, we use the "ggarrange" function from the "ggpubr" package to combine all of these plots into a single composite plot.
+Finally, we use the `ggarrange` function from the `ggpubr` package to combine all of these plots into a single composite plot.
 
 ```{r Fig6_2_all, message=F, warning=F, fig.height=7, fig.width=7}
 # Combine all plots into a single figure using ggarrange
@@ -652,7 +652,7 @@ figure_6_2
 
 Figure 6.3. More visualizations using the Cibola technological similarity data. 
 
-Fig 6.3a - A weighted heat plot of the underlying similarity matrix with hierarchical clusters shown on each axis. This plot relies on a packages called "superheat" that produces plots formatted as we see here.
+Fig 6.3a - A weighted heat plot of the underlying similarity matrix with hierarchical clusters shown on each axis. This plot relies on a packages called `superheat` that produces plots formatted as we see here.
 
 ```{r Fig6_3a, message=F, warning=F, fig.width=7, fig.height=7}
 
@@ -726,7 +726,7 @@ F6.3b
 
 Fig. 6.3c - Network plot with sites in geographic locations and edges bundled using the edge bundling hammer routine.
 
-This function requires the "edgebundle" package be installed and uses the [Cibola technological similarity data](data/Peeples2018.Rdata).
+This function requires the `edgebundle` package be installed along with `reticulate` and Python 3.7 (see [Packages](#Packages)) and uses the [Cibola technological similarity data](data/Peeples2018.Rdata).
 
 ```{r Fig6_3c, message=F, warning=F, fig.width=7, fig.height=7}
 library(edgebundle)
@@ -752,7 +752,7 @@ F6.3c
 
 Fig. 6.3d - Network graph where nodes are replaced by waffle plots that show relative frequencies of the most common ceramic technological clusters.
 
-This is a somewhat complicated plot that requires a couple of specialized libraries and additional steps along the way. We provide comments in the code below to help you follow along. Essentially the routine creates a series of waffle plots and then uses them as annotation to replace the nodes in the final ggraph.
+This is a somewhat complicated plot that requires a couple of specialized libraries and additional steps along the way. We provide comments in the code below to help you follow along. Essentially the routine creates a series of waffle plots and then uses them as annotation to replace the nodes in the final `ggraph`.
 
 ```{r Fig6_3d, message=F, warning=F, fig.width=6, fig.height=6}
 # Initialize libraries
@@ -910,7 +910,7 @@ ggraph(graph, layout = "fr") +
 
 ### Figure 6.5: Interactive Layout {#Figure_6_5}
 
-Figure 6.5 was produced in NetDraw by creating a simple network and just creating two configurations of nodes. There are a few options for creating a similar figure in R. The simplest is to use an igraph network object and the "tkplot" function. This function brings up a window that lets you drag and move nodes (with or without an initial algorithmic layout) and when you're done you can assign the new positions to a variable to use for plotting. [Use these data](data/Peeples2018.Rdata) to follow along.
+Figure 6.5 was produced in NetDraw by creating a simple network and just creating two configurations of nodes. There are a few options for creating a similar figure in R. The simplest is to use an igraph network object and the `tkplot` function. This function brings up a window that lets you drag and move nodes (with or without an initial algorithmic layout) and when you're done you can assign the new positions to a variable to use for plotting. [Use these data](data/Peeples2018.Rdata) to follow along.
 
 ```{r Fig6_5a, message=F, warning=F, eval=F}
 library(igraph)
@@ -1013,7 +1013,7 @@ ggmap(myMap) +
 
 Fig. 6.7. This ceramic similarity network of the San Pedro River Valley in Arizona shows the challenges of creating geographic network layouts. Figure 6.7a shows sites in their original locations whereas figure 6.7b shifts locations to improve the visibility of network structure. Note how the distorted geographic layout retains the basic relationships among the nodes while altering their locations slightly.
 
-Unfortunately as the first map contains real site locations we cannot share those data here. The second map can still be reproduced given nothing but the code below. The only difference required to produce Figure 6.7a would be to replace the "coord" site coordinates with the actual site locations.
+Unfortunately as the first map contains real site locations we cannot share those data here. The second map can still be reproduced given nothing but the code below. The only difference required to produce Figure 6.7a would be to replace the `coord` site coordinates with the actual site locations.
 
 ```{r, message=F, warning=F, fig.height=7, fig.width=7}
 library(igraph)
@@ -1112,7 +1112,7 @@ figure_6_7
 
 ### Figure 6.8: Graph Layout Algorithms {#Figure_6_8}
 
-Fig. 6.8. Several different graph layouts all using the same “Zachary karate” network. In each graph, nodes are scale based on betweenness centrality and color coded based on optimal clusters based on modularity maximization.
+Fig. 6.8. Several different graph layouts all using the same Aegean Sites network. In each graph, nodes are scale based on betweenness centrality and color coded based on optimal clusters based on modularity maximization.
 
 ```{r Fig6_8, warning=F, message=F, fig.width=7, fig.height=12}
 
@@ -1686,7 +1686,7 @@ ggarrange(g0.50, g0.75, g0.90, nrow = 1, ncol = 3)
 
 Fig. 6.17. Network map of ceramic similarity from the U.S. Southwest/Mexican Northwest ca. A.D. 1350-1400 based on the hammer bundling algorithm. 
 
-This function relies on the "edgebundle" package to combine sets of nodes with similar relations into single paths. [Use these data](data/Figure6_17.Rdata) to follow along. Note that this procedure can take several seconds to a few minutes depending on the speed of your computer. Note that this figure will look somewhat different from the one in the book as the locations of sites have been jittered for data security
+This function relies on the `edgebundle` package to combine sets of nodes with similar relations into single paths. This package also requires that you install the `reticulate` package which connects R to Python 3.7 and you must also have Python installed on your computer with the datashader libraries. To install an instance of Python with all of the required libraries you can use the following call: `install_bundle_py(method = "auto", conda = "auto")`. Note that this will require about 1.4 GB of disk space. [Use these data](data/Figure6_17.Rdata) to follow along. Note that this procedure can take several seconds to a few minutes depending on the speed of your computer. Note that this figure will look somewhat different from the one in the book as the locations of sites have been jittered for data security
 
 ```{r Fig6_17, fig.width=7, fig.height=7, warning=F, message=F}
 
@@ -1755,7 +1755,7 @@ For more details on how to use NodeXL see the extensive documentation online. Th
 
 ![](images/group-in-a-box.jpg){width=100%} 
 
-To download an Excel workbook set up for the example provided in the book [click here]("data/NodeXLGraph1.xlsx").
+To download an Excel workbook set up for the example provided in the book [click here]("data/NodeXLGraph1.xlsx"). When you open this In Excel, it will ask you if it can install the necessary extensions. Say yes to continue and replicate the results in the book.
 
 ### Figure 6.19: Weighted Adjacency Matrix {#Figure_6_19}
 
@@ -1838,7 +1838,7 @@ Fig. 6.20. Nodetrix visualization of the Peeples (2018) ceramic technological da
 
 This Nodetrix interactive visualization was created using the Javascript implementation available on [GitHub](https://github.com/IRT-SystemX/nodetrix) by user [jdfekete](https://github.com/jdfekete/), Jean-Daniel Fekete who was one of the original authors of the method (Henry et al. 2007). 
 
-The details of running the Javascript program are described on the GitHub page and are beyond this scope of this tutorial. We do illustrate below, however, how you can export R in the *.json format required by this program using the "d3r" and "rjson" packages. 
+The details of running the Javascript program are described on the GitHub page and are beyond this scope of this tutorial. We do illustrate below, however, how you can export R in the *.json format required by this program using the `d3r` and `rjson` packages. 
 
 ```{r Fig6_20, warning=F, message=F, eval=F}
 
@@ -2030,7 +2030,7 @@ proximity.timeline(
 
 Fig. 6.24. An example of three frames from a network animation. 
 
-Figure 6.24 was created using the ndtv package and the same data produced above for figure 6.23. We simply rendered the animation as above and then output to an interactive html widget. The figure in the book represents 3 screen shots from the video. See the ndtv documentation for more details.
+Figure 6.24 was created using the `ndtv` package and the same data produced above for figure 6.23. We simply rendered the animation as above and then output to an interactive html widget. The figure in the book represents 3 screen shots from the video. See the `ndtv` documentation for more details.
 
 ```{r Fig6_24, warning=F, message=F, eval=T, results='asis'}
 render.d3movie(SanPedro, vertex.col = mycol[factor(SP_attr$SWSN_MacroGroup)],

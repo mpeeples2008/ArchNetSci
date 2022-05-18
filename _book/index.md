@@ -1,7 +1,7 @@
 ---
 title: "Online Companion to *Archaeological Network Science* by Brughmans and Peeples"
 author: "Matthew A. Peeples and Tom Brughmans"
-date: "2022-05-17"
+date: "2022-05-18"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: references.bib
@@ -26,7 +26,7 @@ This document outlines methods for managing, analyzing, and visualizing network 
 
 **Cite this document as:**
 
-> Peeples, Matthew A. and Tom Brughmans (2022). Online Companion to Archaeological Network Science by Brughmans and Peeples. <https://archnetworks.net>, Accessed 2022-05-17.
+> Peeples, Matthew A. and Tom Brughmans (2022). Online Companion to Archaeological Network Science by Brughmans and Peeples. <https://archnetworks.net>, Accessed 2022-05-18.
 
 **The associated book can be cited as**
 
@@ -44,7 +44,7 @@ Note that this is a pre-release version of this document. Be aware that there ar
 </div>
 ***
 
-## Reproducibility{-}
+## Reproducibility{- #Repro}
 
 The most recent version of this document was built with R version 4.2.0 (2022-04-22 ucrt). We suggest you use a recent version of R when attempting to use the code in this document. 
 
@@ -120,7 +120,7 @@ In order to follow along with the code and examples in this document, you will n
 
 ## Download and Install R{-}
 
-The first step is to install a recent version of R (we recommend 4.2 or later). Follow the instructions below for the appropriate operating system.
+The first step is to install a recent version of R (we recommend 4.2 or later as this document was created in version 4.2). Follow the instructions below for the appropriate operating system.
 
 * The first step is to go to the R project website [www.r-project.org](https://www.r-project.org) and click on the [CRAN](https://cran.r-project.org/mirrors.html) link under "Downloads" on the left hand side.
 * Choose a mirror for your download selecting one in your country or the "cloud" option.
@@ -133,7 +133,7 @@ The first step is to install a recent version of R (we recommend 4.2 or later). 
 
 ### MacOS{-}
 
-You first need to know which chip manufacturer your Mac has before proceeding. In order to determine which chip you have go to the Apple menu and select "About This Mac" and look for information under "Processor" or "Chip" in the window that pops up. It will either be Intel or M1.
+To install R on MacOS, you first need to know which chip manufacturer your Mac has. In order to determine which chip you have go to the Apple menu and select "About This Mac" and look for information under "Processor" or "Chip" in the window that pops up. It will either be Intel or M1.
 
 * Next, click the on the link under "Latest release" for the *.pkg file for the appropriate Mac processor in your Mac. There is a separate notarized and signed .pkg file Macs with Intel processors and Macs with Apple M1 processors (mostly produced 2020 and later). Note, these .pkg files are not interchangeable so confirm which one you need.
 * Once you have downloaded the appropriate .pkg, run it and answer the questions during the install as required.
@@ -147,7 +147,7 @@ Linux installations of R are primarily done through the console but the instruct
 
 ## Download and Install R-Studio{-}
 
-R-studio is an integrated development environment (IDE) for R, Python, and related programming environments that provides additional features for running and debugging code and data management. We see this as essential to working with large and complex R projects. 
+R-studio is an integrated development environment (IDE) for R, Python, and related programming tools that provides additional features for running and debugging code and data management. We see this as essential to working with large and complex R projects. 
 
 In order to install R-Studio:
 
@@ -158,13 +158,17 @@ In order to install R-Studio:
 
 ## Run R-Studio{-}
 
-Once you've installed both R and R-Studio, open R-studio and look for the Console window (will typically be the left hand side of the screen). That will tell you the version of R that is associated with the installation of R-Studio. If all goes well, it should be the recent version of R you just installed. 
+Once you've installed both R and R-Studio, open R-studio and look for the Console window (it will typically be the left hand side of the screen). That will tell you the version of R that is associated with the installation of R-Studio. If all goes well, it should be the recent version of R you just installed. 
 
 ![R Version Installed](images/r-version.jpg){width=100%}
 
 ## R and R-Studio Basics{-}
 
 R is a powerful statistical analysis platform that can be used to conduct some quite complex analyses. The learning curve is a bit steep when first getting started but the payoff is HUGE because the ecosystem of existing R scripts and packages is so large and diverse. We cannot hope to cover everything R and R-studio can do in this very short intro here but we present a version of the "introduction to R programming" that Matt Peeples has used in the first week of classes focused on statistical analyses for a number of years. Hopefully this will get you started. 
+
+Although R seems complicated at first, many quite complex analyses are run with just a few lines of code. Once you learn the basics, more complex features of R are really just combinations of these basic procedures. You won't become an R expert overnight, but we've seen many students pick up the basics quite quickly and begin to take on their own analyses in R. 
+
+#### R-Studio Windows{-}
 
 First off, let's take a look at the R-Studio setup. When you first open R-Studio for the first time, you will see a screen divided into 3 panes. Before getting started click on "File" at the top of the screen and go to "New File > R Script" to open a 4th pane. You should see something like the screen below (Note that the color of your screen may be different as I am using a particular color setting that I find easier on my eyes).
 
@@ -243,20 +247,11 @@ Object names in R are case sensitive and cannot include spaces. Object names can
 
 When formatting object names there are a few common styles such as:
 
-* `snake_case_style` - (see the little snakes [underscore] in the place of spaces)
-* `CamalCaseStyle` - (see the capitalized humps denoting each word)
-* `kebab-case-style` - (skewered right down the middle)
+* `snake_case_style` - see the little snakes [underscores] in the place of spaces
+* `CamalCaseStyle` - see the capitalized humps denoting each word
+* `kebab-case-style` - skewered right down the middle
 
 In general any of these styles is fine, but we suggest you try to remain consistent. Also, avoid using `.` to separate words as that is used by particular R functions and calls in other ways and can cause confusion. 
-
-Objects can be used in mathematical expressions just like numbers:
-
-
-```r
-n <- 50
-n*10
-#> [1] 500
-```
 
 Many mathematical constants are built right into R so be sure not to overwrite any of these (or any other function) by giving an object the same name.
 
@@ -279,7 +274,7 @@ month.name
 
 ### Logical Operators{-}
 
-R can also use logical operators such as `<` less than, `>` greater than, `<=` less than or equal to, `>=` greater than or equal to, `==` exactly equal to, and `!=` not equal to. These operators can be used in conjunction with other operations and return a value indicating `TRUE` or `FALSE`. These can be used in more complex functions and conditional statements as we will see below. For example:
+R can also use logical operators such as `<` less than, `>` greater than, `<=` less than or equal to, `>=` greater than or equal to, `==` exactly equal to, and `!=` not equal to. These operators can be used in conjunction with other operations and return a value indicating `TRUE` or `FALSE`. These can be used in more complex functions and conditional statements as we will see below.
 
 
 ```r
@@ -372,7 +367,7 @@ round(pi, digits = 2) # argument setting the number of digits to retain
 #> [1] 3.14
 ```
 
-We can also use R to generate random numbers under a given probability distribution which is often quite useful. For example, we use the `rnorm()` function below to create a set of random number drawn from a normal distribution with the parameters provided.
+We can use R to generate random numbers under a given probability distribution which is often quite useful. For example, we use the `rnorm()` function below to create a set of random number drawn from a normal distribution with the parameters provided.
 
 
 ```r
@@ -381,23 +376,21 @@ We can also use R to generate random numbers under a given probability distribut
 # sd = the standard deviation of the mean
 x <- rnorm(n = 50, mean = 10, sd = 2)
 x
-#>  [1]  9.769808  7.733420 11.087183 11.490642  7.958170
-#>  [6] 11.133164 10.493929  6.750625 13.785565 13.041083
-#> [11] 13.085460 12.462677  6.825860  8.765637 10.100119
-#> [16]  9.723591  6.296962 14.004592  8.722145 11.388606
-#> [21] 10.948423  7.809039  8.648033 13.322313  8.647321
-#> [26]  9.610310  8.635163  8.374975  8.984633  7.977316
-#> [31] 12.058597 14.909683 11.869786 14.116425  9.882816
-#> [36] 10.066422  9.712590 10.956312 13.661483 10.615903
-#> [41] 12.519882  9.719159  1.641394  7.797311  8.451502
-#> [46] 14.041114  9.679788  8.124890  4.851463  8.742949
+#>  [1] 10.937881  9.428747 10.497497  9.573551  8.508002
+#>  [6] 10.778581  7.775650  9.822260  8.987764  9.432217
+#> [11] 10.781087  9.206732  8.934860 12.714592 14.989869
+#> [16]  6.058174 10.064690 11.390885 10.534713 11.561477
+#> [21] 11.139207 11.801774  9.469464  9.621898 10.861446
+#> [26] 15.271040 12.046087 12.655033  7.910556  9.499995
+#> [31] 11.937765 12.718550 11.879052 10.912346 10.985641
+#> [36]  7.491541  9.007706 11.235070  9.663676 13.140717
+#> [41]  9.086122  9.318592  5.648181 12.857760 12.129406
+#> [46] 12.379526 12.175526 10.492776  9.756456  9.300584
 ```
-
-
 
 For a list of some of the most frequently used built-in functions see [this Quick-R](https://www.statmethods.net/management/functions.html) page. 
 
-### Matrices{-}
+### Tabular Data{-}
 
 R can be used to create tabular/matrix data as well. Typically it is most convenient to read such data for a file for very large tabular data [(see working with files below)](#WorkingWithFiles), but we can also generate simple tabular data directly in R using the `matrix()` function. In the following example we create a two-row, two-column matrix by converting a vector of numbers into a matrix by specifying the number of rows `nrow` and number of columns `ncol`. The assignments we make inside the `matrix()` function are called arguments. 
 
@@ -440,17 +433,6 @@ mat2
 #> [2,]    2   20
 ```
 
-Alternative we could take a shortcut and use the `t()` transpose function to switch the order of our original matrix object `mat1`.
-
-
-```r
-t(mat1)
-#>      [,1] [,2]
-#> [1,]    3    4
-#> [2,]    2   20
-```
-
-
 Just like we did with vectors, we can also use matrices for many mathematical and statistical functions that are built directly into R. For example, let's run a Fisher's Exact Test using the `fisher.test` function to assess the independence of rows and columns in this table.
 
 
@@ -477,7 +459,7 @@ The four most common object types in R are vectors, matrices, lists, and data fr
 
 * vector - a combined set of values all of the same type (character, numeric, etc.)
 * matrix - a set of values in a rectangular two-way table all of the same type (character, numeric, etc.)
-* data frame - a set of values in a rectangular two-way table where different columns can  different data types
+* data frame - a set of values in a rectangular two-way table where different columns can be different data types
 * list - a list is a collection of other R objects that can be vectors, matrices, data frames or others in any format that are combined into a single object.
 
 #### Vectors{-}
@@ -493,7 +475,7 @@ length(v)
 
 #### Matrices{-}
 
-Once again, we have already introduced matrices above but there are a few more details that are worth addressing here. Again, if you want to call a specific value in a matrix you can use the `[]` square brackets with the row number listed followed by a comma and the column number. For example:
+Once again, we have already introduced matrices above but there are a few more details that are worth addressing here. Again, if you want to call a specific value in a matrix you can use the `[,]` square brackets with the row number listed followed by a comma and the column number. For example:
 
 
 ```r
@@ -516,7 +498,7 @@ dim(mat1)
 
 #### Data Frame{-}
 
-As the brief definitions above suggests, data frames are very similar to matrices but can include mixed data types in the same rectangular table. Each row and column must, however, have the same number of entries. A data frame can be created by combining a set of vectors. In the example here we introduce another data type called a factor. A factor is a nominal variable that has "levels" that represent a limited set of values which can be used for a given variable. For example:
+As the brief definitions above suggest, data frames are very similar to matrices but can include mixed data types in the same rectangular table. Each row and column must, however, have the same number of entries. A data frame can be created by combining a set of vectors. In the example here we introduce another data type called a factor. A factor is a nominal variable that has "levels" that represent a limited set of values which can be used for a given variable. For example:
 
 
 ```r
@@ -656,9 +638,7 @@ library(vegan)
 #> This is vegan 2.6-2
 ```
 
-Now we can use not just the base R functions, but also the functions within the `vegan` package. In order to learn more about winch packages contain which functions, it is a good idea to seek out the documentation. Many of the most robust packages are very well documented online and searching for them in the [CRAN Archive](https://cran.r-project.org/web/packages/vegan/index.html) is an excellent place to start.
-
-Within the vegan package one particularly useful function is called `diversity()` which allows us to calculate all manner of common diversity measures. Remember to check `?diversity` if you want to learn more about the package and its arguments. Let's give it a try by creating a vector and then calculating two different diversity indices on that vector:
+Now we can use not just the base R functions, but also the functions within the `vegan` package. Within the vegan package one particularly useful function is called `diversity()` which allows us to calculate all manner of common diversity measures. Remember to check `?diversity` if you want to learn more about the package and its arguments. Let's give it a try by creating a vector and then calculating two different diversity indices on that vector:
 
 
 ```r
@@ -673,7 +653,7 @@ diversity(vec1, index = "simpson")
 
 > There are tons of useful packages out there and it can sometimes be a bit overwhelming trying to find them. Searching in a search engine for the simple letter "R" can also yield unexpected results. One helpful tip when searching for packages is to include "CRAN" or "package" in the search terms. CRAN stands for the Comprehensive R Archive Network and this is the archive that contains most of the peer reviewed and established packages for R. 
 
-## Working with Files{-}
+## Working with Files{- #WorkingWithFiles}
 
 In many cases we may wish to either write or read in external files into R. Frequently these files take the shape of spreadsheets such as Excel documents or csv (comma separated value) documents. R has many functions for reading in such data and most are built-in to base R. Let's try this out by first writing a .csv file from a matrix we generate and then reading it back in. Note that any files you write from the console will go directly to the R working directory unless you otherwise specify.
 
@@ -744,7 +724,7 @@ y <- rnorm(5000, mean = 5, sd = 0.5)
 plot(x,y)
 ```
 
-<img src="index_files/figure-html/unnamed-chunk-37-1.png" width="672" />
+<img src="index_files/figure-html/unnamed-chunk-35-1.png" width="672" />
 
 We can also easily create a histogram of a single variable with additional arguments:
 
@@ -753,20 +733,20 @@ We can also easily create a histogram of a single variable with additional argum
 hist(x, breaks=20) # breaks defines the number of bars
 ```
 
-<img src="index_files/figure-html/unnamed-chunk-38-1.png" width="672" />
+<img src="index_files/figure-html/unnamed-chunk-36-1.png" width="672" />
 
 And boxplots:
 
 
 ```r
-boxplot(x,y)
+boxplot(x, y)
 ```
 
-<img src="index_files/figure-html/unnamed-chunk-39-1.png" width="672" />
+<img src="index_files/figure-html/unnamed-chunk-37-1.png" width="672" />
 
 There are lots of figures built right into base R and we suggest exploring the [R Gallery Book](https://bookdown.org/content/b298e479-b1ab-49fa-b83d-a57c2b034d49/) which outlines many options.
 
-In the remainder of the tutorial we will go into detail in how to modify and configure visualizations but it worth mentioning one more common visualization tool that has almost eclipsed base R graphics in popularity. That is the package `ggplot2`. This package can be used for all sorts of visualizations and it uses a format that is somewhat different from that of base R. Let's look at an example:
+In the remainder of the Online Companion we will go into detail in how to modify and configure visualizations but it worth mentioning one more common visualization tool that has almost eclipsed base R graphics in popularity. That is the package `ggplot2`. This package can be used for all sorts of visualizations and it uses a format that is somewhat different from that of base R. Let's look at an example:
 
 
 ```r
@@ -783,9 +763,9 @@ ggplot(data = df) +
   geom_point(aes(x = x, y = y))
 ```
 
-<img src="index_files/figure-html/unnamed-chunk-41-1.png" width="672" />
+<img src="index_files/figure-html/unnamed-chunk-39-1.png" width="672" />
 
-In the code chunk above, we created a data frame (which ggplot2 requires) combining our random x and y variables. Next, we made a generic call to ggplot2 using the `ggplot(data=df)` line. This creates a ggplot object set up with `df` as the data considered. Notice this line is followed by a `+`. This package will continue to read lines until a line does not end with this symbol and `ggplot` calls can often be quite long. 
+In the code chunk above, we created a data frame (which ggplot2 requires) combining our random x and y variables. Next, we made a generic call to ggplot2 using the `ggplot(data = df)` line. This creates a ggplot object set up with `df` as the data considered. Notice this line is followed by a `+`. This package will continue to read lines until a line does not end with this symbol and `ggplot` calls can often be quite long. 
 
 The next line was the `geom_point()` function. This package designates different kinds of visualizations as `geom_` and there are many options (`geom_histogram`, `geom_bar`, `geom_polygon`, etc.). The `geom_point` function refers to a simple point plot. The argument inside the function is defined as `aes(x = x, y = y)`. In this package `aes` stands for aesthetics. In this case, we are using this aesthetics call to designate which variable will be on the x and which on the y axis, which is easy here as we named our variable appropriately.
 
@@ -802,7 +782,7 @@ ggplot(data = df) +
   theme_minimal()
 ```
 
-<img src="index_files/figure-html/unnamed-chunk-42-1.png" width="672" />
+<img src="index_files/figure-html/unnamed-chunk-40-1.png" width="672" />
 
 ```r
 
@@ -812,7 +792,19 @@ ggplot(data = df) +
   theme_bw()
 ```
 
-<img src="index_files/figure-html/unnamed-chunk-42-2.png" width="672" />
+<img src="index_files/figure-html/unnamed-chunk-40-2.png" width="672" />
+
+```r
+
+
+df2 <- data.frame(d1 = rpois(50, lambda = 4),
+                  gp = sample(size = 50, letters[1:4], replace = T))
+ggplot(data = df2) +
+  geom_bar(aes(x = d1, fill = factor(gp))) +
+  theme_bw()
+```
+
+<img src="index_files/figure-html/unnamed-chunk-40-3.png" width="672" />
 
 ## More Advanced R Features{-}
 
@@ -820,13 +812,261 @@ The examples so far have covered most of the basic features of R and R-Studio. T
 
 ### Conditional Statements{-}
 
-If and If else
+Another common need for programming in R is to conduct an action conditioned on another action or variable state. For example, if A is TRUE then do B. If statements like this are formally in R using the following format:
+
+
+```r
+# Example 1
+if (test) {
+  event1
+}
+
+# Example 2
+if (test) {
+  event1
+} else {
+  event2
+}
+```
+
+In Example 1 above if the statement called `test` is evaluated as `TRUE` then `event1` is executed. If `test` is evaluated as `FALSE` then nothing happens.
+
+Example 2 is an if...else statement. In this example if the statement called `test` is evaluated as `TRUE` then `event1` is executed. If `test` is evaluated as `FALSE` then `event2` is executed.
+
+Let's take a look at a worked example that will print output on the screen depending on the outcome of the `test` expression.
+
+
+```r
+x <- 40
+
+if (x > 50) {
+  cat('Greater Than 50')
+} else {
+  cat('Less Than 50')
+}
+#> Less Than 50
+
+if (x*2 > 50) {
+  cat('Greater Than 50')
+} else {
+  cat('Less Than 50')
+}
+#> Greater Than 50
+
+if (x > 50) {
+  cat('Greater Than 50')
+} 
+```
+
+In the first example above, the evaluation of `x > 50` was `FALSE` so the `else` statement was evaluated. In the second example, the evaluation of `x*2 >50` was `TRUE` so the first statement was evaluated. Finally, in the third example, `x > 50` was `FALSE` and since there is no `else` statement nothing happened. 
+
+If you want to apply an if...else statement to a vector of values rather than one at a time, you can use a useful function `ifelse()`. The `ifelse()` function expects the first item in the parenthesis to be the test expression, followed by the event to execute if the statement is true and then the event to execute if the expression is false.
+
+
+```r
+x <- seq(5, 100, by = 5)
+x
+#>  [1]   5  10  15  20  25  30  35  40  45  50  55  60  65  70
+#> [15]  75  80  85  90  95 100
+
+ifelse(x > 50, "Greater Than 50", "Less Than 50")
+#>  [1] "Less Than 50"    "Less Than 50"    "Less Than 50"   
+#>  [4] "Less Than 50"    "Less Than 50"    "Less Than 50"   
+#>  [7] "Less Than 50"    "Less Than 50"    "Less Than 50"   
+#> [10] "Less Than 50"    "Greater Than 50" "Greater Than 50"
+#> [13] "Greater Than 50" "Greater Than 50" "Greater Than 50"
+#> [16] "Greater Than 50" "Greater Than 50" "Greater Than 50"
+#> [19] "Greater Than 50" "Greater Than 50"
+```
+
+### which Function{-}
+
+Another useful function is are is the `which()` function, which allows you to evaluate which items in an object meet a given condition. Let's take a look at an example to see how this works:
+
+
+```r
+x <- seq(1, 10) # sequence of numbers 1 to 10
+x
+#>  [1]  1  2  3  4  5  6  7  8  9 10
+which(x > 5)
+#> [1]  6  7  8  9 10
+
+y <- seq(2, 20, by = 2) # sequence of numbers 2 to 20 by 2s
+y
+#>  [1]  2  4  6  8 10 12 14 16 18 20
+which(y > 10)
+#> [1]  6  7  8  9 10
+```
+
+In the first example above, we created a sequence of numbers from 1 to 10 and then evaluated which were greater than 5. The results indicated that items 6, 7, 8, 9, and 10 in the vector were greater than 5. Note that these results are not the values but instead are the numeric indexes of the values. The second example illustrates this. This is much like the first example by we create a sequence of numbers from 2 to 20 counting by 2s. When we evaluate which numbers in the vector are greater than 10, our results tell us the 6th, 7th, 8th, 9th, and 10th numbers are greater than 10.
 
 ### Loops{-}
 
-Simple discussion of for loops and apply vectorize
+A loop provides a set of instructions for R to repeat a code block some number of times based on rules we supply. The typical syntax is:
+
+
+```r
+for (value in sequence) {
+  event
+}
+```
+
+What this means is that for every value in a sequence of values, evaluate the expression in the `event` chunk. Let's take a look at a worked example to help clarify this.
+
+
+```r
+for (i in 1:5) { # for every value in the sequence from 1:5
+  print(i * 2)
+  }
+#> [1] 2
+#> [1] 4
+#> [1] 6
+#> [1] 8
+#> [1] 10
+```
+
+As this example helps illustrate, the `for (i in 1:5)` statement defines `i = 1` and then evaluates the statement `print(i * 2)`, and then defines `i = 2` and evaluates `print(i * 2)`, and so on until it completes the chunk for `i = 5`. The key feature of for loops is that we can use the value assigned to the iterator `i` in the statement inside the brackets `{}` to evaluate the statement for a range of values. The sequence of values assigned to the iterator are arbitrary and can occur in any order:
+
+
+```r
+val_seq <- c(5,1,8,4,1,5,7)
+
+for (m in val_seq) {
+  print(m)
+}
+#> [1] 5
+#> [1] 1
+#> [1] 8
+#> [1] 4
+#> [1] 1
+#> [1] 5
+#> [1] 7
+```
+
+We can also assign the results of any expressions in the brackets to a new variable. If you want to retain all results and not have the results rewritten, you will need to first define an output object before you start.
+
+
+```r
+# Compare these two chunks of code
+
+for (z in 1:10) {
+  out <- z
+}
+out
+#> [1] 10
+
+out <- NULL
+for (z in 1:10) {
+  out[z] <- z
+}
+out
+#>  [1]  1  2  3  4  5  6  7  8  9 10
+```
+
+In the second example, the statement within the brackets tells R to assign the value of `z` to `out` at position `[z]` and therefore all results are retained rather than rewritten each sequence of the loop.
+
+There is a lot more than can be done with loops but this basic description should be all you need to know to understand the code in this document.
 
 ### Custom Functions{-}
 
-How to write functions. Very simple Fahrenheit to Celsius example.
+Finally, we are going to end with a discussion of how R can be used to create custom functions. If there is some operation you do again and again, it doesn't make sense to keep copying and pasting the code every time. It makes more sense to define a function and then just call that. Once defined, a custom function works just like all the built-in and package functions we've seen above. Here is the basic syntax of a function in R:
+
+
+```r
+function_name <- function(arguments) {
+  result <- expression_to_evaluate
+  return(result)
+}
+
+# Once defined function can be run as
+function_name(arguments)
+```
+
+This format is a fairly simple example. Some functions can be quite complex, but that complexity is usually about combining loops and conditional statements and other processes discussed above rather than anything new or beyond what we've shown you so far. Let's take a look at a simple worked example to see how custom functions work:
+
+
+```r
+func1 <- function(x, y) {
+  result <- (x * y) + (x - y)^2
+  return(result)
+}
+
+func1(4, 5)
+#> [1] 21
+
+func1(10, 5)
+#> [1] 75
+```
+
+As this shows, any named argument in the function call can be used in the expression evaluated within the brackets. Functions can contain many lines of code and many arguments but the features are format are the same as the simple examples here. Let's look at a somewhat more complex function to see how this works:
+
+
+```r
+myfunct <- function(x) {
+  z <- NULL
+  for (i in 1:length(x)) {
+    z[i] <- (x[i] * i) / 5
+  }
+  return(z)
+}
+
+val_seq <- seq(1:10)
+myfunct(val_seq)
+#>  [1]  0.2  0.8  1.8  3.2  5.0  7.2  9.8 12.8 16.2 20.0
+```
+
+Let's break down what is happening in the chunk of code above. First, we defined a function with two arguments `x` and `y`. Inside the function expression we then initialized a new varable for the output called `z`. We then inter a for loop that iterate values of `i` for a sequence of numbers from 1 to the length of vector `x`. The value of `z` at position `i` is defined as the value of `x` at position `i` time `i` divided by the single value y. Once this loop finishes, the function returns the vector `z` with the results. As this example shows, arguments need not be limited to single values and can include vectors, data.frames, matrices, lists, or any type of R object.
+
+### Test Your Skills{-}
+
+If you've followed along with this tutorial so far, you should be able to do many basic operations in R and R-Studio. Let's now put your skills to the test. Use what you have learned above to create a function that converts Fahrenheit temperatures to Celsius. The formula for this conversion is `(F_temp - 32) * 5 / 9`. Create a function that reads in the F temperature and outputs C and the run it for the  sequence of values below. 
+
+Hints: Remember that you can't use F as an object name because that is the designation R uses for FALSE. Also, think about what you are trying to accomplish here. You want to create a function that iterates across a vector. That's very much what the previous example did so you can use that code as inspiration.
+
+
+```r
+F_temp <- c(44,59,59,39,50,59,35)
+```
+
+Once you have a working function, the use the `round()` function to convert your results to integers (i.e., run `round(values, digits = 0)`) and output these results into an object called `res`. Finally run the chunk of code below for a surprise:
+
+
+```r
+c(LETTERS[res])
+```
+
+We have provided the answer below but give this a try on your own first before peeking at the answer.
+
+No peeking until you try!!
+
+
+
+
+
+
+Here is our solution below:
+
+
+```r
+temp_func <- function(f) {
+  results <- NULL
+  for (i in 1:length(f)) {
+    results[i] <- ((f[i] - 32) * 5 / 9)
+  }
+  return(results)
+}
+
+F_temp <- c(44,59,59,39,50,59,35)
+out <- temp_func(F_temp)
+out
+#> [1]  6.666667 15.000000 15.000000  3.888889 10.000000
+#> [6] 15.000000  1.666667
+
+res <- round(out, digits = 0)
+res
+#> [1]  7 15 15  4 10 15  2
+
+c(LETTERS[res])
+#> [1] "G" "O" "O" "D" "J" "O" "B"
+```
 

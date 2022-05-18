@@ -9,6 +9,9 @@ archaeological-publication-networks
 iron-age-sites-in-southern-spain
 importing-data-in-r
 installing-r-packages
+Packages
+should-i-just-install-everything
+r-packages-used
 suggested-workspace-setup
 NetworkData
 network-data-formats

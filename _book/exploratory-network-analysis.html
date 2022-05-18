@@ -6,16 +6,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Section 3 Exploratory Network Analysis | Online Companion to Archaeological Network Science by Brughmans and Peeples</title>
 <meta name="author" content="Matthew A. Peeples and Tom Brughmans">
-<meta name="description" content="This section serves as a companion to Chapter 4 in Brughmans and Peeples 2022 and provides basic examples of the exploratory network analytical methods outlined in the book as well as a few...">
+<meta name="description" content="This section serves as a companion to Chapter 4 in Brughmans and Peeples 2022 and provides basic examples of the exploratory network analysis methods outlined in the book as well as a few others. ...">
 <meta name="generator" content="bookdown 0.26 with bs4_book()">
 <meta property="og:title" content="Section 3 Exploratory Network Analysis | Online Companion to Archaeological Network Science by Brughmans and Peeples">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://book.archnetworks.net/exploratory-network-analysis.html">
 <meta property="og:image" content="https://book.archnetworks.net/images/cover.png">
-<meta property="og:description" content="This section serves as a companion to Chapter 4 in Brughmans and Peeples 2022 and provides basic examples of the exploratory network analytical methods outlined in the book as well as a few...">
+<meta property="og:description" content="This section serves as a companion to Chapter 4 in Brughmans and Peeples 2022 and provides basic examples of the exploratory network analysis methods outlined in the book as well as a few others. ...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Section 3 Exploratory Network Analysis | Online Companion to Archaeological Network Science by Brughmans and Peeples">
-<meta name="twitter:description" content="This section serves as a companion to Chapter 4 in Brughmans and Peeples 2022 and provides basic examples of the exploratory network analytical methods outlined in the book as well as a few...">
+<meta name="twitter:description" content="This section serves as a companion to Chapter 4 in Brughmans and Peeples 2022 and provides basic examples of the exploratory network analysis methods outlined in the book as well as a few others. ...">
 <meta name="twitter:image" content="https://book.archnetworks.net/images/cover.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
@@ -89,24 +89,31 @@
 <h1>
 <span class="header-section-number">Section 3</span> Exploratory Network Analysis<a class="anchor" aria-label="anchor" href="#exploratory-network-analysis"><i class="fas fa-link"></i></a>
 </h1>
-<p>This section serves as a companion to Chapter 4 in Brughmans and Peeples 2022 and provides basic examples of the exploratory network analytical methods outlined in the book as well as a few others.</p>
+<p>This section serves as a companion to Chapter 4 in Brughmans and Peeples 2022 and provides basic examples of the exploratory network analysis methods outlined in the book as well as a few others.</p>
 <div id="example-network-objects" class="section level2" number="3.1">
 <h2>
 <span class="header-section-number">3.1</span> Example Network Objects<a class="anchor" aria-label="anchor" href="#example-network-objects"><i class="fas fa-link"></i></a>
 </h2>
 <p>In order to facilitate the exploratory analysis examples in this section, we want to first create a set of igraph network objects that will serve our purposes across all of the analyses below. Specifically, we will generate and define:</p>
 <ul>
-<li>simple_net - A simple undirected binary network with isolates</li>
-<li>simple_net_noiso - A simple undirected binary network without isolates</li>
-<li>directed_net - A directed binary network</li>
-<li>weighted_net - An undirected weighted network</li>
-<li>sim_net_i - A similarity network with edges weighted by similarity in the igraph format</li>
-<li>sim_net - A similarity network with edges weighted by similarity in the statnet/network format</li>
-<li>sim_mat - A data frame object containing a weighted similarity matrix</li>
+<li>
+<code>simple_net</code> - A simple undirected binary network with isolates</li>
+<li>
+<code>simple_net_noiso</code> - A simple undirected binary network without isolates</li>
+<li>
+<code>directed_net</code> - A directed binary network</li>
+<li>
+<code>weighted_net</code> - An undirected weighted network</li>
+<li>
+<code>sim_net_i</code> - A similarity network with edges weighted by similarity in the <code>igraph</code> format</li>
+<li>
+<code>sim_net</code> - A similarity network with edges weighted by similarity in the <code>statnet</code> format</li>
+<li>
+<code>sim_mat</code> - A data frame object containing a weighted similarity matrix</li>
 </ul>
 <p>Each of these will be used as appropriate to illustrate particular methods.</p>
 <p>In the following chunk of code we initialize all of the packages that we will use in this section and define all of the network objects that we will use (using the object names above). In these examples we will once again use the Cibola technological similarity data we used in the Network Data section previously.</p>
-<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb88"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># initialize packages</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://igraph.org">igraph</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://statnet.org">statnet</a></span><span class="op">)</span>
@@ -169,21 +176,20 @@
 <span class="header-section-number">3.2</span> Calculating Network Metrics in R<a class="anchor" aria-label="anchor" href="#CalcMetric"><i class="fas fa-link"></i></a>
 </h2>
 <p>Although the calculations behind the scenes for centrality metrics, clustering algorithms, and other network measures may be somewhat complicated, calculating these measures in R using network objects is usually quite straight forward and typically only involves a single function and a couple of arguments within it. There are, however, some things that need to be kept in mind when applying these methods to network data. In this appendix, we provide examples of some of the most common functions you may use as well as a few caveats and potential problems.</p>
-<p>One thing to keep in mind when working with R network data and using multiple packages at the same time is that different packages may have functions with the same name so it often is good practice to specify which package you mean to use directly in your code. For example, the function to calculate degree centrality in both igraph and sna (part of the statnet suite of packages) is simply “degree.” If you type “degree(simple_net)” at the console, R will attempt to use the “degree” function from whichever package was called more recently. This may not be what you want. In order to avoid ambiguity, you can add the package name to the call like this “igraph::degree(simple_net)” since “simple_net” is an igraph object, this will work correctly and return results. On the other hand “sna::degree(simple_net)” would create an error as the sna version of the degree function expects a different format of network object.</p>
-<p>In addition to potential overlap in function names, another thing that you need to keep in mind is that certain network metrics require networks with specific properties and may produce unexpected results if the wrong kind of network is used. For example, closeness centrality is only well defined for binary networks that have no isolates. If you were to use the “igraph::closeness” command to calculate closeness centrality on a network with isolates, you would get results but you would also get a warning telling you “closeness centrality is not well-defined for disconnected graphs.” For other functions if you provide data that does not meet the criteria required by that function you my instead get an error and have no results returned. In some cases, however, a function may simply return results and not provide any warning so it is important that you are careful when selecting methods to avoid providing data that violates assumptions of the method provided. Remember, that if you have questions about how a function works or what it requires you can type “?function_name” at the console with the function in question and you will get the help document that should provide more information. You can also include package names in the help call to avoid getting something unexpected (i.e., “?igraph::degree”)</p>
+<p>Certain network metrics require networks with specific properties and may produce unexpected results if the wrong kind of network is used. For example, closeness centrality is only well defined for binary networks that have no isolates. If you were to use the <code><a href="https://rdrr.io/pkg/igraph/man/closeness.html">igraph::closeness</a></code> command to calculate closeness centrality on a network with isolates, you would get results but you would also get a warning telling you “closeness centrality is not well-defined for disconnected graphs.” For other functions if you provide data that does not meet the criteria required by that function you my instead get an error and have no results returned. In some cases, however, a function may simply return results and not provide any warning so it is important that you are careful when selecting methods to avoid providing data that violates assumptions of the method provided. Remember, that if you have questions about how a function works or what it requires you can type <code>?function_name</code> at the console with the function in question and you will get the help document that should provide more information. You can also include package names in the help call to avoid getting something unexpected (i.e., <code><a href="https://rdrr.io/pkg/igraph/man/degree.html">?igraph::degree</a></code>)</p>
 </div>
 <div id="centrality" class="section level2" number="3.3">
 <h2>
 <span class="header-section-number">3.3</span> Centrality<a class="anchor" aria-label="anchor" href="#centrality"><i class="fas fa-link"></i></a>
 </h2>
-<p>One of the most common kinds of exploratory network analysis involves calculating basic network centrality and centralization statistics. There are a wide array of methods available in R through the igraph and statnet packages. In this section we highlight a few examples as well as a few caveats to keep in mind.</p>
+<p>One of the most common kinds of exploratory network analysis involves calculating basic network centrality and centralization statistics. There are a wide array of methods available in R through the <code>igraph</code> and <code>statnet</code> packages. In this section we highlight a few examples as well as a few caveats to keep in mind.</p>
 <div id="degree-centrality" class="section level3" number="3.3.1">
 <h3>
 <span class="header-section-number">3.3.1</span> Degree Centrality<a class="anchor" aria-label="anchor" href="#degree-centrality"><i class="fas fa-link"></i></a>
 </h3>
-<p>Degree centrality can be calculated using the “igraph::degree” function for simple networks with or without isolates as well as simple directed networks. This method is not, however, appropriate for weighted networks or similarity networks (because it expects binary values). If you apply the “igraph::degree” function to a weighted network object you will simply get the binary network degree centrality values. The alternative for calculating weighted degree for weighted and similarity networks is to simply calculate the row sums of the underlying similarity matrix (minus 1 to account for self loops) or adjacency matrix. For the degree function the returned output is a vector of values representing degree centrality which can further be assigned to an R object, plotted, or otherwise used. We provide a few examples here to illustrate. Note that for directed graphs you can also specify the mode as “in” for indegree or “out” for outdegree or “all” for the sum of both.</p>
-<p>Graph level degree centralization is equally simple to call using the centr_degree function. This function returns an object with multiple parts including a vector of degree centrality scores, the graph level centralization metric, and the theoretical maximum number of edges (n * [n-1]). This metric can be normalized such that the maximum centralization value would be 1 using the “normalize=TRUE” argument as we demonstrate below.</p>
-<div class="sourceCode" id="cb75"><pre class="downlit sourceCode r">
+<p>Degree centrality can be calculated using the <code><a href="https://rdrr.io/pkg/igraph/man/degree.html">igraph::degree</a></code> function for simple networks with or without isolates as well as simple directed networks. This method is not, however, appropriate for weighted networks or similarity networks (because it expects binary values). If you apply the <code><a href="https://rdrr.io/pkg/igraph/man/degree.html">igraph::degree</a></code> function to a weighted network object you will simply get the binary network degree centrality values. The alternative for calculating weighted degree for weighted and similarity networks is to simply calculate the row sums of the underlying similarity matrix (minus 1 to account for self loops) or adjacency matrix. For the degree function the returned output is a vector of values representing degree centrality which can further be assigned to an R object, plotted, or otherwise used. We provide a few examples here to illustrate. Note that for directed graphs you can also specify the mode as <code>in</code> for indegree or <code>out</code> for outdegree or “all” for the sum of both.</p>
+<p>Graph level degree centralization is equally simple to call using the <code>centr_degree</code> function. This function returns an object with multiple parts including a vector of degree centrality scores, the graph level centralization metric, and the theoretical maximum number of edges (n * [n-1]). This metric can be normalized such that the maximum centralization value would be 1 using the <code>normalize = TRUE</code> argument as we demonstrate below.</p>
+<div class="sourceCode" id="cb89"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># simple network with isolates</span>
 <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/degree.html">degree</a></span><span class="op">(</span><span class="va">simple_net</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>
 <span class="co">#&gt; Apache.Creek      Atsinna  Baca.Pueblo Casa.Malpais </span>
@@ -243,7 +249,7 @@
 <span class="co"># using the "hist" function</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/degree.html">degree.distribution</a></span><span class="op">(</span><span class="va">simple_net</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="03-exploratory-analysis_files/figure-html/unnamed-chunk-2-1.png" width="672"></div>
-<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb90"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="co"># graph level centralization</span>
 <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/centr_degree.html">centr_degree</a></span><span class="op">(</span><span class="va">simple_net</span><span class="op">)</span>
@@ -261,8 +267,8 @@
 <span class="co"># sna::centralization function</span>
 <span class="fu">sna</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sna/man/centralization.html">centralization</a></span><span class="op">(</span><span class="va">sim_mat</span>, normalize <span class="op">=</span> <span class="cn">TRUE</span>, <span class="fu">sna</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/sna/man/degree.html">degree</a></span><span class="op">)</span>
 <span class="co">#&gt; [1] 0.1082207</span></code></pre></div>
-<p>If you are interested in calculating graph level density you can do this using the “edge_density” function. Note that just like the degree function above, this only works for binary networks and if you submit a weighted network object you will simply get the binary edge density value.</p>
-<div class="sourceCode" id="cb77"><pre class="downlit sourceCode r">
+<p>If you are interested in calculating graph level density you can do this using the <code>edge_density</code> function. Note that just like the degree function above, this only works for binary networks and if you submit a weighted network object you will simply get the binary edge density value.</p>
+<div class="sourceCode" id="cb91"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/edge_density.html">edge_density</a></span><span class="op">(</span><span class="va">simple_net_noiso</span><span class="op">)</span>
 <span class="co">#&gt; [1] 0.383908</span>
 
@@ -273,8 +279,8 @@
 <h3>
 <span class="header-section-number">3.3.2</span> Betweenness Centrality<a class="anchor" aria-label="anchor" href="#betweenness-centrality"><i class="fas fa-link"></i></a>
 </h3>
-<p>The betweenness functions work very much like the degree function calls above. Betweenness centrality in igraph can be calculated for simple networks with and without isolates, directed networks, and weighted networks. In the case of weighted networks or similarity networks, the shortest paths between sets of nodes are calculated such that the path of greatest weight is taken at each juncture. You can normalize your results by using “normalize=TRUE” just like you could for degree. The “igraph::betweenness” function will automatically detect if a graph is directed or weighted and use the appropriate method but you can also specify a particular edge attribute to use for weight if you perhaps have more than one weighting scheme.</p>
-<div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
+<p>The betweenness functions work very much like the degree function calls above. Betweenness centrality in igraph can be calculated for simple networks with and without isolates, directed networks, and weighted networks. In the case of weighted networks or similarity networks, the shortest paths between sets of nodes are calculated such that the path of greatest weight is taken at each juncture. You can normalize your results by using <code>normalize = TRUE</code> just like you could for degree. The <code><a href="https://rdrr.io/pkg/igraph/man/betweenness.html">igraph::betweenness</a></code> function will automatically detect if a graph is directed or weighted and use the appropriate method but you can also specify a particular edge attribute to use for weight if you perhaps have more than one weighting scheme.</p>
+<div class="sourceCode" id="cb92"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># calculate betweenness for simple network</span>
 <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/betweenness.html">betweenness</a></span><span class="op">(</span><span class="va">simple_net</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>
 <span class="co">#&gt; Apache.Creek      Atsinna  Baca.Pueblo Casa.Malpais </span>
@@ -316,8 +322,8 @@
 <h3>
 <span class="header-section-number">3.3.3</span> Eigenvector Centrality<a class="anchor" aria-label="anchor" href="#eigenvector-centrality"><i class="fas fa-link"></i></a>
 </h3>
-<p>The “igraph::eigen_centrality” function can be calculated for simple networks with and without isolates, directed networks, and weighted networks. By default scores are scaled such that the maximum score of 1. You can turn this scaling of by using the “scale=FALSE” argument. This function automatically detects whether a network object is directed or weighted but you can also call edge attributes to specify a particular weight attribute. By default this function outputs many other features of the analysis such as the number of steps toward convergence and the number of iterations but if you just want the centrality results you can use the atomic vector call to $vector.</p>
-<div class="sourceCode" id="cb79"><pre class="downlit sourceCode r">
+<p>The <code><a href="https://rdrr.io/pkg/igraph/man/eigen_centrality.html">igraph::eigen_centrality</a></code> function can be calculated for simple networks with and without isolates, directed networks, and weighted networks. By default scores are scaled such that the maximum score of 1. You can turn this scaling of by using the <code>scale = FALSE</code> argument. This function automatically detects whether a network object is directed or weighted but you can also call edge attributes to specify a particular weight attribute. By default this function outputs many other features of the analysis such as the number of steps toward convergence and the number of iterations but if you just want the centrality results you can use the atomic vector call to $vector.</p>
+<div class="sourceCode" id="cb93"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/eigen_centrality.html">eigen_centrality</a></span><span class="op">(</span><span class="va">simple_net</span>, 
    scale <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">$</span><span class="va">vector</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>
 <span class="co">#&gt; Apache.Creek      Atsinna  Baca.Pueblo Casa.Malpais </span>
@@ -340,15 +346,14 @@
 <h3>
 <span class="header-section-number">3.3.4</span> Page Rank Centrality<a class="anchor" aria-label="anchor" href="#page-rank-centrality"><i class="fas fa-link"></i></a>
 </h3>
-<p>The “igraph::page_rank” function can be calculated for simple networks with and without isolates, directed networks, and weighted networks. By default scores are scaled such that the maximum score is 1. You can turn this scaling off by using the “scale=FALSE” argument. This function automatically detects whether a network object is directed or weighted but you can also call edge attributes to specify a particular weight attribute. You can change the algorithm used to implement the page rank algorithm (see help for details) and can also change the damping factor if desired.</p>
-<div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
+<p>The <code><a href="https://rdrr.io/pkg/igraph/man/page_rank.html">igraph::page_rank</a></code> function can be calculated for simple networks with and without isolates, directed networks, and weighted networks. By default scores are scaled such that the maximum score is 1. You can turn this scaling off by using the <code>scale = FALSE</code> argument. This function automatically detects whether a network object is directed or weighted but you can also call edge attributes to specify a particular weight attribute. You can change the algorithm used to implement the page rank algorithm (see help for details) and can also change the damping factor if desired.</p>
+<div class="sourceCode" id="cb94"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/page_rank.html">page_rank</a></span><span class="op">(</span><span class="va">directed_net</span>, 
   directed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">$</span><span class="va">vector</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>
 <span class="co">#&gt;    Coyote Creek Techado Springs   Hubble Corner </span>
 <span class="co">#&gt;      0.01375364      0.03433734      0.02521968 </span>
 <span class="co">#&gt;    Tri-R Pueblo    Heshotauthla </span>
 <span class="co">#&gt;      0.04722743      0.01549665</span>
-
 
 <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/page_rank.html">page_rank</a></span><span class="op">(</span>
   <span class="va">weighted_net</span>,
@@ -365,8 +370,8 @@
 <h3>
 <span class="header-section-number">3.3.5</span> Closeness Centrality<a class="anchor" aria-label="anchor" href="#closeness-centrality"><i class="fas fa-link"></i></a>
 </h3>
-<p>The “igraph::closeness” function calculates closeness centrality and can be calculated for directed and undirected simple or weighted networks with no isolates. This function can also be used for networks with isolates, but you will receive an additional message suggesting that closeness is undefined for networks that are not fully connected. For very large networks you can use the “igraph::estimate_closeness” function with a cutoff setting that will consider paths of length up to cutoff to calculate closeness scores. For directed networks you can also specify whether connections in, out, or in both directions should be used.</p>
-<div class="sourceCode" id="cb81"><pre class="downlit sourceCode r">
+<p>The <code><a href="https://rdrr.io/pkg/igraph/man/closeness.html">igraph::closeness</a></code> function calculates closeness centrality and can be calculated for directed and undirected simple or weighted networks with no isolates. This function can also be used for networks with isolates, but you will receive an additional message suggesting that closeness is undefined for networks that are not fully connected. For very large networks you can use the <code><a href="https://rdrr.io/pkg/igraph/man/closeness.html">igraph::estimate_closeness</a></code> function with a cutoff setting that will consider paths of length up to cutoff to calculate closeness scores. For directed networks you can also specify whether connections in, out, or in both directions should be used.</p>
+<div class="sourceCode" id="cb95"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/closeness.html">closeness</a></span><span class="op">(</span><span class="va">simple_net</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>
 <span class="co">#&gt; Apache.Creek      Atsinna  Baca.Pueblo Casa.Malpais </span>
 <span class="co">#&gt;   0.01470588   0.01470588   0.01315789   0.01886792 </span>
@@ -396,7 +401,7 @@
 <span class="header-section-number">3.3.6</span> Hubs and Authorities<a class="anchor" aria-label="anchor" href="#hubs-and-authorities"><i class="fas fa-link"></i></a>
 </h3>
 <p>In directed networks it is possible to calculate hub and authority scores to identify nodes that are characterized by high indegree and high outdegree in particular. Because this is a measure that depends on direction it is only appropriate for directed network objects. If you run this function for an undirected network hub scores and authority scores will be identical. These functions can also be applied networks that are both directed and weighted. If you do not want all options printed you can use the atomic vector $vector call as well.</p>
-<div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb96"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/hub_score.html">hub_score</a></span><span class="op">(</span><span class="va">directed_net</span><span class="op">)</span><span class="op">$</span><span class="va">vector</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>
 <span class="co">#&gt;    Coyote Creek Techado Springs   Hubble Corner </span>
 <span class="co">#&gt;      0.31998744      0.12265832      0.30740409 </span>
@@ -420,8 +425,8 @@
 <span class="header-section-number">3.4.1</span> Triads<a class="anchor" aria-label="anchor" href="#triads"><i class="fas fa-link"></i></a>
 </h3>
 <p>A triad is simply a set of three nodes and a description of the configuration of edges among them. For undirected graphs, there are four possibilities for describing the connections among those nodes (empty graph, 1 connection, 2 connections, 3 connections). For directed graphs the situation is considerably more complicated because ties can be considered in both directions and an edge in one direction isn’t necessarily reciprocated. Thus there are 16 different configurations that can exist (see Brughmans and Peeples 2022: Figure 4.4).</p>
-<p>One common method for outlining the overall structural properties of a network is to conduct a “triad census” which counts each of the 4 or 16 possible triads for a given network. Although a triad census can be conducted on an undirected network using the igraph::triad_census function, a warning will be returned along with 0 results for all impossible triad configurations so be aware. The results are returned as a vector of counts of each possible node configuration in an order outlined in the help document associated with the function (see ?triad_census for more).</p>
-<div class="sourceCode" id="cb83"><pre class="downlit sourceCode r">
+<p>One common method for outlining the overall structural properties of a network is to conduct a “triad census” which counts each of the 4 or 16 possible triads for a given network. Although a triad census can be conducted on an undirected network using the <code><a href="https://rdrr.io/pkg/igraph/man/triad_census.html">igraph::triad_census</a></code> function, a warning will be returned along with 0 results for all impossible triad configurations so be aware. The results are returned as a vector of counts of each possible node configuration in an order outlined in the help document associated with the function (see <code><a href="https://rdrr.io/pkg/igraph/man/triad_census.html">?triad_census</a></code> for more).</p>
+<div class="sourceCode" id="cb97"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/triad_census.html">triad_census</a></span><span class="op">(</span><span class="va">directed_net</span><span class="op">)</span>
 <span class="co">#&gt;  [1] 1404 2007    0  134  146  174    0    0  195    0    0</span>
 <span class="co">#&gt; [12]    0    0    0    0    0</span>
@@ -431,8 +436,8 @@
 <span class="co">#&gt; motifs.c:1165 : Triad census called on an undirected graph.</span>
 <span class="co">#&gt;  [1] 1033    0 2551    0    0    0    0    0    0    0  441</span>
 <span class="co">#&gt; [12]    0    0    0    0  470</span></code></pre></div>
-<p>Often can be useful to visualize the motifs defined for each entry in the triad census and this can be done using the “graph_from_isomorphism_class()” function and a little bit of additional data wrangling and plotting using the ggraph and ggpubr packages. These packages are described in more detail in the visualization section of this appendix.</p>
-<div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
+<p>Often can be useful to visualize the motifs defined for each entry in the triad census and this can be done using the <code><a href="https://rdrr.io/pkg/igraph/man/graph_from_isomorphism_class.html">graph_from_isomorphism_class()</a></code> function which outputs every possible combination of 3 nodes. We can plot these configurations in a single plot using the <code>ggraph</code> and <code>ggpubr</code> packages. These packages are described in more detail in the visualization section of this appendix.</p>
+<div class="sourceCode" id="cb98"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggraph.data-imaginist.com">ggraph</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rpkgs.datanovia.com/ggpubr/">ggpubr</a></span><span class="op">)</span>
 
@@ -487,8 +492,8 @@
 <h3>
 <span class="header-section-number">3.4.2</span> Transitivity and Clustering<a class="anchor" aria-label="anchor" href="#transitivity-and-clustering"><i class="fas fa-link"></i></a>
 </h3>
-<p>A network’s global average transitivity (or clustering coefficient) is the number of closed triads over the total number of triads in a network. This measure can be calculated using “igraph::transitivity” for simple networks with or without isolates, directed networks, and weighted networks. There are options within the function to determine the specific type of transitivity (global transitivity is the default) and for how to treat isolates. See the help document (?igraph::transitivity) for more details. If you want to calculate local transitivity for a particular node you can use the “type=‘local’” argument. This will return a NA value for nodes that are not part of any triads (isolates and nodes with a single connection).</p>
-<div class="sourceCode" id="cb85"><pre class="downlit sourceCode r">
+<p>A network’s global average transitivity (or clustering coefficient) is three times the number of closed triads over the total number of triads in a network. This measure can be calculated using <code><a href="https://rdrr.io/pkg/igraph/man/transitivity.html">igraph::transitivity</a></code> for simple networks with or without isolates, directed networks, and weighted networks. There are options within the function to determine the specific type of transitivity (global transitivity is the default) and for how to treat isolates. See the help document (<code><a href="https://rdrr.io/pkg/igraph/man/transitivity.html">?igraph::transitivity</a></code>) for more details. If you want to calculate local transitivity for a particular node you can use the “type=‘local’” argument. This will return a NA value for nodes that are not part of any triads (isolates and nodes with a single connection).</p>
+<div class="sourceCode" id="cb99"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/transitivity.html">transitivity</a></span><span class="op">(</span><span class="va">simple_net</span>, type <span class="op">=</span> <span class="st">"global"</span><span class="op">)</span>
 <span class="co">#&gt; [1] 0.7617504</span>
 
@@ -511,8 +516,8 @@
 <h3>
 <span class="header-section-number">3.5.1</span> Distance<a class="anchor" aria-label="anchor" href="#distance"><i class="fas fa-link"></i></a>
 </h3>
-<p>In some cases, you may simply want information about the graph distance between nodes in general or perhaps the average distance. There are a variety of functions that can help with this including “igraph::distances” and “igraph::mean_distance.” These work on simple networks, directed networks, and weighted networks.</p>
-<div class="sourceCode" id="cb86"><pre class="downlit sourceCode r">
+<p>In some cases, you may simply want information about the graph distance between nodes in general or perhaps the average distance. There are a variety of functions that can help with this including <code><a href="https://rdrr.io/pkg/igraph/man/distances.html">igraph::distances</a></code> and <code><a href="https://rdrr.io/pkg/igraph/man/distances.html">igraph::mean_distance</a></code>. These work on simple networks, directed networks, and weighted networks.</p>
+<div class="sourceCode" id="cb100"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Create matrix of all distances among nodes and view the first</span>
 <span class="co"># few rows and columns</span>
 <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/distances.html">distances</a></span><span class="op">(</span><span class="va">simple_net</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>
@@ -530,13 +535,13 @@
 <h3>
 <span class="header-section-number">3.5.2</span> Shortest Paths<a class="anchor" aria-label="anchor" href="#shortest-paths"><i class="fas fa-link"></i></a>
 </h3>
-<p>If you want to identify particular shortest paths to or from nodes in a network you can use the “igraph::shortest_paths” function or alternatively the igraph::all_shortest_paths if you want all shortest paths originating at a particular node. To call this function you simply need to provide a network object and an id for the origin and destination of the path. The simplest solution is just to call the node number. This function works with directed and undirected networks with or without weights. Although it can be applied to networks with isolates, the isolates themselves will produce NA results.</p>
-<div class="sourceCode" id="cb87"><pre class="downlit sourceCode r">
+<p>If you want to identify particular shortest paths to or from nodes in a network you can use the <code><a href="https://rdrr.io/pkg/igraph/man/distances.html">igraph::shortest_paths</a></code> function or alternatively the <code><a href="https://rdrr.io/pkg/igraph/man/distances.html">igraph::all_shortest_paths</a></code> if you want all shortest paths originating at a particular node. To call this function you simply need to provide a network object and an id for the origin and destination of the path. The simplest solution is just to call the node number. This function works with directed and undirected networks with or without weights. Although it can be applied to networks with isolates, the isolates themselves will produce <code>NA</code> results.</p>
+<div class="sourceCode" id="cb101"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># track shortest path from Apache Creek to Pueblo de los Muertos</span>
 <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/distances.html">shortest_paths</a></span><span class="op">(</span><span class="va">simple_net</span>, from <span class="op">=</span> <span class="fl">1</span>, to <span class="op">=</span> <span class="fl">21</span><span class="op">)</span>
 <span class="co">#&gt; $vpath</span>
 <span class="co">#&gt; $vpath[[1]]</span>
-<span class="co">#&gt; + 5/31 vertices, named, from 36b3b40:</span>
+<span class="co">#&gt; + 5/31 vertices, named, from 6b32d62:</span>
 <span class="co">#&gt; [1] Apache.Creek          Casa.Malpais         </span>
 <span class="co">#&gt; [3] Garcia.Ranch          Heshotauthla         </span>
 <span class="co">#&gt; [5] Pueblo.de.los.Muertos</span>
@@ -556,14 +561,14 @@
 <h3>
 <span class="header-section-number">3.5.3</span> Diameter<a class="anchor" aria-label="anchor" href="#diameter"><i class="fas fa-link"></i></a>
 </h3>
-<p>The “igraph::diameter” function calculates the diameter of a network (the longest shortest path) and you can also use the “farthest_vertices” function to get the ids of the nodes that form the ends of that longest shortest path. This metric can be calculated for directed and undirected, weighted and unweighted networks, with or without isolates.</p>
-<div class="sourceCode" id="cb88"><pre class="downlit sourceCode r">
+<p>The <code><a href="https://rdrr.io/pkg/igraph/man/diameter.html">igraph::diameter</a></code> function calculates the diameter of a network (the longest shortest path) and you can also use the <code>farthest_vertices</code> function to get the ids of the nodes that form the ends of that longest shortest path. This metric can be calculated for directed and undirected, weighted and unweighted networks, with or without isolates.</p>
+<div class="sourceCode" id="cb102"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/diameter.html">diameter</a></span><span class="op">(</span><span class="va">directed_net</span>, directed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="co">#&gt; [1] 4</span>
 
 <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/diameter.html">farthest_vertices</a></span><span class="op">(</span><span class="va">directed_net</span>, directed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="co">#&gt; $vertices</span>
-<span class="co">#&gt; + 2/30 vertices, named, from 36b4c08:</span>
+<span class="co">#&gt; + 2/30 vertices, named, from 6b33c8a:</span>
 <span class="co">#&gt; [1] Apache Creek          Pueblo de los Muertos</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $distance</span>
@@ -574,30 +579,30 @@
 <h2>
 <span class="header-section-number">3.6</span> Components and Bridges<a class="anchor" aria-label="anchor" href="#components-and-bridges"><i class="fas fa-link"></i></a>
 </h2>
-<p>Identifying fully connected subgraphs within a large network is a common analytical procedure and is quite straight forward in R using the igraph package. If you first want to know whether or not a given network is fully connected you can use the “igraph::is_connected” function to check.</p>
-<div class="sourceCode" id="cb89"><pre class="downlit sourceCode r">
+<p>Identifying fully connected subgraphs within a large network is a common analytical procedure and is quite straight forward in R using the igraph package. If you first want to know whether or not a given network is fully connected you can use the <code><a href="https://rdrr.io/pkg/igraph/man/components.html">igraph::is_connected</a></code> function to check.</p>
+<div class="sourceCode" id="cb103"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/components.html">is_connected</a></span><span class="op">(</span><span class="va">simple_net</span><span class="op">)</span>
 <span class="co">#&gt; [1] FALSE</span>
 
 <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/components.html">is_connected</a></span><span class="op">(</span><span class="va">simple_net_noiso</span><span class="op">)</span>
 <span class="co">#&gt; [1] TRUE</span></code></pre></div>
-<p>You can also count components using the “count_components” function.</p>
-<div class="sourceCode" id="cb90"><pre class="downlit sourceCode r">
+<p>You can also count components using the <code>count_components</code> function.</p>
+<div class="sourceCode" id="cb104"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/components.html">count_components</a></span><span class="op">(</span><span class="va">simple_net</span><span class="op">)</span>
 <span class="co">#&gt; [1] 2</span></code></pre></div>
 <div id="identifying-components" class="section level3" number="3.6.1">
 <h3>
 <span class="header-section-number">3.6.1</span> Identifying Components<a class="anchor" aria-label="anchor" href="#identifying-components"><i class="fas fa-link"></i></a>
 </h3>
-<p>If you want to decompose a network object into its distinct components you can use the “igraph::decompose” function which outputs a list object with each entry representing a distinct component. Each object in the list can then be called using [[k]] where k is the number of the item in the list.</p>
-<div class="sourceCode" id="cb91"><pre class="downlit sourceCode r">
+<p>If you want to decompose a network object into its distinct components you can use the <code><a href="https://rdrr.io/pkg/igraph/man/decompose.html">igraph::decompose</a></code> function which outputs a list object with each entry representing a distinct component. Each object in the list can then be called using <code>[[k]]</code> where <code>k</code> is the number of the item in the list.</p>
+<div class="sourceCode" id="cb105"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">components</span> <span class="op">&lt;-</span> <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/decompose.html">decompose</a></span><span class="op">(</span><span class="va">simple_net</span>, min.vertices <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
 
 <span class="va">components</span>
 <span class="co">#&gt; [[1]]</span>
-<span class="co">#&gt; IGRAPH 3938951 UN-- 30 167 -- </span>
+<span class="co">#&gt; IGRAPH 6d6e89c UN-- 30 167 -- </span>
 <span class="co">#&gt; + attr: name (v/c)</span>
-<span class="co">#&gt; + edges from 3938951 (vertex names):</span>
+<span class="co">#&gt; + edges from 6d6e89c (vertex names):</span>
 <span class="co">#&gt;  [1] Apache.Creek--Casa.Malpais        </span>
 <span class="co">#&gt;  [2] Apache.Creek--Coyote.Creek        </span>
 <span class="co">#&gt;  [3] Apache.Creek--Hooper.Ranch        </span>
@@ -609,9 +614,9 @@
 <span class="co">#&gt; + ... omitted several edges</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; [[2]]</span>
-<span class="co">#&gt; IGRAPH 3938974 UN-- 1 0 -- </span>
+<span class="co">#&gt; IGRAPH 6d6e8c0 UN-- 1 0 -- </span>
 <span class="co">#&gt; + attr: name (v/c)</span>
-<span class="co">#&gt; + edges from 3938974 (vertex names):</span>
+<span class="co">#&gt; + edges from 6d6e8c0 (vertex names):</span>
 
 <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html">V</a></span><span class="op">(</span><span class="va">components</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">$</span><span class="va">name</span>
 <span class="co">#&gt; [1] "WS.Ranch"</span></code></pre></div>
@@ -621,9 +626,9 @@
 <h3>
 <span class="header-section-number">3.6.2</span> Cutpoints<a class="anchor" aria-label="anchor" href="#cutpoints"><i class="fas fa-link"></i></a>
 </h3>
-<p>A cutpoint is a node, the removal which creates a network with a higher number of components. There is not a convenient igraph function for identifying cutpoints but there is a function in the “sna” package within the “statnet” suite. Using the intergraph package we can easily convert an igraph object to an sna object (using the asNetwork function) within the call to use this function.</p>
-<p>The sna::cutpoint function returns the node id for any cutpoints detected. We can use the numbers returned to find the name of the node in question.</p>
-<div class="sourceCode" id="cb92"><pre class="downlit sourceCode r">
+<p>A cutpoint is a node, the removal which creates a network with a higher number of components. There is not a convenient igraph function for identifying cutpoints but there is a function in the <code>sna</code> package within the <code>statnet</code> suite. Using the <code>intergraph</code> package we can easily convert an igraph object to an sna object (using the <code>asNetwork</code> function) within the call to use this function.</p>
+<p>The <code>sna::cutpoint</code> function returns the node id for any cutpoints detected. We can use the numbers returned to find the name of the node in question.</p>
+<div class="sourceCode" id="cb106"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">cut_p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/sna/man/cutpoints.html">cutpoints</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/intergraph/man/asNetwork.html">asNetwork</a></span><span class="op">(</span><span class="va">simple_net</span><span class="op">)</span><span class="op">)</span>
 <span class="va">cut_p</span>
 <span class="co">#&gt; [1] 18</span>
@@ -640,22 +645,22 @@
 <h3>
 <span class="header-section-number">3.6.3</span> Bridges<a class="anchor" aria-label="anchor" href="#bridges"><i class="fas fa-link"></i></a>
 </h3>
-<p>A bridge is an edge, the removal of which results in a network with a higher number of components. The function igraph::min_cut finds bridges in network objects for sets of nodes or for the graph as a whole. The output of this function includes a vector called $cut which provides the edges representing bridges. By default this function only outputs the cut value but you can use the argument value.only=FALSE to get the full output.</p>
-<div class="sourceCode" id="cb93"><pre class="downlit sourceCode r">
+<p>A bridge is an edge, the removal of which results in a network with a higher number of components. The function igraph::min_cut finds bridges in network objects for sets of nodes or for the graph as a whole. The output of this function includes a vector called $cut which provides the edges representing bridges. By default this function only outputs the cut value but you can use the argument <code>value.only = FALSE</code> to get the full output.</p>
+<div class="sourceCode" id="cb107"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/min_cut.html">min_cut</a></span><span class="op">(</span><span class="va">simple_net_noiso</span>, value.only <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 <span class="co">#&gt; $value</span>
 <span class="co">#&gt; [1] 1</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $cut</span>
-<span class="co">#&gt; + 1/167 edge from 36b41a6 (vertex names):</span>
+<span class="co">#&gt; + 1/167 edge from 6b3335a (vertex names):</span>
 <span class="co">#&gt; [1] Ojo Bonito--Baca Pueblo</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $partition1</span>
-<span class="co">#&gt; + 1/30 vertex, named, from 36b41a6:</span>
+<span class="co">#&gt; + 1/30 vertex, named, from 6b3335a:</span>
 <span class="co">#&gt; [1] Baca Pueblo</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $partition2</span>
-<span class="co">#&gt; + 29/30 vertices, named, from 36b41a6:</span>
+<span class="co">#&gt; + 29/30 vertices, named, from 6b3335a:</span>
 <span class="co">#&gt;  [1] Apache Creek          Casa Malpais         </span>
 <span class="co">#&gt;  [3] Coyote Creek          Hooper Ranch         </span>
 <span class="co">#&gt;  [5] Horse Camp Mill       Hubble Corner        </span>
@@ -679,10 +684,10 @@
 <h3>
 <span class="header-section-number">3.7.1</span> Cliques<a class="anchor" aria-label="anchor" href="#cliques"><i class="fas fa-link"></i></a>
 </h3>
-<p>A clique as a network science concept is arguably the strictest method of defining a cohesive subgroup. It is any set of three or more nodes in which each node is directly connected to all other nodes. It can be alternatively defined as a completely connected subnetwork, or a subnetwork with maximum density. The function “igraph::max_cliques” finds all maximal cliques in a network and outputs a list object with nodes in each set indicated. For the sake of space here we only output one clique of the 24 that were defined by this function call.</p>
-<div class="sourceCode" id="cb94"><pre class="downlit sourceCode r">
+<p>A clique as a network science concept is arguably the strictest method of defining a cohesive subgroup. It is any set of three or more nodes in which each node is directly connected to all other nodes. It can be alternatively defined as a completely connected subnetwork, or a subnetwork with maximum density. The function <code><a href="https://rdrr.io/pkg/igraph/man/cliques.html">igraph::max_cliques</a></code> finds all maximal cliques in a network and outputs a list object with nodes in each set indicated. For the sake of space here we only output one clique of the 24 that were defined by this function call.</p>
+<div class="sourceCode" id="cb108"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/cliques.html">max_cliques</a></span><span class="op">(</span><span class="va">simple_net</span>, min <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">[[</span><span class="fl">24</span><span class="op">]</span><span class="op">]</span>
-<span class="co">#&gt; + 9/31 vertices, named, from 36b3b40:</span>
+<span class="co">#&gt; + 9/31 vertices, named, from 6b32d62:</span>
 <span class="co">#&gt; [1] Los.Gigantes    Cienega         Tinaja         </span>
 <span class="co">#&gt; [4] Spier.170       Scribe.S        Pescado.Cluster</span>
 <span class="co">#&gt; [7] Mirabal         Heshotauthla    Yellowhouse</span></code></pre></div>
@@ -692,8 +697,8 @@
 <h3>
 <span class="header-section-number">3.7.2</span> K-cores<a class="anchor" aria-label="anchor" href="#k-cores"><i class="fas fa-link"></i></a>
 </h3>
-<p>A k-core is a maximal subnetwork in which each vertex has at least degree k within the subnetwork. In R this can be obtained using the “igraph::coreness” function and the filtering by value as appropriate. This function creates a vector of k values which can then be used to remove nodes as appropriate or symbolize them in plots.</p>
-<div class="sourceCode" id="cb95"><pre class="downlit sourceCode r">
+<p>A k-core is a maximal subnetwork in which each vertex has at least degree k within the subnetwork. In R this can be obtained using the <code><a href="https://rdrr.io/pkg/igraph/man/coreness.html">igraph::coreness</a></code> function and the filtering by value as appropriate. This function creates a vector of k values which can then be used to remove nodes as appropriate or symbolize them in plots.</p>
+<div class="sourceCode" id="cb109"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Define coreness of each node</span>
 <span class="va">kcore</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/coreness.html">coreness</a></span><span class="op">(</span><span class="va">simple_net</span><span class="op">)</span>
 <span class="va">kcore</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span><span class="op">]</span>
@@ -718,8 +723,8 @@
 <h4>
 <span class="header-section-number">3.7.3.1</span> Girvan-Newman Clustering<a class="anchor" aria-label="anchor" href="#girvan-newman-clustering"><i class="fas fa-link"></i></a>
 </h4>
-<p>Girvan-Newman clustering is a divisive algorithm based on betweenness that defines a partition of network that maximizes modularity by removing nodes with high betweenness iteratively (see discussion in Brughmans and Peeples 2022 Chapter 4.6). In R this is referred to as the igraph::edge.betweenness.community function. This function can be used on directed or undirected networks with or without edge weights. This function outputs a variety of information including individual edge betweenness scores, modularity information, and partition membership. See the help documents for more information</p>
-<div class="sourceCode" id="cb96"><pre class="downlit sourceCode r">
+<p>Girvan-Newman clustering is a divisive algorithm based on betweenness that defines a partition of network that maximizes modularity by removing nodes with high betweenness iteratively (see discussion in Brughmans and Peeples 2022 Chapter 4.6). In R this is referred to as the <code><a href="https://rdrr.io/pkg/igraph/man/cluster_edge_betweenness.html">igraph::edge.betweenness.community</a></code> function. This function can be used on directed or undirected networks with or without edge weights. This function outputs a variety of information including individual edge betweenness scores, modularity information, and partition membership. See the help documents for more information</p>
+<div class="sourceCode" id="cb110"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">GN</span> <span class="op">&lt;-</span> <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/cluster_edge_betweenness.html">edge.betweenness.community</a></span><span class="op">(</span><span class="va">simple_net</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">4353</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">simple_net</span>, vertex.color <span class="op">=</span> <span class="va">GN</span><span class="op">$</span><span class="va">membership</span><span class="op">)</span></code></pre></div>
@@ -729,8 +734,8 @@
 <h4>
 <span class="header-section-number">3.7.3.2</span> Walktrap Algorithm<a class="anchor" aria-label="anchor" href="#walktrap-algorithm"><i class="fas fa-link"></i></a>
 </h4>
-<p>The walktrap algorithm is designed to work for either binary or weighted networks and defines communities by generating a large number of short random walks and determining which sets of nodes consistently fall along the same short random walks. This can called using the “igraph::cluster_walktrap” function. The “steps” argument determines the length of the short walks and is set to 4 by default.</p>
-<div class="sourceCode" id="cb97"><pre class="downlit sourceCode r">
+<p>The walktrap algorithm is designed to work for either binary or weighted networks and defines communities by generating a large number of short random walks and determining which sets of nodes consistently fall along the same short random walks. This can called using the <code><a href="https://rdrr.io/pkg/igraph/man/cluster_walktrap.html">igraph::cluster_walktrap</a></code> function. The “steps” argument determines the length of the short walks and is set to 4 by default.</p>
+<div class="sourceCode" id="cb111"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">WT</span> <span class="op">&lt;-</span> <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/cluster_walktrap.html">cluster_walktrap</a></span><span class="op">(</span><span class="va">simple_net</span>, steps <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">4353</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">simple_net</span>, vertex.color <span class="op">=</span> <span class="va">WT</span><span class="op">$</span><span class="va">membership</span><span class="op">)</span></code></pre></div>
@@ -740,8 +745,8 @@
 <h4>
 <span class="header-section-number">3.7.3.3</span> Louvain Modularity<a class="anchor" aria-label="anchor" href="#louvain-modularity"><i class="fas fa-link"></i></a>
 </h4>
-<p>Louvain modularity is a cluster detection algorithm based on modularity. The algorithm iteratively moves nodes among community definitions in a way that optimizes modularity. This measure can be calculated on simple networks, directed networks, and weighted networks and is implemented in R through the “igraph::cluster_louvain” function.</p>
-<div class="sourceCode" id="cb98"><pre class="downlit sourceCode r">
+<p>Louvain modularity is a cluster detection algorithm based on modularity. The algorithm iteratively moves nodes among community definitions in a way that optimizes modularity. This measure can be calculated on simple networks, directed networks, and weighted networks and is implemented in R through the <code><a href="https://rdrr.io/pkg/igraph/man/cluster_louvain.html">igraph::cluster_louvain</a></code> function.</p>
+<div class="sourceCode" id="cb112"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">LV</span> <span class="op">&lt;-</span> <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/cluster_louvain.html">cluster_louvain</a></span><span class="op">(</span><span class="va">simple_net</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">4353</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">simple_net</span>, vertex.color <span class="op">=</span> <span class="va">LV</span><span class="op">$</span><span class="va">membership</span><span class="op">)</span></code></pre></div>
@@ -751,8 +756,8 @@
 <h4>
 <span class="header-section-number">3.7.3.4</span> Calculating Modularity for Partitions<a class="anchor" aria-label="anchor" href="#calculating-modularity-for-partitions"><i class="fas fa-link"></i></a>
 </h4>
-<p>If you would like to compare modularity scores among partitions of the same graph, this can be achieved using the “igraph::modularity” function. In the modularity call you simply supply an argument indicating the partition membership for each node. Note that this can also be used for attribute data such as regional designations. In the following chunk of code we will compare modularity for each of the clustering methods described above as well using subregion designations <a href="data/Cibola_attr.csv">from the original Cibola region attribute data</a></p>
-<div class="sourceCode" id="cb99"><pre class="downlit sourceCode r">
+<p>If you would like to compare modularity scores among partitions of the same graph, this can be achieved using the <code><a href="https://rdrr.io/pkg/igraph/man/modularity.igraph.html">igraph::modularity</a></code> function. In the modularity call you simply supply an argument indicating the partition membership for each node. Note that this can also be used for attribute data such as regional designations. In the following chunk of code we will compare modularity for each of the clustering methods described above as well using subregion designations <a href="data/Cibola_attr.csv">from the original Cibola region attribute data</a></p>
+<div class="sourceCode" id="cb113"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Modularity for Girvan-Newman</span>
 <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/modularity.igraph.html">modularity</a></span><span class="op">(</span><span class="va">simple_net</span>, membership <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/communities.html">membership</a></span><span class="op">(</span><span class="va">GN</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; [1] 0.4103589</span>
@@ -775,8 +780,8 @@
 <h4>
 <span class="header-section-number">3.7.3.5</span> Finding Edges Within and Between Communities<a class="anchor" aria-label="anchor" href="#finding-edges-within-and-between-communities"><i class="fas fa-link"></i></a>
 </h4>
-<p>In many cases you may be interested in identifying edges that remain within or extend between some network partition. This can be done using the “igraph::crossing” function. This function expects a igraph cluster definition object and an igraph network and will return a list of true and false values for each edge where true indicates an edge that extends beyond the cluster assigned to the nodes. Let’s take a look at the first 10 edges in our simple_net object based on the Louvain cluster definition.</p>
-<div class="sourceCode" id="cb100"><pre class="downlit sourceCode r">
+<p>In many cases you may be interested in identifying edges that remain within or extend between some network partition. This can be done using the <code><a href="https://rdrr.io/pkg/igraph/man/communities.html">igraph::crossing</a></code> function. This function expects a igraph cluster definition object and an igraph network and will return a list of <code>TRUE</code> and <code>FALSE</code> values for each edge where true indicates an edge that extends beyond the cluster assigned to the nodes. Let’s take a look at the first 10 edges in our simple_net object based on the Louvain cluster definition.</p>
+<div class="sourceCode" id="cb114"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/communities.html">crossing</a></span><span class="op">(</span><span class="va">LV</span>, <span class="va">simple_net</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span><span class="op">]</span>
 <span class="co">#&gt;         Apache.Creek|Casa.Malpais </span>
 <span class="co">#&gt;                             FALSE </span>
@@ -791,7 +796,7 @@
 <span class="co">#&gt; Apache.Creek|Mineral.Creek.Pueblo </span>
 <span class="co">#&gt;                             FALSE</span></code></pre></div>
 <p>Beyond this, if you plot an igraph object and add a cluster definition to the call it will produce a network graph with the clusters outlined and with nodes that extend between clusters shown in red.</p>
-<div class="sourceCode" id="cb101"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb115"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">54</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">LV</span>, <span class="va">simple_net</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="03-exploratory-analysis_files/figure-html/unnamed-chunk-27-1.png" width="672"></div>
@@ -808,8 +813,8 @@
 <li>A network that retains all of the ties of the above network but also connects isolated nodes that are within 50 Kms of one of the road network settlements</li>
 <li>A network that retains all of the ties of the first road network but connects each isolate to its nearest neighbor among the road network settlements</li>
 </ul>
-<p>First let’s read in the <a href="data/road_networks.RData">data file</a> that contains all three networks and start by plotting them in turn on a map. For more details on how these plots work, see section 6 on network visualization.</p>
-<div class="sourceCode" id="cb102"><pre class="downlit sourceCode r">
+<p>First let’s read in the <a href="data/road_networks.RData">data file</a> that contains all three networks and start by plotting them in turn on a map. For more details on how these plots work, see section 5 on network visualization.</p>
+<div class="sourceCode" id="cb116"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://igraph.org">igraph</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/dkahle/ggmap">ggmap</a></span><span class="op">)</span>
@@ -951,16 +956,16 @@
 
 <span class="va">basic_net</span></code></pre></div>
 <div class="inline-figure"><img src="03-exploratory-analysis_files/figure-html/iberian_roads-1.png" width="672"></div>
-<div class="sourceCode" id="cb103"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb117"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="va">basic_net_50</span></code></pre></div>
 <div class="inline-figure"><img src="03-exploratory-analysis_files/figure-html/iberian_roads-2.png" width="672"></div>
-<div class="sourceCode" id="cb104"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb118"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="va">basic_net_nn</span></code></pre></div>
 <div class="inline-figure"><img src="03-exploratory-analysis_files/figure-html/iberian_roads-3.png" width="672"></div>
 <p>Now that we’ve replicated the visuals, we want to replicate network statistics. Since we’re going to calculate several of the same network statistics for the networks in question, we can wrap this all into a function to save a bit of time. The following function expects an igraph network object and calculates each of the 10 variables show in the example in the book and returns them as a matrix.</p>
-<div class="sourceCode" id="cb105"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb119"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://igraph.org">igraph</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://mbojan.github.io/intergraph">intergraph</a></span><span class="op">)</span>
 
@@ -993,7 +998,7 @@
 <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
 <p>Now let’s run it for each of the three networks in turn to reproduce the results in the book.</p>
-<div class="sourceCode" id="cb106"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb120"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="va">ns1</span> <span class="op">&lt;-</span> <span class="fu">net_stats</span><span class="op">(</span><span class="va">road_net</span><span class="op">)</span>
 
@@ -1230,7 +1235,7 @@ Open Triad Count
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Online Companion to <em>Archaeological Network Science</em> by Brughmans and Peeples</strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-05-17.</p>
+    <p>"<strong>Online Companion to <em>Archaeological Network Science</em> by Brughmans and Peeples</strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-05-18.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

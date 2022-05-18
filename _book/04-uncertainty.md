@@ -45,15 +45,15 @@ Now we need to define a function that removes a specified proportion of nodes at
 
 First, following Chapter 5.3.1, we will assess the robustness of these data to nodes missing at random for betweenness centrality.
 
-The "nodes_missing_at_random_bw" function below requires three specific pieces of information from the user.
+The `nodes_missing_at_random_bw` function below requires three specific pieces of information from the user.
 
-* net - You must include a network object in igraph format. The current version expects a simple network but the code could be modified for other types.
-* nsim - You must specify the number of simulations to perform. The default is 1000.
-* props - Finally, you must specify the proportion of nodes to be retained for each set of nsim runs. This should be provided as a vector of proportions ranging from > 0 to 1. By default, the script will calculate a 90% sub-sample all the way down to a 10% sub-sample at 10% intervals using props=c(0.9,0.8,0.7,0.6,0.5,0.4,0.3,0.2,0.1).
+* `net` - You must include a network object in igraph format. The current version expects a simple network but the code could be modified for other types.
+* `nsim` - You must specify the number of simulations to perform. The default is 1000.
+* `props` - Finally, you must specify the proportion of nodes to be retained for each set of nsim runs. This should be provided as a vector of proportions ranging from > 0 to 1. By default, the script will calculate a 90% sub-sample all the way down to a 10% sub-sample at 10% intervals using `props=c(0.9,0.8,0.7,0.6,0.5,0.4,0.3,0.2,0.1)`.
 
 As we said, this function is designed to assess betweenness centrality but if you wish to assess another network metric, you simply need to modify the code in two places as marked below. Let's initialize the script then take a look at the example from the book first using betweenness centrality and then modifying the code for eigenvector centrality. Note that depending on the size of your network and the number of simulations you specify, this could take from several seconds to several minutes. 
 
-To briefly describe how this works, the inner portion of this function contains two nested "for" loops which iterate across all values of "props" and for every simulation 1 to "nsim". The "sub_samp" object is a vector of random integers based on node ids that determine which nodes will be retained. The "sub_net" object is a subset of the larger graph which includes only those nodes indicated in "sub_samp." Next, we then calculate betweenness centrality for the "sub_net" object and create a vector of those values called "temp_stats." Finally, we compare rank order correlation of centrality scores in the "temp_stats" to the "met_orig" which is the vector of values in the original network and add to the output matrix. Once we run the script we can visualize the results.
+To briefly describe how this works, the inner portion of this function contains two nested for loops which iterate across all values of `props` and for every simulation 1 to `nsim`. The `sub_samp` object is a vector of random integers based on node ids that determine which nodes will be retained. The `sub_net` object is a subset of the larger graph which includes only those nodes indicated in `sub_samp`. Next, we then calculate betweenness centrality for the "sub_net" object and create a vector of those values called `temp_stats`. Finally, we compare rank order correlation of centrality scores in the `temp_stats` to the `met_orig` which is the vector of values in the original network and add to the output matrix. Once we run the script we can visualize the results.
 
 
 ```r
@@ -112,7 +112,7 @@ ggplot(data = df) +
 
 <img src="04-uncertainty_files/figure-html/unnamed-chunk-2-1.png" width="672" />
 
-Now let's run the same function for eigenvector centrality, this time using the default arguments in the function we created rather than calling them directly. Note that we modified two lines of code to change igraph::betweenness(net) to igraph::eign_centrality(net)$vector. Because the eigen_centrality function outputs more than just the centrality values, we need to include the vector call.
+Now let's run the same function for eigenvector centrality, this time using the default arguments in the function we created rather than calling them directly. Note that we modified two lines of code to change `igraph::betweenness(net)` to `igraph::eign_centrality(net)$vector`. Because the `eigen_centrality` function outputs more than just the centrality values, we need to include the vector call.
 
 
 ```r
@@ -167,7 +167,7 @@ ggplot(data = df) +
 
 ### Edges Missing at Random
 
-We can also modify the function we defined above a little more to assess the impacts of edges missing at random. In this case we assess the impact of edges missing at random on degree centrality. We changed the same two lines "met_orig" and "temp_stats" to calculate degree and we also had to slightly change the lines beginning with "sub_samp," "sub_net," and "output[i,j]" to expect variation in edges rather than nodes. Specifically, in the line that starts with "sub_samp" we change "vcount" to "ecount" to get a sample of edges rather than nodes (vertices). In the next line we use that "sub_samp" object to "delete_edges" for all not in that sub sample. Finally, we remove the brackets after "met_orig" since all nodes are retained in this example. 
+We can also modify the function we defined above a little more to assess the impacts of edges missing at random. In this case we assess the impact of edges missing at random on degree centrality. We changed the same two lines `met_orig` and `temp_stats` to calculate degree and we also had to slightly change the lines beginning with `sub_samp`, `sub_net`, and `output[i,j]` to expect variation in edges rather than nodes. Specifically, in the line that starts with `sub_samp` we change `vcount` to `ecount`to get a sample of edges rather than nodes (vertices). In the next line we use that `sub_samp`object to `delete_edges` for all not in that sub sample. Finally, we remove the brackets after `met_orig` since all nodes are retained in this example. 
 
 
 ```r
@@ -229,12 +229,12 @@ This sub-section follows along with Chapter 5.3.2 in Brughmans and Peeples (2022
 
 The function requires four pieces of information from the user:
 
-* net - An igraph network object. Again this is currently set up for simple networks but could easily be modified.
-* target - The name of the target node you wish to assess
-* prop - The proportion of nodes you wish to retain in the test.
-* nsim - The number of simulations. The default is 1000.
+* `net` - An igraph network object. Again this is currently set up for simple networks but could easily be modified.
+* `target` - The name of the target node you wish to assess
+* `prop` - The proportion of nodes you wish to retain in the test.
+* `nsim` - The number of simulations. The default is 1000.
 
-Briefly how this function works is it first determines which node number corresponds with the "target" you wish to assess and creates a sub_sample that retains that target node. A subgraph is then induced (sub_net) and the metric of interest is calculated (betweenness in this case). The "output" object is a vector that records the specific rank order that the node in question fell in in terms of the metric in question. 
+Briefly how this function works is it first determines which node number corresponds with the `target` you wish to assess and creates a sub_sample that retains that target node. A subgraph is then induced (sub_net) and the metric of interest is calculated (betweenness in this case). The `output` object is a vector that records the specific rank order that the node in question fell in in terms of the metric in question. 
 
 [Use these data](data/Cibola_edgelist.csv) to follow along.
 
@@ -335,17 +335,17 @@ ggraph(bib_net, layout = "fr") +
 
 <img src="04-uncertainty_files/figure-html/unnamed-chunk-6-1.png" width="672" />
 
-With these network objects created we then need to modify our "nodes_missing_at_random_bw" function from above to the specific nature of our question and these data. Indeed since our example here relies on an incidence matrix that includes information defined across multiple publications, we have to me additional changes to the structure of that function. 
+With these network objects created we then need to modify our `nodes_missing_at_random_bw` function from above to the specific nature of our question and these data. Indeed since our example here relies on an incidence matrix that includes information defined across multiple publications, we have to me additional changes to the structure of that function. 
 
-We create a "nodes_missing_biased_bw" function below that requires five specific pieces of information from the user.
+We create a `nodes_missing_biased_bw` function below that requires five specific pieces of information from the user.
 
-* net - You must include a network object in igraph format. The current version expects a simple network but the code could be modified for other types.
-* inc - You must also include an incidence matrix (as an R matrix object) which describes the relationships between publications and authors
-* nsim - You must specify the number of simulations to perform. The default is 1000.
-* props - Finally, you must specify the proportion of nodes to be retained for each set of nsim runs. This should be provided as a vector of proportions ranging from > 0 to 1. By default, the script will calculate a 90% sub-sample all the way down to a 10% sub-sample at 10% intervals using props=c(0.9,0.8,0.7,0.6,0.5,0.4,0.3,0.2,0.1).
-* lookup_dat - Finally, you must provide the lookup data which connects the publication key code to the year as that is the basis of our simulation. Note that this function is designed to work with a lookup file that has column names exactly as shown here ("Publication.Year", "prob", "Key") and this would need to be modified to work with data with different columns.
+* `net` - You must include a network object in igraph format. The current version expects a simple network but the code could be modified for other types.
+* `inc` - You must also include an incidence matrix (as an R matrix object) which describes the relationships between publications and authors
+* `nsim` - You must specify the number of simulations to perform. The default is 1000.
+* `props` - Finally, you must specify the proportion of nodes to be retained for each set of nsim runs. This should be provided as a vector of proportions ranging from > 0 to 1. By default, the script will calculate a 90% sub-sample all the way down to a 10% sub-sample at 10% intervals using props=c(0.9,0.8,0.7,0.6,0.5,0.4,0.3,0.2,0.1).
+* `lookup_dat` - Finally, you must provide the lookup data which connects the publication key code to the year as that is the basis of our simulation. Note that this function is designed to work with a lookup file that has column names exactly as shown here ("Publication.Year", "prob", "Key") and this would need to be modified to work with data with different columns.
 
-The first step is to create a new column in the lookup file called "prob" that defines the probability that a node will be retained in each random sub-sample. To do this we simply take the vector of publication years and rescale them such that the maximum value (most recent publication) equals 1 and older publications are less than 1. This will mean that older publications will more often be removed in our random sub-samples than newer ones.
+The first step is to create a new column in the lookup file called `prob` that defines the probability that a node will be retained in each random sub-sample. To do this we simply take the vector of publication years and rescale them such that the maximum value (most recent publication) equals 1 and older publications are less than 1. This will mean that older publications will more often be removed in our random sub-samples than newer ones.
 
 
 ```r
@@ -367,14 +367,14 @@ head(lookup)
 #> 20 XRWFR6XU             1977 0.1875000
 ```
 
-Next we create a function that wraps all of this together. This is similar to the "nodes_missing_at_random_bw" function with a few key differences. Specifically:
+Next we create a function that wraps all of this together. This is similar to the `nodes_missing_at_random_bw` function with a few key differences. Specifically:
 
-* The line starting with "sub_samp" includes an additional argument "prob" which is assigned to the probability variable we created in the last step such that higher probability (newer) publications will be more likely to be retained.
-* Next, since the network of co-authorship includes connections that could be made by more than one publication we actually need to sub-sample from the incidence matrix. The line begining with "sub" finds all publications that were retained in the "sub_samp" object.
-* Next we convert "sub" to an adjacency matrix called "sub_adj" using matrix algebra and then a network object called "sub_net"
+* The line starting with `sub_samp` includes an additional argument `prob` which is assigned to the probability variable we created in the last step such that higher probability (newer) publications will be more likely to be retained.
+* Next, since the network of co-authorship includes connections that could be made by more than one publication we actually need to sub-sample from the incidence matrix. The line beginning with `sub` finds all publications that were retained in the `sub_samp` object.
+* Next we convert `sub` to an adjacency matrix called `sub_adj` using matrix algebra and then a network object called `sub_net`
 * Finally, we calculate betweenness centrality and rank order correlations and put the results in the output object.
 
-Here we are going to run the function for nsim=1000 and for 3 sampling fractions (0.9, 0.8, 0.7).
+Here we are going to run the function for `nsim = 1000` and for 3 sampling fractions `(0.9, 0.8, 0.7)`.
 
 
 ```r
@@ -425,7 +425,7 @@ head(bib_bias)
 #> [6,] 0.9778791 0.9998792 0.7273099
 ```
 
-With this in place, we now need a function that deals with our incidence matrix data but simulates missigness at random. This only requires a single argument to change from our last function. Specifically, all we need to do is remove the "prob=lookup_dat$prob" argument from the line beginning with "sub_samp" and we're ready to go.
+With this in place, we now need a function that deals with our incidence matrix data but simulates missigness at random. This only requires a single argument to change from our last function. Specifically, all we need to do is remove the `prob=lookup_dat$prob` argument from the line beginning with `sub_samp` and we're ready to go.
 
 
 ```r
@@ -518,7 +518,7 @@ In this section we take inspiration from some recent work in the area of "Dark N
 
 We are not aware of any archaeological examples where edges have been formally/qualitatively assigned "confidence levels" in exactly this way, but we think there are potential applications of this method. For example, we could define a network where we assign a low probability of a tie between two archaeological sites if they share an import from a third site/region and a higher probability for a tie between two sites if they share imports from each others region. Importantly, such methods can be used to combine information from different sources into a single assessment of the likelihood of connection. 
 
-Since we do not have any data structured in exactly this way, we will again simulate a small example and then analyze it. Let's create a network with ties associated with "probabilities" and the plot it. We use the "rg_w" function within the tnet package to simulate a random weighted network in this way.
+Since we do not have any data structured in exactly this way, we will again simulate a small example and then analyze it. Let's create a network with ties associated with "probabilities" and the plot it. We use the `rg_w` function within the `tnet` package to simulate a random weighted network in this way.
 
 
 
@@ -560,9 +560,9 @@ ggraph(sim_net, layout = "fr") +
 
 <img src="04-uncertainty_files/figure-html/unnamed-chunk-11-1.png" width="672" />
 
-In the next chunk of code we define a function that iterates over every edge in the simulated network we just created and defines each edge as either present or absent using a simple random binomial with the probability set by the edge weight as described above. The output of this function (edge_liklihood) is a list object that contains "nsim" igraph network objects that are candidate networks of the original.
+In the next chunk of code we define a function that iterates over every edge in the simulated network we just created and defines each edge as either present or absent using a simple random binomial with the probability set by the edge weight as described above. The output of this function (`edge_liklihood`) is a list object that contains `nsim` `igraph` network objects that are candidate networks of the original.
 
-Next, in order to extract values of interest from these candidate networks, we created another function called "compile_stat" that could be modified for any measure of interest. This function iterates over all "nsim" networks in the "net_list" list object and calculates "degree" in this case returning the results as a simple matrix. It is then possible to compare things like average degree or the distribution of degree for particular nodes across all of the canddiate networks.
+Next, in order to extract values of interest from these candidate networks, we created another function called "compile_stat" that could be modified for any measure of interest. This function iterates over all `nsim` networks in the `net_list` list object and calculates `degree` in this case returning the results as a simple matrix. It is then possible to compare things like average degree or the distribution of degree for particular nodes across all of the candidate networks.
 
 
 ```r
@@ -599,7 +599,7 @@ compile_stat <- function(net_list, nsim) {
 }
 ```
 
-Now we run the edge_prob function for nsim=1000 and display a few candidate networks. 
+Now we run the edge_prob function for `nsim = 1000` and display a few candidate networks. 
 
 
 ```r
@@ -681,7 +681,7 @@ The goal of this sub-section is to illustrate how you can use a bootstrappping a
 
 There are many ways to set up such a resampling procedure and many complications (for example, how do we deal with limited diversity of small samples?). For the purposes of illustration here, we will implement a very simple procedure where we simply generate new samples of a fixed size based on our observed data and determine the degree to which our network measures are robust to this perturbation. In the chunk of code below we create 1000 replicates based on our original ceramic data.
 
-The following chunk of code first reads in the ceramic data, converts it to a Brainerd-Robinson similarity matrix and then defines a function called "sampling_error_sim" which creates "nsim" random replciates of the ceramic data, converts them to similarity matrices, and ouputs those results as a list object.
+The following chunk of code first reads in the ceramic data, converts it to a Brainerd-Robinson similarity matrix and then defines a function called `sampling_error_sim` which creates `nsim` random replciates of the ceramic data, converts them to similarity matrices, and ouputs those results as a list object.
 
 
 ```r
@@ -719,7 +719,7 @@ sampling_error_sim <- function(cer, nsim = 1000) {
 }
 ```
 
-The following chunk of code runs the "sampling_error_sim" function defined above for our Chaco ceramic data and then defines a new fucntion called "sim_cor" which takes the output of "sampling_error_sim" and the original ceramic similarity matrix (ceramic_BR) and calculates weighted degree centrality and the Speraman's $\rho$ correlations between the original similarity matrix and each random replicate. This "sim_cor" script could be modified to use any network metric that outputs a vector. Once these results are returned we visualize the results as a histogram.
+The following chunk of code runs the `sampling_error_sim` function defined above for our Chaco ceramic data and then defines a new function called `sim_cor` which takes the output of `sampling_error_sim` and the original ceramic similarity matrix (ceramic_BR) and calculates weighted degree centrality and the Speraman's $\rho$ correlations between the original similarity matrix and each random replicate. This "sim_cor" script could be modified to use any network metric that outputs a vector. Once these results are returned we visualize the results as a histogram.
 
 Note that this could take several seconds to a few minutes depending on your computer.
 
@@ -761,9 +761,9 @@ ggplot(df, aes(x = dg_cor)) +
 
 <img src="04-uncertainty_files/figure-html/unnamed-chunk-16-1.png" width="672" />
 
-As described in Chapter 5.3.5, in some cases we want to observe patterns of variation due to sampling error for individual sites or sets of sites. In the next chunk of code we illustrate how to produce figure 5.14 from the Brughmans and Peeples (2022) book. Specifically, this plot consists of a series of line plots where the x axis represents each node in the network ordered by degree centrality in the original observed network. For each node there is a vertical line which represents the 95% confidence interval around degree across the "nsim" random replicates produced to evaluate sampling error. The blue line represents degree in the original network and the red line represents median degree in the resampled networks.
+As described in Chapter 5.3.5, in some cases we want to observe patterns of variation due to sampling error for individual sites or sets of sites. In the next chunk of code we illustrate how to produce figure 5.14 from the Brughmans and Peeples (2022) book. Specifically, this plot consists of a series of line plots where the x axis represents each node in the network ordered by degree centrality in the original observed network. For each node there is a vertical line which represents the 95% confidence interval around degree across the `nsim` random replicates produced to evaluate sampling error. The blue line represents degree in the original network and the red line represents median degree in the resampled networks.
 
-To create this plot, we first iterate through every object in "sim_nets" and calculate weighted degree centrality and then add that to a two-column matrix along with a node id. Once we have done this for all simulations, we use the "summarise" function to calculate the Mean and 
+To create this plot, we first iterate through every object in `sim_nets` and calculate weighted degree centrality and then add that to a two-column matrix along with a node id. Once we have done this for all simulations, we use the `summarise` function to calculate the Mean and 
 
 
 
