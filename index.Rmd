@@ -80,9 +80,9 @@ We have created an associated [Archaeological Network Science - Discord Server](
 
 ## New to R and R Studio?{-}
 
-This document assumes you have a basic familiarity with R and R studio. If you are a first time R user and need help getting R and R studio installed and up and running, we have created an overview of [how to install R and R-Studio](#GettingStarted) focused on the resources we use here. Once you have the programs installed, we suggest you follow along with the "Some Basics" tutorials in *the R Cookbook, 2nd edition* [(Long and Teetor 2019)](https://rc2e.com/somebasics) to understand how the R programming environment works. 
+This tutorials in this document assume you have a basic familiarity with R and R-studio. If you are a first time R user and need help getting R and R studio installed and up and running, we have created an overview of [how to install R and R-Studio along with some basics of analysis](#GettingStarted). This is not a complete or detailed introduction to R but we hope it will get you started.
 
-If you already have a basic familiarity with R and want to go further, there are numerous additional resources online (many are completely free) to help you learn. Some resources we would recommend include *R for Data Science* ([Wickham and Grolemund 2017](https://r4ds.had.co.nz/)), *Advanced R* ([Wickham 2019](https://adv-r.hadley.nz/)), and *R in Action* and the associated *Quick-R* website [Kabacoff 2015](https://www.statmethods.net/). In addition to this [Ben Marwick](https://anthropology.washington.edu/people/ben-marwick) has created an excellent repository of [resources for using R in archaeology](https://github.com/benmarwick/ctv-archaeology) as well as an ever-growing list of archaeological publications that include R code. The website associated with this book [archnetworks.net](https://www.archnetworks.net) also includes a list of archaeological articles focused on network research that include data and code. Reproducing published results is, in our experience, one of the best ways to learn advanced analytical techniques and data management in R.
+If you already have a basic familiarity with R and want to go further, there are numerous additional resources (most are completely free) to help you learn. Some resources we would recommend include *R for Data Science* ([(Wickham and Grolemund 2017)](https://r4ds.had.co.nz/)), *Advanced R* ([(Wickham 2019)](https://adv-r.hadley.nz/)), *the R Cookbook, 2nd edition* [(Long and Teetor 2019)](https://rc2e.com/somebasics), and *R in Action* and the associated *Quick-R* website [(Kabacoff 2015)](https://www.statmethods.net/). In addition to this [Ben Marwick](https://anthropology.washington.edu/people/ben-marwick) has created an excellent repository of [resources for using R in archaeology](https://github.com/benmarwick/ctv-archaeology) as well as an ever-growing list of archaeological publications that include R code. The website associated with this book [archnetworks.net](https://www.archnetworks.net) also includes a list of archaeological articles focused on network research that include data and code. Reproducing published results is, in our experience, one of the best ways to learn advanced techniques and data management in R.
 
 ## Contribute To the Project{-}
 
@@ -122,45 +122,45 @@ This project and the associated book were made possible thanks to the support of
 
 # Gettings Started with R{- #GettingStarted}
 
-In order to follow along with the code and examples in this document, you will need recent installations of both R and R Studio on your computer. R and R studio are available for Windows, MacOS, and Linux/Unix. This Section provides a very brief overview of how to get up and running. 
+In order to follow along with the code and examples in this document, you will need recent installations of both R and R Studio on your computer. R and R studio are available for Windows, MacOS, and Linux/Unix. This Section provides a very brief overview of how to get up and running. Following this, we introduce the basics of R and R-Studio to get you ready for the tutorials in the remainder of this document.
 
 ## Download and Install R{-}
 
-The first step is to install a recent version of R. Follow the instructions below for the appropriate operating system.
+The first step is to install a recent version of R (we recommend 4.2 or later). Follow the instructions below for the appropriate operating system.
 
-* The first step is to go to the R project website [www.r-project.org](https://www.r-project.org) and click on the [CRAN](https://cran.r-project.org/mirrors.html) link under "Downloads" on the lefthand side.
+* The first step is to go to the R project website [www.r-project.org](https://www.r-project.org) and click on the [CRAN](https://cran.r-project.org/mirrors.html) link under "Downloads" on the left hand side.
 * Choose a mirror for your download selecting one in your country or the "cloud" option.
 * Next, click on Windows, MacOS, or your Linux distribution and follow the instructions below.
 
 ### Windows{-}
 
-* Next, click the "base" sub-directory on the left hand side of the screen and then click "Download R-4.2.0 for Windows" (the version number should be 4.2 or later) to download the most recent version.
+* Click the "base" sub-directory on the left hand side of the screen and then click "Download R-4.2.0 for Windows" (the version number should be 4.2 or later) to download the most recent version as an executable.
 * Once your download is complete, run the *.exe file and answer questions as prompted to complete the installation. 
 
 ### MacOS{-}
 
-You first need to know which processor chip your Mac has before proceeding. In order to determine which chip you have go to the Apple menu and select "About This Mac" and look for information under "Processor" or "Chip" in the window that pops up. It will either be Intel or M1.
+You first need to know which chip manufacturer your Mac has before proceeding. In order to determine which chip you have go to the Apple menu and select "About This Mac" and look for information under "Processor" or "Chip" in the window that pops up. It will either be Intel or M1.
 
 * Next, click the on the link under "Latest release" for the *.pkg file for the appropriate Mac processor in your Mac. There is a separate notarized and signed .pkg file Macs with Intel processors and Macs with Apple M1 processors (mostly produced 2020 and later). Note, these .pkg files are not interchangeable so confirm which one you need.
-* Once you have downloaded the appropriate .pkg, run it and answer the dialogs as required.
+* Once you have downloaded the appropriate .pkg, run it and answer the questions during the install as required.
 
 ### Linux{-}
 
-Linux installations of R are primarily done through the console but the instructions are slightly different depending on the distribution you are using.
+Linux installations of R are primarily done through the console but the instructions are slightly different depending on which distribution you are using.
 
 * Click on the link for the appropriate Linux distribution and then follow the detailed instructions provided. 
 * The "R-core" or "R-base" builds are the ones you want to choose. 
 
 ## Download and Install R-Studio{-}
 
-R-studio is an integrated development environment (IDE) for R, Python, and affiliated programming environments that provides additional features for running and debugging code and data management. We see this as essential to working with large and complex R projects. 
+R-studio is an integrated development environment (IDE) for R, Python, and related programming environments that provides additional features for running and debugging code and data management. We see this as essential to working with large and complex R projects. 
 
 In order to install R-Studio:
 
 * Go to the R-Studio website [www.rstudio.com](https://www.rstudio.com/) and click "Download" at the top of the screen.
 * Select the "RStudio Desktop" option.
 * Download and run the latest "installer" file for the appropriate operating system.
-* Run the downloaded file and answer questions at prompts as appropriate. R-Studio will automatically detect your installation of R.
+* Run the downloaded file and answer questions at prompts as appropriate. R-Studio should automatically detect your installation of R.
 
 ## Run R-Studio{-}
 
@@ -170,15 +170,15 @@ Once you've installed both R and R-Studio, open R-studio and look for the Consol
 
 ## R and R-Studio Basics{-}
 
-R is a powerful statistical analysis platform that can be used to conduct some quite complex analyses. The learning curve is a bit steep when first getting started but the payoff is HUGE because the ecosystem of existing R scripts and packages is huge. We cannot hope to cover everything R and R studio can do in this very short intro here but we have implemented a version of the introduction to R programming that Matt Peeples uses in the first week of classes focused on statistical analyses. Hopefully this will get you started. 
+R is a powerful statistical analysis platform that can be used to conduct some quite complex analyses. The learning curve is a bit steep when first getting started but the payoff is HUGE because the ecosystem of existing R scripts and packages is so large and diverse. We cannot hope to cover everything R and R-studio can do in this very short intro here but we present a version of the "introduction to R programming" that Matt Peeples has used in the first week of classes focused on statistical analyses for a number of years. Hopefully this will get you started. 
 
-First off, let's take a look at the R-Studio setup. When you first open R-Studio for the first time, you will see a screen divided into 3 panes. Before getting started click on "File" at the top of the screen and go to "New File > R Script" to open a 4th pane. You should see something like the screen below (Note that the color of your screen may be different as I am using a "Dark Mode" here).
+First off, let's take a look at the R-Studio setup. When you first open R-Studio for the first time, you will see a screen divided into 3 panes. Before getting started click on "File" at the top of the screen and go to "New File > R Script" to open a 4th pane. You should see something like the screen below (Note that the color of your screen may be different as I am using a particular color setting that I find easier on my eyes).
 
 ![R-Studio](images/r-studio.jpg){width=100%}
 
-The pane in the top left contains the Workspace tabs which is where you can write code and other documents before executing them. The pane at the bottom left is the console where you can type and run commands directly. The pane at the upper right includes tabs for Environment (a list of objects and functions currently initialized) and History (a list of previous commands run at the console). Finally, the lower right pane has tabs for Files (which shows files in the current directory), Plots (where plots created in the console will be displayed), Packages (a list of additional packages installed and initialized in R), and Help (where you can get information about particular functions and packages). 
+The pane in the top left contains the Workspace tabs which is where you can write code and other documents before executing the code they contain. The pane at the bottom left is the console where you can type and run commands directly. The pane at the upper right includes tabs for Environment (a list of objects and functions currently initialized) and History (a list of previous commands run at the console). Finally, the lower right pane has tabs for Files (which shows files in the current directory), Plots (where plots created in the console will be displayed), Packages (a list of additional packages installed and initialized in R), and Help (where you can get information about particular functions and packages). 
 
-In this introductory tutorial we are mostly going to be concerned with the Workspace and Console panes for now. After we introduce a few basics of how R works, we will discuss the Workspace.
+In the set of tutorials that follow we are going to focus on the Console first and will introduce the other panels and what they provide along the way.
 
 ### Mathematical Operations{-}
 
@@ -190,7 +190,7 @@ Getting started with R is as simple as typing directly into the Console. You can
 50/5
 ```
 
-R uses `()` for bracketing groups of operations to set the order of operations. These can be nested to do more complex mathematical operations. For example compare the two equations below:
+R uses `( )` for bracketing groups of operations to set the order of operations. These can be nested to do more complex mathematical operations or to determine the order of operations. For example compare the two equations below:
 
 ```{r}
 ((4*5+3)/2)*12
@@ -205,10 +205,17 @@ R uses typical mathematical operators including `+ - * /` for addition, subtract
 5^(2+1)
 ```
 
+Anything placed after a `#` in a block of code will be treated as a comment and not evaluated:
 
-### Assigning Variables{-}
+```{r}
+4 * 20 # comment here
+3 * 4 # 4 + 4 will not be evaluated as it is after the #
+```
 
-R can also assign numbers, characters, or more complex operations to variables which can then be used in mathematical operations. Typically, we assign values to a variable using the `<-` arrow but `=` also works. For example:
+
+### Creating Variables/Objects{-}
+
+R can also assign numbers, characters, or more complex operations to variables (also known as objects in this context) which can then be used in mathematical operations. Typically, we assign values to a object using the `<-` assign command but `=` also works. For example:
 
 ```{r}
 test_var <- 50
@@ -222,6 +229,33 @@ char1
 
 ```
 
+Object names in R are case sensitive and cannot include spaces. Object names can include numbers and letters but must start with a letter. It is a good idea to use descriptive object names where the object will be used repeatably.
+
+When formatting object names there are a few common styles such as:
+
+* `snake_case_style` - (see the little snakes [underscore] in the place of spaces)
+* `CamalCaseStyle` - (see the capitalized humps denoting each word)
+* `kebab-case-style` - (skewered right down the middle)
+
+In general any of these styles is fine, but we suggest you try to remain consistent. Also, avoid using `.` to separate words as that is used by particular R functions and calls in other ways and can cause confusion. 
+
+Objects can be used in mathematical expressions just like numbers:
+
+```{r}
+n <- 50
+n*10
+```
+
+Many mathematical constants are built right into R so be sure not to overwrite any of these (or any other function) by giving an object the same name.
+
+```{r}
+pi
+LETTERS
+letters
+month.name
+```
+
+
 ### Logical Operators{-}
 
 R can also use logical operators such as `<` less than, `>` greater than, `<=` less than or equal to, `>=` greater than or equal to, `==` exactly equal to, and `!=` not equal to. These operators can be used in conjunction with other operations and return a value indicating `TRUE` or `FALSE`. These can be used in more complex functions and conditional statements as we will see below. For example:
@@ -233,9 +267,17 @@ v < 20
 v*2 == 100
 ```
 
+Logical operators can also include *and* statements with the `&` symbol and *or* statements with `|`. For example:
+
+```{r}
+v <- 40
+v > 20 & v < 30 # and statement
+v > 20 | v < 30 # or statement
+```
+
 ### Vectors{-}
 
-R can also assign a vector of numbers or characters to a variable and preform operations using that vector. For example in the following we use the `c()` (c for combine) command to create a vector and subject it to a mathematical operation.
+R can also assign a vector of numbers or characters to a variable and preform operations using that vector. For example in the following we use the `c()` (c for combine) command to create a vector and subject it to a mathematical or other operation.
 
 ```{r}
 z <- c(2,4,6,8,10,12)
@@ -245,15 +287,30 @@ z/2
 If you want to call a particular value or selection of values in a vector you can use the `[]` square brackets and indicate which item(s) you are interested in.
 
 ```{r}
-z[3]
-z[4:6]
-z[c(3,2,1)]
+z[3] # item 3 in object z
+z[4:6] # items 4 through 6 in object z
+z[c(3,2,1)] # items 3, 2, 1, in that order from object z
+```
+
+We can also search vectors or other objects for specific values:
+
+```{r}
+vec_obj <- c("Ohtani", "Wheeler", "Correa", "Semien", "Soto", "Guerrero Jr.", "Correa")
+vec_obj[vec_obj == "Correa"]
+```
+
+To see if a particular value is in a given object we can use the `%in%` operator.
+
+```{r}
+"Ohtani" %in% vec_obj
+
+"Judge" %in% vec_obj
 ```
 
 
 ### Using Basic R Functions{-}
 
-R has a number of built-in functions that perform many common operations and assessments. These are typically used by typing the name of the function followed by a set of parenthesis that contain all of the arguments that the function expects. For example:
+R has a number of built-in functions that perform many common operations and assessments. We have already used one of these above `c()` and it was so fast and easy you might have missed it. Functions are typically used by typing the name of the function followed by a set of parenthesis that contain all of the arguments that the function expects. For example:
 
 ```{r}
 v <- c(5, 10, 15, 20, 25, 30, 2000)
@@ -261,14 +318,28 @@ max(v)
 min(v)
 mean(v)
 median(v)
-
+log(v, base = exp(1)) # argument setting the base
+log10(v)
+round(pi, digits = 2) # argument setting the number of digits to retain
 ```
+
+We can also use R to generate random numbers under a given probability distribution which is often quite useful. For example, we use the `rnorm()` function below to create a set of random number drawn from a normal distribution with the parameters provided.
+
+```{r}
+# n = the number of random numbers to generate
+# mean = the mean of the values
+# sd = the standard deviation of the mean
+x <- rnorm(n = 50, mean = 10, sd = 2)
+x
+```
+
+
 
 For a list of some of the most frequently used built-in functions see [this Quick-R](https://www.statmethods.net/management/functions.html) page. 
 
 ### Matrices{-}
 
-R can be used to create tabular/matrix data as well. Typically it is most convenient to read such data for a file for very large tabular data [(see working with files below)](#WorkingWithFiles), but we can also generate simple matrices directly in R using the `matrix()` function. In the following example we create a two-row, two-column matrix by converting a vector of numbers into a matrix by specifying the number of rows `nrow` and number of columns `ncol`. The assignments we make inside the `matrix()` function are called arguments. 
+R can be used to create tabular/matrix data as well. Typically it is most convenient to read such data for a file for very large tabular data [(see working with files below)](#WorkingWithFiles), but we can also generate simple tabular data directly in R using the `matrix()` function. In the following example we create a two-row, two-column matrix by converting a vector of numbers into a matrix by specifying the number of rows `nrow` and number of columns `ncol`. The assignments we make inside the `matrix()` function are called arguments. 
 
 ```{r}
 dat <- c(3,4,2,20)
@@ -283,6 +354,9 @@ Note that the `matrix()` function read the numbers in first by column and then b
 ```
 
 ![help for matrix function](images/help.jpg){width=100%}
+
+And let's zoom in to one piece in particular:
+
 ![byrow argument](images/byrow.jpg){width=100%}
 
 As we can see in the help materials for matrix, there is an additional argument we did not use called `byrow` which is set to `FALSE` by default. Let's change that to `TRUE` and check the results. Note that you can use capital `F` and `T` in the place of `FALSE` and `TRUE` in functions. Note also that our function call can span multiple rows and will automatically end when we close the parentheses. This multi-line formatting will be essential for making longer function calls readable.
@@ -297,13 +371,106 @@ mat2 <- matrix(
 mat2
 ```
 
-We can also use matrices for many mathematical and statistical functions that are built directly into R. For example, let's run a Fisher's Exact Test using the `fisher.test` function.
+Alternative we could take a shortcut and use the `t()` transpose function to switch the order of our original matrix object `mat1`.
+
+```{r}
+t(mat1)
+```
+
+
+Just like we did with vectors, we can also use matrices for many mathematical and statistical functions that are built directly into R. For example, let's run a Fisher's Exact Test using the `fisher.test` function to assess the independence of rows and columns in this table.
 
 ```{r}
 fisher.test(mat2)
 ```
 
 The output includes information about the data we used to run the test, a p-value, the alternative hypothesis, confidence intervals, and odds ratio. The output we get from any given function will vary depending on the application. 
+
+### Other Object Types{-}
+
+The four most common object types in R are vectors, matrices, lists, and data frames. We have already explored vectors and matrices but we can define these and the other classes in more detail here.
+
+* vector - a combined set of values all of the same type (character, numeric, etc.)
+* matrix - a set of values in a rectangular two-way table all of the same type (character, numeric, etc.)
+* data frame - a set of values in a rectangular two-way table where different columns can  different data types
+* list - a list is a collection of other R objects that can be vectors, matrices, data frames or others in any format that are combined into a single object.
+
+#### Vectors{-}
+
+We have already introduced vectors above but we can point out one more feature that is often useful in assessing vectors. The `length()` function tells you how many elements are in a vector.
+
+```{r}
+v <- c(1,6,4,8,7,5,3,8,10,44)
+length(v)
+```
+
+#### Matrices{-}
+
+Once again, we have already introduced matrices above but there are a few more details that are worth addressing here. Again, if you want to call a specific value in a matrix you can use the `[]` square brackets with the row number listed followed by a comma and the column number. For example:
+
+```{r}
+mat1
+mat1[2,1] # row 2 column 1
+```
+
+If you want to know the size of a matrix, you can use the `dim()` dimensions function:
+
+```{r}
+dim(mat1)
+```
+
+
+#### Data Frame{-}
+
+As the brief definitions above suggests, data frames are very similar to matrices but can include mixed data types in the same rectangular table. Each row and column must, however, have the same number of entries. A data frame can be created by combining a set of vectors. In the example here we introduce another data type called a factor. A factor is a nominal variable that has "levels" that represent a limited set of values which can be used for a given variable. For example:
+
+```{r}
+col1 <- c("mammoth", "mastadon", "bison")
+col2 <- c(50,52,14)
+col3 <- c(11.14,22.23,656.34)
+col4 <- as.factor(c("type1", "type1", "type2"))
+
+dat <- data.frame(col1, col2, col3, col4)
+dat
+```
+
+If we want to look at what kind of data R understands each column to be, we can use the `str()` or structure function.
+
+```{r}
+str(dat)
+```
+
+Note that the `dim()` function also works on data frames as does the `[,]` call for specific items:
+
+```{r}
+dat
+dim(dat)
+dat[2,1]
+```
+
+#### Lists{-}
+
+A list is simply a convenient way of combining multiple objects into a single object. It doesn't matter what type of objects they are. Lists can be defined using the `list()` function. For example:
+
+
+```{r}
+out1 <- list(mat1, dat, c(1,2,4)) # create a list containing 3 objects
+out1
+```
+
+If you want to call a specific element of the list you use double square brackets `[[]]` along with the numeric designation in the middle:
+
+```{r}
+out1[[3]]
+```
+
+You can even stack sets of double and single brackets to call specific items within list elements:
+
+```{r}
+out1[[3]][2] # item 2 in list object 3
+out1[[2]][2,1] # row 2 column 1 in list object 2
+```
+
 
 ## The Workspace Tab{-}
 
@@ -338,7 +505,7 @@ This will execute the code in your Console and print the results. Let's say when
 
 ## Installing Packages{-}
 
-So far, everything we have done has involved packages include in "base" R and only internal built-in functions. One of the best things about R is the ecosystem of packages created and peer reviewed by others for all manner of statistical analyses you can imagine. There is a package out there for just about everything so it is always a good idea to check before you start to write any complex script on your own.
+So far, everything we have done has involved packages included in "base" R and only internal built-in functions. One of the best things about R is the ecosystem of packages created and peer reviewed by others for all manner of statistical analyses you can imagine. There is a package out there for just about everything so it is always a good idea to check before you start to write any complex script on your own.
 
 In order to install external packages, you need to know the name of the package you want and you simply type `install.packages("NameOfPackage")` at the console. Let's try installing the `vegan` package first which includes lots of useful functions for community ecology research.
 
@@ -346,13 +513,15 @@ In order to install external packages, you need to know the name of the package 
 install.packages("vegan")
 ```
 
-Once our package installs, we can "call" it or initialize it using the `libaray()` function.
+Once our package installs, we can "call" it or initialize it using the `libaray()` function. Notice that when we load this package it also loads "permute" and "lattice" which are two additional packages used within "vegan". These dependencies were automatically installed when you installed the "vegan" package.
 
 ```{r}
 library(vegan)
 ```
 
-Now we can use not just the base R functions, but also the functions within the `vegan` package. One useful function in this package is called `diversity()` which allows us to calculate all manner of common diversity measures. Remember to check `?diversity` if you want to learn more about the package and its arguments. Let's give it a try by creating a vector and then calculating two different diversity indices on that vector:
+Now we can use not just the base R functions, but also the functions within the `vegan` package. In order to learn more about winch packages contain which functions, it is a good idea to seek out the documentation. Many of the most robust packages are very well documented online and searching for them in the [CRAN Archive](https://cran.r-project.org/web/packages/vegan/index.html) is an excellent place to start.
+
+Within the vegan package one particularly useful function is called `diversity()` which allows us to calculate all manner of common diversity measures. Remember to check `?diversity` if you want to learn more about the package and its arguments. Let's give it a try by creating a vector and then calculating two different diversity indices on that vector:
 
 ```{r}
 vec1 <- c(1,6,2,7,45,3,6,2,4,6,7,2)
@@ -363,7 +532,7 @@ diversity(vec1, index = "simpson")
 
 ```
 
-> There are tons of useful packages out there and it can sometimes be a bit overwhelming trying to find them. Searching in a search engine for the simple letter "R" can also yield unexpected results. One helpful tip when searching for packages is to include "CRAN" or "package" in the search terms. CRAN stands for the Comprehensive R Archive Network and this is the archive that contains most of the peer reviewed and established packages for R. For example, say we are looking for a package focused on building gravity models. If we simply search for "gravity models" we get lots of results but if we search for "R gravity model package" we very quickly find what we're looking for.
+> There are tons of useful packages out there and it can sometimes be a bit overwhelming trying to find them. Searching in a search engine for the simple letter "R" can also yield unexpected results. One helpful tip when searching for packages is to include "CRAN" or "package" in the search terms. CRAN stands for the Comprehensive R Archive Network and this is the archive that contains most of the peer reviewed and established packages for R. 
 
 ## Working with Files{-}
 
@@ -396,12 +565,92 @@ read_mat <- read.csv(file = "output_mat.csv", header = T, row.names = 1)
 read_mat
 ```
 
+It is important to note here, however, that the `read.csv()`function doesn't know the difference between a data frame and a matrix unless you specify. Indeed, if we check, R sees `read_mat` as a data frame. For some purposes this doesn't matter but where it does, we can convert it to a matrix using the `as.matrix()` function.
+
+```{r}
+str(read_mat)
+read_mat2 <- as.matrix(read_mat)
+is.matrix(read_mat2)
+```
+
 There are lots of different functions for reading in files in different formats and we will introduce some of these later in the subsequent sections of this tutorial. 
+
+## Plotting Data{-}
+
+One of the great features of R is the ability to make all kinds of amazing data visualizations. Making simple graphics is very easy but as we will see, defining very specific details often requires a number of different packages and considerable care. Indeed, the vast majority of functions used in this Online Companion are used for visualizations.
+
+Let's start with something simple by creating two vectors and then creating a biplot comparing them. When you use the `plot()` function the plot will automatically appear in the bottom right pane of your R-Studio window. We use the `set.seed()` function to ensure that we will always generate the same random numbers every time we make this call for reproducibility. If we entered a different number in `set.seed()` we would get somewhat different results.
+
+```{r}
+set.seed(465)
+x <- rnorm(5000, mean = 40, sd = 3)
+y <- rnorm(5000, mean = 5, sd = 0.5)
+plot(x,y)
+```
+
+We can also easily create a histogram of a single variable with additional arguments:
+
+```{r}
+hist(x, breaks=20) # breaks defines the number of bars
+```
+
+And boxplots:
+
+```{r}
+boxplot(x,y)
+```
+
+There are lots of figures built right into base R and we suggest exploring the [R Gallery Book](https://bookdown.org/content/b298e479-b1ab-49fa-b83d-a57c2b034d49/) which outlines many options.
+
+In the remainder of the tutorial we will go into detail in how to modify and configure visualizations but it worth mentioning one more common visualization tool that has almost eclipsed base R graphics in popularity. That is the package `ggplot2`. This package can be used for all sorts of visualizations and it uses a format that is somewhat different from that of base R. Let's look at an example:
+
+```{r, eval=F}
+install.packages("ggplot2")
+```
+
+```{r, message=F}
+library(ggplot2)
+
+df <- data.frame(x, y)
+
+ggplot(data = df) +
+  geom_point(aes(x = x, y = y))
+```
+
+In the code chunk above, we created a data frame (which ggplot2 requires) combining our random x and y variables. Next, we made a generic call to ggplot2 using the `ggplot(data=df)` line. This creates a ggplot object set up with `df` as the data considered. Notice this line is followed by a `+`. This package will continue to read lines until a line does not end with this symbol and `ggplot` calls can often be quite long. 
+
+The next line was the `geom_point()` function. This package designates different kinds of visualizations as `geom_` and there are many options (`geom_histogram`, `geom_bar`, `geom_polygon`, etc.). The `geom_point` function refers to a simple point plot. The argument inside the function is defined as `aes(x = x, y = y)`. In this package `aes` stands for aesthetics. In this case, we are using this aesthetics call to designate which variable will be on the x and which on the y axis, which is easy here as we named our variable appropriately.
+
+From here `ggplot2` includes seemingly endless customization options. There are way too many options out there for us to cover here but a good place to start is the [R Graph Gallery](https://r-graph-gallery.com/) website. 
+
+We will cover many examples and the visualization section of this tutorial in particular leans heavily on the `ggplot2` format but for now, let's just see a couple of additional examples. 
+
+```{r, message=F, warning=F}
+ggplot(data = df) +
+  geom_histogram(aes(x = y), col = "blue", fill = "darkorchid4") +
+  xlab("Numbers!!") +
+  ylab("REALLY BIG NUMBERS") +
+  theme_minimal()
+
+ggplot(data = df) +
+  geom_bin2d(aes(x = x, y = y)) +
+  scale_fill_continuous(type = "viridis") +
+  theme_bw()
+```
 
 ## More Advanced R Features{-}
 
+The examples so far have covered most of the basic features of R and R-Studio. There are just a few more things that are implemented in this online document that need a bit of additional explanation. If you can follow along with the examples above, you will be able to replicate most of the work in this document. The features in this section will help you expand your skills and better understand the more complicated code in this document. 
+
 ### Conditional Statements{-}
+
+If and If else
 
 ### Loops{-}
 
+Simple discussion of for loops and apply vectorize
+
 ### Custom Functions{-}
+
+How to write functions. Very simple Fahrenheit to Celsius example.
+
