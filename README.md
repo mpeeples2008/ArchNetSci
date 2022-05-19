@@ -9,7 +9,7 @@ This project serves as a companion to the Cambridge Manuals in Archaeology book 
 
 > Brughmans, Tom and Matthew A. Peeples (in press). *Archaeological Network Science.* Cambridge Manuals in Archaeology. Cambridge University Press, Cambridge, UK.
 
-## How Should I Use This Online Companion?{- #HowTo}
+## How Should I Use This Online Companion?
 
 The tutorials here are designed to complement the text of the associated book but can also stand alone as a guide to implementation if you have a basic background in network methods and terminology. Although each section of the book builds upon the previous sections in terms of network concepts and R methods, the sections are each independent in terms of data, examples, and code and can be run out of order if you choose.
 
