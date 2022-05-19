@@ -44,8 +44,6 @@ This online bookdown document has been deployed using the Netlify platform and t
 
 We have created an associated [Archaeological Network Science - Discord Server](https://discord.gg/Z9UXwjASM5), which we hope will provide an additional venue for archaeological network practitioners to collaborate, interact, and ask for help with this document or with archaeological networks broadly. We invite you to use this as a place to ask questions of the authors and the community at large. Note that this Discord is subject to the same [code of conduct](https://github.com/mpeeples2008/Archaeological_Network_Science/blob/main/CODE_OF_CONDUCT.md) we use for the GitHub repository and you must abide by that agreement to participate. We require that you have a Discord account with a verified email address.
 
-![](images/Discord_Logo.png){width=40%}
-
 [Join our Discord](https://discord.gg/Z9UXwjASM5)
 
 ## New to R and R Studio?{-}
@@ -87,5 +85,3 @@ We are devoted to seeing the community of archaeological network practitioners g
 ## Acknowledgements{-}
 
 This project and the associated book were made possible thanks to the support of several generous funding sources including: The Carlsberg Foundation, in the context of the Past Social Networks Project (CF21-0382); the National Science Foundation through both the Archaeology and the Measurement, Methodology, and Statistics programs (grant #1758690 and #1758606); and the School of Human Evolution and Social Change at Arizona State University. Thank you to Jens Emil Bødstrup Christoffersen for providing detailed comments on and for testing the initial version of this document. Any errors that remain are our own.
-
-![](images/NSF_Logo.png){width=10%} ![](images/ASU_SHESC_Logo.png){width=15%}
