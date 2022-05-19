@@ -20,7 +20,7 @@ A few suggestions on where to start:
 * If you are already an avid networks and R user and are just looking for code chunks to implement something in particular, feel free to skip around. We have tried to make each Section as independent as possible so that you can pick and choose what you want to work on.
 * If you're a real pro and are designing your own network analyses or visualizations, we would love it if you contributed to the project to help this document grow.
 
-## Reproducibility{- #Repro}
+## Reproducibility
 
 The most recent version of this document was built with R 4.2. We suggest you use a recent version of R when attempting to use the code in this document. 
 
@@ -40,19 +40,19 @@ This online bookdown document has been deployed using the Netlify platform and t
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/266d5736-f13a-4de4-b812-141c023f3a09/deploy-status)](https://app.netlify.com/sites/archnetworks/deploys)
 
-## Discord Community{-}
+## Discord Community
 
 We have created an associated [Archaeological Network Science - Discord Server](https://discord.gg/Z9UXwjASM5), which we hope will provide an additional venue for archaeological network practitioners to collaborate, interact, and ask for help with this document or with archaeological networks broadly. We invite you to use this as a place to ask questions of the authors and the community at large. Note that this Discord is subject to the same [code of conduct](https://github.com/mpeeples2008/Archaeological_Network_Science/blob/main/CODE_OF_CONDUCT.md) we use for the GitHub repository and you must abide by that agreement to participate. We require that you have a Discord account with a verified email address.
 
 [Join our Discord](https://discord.gg/Z9UXwjASM5)
 
-## New to R and R Studio?{-}
+## New to R and R Studio?
 
 This tutorials in this document are built for users with a basic familiarity with R and R-studio. If you are a first time R user and need help getting R and R studio installed and up and running, we have created a detailed guild to [Getting started with R](#GettingStarted). This document covers the installation of the required software and provides a basic introduction to the R programing environment that we hope will be enough to get you started. 
 
 If you already have a basic familiarity with R and want to go further, there are numerous additional resources (most are completely free) to help you learn. Some resources we would recommend include *R for Data Science* [(Wickham and Grolemund 2017)](https://r4ds.had.co.nz/), *Advanced R* [(Wickham 2019)](https://adv-r.hadley.nz/), *the R Cookbook, 2nd edition* [(Long and Teetor 2019)](https://rc2e.com/somebasics), and *R in Action* and the associated *Quick-R* website [(Kabacoff 2015)](https://www.statmethods.net/). In addition to this [Ben Marwick](https://anthropology.washington.edu/people/ben-marwick) has created an excellent repository of [resources for using R in archaeology](https://github.com/benmarwick/ctv-archaeology) as well as an ever-growing list of archaeological publications that include R code. The website associated with this book [archnetworks.net](https://www.archnetworks.net) also includes a list of archaeological articles focused on network research that include data and code. Reproducing published results is, in our experience, one of the best ways to learn advanced techniques and data management in R so we suggest you give it a try.
 
-## Contribute To the Project{-}
+## Contribute To the Project
 
 We welcome contributions to this project from the community and the GitHub platform helps us facilitate that. You will first need to [sign up for a GitHub account](https://github.com/) and log in. If you find something that needs updating or changing (typos or errors) you can simply click the "View source" link at the right sidebar on the relevant page and then click the edit icon found near the top of the code block and make your proposed changes. These changes will be saved in a new "fork" of the document and we will review these and implement them where relevant and happily add your name to our list of contributors.
 
@@ -62,14 +62,14 @@ If you detect a larger error such as code not running or if you would like to re
 
 All contributors must agree to adhere to our [code of conduct](https://github.com/mpeeples2008/Archaeological_Network_Science/blob/main/CODE_OF_CONDUCT.md).
 
-## Project License{-}
+## Project License
 
 [![](https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png)](http://creativecommons.org/licenses/by-nc-nd/4.0/)
 
 This Online Companion to Archaeological Network Science is licensed under a [Creative Commons Attribution-NonCommercial-NoDerivitives 4.0 International License](http://creativecommons.org/licenses/by-nc-nd/4.0/).
 
 
-## Help Support this Project and Build the Community{-}
+## Help Support this Project and Build the Community
 
 We are devoted to seeing the community of archaeological network practitioners grow and we hope our book and these online resources will help to make this happen. You can support the growth of our community too!
 
@@ -82,6 +82,6 @@ We are devoted to seeing the community of archaeological network practitioners g
 * Buy the book 
 * Review the book on online book sellers
 
-## Acknowledgements{-}
+## Acknowledgements
 
 This project and the associated book were made possible thanks to the support of several generous funding sources including: The Carlsberg Foundation, in the context of the Past Social Networks Project (CF21-0382); the National Science Foundation through both the Archaeology and the Measurement, Methodology, and Statistics programs (grant #1758690 and #1758606); and the School of Human Evolution and Social Change at Arizona State University. Thank you to Jens Emil Bødstrup Christoffersen for providing detailed comments on and for testing the initial version of this document. Any errors that remain are our own.
