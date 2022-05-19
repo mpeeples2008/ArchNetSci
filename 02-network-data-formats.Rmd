@@ -89,13 +89,16 @@ We can obtain an adjacency matrix object in R by converting our network object c
 ```{r, warning=F, message=F}
 # Convert to adjacency matrix then display first few rows/columns
 adj_mat <- igraph::as_adjacency_matrix(Cibola_net)
-head(adj_mat)
+adj_mat[1:5, 1:5]
 
 # Read in adjacency matrix and convert to network object for plotting
 adj_mat2 <-
   read.csv(file = "data/Cibola_adj.csv",
            header = T,
            row.names = 1)
+
+adj_mat2[1:4,1:4]
+
 Cibola_net2 <-
   igraph::graph_from_adjacency_matrix(as.matrix(adj_mat2),
                                       mode = "undirected")
@@ -222,7 +225,7 @@ directed_net <-
 directed_net
 
 # View as adjacency matrix of direted network object
-head(as_adjacency_matrix(directed_net))
+(as_adjacency_matrix(directed_net))[1:5, 1:5]
 
 # Plot network
 set.seed(4353)
@@ -253,12 +256,12 @@ weighted_net <-
 # add edge attribute to indicate weight
 E(weighted_net)$weight <- Cibola_edgelist$Weight
 
-# Explore the first few rows of network object
-head(get.data.frame(weighted_net))
+# Explore the first few rows and columns of network object
+(get.data.frame(weighted_net))[1:5, 1:5]
 
 # View network as adjacency matrix. Notice the attr="weight" command that
 # indicates which edge attribute to use for values in the matrix
-head(as_adjacency_matrix(weighted_net, attr = "weight"))
+(as_adjacency_matrix(weighted_net, attr = "weight"))[1:5, 1:5]
 
 # Plot the network
 set.seed(574)

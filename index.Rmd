@@ -91,7 +91,7 @@ We have created an associated [Archaeological Network Science - Discord Server](
 
 ## New to R and R Studio?{-}
 
-This tutorials in this document are built for users with a basic familiarity with R and R-studio. If you are a first time R user and need help getting R and R studio installed and up and running, we have created a detailed guild to [Getting started with R and R-Studio](#GettingStarted). This document covers the installation of the required software and provides a basic introduction to the R programing environment that we hope will be enough to get you started. 
+This tutorials in this document are built for users with a basic familiarity with R and R-studio. If you are a first time R user and need help getting R and R studio installed and up and running, we have created a detailed guild to [Getting started with R](#GettingStarted). This document covers the installation of the required software and provides a basic introduction to the R programing environment that we hope will be enough to get you started. 
 
 If you already have a basic familiarity with R and want to go further, there are numerous additional resources (most are completely free) to help you learn. Some resources we would recommend include *R for Data Science* [(Wickham and Grolemund 2017)](https://r4ds.had.co.nz/), *Advanced R* [(Wickham 2019)](https://adv-r.hadley.nz/), *the R Cookbook, 2nd edition* [(Long and Teetor 2019)](https://rc2e.com/somebasics), and *R in Action* and the associated *Quick-R* website [(Kabacoff 2015)](https://www.statmethods.net/). In addition to this [Ben Marwick](https://anthropology.washington.edu/people/ben-marwick) has created an excellent repository of [resources for using R in archaeology](https://github.com/benmarwick/ctv-archaeology) as well as an ever-growing list of archaeological publications that include R code. The website associated with this book [archnetworks.net](https://www.archnetworks.net) also includes a list of archaeological articles focused on network research that include data and code. Reproducing published results is, in our experience, one of the best ways to learn advanced techniques and data management in R so we suggest you give it a try.
 
@@ -131,7 +131,7 @@ This project and the associated book were made possible thanks to the support of
 
 ![](images/NSF_Logo.png){width=150px} ![](images/ASU_SHESC_Logo.png){width=300px}
 
-# Gettings Started with R and R-Studio{- #GettingStarted}
+# Gettings Started with R{- #GettingStarted}
 
 In order to follow along with the code and examples in this document, you will need recent installations of both R and R-Studio on your computer. R and R-studio are available for Windows, MacOS, and Linux. This Section provides a very brief overview of how to get up and running. Following this, we introduce the basics of R and R-Studio to get you ready for the tutorials in the remainder of this document. If you follow this tutorial here we are confident you will then be able to start to engage with the examples and code in the remainder of the document.
 
