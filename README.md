@@ -5,6 +5,7 @@ This project serves as a companion to the Cambridge Manuals in Archaeology book 
 **Cite this document as:**
 
 > Peeples, Matthew A. and Tom Brughmans (2022). Online Companion to Archaeological Network Science by Brughmans and Peeples. <https://archnetworks.net>, Accessed 19 May 2022.
+
 **The associated book can be cited as**
 
 > Brughmans, Tom and Matthew A. Peeples (in press). *Archaeological Network Science.* Cambridge Manuals in Archaeology. Cambridge University Press, Cambridge, UK.
@@ -55,8 +56,6 @@ If you already have a basic familiarity with R and want to go further, there are
 ## Contribute To the Project
 
 We welcome contributions to this project from the community and the GitHub platform helps us facilitate that. You will first need to [sign up for a GitHub account](https://github.com/) and log in. If you find something that needs updating or changing (typos or errors) you can simply click the "View source" link at the right sidebar on the relevant page and then click the edit icon found near the top of the code block and make your proposed changes. These changes will be saved in a new "fork" of the document and we will review these and implement them where relevant and happily add your name to our list of contributors.
-
-![Edit button](images/edit_button.jpg){width=300px}
 
 If you detect a larger error such as code not running or if you would like to request a new feature or  update, you can create an issue using the [issue tracker](https://github.com/mpeeples2008/Archaeological_Network_Science/issues) page associated with the project repository.
 
