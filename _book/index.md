@@ -1,7 +1,7 @@
 ---
 title: "Online Companion to *Archaeological Network Science* by Brughmans and Peeples"
 author: "Matthew A. Peeples and Tom Brughmans"
-date: "2022-05-18"
+date: "2022-05-19"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: references.bib
@@ -22,11 +22,11 @@ This project serves as a companion to the Cambridge Manuals in Archaeology book 
 
 <a href="https://book.archnetworks.net"><img src="images/cover.png" width="250" height="375" alt="Brughmans and Peeples Book Cover" align="right" style="margin: 0 1em 0 1em" /></a>
 
-This document outlines methods for managing, analyzing, and visualizing network data, primarily using the R programming language. We provide code and examples to replicate the analyses presented in the book as well as many other additional useful code snippets, examples, and tools. This Online Companion is designed to expand upon topics covered in the book and you may find it useful to follow along with these examples as you read. Sections 1 through 6 in this document correspond to the topics and information covered in Chapters 2 through 7 of the Brughmans and Peeples book. You can use the table of contents on the left-hand side of your screen to jump directly to a particular section and the table and contents on the right to navigate within each section. 
+This document contains a series of tutorials that outline methods for managing, analyzing, and visualizing network data, primarily using the R programming language. We provide code and examples to replicate the analyses presented in the book as well as many other additional useful code snippets, examples, and tools. This Online Companion is designed to expand upon topics covered in the book and you may find it useful to follow along with these examples as you read the text. Sections 1 through 6 in this document correspond to the topics and information covered in Chapters 2 through 7 of the Brughmans and Peeples book. You can use the table of contents on the left-hand side of your screen to jump directly to a particular section and the table and contents on the right to navigate within each section. 
 
 **Cite this document as:**
 
-> Peeples, Matthew A. and Tom Brughmans (2022). Online Companion to Archaeological Network Science by Brughmans and Peeples. <https://archnetworks.net>, Accessed 2022-05-18.
+> Peeples, Matthew A. and Tom Brughmans (2022). Online Companion to Archaeological Network Science by Brughmans and Peeples. <https://archnetworks.net>, Accessed 2022-05-19.
 
 **The associated book can be cited as**
 
@@ -46,32 +46,32 @@ Note that this is a pre-release version of this document. Be aware that there ar
 
 ## How Should I Use This Online Companion?{- #HowTo}
 
-The tutorials here are designed to complement the text of the associated book but can also stand alone as a guide to implementation if you have a basic background in network methods and terminology. Although each section of the book does build upon the previous sections in terms of network concepts and R methods, the sections are each independent in terms of examples and code and can be run out of order if you choose.
+The tutorials here are designed to complement the text of the associated book but can also stand alone as a guide to implementation if you have a basic background in network methods and terminology. Although each section of the book builds upon the previous sections in terms of network concepts and R methods, the sections are each independent in terms of data, examples, and code and can be run out of order if you choose.
 
-A few suggestions:
+A few suggestions on where to start:
 
 * If you are new to networks and R, we would suggest going through each section of this document, starting with "Getting Started with R" and then going through the numbered sections in order as you following along in the book.
-* If you are already familiar with R but new to network analysis, we suggest you read Section 1 to set up your data and workspace, and then following along with the remaining numbered Sections and associated book chapters as you read.
+* If you are already familiar with R but new to network analysis, we suggest you read Section 1 to set up your data and workspace, and then follow along with the remaining numbered Sections and associated book chapters as you read.
 * If you are already an avid networks and R user and are just looking for code chunks to implement something in particular, feel free to skip around. We have tried to make each Section as independent as possible so that you can pick and choose what you want to work on.
-* If you're a real pro and are designing your own network analyses or visualizations, we would love if you would considering contributing to the project to help this document grow.
+* If you're a real pro and are designing your own network analyses or visualizations, we would love it if you contributed to the project to help this document grow.
 
 ## Reproducibility{- #Repro}
 
 The most recent version of this document was built with R version 4.2.0 (2022-04-22 ucrt). We suggest you use a recent version of R when attempting to use the code in this document. 
 
-The content of this document is meant to be as accessible and reproducible as possible. The source code used to produce this document along with all of the data used in analyses are available on [GitHub](https://github.com/mpeeples2008/Archaeological_Network_Science). This GitHub repository allows anyone who chooses to open issues, contribute to the document, or help fix typos or other errors (see information about contributing below). We have also opened a GitHub discussion board with this repository where users can ask questions about any data or code in the repository without making edits or issue requests directly. 
+The content of this document is meant to be as accessible and reproducible as possible. The source code used to produce this document along with all of the data used in analyses are available on [GitHub](https://github.com/mpeeples2008/Archaeological_Network_Science). This GitHub repository allows users to open issues, contribute to the document, or help fix typos or other errors (see information about contributing below). We have also opened a GitHub discussion board with this repository where users can ask questions about any data or code in the repository without making edits or issue requests directly. 
 
-The easiest way to reproduce this document is to launch the project directly in your browser using [Binder](https://mybinder.org/). When you click on the link below it will open a browser based instance of R studio with all of the required packages and files. From there you can test and evaluate the code directly. 
+The easiest way to reproduce this document is to launch the project directly in your browser using [Binder](https://mybinder.org/). When you click on the link below it will open a browser based instance of R studio with all of the required packages and files. From there you can test and evaluate the code directly. [NOTE THIS FEATURE IS NOT CURRENLTY RUNNING]
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/mpeeples2008/Archaeological_Network_Science/main)
 
-You can also run the code and generate documents locally using R and R Studio. Download the entire R repository here: [main.zip](https://github.com/mpeeples2008/Archaeological_Network_Science/archive/refs/heads/main.zip). Unzip the file and then:
+You can also run the code and generate documents locally using R and R Studio. Download the entire R repository here: [main.zip](https://github.com/mpeeples2008/Archaeological_Network_Science/archive/refs/heads/main.zip). Unzip the files and then:
 
-* Open the "Archaeological_Network_Science.Rproj" in R studio.
-* Use the "renv::restore()" command to install the required packages and dependencies. Not that this is a large document that uses a great number of packages so this may take some time.
-* You will then be able to browse the files and execute code. 
+* Open the "Archaeological_Network_Science.Rproj" file in R studio.
+* Use the `renv::restore()` command to install the required packages and dependencies. Not that this is a large document that uses many packages so this may take some time.
+* You will then be able to browse the files and execute all of the code in the repository.
 
-This document has been deployed using the Netlify platform and the badge below shows the current status of the build hosted at [https://book.archnetworks.net](book.archnetworks.net).
+This online bookdown document has been deployed using the Netlify platform and the badge below shows the current status of the build hosted at [https://book.archnetworks.net](book.archnetworks.net).
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/266d5736-f13a-4de4-b812-141c023f3a09/deploy-status)](https://app.netlify.com/sites/archnetworks/deploys)
 
@@ -85,9 +85,9 @@ We have created an associated [Archaeological Network Science - Discord Server](
 
 ## New to R and R Studio?{-}
 
-This tutorials in this document assume you have a basic familiarity with R and R-studio. If you are a first time R user and need help getting R and R studio installed and up and running, we have created an overview of [how to install R and R-Studio along with some basics of analysis](#GettingStarted). This is not a complete or detailed introduction to R but we hope it will get you started.
+This tutorials in this document are built for users with a basic familiarity with R and R-studio. If you are a first time R user and need help getting R and R studio installed and up and running, we have created a detailed guild to [Getting started with R and R-Studio](#GettingStarted). This document covers the installation of the required software and provides a basic introduction to the R programing environment that we hope will be enough to get you started. 
 
-If you already have a basic familiarity with R and want to go further, there are numerous additional resources (most are completely free) to help you learn. Some resources we would recommend include *R for Data Science* ([(Wickham and Grolemund 2017)](https://r4ds.had.co.nz/)), *Advanced R* ([(Wickham 2019)](https://adv-r.hadley.nz/)), *the R Cookbook, 2nd edition* [(Long and Teetor 2019)](https://rc2e.com/somebasics), and *R in Action* and the associated *Quick-R* website [(Kabacoff 2015)](https://www.statmethods.net/). In addition to this [Ben Marwick](https://anthropology.washington.edu/people/ben-marwick) has created an excellent repository of [resources for using R in archaeology](https://github.com/benmarwick/ctv-archaeology) as well as an ever-growing list of archaeological publications that include R code. The website associated with this book [archnetworks.net](https://www.archnetworks.net) also includes a list of archaeological articles focused on network research that include data and code. Reproducing published results is, in our experience, one of the best ways to learn advanced techniques and data management in R.
+If you already have a basic familiarity with R and want to go further, there are numerous additional resources (most are completely free) to help you learn. Some resources we would recommend include *R for Data Science* [(Wickham and Grolemund 2017)](https://r4ds.had.co.nz/), *Advanced R* [(Wickham 2019)](https://adv-r.hadley.nz/), *the R Cookbook, 2nd edition* [(Long and Teetor 2019)](https://rc2e.com/somebasics), and *R in Action* and the associated *Quick-R* website [(Kabacoff 2015)](https://www.statmethods.net/). In addition to this [Ben Marwick](https://anthropology.washington.edu/people/ben-marwick) has created an excellent repository of [resources for using R in archaeology](https://github.com/benmarwick/ctv-archaeology) as well as an ever-growing list of archaeological publications that include R code. The website associated with this book [archnetworks.net](https://www.archnetworks.net) also includes a list of archaeological articles focused on network research that include data and code. Reproducing published results is, in our experience, one of the best ways to learn advanced techniques and data management in R so we suggest you give it a try.
 
 ## Contribute To the Project{-}
 
@@ -121,13 +121,13 @@ We are devoted to seeing the community of archaeological network practitioners g
 
 ## Acknowledgements{-}
 
-This project and the associated book were made possible thanks to the support of several generous funding sources including: The Carlsberg Foundation, in the context of the Past Social Networks Project (CF21-0382); the National Science Foundation through both the Archaeology and the Measurement, Methodology, and Statistics programs (grant #1758690 and #1758606); and the School of Human Evolution and Social Change at Arizona State University. 
+This project and the associated book were made possible thanks to the support of several generous funding sources including: The Carlsberg Foundation, in the context of the Past Social Networks Project (CF21-0382); the National Science Foundation through both the Archaeology and the Measurement, Methodology, and Statistics programs (grant #1758690 and #1758606); and the School of Human Evolution and Social Change at Arizona State University. Thank you to Jens Emil Bødstrup Christoffersen for providing detailed comments on and for testing the initial version of this document. Any errors that remain are our own.
 
 ![](images/NSF_Logo.png){width=150px} ![](images/ASU_SHESC_Logo.png){width=300px}
 
-# Gettings Started with R{- #GettingStarted}
+# Gettings Started with R and R-Studio{- #GettingStarted}
 
-In order to follow along with the code and examples in this document, you will need recent installations of both R and R Studio on your computer. R and R studio are available for Windows, MacOS, and Linux/Unix. This Section provides a very brief overview of how to get up and running. Following this, we introduce the basics of R and R-Studio to get you ready for the tutorials in the remainder of this document.
+In order to follow along with the code and examples in this document, you will need recent installations of both R and R-Studio on your computer. R and R-studio are available for Windows, MacOS, and Linux. This Section provides a very brief overview of how to get up and running. Following this, we introduce the basics of R and R-Studio to get you ready for the tutorials in the remainder of this document. If you follow this tutorial here we are confident you will then be able to start to engage with the examples and code in the remainder of the document.
 
 ## Download and Install R{- #InstallR}
 
@@ -146,7 +146,7 @@ The first step is to install a recent version of R (we recommend 4.2 or later as
 
 To install R on MacOS, you first need to know which chip manufacturer your Mac has. In order to determine which chip you have go to the Apple menu and select "About This Mac" and look for information under "Processor" or "Chip" in the window that pops up. It will either be Intel or M1.
 
-* Next, click the on the link under "Latest release" for the *.pkg file for the appropriate Mac processor in your Mac. There is a separate notarized and signed .pkg file Macs with Intel processors and Macs with Apple M1 processors (mostly produced 2020 and later). Note, these .pkg files are not interchangeable so confirm which one you need.
+* Next, click the on the link under "Latest release" for the *.pkg file for the appropriate Mac processor in your computer. There is a separate notarized and signed .pkg file Macs with Intel processors and Macs with Apple M1 processors (mostly produced 2020 and later). Note, these .pkg files are not interchangeable so confirm which one you need.
 * Once you have downloaded the appropriate .pkg, run it and answer the questions during the install as required.
 
 ### Linux{-}
@@ -158,7 +158,7 @@ Linux installations of R are primarily done through the console but the instruct
 
 ## Download and Install R-Studio{- #InstallRStudio}
 
-R-studio is an integrated development environment (IDE) for R, Python, and related programming tools that provides additional features for running and debugging code and data management. We see this as essential to working with large and complex R projects. 
+R-studio is an integrated development environment (IDE) for R, Python, and related programming tools that provides additional features for running and debugging code and data management. We see this IDE as essential to working with large and complex R projects. 
 
 In order to install R-Studio:
 
@@ -175,9 +175,9 @@ Once you've installed both R and R-Studio, open R-studio and look for the Consol
 
 ## R and R-Studio Basics{- #RBasics}
 
-R is a powerful statistical analysis platform that can be used to conduct some quite complex analyses. The learning curve is a bit steep when first getting started but the payoff is HUGE because the ecosystem of existing R scripts and packages is so large and diverse. We cannot hope to cover everything R and R-studio can do in this very short intro here but we present a version of the "introduction to R programming" that Matt Peeples has used in the first week of classes focused on statistical analyses for a number of years. Hopefully this will get you started. 
+R is a powerful statistical analysis platform that can be used to conduct some quite complex analyses. The learning curve is a bit steep when first getting started but the payoff is HUGE because the ecosystem of existing R scripts and packages is so large and diverse. We cannot hope to cover everything R and R-Studio can do in this very short intro here but we present a version of the "introduction to R programming" that Matt Peeples has used in the first week of classes focused on statistical analyses for a number of years. Hopefully this will get you started. 
 
-Although R seems complicated at first, many quite complex analyses are run with just a few lines of code. Once you learn the basics, more complex features of R are really just combinations of these basic procedures. You won't become an R expert overnight, but we've seen many students pick up the basics quite quickly and begin to take on their own analyses in R. 
+Although R seems complicated at first, many quite complex analyses are run with just a few lines of code. Once you learn the basics, more complex features of R are really just combinations of these basic procedures. You won't become an R expert overnight, but we've seen many students pick up the basics quite quickly and begin to take on their first analyses in R in a matter of hours. 
 
 #### Organization of R-Studio{-}
 
@@ -185,11 +185,11 @@ First off, let's take a look at the R-Studio setup. When you first open R-Studio
 
 ![R-Studio](images/r-studio.jpg){width=100%}
 
-The pane in the top left contains the Workspace tabs which is where you can write code and other documents before executing the code they contain. The pane at the bottom left is the console where you can type and run commands directly. The pane at the upper right includes tabs for Environment (a list of objects and functions currently initialized) and History (a list of previous commands run at the console). Finally, the lower right pane has tabs for Files (which shows files in the current directory), Plots (where plots created in the console will be displayed), Packages (a list of additional packages installed and initialized in R), and Help (where you can get information about particular functions and packages). 
+The pane in the top left contains the Workspace tabs which is where you can write code and other documents. The pane at the bottom left is the console where you can type and run commands directly. The pane at the upper right includes tabs for Environment (a list of objects and functions currently initialized) and History (a list of previous commands run at the console). Finally, the lower right pane has tabs for Files (which shows files in the current directory), Plots (where plots created in the console will be displayed), Packages (a list of additional packages installed and initialized in R), and Help (where you can get information about particular functions and packages). 
 
 In the set of tutorials that follow we are going to focus on the Console first and will introduce the other panels and what they provide along the way.
 
-### Mathematical Operations{- $Math}
+### Mathematical Operations{- #Math}
 
 Getting started with R is as simple as typing directly into the Console. You can use the R console like a calculator to conduct mathematical operations. Simply type the numbers and operators at the console and hit enter to calculate. The answer will output directly on the console by default. Try typing the following at the console:
 
@@ -203,7 +203,7 @@ Getting started with R is as simple as typing directly into the Console. You can
 #> [1] 10
 ```
 
-R uses `( )` for bracketing groups of operations to set the order of operations. These can be nested to do more complex mathematical operations or to determine the order of operations. For example compare the two equations below:
+R uses `( )` for bracketing groups of operations. These can be nested to do more complex mathematical operations or to determine the order of operations. For example compare the two equations below:
 
 
 ```r
@@ -258,7 +258,7 @@ Object names in R are case sensitive and cannot include spaces. Object names can
 
 When formatting object names there are a few common styles such as:
 
-* `snake_case_style` - see the little snakes [underscores] in the place of spaces
+* `snake_case_style` - see the little snakes (underscores) in the place of spaces
 * `CamalCaseStyle` - see the capitalized humps denoting each word
 * `kebab-case-style` - skewered right down the middle
 
@@ -285,7 +285,20 @@ month.name
 
 ### Logical Operators{- #Logical}
 
-R can also use logical operators such as `<` less than, `>` greater than, `<=` less than or equal to, `>=` greater than or equal to, `==` exactly equal to, and `!=` not equal to. These operators can be used in conjunction with other operations and return a value indicating `TRUE` or `FALSE`. These can be used in more complex functions and conditional statements as we will see below.
+R can also use logical operators (see list below). These operators can be used in conjunction with other operations and return a value indicating `TRUE` or `FALSE`. These can be used in more complex functions and conditional statements as we will see below.
+
+
+|Operator |Meaning                  |
+|:--------|:------------------------|
+|<        |less than                |
+|>        |greater than             |
+|<=       |less than or equal to    |
+|>=       |greater than or equal to |
+|==       |exactly equal to         |
+|!=       |not equal to             |
+|&        |and                      |
+|&#124;   |or                       |
+
 
 
 ```r
@@ -378,27 +391,6 @@ round(pi, digits = 2) # argument setting the number of digits to retain
 #> [1] 3.14
 ```
 
-We can use R to generate random numbers under a given probability distribution which is often quite useful. For example, we use the `rnorm()` function below to create a set of random number drawn from a normal distribution with the parameters provided.
-
-
-```r
-# n = the number of random numbers to generate
-# mean = the mean of the values
-# sd = the standard deviation of the mean
-x <- rnorm(n = 50, mean = 10, sd = 2)
-x
-#>  [1]  9.755595 11.658036 10.880706  9.730719 12.041755
-#>  [6]  8.574915 13.711785 12.621856 11.658537 10.808773
-#> [11]  8.684941  9.815131 14.322212  8.529503 11.380834
-#> [16]  8.464771  9.079090 11.346232 10.302975 11.380823
-#> [21]  5.332369  9.933827  5.787456  7.883700 11.845327
-#> [26]  9.280393 13.762739  8.028348 10.298498  7.274238
-#> [31] 10.064135  9.858108  9.299458 10.095092 10.671627
-#> [36]  6.956598 14.121439 12.168622 11.540665 11.140568
-#> [41]  7.302861 10.836259 10.996231 10.920800  9.095223
-#> [46] 11.329610 11.722964  9.395975 11.988981  9.436447
-```
-
 For a list of some of the most frequently used built-in functions see [this Quick-R](https://www.statmethods.net/management/functions.html) page. 
 
 ### Tabular Data{- #Tabular}
@@ -462,9 +454,44 @@ fisher.test(mat2)
 #>   6.815654
 ```
 
-The output includes information about the data we used to run the test, a p-value, the alternative hypothesis, confidence intervals, and odds ratio. The output we get from any given function will vary depending on the application. 
+The output includes information about the data we used to run the test, a p-value, the alternative hypothesis, confidence intervals, and the odds ratio. The output we get from any given function will vary depending on the application. See the `help()` documents for your function of interest to get more info about output.
 
-### Other Object Types{- #ObjectTypes}
+### Data Types in R{- #DataTypes}
+
+There are many different types of data that R understands but we focus here on the most common. This includes numeric data, integer data, character data, logical data, and factors.
+
+* numeric data - This is the designation used for real numbers which can include a decimal point.
+* integer data - This is the designation for numbers without a decimal. To designate a number as an integer type, you can add `L` after the number (see example below). Note that are automatically converts between numeric and integer data as necessary in mathematical operations.
+* character data - This is the designation for any string of characters that does not exclusively consist of numbers. Character data can be a single character such as "a" or a long string "this string is character data". In general R displays character data inside `" "`.
+* logical data - This is the designation for evaluations of logical statements and takes the form of `TRUE` or `FALSE`.
+* factors - Factors are nominal variables stored as vectors as R objects which have distinct "levels" which each value must be. Factors are useful in both many statistical procedures and visualizations in that unique values can be treated as "groups" rather than simply unique character data. To designate data as a factor, use the `as.factor()` function. Note that factors can be numbers but they will be treated as nominal characters when evaluated.
+
+It is possible to determine what type of data an R object contains using the `str()` function. Let's look at examples for each type below:
+
+
+```r
+num <- c(12.3, 32.4, 53, 4.2, 4, 22.3)
+str(num)
+#>  num [1:6] 12.3 32.4 53 4.2 4 22.3
+
+int <- c(1L, 2L, 5L, 6L)
+str(int)
+#>  int [1:4] 1 2 5 6
+
+char <- c("string1", "string2", "This too is a string")
+str(char)
+#>  chr [1:3] "string1" "string2" "This too is a string"
+
+TF <- c(TRUE, FALSE, FALSE, TRUE) # note the lack of " "
+str(TF)
+#>  logi [1:4] TRUE FALSE FALSE TRUE
+
+fac <- as.factor(c("type1", "type2", "type2", "type3"))
+str(fac)
+#>  Factor w/ 3 levels "type1","type2",..: 1 2 2 3
+```
+
+### Object Types in R{- #ObjectTypes}
 
 The four most common object types in R are vectors, matrices, lists, and data frames. We have already explored vectors and matrices but we can define these and the other classes in more detail here.
 
@@ -479,7 +506,7 @@ We have already introduced vectors above but we can point out one more feature t
 
 
 ```r
-v <- c(1,6,4,8,7,5,3,8,10,44)
+v <- c(1, 6, 4, 8, 7, 5, 3, 8, 10, 44)
 length(v)
 #> [1] 10
 ```
@@ -494,7 +521,7 @@ mat1
 #>      [,1] [,2]
 #> [1,]    3    2
 #> [2,]    4   20
-mat1[2,1] # row 2 column 1
+mat1[2, 1] # row 2 column 1
 #> [1] 4
 ```
 
@@ -509,21 +536,22 @@ dim(mat1)
 
 #### Data Frame{-}
 
-As the brief definitions above suggest, data frames are very similar to matrices but can include mixed data types in the same rectangular table. Each row and column must, however, have the same number of entries. A data frame can be created by combining a set of vectors. In the example here we introduce another data type called a factor. A factor is a nominal variable that has "levels" that represent a limited set of values which can be used for a given variable. For example:
+As the brief definitions above suggest, data frames are very similar to matrices but can include mixed data types in the same rectangular table. Each row and column must, however, have the same number of entries. A data frame can be created by combining a set of vectors. For example:
 
 
 ```r
 col1 <- c("mammoth", "mastadon", "bison")
-col2 <- c(50,52,14)
-col3 <- c(11.14,22.23,656.34)
+col2 <- c(50L, 52L, 14L)
+col3 <- c(11.14, 22.23, 656.34)
 col4 <- as.factor(c("type1", "type1", "type2"))
+col5 <- c(TRUE, FALSE, TRUE)
 
-dat <- data.frame(col1, col2, col3, col4)
+dat <- data.frame(col1, col2, col3, col4, col5)
 dat
-#>       col1 col2   col3  col4
-#> 1  mammoth   50  11.14 type1
-#> 2 mastadon   52  22.23 type1
-#> 3    bison   14 656.34 type2
+#>       col1 col2   col3  col4  col5
+#> 1  mammoth   50  11.14 type1  TRUE
+#> 2 mastadon   52  22.23 type1 FALSE
+#> 3    bison   14 656.34 type2  TRUE
 ```
 
 If we want to look at what kind of data R understands each column to be, we can use the `str()` or structure function.
@@ -531,11 +559,12 @@ If we want to look at what kind of data R understands each column to be, we can 
 
 ```r
 str(dat)
-#> 'data.frame':	3 obs. of  4 variables:
+#> 'data.frame':	3 obs. of  5 variables:
 #>  $ col1: chr  "mammoth" "mastadon" "bison"
-#>  $ col2: num  50 52 14
+#>  $ col2: int  50 52 14
 #>  $ col3: num  11.1 22.2 656.3
 #>  $ col4: Factor w/ 2 levels "type1","type2": 1 1 2
+#>  $ col5: logi  TRUE FALSE TRUE
 ```
 
 Note that the `dim()` function also works on data frames as does the `[,]` call for specific items:
@@ -543,13 +572,13 @@ Note that the `dim()` function also works on data frames as does the `[,]` call 
 
 ```r
 dat
-#>       col1 col2   col3  col4
-#> 1  mammoth   50  11.14 type1
-#> 2 mastadon   52  22.23 type1
-#> 3    bison   14 656.34 type2
+#>       col1 col2   col3  col4  col5
+#> 1  mammoth   50  11.14 type1  TRUE
+#> 2 mastadon   52  22.23 type1 FALSE
+#> 3    bison   14 656.34 type2  TRUE
 dim(dat)
-#> [1] 3 4
-dat[2,1]
+#> [1] 3 5
+dat[2, 1]
 #> [1] "mastadon"
 ```
 
@@ -560,7 +589,7 @@ A list is simply a convenient way of combining multiple objects into a single ob
 
 
 ```r
-out1 <- list(mat1, dat, c(1,2,4)) # create a list containing 3 objects
+out1 <- list(mat1, dat, c(1, 2, 4)) # create a list containing 3 objects
 out1
 #> [[1]]
 #>      [,1] [,2]
@@ -568,10 +597,10 @@ out1
 #> [2,]    4   20
 #> 
 #> [[2]]
-#>       col1 col2   col3  col4
-#> 1  mammoth   50  11.14 type1
-#> 2 mastadon   52  22.23 type1
-#> 3    bison   14 656.34 type2
+#>       col1 col2   col3  col4  col5
+#> 1  mammoth   50  11.14 type1  TRUE
+#> 2 mastadon   52  22.23 type1 FALSE
+#> 3    bison   14 656.34 type2  TRUE
 #> 
 #> [[3]]
 #> [1] 1 2 4
@@ -591,14 +620,14 @@ You can even stack sets of double and single brackets to call specific items wit
 ```r
 out1[[3]][2] # item 2 in list object 3
 #> [1] 2
-out1[[2]][2,1] # row 2 column 1 in list object 2
+out1[[2]][2, 1] # row 2 column 1 in list object 2
 #> [1] "mastadon"
 ```
 
 
 ## The Workspace Tab{- #Workspace}
 
-Now that we are starting to get into more complex calls and functions, it can be useful to write and edit the code before executing it rather than typing it directly into the Console. To do this, we work in the Workspace tab R script document we created at the beginning of this tutorial (Go to File > New File > R Script to open a new document). These .R documents can be edited and saved on your computer so that you can return to them later. Let's take a look at how this works.
+Now that we are starting to get into more complex calls and functions, it will be useful to write and edit the code before executing it rather than typing it directly into the Console. To do this, we can work in the Workspace tab R script document we created at the beginning of this tutorial (Go to File > New File > R Script to open a new document). These .R documents can be edited and saved on your computer so that you can return to them later. Let's take a look at how this works.
 
 Think of the R script document as a draft of what you plan to type to the Console. 
 
@@ -626,9 +655,9 @@ Once you have this saved, highlight all of the code in the Workspace window and 
 
 ![Workspace](images/workspace.jpg){width=100%}
 
-This will execute the code in your Console and print the results. Let's say when we ran this code, we realized that we actually wanted to raise `mat3` to the 3rd power. We can make that change and then select the code and click run again to do this. This is the true power of scripts in that they allow us to make changes and modify our code easily as we go without retyping commands. Anything you can do in the console you can first set up in the Workspace pane.
+This will execute the code in your Console and print the results. Let's say when we ran this code, we realized that we actually wanted to raise `mat3` to the 3rd power or we typed one number in our data incorrectly. We can make those changes and then select the code and click run again to do this. This is the true power of scripts in that they allow us to make changes and modify our code easily as we go without retyping commands. Anything you can do in the console you can first set up in the Workspace pane.
 
-## Installing Packages{- #InstallPackages}
+## Installing and Using Packages{- #InstallPackages}
 
 So far, everything we have done has involved packages included in "base" R and only internal built-in functions. One of the best things about R is the ecosystem of packages created and peer reviewed by others for all manner of statistical analyses you can imagine. There is a package out there for just about everything so it is always a good idea to check before you start to write any complex script on your own.
 
@@ -639,7 +668,7 @@ In order to install external packages, you need to know the name of the package 
 install.packages("vegan")
 ```
 
-Once our package installs, we can "call" it or initialize it using the `libaray()` function. Notice that when we load this package it also loads "permute" and "lattice" which are two additional packages used within "vegan". These dependencies were automatically installed when you installed the "vegan" package.
+Once our package installs, we can "call" it or initialize it using the `libaray()` function. Notice that when we load this package it also loads "permute" and "lattice" which are two additional packages used within "vegan". These dependencies were automatically installed when you installed the `vegan` package.
 
 
 ```r
@@ -649,7 +678,7 @@ library(vegan)
 #> This is vegan 2.6-2
 ```
 
-Now we can use not just the base R functions, but also the functions within the `vegan` package. Within the vegan package one particularly useful function is called `diversity()` which allows us to calculate all manner of common diversity measures. Remember to check `?diversity` if you want to learn more about the package and its arguments. Let's give it a try by creating a vector and then calculating two different diversity indices on that vector:
+Now we can use not just the base R functions, but also the functions within the `vegan` package. Within this package one particularly useful function is called `diversity()` which allows us to calculate all manner of common diversity measures. Remember to check `?diversity` if you want to learn more about the package and its arguments. Let's give it a try by creating a vector and then calculating two different diversity indices on that vector:
 
 
 ```r
@@ -662,18 +691,28 @@ diversity(vec1, index = "simpson")
 #> [1] 0.7259993
 ```
 
+As this example shows, once a package is loaded using the `library()` function, there is nothing special about using external functions. They are called at the console just like built-in functions. There is, however, one additional consideration. Since there are so many packages and they are created by so many people, sometimes two packages will use the same function name. For example, the `igraph` and `sna` packages both use the function name `degree()` for degree centrality. If both packages are initialized in R, how will R know which one to use? The solution for this is to use the package name directly in the function call like this:
+
+
+```r
+igraph::degree(data) # igraph degree function
+sna::degree(data) # sna degree function
+```
+
+When writing code that others will use, it may be a good idea to include package names in function calls to avoid ambiguity.
+
 > There are tons of useful packages out there and it can sometimes be a bit overwhelming trying to find them. Searching in a search engine for the simple letter "R" can also yield unexpected results. One helpful tip when searching for packages is to include "CRAN" or "package" in the search terms. CRAN stands for the Comprehensive R Archive Network and this is the archive that contains most of the peer reviewed and established packages for R. 
 
 ## Working with Files{- #WorkingWithFiles}
 
-In many cases we may wish to either write or read in external files into R. Frequently these files take the shape of spreadsheets such as Excel documents or csv (comma separated value) documents. R has many functions for reading in such data and most are built-in to base R. Let's try this out by first writing a .csv file from a matrix we generate and then reading it back in. Note that any files you write from the console will go directly to the R working directory unless you otherwise specify.
+In many cases we may wish to either write or read an external files with R. Frequently these files take the shape of spreadsheets such as Excel documents or csv (comma separated value) documents. R has many functions for reading in such data and most are built-in to base R. Let's try this out by first writing a .csv (comma separated value) file from a matrix we generate and then reading it back in. Note that any files you write from the console will go directly to the R working directory unless you otherwise specify.
 
 To write a csv file we use the `write.csv()` function. First we will create a simple matrix, add row names and column names, and then export it.
 
 
 ```r
-vec2 <- c(4,2,65,4,2,4,6,4,2)
-# Notice in the matrix call below we don't enter 'nrow' 
+vec2 <- c(4, 2, 65, 4, 2, 4, 6, 4, 2)
+# Notice in the matrix call below we don't enter 'nrow'
 # and other argument names as R automatically expects
 # them to occur in the order mentioned in the documentation
 mat4 <- matrix(vec2, 3, 3) # 3 row 3 column matrix
@@ -719,13 +758,13 @@ is.matrix(read_mat2)
 #> [1] TRUE
 ```
 
-There are lots of different functions for reading in files in different formats and we will introduce some of these later in the subsequent sections of this tutorial. 
+There are lots of different functions for reading in files in different formats and we will introduce some of these later in the subsequent sections of this tutorial where relevant. 
 
 ## Plotting Data{- #Plotting}
 
 One of the great features of R is the ability to make all kinds of amazing data visualizations. Making simple graphics is very easy but as we will see, defining very specific details often requires a number of different packages and considerable care. Indeed, the vast majority of functions used in this Online Companion are used for visualizations.
 
-Let's start with something simple by creating two vectors and then creating a biplot comparing them. When you use the `plot()` function the plot will automatically appear in the bottom right pane of your R-Studio window. We use the `set.seed()` function to ensure that we will always generate the same random numbers every time we make this call for reproducibility. If we entered a different number in `set.seed()` we would get somewhat different results.
+Let's start with something simple by creating two vectors and then creating a biplot comparing them. When you use the `plot()` function the plot will automatically appear in the bottom right pane of your R-Studio window. We use the `rnorm()` function here to generate random numbers from a normal distribution. We further use the `set.seed()` function to ensure that we will always generate the same random numbers every time we make this call for reproducibility. If we entered a different number in `set.seed()` we would get different results.
 
 
 ```r
@@ -735,7 +774,7 @@ y <- rnorm(5000, mean = 5, sd = 0.5)
 plot(x,y)
 ```
 
-<img src="index_files/figure-html/unnamed-chunk-35-1.png" width="672" />
+<img src="index_files/figure-html/unnamed-chunk-37-1.png" width="672" />
 
 We can also easily create a histogram of a single variable with additional arguments:
 
@@ -744,7 +783,7 @@ We can also easily create a histogram of a single variable with additional argum
 hist(x, breaks=20) # breaks defines the number of bars
 ```
 
-<img src="index_files/figure-html/unnamed-chunk-36-1.png" width="672" />
+<img src="index_files/figure-html/unnamed-chunk-38-1.png" width="672" />
 
 And boxplots:
 
@@ -753,7 +792,7 @@ And boxplots:
 boxplot(x, y)
 ```
 
-<img src="index_files/figure-html/unnamed-chunk-37-1.png" width="672" />
+<img src="index_files/figure-html/unnamed-chunk-39-1.png" width="672" />
 
 There are lots of figures built right into base R and we suggest exploring the [R Gallery Book](https://bookdown.org/content/b298e479-b1ab-49fa-b83d-a57c2b034d49/) which outlines many options.
 
@@ -774,7 +813,7 @@ ggplot(data = df) +
   geom_point(aes(x = x, y = y))
 ```
 
-<img src="index_files/figure-html/unnamed-chunk-39-1.png" width="672" />
+<img src="index_files/figure-html/unnamed-chunk-41-1.png" width="672" />
 
 In the code chunk above, we created a data frame (which ggplot2 requires) combining our random x and y variables. Next, we made a generic call to ggplot2 using the `ggplot(data = df)` line. This creates a ggplot object set up with `df` as the data considered. Notice this line is followed by a `+`. This package will continue to read lines until a line does not end with this symbol and `ggplot` calls can often be quite long. 
 
@@ -793,7 +832,7 @@ ggplot(data = df) +
   theme_minimal()
 ```
 
-<img src="index_files/figure-html/unnamed-chunk-40-1.png" width="672" />
+<img src="index_files/figure-html/unnamed-chunk-42-1.png" width="672" />
 
 ```r
 
@@ -803,7 +842,7 @@ ggplot(data = df) +
   theme_bw()
 ```
 
-<img src="index_files/figure-html/unnamed-chunk-40-2.png" width="672" />
+<img src="index_files/figure-html/unnamed-chunk-42-2.png" width="672" />
 
 ```r
 
@@ -815,13 +854,13 @@ ggplot(data = df2) +
   theme_bw()
 ```
 
-<img src="index_files/figure-html/unnamed-chunk-40-3.png" width="672" />
+<img src="index_files/figure-html/unnamed-chunk-42-3.png" width="672" />
 
 ## More Advanced R Features{- #AdvancedR}
 
 The examples so far have covered most of the basic features of R and R-Studio. There are just a few more things that are implemented in this online document that need a bit of additional explanation. If you can follow along with the examples above, you will be able to replicate most of the work in this document. The features in this section will help you expand your skills and better understand the more complicated code in this document. 
 
-### Conditional Statements{-}
+### Conditional Statements{- #Conditionals}
 
 Another common need for programming in R is to conduct an action conditioned on another action or variable state. For example, if A is TRUE then do B. If statements like this are formally in R using the following format:
 
@@ -869,7 +908,7 @@ if (x > 50) {
 } 
 ```
 
-In the first example above, the evaluation of `x > 50` was `FALSE` so the `else` statement was evaluated. In the second example, the evaluation of `x*2 >50` was `TRUE` so the first statement was evaluated. Finally, in the third example, `x > 50` was `FALSE` and since there is no `else` statement nothing happened. 
+In the first example above, the evaluation of `x > 50` was `FALSE` so the statement in brackets after `else` was evaluated. In the second example, the evaluation of `x*2 >50` was `TRUE` so the first statement was evaluated. Finally, in the third example, `x > 50` was `FALSE` and since there is no `else` statement nothing happened. 
 
 If you want to apply an if...else statement to a vector of values rather than one at a time, you can use a useful function `ifelse()`. The `ifelse()` function expects the first item in the parenthesis to be the test expression, followed by the event to execute if the statement is true and then the event to execute if the expression is false.
 
@@ -890,9 +929,9 @@ ifelse(x > 50, "Greater Than 50", "Less Than 50")
 #> [19] "Greater Than 50" "Greater Than 50"
 ```
 
-### which Function{-}
+### which Function{- #which}
 
-Another useful function is are is the `which()` function, which allows you to evaluate which items in an object meet a given condition. Let's take a look at an example to see how this works:
+Another useful and frequently used conditional function is the `which()` function. This function allows you to evaluate which items in an object meet a given condition. Let's take a look at an example to see how this works:
 
 
 ```r
@@ -909,9 +948,9 @@ which(y > 10)
 #> [1]  6  7  8  9 10
 ```
 
-In the first example above, we created a sequence of numbers from 1 to 10 and then evaluated which were greater than 5. The results indicated that items 6, 7, 8, 9, and 10 in the vector were greater than 5. Note that these results are not the values but instead are the numeric indexes of the values. The second example illustrates this. This is much like the first example by we create a sequence of numbers from 2 to 20 counting by 2s. When we evaluate which numbers in the vector are greater than 10, our results tell us the 6th, 7th, 8th, 9th, and 10th numbers are greater than 10.
+In the first example above, we created a sequence of numbers from 1 to 10 and then evaluated which were greater than 5. The results indicated that items 6, 7, 8, 9, and 10 in the vector were greater than 5. Note that these results are not referring to the values but instead are the numeric indexes of the values. The second example illustrates this. This is much like the first example by we create a sequence of numbers from 2 to 20 counting by 2s. When we evaluate which numbers in the vector are greater than 10, our results tell us the 6th, 7th, 8th, 9th, and 10th numbers are greater than 10.
 
-### Loops{-}
+### Loops{- #Loops}
 
 A loop provides a set of instructions for R to repeat a code block some number of times based on rules we supply. The typical syntax is:
 
@@ -936,7 +975,7 @@ for (i in 1:5) { # for every value in the sequence from 1:5
 #> [1] 10
 ```
 
-As this example helps illustrate, the `for (i in 1:5)` statement defines `i = 1` and then evaluates the statement `print(i * 2)`, and then defines `i = 2` and evaluates `print(i * 2)`, and so on until it completes the chunk for `i = 5`. The key feature of for loops is that we can use the value assigned to the iterator `i` in the statement inside the brackets `{}` to evaluate the statement for a range of values. The sequence of values assigned to the iterator are arbitrary and can occur in any order:
+As this example helps illustrate, the `for (i in 1:5)` statement defines `i = 1` and then evaluates the statement `print(i * 2)`, and then defines `i = 2` and evaluates `print(i * 2)`, and so on until it completes the chunk for `i = 5`. The key feature of for loops is that we can use the value assigned to the iterator `i` in the statement inside the curly brackets `{}` to evaluate the statement for a range of values. The sequence of values assigned to the iterator are arbitrary and can occur in any order:
 
 
 ```r
@@ -954,7 +993,7 @@ for (m in val_seq) {
 #> [1] 7
 ```
 
-We can also assign the results of any expressions in the brackets to a new variable. If you want to retain all results and not have the results rewritten, you will need to first define an output object before you start.
+We can also assign the results of any expressions in the curly brackets to a new variable. If you want to retain all results and not have the results rewritten, you will need to first define an output object before you start.
 
 
 ```r
@@ -978,7 +1017,7 @@ In the second example, the statement within the brackets tells R to assign the v
 
 There is a lot more than can be done with loops but this basic description should be all you need to know to understand the code in this document.
 
-### Custom Functions{-}
+### Custom Functions{- #CustomFunctions}
 
 Finally, we are going to end with a discussion of how R can be used to create custom functions. If there is some operation you do again and again, it doesn't make sense to keep copying and pasting the code every time. It makes more sense to define a function and then just call that. Once defined, a custom function works just like all the built-in and package functions we've seen above. Here is the basic syntax of a function in R:
 
@@ -993,7 +1032,7 @@ function_name <- function(arguments) {
 function_name(arguments)
 ```
 
-This format is a fairly simple example. Some functions can be quite complex, but that complexity is usually about combining loops and conditional statements and other processes discussed above rather than anything new or beyond what we've shown you so far. Let's take a look at a simple worked example to see how custom functions work:
+This format is a fairly simple example. Some functions can be quite complex, but that complexity is usually about combining loops and conditional statements and other processes discussed above within the function rather than anything new or beyond what we've shown you so far. Let's take a look at a simple worked example to see how custom functions work:
 
 
 ```r
@@ -1009,7 +1048,7 @@ func1(10, 5)
 #> [1] 75
 ```
 
-As this shows, any named argument in the function call can be used in the expression evaluated within the brackets. Functions can contain many lines of code and many arguments but the features are format are the same as the simple examples here. Let's look at a somewhat more complex function to see how this works:
+As this shows, any named argument in the function call can be used in the expression evaluated within the brackets. Functions can contain many lines of code and many arguments but the features and format are the same as the simple examples here. Let's look at a somewhat more complex function to see how this works:
 
 
 ```r
@@ -1026,20 +1065,20 @@ myfunct(val_seq)
 #>  [1]  0.2  0.8  1.8  3.2  5.0  7.2  9.8 12.8 16.2 20.0
 ```
 
-Let's break down what is happening in the chunk of code above. First, we defined a function with two arguments `x` and `y`. Inside the function expression we then initialized a new varable for the output called `z`. We then inter a for loop that iterate values of `i` for a sequence of numbers from 1 to the length of vector `x`. The value of `z` at position `i` is defined as the value of `x` at position `i` time `i` divided by the single value y. Once this loop finishes, the function returns the vector `z` with the results. As this example shows, arguments need not be limited to single values and can include vectors, data.frames, matrices, lists, or any type of R object.
+Let's break down what is happening in the chunk of code above. First, we defined a function with one argument `x`. Inside the function expression we then initialized a new variable for the output called `z`. We then enter a for loop that iterates values of `i` for a sequence of numbers from 1 to the length of vector `x`. The value of `z` at position `i` is defined as the value of `x` at position `i` times `i` divided by 5. Once this loop finishes, the function returns the vector `z` with the results. As this example shows, arguments need not be limited to single values and can include vectors, data.frames, matrices, lists, or any type of R object.
 
 ### Test Your Skills{-}
 
 If you've followed along with this tutorial so far, you should be able to do many basic operations in R and R-Studio. Let's now put your skills to the test. Use what you have learned above to create a function that converts Fahrenheit temperatures to Celsius. The formula for this conversion is `(F_temp - 32) * 5 / 9`. Create a function that reads in the F temperature and outputs C and the run it for the  sequence of values below. 
 
-Hints: Remember that you can't use F as an object name because that is the designation R uses for FALSE. Also, think about what you are trying to accomplish here. You want to create a function that iterates across a vector. That's very much what the previous example did so you can use that code as inspiration.
+Hints: Remember that you can't use `F` as an object name because that is the designation R uses for `FALSE`. Also, think about what you are trying to accomplish here. You want to create a function that iterates across a vector. That's very much what the previous example did so you can use that code as inspiration.
 
 
 ```r
-F_temp <- c(44,59,59,39,50,59,35)
+F_temp <- c(44, 59, 59, 39, 50, 59, 35)
 ```
 
-Once you have a working function, the use the `round()` function to convert your results to integers (i.e., run `round(values, digits = 0)`) and output these results into an object called `res`. Finally run the chunk of code below for a surprise:
+Once you have a working function, the use the `round()` function to convert your results to integers (check `?round()` if you need hints on how to do that) and output these results into an object called `res`. Finally run the chunk of code below for a surprise:
 
 
 ```r

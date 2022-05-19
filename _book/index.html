@@ -73,7 +73,7 @@
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
         <ul class="book-toc list-unstyled">
 <li><a class="active" href="index.html">Welcome</a></li>
-<li><a class="" href="GettingStarted.html">Gettings Started with R</a></li>
+<li><a class="" href="GettingStarted.html">Gettings Started with R and R-Studio</a></li>
 <li><a class="" href="data-and-workspace-setup.html"><span class="header-section-number">1</span> Data and Workspace Setup</a></li>
 <li><a class="" href="NetworkData.html"><span class="header-section-number">2</span> Network Data Formats</a></li>
 <li><a class="" href="exploratory-network-analysis.html"><span class="header-section-number">3</span> Exploratory Network Analysis</a></li>
@@ -93,10 +93,10 @@
 </h1>
 <p>This project serves as a companion to the Cambridge Manuals in Archaeology book <em>Archaeological Network Science</em> by Tom Brughmans and Matthew A. Peeples (2022).</p>
 <p><a href="https://book.archnetworks.net"><img src="images/cover.png" width="250" height="375" alt="Brughmans and Peeples Book Cover" align="right" style="margin: 0 1em 0 1em"></a></p>
-<p>This document outlines methods for managing, analyzing, and visualizing network data, primarily using the R programming language. We provide code and examples to replicate the analyses presented in the book as well as many other additional useful code snippets, examples, and tools. This Online Companion is designed to expand upon topics covered in the book and you may find it useful to follow along with these examples as you read. Sections 1 through 6 in this document correspond to the topics and information covered in Chapters 2 through 7 of the Brughmans and Peeples book. You can use the table of contents on the left-hand side of your screen to jump directly to a particular section and the table and contents on the right to navigate within each section.</p>
+<p>This document contains a series of tutorials that outline methods for managing, analyzing, and visualizing network data, primarily using the R programming language. We provide code and examples to replicate the analyses presented in the book as well as many other additional useful code snippets, examples, and tools. This Online Companion is designed to expand upon topics covered in the book and you may find it useful to follow along with these examples as you read the text. Sections 1 through 6 in this document correspond to the topics and information covered in Chapters 2 through 7 of the Brughmans and Peeples book. You can use the table of contents on the left-hand side of your screen to jump directly to a particular section and the table and contents on the right to navigate within each section.</p>
 <p><strong>Cite this document as:</strong></p>
 <blockquote>
-<p>Peeples, Matthew A. and Tom Brughmans (2022). Online Companion to Archaeological Network Science by Brughmans and Peeples. <a href="https://archnetworks.net" class="uri">https://archnetworks.net</a>, Accessed 2022-05-18.</p>
+<p>Peeples, Matthew A. and Tom Brughmans (2022). Online Companion to Archaeological Network Science by Brughmans and Peeples. <a href="https://archnetworks.net" class="uri">https://archnetworks.net</a>, Accessed 2022-05-19.</p>
 </blockquote>
 <p><strong>The associated book can be cited as</strong></p>
 <blockquote>
@@ -117,29 +117,29 @@ Note that this is a pre-release version of this document. Be aware that there ar
 <div id="HowTo" class="section level2 unnumbered">
 <h2>How Should I Use This Online Companion?<a class="anchor" aria-label="anchor" href="#HowTo"><i class="fas fa-link"></i></a>
 </h2>
-<p>The tutorials here are designed to complement the text of the associated book but can also stand alone as a guide to implementation if you have a basic background in network methods and terminology. Although each section of the book does build upon the previous sections in terms of network concepts and R methods, the sections are each independent in terms of examples and code and can be run out of order if you choose.</p>
-<p>A few suggestions:</p>
+<p>The tutorials here are designed to complement the text of the associated book but can also stand alone as a guide to implementation if you have a basic background in network methods and terminology. Although each section of the book builds upon the previous sections in terms of network concepts and R methods, the sections are each independent in terms of data, examples, and code and can be run out of order if you choose.</p>
+<p>A few suggestions on where to start:</p>
 <ul>
 <li>If you are new to networks and R, we would suggest going through each section of this document, starting with “Getting Started with R” and then going through the numbered sections in order as you following along in the book.</li>
-<li>If you are already familiar with R but new to network analysis, we suggest you read Section 1 to set up your data and workspace, and then following along with the remaining numbered Sections and associated book chapters as you read.</li>
+<li>If you are already familiar with R but new to network analysis, we suggest you read Section 1 to set up your data and workspace, and then follow along with the remaining numbered Sections and associated book chapters as you read.</li>
 <li>If you are already an avid networks and R user and are just looking for code chunks to implement something in particular, feel free to skip around. We have tried to make each Section as independent as possible so that you can pick and choose what you want to work on.</li>
-<li>If you’re a real pro and are designing your own network analyses or visualizations, we would love if you would considering contributing to the project to help this document grow.</li>
+<li>If you’re a real pro and are designing your own network analyses or visualizations, we would love it if you contributed to the project to help this document grow.</li>
 </ul>
 </div>
 <div id="Repro" class="section level2 unnumbered">
 <h2>Reproducibility<a class="anchor" aria-label="anchor" href="#Repro"><i class="fas fa-link"></i></a>
 </h2>
 <p>The most recent version of this document was built with R version 4.2.0 (2022-04-22 ucrt). We suggest you use a recent version of R when attempting to use the code in this document.</p>
-<p>The content of this document is meant to be as accessible and reproducible as possible. The source code used to produce this document along with all of the data used in analyses are available on <a href="https://github.com/mpeeples2008/Archaeological_Network_Science">GitHub</a>. This GitHub repository allows anyone who chooses to open issues, contribute to the document, or help fix typos or other errors (see information about contributing below). We have also opened a GitHub discussion board with this repository where users can ask questions about any data or code in the repository without making edits or issue requests directly.</p>
-<p>The easiest way to reproduce this document is to launch the project directly in your browser using <a href="https://mybinder.org/">Binder</a>. When you click on the link below it will open a browser based instance of R studio with all of the required packages and files. From there you can test and evaluate the code directly.</p>
+<p>The content of this document is meant to be as accessible and reproducible as possible. The source code used to produce this document along with all of the data used in analyses are available on <a href="https://github.com/mpeeples2008/Archaeological_Network_Science">GitHub</a>. This GitHub repository allows users to open issues, contribute to the document, or help fix typos or other errors (see information about contributing below). We have also opened a GitHub discussion board with this repository where users can ask questions about any data or code in the repository without making edits or issue requests directly.</p>
+<p>The easiest way to reproduce this document is to launch the project directly in your browser using <a href="https://mybinder.org/">Binder</a>. When you click on the link below it will open a browser based instance of R studio with all of the required packages and files. From there you can test and evaluate the code directly. [NOTE THIS FEATURE IS NOT CURRENLTY RUNNING]</p>
 <p><a href="https://mybinder.org/v2/gh/mpeeples2008/Archaeological_Network_Science/main"><img src="https://mybinder.org/badge_logo.svg" alt="Binder"></a></p>
-<p>You can also run the code and generate documents locally using R and R Studio. Download the entire R repository here: <a href="https://github.com/mpeeples2008/Archaeological_Network_Science/archive/refs/heads/main.zip">main.zip</a>. Unzip the file and then:</p>
+<p>You can also run the code and generate documents locally using R and R Studio. Download the entire R repository here: <a href="https://github.com/mpeeples2008/Archaeological_Network_Science/archive/refs/heads/main.zip">main.zip</a>. Unzip the files and then:</p>
 <ul>
-<li>Open the “Archaeological_Network_Science.Rproj” in R studio.</li>
-<li>Use the “renv::restore()” command to install the required packages and dependencies. Not that this is a large document that uses a great number of packages so this may take some time.</li>
-<li>You will then be able to browse the files and execute code.</li>
+<li>Open the “Archaeological_Network_Science.Rproj” file in R studio.</li>
+<li>Use the <code><a href="https://rstudio.github.io/renv/reference/restore.html">renv::restore()</a></code> command to install the required packages and dependencies. Not that this is a large document that uses many packages so this may take some time.</li>
+<li>You will then be able to browse the files and execute all of the code in the repository.</li>
 </ul>
-<p>This document has been deployed using the Netlify platform and the badge below shows the current status of the build hosted at <a href="book.archnetworks.net">https://book.archnetworks.net</a>.</p>
+<p>This online bookdown document has been deployed using the Netlify platform and the badge below shows the current status of the build hosted at <a href="book.archnetworks.net">https://book.archnetworks.net</a>.</p>
 <p><a href="https://app.netlify.com/sites/archnetworks/deploys"><img src="https://api.netlify.com/api/v1/badges/266d5736-f13a-4de4-b812-141c023f3a09/deploy-status" alt="Netlify Status"></a></p>
 </div>
 <div id="discord-community" class="section level2 unnumbered">
@@ -152,8 +152,8 @@ Note that this is a pre-release version of this document. Be aware that there ar
 <div id="new-to-r-and-r-studio" class="section level2 unnumbered">
 <h2>New to R and R Studio?<a class="anchor" aria-label="anchor" href="#new-to-r-and-r-studio"><i class="fas fa-link"></i></a>
 </h2>
-<p>This tutorials in this document assume you have a basic familiarity with R and R-studio. If you are a first time R user and need help getting R and R studio installed and up and running, we have created an overview of <a href="GettingStarted.html#GettingStarted">how to install R and R-Studio along with some basics of analysis</a>. This is not a complete or detailed introduction to R but we hope it will get you started.</p>
-<p>If you already have a basic familiarity with R and want to go further, there are numerous additional resources (most are completely free) to help you learn. Some resources we would recommend include <em>R for Data Science</em> (<a href="https://r4ds.had.co.nz/">(Wickham and Grolemund 2017)</a>), <em>Advanced R</em> (<a href="https://adv-r.hadley.nz/">(Wickham 2019)</a>), <em>the R Cookbook, 2nd edition</em> <a href="https://rc2e.com/somebasics">(Long and Teetor 2019)</a>, and <em>R in Action</em> and the associated <em>Quick-R</em> website <a href="https://www.statmethods.net/">(Kabacoff 2015)</a>. In addition to this <a href="https://anthropology.washington.edu/people/ben-marwick">Ben Marwick</a> has created an excellent repository of <a href="https://github.com/benmarwick/ctv-archaeology">resources for using R in archaeology</a> as well as an ever-growing list of archaeological publications that include R code. The website associated with this book <a href="https://www.archnetworks.net">archnetworks.net</a> also includes a list of archaeological articles focused on network research that include data and code. Reproducing published results is, in our experience, one of the best ways to learn advanced techniques and data management in R.</p>
+<p>This tutorials in this document are built for users with a basic familiarity with R and R-studio. If you are a first time R user and need help getting R and R studio installed and up and running, we have created a detailed guild to <a href="GettingStarted.html#GettingStarted">Getting started with R and R-Studio</a>. This document covers the installation of the required software and provides a basic introduction to the R programing environment that we hope will be enough to get you started.</p>
+<p>If you already have a basic familiarity with R and want to go further, there are numerous additional resources (most are completely free) to help you learn. Some resources we would recommend include <em>R for Data Science</em> <a href="https://r4ds.had.co.nz/">(Wickham and Grolemund 2017)</a>, <em>Advanced R</em> <a href="https://adv-r.hadley.nz/">(Wickham 2019)</a>, <em>the R Cookbook, 2nd edition</em> <a href="https://rc2e.com/somebasics">(Long and Teetor 2019)</a>, and <em>R in Action</em> and the associated <em>Quick-R</em> website <a href="https://www.statmethods.net/">(Kabacoff 2015)</a>. In addition to this <a href="https://anthropology.washington.edu/people/ben-marwick">Ben Marwick</a> has created an excellent repository of <a href="https://github.com/benmarwick/ctv-archaeology">resources for using R in archaeology</a> as well as an ever-growing list of archaeological publications that include R code. The website associated with this book <a href="https://www.archnetworks.net">archnetworks.net</a> also includes a list of archaeological articles focused on network research that include data and code. Reproducing published results is, in our experience, one of the best ways to learn advanced techniques and data management in R so we suggest you give it a try.</p>
 </div>
 <div id="contribute-to-the-project" class="section level2 unnumbered">
 <h2>Contribute To the Project<a class="anchor" aria-label="anchor" href="#contribute-to-the-project"><i class="fas fa-link"></i></a>
@@ -190,13 +190,13 @@ Note that this is a pre-release version of this document. Be aware that there ar
 <div id="acknowledgements" class="section level2 unnumbered">
 <h2>Acknowledgements<a class="anchor" aria-label="anchor" href="#acknowledgements"><i class="fas fa-link"></i></a>
 </h2>
-<p>This project and the associated book were made possible thanks to the support of several generous funding sources including: The Carlsberg Foundation, in the context of the Past Social Networks Project (CF21-0382); the National Science Foundation through both the Archaeology and the Measurement, Methodology, and Statistics programs (grant #1758690 and #1758606); and the School of Human Evolution and Social Change at Arizona State University.</p>
+<p>This project and the associated book were made possible thanks to the support of several generous funding sources including: The Carlsberg Foundation, in the context of the Past Social Networks Project (CF21-0382); the National Science Foundation through both the Archaeology and the Measurement, Methodology, and Statistics programs (grant #1758690 and #1758606); and the School of Human Evolution and Social Change at Arizona State University. Thank you to Jens Emil Bødstrup Christoffersen for providing detailed comments on and for testing the initial version of this document. Any errors that remain are our own.</p>
 <p><img src="images/NSF_Logo.png" width="150"><img src="images/ASU_SHESC_Logo.png" width="300"></p>
 </div>
 </div>
   <div class="chapter-nav">
 <div class="empty"></div>
-<div class="next"><a href="GettingStarted.html">Gettings Started with R</a></div>
+<div class="next"><a href="GettingStarted.html">Gettings Started with R and R-Studio</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
@@ -226,7 +226,7 @@ Note that this is a pre-release version of this document. Be aware that there ar
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Online Companion to <em>Archaeological Network Science</em> by Brughmans and Peeples</strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-05-18.</p>
+    <p>"<strong>Online Companion to <em>Archaeological Network Science</em> by Brughmans and Peeples</strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-05-19.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
