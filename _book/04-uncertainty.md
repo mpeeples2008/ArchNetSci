@@ -13,9 +13,9 @@ As outlined in the book, our basic approach to quantifying and dealing with unce
 
 The underlying assumption of the approach outlined here is that the robustness or vulnerability to a particular perturbation of the observed network data, drawn from a complete network that is unattainable, provides information about the robustness or vulnerability of that unattainable complete network to the same kinds of perturbations. For example, if we are interested in exploring the degree distribution of a network and our sampling experiments show massive fluctuations in that distribution in sub-samples with only small numbers of nodes removed at random, this would suggest that the particular properties of this network are not robust to nodes missing at random for degree calculations and we should not place much confidence in any results obtained from the original sample as indicative of the complete network from which it was drawn. On the other hand, say we instead find that in the resampling experiments the degree distributions in our sub-samples are substantially similar to that of the original network sample even when moderate or large numbers of nodes are removed. In that case, we might conclude that our network structure is such that assessments of degree distribution are robust to node missigness within the range of what we might expect for our original sample in relation to the complete network from which it was drawn. It is important to note, however, that this finding should not be transferred to any other metrics as any given network is likely to be robust to certain kinds of perturbations for certain network metrics, but not to others.
 
-In the sub-sections below we create a basic function to conduct these analyses and show how it can be modified to fit almost any data perturbation you chose to simulate.
+In the sub-sections below we create a basic function to conduct these analyses and show how it can be modified to fit almost any data perturbation you chose to simulate. In general we have attempted to make this Section modular in that independent chunks of code can be run out of order so you can go right to what you need within each sub-section.
 
-## Missing at Random
+## Missing at Random{#MissingAtRandom}
 
 This sub-section accompanies the discussion of nodes or edges missing at random in Brughmans and Peeples (2022) Chapter 5.3.1. Here we take one interval of the Chaco World ceramic similarity network (ca. A.D. 1050-1100) and simulate the impact of nodes missing at random on network centrality statistics. Download the [ceramic similarity adjacency matrix](data/AD1050net.csv) to follow along.
 
@@ -41,7 +41,7 @@ chaco_net <- igraph::graph_from_adjacency_matrix(as.matrix(chaco),
 
 Now we need to define a function that removes a specified proportion of nodes at random, assesses the specified metric of interest, and compares each sub-sample to the original sample in terms of the rank order correlation (Spearman's $\rho$) among nodes for the metric in question. We have attempted to write this function to be as general as possible so that you can modify it and use it to meet your own needs in your own research. In subsequent steps in this document we will modify this basic function to assess different data perturbations.
 
-### Nodes Missing at Random
+### Nodes Missing at Random{#NodesAtRandom}
 
 First, following Chapter 5.3.1, we will assess the robustness of these data to nodes missing at random for betweenness centrality.
 
@@ -112,7 +112,7 @@ ggplot(data = df) +
 
 <img src="04-uncertainty_files/figure-html/unnamed-chunk-2-1.png" width="672" />
 
-Now let's run the same function for eigenvector centrality, this time using the default arguments in the function we created rather than calling them directly. Note that we modified two lines of code to change `igraph::betweenness(net)` to `igraph::eign_centrality(net)$vector`. Because the `eigen_centrality` function outputs more than just the centrality values, we need to include the vector call.
+Now let's run the same function for eigenvector centrality, this time using the default arguments in the function we created rather than calling them directly. Note that we modified two lines of code to change `igraph::betweenness(net)` to `igraph::eign_centrality(net)$vector`. Because the `eigen_centrality` function outputs more than just the centrality values, we need to include the `$vector` call.
 
 
 ```r
@@ -165,7 +165,7 @@ ggplot(data = df) +
 
 <img src="04-uncertainty_files/figure-html/unnamed-chunk-3-1.png" width="672" />
 
-### Edges Missing at Random
+### Edges Missing at Random{#EdgesAtRandom}
 
 We can also modify the function we defined above a little more to assess the impacts of edges missing at random. In this case we assess the impact of edges missing at random on degree centrality. We changed the same two lines `met_orig` and `temp_stats` to calculate degree and we also had to slightly change the lines beginning with `sub_samp`, `sub_net`, and `output[i,j]` to expect variation in edges rather than nodes. Specifically, in the line that starts with `sub_samp` we change `vcount` to `ecount`to get a sample of edges rather than nodes (vertices). In the next line we use that `sub_samp`object to `delete_edges` for all not in that sub sample. Finally, we remove the brackets after `met_orig` since all nodes are retained in this example. 
 
@@ -223,7 +223,7 @@ ggplot(data = df) +
 
 <img src="04-uncertainty_files/figure-html/unnamed-chunk-4-1.png" width="672" />
 
-## Assessing Indivdiual Nodes/Edges
+## Assessing Indivdiual Nodes/Edges{#IndNodesAtRandom}
 
 This sub-section follows along with Chapter 5.3.2 in Brughmans and Peeples (2022). Here we will once again use the Cibola technological similarity network to make this assessment. This script is similar to that used above but instead of outputting correlation coefficients it outputs the specific rank order of the node in question.
 
@@ -234,7 +234,7 @@ The function requires four pieces of information from the user:
 * `prop` - The proportion of nodes you wish to retain in the test.
 * `nsim` - The number of simulations. The default is 1000.
 
-Briefly how this function works is it first determines which node number corresponds with the `target` you wish to assess and creates a sub_sample that retains that target node. A subgraph is then induced (sub_net) and the metric of interest is calculated (betweenness in this case). The `output` object is a vector that records the specific rank order that the node in question fell in in terms of the metric in question. 
+Briefly how this function works is it first determines which node number corresponds with the `target` you wish to assess and creates a `sub_sample` that retains that `target` node. A subgraph is then induced (`sub_net`) and the metric of interest is calculated (betweenness in this case). The `output` object is a vector that records the specific rank order that the node in question fell in in terms of the metric in question. 
 
 [Use these data](data/Cibola_edgelist.csv) to follow along.
 
@@ -291,7 +291,7 @@ ggplot(df, aes(x = RankOrder)) +
 
 <img src="04-uncertainty_files/figure-html/unnamed-chunk-5-1.png" width="672" />
 
-## Missing Due to Biased Sampling
+## Missing Due to Biased Sampling{#MissingBiased}
 
 This sub-section follows along with Brughmans and Peeples (2022) Chapter 5.3.3. There are many situations where we are interested in modeling situations where the data that are missing are not missing at random but instead are influenced by some biased sampling process. For example, say we have a study area where there have been lots of general reconnaissance surveys that have recorded most of the large sites but few full coverage surveys that have captured smaller sites. In that case, we may wish to model missingness such that small sites would more likely be missing than large sites.
 
@@ -425,7 +425,7 @@ head(bib_bias)
 #> [6,] 0.9778791 0.9998792 0.7273099
 ```
 
-With this in place, we now need a function that deals with our incidence matrix data but simulates missigness at random. This only requires a single argument to change from our last function. Specifically, all we need to do is remove the `prob=lookup_dat$prob` argument from the line beginning with `sub_samp` and we're ready to go.
+With this in place, we now need a function that deals with our incidence matrix data but simulates missigness at random. This only requires a single argument to change from our last function. Specifically, all we need to do is remove the `prob = lookup_dat$prob` argument from the line beginning with `sub_samp` and we're ready to go.
 
 
 ```r
@@ -512,7 +512,7 @@ ggplot(data = df) +
 
 <img src="04-uncertainty_files/figure-html/unnamed-chunk-10-1.png" width="672" />
 
-## Edge Probability Modeling
+## Edge Probability Modeling{#EdgeProbability}
 
 In this section we take inspiration from some recent work in the area of "Dark Networks" (see Everton 2012). In this field, a number of methods have recently been developed that allow us to more directly incorporate our assessments of the reliability of specific edges into our analysis. This can be done in a number of different ways. Perhaps the most common approach for networks based on data gathered from intelligence sources (such as studies of terrorist networks) is to qualitatively assign different levels of confidence to ties between pairs of actors using an ordinal scale determined based on the source of the information (reliable, usually reliable,... unreliable). This ordinal scale of confidence can then be converted into a probability (from 0 to 1) and that probability value could be used to inform the creation of a range of "possible" networks given the underlying data.
 
@@ -562,7 +562,7 @@ ggraph(sim_net, layout = "fr") +
 
 In the next chunk of code we define a function that iterates over every edge in the simulated network we just created and defines each edge as either present or absent using a simple random binomial with the probability set by the edge weight as described above. The output of this function (`edge_liklihood`) is a list object that contains `nsim` `igraph` network objects that are candidate networks of the original.
 
-Next, in order to extract values of interest from these candidate networks, we created another function called "compile_stat" that could be modified for any measure of interest. This function iterates over all `nsim` networks in the `net_list` list object and calculates `degree` in this case returning the results as a simple matrix. It is then possible to compare things like average degree or the distribution of degree for particular nodes across all of the candidate networks.
+Next, in order to extract values of interest from these candidate networks, we created another function called `compile_stat` that could be modified for any measure of interest. This function iterates over all `nsim` networks in the `net_list` list object and calculates `degree` in this case returning the results as a simple matrix. It is then possible to compare things like average degree or the distribution of degree for particular nodes across all of the candidate networks.
 
 
 ```r
@@ -656,7 +656,7 @@ ggarrange(comp1, comp2, comp3)
 
 <img src="04-uncertainty_files/figure-html/unnamed-chunk-13-1.png" width="672" />
 
-We then use the compile_stat function to assess degree centrality for one particular node, displaying a histogram of values with mean indicated.
+We then use the `compile_stat` function to assess degree centrality for one particular node, displaying a histogram of values with mean indicated.
 
 
 ```r
@@ -673,7 +673,7 @@ tibble(val = dg_20) %>%
 
 <img src="04-uncertainty_files/figure-html/unnamed-chunk-14-1.png" width="672" />
 
-## Small or Variable Sample Size
+## Small or Variable Sample Size{#SampleSize}
 
 This section follows Brughmans and Peeples (2022) Chapter 5.3.5 to provide an example of how you can use the simulation approach outlined here to assess sampling variability in the data underlying archaeological networks. In this example, we use apportioned ceramic frequency data from the Chaco World portion of the Southwest Social Networks database. You can [download the data here](data/AD1050cer.csv) to follow along.
 
@@ -719,7 +719,7 @@ sampling_error_sim <- function(cer, nsim = 1000) {
 }
 ```
 
-The following chunk of code runs the `sampling_error_sim` function defined above for our Chaco ceramic data and then defines a new function called `sim_cor` which takes the output of `sampling_error_sim` and the original ceramic similarity matrix (ceramic_BR) and calculates weighted degree centrality and the Speraman's $\rho$ correlations between the original similarity matrix and each random replicate. This "sim_cor" script could be modified to use any network metric that outputs a vector. Once these results are returned we visualize the results as a histogram.
+The following chunk of code runs the `sampling_error_sim` function defined above for our Chaco ceramic data and then defines a new function called `sim_cor` which takes the output of `sampling_error_sim` and the original ceramic similarity matrix (`ceramic_BR`) and calculates weighted degree centrality and the Speraman's $\rho$ correlations between the original similarity matrix and each random replicate. This `sim_cor` script could be modified to use any network metric that outputs a vector. Once these results are returned we visualize the results as a histogram.
 
 Note that this could take several seconds to a few minutes depending on your computer.
 

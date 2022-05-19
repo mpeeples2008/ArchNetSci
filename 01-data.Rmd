@@ -2,7 +2,7 @@
 
 This section provides downloadable files for the network datasets used in this online companion and in the book as well as information on the primary R packages used for analysis and visualization throughout this tutorial. We also provide very brief instructions for importing these data into R using R-studio and some guidance on setting up your R-studio working environment. For additional guidance see the resources provided in the introduction. 
 
-## Datasets
+## Datasets{#Datasets}
 
 In the analyses illustrated in this online appendix we use a number of real and simulated archaeological datasets to serve as examples for particular data types and techniques. Most of the datasets used here are provided in .csv (comma separated value) or .RData formats and can be downloaded so that you can follow along with these analyses on your own computer. We encourage you to explore these files and see how they are formatted as a guide for setting up your own datasets.
 
@@ -16,7 +16,7 @@ Hey, we get it. You're busy and just want all of the data in one convenient pack
 
 [All_data.zip](All_data.zip) - A single compressed file containing all of the data files used in this appendix.
 
-### Roman Road Networks 
+### Roman Road Networks{#RomanRoad}
 
 The development of an elaborate road system is one of the most enduring legacies of the Roman Republic and Empire. Areas that came under Roman control were connected to Rome and important provincial centers through entirely new roads as well as redeveloped existing roads. From roughly the second century AD onward this resulted in an integrated terrestrial transport network connecting North-Africa, the Middle East, and western and southern Europe. Much of the subsequent development of transport systems in these regions built on this Roman system. 
 
@@ -25,7 +25,7 @@ Our primary source for roads of the entire Roman world is the Barrington Atlas o
 * [Hispania_nodes](data/Hispania_nodes.csv) - NodeIDs and names for Roman era settlements in the Iberian Peninsula along with names and latitude and longitude locations in decimal degrees.
 * [Hispania_roads](data/Hispania_roads.csv) - Edge list of road connections using NodeIDs from Hispania_nodes file. This file contains a "weight" variable defined for each edge which denotes the length of the road segment.
 
-### Southwest Social Networks Project Ceramic Similarity Networks  
+### Southwest Social Networks Project Ceramic Similarity Networks{#SWSN}
 
 The Southwest Social Networks (SWSN) Project (and subsequent [cyberSW](https://cybersw.org) project) is a large collaborative effort focused on exploring methods and models for network analysis of archaeological data to better understand patterns of interaction, population movement, and demographic change across the U.S. Southwest and Mexican Northwest through time (ca. A.D. 800-1800; Borck et al. 2015; Giomi et al. 2021; Mills et al. 2013a; 2013b; 2015; 2018; Peeples and Haas 2013; Peeples et al. 2016; Peeples and Roberts 2013). During the interval considered by this project the region was inhabited largely by sedentary agricultural populations (though more mobile populations were also present throughout this period) with communities as large as several thousand people at the peak. The region is blessed with excellent archaeological preservation, a fine grained chronology anchored by dendrochronological dates, and nearly 150 years of focused archaeological research. 
 
@@ -42,7 +42,7 @@ In these networks, individual settlements are treated as nodes and edges are def
 * [The Chaco World Network AD 1050-1100](data/AD1050net.csv) - Adjacency matrix of binarized network of ceramic similarity for sites with Chacoan architectural features dating between AD 1050 and 1100.
 * [San Pedro Networks throgh Time](data/Figure6_20.Rdata) - An .RData file that contains igraph network objects for the San Pedro region ceramic similarity networks for AD1250-1300, AD1300-1350, and AD1350-1400.
 
-### Cibola Region Technological Similarity Network  
+### Cibola Region Technological Similarity Networs{#Cibola}
 
 The Cibola region along the Arizona and New Mexico border in the U.S. Southwest is a large and diverse physiographic region spanning the southern edge of the Colorado Plateau and the ancestral homeland of the contemporary Zuni (A:shiwi) people. Peeples and colleagues (Peeples 2011, 2018; Peeples et al. 2021) have explored patterns of technological similarity and communities of practice in this region at a series of sites dating ca. A.D. 1100-1350 through explorations of corrugated ceramic cooking pots. Corrugated pots, which are produced across much of the U.S. Southwest from at least the 9th through the 14th centuries, are coiled ceramic vessels where the coils used to make the vessel are never fully smoothed. Thus, these ceramics retain substantial amounts of evidence of the specific techniques used to produce them.
 
@@ -56,7 +56,7 @@ Ceramic technological data from Peeples (2018): Additional data and documentatio
 * [Cibola Binary Network Adjacency Matrix](data/Cibola_adj.csv) - Binary adjacency matrix of Cibola technological similarity network.
 * [Peeples2018.Rdata](data/Peeples2018.Rdata) - This file contains a number of objects in R format including the site attributes (site_info), a symmetric Brainerd-Robinson similarity matrix (ceramicBR), a binary network object in the statnet/network format (BRnet), and a weighted network object in the statnet/network format (BRnet_w) 
 
-### Himalayan Visibility Networks 
+### Himalayan Visibility Networks{#Himalaya}
 
 Hundreds of forts and small fortified structures are located on mountain tops and ridges in the central Himalayan region of Garhwal in Uttarakhand (India). Despite being such a prominent feature of the history of the region that is interwoven with local folklore (Garhwal is derived from 'land of forts'), this fortification phenomenon has received very little research attention. It might have had its origins during the downfall of the Katyuri dynasty in the 11th century and continued up to the 15th century when the region was consolidated by the Parmar dynasty and possibly even later as attested by Mughal, Tibetan, and British aggressions.
 
@@ -65,7 +65,7 @@ In the book we use this research context as an example of spatial networks and m
 * [Himalayan Node data](data/Himalaya_nodes.csv) - Node attribute data for the Himalayan sites including locations in lat/long, elevation, site name/type, and descriptions of landscape features.
 * [Himalayan Edge List](data/Himalaya_visiblity.csv) - Edge list data with information on connections among nodes within 25kms of each other with information on the distance and whether or not the target site is visible from the source. Note that only edges with "Visible = TRUE" should be included as activated edges.
 
-### Archaeological Publication Networks 
+### Archaeological Publication Networks{#ArchPubs}
 
 Our knowledge and stories of past human behavior are as much shaped by the material remains we excavate, as they are by the actions and interactions of the archaeologists that study them. Aspects of these actions and interactions are formally represented in publications. Such papers can be co-authored, reflecting scientific collaboration networks and communities of practice. Authors cite other authors’ works to indicate explicitly that they were influenced by it or that it is related to the paper’s subject matter.
 
@@ -74,7 +74,7 @@ In previous work, we have turned the tools of archaeological network science on 
 * [Publication Networks Attribute Data](data/biblio_attr.csv) - Attribute data table including information on publications including a unique key identifier, publication type, publication title, publication date, and the author list separated by semi-colons.
 * [Publication Networks Co-Authorship Incidence Matrix](data/biblio_dat.csv) - An incidence matrix with unique publications as rows and authors as columns.
 
-### Iron Age Sites in Southern Spain
+### Iron Age Sites in Southern Spain{#Guadalquivir}
 
 The Guadalquivir river valley in the south of Spain between present-day Seville and Córdoba was densely urbanized in the late Iron Age (early 5th c. BC to late 3rd c. BC). Many settlements were dotted along the rivers and the southern part of the valley (Fig. 2.6), and this settlement pattern was focused on nuclear settlements sometimes referred to as oppida. Some of these reveal defensive architecture and many are located on elevations. Previous studies of Iron Age settlements in the region have explored possible explanations for their locations (Keay and Earl 2011; Brughmans et al. 2014, 2015). Given their elevated locations, one theory that has received considerable attention was intervisibility. Could small settlements surrounding oppida be seen from them, and could oppida be located partly to allow for visual control over surrounding settlements? Did groups of Iron Age settlements tend to be intervisible, forming communities that were visible on a daily basis? Were there chains of intervisibility that allowed for passing on information from one site to another via visual smoke or fire signals, and did these chains follow the other key communication medium in the area: the navigable rivers? 
 
@@ -82,11 +82,11 @@ These questions have been explored in previous research using GIS and network me
 
 * [Guadalquivir settlement data](data/Guadalquivir.csv) - Site number and locations in decimal degrees for all sites in the Guadalquivir survey area.
 
-## Importing Data in R
+## Importing Data in R{#Importing}
 
-This section briefly describes how the data provided above (or your own data) can be imported in to R for further analyses. Before running the code below, however, you need to ensure that your R session is set to the correct working directory (the location where you placed the .csv files you just downloaded). To do that, go to the menu bar at the top and click Session > Set Working Directory > Choose Directory and navigate to the place on your hard drive where these files reside. 
+This section briefly describes how the data provided above (or your own data) can be imported in to R for further analyses (see [Working With Files](#WorkingWithFiles) for more info). Before running the code below, however, you need to ensure that your R session is set to the correct working directory (the location where you placed the .csv files you just downloaded). To do that, go to the menu bar at the top and click Session > Set Working Directory > Choose Directory and navigate to the place on your hard drive where these files reside. 
 
-For this example we will read in the Cibola_edgelist.csv file and define an object called "EL1" which includes the data in that file using the read.csv() command. Note that in this case the file we want to read is in a sub-folder of our working directory called "data" so we need to use the "data/" prefix before the file name to correctly call that file. If you do not chose to use a sub-folder or if you call your folder something else, you will need to modify the "data/" section of the code.
+For this example we will read in the `Cibola_edgelist.csv` file and define an object called `EL1` which includes the data in that file using the `read.csv()` command. Note that in this case the file we want to read is in a sub-folder of our working directory called "data" so we need to use the `data/` prefix before the file name to correctly call that file. If you do not chose to use a sub-folder or if you call your folder something else, you will need to modify the `data/` section of the code.
 
 ```{r}
 # read in data with first row representing column names (header=TRUE)
@@ -95,17 +95,17 @@ EL1 <- read.csv(file = "data/Cibola_edgelist.csv", header = TRUE)
 head(EL1)
 ```
 
-In addition to the .csv files, several examples in this book and several of the datasets above are provide as .RData files which can be read directly in R and can contain multiple R objects. These can be read directly into the R environment using the "load()" function. See the example below. Again note that you must specify the specific directory within the working directory where the file is located.
+In addition to the .csv files, several examples in this book and several of the datasets above are provide as .RData files which can be read directly in R and can contain multiple R objects. These can be read directly into the R environment using the `load()` function. See the example below. Again note that you must specify the specific directory within the working directory where the file is located.
 
 ```{r, eval=F}
 load("data/map.RData")
 ```
 
-## Installing R Packages
+## Installing Required/Suggested R Packages
 
-In this appendix we rely on a number of pre-existing R packages. In order to use these packages in a new installation of R and R-studio, you first need to install them. Note that you will only need to do this once on a new installation of R. To install packages, you can click on the "Packages" tab in the window in the bottom right of R studio, then click the "Install" button at the top and type the names of the packages separated by commas. Alternatively you can install packages from the console by simply typing "install.packages("nameofpackagehere")" without the outer quotation marks. 
+In this appendix we rely on a number of pre-existing R packages. In order to use these packages in a new installation of R and R-studio, you first need to install them. Note that you will only need to do this once on a new installation of R. To install packages, you can click on the "Packages" tab in the window in the bottom right of R studio, then click the "Install" button at the top and type the names of the packages separated by commas. Alternatively you can install packages from the console by simply typing `install.packages("nameofpackagehere")`. 
 
-install.packages(c("statnet", "igraph"))
+`install.packages(c("statnet", "igraph"))`
 
 We use a number of R packages in the modules here and in the book for manipulating and analyzing network data and for other general analyses and procedures. The most frequently used network packages include:
 
@@ -114,18 +114,25 @@ We use a number of R packages in the modules here and in the book for manipulati
 * [intergraph (Bojanowski 2015)](https://cran.r-project.org/web/packages/intergraph/intergraph.pdf) - a set of routines for coercing objects between common network formats in R
 * [ggraph (Pederson 2021)](https://CRAN.R-project.org/package=ggraph) - a powerful graph visualization package that is based off of the ggplot2 plotting format
 
+No matter how you plan on working with these documents, you should install these four packages at a minimum by running the code below.
 
-### A Brief Introduction to Network Packages in R{#Packages}
+```{r, eval=F}
+install.packages(c("igraph", "statnet", "intergraph", "ggraph"))
+```
 
-Throughout this Online Companion, we will consistently rely on two packages designed for network analyses in R. These are `igraph` and `statnet` (`statnet` is actually a suite of packages that includes `sna`, `network`, `ergm`, and others). For the most part these two packages do many of the same things. You can use them to calculate centrality metrics, define groups, or evaluate other network structures. In general `igraph` is a bit more centered on complex networks and mathematical models and `statnet` and affiliated packages are more focused on social network analysis though there is considerable overlap. 
+### A Brief Introduction to the Primary Network Packages in R{#PrimaryPackages}
 
-Although `igraph` and `statnet` have many of the same features, they are not directly compatible and use different network formats to store data in R. Adding to the potential confusion, function call names are often the same between the two packages. For example degree centrality is calculated using a `degree()` function in both. If you simply use the `degree()` call R will use the function from whichever package was initialized most recently. If this is the wrong package for your data format, you will get an error. In order to avoid such errors we use the package name followed by `::` in the function call (i.e., `igraph::function_name` or `sna::function_name`) so that R knows which package we intend to use. 
+Throughout this Online Companion, we will consistently rely on `igraph` and `statnet` (`statnet` is actually a suite of packages that includes `sna`, `network`, `ergm`, and others). For the most part these two packages do many of the same things. You can use them to calculate centrality metrics, define groups, or evaluate other network structures. In general `igraph` is a bit more centered on complex networks and mathematical models and `statnet` and affiliated packages are more focused on social network analysis though there is considerable overlap. 
 
-In general in this Online Companion we use the `igraph` package wherever possible as we find the data format and functions to be the most useful and intuitive for most kinds of analyses. We use `statnet` and affiliated packages in specific cases where `igraph` lacks specific functionality or important features. Luckily there is an additional useful package called `intergraph` that lets us convert network objects from one format to another as we will see later in this Online Companion.
+Although `igraph` and `statnet` have many of the same features, they are not directly compatible and use different network formats to store data in R. Adding to the potential confusion, function call names are often the same between the two packages. For example degree centrality is calculated using a `degree()` function in both. If you simply use the `degree()` call R will use the function from whichever package was initialized most recently. If this is the wrong package for your data format, you will get an error. In order to avoid such errors and to clear up ambiguity we use the package name followed by `::` in the function call (i.e., `igraph::function_name` or `sna::function_name`) so that R knows which package we intend to use. You can do this with any R function where you want to specify the package (`package::function_name`).
+
+In general in this Online Companion we use the `igraph` package wherever possible as we find the data format and especially the functions for converting between network data types to be the most useful and intuitive for most kinds of analyses. We use `statnet` and affiliated packages in specific cases where `igraph` lacks specific functionality or important features. Luckily the package called `intergraph` lets us convert network objects from one format to another as we will see in the examples ahead. 
+
+Finally, we recommend installing `ggraph` as this is a very useful and intuitive package that allows for diverse network visualizations and customization. These four packages account for the bulk of the examples in this book.
 
 ### Should I Just Install Everything?
 
-If you have plenty of hard drive space and time and don't wont to worry about installing packages, piecemeal, you can install everything at the same time using the code below. Note that there are a large number of packages and dependencies here and many are only used in one or two places in this Online Companion. We recommend that you install packages as you need them while you work through this document. 
+If you have plenty of disk space and time and don't wont to worry about installing packages piecemeal, you can install everything at the same time using the code below. Note that there are a large number of packages and dependencies here and many are only used in one or two places in this Online Companion. We generally recommend that you install packages as you need them while you work through this document but you do you.
 
 If you choose to install everything, however, you can simply run the chunk of code below. Note that the code below will not reinstall packages already installed in your current version of R. Note if you are familiar with Git and R Environments, it will be much faster to just use the `renv::restore()` function to build an environment from the repository. See the [Reproducibility section](#Repro) in the introduction for more information.
 
@@ -147,7 +154,7 @@ if(!requireNamespace("BiocManager", quietly = TRUE))
 BiocManager::install("RBGL")
 ```
 
-In addition to the R packages listed above, there is one procedure used in this Online Companion that requires you to have an installation of Python 3.7 with particular packages on your computer. In order to implement these sections of code, you will need to also run the following lines of code. Note that this is a large install that takes about about 1.4 GB of hard drive space so only do this if you have the space and REALLY want to explore edge bundling (See section on visualizations). You will be able to reproduce everything in this document except for two chunks of code without this so feel free to sit this one out.
+In addition to the R packages listed above, there is one procedure used in this Online Companion that requires you to have an installation of Python 3.7 with particular packages on your computer. In order to implement these sections of code, you will need to also run the following lines of code. Note that this is a large install that takes about about 1.4 GB of hard drive space so only do this if you have the space and REALLY want to explore edge bundling ([see Edge Bundling Visualizations](#EdgeBundling)). You will be able to reproduce everything in this document except for two chunks of code without this so feel free to sit this one out.
 
 ```{r, eval=F}
 install.packages("edgebundle", "reticulate")
@@ -156,7 +163,7 @@ library(reticulate)
 install_bundle_py(method = "auto", conda = "auto")
 ```
 
-### R Packages Used
+### R Packages Used{#PackagesUsed}
 
 This version of the book was built with `r R.version.string` and the following packages:
 
@@ -174,6 +181,12 @@ df <- tibble::tibble(
 knitr::kable(df, format = "markdown")
 ```
 
-## Suggested Workspace Setup
+## Suggested Workspace Setup{#WorkspaceSetup}
 
-In order to follow along with the examples in the appendix it will be easiest if you set up your R working directory in a similar format to that used in creating it. Specifically, we suggest you create a new working directory and create an R studio project tied to that specific directory. In order to do this, create the directory on your computer and then In R-Studio go to the menu at the time and click "Session > Set Working Directory > Choose Working Directory" and navigate to the folder you just created. Further, we suggest that you create a sub-folder of that working directory called "data" and place all of the files you downloaded above or from any other place in this Online Companion in that folder. Note that if you chose the "Just Give Me Everything" download you will have a .zip file that already contains a sub-folder called "data" so be sure you're not double nesting your folders (you want "working_directory/data" not "working_directory/data/data").
+In order to follow along with the examples in this Online Companion it will be easiest if you set up your R working directory in a similar format to that used in creating it. Specifically, we suggest you create a new working directory and create an R studio project tied to that specific directory. 
+
+In order to do this, open R-Studio and go to "File > New Project" and click on "New Directory > New Project" in the dialog and then give it an appropriate name and location on your disk. Next, navigate to that location on your disk and create a sub-folder called "data" (directory names are case sensitive). Place any of the data files you downloaded above or in any other section of this Online Companion in that Folder. Note that if you chose the "Just Give Me Everything" download you will have a .zip file that already contains a sub-folder called "data" so be sure you're not double nesting your folders (you want "working_directory/data" not "working_directory/data/data").
+
+When you close R you will see a dialog that asks if you want to save your workspace image. If you do this and provide a name, you can reopen the .RData file at a later time and pick up exactly where your previous session left off.
+
+If you are new to the R environment and file structures, we suggest you reveiw the [Getting Started with R](#GettingStarted) section.

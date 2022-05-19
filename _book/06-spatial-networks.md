@@ -1,5 +1,7 @@
 # Spatial Networks
 
+Most of the past phenomena we study as archaeologists took place in physical space: individuals lived in homes and towns, and they moved through landscapes; they fought wars on battlefields and they exchanged goods from faraway places. Through our excavations, fieldwork, and literature studies we record spatial information such as the outline of houses, the locations of sites, the slope of terrains, or the distance between natural resources and settlements. Many relational phenomena are explicitly geographical, in that the medium of geographical space is an important aspect of the relationship itself. For example, road segments connect pairs of settlements that are close together, and lines-of-sight connect places from which observers can see features. Such phenomena could be quite straightforwardly represented as spatial networks since the nodes and edges are both explicitly embedded in physical space. But for other relational phenomena, space is more like a background feature which can be brought into analyses when relevant but does not feature prominently in the definition of either nodes nor of edges. For example, past food webs where species are connected through trophic flows or social networks where individuals are connected to their contacts both involve entities (nodes) and relationships (edges) that have spatial properties or attributes but those spatial properties are not directly invoked in the definition of such networks. We refer to these as networks in space in that we could include spatial features into their network representations but this is not explicitly included in their definition. 
+
 This section follows along with Chapter 7 of Brughmans and Peeples (2022) to provide information on how to implement spatial network models and analyses in R.
 
 ## Dataset and Setup
@@ -165,9 +167,9 @@ Let's create a simple tree using the `make_tree` function in igraph.
 ```r
 tree1 <- make_tree(n = 50, children = 5, mode = "undirected")
 tree1
-#> IGRAPH 5259022 U--- 50 49 -- Tree
+#> IGRAPH befff4e U--- 50 49 -- Tree
 #> + attr: name (g/c), children (g/n), mode (g/c)
-#> + edges from 5259022:
+#> + edges from befff4e:
 #>  [1]  1-- 2  1-- 3  1-- 4  1-- 5  1-- 6  2-- 7  2-- 8  2-- 9
 #>  [9]  2--10  2--11  3--12  3--13  3--14  3--15  3--16  4--17
 #> [17]  4--18  4--19  4--20  4--21  5--22  5--23  5--24  5--25
@@ -347,7 +349,7 @@ ggmap(myMap) +
 
 <img src="06-spatial-networks_files/figure-html/unnamed-chunk-12-2.png" width="672" />
 
-Note that minimum spanning trees can also be used for weighted graphs such that weighted connections will be preferred in defining tree structure. See ?mst for more details.
+Note that minimum spanning trees can also be used for weighted graphs such that weighted connections will be preferred in defining tree structure. See `?mst` for more details.
 
 ### Delaunay Triangulation
 
@@ -355,9 +357,9 @@ Delaunay triangulation: a pair of nodes are connected by an edge if and only if 
 
 Voronoi diagram or Thiessen polygons: for each node in a set of nodes in a Euclidean plane, a region is created covering the area that is closer or equidistant to that node than it is to any other node in the set.
 
-The package deldir in R allows for the calculation of Delaunay triangles with x and y coordinates as input. By default the deldir function will define a boundary that extends slightly beyond the xy coordinates of all points included in the analysis. This boundary can also be specified within the call using the "rw" argument. See ?deldir for more details. 
+The package `deldir` in R allows for the calculation of Delaunay triangles with x and y coordinates as input. By default the `deldir` function will define a boundary that extends slightly beyond the xy coordinates of all points included in the analysis. This boundary can also be specified within the call using the `rw` argument. See `?deldir` for more details. 
 
-The results of this function can be directly plotted and the output also contains coordinates necessary to integrate the results into another type of figure like a ggmap. Let's take a look.
+The results of this function can be directly plotted and the output also contains coordinates necessary to integrate the results into another type of figure like a `ggmap`. Let's take a look.
 
 
 ```r
@@ -415,7 +417,7 @@ ggmap(myMap) +
 
 K-nearest neighbor network: each node is connected to K other nodes closest to it.
 
-The cccd package has a routine that allows for the calculation of K-nearest neighbor graphs from geographic coordinates or a precomputed distance matrix. In this example we use the Roman Road data and calculate K=1 and K=6 nearest neighbor networks and plot the both simultaneously.
+The `cccd` package has a routine that allows for the calculation of K-nearest neighbor graphs from geographic coordinates or a precomputed distance matrix. In this example we use the Roman Road data and calculate K=1 and K=6 nearest neighbor networks and plot the both simultaneously.
 
 
 ```r
@@ -447,9 +449,9 @@ ggraph(g, layout = "manual",
 
 Maximum distance network: each node is connected to all other nodes at a distance closer than or equal to a threshold value. In order define a maximum distance network we simply need to define a threshold distance and define all nodes greater than that distance as unconnected and nodes within that distance as connected. This can be done in base R using the dist function we used above.
 
-Since the coordinates we are using here are in decimal degrees we need to calculate distances based on "great circles" across the globe rather than Euclidean distances on a projected plane. There is a function called "distm" in the "geosphere" package that allows us to do this. If you are working with projected data, you can simply use the "dist" function in the place of "distm" like the example below. 
+Since the coordinates we are using here are in decimal degrees we need to calculate distances based on "great circles" across the globe rather than Euclidean distances on a projected plane. There is a function called `distm` in the `geosphere` package that allows us to do this. If you are working with projected data, you can simply use the `dist` function in the place of `distm` like the example below. 
 
-Next, in order to define a minimum distance network we simply binarize this matrix. We can do this using the "event2dichot" function within the statnet package and easily create an R network objects. Let's try it out with the Roman Road data for thresholds of 100,000 and 250,000 meters.
+Next, in order to define a minimum distance network we simply binarize this matrix. We can do this using the `event2dichot` function within the `statnet` package and easily create an R network objects. Let's try it out with the Roman Road data for thresholds of 100,000 and 250,000 meters.
 
 
 ```r
@@ -579,7 +581,7 @@ g18
 
 <img src="06-spatial-networks_files/figure-html/unnamed-chunk-18-1.png" width="672" />
 
-If we want to combine the degree distribution plot and the network into the same frame, we can use the "inset_element" function in the "patchwork" library.
+If we want to combine the degree distribution plot and the network into the same frame, we can use the `inset_element` function in the `patchwork` package.
 
 
 ```r
@@ -783,7 +785,7 @@ plot_d
 
 The second case study in Chapter 7 of Brughmans and Peeples (2022) provides an example of how we can use spatial network methods to analyze material cultural network data. We use the Chaco World data here and you can download the [map data](data/map.RData), [the site attribute data](data/AD1050attr.csv), and [the ceramic frequency data](data/AD1050cer.csv) to follow along.
 
-The first analysis expores the degree to which similarities in ceramics (in terms of Brainerd-Robinson similarity based on wares) can be explained by spatial distance. To do this we simply define a ceramic similarity matrix, a Euclidean distance matrix, and the fit a model using distance to explain ceramic similarity using a general additive model (gam) approach. The gam function we use here is in the mgcv package. Note that the object "dmat" is created using the "dist" function as the data we started with are already projected site locations using UTM coordinates. 
+The first analysis expores the degree to which similarities in ceramics (in terms of Brainerd-Robinson similarity based on wares) can be explained by spatial distance. To do this we simply define a ceramic similarity matrix, a Euclidean distance matrix, and the fit a model using distance to explain ceramic similarity using a general additive model (`gam`) approach. The `gam` function we use here is in the `mgcv` package. Note that the object `dmat` is created using the `dist` function as the data we started with are already projected site locations using UTM coordinates. 
 
 
 ```r
