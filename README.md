@@ -4,7 +4,7 @@ This project serves as a companion to the Cambridge Manuals in Archaeology book 
 
 **Cite this document as:**
 
-> Peeples, Matthew A. and Tom Brughmans (2022). Online Companion to Archaeological Network Science by Brughmans and Peeples. <https://archnetworks.net>, Accessed `r Sys.Date()`.
+> Peeples, Matthew A. and Tom Brughmans (2022). Online Companion to Archaeological Network Science by Brughmans and Peeples. <https://archnetworks.net>, Accessed 19 May 2022.
 **The associated book can be cited as**
 
 > Brughmans, Tom and Matthew A. Peeples (in press). *Archaeological Network Science.* Cambridge Manuals in Archaeology. Cambridge University Press, Cambridge, UK.
@@ -22,7 +22,7 @@ A few suggestions on where to start:
 
 ## Reproducibility{- #Repro}
 
-The most recent version of this document was built with `r R.version.string`. We suggest you use a recent version of R when attempting to use the code in this document. 
+The most recent version of this document was built with R 4.2. We suggest you use a recent version of R when attempting to use the code in this document. 
 
 The content of this document is meant to be as accessible and reproducible as possible. The source code used to produce this document along with all of the data used in analyses are available on [GitHub](https://github.com/mpeeples2008/Archaeological_Network_Science). This GitHub repository allows users to open issues, contribute to the document, or help fix typos or other errors (see information about contributing below). We have also opened a GitHub discussion board with this repository where users can ask questions about any data or code in the repository without making edits or issue requests directly. 
 
@@ -44,7 +44,7 @@ This online bookdown document has been deployed using the Netlify platform and t
 
 We have created an associated [Archaeological Network Science - Discord Server](https://discord.gg/Z9UXwjASM5), which we hope will provide an additional venue for archaeological network practitioners to collaborate, interact, and ask for help with this document or with archaeological networks broadly. We invite you to use this as a place to ask questions of the authors and the community at large. Note that this Discord is subject to the same [code of conduct](https://github.com/mpeeples2008/Archaeological_Network_Science/blob/main/CODE_OF_CONDUCT.md) we use for the GitHub repository and you must abide by that agreement to participate. We require that you have a Discord account with a verified email address.
 
-![](images/Discord_Logo.png){width=300px}
+![](images/Discord_Logo.png){width=40%}
 
 [Join our Discord](https://discord.gg/Z9UXwjASM5)
 
@@ -88,4 +88,4 @@ We are devoted to seeing the community of archaeological network practitioners g
 
 This project and the associated book were made possible thanks to the support of several generous funding sources including: The Carlsberg Foundation, in the context of the Past Social Networks Project (CF21-0382); the National Science Foundation through both the Archaeology and the Measurement, Methodology, and Statistics programs (grant #1758690 and #1758606); and the School of Human Evolution and Social Change at Arizona State University. Thank you to Jens Emil Bødstrup Christoffersen for providing detailed comments on and for testing the initial version of this document. Any errors that remain are our own.
 
-![](images/NSF_Logo.png){width=150px} ![](images/ASU_SHESC_Logo.png){width=300px}
+![](images/NSF_Logo.png){width=10%} ![](images/ASU_SHESC_Logo.png){width=15%}
