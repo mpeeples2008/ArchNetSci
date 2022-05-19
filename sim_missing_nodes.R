@@ -51,7 +51,7 @@ sim_missing_nodes <- function(net,
 
 # Run the function
 set.seed(5609)
-dg_test <- sim_missing_nodes(net = chaco_net, met = "degree", missing_probs=mis)
+dg_test <- sim_missing_nodes(net = chaco_net, met = "degree")
 
 # Visuzlize the results as a boxplot.
 # Melt wide data format into long data format
