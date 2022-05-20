@@ -17,7 +17,7 @@ library(vegan)
 library(multinet)
 ```
 
-The primary packages used in this Section (`igraph`, `statnet`, and `intergraph`) are already described [in the last section](#PrimaryPackage). We also use here the `vegan` package which includes many functions focused on community ecology. In this document, we rely on this package to calculate several distance/similarity metrics that are useful for generating [similarity networks](#SimilarityNetworks). Finally, we provide a brief example at the end of this section using `multinet` which is a package focused on conducting [multilayer network analyses](#Multinet).
+The primary packages used in this Section (`igraph`, `statnet`, and `intergraph`) are already described [in the last section](#PrimaryPackages). We also use here the `vegan` package which includes many functions focused on community ecology. In this document, we rely on this package to calculate several distance/similarity metrics that are useful for generating [similarity networks](#SimilarityNetworks). Finally, we provide a brief example at the end of this section using `multinet` which is a package focused on conducting [multilayer network analyses](#Multinet).
 
 ### Defining Network Objects in R{#NetworkDataFunctions}
 
@@ -28,9 +28,9 @@ In general most of the examples of network data formats in the remainder of this
 
 As you will see below, we mostly rely on `igraph` functions that take the following basic format:
 
-`igraph::graph_from_DataType` 
+`igraph::graph_from_**DataType**` 
 
-where `DataType` is replaced with the appropriate format such as `edgelist`, `adjacency_matrix`, and so on. In most of the examples below we then plot the network just to confirm that everything works, but that is certainly optional.
+where `**DataType**` is replaced with the appropriate format such as `edgelist`, `adjacency_matrix`, and so on. In most of the examples below we then plot the network just to confirm that everything works, but that is certainly optional.
 
 ### Edge List {#Edgelist}
 
@@ -367,7 +367,7 @@ The first metric we will explore here is a rescaled version of the Brainerd-Robi
 
 $$S = {\frac{2-\sum_{k} \left|x_{k} - y_{k}\right|} {2}}$$
 
-where, for all categories $k$, $x$ is the proportion of $k$ in the first assemblage and $y$ is the proportion of $k$ in the second. We subtract the sum from 2 as 2 is the maximum proportional difference possible between two samples. We further divide the result by 2. This provides a scale of similarity from 0-1 where 1 is perfect similarity and 0 indicates no similarity. The chunk below defines the code for calculating this modified BR similarity measure. Note here we use a distance metric called "Manhattan Distance" built into the `vegan` package in R. This metric is identical to the Brainerd-Robinson metric.
+where, for all categories $k$, $x$ is the proportion of $k$ in the first assemblage and $y$ is the proportion of $k$ in the second. We subtract the sum from 2 as 2 is the maximum proportional difference possible between two samples. We further divide the result by 2. This provides a scale of similarity from 0-1 where 1 is perfect similarity and 0 indicates no similarity. The chunk below defines the code for calculating this modified BR similarity measure. Note here we use a distance metric called "Manhattan Distance" built into the `vegan` package in R. This metric is identical to the Brainerd-Robinson metric. We rescale our results to range from 0 to 1 after calculation.
 
 ```{r}
 # Read in raw data
@@ -461,8 +461,10 @@ In the code below, the `event2dichot` function (from the `statnet` package) take
 ```{r}
 # Define our binary network object from BR similarity
 BRnet <-
-  network(event2dichot(Cibola_BR, method = "absolute", thresh = 0.65),
-          directed = FALSE)
+  network(event2dichot(Cibola_BR, 
+                       method = "absolute", 
+                       thresh = 0.65),
+                       directed = FALSE)
 # Now let's add names for our nodes based on the row names
 # of our original matrix
 BRnet %v% "vertex.names" <- row.names(Cibola_clust)
@@ -594,7 +596,7 @@ plot(florentine)
 
 ```
 
-The `multinet` network objects are essentially compatible with `igraph` and individual layers can be analyzed just like other `igraph` network objects. Where this `multinet` approach likely has greater utility is in conducting comparisons among layers or conducting analyses that take several layers into account simultaneously. A detailed exploration of this approach is beyond the scope of this document (but we provide a simple example below) and we suggest interested readers read the package information and tutorials associated with this package for more. In the example here we calculate degree across multiple layers using the `degree_ml` function and then run a Louvain cluster detection algorithm across all graph layers using `glouvain_ml`. Multilayer networks have considerable potential for archaeological data and we hope to see more research in this area in the future.
+The `multinet` network objects are compatible with `igraph` and individual layers can be analyzed just like other `igraph` network objects. Where this `multinet` approach likely has greater utility is in conducting comparisons among layers or conducting analyses that take several layers into account simultaneously. A detailed exploration of this approach is beyond the scope of this document (but we provide a simple example below) and we suggest interested readers read the package information and tutorials associated with this package for more. In the example here we calculate degree across multiple layers using the `degree_ml` function and then run a Louvain cluster detection algorithm across all graph layers using `glouvain_ml`. Multilayer networks have considerable potential for archaeological data and we hope to see more research in this area in the future.
 
 ```{r}
 # If we want to calculate degree centrality across multiple layers of a

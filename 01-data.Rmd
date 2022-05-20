@@ -114,12 +114,6 @@ We use a number of R packages in the modules here and in the book for manipulati
 * [intergraph (Bojanowski 2015)](https://cran.r-project.org/web/packages/intergraph/intergraph.pdf) - a set of routines for coercing objects between common network formats in R
 * [ggraph (Pederson 2021)](https://CRAN.R-project.org/package=ggraph) - a powerful graph visualization package that is based off of the ggplot2 plotting format
 
-No matter how you plan on working with these documents, you should install these four packages at a minimum by running the code below.
-
-```{r, eval=F}
-install.packages(c("igraph", "statnet", "intergraph", "ggraph"))
-```
-
 ### A Brief Introduction to the Primary Network Packages in R{#PrimaryPackages}
 
 Throughout this Online Companion, we will consistently rely on `igraph` and `statnet` (`statnet` is actually a suite of packages that includes `sna`, `network`, `ergm`, and others). For the most part these two packages do many of the same things. You can use them to calculate centrality metrics, define groups, or evaluate other network structures. In general `igraph` is a bit more centered on complex networks and mathematical models and `statnet` and affiliated packages are more focused on social network analysis though there is considerable overlap. 
@@ -130,9 +124,18 @@ In general in this Online Companion we use the `igraph` package wherever possibl
 
 Finally, we recommend installing `ggraph` as this is a very useful and intuitive package that allows for diverse network visualizations and customization. These four packages account for the bulk of the examples in this book.
 
-### Should I Just Install Everything?
+### Should I Just Install Everything?{#ShouldIInstall}
 
-If you have plenty of disk space and time and don't wont to worry about installing packages piecemeal, you can install everything at the same time using the code below. Note that there are a large number of packages and dependencies here and many are only used in one or two places in this Online Companion. We generally recommend that you install packages as you need them while you work through this document but you do you.
+No matter how you plan on working with these documents, you should install the packages in the following chunk at a minimum by running the code below. These packages will get you through everything in Sections 1 through 4 and much of the Sections 5 and 6.
+
+```{r, eval=F}
+packages <- c("igraph", "statnet", "intergraph", "ggraph", 
+              "reshape2", "ggmap", "vegan", "sf", "tidyverse")
+
+install.packages(setdiff(packages, rownames(installed.packages())))  
+```
+
+If you have plenty of disk space and time and don't wont to worry about installing packages piecemeal, you can install everything at the same time using the code below. Note that there are a large number of packages and dependencies here and many are only used in one or two places in this Online Companion. Most of the packages are used in the [Network Visualization](#Visualization) Section. We generally recommend that you install packages as you need them while you work through this document but you do you. 
 
 If you choose to install everything, however, you can simply run the chunk of code below. Note that the code below will not reinstall packages already installed in your current version of R. Note if you are familiar with Git and R Environments, it will be much faster to just use the `renv::restore()` function to build an environment from the repository. See the [Reproducibility section](#Repro) in the introduction for more information.
 
@@ -154,7 +157,7 @@ if(!requireNamespace("BiocManager", quietly = TRUE))
 BiocManager::install("RBGL")
 ```
 
-In addition to the R packages listed above, there is one procedure used in this Online Companion that requires you to have an installation of Python 3.7 with particular packages on your computer. In order to implement these sections of code, you will need to also run the following lines of code. Note that this is a large install that takes about about 1.4 GB of hard drive space so only do this if you have the space and REALLY want to explore edge bundling ([see Edge Bundling Visualizations](#EdgeBundling)). You will be able to reproduce everything in this document except for two chunks of code without this so feel free to sit this one out.
+In addition to the R packages listed above, there is one procedure used in this Online Companion that requires you to have an installation of Python 3.7 with particular packages associated with it. In order to implement these sections of code, you will need to also run the following lines of code. Note that this is a large install that takes about about 1.4 GB of hard drive space so only do this if you have the space and REALLY want to explore edge bundling ([see Edge Bundling Visualizations](#Figure_6_17)). You will be able to reproduce everything in this document except for two chunks of code without this so feel free to sit this one out.
 
 ```{r, eval=F}
 install.packages("edgebundle", "reticulate")
@@ -185,7 +188,7 @@ knitr::kable(df, format = "markdown")
 
 In order to follow along with the examples in this Online Companion it will be easiest if you set up your R working directory in a similar format to that used in creating it. Specifically, we suggest you create a new working directory and create an R studio project tied to that specific directory. 
 
-In order to do this, open R-Studio and go to "File > New Project" and click on "New Directory > New Project" in the dialog and then give it an appropriate name and location on your disk. Next, navigate to that location on your disk and create a sub-folder called "data" (directory names are case sensitive). Place any of the data files you downloaded above or in any other section of this Online Companion in that Folder. Note that if you chose the "Just Give Me Everything" download you will have a .zip file that already contains a sub-folder called "data" so be sure you're not double nesting your folders (you want "working_directory/data" not "working_directory/data/data").
+In order to do this, open R-Studio and go to "File > New Project" and click on "New Directory > New Project" in the dialog and then give it an appropriate name and location on your disk. Next, navigate to that location on your disk and create two sub-folders: one called "data" (directory names are case sensitive) and second called "scripts." Place any of the data files you downloaded above or in any other section of this Online Companion in the "data" folder and place any .R scripts in the "scripts" folder. Note that if you chose the "Just Give Me Everything" download you will have a .zip file that already contains a sub-folders called "data" and "scripts" so be sure you're not double nesting your folders (you want "working_directory/data" not "working_directory/data/data").
 
 When you close R you will see a dialog that asks if you want to save your workspace image. If you do this and provide a name, you can reopen the .RData file at a later time and pick up exactly where your previous session left off.
 

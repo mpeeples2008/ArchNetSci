@@ -18,7 +18,7 @@ library(vegan)
 library(multinet)
 ```
 
-The primary packages used in this Section (`igraph`, `statnet`, and `intergraph`) are already described [in the last section](#PrimaryPackage). We also use here the `vegan` package which includes many functions focused on community ecology. In this document, we rely on this package to calculate several distance/similarity metrics that are useful for generating [similarity networks](#SimilarityNetworks). Finally, we provide a brief example at the end of this section using `multinet` which is a package focused on conducting [multilayer network analyses](#Multinet).
+The primary packages used in this Section (`igraph`, `statnet`, and `intergraph`) are already described [in the last section](#PrimaryPackages). We also use here the `vegan` package which includes many functions focused on community ecology. In this document, we rely on this package to calculate several distance/similarity metrics that are useful for generating [similarity networks](#SimilarityNetworks). Finally, we provide a brief example at the end of this section using `multinet` which is a package focused on conducting [multilayer network analyses](#Multinet).
 
 ### Defining Network Objects in R{#NetworkDataFunctions}
 
@@ -29,9 +29,9 @@ In general most of the examples of network data formats in the remainder of this
 
 As you will see below, we mostly rely on `igraph` functions that take the following basic format:
 
-`igraph::graph_from_DataType` 
+`igraph::graph_from_**DataType**` 
 
-where `DataType` is replaced with the appropriate format such as `edgelist`, `adjacency_matrix`, and so on. In most of the examples below we then plot the network just to confirm that everything works, but that is certainly optional.
+where `**DataType**` is replaced with the appropriate format such as `edgelist`, `adjacency_matrix`, and so on. In most of the examples below we then plot the network just to confirm that everything works, but that is certainly optional.
 
 ### Edge List {#Edgelist}
 
@@ -64,9 +64,9 @@ Cibola_net <-
 
 # Display igraph network object and then plot a simple node-link diagram
 Cibola_net
-#> IGRAPH defcc4d UN-- 30 167 -- 
+#> IGRAPH c351c3f UN-- 30 167 -- 
 #> + attr: name (v/c)
-#> + edges from defcc4d (vertex names):
+#> + edges from c351c3f (vertex names):
 #>  [1] Apache Creek--Casa Malpais        
 #>  [2] Apache Creek--Coyote Creek        
 #>  [3] Apache Creek--Hooper Ranch        
@@ -95,7 +95,7 @@ adj_list <- igraph::as_adj_edge_list(Cibola_net)
 
 # examine adjacency list for the site Apache Creek
 adj_list$`Apache Creek`
-#> + 11/167 edges from defcc4d (vertex names):
+#> + 11/167 edges from c351c3f (vertex names):
 #>  [1] Apache Creek--Casa Malpais        
 #>  [2] Apache Creek--Coyote Creek        
 #>  [3] Apache Creek--Hooper Ranch        
@@ -111,7 +111,7 @@ adj_list$`Apache Creek`
 # It is also possible to call specific nodes by number. In this case,
 # site 2 is Casa Malpais
 adj_list[[2]] 
-#> + 11/167 edges from defcc4d (vertex names):
+#> + 11/167 edges from c351c3f (vertex names):
 #>  [1] Apache Creek--Casa Malpais   
 #>  [2] Casa Malpais--Coyote Creek   
 #>  [3] Casa Malpais--Hooper Ranch   
@@ -293,9 +293,9 @@ V(Cibola_net2)$region
 # Note that "region" is now listed as an attribute when we view 
 # the network object
 Cibola_net2
-#> IGRAPH df33892 UN-- 31 167 -- 
+#> IGRAPH c3874e1 UN-- 31 167 -- 
 #> + attr: name (v/c), region (v/c)
-#> + edges from df33892 (vertex names):
+#> + edges from c3874e1 (vertex names):
 #>  [1] Apache.Creek--Casa.Malpais        
 #>  [2] Apache.Creek--Coyote.Creek        
 #>  [3] Apache.Creek--Hooper.Ranch        
@@ -339,9 +339,9 @@ simple_net_i <-
   igraph::graph_from_adjacency_matrix(as.matrix(adj_mat2),
                                       mode = "undirected")
 simple_net_i
-#> IGRAPH e0270d6 UN-- 31 167 -- 
+#> IGRAPH c480e51 UN-- 31 167 -- 
 #> + attr: name (v/c)
-#> + edges from e0270d6 (vertex names):
+#> + edges from c480e51 (vertex names):
 #>  [1] Apache.Creek--Casa.Malpais        
 #>  [2] Apache.Creek--Coyote.Creek        
 #>  [3] Apache.Creek--Hooper.Ranch        
@@ -398,9 +398,9 @@ EL2 <- Cibola_edgelist[sample(seq(1, nrow(Cibola_edgelist)), 125,
 directed_net <-
   igraph::graph_from_edgelist(as.matrix(EL2), directed = TRUE)
 directed_net
-#> IGRAPH e02f9b0 DN-- 30 125 -- 
+#> IGRAPH c489d0e DN-- 30 125 -- 
 #> + attr: name (v/c)
-#> + edges from e02f9b0 (vertex names):
+#> + edges from c489d0e (vertex names):
 #>  [1] Coyote Creek   ->Techado Springs      
 #>  [2] Hubble Corner  ->Tri-R Pueblo         
 #>  [3] Hubble Corner  ->Techado Springs      
@@ -513,9 +513,9 @@ Cibola_inc <- igraph::graph_from_incidence_matrix(Cibola_clust,
                                                   directed = FALSE,
                                                   multiple = TRUE)
 Cibola_inc
-#> IGRAPH e078be8 UN-B 41 2214 -- 
+#> IGRAPH c4d400d UN-B 41 2214 -- 
 #> + attr: type (v/l), name (v/c)
-#> + edges from e078be8 (vertex names):
+#> + edges from c4d400d (vertex names):
 #>  [1] Apache Creek--Clust1 Apache Creek--Clust1
 #>  [3] Apache Creek--Clust1 Apache Creek--Clust1
 #>  [5] Apache Creek--Clust1 Apache Creek--Clust1
@@ -645,7 +645,7 @@ The first metric we will explore here is a rescaled version of the Brainerd-Robi
 
 $$S = {\frac{2-\sum_{k} \left|x_{k} - y_{k}\right|} {2}}$$
 
-where, for all categories $k$, $x$ is the proportion of $k$ in the first assemblage and $y$ is the proportion of $k$ in the second. We subtract the sum from 2 as 2 is the maximum proportional difference possible between two samples. We further divide the result by 2. This provides a scale of similarity from 0-1 where 1 is perfect similarity and 0 indicates no similarity. The chunk below defines the code for calculating this modified BR similarity measure. Note here we use a distance metric called "Manhattan Distance" built into the `vegan` package in R. This metric is identical to the Brainerd-Robinson metric.
+where, for all categories $k$, $x$ is the proportion of $k$ in the first assemblage and $y$ is the proportion of $k$ in the second. We subtract the sum from 2 as 2 is the maximum proportional difference possible between two samples. We further divide the result by 2. This provides a scale of similarity from 0-1 where 1 is perfect similarity and 0 indicates no similarity. The chunk below defines the code for calculating this modified BR similarity measure. Note here we use a distance metric called "Manhattan Distance" built into the `vegan` package in R. This metric is identical to the Brainerd-Robinson metric. We rescale our results to range from 0 to 1 after calculation.
 
 
 ```r
@@ -773,8 +773,10 @@ In the code below, the `event2dichot` function (from the `statnet` package) take
 ```r
 # Define our binary network object from BR similarity
 BRnet <-
-  network(event2dichot(Cibola_BR, method = "absolute", thresh = 0.65),
-          directed = FALSE)
+  network(event2dichot(Cibola_BR, 
+                       method = "absolute", 
+                       thresh = 0.65),
+                       directed = FALSE)
 # Now let's add names for our nodes based on the row names
 # of our original matrix
 BRnet %v% "vertex.names" <- row.names(Cibola_clust)
@@ -910,9 +912,9 @@ ego_nets <- make_ego_graph(Cibola_net)
 
 # Examine the first ego-network
 ego_nets[[1]]
-#> IGRAPH e1d3a6c UN-- 12 59 -- 
+#> IGRAPH c62d039 UN-- 12 59 -- 
 #> + attr: name (v/c)
-#> + edges from e1d3a6c (vertex names):
+#> + edges from c62d039 (vertex names):
 #>  [1] Apache Creek--Casa Malpais   
 #>  [2] Apache Creek--Coyote Creek   
 #>  [3] Casa Malpais--Coyote Creek   
@@ -958,10 +960,10 @@ In most of the examples in this document we have been using the `igraph` package
 ```r
 Mor_wt_i <- asIgraph(Mor_wt)
 Mor_wt_i
-#> IGRAPH e201ff8 U-W- 31 465 -- 
+#> IGRAPH c659d34 U-W- 31 465 -- 
 #> + attr: na (v/l), vertex.names (v/c), na (e/l),
 #> | weight (e/n)
-#> + edges from e201ff8:
+#> + edges from c659d34:
 #>  [1] 1-- 2 1-- 3 1-- 4 1-- 5 1-- 6 1-- 7 1-- 8 1-- 9 1--10
 #> [10] 1--11 1--12 1--13 1--14 1--15 1--16 1--17 1--18 1--19
 #> [19] 1--20 1--21 1--22 1--23 1--24 1--25 1--26 1--27 1--28
@@ -1003,7 +1005,7 @@ plot(florentine)
 
 <img src="02-network-data-formats_files/figure-html/unnamed-chunk-24-1.png" width="672" />
 
-The `multinet` network objects are essentially compatible with `igraph` and individual layers can be analyzed just like other `igraph` network objects. Where this `multinet` approach likely has greater utility is in conducting comparisons among layers or conducting analyses that take several layers into account simultaneously. A detailed exploration of this approach is beyond the scope of this document (but we provide a simple example below) and we suggest interested readers read the package information and tutorials associated with this package for more. In the example here we calculate degree across multiple layers using the `degree_ml` function and then run a Louvain cluster detection algorithm across all graph layers using `glouvain_ml`. Multilayer networks have considerable potential for archaeological data and we hope to see more research in this area in the future.
+The `multinet` network objects are compatible with `igraph` and individual layers can be analyzed just like other `igraph` network objects. Where this `multinet` approach likely has greater utility is in conducting comparisons among layers or conducting analyses that take several layers into account simultaneously. A detailed exploration of this approach is beyond the scope of this document (but we provide a simple example below) and we suggest interested readers read the package information and tutorials associated with this package for more. In the example here we calculate degree across multiple layers using the `degree_ml` function and then run a Louvain cluster detection algorithm across all graph layers using `glouvain_ml`. Multilayer networks have considerable potential for archaeological data and we hope to see more research in this area in the future.
 
 
 ```r
@@ -1011,38 +1013,38 @@ The `multinet` network objects are essentially compatible with `igraph` and indi
 # multilayer network, the multinet package can help us do that directly
 # and quite simply.
 multinet::degree_ml(florentine)
-#>  [1]  3  4  7  4  2  3  3  6  6 11  3  6  6  5  1
+#>  [1]  6  3  5  1  6  6  6  3 11  3  7  2  4  3  4
 
 # Similarly, we could apply cluster detection algorithms to all layers
 # of a multilayer network simultaneously.
 multinet::glouvain_ml(florentine)
 #>           actor    layer cid
-#> 1       Ridolfi marriage   0
-#> 2    Tornabuoni business   0
-#> 3    Tornabuoni marriage   0
-#> 4         Pazzi business   0
-#> 5         Pazzi marriage   0
-#> 6      Salviati business   0
-#> 7      Salviati marriage   0
-#> 8        Ginori business   0
-#> 9        Ginori marriage   0
-#> 10       Medici business   0
-#> 11       Medici marriage   0
-#> 12      Albizzi marriage   0
-#> 13    Barbadori business   0
-#> 14    Barbadori marriage   0
-#> 15   Acciaiuoli marriage   0
-#> 16      Peruzzi business   1
-#> 17      Peruzzi marriage   1
-#> 18      Strozzi marriage   1
-#> 19   Castellani business   1
-#> 20   Castellani marriage   1
-#> 21     Bischeri business   1
-#> 22     Bischeri marriage   1
-#> 23     Guadagni business   1
-#> 24     Guadagni marriage   1
-#> 25 Lamberteschi business   1
-#> 26 Lamberteschi marriage   1
+#> 1  Lamberteschi business   0
+#> 2  Lamberteschi marriage   0
+#> 3    Castellani business   0
+#> 4    Castellani marriage   0
+#> 5      Bischeri business   0
+#> 6      Bischeri marriage   0
+#> 7      Guadagni business   0
+#> 8      Guadagni marriage   0
+#> 9       Peruzzi business   0
+#> 10      Peruzzi marriage   0
+#> 11      Strozzi marriage   0
+#> 12    Barbadori business   1
+#> 13    Barbadori marriage   1
+#> 14      Albizzi marriage   1
+#> 15   Acciaiuoli marriage   1
+#> 16       Ginori business   1
+#> 17       Ginori marriage   1
+#> 18       Medici business   1
+#> 19       Medici marriage   1
+#> 20     Salviati business   1
+#> 21     Salviati marriage   1
+#> 22        Pazzi business   1
+#> 23        Pazzi marriage   1
+#> 24      Ridolfi marriage   1
+#> 25   Tornabuoni business   1
+#> 26   Tornabuoni marriage   1
 ```
 
 

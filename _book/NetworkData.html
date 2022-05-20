@@ -74,9 +74,9 @@
 <li><a class="" href="data-and-workspace-setup.html"><span class="header-section-number">1</span> Data and Workspace Setup</a></li>
 <li><a class="active" href="NetworkData.html"><span class="header-section-number">2</span> Network Data Formats</a></li>
 <li><a class="" href="exploratory-network-analysis.html"><span class="header-section-number">3</span> Exploratory Network Analysis</a></li>
-<li><a class="" href="quantifying-uncertainty.html"><span class="header-section-number">4</span> Quantifying Uncertainty</a></li>
-<li><a class="" href="network-visualization.html"><span class="header-section-number">5</span> Network Visualization</a></li>
-<li><a class="" href="spatial-networks.html"><span class="header-section-number">6</span> Spatial Networks</a></li>
+<li><a class="" href="Uncertainty.html"><span class="header-section-number">4</span> Quantifying Uncertainty</a></li>
+<li><a class="" href="Visualization.html"><span class="header-section-number">5</span> Network Visualization</a></li>
+<li><a class="" href="SpatialNetworks.html"><span class="header-section-number">6</span> Spatial Networks</a></li>
 <li><a class="" href="references-and-r-packages.html">References and R Packages</a></li>
 </ul>
 
@@ -103,7 +103,7 @@
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://mbojan.github.io/intergraph">intergraph</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/vegandevs/vegan">vegan</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">multinet</span><span class="op">)</span></code></pre></div>
-<p>The primary packages used in this Section (<code>igraph</code>, <code>statnet</code>, and <code>intergraph</code>) are already described <a href="#PrimaryPackage">in the last section</a>. We also use here the <code>vegan</code> package which includes many functions focused on community ecology. In this document, we rely on this package to calculate several distance/similarity metrics that are useful for generating <a href="NetworkData.html#SimilarityNetworks">similarity networks</a>. Finally, we provide a brief example at the end of this section using <code>multinet</code> which is a package focused on conducting <a href="NetworkData.html#Multinet">multilayer network analyses</a>.</p>
+<p>The primary packages used in this Section (<code>igraph</code>, <code>statnet</code>, and <code>intergraph</code>) are already described <a href="data-and-workspace-setup.html#PrimaryPackages">in the last section</a>. We also use here the <code>vegan</code> package which includes many functions focused on community ecology. In this document, we rely on this package to calculate several distance/similarity metrics that are useful for generating <a href="NetworkData.html#SimilarityNetworks">similarity networks</a>. Finally, we provide a brief example at the end of this section using <code>multinet</code> which is a package focused on conducting <a href="NetworkData.html#Multinet">multilayer network analyses</a>.</p>
 <div id="NetworkDataFunctions" class="section level3" number="2.1.1">
 <h3>
 <span class="header-section-number">2.1.1</span> Defining Network Objects in R<a class="anchor" aria-label="anchor" href="#NetworkDataFunctions"><i class="fas fa-link"></i></a>
@@ -114,8 +114,8 @@
 <li>Next, we call a function that expects the given data format (edgelist, adjacency matrix, incidence matrix, etc.) and converts it in to an R network object.</li>
 </ul>
 <p>As you will see below, we mostly rely on <code>igraph</code> functions that take the following basic format:</p>
-<p><code>igraph::graph_from_DataType</code></p>
-<p>where <code>DataType</code> is replaced with the appropriate format such as <code>edgelist</code>, <code>adjacency_matrix</code>, and so on. In most of the examples below we then plot the network just to confirm that everything works, but that is certainly optional.</p>
+<p><code>igraph::graph_from_**DataType**</code></p>
+<p>where <code>**DataType**</code> is replaced with the appropriate format such as <code>edgelist</code>, <code>adjacency_matrix</code>, and so on. In most of the examples below we then plot the network just to confirm that everything works, but that is certainly optional.</p>
 </div>
 <div id="Edgelist" class="section level3" number="2.1.2">
 <h3>
@@ -147,9 +147,9 @@
 
 <span class="co"># Display igraph network object and then plot a simple node-link diagram</span>
 <span class="va">Cibola_net</span>
-<span class="co">#&gt; IGRAPH defcc4d UN-- 30 167 -- </span>
+<span class="co">#&gt; IGRAPH c351c3f UN-- 30 167 -- </span>
 <span class="co">#&gt; + attr: name (v/c)</span>
-<span class="co">#&gt; + edges from defcc4d (vertex names):</span>
+<span class="co">#&gt; + edges from c351c3f (vertex names):</span>
 <span class="co">#&gt;  [1] Apache Creek--Casa Malpais        </span>
 <span class="co">#&gt;  [2] Apache Creek--Coyote Creek        </span>
 <span class="co">#&gt;  [3] Apache Creek--Hooper Ranch        </span>
@@ -175,7 +175,7 @@
 
 <span class="co"># examine adjacency list for the site Apache Creek</span>
 <span class="va">adj_list</span><span class="op">$</span><span class="va">`Apache Creek`</span>
-<span class="co">#&gt; + 11/167 edges from defcc4d (vertex names):</span>
+<span class="co">#&gt; + 11/167 edges from c351c3f (vertex names):</span>
 <span class="co">#&gt;  [1] Apache Creek--Casa Malpais        </span>
 <span class="co">#&gt;  [2] Apache Creek--Coyote Creek        </span>
 <span class="co">#&gt;  [3] Apache Creek--Hooper Ranch        </span>
@@ -191,7 +191,7 @@
 <span class="co"># It is also possible to call specific nodes by number. In this case,</span>
 <span class="co"># site 2 is Casa Malpais</span>
 <span class="va">adj_list</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span> 
-<span class="co">#&gt; + 11/167 edges from defcc4d (vertex names):</span>
+<span class="co">#&gt; + 11/167 edges from c351c3f (vertex names):</span>
 <span class="co">#&gt;  [1] Apache Creek--Casa Malpais   </span>
 <span class="co">#&gt;  [2] Casa Malpais--Coyote Creek   </span>
 <span class="co">#&gt;  [3] Casa Malpais--Hooper Ranch   </span>
@@ -358,9 +358,9 @@
 <span class="co"># Note that "region" is now listed as an attribute when we view </span>
 <span class="co"># the network object</span>
 <span class="va">Cibola_net2</span>
-<span class="co">#&gt; IGRAPH df33892 UN-- 31 167 -- </span>
+<span class="co">#&gt; IGRAPH c3874e1 UN-- 31 167 -- </span>
 <span class="co">#&gt; + attr: name (v/c), region (v/c)</span>
-<span class="co">#&gt; + edges from df33892 (vertex names):</span>
+<span class="co">#&gt; + edges from c3874e1 (vertex names):</span>
 <span class="co">#&gt;  [1] Apache.Creek--Casa.Malpais        </span>
 <span class="co">#&gt;  [2] Apache.Creek--Coyote.Creek        </span>
 <span class="co">#&gt;  [3] Apache.Creek--Hooper.Ranch        </span>
@@ -400,9 +400,9 @@
   <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/graph_from_adjacency_matrix.html">graph_from_adjacency_matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">adj_mat2</span><span class="op">)</span>,
                                       mode <span class="op">=</span> <span class="st">"undirected"</span><span class="op">)</span>
 <span class="va">simple_net_i</span>
-<span class="co">#&gt; IGRAPH e0270d6 UN-- 31 167 -- </span>
+<span class="co">#&gt; IGRAPH c480e51 UN-- 31 167 -- </span>
 <span class="co">#&gt; + attr: name (v/c)</span>
-<span class="co">#&gt; + edges from e0270d6 (vertex names):</span>
+<span class="co">#&gt; + edges from c480e51 (vertex names):</span>
 <span class="co">#&gt;  [1] Apache.Creek--Casa.Malpais        </span>
 <span class="co">#&gt;  [2] Apache.Creek--Coyote.Creek        </span>
 <span class="co">#&gt;  [3] Apache.Creek--Hooper.Ranch        </span>
@@ -456,9 +456,9 @@
 <span class="va">directed_net</span> <span class="op">&lt;-</span>
   <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/graph_from_edgelist.html">graph_from_edgelist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">EL2</span><span class="op">)</span>, directed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="va">directed_net</span>
-<span class="co">#&gt; IGRAPH e02f9b0 DN-- 30 125 -- </span>
+<span class="co">#&gt; IGRAPH c489d0e DN-- 30 125 -- </span>
 <span class="co">#&gt; + attr: name (v/c)</span>
-<span class="co">#&gt; + edges from e02f9b0 (vertex names):</span>
+<span class="co">#&gt; + edges from c489d0e (vertex names):</span>
 <span class="co">#&gt;  [1] Coyote Creek   -&gt;Techado Springs      </span>
 <span class="co">#&gt;  [2] Hubble Corner  -&gt;Tri-R Pueblo         </span>
 <span class="co">#&gt;  [3] Hubble Corner  -&gt;Techado Springs      </span>
@@ -563,9 +563,9 @@
                                                   directed <span class="op">=</span> <span class="cn">FALSE</span>,
                                                   multiple <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="va">Cibola_inc</span>
-<span class="co">#&gt; IGRAPH e078be8 UN-B 41 2214 -- </span>
+<span class="co">#&gt; IGRAPH c4d400d UN-B 41 2214 -- </span>
 <span class="co">#&gt; + attr: type (v/l), name (v/c)</span>
-<span class="co">#&gt; + edges from e078be8 (vertex names):</span>
+<span class="co">#&gt; + edges from c4d400d (vertex names):</span>
 <span class="co">#&gt;  [1] Apache Creek--Clust1 Apache Creek--Clust1</span>
 <span class="co">#&gt;  [3] Apache Creek--Clust1 Apache Creek--Clust1</span>
 <span class="co">#&gt;  [5] Apache Creek--Clust1 Apache Creek--Clust1</span>
@@ -677,7 +677,7 @@
 </h4>
 <p>The first metric we will explore here is a rescaled version of the Brainerd-Robinson (BR) similarity metric. This BR measure is commonly used in archaeology including in a number of recent (and not so recent) network studies. This measure represents the total similarity in proportional representation of categories and is defined as:</p>
 <p><span class="math display">\[S = {\frac{2-\sum_{k} \left|x_{k} - y_{k}\right|} {2}}\]</span></p>
-<p>where, for all categories <span class="math inline">\(k\)</span>, <span class="math inline">\(x\)</span> is the proportion of <span class="math inline">\(k\)</span> in the first assemblage and <span class="math inline">\(y\)</span> is the proportion of <span class="math inline">\(k\)</span> in the second. We subtract the sum from 2 as 2 is the maximum proportional difference possible between two samples. We further divide the result by 2. This provides a scale of similarity from 0-1 where 1 is perfect similarity and 0 indicates no similarity. The chunk below defines the code for calculating this modified BR similarity measure. Note here we use a distance metric called “Manhattan Distance” built into the <code>vegan</code> package in R. This metric is identical to the Brainerd-Robinson metric.</p>
+<p>where, for all categories <span class="math inline">\(k\)</span>, <span class="math inline">\(x\)</span> is the proportion of <span class="math inline">\(k\)</span> in the first assemblage and <span class="math inline">\(y\)</span> is the proportion of <span class="math inline">\(k\)</span> in the second. We subtract the sum from 2 as 2 is the maximum proportional difference possible between two samples. We further divide the result by 2. This provides a scale of similarity from 0-1 where 1 is perfect similarity and 0 indicates no similarity. The chunk below defines the code for calculating this modified BR similarity measure. Note here we use a distance metric called “Manhattan Distance” built into the <code>vegan</code> package in R. This metric is identical to the Brainerd-Robinson metric. We rescale our results to range from 0 to 1 after calculation.</p>
 <div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Read in raw data</span>
 <span class="va">Cibola_clust</span> <span class="op">&lt;-</span>
@@ -788,8 +788,10 @@
 <div class="sourceCode" id="cb81"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Define our binary network object from BR similarity</span>
 <span class="va">BRnet</span> <span class="op">&lt;-</span>
-  <span class="fu">network</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/sna/man/event2dichot.html">event2dichot</a></span><span class="op">(</span><span class="va">Cibola_BR</span>, method <span class="op">=</span> <span class="st">"absolute"</span>, thresh <span class="op">=</span> <span class="fl">0.65</span><span class="op">)</span>,
-          directed <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+  <span class="fu">network</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/sna/man/event2dichot.html">event2dichot</a></span><span class="op">(</span><span class="va">Cibola_BR</span>, 
+                       method <span class="op">=</span> <span class="st">"absolute"</span>, 
+                       thresh <span class="op">=</span> <span class="fl">0.65</span><span class="op">)</span>,
+                       directed <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 <span class="co"># Now let's add names for our nodes based on the row names</span>
 <span class="co"># of our original matrix</span>
 <span class="va">BRnet</span> <span class="op">%v%</span> <span class="st">"vertex.names"</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/row.names.html">row.names</a></span><span class="op">(</span><span class="va">Cibola_clust</span><span class="op">)</span>
@@ -914,9 +916,9 @@
 
 <span class="co"># Examine the first ego-network</span>
 <span class="va">ego_nets</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>
-<span class="co">#&gt; IGRAPH e1d3a6c UN-- 12 59 -- </span>
+<span class="co">#&gt; IGRAPH c62d039 UN-- 12 59 -- </span>
 <span class="co">#&gt; + attr: name (v/c)</span>
-<span class="co">#&gt; + edges from e1d3a6c (vertex names):</span>
+<span class="co">#&gt; + edges from c62d039 (vertex names):</span>
 <span class="co">#&gt;  [1] Apache Creek--Casa Malpais   </span>
 <span class="co">#&gt;  [2] Apache Creek--Coyote Creek   </span>
 <span class="co">#&gt;  [3] Casa Malpais--Coyote Creek   </span>
@@ -952,10 +954,10 @@
 <div class="sourceCode" id="cb87"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">Mor_wt_i</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/intergraph/man/asIgraph.html">asIgraph</a></span><span class="op">(</span><span class="va">Mor_wt</span><span class="op">)</span>
 <span class="va">Mor_wt_i</span>
-<span class="co">#&gt; IGRAPH e201ff8 U-W- 31 465 -- </span>
+<span class="co">#&gt; IGRAPH c659d34 U-W- 31 465 -- </span>
 <span class="co">#&gt; + attr: na (v/l), vertex.names (v/c), na (e/l),</span>
 <span class="co">#&gt; | weight (e/n)</span>
-<span class="co">#&gt; + edges from e201ff8:</span>
+<span class="co">#&gt; + edges from c659d34:</span>
 <span class="co">#&gt;  [1] 1-- 2 1-- 3 1-- 4 1-- 5 1-- 6 1-- 7 1-- 8 1-- 9 1--10</span>
 <span class="co">#&gt; [10] 1--11 1--12 1--13 1--14 1--15 1--16 1--17 1--18 1--19</span>
 <span class="co">#&gt; [19] 1--20 1--21 1--22 1--23 1--24 1--25 1--26 1--27 1--28</span>
@@ -992,44 +994,44 @@
 <span class="co"># plot the data</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">florentine</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="02-network-data-formats_files/figure-html/unnamed-chunk-24-1.png" width="672"></div>
-<p>The <code>multinet</code> network objects are essentially compatible with <code>igraph</code> and individual layers can be analyzed just like other <code>igraph</code> network objects. Where this <code>multinet</code> approach likely has greater utility is in conducting comparisons among layers or conducting analyses that take several layers into account simultaneously. A detailed exploration of this approach is beyond the scope of this document (but we provide a simple example below) and we suggest interested readers read the package information and tutorials associated with this package for more. In the example here we calculate degree across multiple layers using the <code>degree_ml</code> function and then run a Louvain cluster detection algorithm across all graph layers using <code>glouvain_ml</code>. Multilayer networks have considerable potential for archaeological data and we hope to see more research in this area in the future.</p>
+<p>The <code>multinet</code> network objects are compatible with <code>igraph</code> and individual layers can be analyzed just like other <code>igraph</code> network objects. Where this <code>multinet</code> approach likely has greater utility is in conducting comparisons among layers or conducting analyses that take several layers into account simultaneously. A detailed exploration of this approach is beyond the scope of this document (but we provide a simple example below) and we suggest interested readers read the package information and tutorials associated with this package for more. In the example here we calculate degree across multiple layers using the <code>degree_ml</code> function and then run a Louvain cluster detection algorithm across all graph layers using <code>glouvain_ml</code>. Multilayer networks have considerable potential for archaeological data and we hope to see more research in this area in the future.</p>
 <div class="sourceCode" id="cb89"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># If we want to calculate degree centrality across multiple layers of a</span>
 <span class="co"># multilayer network, the multinet package can help us do that directly</span>
 <span class="co"># and quite simply.</span>
 <span class="fu">multinet</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/multinet/man/ActorMeasures.html">degree_ml</a></span><span class="op">(</span><span class="va">florentine</span><span class="op">)</span>
-<span class="co">#&gt;  [1]  3  4  7  4  2  3  3  6  6 11  3  6  6  5  1</span>
+<span class="co">#&gt;  [1]  6  3  5  1  6  6  6  3 11  3  7  2  4  3  4</span>
 
 <span class="co"># Similarly, we could apply cluster detection algorithms to all layers</span>
 <span class="co"># of a multilayer network simultaneously.</span>
 <span class="fu">multinet</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/multinet/man/Communities.html">glouvain_ml</a></span><span class="op">(</span><span class="va">florentine</span><span class="op">)</span>
 <span class="co">#&gt;           actor    layer cid</span>
-<span class="co">#&gt; 1       Ridolfi marriage   0</span>
-<span class="co">#&gt; 2    Tornabuoni business   0</span>
-<span class="co">#&gt; 3    Tornabuoni marriage   0</span>
-<span class="co">#&gt; 4         Pazzi business   0</span>
-<span class="co">#&gt; 5         Pazzi marriage   0</span>
-<span class="co">#&gt; 6      Salviati business   0</span>
-<span class="co">#&gt; 7      Salviati marriage   0</span>
-<span class="co">#&gt; 8        Ginori business   0</span>
-<span class="co">#&gt; 9        Ginori marriage   0</span>
-<span class="co">#&gt; 10       Medici business   0</span>
-<span class="co">#&gt; 11       Medici marriage   0</span>
-<span class="co">#&gt; 12      Albizzi marriage   0</span>
-<span class="co">#&gt; 13    Barbadori business   0</span>
-<span class="co">#&gt; 14    Barbadori marriage   0</span>
-<span class="co">#&gt; 15   Acciaiuoli marriage   0</span>
-<span class="co">#&gt; 16      Peruzzi business   1</span>
-<span class="co">#&gt; 17      Peruzzi marriage   1</span>
-<span class="co">#&gt; 18      Strozzi marriage   1</span>
-<span class="co">#&gt; 19   Castellani business   1</span>
-<span class="co">#&gt; 20   Castellani marriage   1</span>
-<span class="co">#&gt; 21     Bischeri business   1</span>
-<span class="co">#&gt; 22     Bischeri marriage   1</span>
-<span class="co">#&gt; 23     Guadagni business   1</span>
-<span class="co">#&gt; 24     Guadagni marriage   1</span>
-<span class="co">#&gt; 25 Lamberteschi business   1</span>
-<span class="co">#&gt; 26 Lamberteschi marriage   1</span></code></pre></div>
+<span class="co">#&gt; 1  Lamberteschi business   0</span>
+<span class="co">#&gt; 2  Lamberteschi marriage   0</span>
+<span class="co">#&gt; 3    Castellani business   0</span>
+<span class="co">#&gt; 4    Castellani marriage   0</span>
+<span class="co">#&gt; 5      Bischeri business   0</span>
+<span class="co">#&gt; 6      Bischeri marriage   0</span>
+<span class="co">#&gt; 7      Guadagni business   0</span>
+<span class="co">#&gt; 8      Guadagni marriage   0</span>
+<span class="co">#&gt; 9       Peruzzi business   0</span>
+<span class="co">#&gt; 10      Peruzzi marriage   0</span>
+<span class="co">#&gt; 11      Strozzi marriage   0</span>
+<span class="co">#&gt; 12    Barbadori business   1</span>
+<span class="co">#&gt; 13    Barbadori marriage   1</span>
+<span class="co">#&gt; 14      Albizzi marriage   1</span>
+<span class="co">#&gt; 15   Acciaiuoli marriage   1</span>
+<span class="co">#&gt; 16       Ginori business   1</span>
+<span class="co">#&gt; 17       Ginori marriage   1</span>
+<span class="co">#&gt; 18       Medici business   1</span>
+<span class="co">#&gt; 19       Medici marriage   1</span>
+<span class="co">#&gt; 20     Salviati business   1</span>
+<span class="co">#&gt; 21     Salviati marriage   1</span>
+<span class="co">#&gt; 22        Pazzi business   1</span>
+<span class="co">#&gt; 23        Pazzi marriage   1</span>
+<span class="co">#&gt; 24      Ridolfi marriage   1</span>
+<span class="co">#&gt; 25   Tornabuoni business   1</span>
+<span class="co">#&gt; 26   Tornabuoni marriage   1</span></code></pre></div>
 
 </div>
 </div>
@@ -1080,7 +1082,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Online Companion to <em>Archaeological Network Science</em> by Brughmans and Peeples</strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-05-19.</p>
+    <p>"<strong>Online Companion to <em>Archaeological Network Science</em> by Brughmans and Peeples</strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-05-20.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

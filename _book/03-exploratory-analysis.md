@@ -16,7 +16,7 @@ In order to facilitate the exploratory analysis examples in this section, we wan
 
 Each of these will be used as appropriate to illustrate particular methods.
 
-In the following chunk of code we initialize all of the packages that we will use in this section and define all of the network objects that we will use (using the object names above). In these examples we will once again use the Cibola technological similarity data we used in the Network Data Formats section previously.
+In the following chunk of code we initialize all of the packages that we will use in this section and define all of the network objects that we will use (using the object names above). In these examples we will once again use the [Cibola technological similarity data](#Cibola) we used in the [Network Data Formats](#NetworkData) section previously.
 
 
 ```r
@@ -82,7 +82,7 @@ sim_net_i <- asIgraph(sim_net)
 
 Although the calculations behind the scenes for centrality metrics, clustering algorithms, and other network measures may be somewhat complicated, calculating these measures in R using network objects is usually quite straight forward and typically only involves a single function and a couple of arguments within it. There are, however, some things that need to be kept in mind when applying these methods to network data. In this document, we provide examples of some of the most common functions you may use as well as a few caveats and potential problems.
 
-Certain network metrics require networks with specific properties and may produce unexpected results if the wrong kind of network is used. For example, closeness centrality is only well defined for binary networks that have no isolates. If you were to use the `igraph::closeness` command to calculate closeness centrality on a network with isolates, you would get results but you would also get a warning telling you "closeness centrality is not well-defined for disconnected graphs." For other functions if you provide data that does not meet the criteria required by that function you my instead get an error and have no results returned. In some cases, however, a function may simply return results and not provide any warning so it is important that you are careful when selecting methods to avoid providing data that violates assumptions of the method provided. Remember, that if you have questions about how a function works or what it requires you can type `?function_name` at the console with the function in question and you will get the help document that should provide more information. You can also include package names in the help call to avoid getting something unexpected (i.e., `?igraph::degree`)
+Certain network metrics require networks with specific properties and may produce unexpected results if the wrong kind of network is used. For example, closeness centrality is only well defined for binary networks that have no isolates. If you were to use the `igraph::closeness` command to calculate closeness centrality on a network with isolates, you would get results but you would also get a warning telling you "closeness centrality is not well-defined for disconnected graphs." For other functions if you provide data that does not meet the criteria required by that function you my instead get an error and have no results returned. In some cases, however, a function may simply return results and not provide any warning so it is important that you are careful when selecting methods to avoid providing data that violates assumptions of the method provided. Remember, that if you have questions about how a function works or what it requires you can type `?function_name` at the console with the function in question and you will get the help document that should provide more information. You can also include package names in the help call to ensure you get the correct function (i.e., `?igraph::degree`)
 
 ## Centrality
 
@@ -465,7 +465,7 @@ If you want to identify particular shortest paths to or from nodes in a network 
 igraph::shortest_paths(simple_net, from = 1, to = 21)
 #> $vpath
 #> $vpath[[1]]
-#> + 5/31 vertices, named, from e621975:
+#> + 5/31 vertices, named, from ca6fbc1:
 #> [1] Apache.Creek          Casa.Malpais         
 #> [3] Garcia.Ranch          Heshotauthla         
 #> [5] Pueblo.de.los.Muertos
@@ -494,7 +494,7 @@ igraph::diameter(directed_net, directed = TRUE)
 
 igraph::farthest_vertices(directed_net, directed = TRUE)
 #> $vertices
-#> + 2/30 vertices, named, from e622876:
+#> + 2/30 vertices, named, from ca70b73:
 #> [1] Apache Creek          Pueblo de los Muertos
 #> 
 #> $distance
@@ -532,9 +532,9 @@ components <- igraph::decompose(simple_net, min.vertices = 1)
 
 components
 #> [[1]]
-#> IGRAPH e85c9f5 UN-- 30 167 -- 
+#> IGRAPH cca5894 UN-- 30 167 -- 
 #> + attr: name (v/c)
-#> + edges from e85c9f5 (vertex names):
+#> + edges from cca5894 (vertex names):
 #>  [1] Apache.Creek--Casa.Malpais        
 #>  [2] Apache.Creek--Coyote.Creek        
 #>  [3] Apache.Creek--Hooper.Ranch        
@@ -546,9 +546,9 @@ components
 #> + ... omitted several edges
 #> 
 #> [[2]]
-#> IGRAPH e85ca19 UN-- 1 0 -- 
+#> IGRAPH cca58bc UN-- 1 0 -- 
 #> + attr: name (v/c)
-#> + edges from e85ca19 (vertex names):
+#> + edges from cca58bc (vertex names):
 
 V(components[[2]])$name
 #> [1] "WS.Ranch"
@@ -590,15 +590,15 @@ min_cut(simple_net_noiso, value.only = FALSE)
 #> [1] 1
 #> 
 #> $cut
-#> + 1/167 edge from e621f09 (vertex names):
+#> + 1/167 edge from ca7020b (vertex names):
 #> [1] Ojo Bonito--Baca Pueblo
 #> 
 #> $partition1
-#> + 1/30 vertex, named, from e621f09:
+#> + 1/30 vertex, named, from ca7020b:
 #> [1] Baca Pueblo
 #> 
 #> $partition2
-#> + 29/30 vertices, named, from e621f09:
+#> + 29/30 vertices, named, from ca7020b:
 #>  [1] Apache Creek          Casa Malpais         
 #>  [3] Coyote Creek          Hooper Ranch         
 #>  [5] Horse Camp Mill       Hubble Corner        
@@ -625,7 +625,7 @@ A clique as a network science concept is arguably the strictest method of defini
 
 ```r
 max_cliques(simple_net, min = 1)[[24]]
-#> + 9/31 vertices, named, from e621975:
+#> + 9/31 vertices, named, from ca6fbc1:
 #> [1] Los.Gigantes    Cienega         Tinaja         
 #> [4] Spier.170       Scribe.S        Pescado.Cluster
 #> [7] Mirabal         Heshotauthla    Yellowhouse
@@ -765,7 +765,7 @@ In the case study provided at the end of Chapter 4 of Brughmans and Peeples (202
 * `road_net2` - A network that retains all of the ties of the above network but also connects isolated nodes that are within 50 Kms of one of the road network settlements
 * `road_net3` - A network that retains all of the ties of the first road network but connects each isolate to its nearest neighbor among the road network settlements
 
-First let's read in the [data file](data/road_networks.RData) that contains all three networks and start by plotting them in turn on a map. For more details on how these plots work, see the on network visualization for more details on making these network maps.
+First let's read in the [data file](data/road_networks.RData) that contains all three networks and start by plotting them in turn on a map. We are using a custom network map function here that is save in a file called [map_net.R](scripts/map_net.R) that takes locations with decimal degrees locations and plots a network directly on a map. We will go over the specifics of the function in more detail in the [Network Visualization](#Visualization) section but here we simply call the script directly from the .R file. Make sure you have the libraries initialized below to replicate this map.
 
 
 ```r
@@ -773,168 +773,63 @@ First let's read in the [data file](data/road_networks.RData) that contains all 
 library(igraph)
 library(ggmap)
 library(sf)
+library(dplyr)
 
+# Read in required data
 load("data/road_networks.RData")
 
-# Convert attribute location data to sf coordinates
-locations_sf <-
-  st_as_sf(nodes, coords = c("long", "lat"), crs = 4326)
-coord1 <- do.call(rbind, st_geometry(locations_sf)) %>%
-  tibble::as_tibble() %>% setNames(c("lon", "lat"))
+source("scripts/map_net.R")
 
-xy <- as.data.frame(coord1)
-colnames(xy) <- c('x', 'y')
-
-myMap <-
-  get_stamenmap(bbox = c(-9.5, 36, 3, 43.8),
-                maptype = "watercolor",
-                zoom = 6)
-
-
-# Extract edgelist from network object for road_net
-edgelist1 <- get.edgelist(road_net)
-
-# Create dataframe of beginning and ending points of edges
-edges1 <- as.data.frame(matrix(NA, nrow(edgelist1), 4))
-colnames(edges1) <- c("X1", "Y1", "X2", "Y2")
-for (i in 1:nrow(edgelist1)) {
-  edges1[i, ] <- c(nodes[which(nodes$Id == edgelist1[i, 1]), 3],
-                   nodes[which(nodes$Id == edgelist1[i, 1]), 2],
-                   nodes[which(nodes$Id == edgelist1[i, 2]), 3],
-                   nodes[which(nodes$Id == edgelist1[i, 2]), 2])
-}
-
-basic_net <- ggmap(myMap) +
-  geom_segment(
-    data = edges1,
-    aes(
-      x = X1,
-      y = Y1,
-      xend = X2,
-      yend = Y2
-    ),
-    col = 'black',
-    size = 1
-  ) +
-  geom_point(
-    data = xy,
-    aes(x, y),
-    alpha = 0.8,
-    col = 'black',
-    fill = "white",
-    shape = 21,
-    size = 2,
-    show.legend = F
-  ) +
-  ggtitle("Basic Network") +
-  theme_void()
-
-
-# Extract edgelist from network object for road_net2
-edgelist2 <- get.edgelist(road_net2)
-
-# Create dataframe of beginning and ending points of edges
-edges2 <- as.data.frame(matrix(NA, nrow(edgelist2), 4))
-colnames(edges2) <- c("X1", "Y1", "X2", "Y2")
-for (i in 1:nrow(edgelist2)) {
-  edges2[i, ] <- c(nodes[which(nodes$Id == edgelist2[i, 1]), 3],
-                   nodes[which(nodes$Id == edgelist2[i, 1]), 2],
-                   nodes[which(nodes$Id == edgelist2[i, 2]), 3],
-                   nodes[which(nodes$Id == edgelist2[i, 2]), 2])
-}
-
-basic_net_50 <- ggmap(myMap) +
-  geom_segment(
-    data = edges2,
-    aes(
-      x = X1,
-      y = Y1,
-      xend = X2,
-      yend = Y2
-    ),
-    col = 'black',
-    size = 1
-  ) +
-  geom_point(
-    data = xy,
-    aes(x, y),
-    alpha = 0.8,
-    col = 'black',
-    fill = "white",
-    shape = 21,
-    size = 2,
-    show.legend = F
-  ) +
-  ggtitle("Basic Network + 50Km Buffer") +
-  theme_void()
-
-# Extract edgelist from network object for road_net 3
-edgelist3 <- get.edgelist(road_net3)
-
-# Create dataframe of beginning and ending points of edges
-edges3 <- as.data.frame(matrix(NA, nrow(edgelist3), 4))
-colnames(edges3) <- c("X1", "Y1", "X2", "Y2")
-for (i in 1:nrow(edgelist3)) {
-  edges3[i, ] <- c(nodes[which(nodes$Id == edgelist3[i, 1]), 3],
-                   nodes[which(nodes$Id == edgelist3[i, 1]), 2],
-                   nodes[which(nodes$Id == edgelist3[i, 2]), 3],
-                   nodes[which(nodes$Id == edgelist3[i, 2]), 2])
-}
-
-basic_net_nn <- ggmap(myMap) +
-  geom_segment(
-    data = edges3,
-    aes(
-      x = X1,
-      y = Y1,
-      xend = X2,
-      yend = Y2
-    ),
-    col = 'black',
-    size = 1
-  ) +
-  geom_point(
-    data = xy,
-    aes(x, y),
-    alpha = 0.8,
-    col = 'black',
-    fill = "white",
-    shape = 21,
-    size = 2,
-    show.legend = F
-  ) +
-  ggtitle("Basic Network + Nearest Neighbor Isolates") +
-  theme_void()
-
-library(ggpubr)
-
-basic_net
+# Create Basic network map
+map_net(
+  nodes = nodes,
+  net = road_net,
+  bounds = c(-9.5, 36, 3, 43.8),
+  gg_maptype = "watercolor",
+  zoom_lev = 6,
+  map_title = "Basic Network"
+)
 ```
 
 <img src="03-exploratory-analysis_files/figure-html/iberian_roads-1.png" width="672" />
 
 ```r
 
-basic_net_50
+# Create Basic network map
+map_net(
+  nodes = nodes,
+  net = road_net2,
+  bounds = c(-9.5, 36, 3, 43.8),
+  gg_maptype = "watercolor",
+  zoom_lev = 6,
+  map_title = "Basic Network+ 50Km Buffer"
+)
 ```
 
 <img src="03-exploratory-analysis_files/figure-html/iberian_roads-2.png" width="672" />
 
 ```r
 
-basic_net_nn
+# Create Basic network map
+map_net(
+  nodes = nodes,
+  net = road_net3,
+  bounds = c(-9.5, 36, 3, 43.8),
+  gg_maptype = "watercolor",
+  zoom_lev = 6,
+  map_title = "Basic Network + Nearest Neighbor Isolates"
+)
 ```
 
 <img src="03-exploratory-analysis_files/figure-html/iberian_roads-3.png" width="672" />
 
 Now that we've replicated the visuals, we want to replicate network statistics. Since we're going to calculate several of the same network statistics for the networks in question, we can wrap this all into a function to save a bit of time. The following function expects an `igraph` network object and calculates each of the 10 variables show in the example in the book and returns them as a matrix.
 
-Although the function below is somewhat long, it is very simple. It defines a function with a single argument `net` which is an `igraph` network object. It then creates an output matrix called `out` with the appropriate number of rows and columns and then populates the first columen with the name of each measure. Next each network measure is evaluated in turn and assigned to the appropriate row in column 2 of the `out` matrix. Finally, the full matrix is returned: `return(out)`.
+Although the function below is somewhat long, it is very simple. It defines a function with a single argument `net` which is an `igraph` network object. It then creates an output matrix called `out` with the appropriate number of rows and columns and then populates the first column with the name of each measure. Next each network measure is evaluated in turn and assigned to the appropriate row in column 2 of the `out` matrix. Finally, the full matrix is returned: `return(out)`. 
 
 
 ```r
 library(igraph)
-library(intergraph)
 
 net_stats <- function(net) {
   out <- matrix(NA, 10, 2)
@@ -947,7 +842,7 @@ net_stats <- function(net) {
   # number of edges
   out[2, 2] <- ecount(net)
   # number of isolates
-  out[3, 2] <- length(isolates(asNetwork(net)))
+  out[3, 2] <- sum(igraph::degree(net)==0)
   # network density rounding to the third digit
   out[4, 2] <- round(edge_density(net), 3)
   # mean degree rounding to the third digit
@@ -966,7 +861,7 @@ return(out)
 }
 ```
 
-Now let's run it for each of the three networks in turn to reproduce the results in the book. We then combine the results into a single table that is nicely formatted using the `kable` function.
+Now let's run it for each of the three networks in turn to reproduce the results in the book. We then combine the results into a single table that is nicely formatted using the `kable` function. If you'd prefer you can simply view the results of `net_stats()` right at the console.
 
 
 ```r

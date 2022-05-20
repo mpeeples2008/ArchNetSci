@@ -1,7 +1,7 @@
 ---
 title: "Online Companion to *Archaeological Network Science* by Brughmans and Peeples"
 author: "Matthew A. Peeples and Tom Brughmans"
-date: "2022-05-19"
+date: "2022-05-20"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: references.bib
@@ -26,7 +26,7 @@ This document contains a series of tutorials that outline methods for managing, 
 
 **Cite this document as:**
 
-> Peeples, Matthew A. and Tom Brughmans (2022). Online Companion to Archaeological Network Science by Brughmans and Peeples. <https://archnetworks.net>, Accessed 2022-05-19.
+> Peeples, Matthew A. and Tom Brughmans (2022). Online Companion to Archaeological Network Science by Brughmans and Peeples. <https://archnetworks.net>, Accessed 2022-05-20.
 
 **The associated book can be cited as**
 
@@ -85,7 +85,7 @@ We have created an associated [Archaeological Network Science - Discord Server](
 
 ## New to R and R Studio?{-}
 
-This tutorials in this document are built for users with a basic familiarity with R and R-studio. If you are a first time R user and need help getting R and R studio installed and up and running, we have created a detailed guild to [Getting started with R](#GettingStarted). This document covers the installation of the required software and provides a basic introduction to the R programing environment that we hope will be enough to get you started. 
+This tutorials in this document are built for users with a basic familiarity with R and R-studio. If you are a first time R user and need help getting R and R studio installed and up and running, we have created a detailed guide to [Getting started with R](#GettingStarted). This document covers the installation of the required software and provides a basic introduction to the R programing environment that we hope will be enough to get you started. 
 
 If you already have a basic familiarity with R and want to go further, there are numerous additional resources (most are completely free) to help you learn. Some resources we would recommend include *R for Data Science* [(Wickham and Grolemund 2017)](https://r4ds.had.co.nz/), *Advanced R* [(Wickham 2019)](https://adv-r.hadley.nz/), *the R Cookbook, 2nd edition* [(Long and Teetor 2019)](https://rc2e.com/somebasics), and *R in Action* and the associated *Quick-R* website [(Kabacoff 2015)](https://www.statmethods.net/). In addition to this [Ben Marwick](https://anthropology.washington.edu/people/ben-marwick) has created an excellent repository of [resources for using R in archaeology](https://github.com/benmarwick/ctv-archaeology) as well as an ever-growing list of archaeological publications that include R code. The website associated with this book [archnetworks.net](https://www.archnetworks.net) also includes a list of archaeological articles focused on network research that include data and code. Reproducing published results is, in our experience, one of the best ways to learn advanced techniques and data management in R so we suggest you give it a try.
 

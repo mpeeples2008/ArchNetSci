@@ -1,41 +1,100 @@
-# Spatial Networks
+# Spatial Networks{#SpatialNetworks}
 
-This section follows along with Chapter 7 of Brughmans and Peeples (2022) to provide information on how to implement spatial network models and analyses in R.
+This section follows along with Chapter 7 of Brughmans and Peeples (2022) to provide information on how to implement spatial network models and analyses in R. Spatial networks are one of the most common kinds of networks used in archaeological research. Many network studies rely on GIS tools to conduct spatial network research, but R is quite capable of spatial analysis.
 
-## Dataset and Setup
+Working with geographic data in R can be a bit complicated and we cannot cover all aspects in this brief tutorial. If you are interested in exploring geospatial networks more, we suggest you take a look at the excellent and free [*Geocomputation With R*](https://geocompr.robinlovelace.net/) book by Robin Lovelace, Jakob Nowosad, and Jannes Muenchow. The book is a bookdown document just like this tutorial and provides excellent and up to date coverage of spatial operations and the management of spatial data in R. 
+
+## Working with Geographic Data{#GeoData}
+
+There are a number of packages for R that are designed explicitly for working with spatial data. Before we get into the spatial analyses it is useful to first briefly introduce these packages and aspects of spatial data analysis in R.
+
+* `sf` - This package is designed for plotting and encoding simple spatial features and vector data and converting locations among different map projections. Check [here](https://r-spatial.github.io/sf/) for a good brief overview of the package.
+* `ggmap` - This package is a visualization tool that allows you to combine typical R figures in the `ggplot2` format with static maps available online through services like Google Maps, Stamen Maps, OpenStreet Maps, and others. This package is useful for quickly generating maps with a background layer and that is how we use it here.  
+* `cccd` - This is a package that is designed explicitly for working with spatial data and has a number of functions for defining networks based on relative neighborhoods and other spatial network definitions. 
+* `deldir` - This package package is designed to create spatial partitions including calculating Delaunay triangulation and Voronoi tessellations of spatial planes.
+* `geosphere` - This is a package focused on spherical trigonometry and has functions which allow us to calculate distances between points in spherical geographic space across the globe.
+* `RBGL` - This is an R implementation of a package called the Boost Graph Library. This package has a number of functions but we use it here as it provides a function to test for graph planarity.
+
+The spatial data we use in this document consists of vector data. This simply means that our mapping data re not images or pixels representing space but instead spatial coordinates that define locations and distances. One key aspect of spatial data in R, especially at large scales, is that we often need to define a projection or coordinate reference system to produce accurate maps. 
+
+A coordinate reference system (CRS) is a formal definition of how spatial points relate to the surface of the globe. CRS typically fall into two categories: geographic coordinate systems and projected coordinate systems. The most common geographic coordinate system is the latitude/longitude system which describes locations on the surface of the Earth in terms of angular coordinates from the Prime Meridian and Equator. A projected data set refers to the process through which map makers take a spherical Earth and create a flat map. Projections distort and move the area, distance, and shape to varying degrees and provide xy location coordinates in linear units. The advantages and disadvantages of these systems are beyond the scope of this document but it is important to note that R often requires us to defined our coordinate reference system when working with spatial data.
+
+In the code below and in several other sections of the book you have seen function calls that include an argument called `crs`. This is the coordinate reference system object used by R which provides a numeric code denoting the CRS used by a given dataset. Just like we take external .csv data and covert them into network objects R understands, we need to import spatial data and convert to an object R recognizes. We do this in the `sf` package using the `st_as_sf` function.
+
+To use this function you take a data frame which includes location xy information, you use the `coords` argument to specify which fields are the x and y coordinates, and then use the `crs` code to specify the coordinate reference system used. In this example we use code `4326` which refers to the WGS84 World Geodetic System of geographic coordinates. [See this website](https://epsg.io/) to look up many common `crs` code options.
+
+```{r, message=F, warning=F}
+library(sf)
+nodes <- read.csv("data/Hispania_nodes.csv", header = T)
+locs <- st_as_sf(nodes, coords = c("long", "lat"), crs = 4326)
+
+locs
+```
+
+Another feature used throughout this guide that needs further explanation is the `ggmap` funtion `get_stamenmap`. This function automatically retrieves a background map for you using a few arguments:
+
+* `bbox` - the bounding box which represents the decimal degrees longitude and latitude coordinates of the lower left and upper right area you wish to map.
+* `maptype` - a name that indicates the style of map to use ([check here for options]https://rdrr.io/cran/ggmap/man/get_stamenmap.html).
+* `zoom` - a variable denonting the detail or zoom level to be retrieved. Higher number give more detail but take longer to detail.
+
+With the ggmap package, these background maps can easily be incorporated into network graphics.
+
+```{r}
+library(ggmap)
+map <- get_stamenmap(bbox = c(-9.5, 36, 3, 43.8),
+                       maptype = "terrain",
+                       zoom = 6)
+ggmap(map)
+```
+
+## Data and Datasets
 
 For the initial examples in this section we will use the Roman Road data from the Iberian Penninsula. This dataset consists of a [csv file of a set of Roman settlements](data/Hispania_nodes.csv) and a [csv file of an edge list](data/Hispania_roads) defining connections among those settlements in terms of roads.
+
+First we map the basic road network. We have commented the code below to explain what is happening at each stage.
 
 ```{r spatial_networks, warning=F, message=F, fig.height=5, fig.width=7}
 library(igraph)
 library(ggmap)
 library(sf)
+
+# Read in edgelist and node location data and covert to network object
 edges1 <- read.csv("data/Hispania_roads.csv", header = T)
 nodes <- read.csv("data/Hispania_nodes.csv", header = T)
 road_net <-
   graph_from_edgelist(as.matrix(edges1[, 1:2]), directed = FALSE)
+
 # Convert attribute location data to sf coordinates
 locations_sf <-
   st_as_sf(nodes, coords = c("long", "lat"), crs = 4326)
-coord1 <- do.call(rbind, st_geometry(locations_sf)) %>%
-  tibble::as_tibble() %>% setNames(c("lon", "lat"))
-xy <- as.data.frame(coord1)
-colnames(xy) <- c('x', 'y')
+# We also create a simple set of xy coordinates as this is used
+# by the geom_point function
+xy <- data.frame(x = nodes$long, y = nodes$lat)
+
 # Extract edgelist from network object
 edgelist <- get.edgelist(road_net)
-# Create dataframe of beginning and ending points of edges
+
+# Create data frame of beginning and ending points of edges
 edges <- as.data.frame(matrix(NA, nrow(edgelist), 4))
 colnames(edges) <- c("X1", "Y1", "X2", "Y2")
+# Iterate across each edge and assoign lat and long values to
+# X1, Y1, X2, and Y2
 for (i in 1:nrow(edgelist)) {
   edges[i, ] <- c(nodes[which(nodes$Id == edgelist[i, 1]), 3],
                   nodes[which(nodes$Id == edgelist[i, 1]), 2],
                   nodes[which(nodes$Id == edgelist[i, 2]), 3],
                   nodes[which(nodes$Id == edgelist[i, 2]), 2])
 }
+
+# Download stamenmap background data.
 myMap <- get_stamenmap(bbox = c(-9.5, 36, 3, 43.8),
                        maptype = "watercolor",
                        zoom = 6)
+
+# Produce map starting with background
 ggmap(myMap) +
+  # geom_segment plots lines by the beginning and ending
+  # coordinates like the edges object we created above
   geom_segment(
     data = edges,
     aes(
@@ -47,6 +106,7 @@ ggmap(myMap) +
     col = 'black',
     size = 1
   ) +
+  # plot site node locations
   geom_point(
     data = xy,
     aes(x, y),
@@ -370,7 +430,7 @@ ggraph(g, layout = "manual",
 
 Maximum distance network: each node is connected to all other nodes at a distance closer than or equal to a threshold value. In order define a maximum distance network we simply need to define a threshold distance and define all nodes greater than that distance as unconnected and nodes within that distance as connected. This can be done in base R using the dist function we used above.
 
-Since the coordinates we are using here are in decimal degrees we need to calculate distances based on "great circles" across the globe rather than Euclidean distances on a projected plane. There is a function called `distm` in the `geosphere` package that allows us to do this. If you are working with projected data, you can simply use the `dist` function in the place of `distm` like the example below. 
+Since the coordinates we are using here are in decimal degrees we need to calculate distances based on "great circles" across the globe rather than Euclidean distances on a projected plane. There is a function called `distm` in the `geosphere` package that allows us to do this. If you are working with projected data, you can simply use the `dist` function in the place of `distm` like the example below.
 
 Next, in order to define a minimum distance network we simply binarize this matrix. We can do this using the `event2dichot` function within the `statnet` package and easily create an R network objects. Let's try it out with the Roman Road data for thresholds of 100,000 and 250,000 meters.
 
