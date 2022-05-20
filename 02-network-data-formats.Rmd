@@ -257,11 +257,11 @@ weighted_net <-
 E(weighted_net)$weight <- Cibola_edgelist$Weight
 
 # Explore the first few rows and columns of network object
-(get.data.frame(weighted_net))[1:5, 1:5]
+head(get.data.frame(weighted_net))
 
 # View network as adjacency matrix. Notice the attr="weight" command that
 # indicates which edge attribute to use for values in the matrix
-(as_adjacency_matrix(weighted_net, attr = "weight"))[1:5, 1:5]
+head(as_adjacency_matrix(weighted_net, attr = "weight"))[1:5, 1:5]
 
 # Plot the network
 set.seed(574)

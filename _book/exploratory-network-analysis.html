@@ -70,7 +70,7 @@
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
         <ul class="book-toc list-unstyled">
 <li><a class="" href="index.html">Welcome</a></li>
-<li><a class="" href="GettingStarted.html">Gettings Started with R and R-Studio</a></li>
+<li><a class="" href="GettingStarted.html">Gettings Started with R</a></li>
 <li><a class="" href="data-and-workspace-setup.html"><span class="header-section-number">1</span> Data and Workspace Setup</a></li>
 <li><a class="" href="NetworkData.html"><span class="header-section-number">2</span> Network Data Formats</a></li>
 <li><a class="active" href="exploratory-network-analysis.html"><span class="header-section-number">3</span> Exploratory Network Analysis</a></li>
@@ -541,7 +541,7 @@
 <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/distances.html">shortest_paths</a></span><span class="op">(</span><span class="va">simple_net</span>, from <span class="op">=</span> <span class="fl">1</span>, to <span class="op">=</span> <span class="fl">21</span><span class="op">)</span>
 <span class="co">#&gt; $vpath</span>
 <span class="co">#&gt; $vpath[[1]]</span>
-<span class="co">#&gt; + 5/31 vertices, named, from 54b00af:</span>
+<span class="co">#&gt; + 5/31 vertices, named, from e621975:</span>
 <span class="co">#&gt; [1] Apache.Creek          Casa.Malpais         </span>
 <span class="co">#&gt; [3] Garcia.Ranch          Heshotauthla         </span>
 <span class="co">#&gt; [5] Pueblo.de.los.Muertos</span>
@@ -568,7 +568,7 @@
 
 <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/diameter.html">farthest_vertices</a></span><span class="op">(</span><span class="va">directed_net</span>, directed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="co">#&gt; $vertices</span>
-<span class="co">#&gt; + 2/30 vertices, named, from 54b116b:</span>
+<span class="co">#&gt; + 2/30 vertices, named, from e622876:</span>
 <span class="co">#&gt; [1] Apache Creek          Pueblo de los Muertos</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $distance</span>
@@ -600,9 +600,9 @@
 
 <span class="va">components</span>
 <span class="co">#&gt; [[1]]</span>
-<span class="co">#&gt; IGRAPH 572b0e4 UN-- 30 167 -- </span>
+<span class="co">#&gt; IGRAPH e85c9f5 UN-- 30 167 -- </span>
 <span class="co">#&gt; + attr: name (v/c)</span>
-<span class="co">#&gt; + edges from 572b0e4 (vertex names):</span>
+<span class="co">#&gt; + edges from e85c9f5 (vertex names):</span>
 <span class="co">#&gt;  [1] Apache.Creek--Casa.Malpais        </span>
 <span class="co">#&gt;  [2] Apache.Creek--Coyote.Creek        </span>
 <span class="co">#&gt;  [3] Apache.Creek--Hooper.Ranch        </span>
@@ -614,9 +614,9 @@
 <span class="co">#&gt; + ... omitted several edges</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; [[2]]</span>
-<span class="co">#&gt; IGRAPH 572b10b UN-- 1 0 -- </span>
+<span class="co">#&gt; IGRAPH e85ca19 UN-- 1 0 -- </span>
 <span class="co">#&gt; + attr: name (v/c)</span>
-<span class="co">#&gt; + edges from 572b10b (vertex names):</span>
+<span class="co">#&gt; + edges from e85ca19 (vertex names):</span>
 
 <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html">V</a></span><span class="op">(</span><span class="va">components</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">$</span><span class="va">name</span>
 <span class="co">#&gt; [1] "WS.Ranch"</span></code></pre></div>
@@ -652,15 +652,15 @@
 <span class="co">#&gt; [1] 1</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $cut</span>
-<span class="co">#&gt; + 1/167 edge from 54b0786 (vertex names):</span>
+<span class="co">#&gt; + 1/167 edge from e621f09 (vertex names):</span>
 <span class="co">#&gt; [1] Ojo Bonito--Baca Pueblo</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $partition1</span>
-<span class="co">#&gt; + 1/30 vertex, named, from 54b0786:</span>
+<span class="co">#&gt; + 1/30 vertex, named, from e621f09:</span>
 <span class="co">#&gt; [1] Baca Pueblo</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $partition2</span>
-<span class="co">#&gt; + 29/30 vertices, named, from 54b0786:</span>
+<span class="co">#&gt; + 29/30 vertices, named, from e621f09:</span>
 <span class="co">#&gt;  [1] Apache Creek          Casa Malpais         </span>
 <span class="co">#&gt;  [3] Coyote Creek          Hooper Ranch         </span>
 <span class="co">#&gt;  [5] Horse Camp Mill       Hubble Corner        </span>
@@ -687,7 +687,7 @@
 <p>A clique as a network science concept is arguably the strictest method of defining a cohesive subgroup. It is any set of three or more nodes in which each node is directly connected to all other nodes. It can be alternatively defined as a completely connected subnetwork, or a subnetwork with maximum density. The function <code><a href="https://rdrr.io/pkg/igraph/man/cliques.html">igraph::max_cliques</a></code> finds all maximal cliques in a network and outputs a list object with nodes in each set indicated. For the sake of space here we only output one clique of the 24 that were defined by this function call.</p>
 <div class="sourceCode" id="cb110"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/cliques.html">max_cliques</a></span><span class="op">(</span><span class="va">simple_net</span>, min <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">[[</span><span class="fl">24</span><span class="op">]</span><span class="op">]</span>
-<span class="co">#&gt; + 9/31 vertices, named, from 54b00af:</span>
+<span class="co">#&gt; + 9/31 vertices, named, from e621975:</span>
 <span class="co">#&gt; [1] Los.Gigantes    Cienega         Tinaja         </span>
 <span class="co">#&gt; [4] Spier.170       Scribe.S        Pescado.Cluster</span>
 <span class="co">#&gt; [7] Mirabal         Heshotauthla    Yellowhouse</span></code></pre></div>

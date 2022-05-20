@@ -70,7 +70,7 @@
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
         <ul class="book-toc list-unstyled">
 <li><a class="" href="index.html">Welcome</a></li>
-<li><a class="" href="GettingStarted.html">Gettings Started with R and R-Studio</a></li>
+<li><a class="" href="GettingStarted.html">Gettings Started with R</a></li>
 <li><a class="" href="data-and-workspace-setup.html"><span class="header-section-number">1</span> Data and Workspace Setup</a></li>
 <li><a class="active" href="NetworkData.html"><span class="header-section-number">2</span> Network Data Formats</a></li>
 <li><a class="" href="exploratory-network-analysis.html"><span class="header-section-number">3</span> Exploratory Network Analysis</a></li>
@@ -147,9 +147,9 @@
 
 <span class="co"># Display igraph network object and then plot a simple node-link diagram</span>
 <span class="va">Cibola_net</span>
-<span class="co">#&gt; IGRAPH 4d2e27d UN-- 30 167 -- </span>
+<span class="co">#&gt; IGRAPH defcc4d UN-- 30 167 -- </span>
 <span class="co">#&gt; + attr: name (v/c)</span>
-<span class="co">#&gt; + edges from 4d2e27d (vertex names):</span>
+<span class="co">#&gt; + edges from defcc4d (vertex names):</span>
 <span class="co">#&gt;  [1] Apache Creek--Casa Malpais        </span>
 <span class="co">#&gt;  [2] Apache Creek--Coyote Creek        </span>
 <span class="co">#&gt;  [3] Apache Creek--Hooper Ranch        </span>
@@ -175,7 +175,7 @@
 
 <span class="co"># examine adjacency list for the site Apache Creek</span>
 <span class="va">adj_list</span><span class="op">$</span><span class="va">`Apache Creek`</span>
-<span class="co">#&gt; + 11/167 edges from 4d2e27d (vertex names):</span>
+<span class="co">#&gt; + 11/167 edges from defcc4d (vertex names):</span>
 <span class="co">#&gt;  [1] Apache Creek--Casa Malpais        </span>
 <span class="co">#&gt;  [2] Apache Creek--Coyote Creek        </span>
 <span class="co">#&gt;  [3] Apache Creek--Hooper Ranch        </span>
@@ -191,7 +191,7 @@
 <span class="co"># It is also possible to call specific nodes by number. In this case,</span>
 <span class="co"># site 2 is Casa Malpais</span>
 <span class="va">adj_list</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span> 
-<span class="co">#&gt; + 11/167 edges from 4d2e27d (vertex names):</span>
+<span class="co">#&gt; + 11/167 edges from defcc4d (vertex names):</span>
 <span class="co">#&gt;  [1] Apache Creek--Casa Malpais   </span>
 <span class="co">#&gt;  [2] Casa Malpais--Coyote Creek   </span>
 <span class="co">#&gt;  [3] Casa Malpais--Hooper Ranch   </span>
@@ -214,28 +214,34 @@
 <div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Convert to adjacency matrix then display first few rows/columns</span>
 <span class="va">adj_mat</span> <span class="op">&lt;-</span> <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/as_adjacency_matrix.html">as_adjacency_matrix</a></span><span class="op">(</span><span class="va">Cibola_net</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">adj_mat</span><span class="op">)</span>
-<span class="co">#&gt; 6 x 30 sparse Matrix of class "dgCMatrix"</span>
-<span class="co">#&gt;                                                            </span>
-<span class="co">#&gt; Apache Creek    . 1 1 1 1 1 1 1 1 1 1 1 . . . . . . . . . .</span>
-<span class="co">#&gt; Casa Malpais    1 . 1 1 1 1 . 1 1 1 1 . . . . . . . . . . .</span>
-<span class="co">#&gt; Coyote Creek    1 1 . 1 1 1 1 1 1 1 1 . . . . . . . . . . .</span>
-<span class="co">#&gt; Hooper Ranch    1 1 1 . 1 1 1 1 1 1 1 1 . . . . . . . . . .</span>
-<span class="co">#&gt; Horse Camp Mill 1 1 1 1 . 1 1 1 1 1 1 . . . . . . . . . . .</span>
-<span class="co">#&gt; Hubble Corner   1 1 1 1 1 . 1 1 1 1 1 1 . . . . . . . . . .</span>
-<span class="co">#&gt;                                </span>
-<span class="co">#&gt; Apache Creek    . . . . . . . .</span>
-<span class="co">#&gt; Casa Malpais    1 1 . . . . . .</span>
-<span class="co">#&gt; Coyote Creek    1 . . . . . . .</span>
-<span class="co">#&gt; Hooper Ranch    . . . . . . . .</span>
-<span class="co">#&gt; Horse Camp Mill 1 1 . . . . . .</span>
-<span class="co">#&gt; Hubble Corner   . 1 . . . . 1 .</span>
+<span class="va">adj_mat</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>
+<span class="co">#&gt; 5 x 5 sparse Matrix of class "dgCMatrix"</span>
+<span class="co">#&gt;                 Apache Creek Casa Malpais Coyote Creek</span>
+<span class="co">#&gt; Apache Creek               .            1            1</span>
+<span class="co">#&gt; Casa Malpais               1            .            1</span>
+<span class="co">#&gt; Coyote Creek               1            1            .</span>
+<span class="co">#&gt; Hooper Ranch               1            1            1</span>
+<span class="co">#&gt; Horse Camp Mill            1            1            1</span>
+<span class="co">#&gt;                 Hooper Ranch Horse Camp Mill</span>
+<span class="co">#&gt; Apache Creek               1               1</span>
+<span class="co">#&gt; Casa Malpais               1               1</span>
+<span class="co">#&gt; Coyote Creek               1               1</span>
+<span class="co">#&gt; Hooper Ranch               .               1</span>
+<span class="co">#&gt; Horse Camp Mill            1               .</span>
 
 <span class="co"># Read in adjacency matrix and convert to network object for plotting</span>
 <span class="va">adj_mat2</span> <span class="op">&lt;-</span>
   <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"data/Cibola_adj.csv"</span>,
            header <span class="op">=</span> <span class="cn">T</span>,
            row.names <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
+
+<span class="va">adj_mat2</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>
+<span class="co">#&gt;              Apache.Creek Atsinna Baca.Pueblo Casa.Malpais</span>
+<span class="co">#&gt; Apache Creek            0       0           0            1</span>
+<span class="co">#&gt; Atsinna                 0       0           0            0</span>
+<span class="co">#&gt; Baca Pueblo             0       0           0            0</span>
+<span class="co">#&gt; Casa Malpais            1       0           0            0</span>
+
 <span class="va">Cibola_net2</span> <span class="op">&lt;-</span>
   <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/graph_from_adjacency_matrix.html">graph_from_adjacency_matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">adj_mat2</span><span class="op">)</span>,
                                       mode <span class="op">=</span> <span class="st">"undirected"</span><span class="op">)</span>
@@ -352,9 +358,9 @@
 <span class="co"># Note that "region" is now listed as an attribute when we view </span>
 <span class="co"># the network object</span>
 <span class="va">Cibola_net2</span>
-<span class="co">#&gt; IGRAPH 4d60a11 UN-- 31 167 -- </span>
+<span class="co">#&gt; IGRAPH df33892 UN-- 31 167 -- </span>
 <span class="co">#&gt; + attr: name (v/c), region (v/c)</span>
-<span class="co">#&gt; + edges from 4d60a11 (vertex names):</span>
+<span class="co">#&gt; + edges from df33892 (vertex names):</span>
 <span class="co">#&gt;  [1] Apache.Creek--Casa.Malpais        </span>
 <span class="co">#&gt;  [2] Apache.Creek--Coyote.Creek        </span>
 <span class="co">#&gt;  [3] Apache.Creek--Hooper.Ranch        </span>
@@ -394,9 +400,9 @@
   <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/graph_from_adjacency_matrix.html">graph_from_adjacency_matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">adj_mat2</span><span class="op">)</span>,
                                       mode <span class="op">=</span> <span class="st">"undirected"</span><span class="op">)</span>
 <span class="va">simple_net_i</span>
-<span class="co">#&gt; IGRAPH 4e5b68f UN-- 31 167 -- </span>
+<span class="co">#&gt; IGRAPH e0270d6 UN-- 31 167 -- </span>
 <span class="co">#&gt; + attr: name (v/c)</span>
-<span class="co">#&gt; + edges from 4e5b68f (vertex names):</span>
+<span class="co">#&gt; + edges from e0270d6 (vertex names):</span>
 <span class="co">#&gt;  [1] Apache.Creek--Casa.Malpais        </span>
 <span class="co">#&gt;  [2] Apache.Creek--Coyote.Creek        </span>
 <span class="co">#&gt;  [3] Apache.Creek--Hooper.Ranch        </span>
@@ -450,9 +456,9 @@
 <span class="va">directed_net</span> <span class="op">&lt;-</span>
   <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/graph_from_edgelist.html">graph_from_edgelist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">EL2</span><span class="op">)</span>, directed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="va">directed_net</span>
-<span class="co">#&gt; IGRAPH 4e64831 DN-- 30 125 -- </span>
+<span class="co">#&gt; IGRAPH e02f9b0 DN-- 30 125 -- </span>
 <span class="co">#&gt; + attr: name (v/c)</span>
-<span class="co">#&gt; + edges from 4e64831 (vertex names):</span>
+<span class="co">#&gt; + edges from e02f9b0 (vertex names):</span>
 <span class="co">#&gt;  [1] Coyote Creek   -&gt;Techado Springs      </span>
 <span class="co">#&gt;  [2] Hubble Corner  -&gt;Tri-R Pueblo         </span>
 <span class="co">#&gt;  [3] Hubble Corner  -&gt;Techado Springs      </span>
@@ -464,22 +470,20 @@
 <span class="co">#&gt; + ... omitted several edges</span>
 
 <span class="co"># View as adjacency matrix of direted network object</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/as_adjacency_matrix.html">as_adjacency_matrix</a></span><span class="op">(</span><span class="va">directed_net</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; 6 x 30 sparse Matrix of class "dgCMatrix"</span>
-<span class="co">#&gt;                                                            </span>
-<span class="co">#&gt; Coyote Creek          . 1 1 . . . 1 . . . . . 1 . . . . . .</span>
-<span class="co">#&gt; Techado Springs       . . . 1 . . . . . . . . . . . . . . .</span>
-<span class="co">#&gt; Hubble Corner         . 1 . 1 . . 1 . . . . . . . . . . . .</span>
-<span class="co">#&gt; Tri-R Pueblo          . . . . . . . . . . . . . . . . . 1 .</span>
-<span class="co">#&gt; Heshotauthla          . . . . . 1 . 1 1 1 1 1 . . 1 . 1 . 1</span>
-<span class="co">#&gt; Pueblo de los Muertos . . . . . . . . . . . . . . . . . . 1</span>
-<span class="co">#&gt;                                            </span>
-<span class="co">#&gt; Coyote Creek          . . 1 . . . . . . 1 .</span>
-<span class="co">#&gt; Techado Springs       . . . . . . . . . 1 .</span>
-<span class="co">#&gt; Hubble Corner         1 . . . . . . . . 1 .</span>
-<span class="co">#&gt; Tri-R Pueblo          . . . . . . . . . 1 .</span>
-<span class="co">#&gt; Heshotauthla          . 1 . . . . . . 1 . .</span>
-<span class="co">#&gt; Pueblo de los Muertos . . . . . . . . . . .</span>
+<span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/as_adjacency_matrix.html">as_adjacency_matrix</a></span><span class="op">(</span><span class="va">directed_net</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>
+<span class="co">#&gt; 5 x 5 sparse Matrix of class "dgCMatrix"</span>
+<span class="co">#&gt;                 Coyote Creek Techado Springs Hubble Corner</span>
+<span class="co">#&gt; Coyote Creek               .               1             1</span>
+<span class="co">#&gt; Techado Springs            .               .             .</span>
+<span class="co">#&gt; Hubble Corner              .               1             .</span>
+<span class="co">#&gt; Tri-R Pueblo               .               .             .</span>
+<span class="co">#&gt; Heshotauthla               .               .             .</span>
+<span class="co">#&gt;                 Tri-R Pueblo Heshotauthla</span>
+<span class="co">#&gt; Coyote Creek               .            .</span>
+<span class="co">#&gt; Techado Springs            1            .</span>
+<span class="co">#&gt; Hubble Corner              1            .</span>
+<span class="co">#&gt; Tri-R Pueblo               .            .</span>
+<span class="co">#&gt; Heshotauthla               .            .</span>
 
 <span class="co"># Plot network</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">4353</span><span class="op">)</span>
@@ -509,7 +513,7 @@
 <span class="co"># add edge attribute to indicate weight</span>
 <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/E.html">E</a></span><span class="op">(</span><span class="va">weighted_net</span><span class="op">)</span><span class="op">$</span><span class="va">weight</span> <span class="op">&lt;-</span> <span class="va">Cibola_edgelist</span><span class="op">$</span><span class="va">Weight</span>
 
-<span class="co"># Explore the first few rows of network object</span>
+<span class="co"># Explore the first few rows and columns of network object</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/graph_from_data_frame.html">get.data.frame</a></span><span class="op">(</span><span class="va">weighted_net</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt;           from                   to weight</span>
 <span class="co">#&gt; 1 Apache Creek         Casa Malpais      4</span>
@@ -521,22 +525,20 @@
 
 <span class="co"># View network as adjacency matrix. Notice the attr="weight" command that</span>
 <span class="co"># indicates which edge attribute to use for values in the matrix</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/as_adjacency_matrix.html">as_adjacency_matrix</a></span><span class="op">(</span><span class="va">weighted_net</span>, attr <span class="op">=</span> <span class="st">"weight"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; 6 x 30 sparse Matrix of class "dgCMatrix"</span>
-<span class="co">#&gt;                                                            </span>
-<span class="co">#&gt; Apache Creek    . 4 1 1 3 4 4 3 4 3 3 1 . . . . . . . . . .</span>
-<span class="co">#&gt; Casa Malpais    4 . 1 1 2 3 . 4 4 3 2 . . . . . . . . . . .</span>
-<span class="co">#&gt; Coyote Creek    1 1 . 1 4 2 3 2 2 1 2 . . . . . . . . . . .</span>
-<span class="co">#&gt; Hooper Ranch    1 1 1 . 4 1 2 2 3 3 1 3 . . . . . . . . . .</span>
-<span class="co">#&gt; Horse Camp Mill 3 2 4 4 . 2 1 3 1 4 4 . . . . . . . . . . .</span>
-<span class="co">#&gt; Hubble Corner   4 3 2 1 2 . 2 3 1 1 2 4 . . . . . . . . . .</span>
-<span class="co">#&gt;                                </span>
-<span class="co">#&gt; Apache Creek    . . . . . . . .</span>
-<span class="co">#&gt; Casa Malpais    2 1 . . . . . .</span>
-<span class="co">#&gt; Coyote Creek    4 . . . . . . .</span>
-<span class="co">#&gt; Hooper Ranch    . . . . . . . .</span>
-<span class="co">#&gt; Horse Camp Mill 2 4 . . . . . .</span>
-<span class="co">#&gt; Hubble Corner   . 4 . . . . 3 .</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/as_adjacency_matrix.html">as_adjacency_matrix</a></span><span class="op">(</span><span class="va">weighted_net</span>, attr <span class="op">=</span> <span class="st">"weight"</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>
+<span class="co">#&gt; 5 x 5 sparse Matrix of class "dgCMatrix"</span>
+<span class="co">#&gt;                 Apache Creek Casa Malpais Coyote Creek</span>
+<span class="co">#&gt; Apache Creek               .            4            1</span>
+<span class="co">#&gt; Casa Malpais               4            .            1</span>
+<span class="co">#&gt; Coyote Creek               1            1            .</span>
+<span class="co">#&gt; Hooper Ranch               1            1            1</span>
+<span class="co">#&gt; Horse Camp Mill            3            2            4</span>
+<span class="co">#&gt;                 Hooper Ranch Horse Camp Mill</span>
+<span class="co">#&gt; Apache Creek               1               3</span>
+<span class="co">#&gt; Casa Malpais               1               2</span>
+<span class="co">#&gt; Coyote Creek               1               4</span>
+<span class="co">#&gt; Hooper Ranch               .               4</span>
+<span class="co">#&gt; Horse Camp Mill            4               .</span>
 
 <span class="co"># Plot the network</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">574</span><span class="op">)</span>
@@ -561,9 +563,9 @@
                                                   directed <span class="op">=</span> <span class="cn">FALSE</span>,
                                                   multiple <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="va">Cibola_inc</span>
-<span class="co">#&gt; IGRAPH 4eafb05 UN-B 41 2214 -- </span>
+<span class="co">#&gt; IGRAPH e078be8 UN-B 41 2214 -- </span>
 <span class="co">#&gt; + attr: type (v/l), name (v/c)</span>
-<span class="co">#&gt; + edges from 4eafb05 (vertex names):</span>
+<span class="co">#&gt; + edges from e078be8 (vertex names):</span>
 <span class="co">#&gt;  [1] Apache Creek--Clust1 Apache Creek--Clust1</span>
 <span class="co">#&gt;  [3] Apache Creek--Clust1 Apache Creek--Clust1</span>
 <span class="co">#&gt;  [5] Apache Creek--Clust1 Apache Creek--Clust1</span>
@@ -912,9 +914,9 @@
 
 <span class="co"># Examine the first ego-network</span>
 <span class="va">ego_nets</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>
-<span class="co">#&gt; IGRAPH 501691a UN-- 12 59 -- </span>
+<span class="co">#&gt; IGRAPH e1d3a6c UN-- 12 59 -- </span>
 <span class="co">#&gt; + attr: name (v/c)</span>
-<span class="co">#&gt; + edges from 501691a (vertex names):</span>
+<span class="co">#&gt; + edges from e1d3a6c (vertex names):</span>
 <span class="co">#&gt;  [1] Apache Creek--Casa Malpais   </span>
 <span class="co">#&gt;  [2] Apache Creek--Coyote Creek   </span>
 <span class="co">#&gt;  [3] Casa Malpais--Coyote Creek   </span>
@@ -950,10 +952,10 @@
 <div class="sourceCode" id="cb87"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">Mor_wt_i</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/intergraph/man/asIgraph.html">asIgraph</a></span><span class="op">(</span><span class="va">Mor_wt</span><span class="op">)</span>
 <span class="va">Mor_wt_i</span>
-<span class="co">#&gt; IGRAPH 50438aa U-W- 31 465 -- </span>
+<span class="co">#&gt; IGRAPH e201ff8 U-W- 31 465 -- </span>
 <span class="co">#&gt; + attr: na (v/l), vertex.names (v/c), na (e/l),</span>
 <span class="co">#&gt; | weight (e/n)</span>
-<span class="co">#&gt; + edges from 50438aa:</span>
+<span class="co">#&gt; + edges from e201ff8:</span>
 <span class="co">#&gt;  [1] 1-- 2 1-- 3 1-- 4 1-- 5 1-- 6 1-- 7 1-- 8 1-- 9 1--10</span>
 <span class="co">#&gt; [10] 1--11 1--12 1--13 1--14 1--15 1--16 1--17 1--18 1--19</span>
 <span class="co">#&gt; [19] 1--20 1--21 1--22 1--23 1--24 1--25 1--26 1--27 1--28</span>
@@ -996,38 +998,38 @@
 <span class="co"># multilayer network, the multinet package can help us do that directly</span>
 <span class="co"># and quite simply.</span>
 <span class="fu">multinet</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/multinet/man/ActorMeasures.html">degree_ml</a></span><span class="op">(</span><span class="va">florentine</span><span class="op">)</span>
-<span class="co">#&gt;  [1]  4  4  3  7  2 11  3  5  6  6  3  6  6  3  1</span>
+<span class="co">#&gt;  [1]  3  4  7  4  2  3  3  6  6 11  3  6  6  5  1</span>
 
 <span class="co"># Similarly, we could apply cluster detection algorithms to all layers</span>
 <span class="co"># of a multilayer network simultaneously.</span>
 <span class="fu">multinet</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/multinet/man/Communities.html">glouvain_ml</a></span><span class="op">(</span><span class="va">florentine</span><span class="op">)</span>
 <span class="co">#&gt;           actor    layer cid</span>
-<span class="co">#&gt; 1    Tornabuoni marriage   0</span>
+<span class="co">#&gt; 1       Ridolfi marriage   0</span>
 <span class="co">#&gt; 2    Tornabuoni business   0</span>
-<span class="co">#&gt; 3       Ridolfi marriage   0</span>
-<span class="co">#&gt; 4         Pazzi marriage   0</span>
-<span class="co">#&gt; 5         Pazzi business   0</span>
-<span class="co">#&gt; 6        Medici marriage   0</span>
-<span class="co">#&gt; 7        Medici business   0</span>
-<span class="co">#&gt; 8      Salviati marriage   0</span>
-<span class="co">#&gt; 9      Salviati business   0</span>
-<span class="co">#&gt; 10       Ginori marriage   0</span>
-<span class="co">#&gt; 11       Ginori business   0</span>
-<span class="co">#&gt; 12    Barbadori marriage   0</span>
+<span class="co">#&gt; 3    Tornabuoni marriage   0</span>
+<span class="co">#&gt; 4         Pazzi business   0</span>
+<span class="co">#&gt; 5         Pazzi marriage   0</span>
+<span class="co">#&gt; 6      Salviati business   0</span>
+<span class="co">#&gt; 7      Salviati marriage   0</span>
+<span class="co">#&gt; 8        Ginori business   0</span>
+<span class="co">#&gt; 9        Ginori marriage   0</span>
+<span class="co">#&gt; 10       Medici business   0</span>
+<span class="co">#&gt; 11       Medici marriage   0</span>
+<span class="co">#&gt; 12      Albizzi marriage   0</span>
 <span class="co">#&gt; 13    Barbadori business   0</span>
-<span class="co">#&gt; 14      Albizzi marriage   0</span>
+<span class="co">#&gt; 14    Barbadori marriage   0</span>
 <span class="co">#&gt; 15   Acciaiuoli marriage   0</span>
-<span class="co">#&gt; 16      Strozzi marriage   1</span>
+<span class="co">#&gt; 16      Peruzzi business   1</span>
 <span class="co">#&gt; 17      Peruzzi marriage   1</span>
-<span class="co">#&gt; 18      Peruzzi business   1</span>
-<span class="co">#&gt; 19 Lamberteschi marriage   1</span>
-<span class="co">#&gt; 20 Lamberteschi business   1</span>
-<span class="co">#&gt; 21     Guadagni marriage   1</span>
-<span class="co">#&gt; 22     Guadagni business   1</span>
-<span class="co">#&gt; 23   Castellani marriage   1</span>
-<span class="co">#&gt; 24   Castellani business   1</span>
-<span class="co">#&gt; 25     Bischeri marriage   1</span>
-<span class="co">#&gt; 26     Bischeri business   1</span></code></pre></div>
+<span class="co">#&gt; 18      Strozzi marriage   1</span>
+<span class="co">#&gt; 19   Castellani business   1</span>
+<span class="co">#&gt; 20   Castellani marriage   1</span>
+<span class="co">#&gt; 21     Bischeri business   1</span>
+<span class="co">#&gt; 22     Bischeri marriage   1</span>
+<span class="co">#&gt; 23     Guadagni business   1</span>
+<span class="co">#&gt; 24     Guadagni marriage   1</span>
+<span class="co">#&gt; 25 Lamberteschi business   1</span>
+<span class="co">#&gt; 26 Lamberteschi marriage   1</span></code></pre></div>
 
 </div>
 </div>

@@ -1,7 +1,5 @@
 # Spatial Networks
 
-Most of the past phenomena we study as archaeologists took place in physical space: individuals lived in homes and towns, and they moved through landscapes; they fought wars on battlefields and they exchanged goods from faraway places. Through our excavations, fieldwork, and literature studies we record spatial information such as the outline of houses, the locations of sites, the slope of terrains, or the distance between natural resources and settlements. Many relational phenomena are explicitly geographical, in that the medium of geographical space is an important aspect of the relationship itself. For example, road segments connect pairs of settlements that are close together, and lines-of-sight connect places from which observers can see features. Such phenomena could be quite straightforwardly represented as spatial networks since the nodes and edges are both explicitly embedded in physical space. But for other relational phenomena, space is more like a background feature which can be brought into analyses when relevant but does not feature prominently in the definition of either nodes nor of edges. For example, past food webs where species are connected through trophic flows or social networks where individuals are connected to their contacts both involve entities (nodes) and relationships (edges) that have spatial properties or attributes but those spatial properties are not directly invoked in the definition of such networks. We refer to these as networks in space in that we could include spatial features into their network representations but this is not explicitly included in their definition. 
-
 This section follows along with Chapter 7 of Brughmans and Peeples (2022) to provide information on how to implement spatial network models and analyses in R.
 
 ## Dataset and Setup
@@ -167,9 +165,9 @@ Let's create a simple tree using the `make_tree` function in igraph.
 ```r
 tree1 <- make_tree(n = 50, children = 5, mode = "undirected")
 tree1
-#> IGRAPH 55e7b91 U--- 50 49 -- Tree
+#> IGRAPH ce7a496 U--- 50 49 -- Tree
 #> + attr: name (g/c), children (g/n), mode (g/c)
-#> + edges from 55e7b91:
+#> + edges from ce7a496:
 #>  [1]  1-- 2  1-- 3  1-- 4  1-- 5  1-- 6  2-- 7  2-- 8  2-- 9
 #>  [9]  2--10  2--11  3--12  3--13  3--14  3--15  3--16  4--17
 #> [17]  4--18  4--19  4--20  4--21  5--22  5--23  5--24  5--25

@@ -70,7 +70,7 @@
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
         <ul class="book-toc list-unstyled">
 <li><a class="" href="index.html">Welcome</a></li>
-<li><a class="" href="GettingStarted.html">Gettings Started with R and R-Studio</a></li>
+<li><a class="" href="GettingStarted.html">Gettings Started with R</a></li>
 <li><a class="" href="data-and-workspace-setup.html"><span class="header-section-number">1</span> Data and Workspace Setup</a></li>
 <li><a class="" href="NetworkData.html"><span class="header-section-number">2</span> Network Data Formats</a></li>
 <li><a class="" href="exploratory-network-analysis.html"><span class="header-section-number">3</span> Exploratory Network Analysis</a></li>
@@ -418,7 +418,7 @@
 <li>
 <code>nsim</code> - You must specify the number of simulations to perform. The default is 1000.</li>
 <li>
-<code>props</code> - Finally, you must specify the proportion of nodes to be retained for each set of nsim runs. This should be provided as a vector of proportions ranging from &gt; 0 to 1. By default, the script will calculate a 90% sub-sample all the way down to a 10% sub-sample at 10% intervals using props=c(0.9,0.8,0.7,0.6,0.5,0.4,0.3,0.2,0.1).</li>
+<code>props</code> - You must specify the proportion of nodes to be retained for each set of <code>nsim</code> runs. This should be provided as a vector of proportions ranging from &gt; 0 to 1. By default, the script will calculate a 90% sub-sample all the way down to a 10% sub-sample at 10% intervals using <code>props=c(0.9,0.8,0.7,0.6,0.5,0.4,0.3,0.2,0.1)</code>.</li>
 <li>
 <code>lookup_dat</code> - Finally, you must provide the lookup data which connects the publication key code to the year as that is the basis of our simulation. Note that this function is designed to work with a lookup file that has column names exactly as shown here (“Publication.Year”, “prob”, “Key”) and this would need to be modified to work with data with different columns.</li>
 </ul>
