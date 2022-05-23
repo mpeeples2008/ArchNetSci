@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Section 1 Data and Workspace Setup | Online Companion to Archaeological Network Science</title>
+<meta name="author" content="Matthew A. Peeples and Tom Brughmans">
+<meta name="description" content="This section provides downloadable files for the network datasets used in this online companion and in the book as well as information on the primary R packages used for analysis and visualization...">
+<meta name="generator" content="bookdown 0.26 with bs4_book()">
+<meta property="og:title" content="Section 1 Data and Workspace Setup | Online Companion to Archaeological Network Science">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://book.archnetworks.net/DataWorkspaceSetup.html">
+<meta property="og:image" content="https://book.archnetworks.net/images/cover.png">
+<meta property="og:description" content="This section provides downloadable files for the network datasets used in this online companion and in the book as well as information on the primary R packages used for analysis and visualization...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Section 1 Data and Workspace Setup | Online Companion to Archaeological Network Science">
+<meta name="twitter:description" content="This section provides downloadable files for the network datasets used in this online companion and in the book as well as information on the primary R packages used for analysis and visualization...">
+<meta name="twitter:image" content="https://book.archnetworks.net/images/cover.png">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="libs/vis-9.1.0/vis-network.min.css" rel="stylesheet">
+<script src="libs/vis-9.1.0/vis-network.min.js"></script><script src="libs/visNetwork-binding-2.1.0/visNetwork.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+<link rel="stylesheet" href="bs4_style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Online Companion to <em>Archaeological Network Science</em></a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Welcome</a></li>
+<li><a class="" href="GettingStarted.html">Gettings Started with R</a></li>
+<li><a class="active" href="DataWorkspaceSetup.html"><span class="header-section-number">1</span> Data and Workspace Setup</a></li>
+<li><a class="" href="NetworkData.html"><span class="header-section-number">2</span> Network Data Formats</a></li>
+<li><a class="" href="exploratory-network-analysis.html"><span class="header-section-number">3</span> Exploratory Network Analysis</a></li>
+<li><a class="" href="Uncertainty.html"><span class="header-section-number">4</span> Quantifying Uncertainty</a></li>
+<li><a class="" href="Visualization.html"><span class="header-section-number">5</span> Network Visualization</a></li>
+<li><a class="" href="SpatialNetworks.html"><span class="header-section-number">6</span> Spatial Networks</a></li>
+<li><a class="" href="references-and-r-packages.html">References and R Packages</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/mpeeples2008/Archaeological_Network_Science">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="DataWorkspaceSetup" class="section level1" number="1">
+<h1>
+<span class="header-section-number">Section 1</span> Data and Workspace Setup<a class="anchor" aria-label="anchor" href="#DataWorkspaceSetup"><i class="fas fa-link"></i></a>
+</h1>
+<p>This section provides downloadable files for the network datasets used in this online companion and in the book as well as information on the primary R packages used for analysis and visualization throughout this tutorial. We also provide very brief instructions for importing these data into R using R-studio and some guidance on setting up your R-studio working environment. For additional guidance see <a href="GettingStarted.html#GettingStarted">Getting Started in R</a>.</p>
+<div id="Datasets" class="section level2" number="1.1">
+<h2>
+<span class="header-section-number">1.1</span> Datasets<a class="anchor" aria-label="anchor" href="#Datasets"><i class="fas fa-link"></i></a>
+</h2>
+<p>In the analyses illustrated in this document we use a number of real and simulated archaeological datasets to serve as examples for particular data types and techniques. Most of the datasets used here are provided in .csv (comma separated value) or .RData formats and can be downloaded so that you can follow along with these analyses on your own computer. We encourage you to explore these files and see how they are formatted as a guide for setting up your own datasets.</p>
+<p>The data used here include a range of different network data formats and types. The primary datasets are described in detail in Brughmans and Peeples (2022) Chapter 2.8. Note that where spatial locations for archaeological sites are provided the locations have been randomly jittered up to 10 kilometers from their actual locations to maintain data security.</p>
+<p>For the files below you can right click and “save as” to save them for use locally. Note that there are many additional datasets relating to the replication of particular figures in the book that are provided where the code for that particular figure occurs. If you’d like to just download everything at once <a href="DataWorkspaceSetup.html#Everything">see the next section</a></p>
+<div id="Everything" class="section level3" number="1.1.1">
+<h3>
+<span class="header-section-number">1.1.1</span> Just Give Me Everything<a class="anchor" aria-label="anchor" href="#Everything"><i class="fas fa-link"></i></a>
+</h3>
+<p>Hey, we get it. You’re busy and just want all of the data in one convenient package. We provide all of the data used in the appendix here in a single .zip file for you to download. To follow along with the examples in this appendix you need to choose an R working directory and place the contents of the *.zip folder within it such that all of the individual files are contained within a folder called “data”. Note that this includes all of the additional files that are required for reproducing particular figures as well.</p>
+<p><a href="All_data.zip">All_data.zip</a> - A single compressed file containing all of the data files used in this appendix.</p>
+</div>
+<div id="RomanRoad" class="section level3" number="1.1.2">
+<h3>
+<span class="header-section-number">1.1.2</span> Roman Road Networks<a class="anchor" aria-label="anchor" href="#RomanRoad"><i class="fas fa-link"></i></a>
+</h3>
+<p>The development of an elaborate road system is one of the most enduring legacies of the Roman Republic and Empire. Areas that came under Roman control were connected to Rome and important provincial centers through entirely new roads as well as redeveloped existing roads. From roughly the second century AD onward this resulted in an integrated terrestrial transport network connecting North-Africa, the Middle East, and western and southern Europe. Much of the subsequent development of transport systems in these regions built on this Roman system.</p>
+<p>Our primary source for roads of the entire Roman world is the Barrington Atlas of the Greek and Roman World (Talbert 2000) and their digitization by the Ancient World Mapping Center (2012). In many of our examples we will focus in particular on the roads of the Iberian Peninsula, which have been digitized in great detail by Pau de Soto (de Soto and Carreras 2021). In our analyses of the Roman road network ancient settlements are represented as nodes and the existence of a road between two settlements is represented by an edge. We also include the length of a road as an edge attribute.</p>
+<ul>
+<li>
+<a href="data/Hispania_nodes.csv">Hispania_nodes</a> - NodeIDs and names for Roman era settlements in the Iberian Peninsula along with names and latitude and longitude locations in decimal degrees.</li>
+<li>
+<a href="data/Hispania_roads.csv">Hispania_roads</a> - Edge list of road connections using NodeIDs from Hispania_nodes file. This file contains a “weight” variable defined for each edge which denotes the length of the road segment.</li>
+</ul>
+<p>The <a href="https://orbis.stanford.edu/">Stanford ORBIS project</a> provide additional data from across the Roman World including settlements, roads, and characterizations of travel time. Some of these data have been wrapped into a convenient R compendium by <a href="https://github.com/sfsheath">Sebastian Heath</a> and the data are available on GitHub here:</p>
+<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="st"><a href="https://devtools.r-lib.org/">"devtools"</a></span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"sfsheath/cawd"</span><span class="op">)</span></code></pre></div>
+<div class="figure">
+<img src="images/Fig.2.4.png" style="width:100.0%" alt=""><p class="caption">Datasets used for our case studies on the road networks of (a) the Roman Empire as a whole (source: Ancient World Mapping Centre 2012), and (b) a highly-detailed representation of the Roman road network on the Iberian Peninsula (de Soto and Carreras 2021).</p>
+</div>
+</div>
+<div id="SWSN" class="section level3" number="1.1.3">
+<h3>
+<span class="header-section-number">1.1.3</span> Southwest Social Networks Project Ceramic Similarity Networks<a class="anchor" aria-label="anchor" href="#SWSN"><i class="fas fa-link"></i></a>
+</h3>
+<p>The Southwest Social Networks (SWSN) Project (and subsequent <a href="https://cybersw.org">cyberSW</a> project) is a large collaborative effort focused on exploring methods and models for network analysis of archaeological data to better understand patterns of interaction, population movement, and demographic change across the U.S. Southwest and Mexican Northwest through time (ca. A.D. 800-1800; Borck et al. 2015; Giomi et al. 2021; Mills et al. 2013a; 2013b; 2015; 2018; Peeples and Haas 2013; Peeples et al. 2016; Peeples and Roberts 2013). During the interval considered by this project the region was inhabited largely by sedentary agricultural populations (though more mobile populations were also present throughout this period) with communities as large as several thousand people at the peak. The region is blessed with excellent archaeological preservation, a fine grained chronology anchored by dendrochronological dates, and nearly 150 years of focused archaeological research.</p>
+<p>The SWSN/cyberSW project team has gathered a massive database with information on the location and size of tens of thousands of archaeological sites and ceramic and other material cultural typological frequency data consisting of millions of objects to explore how patterns of material similarity, exchange, and technology change across time and space in the study area. These data as well as tools needed to analyze them are available in an online platform called <a href="https://cybersw.org">cyberSW (cyberSW.org)</a>. This online platform even allows you to explore these data directly in your internet browser. The size and complexity of the SWSN/cyberSW data make it a particularly good example for discussing the decision processes involved in visualizing and analyzing large networks.</p>
+<p>In several sections of this book we also use subsets of this larger dataset: the San Pedro Valley, and the Chaco World. The San Pedro Valley in southern Arizona is a well-studied portion of the SWSN study area (see Clark and Lyons 2012; Gerald 2019) that was an early focus of network methodological exploration by the team (Mills et al. 2013b). This data subset includes detailed ceramic typological frequency for all known major settlements across this region during the late pre-Hispanic period (ca. A.D. 1200-1450). The Chaco World is a large-scale social and political system that spanned much of the Colorado Plateau ca. A.D. 800-1150. This settlement system was marked by the construction of massive public architectural features known as great houses and great kivas. This subset of the database includes information on architecture and ceramic typological data for a large portion of the known Chacoan architectural complexes throughout the U.S. Southwest. The Chaco World has been a major focus of the SWSN/cyberSW project (Giomi et al. 2021; Giomi and Peeples 2019; Mills et al. 2018).</p>
+<p>In these networks, individual settlements are treated as nodes and edges are defined and weighted based on similarities in the ceramic wares recovered at those settlements. Ceramic data used to generate networks are apportioned into a sequence of 50-year chronological intervals using methods described in detail by Roberts and colleagues (2012) and Ortman (2016; see discussion in Mills et al. 2018) so that we are able to explore change through time. Site locations and other site attribute data are also considered in some examples. R implementations of these chronological apportioning methods are available on GitHub as well (<a href="https://github.com/mpeeples2008/CeramicApportioning">R implementation of Roberts et al. 2012</a>, <a href="https://github.com/mpeeples2008/UniformProbabilityDensityAnalysis">R implementation of Ortman 2016</a>).</p>
+<ul>
+<li>
+<a href="data/AD1300attr.csv">SWSN Attribute Data AD 1300-1350</a> - Attribute data for SWSN sites dating between AD 1300 and 1350 including site name, site sub-region (Macro), and jittered easting and northing UTM coordinates.</li>
+<li>
+<a href="data/AD1300sim.csv">SWSN Similarity Data AD 1300-1350</a> - Symmetric similarity matrix based on Brainerd-Robinson similarities for all SWSN sites dating between AD 1300 and 1350.</li>
+<li>
+<a href="data/AD1050attr.csv">The Chaco World Attribute Data AD 1050-1100</a> - Attribute data for sites with Chacoan architectural features dating between AD 1050 and 1100 including site IDs, site names, site sub-regions, counts of different kinds of public architectural features, and jittered easting and northing site locations.</li>
+<li>
+<a href="data/AD1050cer.csv">The Chaco World Ceramic Data AD 1050-1100</a> - Ceramic count data by ware for sites with Chacoan architectural features dating between AD 1050 and 1100.</li>
+<li>
+<a href="data/AD1050net.csv">The Chaco World Network AD 1050-1100</a> - Adjacency matrix of binarized network of ceramic similarity for sites with Chacoan architectural features dating between AD 1050 and 1100.</li>
+<li>
+<a href="data/Figure6_20.Rdata">San Pedro Networks throgh Time</a> - An .RData file that contains <code>igraph</code> network objects for the San Pedro region ceramic similarity networks for AD1250-1300, AD1300-1350, and AD1350-1400.</li>
+</ul>
+<div class="figure">
+<img src="images/Fig.2.5.png" style="width:100.0%" alt=""><p class="caption">Map of the cyberSW project study area showing all sites in the database with the San Pedro and Chaco World subsets of the database shaded.</p>
+</div>
+</div>
+<div id="Cibola" class="section level3" number="1.1.4">
+<h3>
+<span class="header-section-number">1.1.4</span> Cibola Region Technological Similarity Networs<a class="anchor" aria-label="anchor" href="#Cibola"><i class="fas fa-link"></i></a>
+</h3>
+<p>The Cibola region along the Arizona and New Mexico border in the U.S. Southwest is a large and diverse physiographic region spanning the southern edge of the Colorado Plateau and the ancestral homeland of the contemporary Zuni (A:shiwi) people. Peeples and colleagues (Peeples 2011, 2018; Peeples et al. 2021) have explored patterns of technological similarity and communities of practice in this region at a series of sites dating ca. A.D. 1100-1350 through explorations of corrugated ceramic cooking pots. Corrugated pots, which are produced across much of the U.S. Southwest from at least the 9th through the 14th centuries, are coiled ceramic vessels where the coils used to make the vessel are never fully smoothed. Thus, these ceramics retain substantial amounts of evidence of the specific techniques used to produce them.</p>
+<p>In the book we use data on ceramic technological production techniques to generate similarity networks originally published by Peeples (2011; 2018). In these networks each settlement is treated as a node with similarity metrics defining the weights of edges between pairs of sites based on an analysis of a number of metric and coded attributes of individual ceramic vessels. In addition to these material cultural data, we also have additional site attributes such as location and the types and frequency of public architectural features.</p>
+<p>Ceramic technological data from Peeples (2018): Additional data and documentation from this project is available on tDAR <a href="https://core.tdar.org/project/427899/connected-communities-networks-identity-and-social-change-in-the-ancient-cibola-world">in this collection</a>. Nodes are defined as individual settlements with edges defined based on similarities in the technological attributes of cooking pots recovered at those settlements. For more details on the methods and assumptions used to define these networks see Peeples (2018, pg. 100-104).</p>
+<ul>
+<li>
+<a href="data/Cibola_clust.csv">Cibola Ceramic Technological Clusters</a> - Counts of ceramic technological clusters for sites in the Cibola region sample.</li>
+<li>
+<a href="data/Cibola_attr.csv">Cibola Site Attributes</a> - Site location, public architectural feature types, and sub-region designations for sites in the Cibola region sample.</li>
+<li>
+<a href="data/Cibola_edgelist.csv">Cibola Binary Network Edge List</a> - Binary edge list of Cibola technological similarity network.</li>
+<li>
+<a href="data/Cibola_adj.csv">Cibola Binary Network Adjacency Matrix</a> - Binary adjacency matrix of Cibola technological similarity network.</li>
+<li>
+<a href="data/Peeples2018.Rdata">Peeples2018.Rdata</a> - This file contains a number of objects in R format including the site attributes (<code>site_info</code>), a symmetric Brainerd-Robinson similarity matrix (<code>ceramicBR</code>), a binary network object in the <code>statnet/network</code> format (BRnet), and a weighted network object in the <code>statnet/network</code> format (<code>BRnet_w</code>)</li>
+</ul>
+<div class="figure">
+<img src="images/Fig.2.6.png" style="width:100.0%" alt=""><p class="caption">Network graph showing connections among Cibola region settlements based on strong similarities in the technological attributes of corrugated cooking pots recovered at each site. Sites are colour coded by region where sites in the northern half of the study area are shown in black and sites in the southern half are shown in white.</p>
+</div>
+</div>
+<div id="Himalaya" class="section level3" number="1.1.5">
+<h3>
+<span class="header-section-number">1.1.5</span> Himalayan Visibility Networks<a class="anchor" aria-label="anchor" href="#Himalaya"><i class="fas fa-link"></i></a>
+</h3>
+<p>Hundreds of forts and small fortified structures are located on mountain tops and ridges in the central Himalayan region of Garhwal in Uttarakhand (India). Despite being such a prominent feature of the history of the region that is interwoven with local folklore (Garhwal is derived from ‘land of forts’), this fortification phenomenon has received very little research attention. It might have had its origins during the downfall of the Katyuri dynasty in the 11th century and continued up to the 15th century when the region was consolidated by the Parmar dynasty and possibly even later as attested by Mughal, Tibetan, and British aggression.</p>
+<p>In the book we use this research context as an example of spatial networks and more specifically visibility networks.This is made possible thanks to the survey of forts in the region performed in the context of the PhD project by Dr Nagendra Singh Rawat (2017). We use a catalog of 193 sites (Rawat et al. 2020, Appendix S1), and use the case of Chaundkot fort and its surroundings as a particular case study. Chaundkot fort is theorized to have been one of the key strongholds in the region and is also the only one to have been partly excavated (Rawat and Nautiyal 2020). In these case studies we represent strongholds as nodes, and the ability for a line-of-sight to exist between observers located at a pair of strongholds is represented by a directed edge. The length of each line-of-sight is represented by an edge attribute.</p>
+<ul>
+<li>
+<a href="data/Himalaya_nodes.csv">Himalayan Node data</a> - Node attribute data for the Himalayan sites including locations in lat/long, elevation, site name/type, and descriptions of landscape features.</li>
+<li>
+<a href="data/Himalaya_visiblity.csv">Himalayan Edge List</a> - Edge list data with information on connections among nodes within 25kms of each other with information on the distance and whether or not the target site is visible from the source. Note that only edges with <code>Visible = TRUE</code> should be included as activated edges.</li>
+</ul>
+<div class="figure">
+<img src="images/Fig.2.7.png" style="width:100.0%" alt=""><p class="caption">The 193 strongholds (nodes) connected by lines-of-sight up to 25km in length (at which distance large fire and smoke signals would have been visible). Node colours represent communities of nodes identified through the Louvain modularity method (see section 4.4.6) only for lines-of-sight up to 15km (see Rawat et al. 2021).</p>
+</div>
+</div>
+<div id="ArchPubs" class="section level3" number="1.1.6">
+<h3>
+<span class="header-section-number">1.1.6</span> Archaeological Publication Networks<a class="anchor" aria-label="anchor" href="#ArchPubs"><i class="fas fa-link"></i></a>
+</h3>
+<p>Our knowledge and stories of past human behavior are as much shaped by the material remains we excavate, as they are by the actions and interactions of the archaeologists that study them. Aspects of these actions and interactions are formally represented in publications. Such papers can be co-authored, reflecting scientific collaboration networks and communities of practice. Authors cite other authors’ works to indicate explicitly that they were influenced by it or that it is related to the paper’s subject matter.</p>
+<p>In previous work, we have turned the tools of archaeological network science on archaeological network researchers themselves (Brughmans 2013; Brughmans and Peeples 2017). We studied the co-authorship and citation practices of the more than 250 publications that have applied formal network methods to archaeological research topics from 1968 to the present. From a list of publications, an undirected co-authorship network can be made by representing individual authors as nodes, and connecting a pair of authors with an edge if they have been co-authors on one or more papers, with edge values representing the number of papers they co-authored. Moreover, a directed citation network can be made from the bibliographies of this list of publications. In a citation network, each node represents an individual publication which is connected to all other publications in its bibliography with a directed edge. The edge goes from the citing publication to the cited publication, so it represents the source and direction of academic influence as explicitly expressed in publication. We use networks of archaeological network research publications throughout this volume to illustrate concepts like the acyclic structure of citation networks.</p>
+<ul>
+<li>
+<a href="data/biblio_attr.csv">Publication Networks Attribute Data</a> - Attribute data table including information on publications including a unique key identifier, publication type, publication title, publication date, and the author list separated by semi-colons.</li>
+<li>
+<a href="data/biblio_dat.csv">Publication Networks Co-Authorship Incidence Matrix</a> - An incidence matrix with unique publications as rows and authors as columns.</li>
+</ul>
+<div class="figure">
+<img src="images/Fig.2.8.png" style="width:100.0%" alt=""><p class="caption">Two-mode archaeological publication network, representing a set of individual authors as nodes who are connected to nodes in a set of publication venues (journals, books, proceedings) in which they have published (see Brughmans and Peeples 2017:Fig. 10).</p>
+</div>
+</div>
+<div id="Guadalquivir" class="section level3" number="1.1.7">
+<h3>
+<span class="header-section-number">1.1.7</span> Iron Age Sites in Southern Spain<a class="anchor" aria-label="anchor" href="#Guadalquivir"><i class="fas fa-link"></i></a>
+</h3>
+<p>The Guadalquivir river valley in the south of Spain between present-day Seville and Córdoba was densely urbanized in the late Iron Age (early 5th c. BC to late 3rd c. BC). Many settlements were dotted along the rivers and the southern part of the valley (Fig. 2.6), and this settlement pattern was focused on nuclear settlements sometimes referred to as oppida. Some of these reveal defensive architecture and many are located on elevations. Previous studies of Iron Age settlements in the region have explored possible explanations for their locations (Keay and Earl 2011; Brughmans et al. 2014, 2015). Given their elevated locations, one theory that has received considerable attention was intervisibility. Could small settlements surrounding oppida be seen from them, and could oppida be located partly to allow for visual control over surrounding settlements? Did groups of Iron Age settlements tend to be intervisible, forming communities that were visible on a daily basis? Were there chains of intervisibility that allowed for passing on information from one site to another via visual smoke or fire signals, and did these chains follow the other key communication medium in the area: the navigable rivers?</p>
+<p>These questions have been explored in previous research using GIS and network methods, using a dataset of 86 sites and lines-of-sight connecting pairs of Iron Age settlements at distances up to 20km at which large fire and smoke signals would be visible (more about this dataset and research topic: Keay and Earl 2011; Brughmans et al. 2014, 2015). To account for errors in the Digital Elevation Model (DEM), a probabilistic line-of-sight analysis was performed that introduces random errors into the DEM which can have a blocking or enhancing effect on the lines-of-sight. The locations of these 86 sites and the network displayed in figure 2.9 are also available as Appendix A in Brughmans et al. 2014. These locations are used in Chapter 7 of the book to illustrate spatial network models that explore different geographical structures that might underlie the settlement pattern.</p>
+<ul>
+<li>
+<a href="data/Guadalquivir.csv">Guadalquivir settlement data</a> - Site number and locations in decimal degrees for all sites in the Guadalquivir survey area.</li>
+</ul>
+<div class="figure">
+<img src="images/Fig.2.9.jpg" style="width:100.0%" alt=""><p class="caption">The lower Guadalquivir river valley with the 86 Iberian (Iron Age II) sites used in the case study. Note the clustering of sites around the rivers. Lines-of-sight with &gt;50% probability shown. (Source: Brughmans et al. 2014:Fig. 6b.)</p>
+</div>
+</div>
+</div>
+<div id="Importing" class="section level2" number="1.2">
+<h2>
+<span class="header-section-number">1.2</span> Importing Data in R<a class="anchor" aria-label="anchor" href="#Importing"><i class="fas fa-link"></i></a>
+</h2>
+<p>This section briefly describes how the data provided above (or your own data) can be imported in to R for further analyses (see <a href="GettingStarted.html#WorkingWithFiles">Working With Files</a> for more info). Before running the code below, however, you need to ensure that your R session is set to the correct working directory (the location where you placed the .csv files you just downloaded). To do that, go to the menu bar at the top and click Session &gt; Set Working Directory &gt; Choose Directory and navigate to the place on your hard drive where these files reside.</p>
+<p>For this example we will read in the <code>Cibola_edgelist.csv</code> file and define an object called <code>EL1</code> which includes the data in that file using the <code><a href="https://rdrr.io/r/utils/read.table.html">read.csv()</a></code> command. Note that in this case the file we want to read is in a sub-folder of our working directory called “data” so we need to use the <code>data/</code> prefix before the file name to correctly call that file. If you do not chose to use a sub-folder or if you call your folder something else, you will need to modify the <code>data/</code> section of the code.</p>
+<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># read in data with first row representing column names (header=TRUE)</span>
+<span class="va">EL1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"data/Cibola_edgelist.csv"</span>, header <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="co"># look at the first few rows</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">EL1</span><span class="op">)</span>
+<span class="co">#&gt;           FROM                   TO</span>
+<span class="co">#&gt; 1 Apache Creek         Casa Malpais</span>
+<span class="co">#&gt; 2 Apache Creek         Coyote Creek</span>
+<span class="co">#&gt; 3 Apache Creek         Hooper Ranch</span>
+<span class="co">#&gt; 4 Apache Creek      Horse Camp Mill</span>
+<span class="co">#&gt; 5 Apache Creek        Hubble Corner</span>
+<span class="co">#&gt; 6 Apache Creek Mineral Creek Pueblo</span></code></pre></div>
+<p>In addition to the .csv files, several examples in this book and several of the datasets above are provide as .RData files which can be read directly in R and can contain multiple R objects. These can be read directly into the R environment using the <code><a href="https://rdrr.io/r/base/load.html">load()</a></code> function. See the example below. Again note that you must specify the specific directory within the working directory where the file is located.</p>
+<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span><span class="op">(</span><span class="st">"data/map.RData"</span><span class="op">)</span></code></pre></div>
+</div>
+<div id="installing-requiredsuggested-r-packages" class="section level2" number="1.3">
+<h2>
+<span class="header-section-number">1.3</span> Installing Required/Suggested R Packages<a class="anchor" aria-label="anchor" href="#installing-requiredsuggested-r-packages"><i class="fas fa-link"></i></a>
+</h2>
+<p>In this appendix we rely on a number of pre-existing R packages. In order to use these packages in a new installation of R and R-studio, you first need to install them. Note that you will only need to do this once on a new installation of R. To install packages, you can click on the “Packages” tab in the window in the bottom right of R studio, then click the “Install” button at the top and type the names of the packages separated by commas. Alternatively you can install packages from the console by simply typing <code>install.packages("nameofpackagehere")</code>.</p>
+<p><code>install.packages(c("statnet", "igraph"))</code></p>
+<p>We use a number of R packages in the modules here and in the book for manipulating and analyzing network data and for other general analyses and procedures. The most frequently used network packages include:</p>
+<ul>
+<li>
+<a href="https://igraph.org/">igraph (Csardi and Nepusz 2006)</a> - analytical routines for simple graphs and graph analysis</li>
+<li>
+<a href="http://statnet.org/">statnet (Krivitsky et al. 2020)</a> - A suite of packages designed for the management and statistical analysis of networks</li>
+<li>
+<a href="https://cran.r-project.org/web/packages/intergraph/intergraph.pdf">intergraph (Bojanowski 2015)</a> - a set of routines for coercing objects between common network formats in R</li>
+<li>
+<a href="https://CRAN.R-project.org/package=ggraph">ggraph (Pederson 2021)</a> - a powerful graph visualization package that is based off of the ggplot2 plotting format</li>
+</ul>
+<div id="PrimaryPackages" class="section level3" number="1.3.1">
+<h3>
+<span class="header-section-number">1.3.1</span> A Brief Introduction to the Primary Network Packages in R<a class="anchor" aria-label="anchor" href="#PrimaryPackages"><i class="fas fa-link"></i></a>
+</h3>
+<p>Throughout this Online Companion, we will consistently rely on <code>igraph</code> and <code>statnet</code> (<code>statnet</code> is actually a suite of packages that includes <code>sna</code>, <code>network</code>, <code>ergm</code>, and others). For the most part these two packages do many of the same things. You can use them to calculate centrality metrics, define groups, or evaluate other network structures. In general <code>igraph</code> is a bit more centered on complex networks and mathematical models and <code>statnet</code> and affiliated packages are more focused on social network analysis though there is considerable overlap.</p>
+<p>Although <code>igraph</code> and <code>statnet</code> have many of the same features, they are not directly compatible and use different network formats to store data in R. Adding to the potential confusion, function call names are often the same between the two packages. For example degree centrality is calculated using a <code>degree()</code> function in both. If you simply use the <code>degree()</code> call R will use the function from whichever package was initialized most recently. If this is the wrong package for your data format, you will get an error. In order to avoid such errors and to clear up ambiguity we use the package name followed by <code>::</code> in the function call (i.e., <code>igraph::function_name</code> or <code>sna::function_name</code>) so that R knows which package we intend to use. You can do this with any R function where you want to specify the package (<code>package::function_name</code>).</p>
+<p>In general in this Online Companion we use the <code>igraph</code> package wherever possible as we find the data format and especially the functions for converting between network data types to be the most useful and intuitive for most kinds of analyses. We use <code>statnet</code> and affiliated packages in specific cases where <code>igraph</code> lacks specific functionality or important features. Luckily the package called <code>intergraph</code> lets us convert network objects from one format to another as we will see in the examples ahead.</p>
+<p>Finally, we recommend installing <code>ggraph</code> as this is a very useful and intuitive package that allows for diverse network visualizations and customization. These four packages account for the bulk of the examples in this book.</p>
+</div>
+<div id="ShouldIInstall" class="section level3" number="1.3.2">
+<h3>
+<span class="header-section-number">1.3.2</span> Should I Just Install Everything?<a class="anchor" aria-label="anchor" href="#ShouldIInstall"><i class="fas fa-link"></i></a>
+</h3>
+<p>No matter how you plan on working with these documents, you should install the packages in the following chunk at a minimum by running the code below. These packages will get you through everything in Sections 1 through 4 and much of the Sections 5 and 6.</p>
+<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">packages</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"igraph"</span>, <span class="st">"statnet"</span>, <span class="st">"intergraph"</span>, <span class="st">"ggraph"</span>, 
+              <span class="st">"reshape2"</span>, <span class="st">"ggmap"</span>, <span class="st">"vegan"</span>, <span class="st">"sf"</span>, <span class="st">"tidyverse"</span><span class="op">)</span>
+
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sets.html">setdiff</a></span><span class="op">(</span><span class="va">packages</span>, <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/installed.packages.html">installed.packages</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>  </code></pre></div>
+<p>If you have plenty of disk space and time and don’t wont to worry about installing packages piecemeal, you can install everything at the same time using the code below. Note that there are a large number of packages and dependencies here and many are only used in one or two places in this Online Companion. Most of the packages are used in the <a href="Visualization.html#Visualization">Network Visualization</a> Section. We generally recommend that you install packages as you need them while you work through this document but you do you.</p>
+<p>If you choose to install everything, however, you can simply run the chunk of code below. Note that the code below will not reinstall packages already installed in your current version of R. Note if you are familiar with Git and R Environments, it will be much faster to just use the <code><a href="https://rstudio.github.io/renv/reference/restore.html">renv::restore()</a></code> function to build an environment from the repository. See the <a href="index.html#Repro">Reproducibility section</a> in the introduction for more information.</p>
+<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">packages</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span> <span class="st">"ape"</span>, <span class="st">"devtools"</span>, <span class="st">"igraph"</span>, <span class="st">"statnet"</span>, <span class="st">"intergraph"</span>,
+  <span class="st">"tnet"</span>, <span class="st">"ggplot2"</span>, <span class="st">"rjson"</span>, <span class="st">"d3r"</span>,<span class="st">"cccd"</span>, <span class="st">"networkD3"</span>,<span class="st">"visNetwork"</span>,
+  <span class="st">"GISTools"</span>, <span class="st">"rgeos"</span>,<span class="st">"maptools"</span>, <span class="st">"sf"</span>, <span class="st">"igraphdata"</span>, <span class="st">"ggrepel"</span>,
+  <span class="st">"ggsn"</span>, <span class="st">"tidyverse"</span>,<span class="st">"superheat"</span>,<span class="st">"ggplotify"</span>,<span class="st">"ggforce"</span>, <span class="st">"colorspace"</span>,
+  <span class="st">"ggmap"</span>, <span class="st">"dplyr"</span>, <span class="st">"ggpubr"</span>, <span class="st">"ggraph"</span>, <span class="st">"reshape2"</span>, <span class="st">"multinet"</span>,
+  <span class="st">"RColorBrewer"</span>, <span class="st">"Rcpp"</span>, <span class="st">"deldir"</span>, <span class="st">"vegan"</span>, <span class="st">"geosphere"</span>, <span class="st">"networkDynamic"</span>,
+  <span class="st">"scatterplot3d"</span>, <span class="st">"patchwork"</span>, <span class="st">"concaveman"</span><span class="op">)</span>
+
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sets.html">setdiff</a></span><span class="op">(</span><span class="va">packages</span>, <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/installed.packages.html">installed.packages</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>  
+
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"liamgilbey/ggwaffle"</span><span class="op">)</span>
+
+<span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html">requireNamespace</a></span><span class="op">(</span><span class="st">"BiocManager"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>
+  <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span>
+<span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html">install</a></span><span class="op">(</span><span class="st">"RBGL"</span><span class="op">)</span></code></pre></div>
+<p>In addition to the R packages listed above, there is one procedure used in this Online Companion that requires you to have an installation of Python 3.7 with particular packages associated with it. In order to implement these sections of code, you will need to also run the following lines of code. Note that this is a large install that takes about about 1.4 GB of hard drive space so only do this if you have the space and REALLY want to explore edge bundling (<a href="Visualization.html#Figure_6_17">see Edge Bundling Visualizations</a>). You will be able to reproduce everything in this document except for two chunks of code without this so feel free to sit this one out.</p>
+<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"edgebundle"</span>, <span class="st">"reticulate"</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://edgebundle.schochastics.net/">edgebundle</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rstudio.github.io/reticulate/">reticulate</a></span><span class="op">)</span>
+<span class="fu"><a href="http://edgebundle.schochastics.net/reference/install_bundle_py.html">install_bundle_py</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"auto"</span>, conda <span class="op">=</span> <span class="st">"auto"</span><span class="op">)</span></code></pre></div>
+</div>
+<div id="PackagesUsed" class="section level3" number="1.3.3">
+<h3>
+<span class="header-section-number">1.3.3</span> R Packages Used<a class="anchor" aria-label="anchor" href="#PackagesUsed"><i class="fas fa-link"></i></a>
+</h3>
+<p>This version of the book was built with R version 4.2.0 (2022-04-22 ucrt) and the following packages:</p>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left">package</th>
+<th align="left">version</th>
+<th align="left">source</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">ape</td>
+<td align="left">5.6-2</td>
+<td align="left">CRAN (R 4.2.0)</td>
+</tr>
+<tr class="even">
+<td align="left">cccd</td>
+<td align="left">1.6</td>
+<td align="left">CRAN (R 4.2.0)</td>
+</tr>
+<tr class="odd">
+<td align="left">colorspace</td>
+<td align="left">2.0-3</td>
+<td align="left">CRAN (R 4.2.0)</td>
+</tr>
+<tr class="even">
+<td align="left">concaveman</td>
+<td align="left">1.1.0</td>
+<td align="left">CRAN (R 4.2.0)</td>
+</tr>
+<tr class="odd">
+<td align="left">d3r</td>
+<td align="left">1.0.0</td>
+<td align="left">CRAN (R 4.2.0)</td>
+</tr>
+<tr class="even">
+<td align="left">deldir</td>
+<td align="left">1.0-6</td>
+<td align="left">CRAN (R 4.2.0)</td>
+</tr>
+<tr class="odd">
+<td align="left">devtools</td>
+<td align="left">2.4.3</td>
+<td align="left">CRAN (R 4.2.0)</td>
+</tr>
+<tr class="even">
+<td align="left">dplyr</td>
+<td align="left">1.0.9</td>
+<td align="left">CRAN (R 4.2.0)</td>
+</tr>
+<tr class="odd">
+<td align="left">geosphere</td>
+<td align="left">1.5-14</td>
+<td align="left">CRAN (R 4.2.0)</td>
+</tr>
+<tr class="even">
+<td align="left">ggforce</td>
+<td align="left">0.3.3</td>
+<td align="left">CRAN (R 4.2.0)</td>
+</tr>
+<tr class="odd">
+<td align="left">ggmap</td>
+<td align="left">3.0.0</td>
+<td align="left">CRAN (R 4.2.0)</td>
+</tr>
+<tr class="even">
+<td align="left">ggplot2</td>
+<td align="left">3.3.6</td>
+<td align="left">CRAN (R 4.2.0)</td>
+</tr>
+<tr class="odd">
+<td align="left">ggplotify</td>
+<td align="left">0.1.0</td>
+<td align="left">CRAN (R 4.2.0)</td>
+</tr>
+<tr class="even">
+<td align="left">ggpubr</td>
+<td align="left">0.4.0</td>
+<td align="left">CRAN (R 4.2.0)</td>
+</tr>
+<tr class="odd">
+<td align="left">ggraph</td>
+<td align="left">2.0.5</td>
+<td align="left">CRAN (R 4.2.0)</td>
+</tr>
+<tr class="even">
+<td align="left">ggrepel</td>
+<td align="left">0.9.1</td>
+<td align="left">CRAN (R 4.2.0)</td>
+</tr>
+<tr class="odd">
+<td align="left">ggsn</td>
+<td align="left">0.5.0</td>
+<td align="left">CRAN (R 4.2.0)</td>
+</tr>
+<tr class="even">
+<td align="left">GISTools</td>
+<td align="left">0.7-4</td>
+<td align="left">CRAN (R 4.2.0)</td>
+</tr>
+<tr class="odd">
+<td align="left">igraph</td>
+<td align="left">1.3.1</td>
+<td align="left">CRAN (R 4.2.0)</td>
+</tr>
+<tr class="even">
+<td align="left">igraphdata</td>
+<td align="left">1.0.1</td>
+<td align="left">CRAN (R 4.2.0)</td>
+</tr>
+<tr class="odd">
+<td align="left">intergraph</td>
+<td align="left">2.0-2</td>
+<td align="left">CRAN (R 4.2.0)</td>
+</tr>
+<tr class="even">
+<td align="left">maptools</td>
+<td align="left">1.1-4</td>
+<td align="left">CRAN (R 4.2.0)</td>
+</tr>
+<tr class="odd">
+<td align="left">multinet</td>
+<td align="left">4.0.1</td>
+<td align="left">CRAN (R 4.2.0)</td>
+</tr>
+<tr class="even">
+<td align="left">networkD3</td>
+<td align="left">0.4</td>
+<td align="left">CRAN (R 4.2.0)</td>
+</tr>
+<tr class="odd">
+<td align="left">networkDynamic</td>
+<td align="left">0.11.2</td>
+<td align="left">CRAN (R 4.2.0)</td>
+</tr>
+<tr class="even">
+<td align="left">patchwork</td>
+<td align="left">1.1.1</td>
+<td align="left">CRAN (R 4.2.0)</td>
+</tr>
+<tr class="odd">
+<td align="left">RBGL</td>
+<td align="left">1.72.0</td>
+<td align="left">Bioconductor</td>
+</tr>
+<tr class="even">
+<td align="left">RColorBrewer</td>
+<td align="left">1.1-3</td>
+<td align="left">CRAN (R 4.2.0)</td>
+</tr>
+<tr class="odd">
+<td align="left">Rcpp</td>
+<td align="left">1.0.8.3</td>
+<td align="left">CRAN (R 4.2.0)</td>
+</tr>
+<tr class="even">
+<td align="left">reshape2</td>
+<td align="left">1.4.4</td>
+<td align="left">CRAN (R 4.2.0)</td>
+</tr>
+<tr class="odd">
+<td align="left">rgeos</td>
+<td align="left">0.5-9</td>
+<td align="left">CRAN (R 4.2.0)</td>
+</tr>
+<tr class="even">
+<td align="left">rjson</td>
+<td align="left">0.2.21</td>
+<td align="left">CRAN (R 4.2.0)</td>
+</tr>
+<tr class="odd">
+<td align="left">scatterplot3d</td>
+<td align="left">0.3-41</td>
+<td align="left">CRAN (R 4.2.0)</td>
+</tr>
+<tr class="even">
+<td align="left">sf</td>
+<td align="left">1.0-7</td>
+<td align="left">CRAN (R 4.2.0)</td>
+</tr>
+<tr class="odd">
+<td align="left">statnet</td>
+<td align="left">2019.6</td>
+<td align="left">CRAN (R 4.2.0)</td>
+</tr>
+<tr class="even">
+<td align="left">superheat</td>
+<td align="left">0.1.0</td>
+<td align="left">CRAN (R 4.2.0)</td>
+</tr>
+<tr class="odd">
+<td align="left">tidyverse</td>
+<td align="left">1.3.1</td>
+<td align="left">CRAN (R 4.2.0)</td>
+</tr>
+<tr class="even">
+<td align="left">vegan</td>
+<td align="left">2.6-2</td>
+<td align="left">CRAN (R 4.2.0)</td>
+</tr>
+<tr class="odd">
+<td align="left">visNetwork</td>
+<td align="left">2.1.0</td>
+<td align="left">CRAN (R 4.2.0)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div id="WorkspaceSetup" class="section level2" number="1.4">
+<h2>
+<span class="header-section-number">1.4</span> Suggested Workspace Setup<a class="anchor" aria-label="anchor" href="#WorkspaceSetup"><i class="fas fa-link"></i></a>
+</h2>
+<p>In order to follow along with the examples in this Online Companion it will be easiest if you set up your R working directory in a similar format to that used in creating it. Specifically, we suggest you create a new working directory and create an R studio project tied to that specific directory.</p>
+<p>In order to do this, open R-Studio and go to “File &gt; New Project” and click on “New Directory &gt; New Project” in the dialog and then give it an appropriate name and location on your disk. Next, navigate to that location on your disk and create two sub-folders: one called “data” and one called “scripts” (directory names are case sensitive). Place any of the data files you downloaded above or in any other section of this Online Companion in the “data” folder and any R script files you download in the “scripts” folder. Note that if you chose the “Just Give Me Everything” download you will have a .zip file that already contains a sub-folder called “data” so be sure you’re not double nesting your folders (you want “working_directory/data” not “working_directory/data/data”).</p>
+<p>When you close R you will see a dialog that asks if you want to save your workspace image. If you do this and provide a name, you can reopen the .RData file at a later time and pick up exactly where your previous session left off.</p>
+<p>If you are new to the R environment and file structures, we suggest you review the <a href="GettingStarted.html#GettingStarted">Getting Started with R</a> section for more information.</p>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="GettingStarted.html">Gettings Started with R</a></div>
+<div class="next"><a href="NetworkData.html"><span class="header-section-number">2</span> Network Data Formats</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#DataWorkspaceSetup"><span class="header-section-number">1</span> Data and Workspace Setup</a></li>
+<li>
+<a class="nav-link" href="#Datasets"><span class="header-section-number">1.1</span> Datasets</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#Everything"><span class="header-section-number">1.1.1</span> Just Give Me Everything</a></li>
+<li><a class="nav-link" href="#RomanRoad"><span class="header-section-number">1.1.2</span> Roman Road Networks</a></li>
+<li><a class="nav-link" href="#SWSN"><span class="header-section-number">1.1.3</span> Southwest Social Networks Project Ceramic Similarity Networks</a></li>
+<li><a class="nav-link" href="#Cibola"><span class="header-section-number">1.1.4</span> Cibola Region Technological Similarity Networs</a></li>
+<li><a class="nav-link" href="#Himalaya"><span class="header-section-number">1.1.5</span> Himalayan Visibility Networks</a></li>
+<li><a class="nav-link" href="#ArchPubs"><span class="header-section-number">1.1.6</span> Archaeological Publication Networks</a></li>
+<li><a class="nav-link" href="#Guadalquivir"><span class="header-section-number">1.1.7</span> Iron Age Sites in Southern Spain</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#Importing"><span class="header-section-number">1.2</span> Importing Data in R</a></li>
+<li>
+<a class="nav-link" href="#installing-requiredsuggested-r-packages"><span class="header-section-number">1.3</span> Installing Required/Suggested R Packages</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#PrimaryPackages"><span class="header-section-number">1.3.1</span> A Brief Introduction to the Primary Network Packages in R</a></li>
+<li><a class="nav-link" href="#ShouldIInstall"><span class="header-section-number">1.3.2</span> Should I Just Install Everything?</a></li>
+<li><a class="nav-link" href="#PackagesUsed"><span class="header-section-number">1.3.3</span> R Packages Used</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#WorkspaceSetup"><span class="header-section-number">1.4</span> Suggested Workspace Setup</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/mpeeples2008/Archaeological_Network_Science/blob/master/01-data.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/mpeeples2008/Archaeological_Network_Science/edit/master/01-data.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-05-23.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

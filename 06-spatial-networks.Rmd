@@ -49,7 +49,7 @@ ggmap(map)
 
 ## Data and Datasets
 
-For the initial examples in this section we will use the Roman Road data from the Iberian Penninsula. This dataset consists of a [csv file of a set of Roman settlements](data/Hispania_nodes.csv) and a [csv file of an edge list](data/Hispania_roads) defining connections among those settlements in terms of roads.
+For the initial examples in this section we will use the Roman Road data from the Iberian Peninsula. This dataset consists of a [csv file of a set of Roman settlements](data/Hispania_nodes.csv) and a [csv file of an edge list](data/Hispania_roads) defining connections among those settlements in terms of roads.
 
 First we map the basic road network. We have commented the code below to explain what is happening at each stage.
 

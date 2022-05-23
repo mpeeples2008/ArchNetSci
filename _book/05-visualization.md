@@ -6,7 +6,7 @@ There are already some excellent resources online for learning how to create bea
 
 ## Datasets and R Setup
 
-In order to make it as easy as possible for users to replicate specific visuals from the book and the other examples in this tutorial we have tried to make the examples as modular as possible. This means that we provide calls to initialize the required libraries for each plot within each relevant chunk of code (so that you can more easily tell what package does what) and we also provide links to download the data required to replicate each figure in the description of that figure below. The datasets we use here include both .csv and other format files as well as .Rdata files that contain sets of specific R objects formatted as required for individual chunks of code.
+In order to make it as easy as possible for users to replicate specific visuals from the book and the other examples in this tutorial we have tried to make the examples as modular as possible. This means that we provide calls to initialize the required libraries for each plot within each relevant chunk of code (so that you can more easily tell what package does what) and we also provide links to download the data required to replicate each figure in the description of that figure below. The data sets we use here include both .csv and other format files as well as .Rdata files that contain sets of specific R objects formatted as required for individual chunks of code.
 
 If you plan on working through this entire tutorial and would like to download all of the associated data at once [you can download this zip file](All_data.zip). Simply extract this zip folder into your R working directory and the examples below will then work. Note that all of the examples below are setup such that the data should be contained in a sub-folder of your working directory called "data" (note that directories and file names are case sensitive).
 
@@ -18,6 +18,8 @@ There are many tools available for creating network visualizations in R includin
 ```r
 library(igraph)
 library(statnet)
+#>         Installed ReposVer Built  
+#> network "1.17.1"  "1.17.2" "4.2.0"
 library(ggraph)
 library(intergraph)
 
@@ -33,9 +35,9 @@ Cibola_attr <- read.csv(file = "data/Cibola_attr.csv", header = TRUE)
 Cibola_i <- igraph::graph_from_adjacency_matrix(as.matrix(Cibola),
                                                 mode = "undirected")
 Cibola_i
-#> IGRAPH 475d234 UN-- 31 167 -- 
+#> IGRAPH 3a77dda UN-- 31 167 -- 
 #> + attr: name (v/c)
-#> + edges from 475d234 (vertex names):
+#> + edges from 3a77dda (vertex names):
 #>  [1] Apache.Creek--Casa.Malpais        
 #>  [2] Apache.Creek--Coyote.Creek        
 #>  [3] Apache.Creek--Hooper.Ranch        
@@ -178,11 +180,11 @@ load("data/Peeples2018.Rdata")
 net <- asIgraph(BRnet)
 ```
 
-### Graph Layout
+### Graph Layout{#GraphLayouts}
 
 Graph layout simply refers to the placement and organization in 2-dimensional or 3-dimensional space of nodes and edges in a network. 
 
-#### Manual or User Defined Layouts
+#### Manual or User Defined Layouts{#ManualLayouts}
 
 There are a few options for manually defining node placement and graph layout in R and the easiest is to simply provide x and y coordinates directly. In this example, we plot the Cibola technological similarity network with a set of x and y coordinates that group sites in the same region in a grid configuration. For another example of this approach see [Figure 6.1 below](#Figure_6_1). For an example of how you can interactively define a layout see [Figure 6.5](#Figure_6_5) 
 
@@ -215,7 +217,7 @@ ggraph(net,
 
 <img src="05-visualization_files/figure-html/manual_layout-1.png" width="672" />
 
-#### Geographic Layouts
+#### Geographic Layouts{#GeographicLayouts}
 
 Plotting networks using a a geographic layout is essentially the same as plotting with a manual layout except that you specify geographic coordinates instead of other coordinates. See [Figure 6.2](#Figure_6_2) for another example.
 
@@ -295,7 +297,7 @@ ggmap(base_cibola, darken = 0.35) +
 
 <img src="05-visualization_files/figure-html/geo_layout-1.png" width="672" />
 
-#### Shape-Based and Algorithmic Layouts
+#### Shape-Based and Algorithmic Layouts{#AlgorithmicLayouts}
 
 There are a wide variety of shape-based and algorithmic layouts available for use in R. In most cases, all it takes to change layouts is to simply modify a single line the `ggraph` call to specify our desired layout. The `ggraph` package can use any of the `igraph` layouts as well as many that are built directly into the package. See `?ggraph` for more details and to see the options. Here we show a few examples. Note that we leave the figures calls the same except for the argument `layout = "yourlayout"` in each `ggraph` call and the `ggtitle` name. For the layouts that involve randomization, we use the `set.seed()` function to make sure they will always plot the same. See the discussion of [Figure 6.8](#Figure_6_8) below for more details. Beyond this [Figure 6.9](#Figure_6_9) provides additional options that can be used for hierarchical network data.
 
@@ -335,11 +337,11 @@ ggarrange(circ_net, fr_net, dh_net, nrow = 1, ncol = 3)
 
 <img src="05-visualization_files/figure-html/layouts-1.png" width="672" />
 
-### Node and Edge Options
+### Node and Edge Options{#NodeEdgeOptions}
 
 There are many options for altering color and symbol for nodes and edges within R. In this section we very briefly discuss some of the most common options. For more details see the discussion of [figures 6.10 through 6.16](#Figure_6_10) below.
 
-#### Nodes
+#### Nodes {#NodeOptions}
 
 In `ggraph` changing node options mostly consists of changing options within the `geom_node_point` call within the `ggraph` figure call. As we have already seen it is possible to set color for all nodes or by some variable, to change the size of points, and we can also scale points by some metric like centrality. Indeed, it is even possible to make the call to the centrality function in question directly within the figure code. 
 
@@ -394,7 +396,7 @@ ggarrange(g1, g2, nrow = 1)
 
 There are also a number of more advanced methods for displaying nodes including displaying figures or other data visualizations in the place of nodes or using images for nodes. There are examples of each of these in the book and code outlining how to create such visuals in the discussions of [Figure 6.3](#Figure_6_3) and [Figure 6.13](#Figure_6_13) below. 
 
-#### Edges
+#### Edges{#EdgeOptions}
 
 Edges can be modified in terms of color, line type, thickness and many other features just like nodes and this is typically done using the `geom_edge_link` call within `ggraph`. Let's take a look at a couple of additional examples. In this case we're going to use a weighted network object in the original [Peeples2018.Rdata](data/Peeples2018.Rdata) file to show how we can vary edges in relation to edge attributes like weight. 
 
@@ -465,7 +467,7 @@ ggraph(net2, "kk") +
 
 <img src="05-visualization_files/figure-html/edge_density-1.png" width="672" />
 
-### Label Options
+### Label Options{#LabelOptions}
 
 In many cases you may want to label either the nodes, edges, or other features of a network. This is relatively easy to do in `ggraph` with the `geom_node_text()` command. This will place labels as specified on each node. If you use the `repel = TRUE` argument it will repel the names slightly from the node to make them more readable. As shown in the example for [Figure 6.4](#Figure_6_4) it is also possible to filter labels to label only certain nodes.
 
@@ -507,11 +509,11 @@ ggraph(g, layout = 'stress') +
 
 <img src="05-visualization_files/figure-html/edge_label-1.png" width="672" />
 
-### Be Kind to the Color Blind
+### Be Kind to the Color Blind{#Colorbind}
 
 When selecting your color schemes, it is important to consider the impact of a particular color scheme on color blind readers. There is an excellent set of R scripts on GitHub in a package called [colorblindr](https://github.com/clauswilke/colorblindr) by Claus Wilke which can help you do just that. I have slightly modified the code from the `colorblindr` package and created a script called [colorblindr.R](data/colorblindr.R) which you can download and use to test out your network. Simply run the code in the script and then use the `cvd_grid2()` function on a `ggplot` or `ggraph` object to see simulated colors.
 
-The chunk of code below loads the `colorblindr.R` script and then plots a figure using `RColorBrewer` color `Set2` in its original unmodified format and then as it might look to readers with some of the most common forms of color vision issues.
+The chunk of code below loads the `colorblindr.R` script and then plots a figure using `RColorBrewer` color `Set2` in its original unmodified format and then as it might look to readers with some of the most common forms of color vision issues. Download the [colorblindr.R script](scripts/colorblindr.R) to follow along.
 
 
 ```r
@@ -522,7 +524,7 @@ cvd_grid2(g1)
 
 <img src="05-visualization_files/figure-html/colorblind-1.png" width="672" />
 
-### Communities and Groups
+### Communities and Groups{#VizCommunities}
 
 Showing communities or other groups in network visualizations can be as simple as color coding nodes or edges as we have seen in many examples here. It is sometimes also useful to highlight groups by creating a convex hull or circle around the relevant points. This can be done in `ggraph` using the `geom_mark_hull` command within the `ggforce` package. You will also need a package called `concaveman` that allows you to set the concavity of the hulls around points.
 
@@ -566,7 +568,7 @@ ggraph(net2, layout = "fr") +
 
 The discussion of [Figure 6.4](#Figure_6_4) below provides another similar example. There are many more complicated ways of showing network groups provided by the examples covering figures from the book. For example, [Figure 6.18](#Figure_6_18) provides an example of the "group-in-a-box" technique using the NodeXL software package. [Figure 6.19](#Figure_6_19) illustrates the use of matrices as visualization tools and [Figure 6.20](#Figure_6_20) provides links to the Nodetrix hybrid visualization software. 
 
-## Replicating the Book Figures
+## Replicating the Book Figures{#ReplicatingBookFigures}
 
 In this section we go through each figure in Chapter 6 of Brughmans and Peeples (2022) and detail how the final graph was created for all figures that were created using R. For those figures not created in R we describe what software and data were used and provide additional resources where available. We hope these examples will serve as inspiration for your own network visualization experiments. Some of these figures are relatively simple while others are quite complex. They are presented in the order they appear in the book. 
 
@@ -832,7 +834,7 @@ F6.3b
 
 Fig. 6.3c - Network plot with sites in geographic locations and edges bundled using the edge bundling hammer routine.
 
-This function requires the `edgebundle` package be installed along with `reticulate` and Python 3.7 (see [Packages](#Packages)) and uses the [Cibola technological similarity data](data/Peeples2018.Rdata). Check [Section 1](#ShouldIInstall) for more details on getting the edge bundling package and Python up and running.
+This function requires the `edgebundle` package be installed along with `reticulate` and Python 3.7 (see [Packages](#Packages)) and uses the [Cibola technological similarity data](data/Peeples2018.Rdata). Check [Data and Workspace Setup](#ShouldIInstall) section for more details on getting the edge bundling package and Python up and running.
 
 
 ```r
@@ -970,6 +972,7 @@ F6.3d
 
 <img src="05-visualization_files/figure-html/Fig6_3d-1.png" width="576" />
 
+Now let's look at all of the figures together.
 
 ![](images/Figure_6_3.jpg.jpeg){width=100%}
 
@@ -977,7 +980,7 @@ F6.3d
 
 Figure 6.4. A network among Clovis era sites in the Western U.S. with connections based on shared lithic raw material sources. Nodes are scaled based on betweenness centrality with the top seven sites labelled. Colour-coded clusters were defined using the Louvain algorithm. 
  
-This example shows how to define and indicate groups and label points based on their values.
+This example shows how to define and indicate groups and label points based on their values. Note the use of the `ifelse` call in the `geom_node_text` portion of the plot. See [here](#Conditionals) for more information on how `ifelse` statements work.
 
 
 ```r
@@ -1065,7 +1068,7 @@ plot(Cibola_i, layout=Coords)
 ### Figure 6.6: Absolute Geographic Layout {- #Figure_6_6}
 
 Fig. 6.6. Map of major Roman roads and major settlements on the Iberian Peninsula, (a) with roads mapped along their actual geographic paths and (b) roads shown as simple line segments between nodes. 
-The figure that appears in the book was originally created using GIS software but it is possible to prepare a quite similar figure in R using the tools we outlined above. To reproduce the results presented here you will need to download [the node information file](data/Hispania_nodes.csv) and the [road edge list](data/Hispania_roads.csv). We have created a script called [map_net.R](scripts/map_net.R) which will produce similar maps when supplied with a network object and a file with node locations in lat/long coordinates. 
+The figure that appears in the book was originally created using GIS software but it is possible to prepare a quite similar figure in R using the tools we outlined above. To reproduce the results presented here you will need to download [the node information file](data/Hispania_nodes.csv) and the [road edge list](data/Hispania_roads.csv). We have created a script called [map_net.R](scripts/map_net.R) which will produce similar maps when supplied with a network object and a file with node locations in lat/long coordinates. For more information on how R works with geographic data see the [spatial networks](#SpatialNetworks) section of this document.
 
 
 ```r
@@ -1140,7 +1143,7 @@ ggmap(myMap) +
 
 Figure 6.7. This ceramic similarity network of the San Pedro River Valley in Arizona shows the challenges of creating geographic network layouts. (a) Shows sites in their original locations whereas (b) shifts locations to improve the visibility of network structure. Note how the distorted geographic layout retains the basic relationships among the nodes while altering their locations slightly.
 
-Unfortunately as the first map contains real site locations we cannot share those data here. The second map can still be reproduced given nothing but the code below. The only difference required to produce Figure 6.7a would be to replace the `coord` site coordinates with the actual site locations.
+Unfortunately as the first map contains real site locations we cannot share those data here. The second map can still be reproduced given nothing but the code below. The only difference required to produce Figure 6.7a would be to replace the `coord` site coordinates with the actual site locations. the `coord` object used here was created by taking the original site locations and applying the `jitter` function, which jitters x and y coordinates by a specified amount.
 
 
 ```r
@@ -1519,6 +1522,8 @@ figure_6_9
 
 Fig. 6.10. Examples of a simple network graph with colour-coded clusters. The top left example shows the unmodified figure and the remaining examples simulate what such a figure might look like to people with various kinds of colour vision deficiencies. 
 
+This function calls a script that we modified from the `colorblindr` package by [Claus Wilke](https://github.com/clauswilke/colorblindr) which is available here. The function `cv2_grid` take any ggplot object and outputs a 2 x 2 grid with the original figure and examples of what the figure might look like to people with three of the most common forms of color vision deficiency. Use [these data](data/Peeples2018) and [this script](scripts/colorblindr.R) to follow along.
+
 
 
 ```r
@@ -1558,7 +1563,7 @@ cvd_grid2(g1)
 
 Fig. 6.11. Examples of different node colour and symbol schemes. Note how adding colour and size eases the identification of particular values, in particular with closely spaced points. Using transparency can similarly aid in showing multiple overlapping nodes.
 
-The version that appears in the book was compiled and labeled in Adobe Illustrator.
+The version that appears in the book was compiled and labeled in Adobe Illustrator using the output created here.
 
 
 ```r
@@ -1664,7 +1669,9 @@ Fig. 6.13. Two-mode network of ceramics and sites in the San Pedro Valley with c
 
 The version of Figure 6.13 in the Brughmans and Peeples (2022) book was originally created in NetDraw and modified to add the node pictures in Adobe Photoshop. This approach was preferred as it produced higher resolution and more consistent images than the graphics we could produce directly in R for this particular feature. It is, however, possible to use images in the place of nodes in R networks as the example below illustrates. 
 
-We have found in practice that this feature in R works best for simple icons. If you are using high resolution images or lots of color or detail in your images it works better to create an initial image format in something like R or NetDraw and then to modify the network in a graphical editing software after the fact. You can [download the data](data/Figure6_13.Rdata) to follow along.
+We have found in practice that this feature in R works best for simple icons. If you are using high resolution images or lots of color or detail in your images it works better to create an initial image format in something like R or NetDraw and then to modify the network in a graphical editing software after the fact. 
+
+In the place of the example in the book, we here demonstrate how you can use image files with R to create nodes as pictures. You can [download the data](data/Figure6_13.Rdata) to follow along. This .RData file also includes the images used here in R format and the code used to read in .png images is shown below but commented out.
 
 
 ```r
@@ -1676,6 +1683,7 @@ load("data/Figure6_13.Rdata")
 # img.1 <- readPNG("images/site.png")
 #img.2 <- readPNG("images/pot.png")
 
+# Set Vector property to images by mode
 V(two_mode_net)$raster <- list(img.1, img.2)[V(two_mode_net)$type + 1]
 
 set.seed(34673)
@@ -1692,11 +1700,49 @@ plot(
 
 <img src="05-visualization_files/figure-html/Fig6_13-1.png" width="672" />
 
+If you want to use images in a one mode network you can follow the sample below using [these data](data/Cibola_adj.csv). Note that in the line with `V(Cibola_i)$raster` you can either assign a single image or an image for each node in the network.
+
+
+```r
+library(png)
+library(igraph)
+
+Cibola <-
+  read.csv(file = "data/Cibola_adj.csv",
+           header = TRUE,
+           row.names = 1)
+
+# Create network in igraph format
+Cibola_i <- igraph::graph_from_adjacency_matrix(as.matrix(Cibola),
+                                                mode = "undirected")
+# Set Vector property to images using a list with a length
+# determined by the number of nodes in the network
+V(Cibola_i)$raster <- list(img.2, img.1, img.2, img.2, img.1,
+                           img.2, img.2, img.2, img.1, img.1,
+                           img.1, img.2, img.2, img.2, img.1,
+                           img.1, img.2, img.1, img.1, img.1,
+                           img.1, img.1, img.2, img.1, img.2,
+                           img.1, img.2, img.2, img.2, img.2,
+                           img.1)
+
+set.seed(34673)
+plot(
+  Cibola_i,
+  vertex.shape = "raster",
+  vertex.label = NA,
+  vertex.size = 16,
+  vertex.size2 = 16,
+  edge.color = "red"
+)
+```
+
+<img src="05-visualization_files/figure-html/Fig6_13b-1.png" width="672" />
+
 ### Figure 6.14: Edge Thickness and Color {- #Figure_6_14}
 
 Fig. 6.14. A random weighted graph where edge line thickness and color are both used to indicate weight in 5 categories. 
 
-You can [download the data and images](data/Figure6_14.Rdata) to follow along.
+You can [download the data](data/Figure6_14.Rdata) to follow along.
 
 
 ```r
@@ -1726,7 +1772,7 @@ ggraph(g.net, layout = "fr") +
 
 Fig. 6.15. Two methods of displaying directed ties using arrows (left) and arcs (right). Both of these simple networks represent the same relationships shown in the adjacency matrix in the centre.
 
-See the tutorial above for more details on using arrows in ggraph.
+See the tutorial on [edges](#EdgeOptions) above for more details on using arrows in `ggraph`.
 
 
 ```r
@@ -1784,7 +1830,7 @@ plot(
 
 Fig. 6.16. These networks all show the same data based on similarity scores among sites in the U.S. Southwest (ca. AD 1350–1400) but each has a different cutoff for binarization.
 
-The following chunk of code uses [ceramic similarity data from the SWSN database](data/Figure6_16.Rdata) and defines three different cutoff thresholds for defining edges.
+The following chunk of code uses [ceramic similarity data from the SWSN database](data/Figure6_16.Rdata) and defines three different cutoff thresholds for defining edges. Note the only difference is the `thresh` argument in the `event2dichot` function.
 
 
 ```r
@@ -1847,7 +1893,14 @@ ggarrange(g0.50, g0.75, g0.90, nrow = 1, ncol = 3)
 
 Fig. 6.17. Network map of ceramic similarity from the U.S. Southwest/Mexican Northwest ca. AD 1350–1400 based on the hammer bundling algorithm. 
 
-This function relies on the `edgebundle` package to combine sets of nodes with similar relations into single paths. This package also requires that you install the `reticulate` package which connects R to Python 3.7 and you must also have Python installed on your computer with the datashader libraries. To install an instance of Python with all of the required libraries you can use the following call: `install_bundle_py(method = "auto", conda = "auto")`. Note that this will require about 1.4 GB of disk space. [Use these data](data/Figure6_17.Rdata) to follow along. Note that this procedure can take several seconds to a few minutes depending on the speed of your computer. Note that this figure will look somewhat different from the one in the book as the locations of sites have been jittered for data security
+This function relies on the `edgebundle` package to combine sets of nodes with similar relations into single paths. This package also requires that you install the `reticulate` package which connects R to Python 3.7 and you must also have Python installed on your computer with the `datashader` Python libraries. To install an instance of Python with all of the required libraries you can use the following call: 
+
+
+```r
+edgebundle::install_bundle_py(method = "auto", conda = "auto")
+```
+
+Note that this will require about 1.4 GB of disk space so make sure you have adequate space before beginning. [Use these data](data/Figure6_17.Rdata) to follow along. Note that this procedure can take several seconds to a few minutes depending on the speed of your computer. Note that this figure will look somewhat different from the one in the book as the locations of sites have been jittered for data security
 
 
 ```r
@@ -2082,7 +2135,7 @@ figure6_21
 
 Fig. 6.22. Examples of simultaneous display of two consecutive intervals for the San Pedro valley ceramic similarity network. (a) A network using the Kamada-Kawai algorithm with edges colour-coded based on time period. (b) An arc plot showing ties in consecutive intervals above and below the line.
 
-[Use these data](data/Figure6_22.Rdata) to follow along.
+[Use these data](data/Figure6_22.Rdata) to follow along. Note in the first plot we add the `colour` argument to the `aes()` statement to include our period designation.
 
 
 ```r
@@ -2133,20 +2186,20 @@ lin.net <- ggraph(SPgraph, layout="linear") +
 similt.net
 ```
 
-<img src="05-visualization_files/figure-html/unnamed-chunk-3-1.png" width="672" />
+<img src="05-visualization_files/figure-html/unnamed-chunk-4-1.png" width="672" />
 
 ```r
 
 lin.net
 ```
 
-<img src="05-visualization_files/figure-html/unnamed-chunk-3-2.png" width="672" />
+<img src="05-visualization_files/figure-html/unnamed-chunk-4-2.png" width="672" />
 
 ### Figure 6:23: Timelines and Time Prisms {- #Figure_6_23}
 
 Fig. 6.23. This plot shows two displays of the same ceramic similarity data from the Sonoran Desert in the U.S. Southwest as a time prism (top) and timeline (bottom).
 
-These examples were drawn from work outline on a workshop focsued on temporal networks by Skye Bender-deMoll. [Click here](https://statnet.org/Workshops/ndtv_workshop.html) to see the detailed workshop overview.
+These examples were drawn from work outline on a workshop focused on temporal networks by Skye Bender-deMoll. [Click here](https://statnet.org/Workshops/ndtv_workshop.html) to see the detailed workshop overview. Note that the data required is a list object that contains multiple temporal slices of the same network in `network` format from the `statnet` suite of packages. Each network must have the same number of nodes and the same node identifiers must be used in every network in the list.
 
 [Use these data](data/Figure6_23.Rdata) to follow along.
 
@@ -2245,7 +2298,7 @@ proximity.timeline(
 
 Fig. 6.24. An example of three frames from a network animation. 
 
-Figure 6.24 was created using the `ndtv` package and the same data produced above for figure 6.23. We simply rendered the animation as above and then output to an interactive html widget. The figure in the book represents 3 screen shots from the video. See the `ndtv` documentation for more details.
+Figure 6.24 was created using the `ndtv` package and the same data produced above for figure 6.23. We simply rendered the animation as above and then output to an interactive html widget. The figure in the book represents 3 screen shots from the interactive plot. See the `ndtv` documentation for more details.
 
 
 ```r
@@ -10952,21 +11005,24 @@ links[, 2] <- links[, 2] + 1
 nodes <- graph_d3$nodes
 colnames(nodes)[1] <- 'id'
 
+# Create node and link objects in d3 format
 vis.nodes <- nodes
 vis.links <- links
 
+# Set visualization options
 vis.nodes$shape  <- "dot"
 vis.nodes$shadow <- TRUE # Nodes will drop shadow
 vis.nodes$borderWidth <- 2 # Node border width
-
 vis.nodes$color.background <- c("slategrey", "tomato", "gold",
                                 "purple")[nodes$group]
 vis.nodes$color.border <- "black"
 vis.nodes$color.highlight.background <- "orange"
 vis.nodes$color.highlight.border <- "darkred"
 
+# Create network in d3 format
 visnet <- visNetwork(vis.nodes, vis.links)
 
+# View network with visualization options active
 visOptions(visnet, highlightNearest = TRUE, selectedBy = "group")
 ```
 
@@ -10975,7 +11031,7 @@ visOptions(visnet, highlightNearest = TRUE, selectedBy = "group")
 <script type="application/json" data-for="htmlwidget-3a832cdad18925e43dde">{"x":{"nodes":{"id":["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"],"group":[1,2,2,1,2,1,1,3,2,3,1,1,1,2,2,1,2,2,2,3,2,1,2,2,1,2,1,1,1,4,2],"shape":["dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot"],"shadow":[true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true],"borderWidth":[2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],"color.background":["slategrey","tomato","tomato","slategrey","tomato","slategrey","slategrey","gold","tomato","gold","slategrey","slategrey","slategrey","tomato","tomato","slategrey","tomato","tomato","tomato","gold","tomato","slategrey","tomato","tomato","slategrey","tomato","slategrey","slategrey","slategrey","purple","tomato"],"color.border":["black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black","black"],"color.highlight.background":["orange","orange","orange","orange","orange","orange","orange","orange","orange","orange","orange","orange","orange","orange","orange","orange","orange","orange","orange","orange","orange","orange","orange","orange","orange","orange","orange","orange","orange","orange","orange"],"color.highlight.border":["darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred","darkred"],"label":["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"]},"edges":{"from":[1,2,1,4,4,6,7,8,5,9,5,7,4,8,1,4,6,6,10,11,1,8,4,12,6,10,11,4,1,7,10,9,5,2,14,9,5,10,11,1,8,6,7,12,13,10,5,14,15,9,2,9,15,14,10,5,17,8,2,3,5,9,15,14,18,17,8,14,10,9,5,15,18,19,9,2,17,12,6,1,16,10,8,13,4,11,5,21,9,19,18,10,2,8,15,17,14,19,21,23,17,18,10,15,9,5,2,6,11,12,1,13,22,4,21,10,14,24,19,5,2,8,9,23,17,18,15,10,12,16,1,7,6,22,11,25,4,13,10,11,12,27,6,13,7,22,25,1,16,4,8,28,11,1,13,16,27,19,15,14,24,9,23,26,17,5,20],"to":[4,5,6,6,8,8,8,9,9,10,10,10,10,10,11,11,11,12,12,12,12,12,12,13,13,13,13,13,13,13,14,14,14,15,15,15,15,16,16,16,16,16,16,16,16,17,17,17,17,17,17,18,18,18,18,18,18,18,18,18,19,19,19,19,19,19,20,20,20,20,21,21,21,21,21,21,21,22,22,22,22,22,22,22,22,22,23,23,23,23,23,23,23,23,23,23,24,24,24,24,24,24,24,24,24,24,24,25,25,25,25,25,25,25,26,26,26,26,26,26,26,26,26,26,26,26,26,27,27,27,27,27,27,27,27,27,27,27,28,28,28,28,28,28,28,28,28,28,28,28,28,29,29,29,29,29,29,31,31,31,31,31,31,31,31,31,31]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot"},"manipulation":{"enabled":false}},"groups":["1","2","3","4"],"width":null,"height":null,"idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":true,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false,"variable":"group","main":"Select by group","values":[1,2,3,4]},"main":null,"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":true,"hoverNearest":false,"degree":1,"algorithm":"all","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":false,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"}},"evals":[],"jsHooks":[]}</script>
 ```
 
-### Figure 6.26: SWSN Example 1{- Figure_6_26}
+### Figure 6.26: SWSN Example 1{- #Figure_6_26}
 
 Fig. 6.26. Networks by time for the SWSN project area (from Mills et al. 2013).
 
@@ -11015,21 +11071,23 @@ ggraph(net, layout = "fr") +
   theme_graph()
 ```
 
-<img src="05-visualization_files/figure-html/unnamed-chunk-4-1.png" width="672" />
+<img src="05-visualization_files/figure-html/unnamed-chunk-5-1.png" width="672" />
 
-### Figure 6.27: SWSN Example 2{- Figure_6_27}
+### Figure 6.27: SWSN Example 2{- #Figure_6_27}
 
 Fig. 6.27. An explicit geographic map network of the SWSN project area through time (Mills et al. 2013).
 
-The original version of this figure was produced in ArcGIS using data prepared in R. Here we show how these same network maps with edges color coded by geogrpahic length can be produced in R. We provide code to prepare a map for one time period (AD1300-1350). [Use these data](data/Figure6_27.Rdata) to follow along. Note that this figure will differ slightly from the one in the book and in the original Mills et al. 2013 publication as site locations have been jittered. 
+The original version of this figure was produced in ArcGIS using data prepared in R. Here we show how these same network maps with edges color coded by geographic length can be produced in R. We provide code to prepare a map for one time period (AD1300-1350). [Use these data](data/Figure6_27.Rdata) to follow along. Note that this figure will differ slightly from the one in the book and in the original Mills et al. 2013 publication as site locations have been jittered. In this example we use geographic coordinates to calculate distance. See the [spatial networks](#SpatialNetworks) section for more details.
 
 
 ```r
 library(statnet)
 library(igraph)
 library(intergraph)
+library(geosphere)
 library(ggmap)
 library(sf)
+library(tidyverse)
 
 # Load in network and map data
 load("data/Figure6_27.Rdata")
@@ -11056,12 +11114,12 @@ edgelist2 <- get.edgelist(r.net)
 edges2 <- data.frame(xy[edgelist2[, 1], ], xy[edgelist2[, 2], ])
 colnames(edges2) <- c("X1", "Y1", "X2", "Y2")
 
-# Determine the geographic distances of edges
+# Determine the geographic distances of edges using the distm
+# function in the geosphere package
 dist.meas <- NULL
 for (i in 1:nrow(edges2)) {
   temp <- as.matrix(edges2[i, ])
-  dist.meas[i] <- as.numeric(dist(rbind(temp[1, 1:2],
-                                        temp[1, 3:4]))) / 0.009
+  dist.meas[i] <- distm(temp[1, 1:2],temp[1, 3:4])
 }
 
 # Order edges so shorest will plot last
@@ -11070,17 +11128,10 @@ net.dat <- net.dat[order(net.dat$dist.meas, decreasing = T), ]
 
 # Create bins in distance measurement
 net.dat <- net.dat %>% mutate(
-    DistBins = cut(dist.meas, breaks = c(-Inf, 25, 100, 250, Inf)))
+    DistBins = cut(dist.meas, breaks = c(-Inf, 25000, 100000, 250000, Inf)))
 
 # Plot network map
 ggmap(base2, darken = 0.5) +
-  geom_polygon(
-    data = map3,
-    aes(x, y, group = Group.1),
-    col = "black",
-    size = 0.5,
-    fill = NA
-  ) +
   geom_segment(
     data = net.dat,
     aes(
@@ -11098,5 +11149,5 @@ ggmap(base2, darken = 0.5) +
   theme_graph()
 ```
 
-<img src="05-visualization_files/figure-html/unnamed-chunk-5-1.png" width="672" />
+<img src="05-visualization_files/figure-html/unnamed-chunk-6-1.png" width="672" />
 

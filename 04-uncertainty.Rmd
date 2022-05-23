@@ -1,8 +1,29 @@
 # Quantifying Uncertainty{#Uncertainty}
 
-In almost any archaeological network study, the networks we create are incomplete (i.e., we know that we are missing nodes or edges for various reasons; site destruction, lack of survey coverage, looting, etc.). How might the fact that our networks are samples of a larger and typically unobtainable “total network” influence our interpretations of network structure and node position? In this section, we take inspiration from recent research in other areas of network research (Borgatti et al. 2006; Costenbader and Valente 2003; Smith and Moody 2013; Smith et al. 2017; Smith et al. 2022) and develop a means for assessing the impact of missing and poor quality information. This accompanies Chapter 5 of Brughmans and Peeples (2022) and we recommend that you read Chapter 5 as you work through the examples below. 
+In almost any archaeological network study, the networks we create are incomplete (i.e., we know that we are missing nodes or edges for various reasons: site destruction, lack of survey coverage, looting, etc.). How might the fact that our networks are samples of a larger and typically unobtainable “total network” influence our interpretations of network structure and node position? In this section, we take inspiration from recent research in other areas of network research (Borgatti et al. 2006; Costenbader and Valente 2003; Smith and Moody 2013; Smith et al. 2017; Smith et al. 2022) and develop a means for assessing the impact of missing and poor quality information in our networks. This accompanies Chapter 5 of Brughmans and Peeples (2022) and we recommend that you read Chapter 5 as you work through the examples below. 
 
 For most of the other analyses presented in the book it is possible to use a number of different network software packages to conduct similar analyses. The analyses presented in Chapter 5, however, require the creation of custom scripts and procedures that are only possible in a programming language environment like R. We attempt here to not only provide information on how to replicate the examples in the book but also provide guidance on how you might modify the functions and code provided here for your own purposes. 
+
+## R Scripts and Custom Functions{#Scripts}
+
+In this chapter, we have created a number of relatively complex custom functions to conduct the assessments of network uncertainty outlined in Chapter 5. We provide step by step overviews of how these functions work below but it is useful to bundle the functions into .R script files and call them directly from the file when working with your own data.
+
+The scripts described in detail below include:
+
+* [sim_missing_nodes.R](scripts/sim_missing_nodes.R) - Assessments of the stability of centrality metrics for networks with nodes missing at random or due to a biased sampling process.
+* [sim_missing_edges.R](scripts/sim_missing_edges.R) -Assessments of the stability of centrality metrics for networks with edges missing at random or due to a biased sampling process.
+* [sim_missing_inc.R](scripts/sim_missing_inc.R) - Assessments of the stability of centrality metrics for networks with nodes missing at random or based on biased sampling from incidence matrix data.
+* [sim_target_node.R](scripts/sim_target_node.R) - Assessments of the stability in rank order position of a target node in networks with nodes missing at random or due to a biased sampling process.
+* [sim_samp_error.R](scripts/sim_samp_error.R) - Assessments of the stability centrality metrics due to sampling error in frequency data underlying similarity networks.
+* [edge_prob.R](scripts/edge_prob.R) - Functions for conducting edge probability modeling and plotting candidate networks and centrality distributions.
+
+Each of these are described in greater detail below along with an example. To run these scripts in R, you need to put them in your working directory and then use the `source()` function. The `source` function will run all code within the .R file and initialize any functions they contain. For example:
+
+```{r, eval=F}
+source("scripts/sim_missing_nodes.R")
+```
+
+Note that you must include the correct absolute or relative file path for the script to run properly.
 
 ## A General Approach to Uncertainty
 

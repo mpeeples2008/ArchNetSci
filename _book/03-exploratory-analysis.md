@@ -1,6 +1,6 @@
 # Exploratory Network Analysis
 
-Exploratory network analysis is simply exploratory data analysis applied to network data. This covers a range of statistical and visual techniques designed to explore the structure of networks as well as the relative positions of nodes and edges. These methods can be used to look for particular structures or patterning of interest, such as the most central nodes, or to summarize and describe the structure of the network to paint a general picture of it before further analysis. This section serves as a companion to Chapter 4 in Brughmans and Peeples 2022 and provides basic examples of the exploratory network analysis methods outlined in the book as well as a few others.
+Exploratory network analysis is simply exploratory data analysis applied to network data. This covers a range of statistical and visual techniques designed to explore the structure of networks as well as the relative positions of nodes and edges. These methods can be used to look for particular structures or patterning of interest, such as the most central nodes, or to summarize and describe the structure of the network to paint a general picture of it before further analysis. This section serves as a companion to Chapter 4 in the Brughmans and Peeples book (2022) and provides basic examples of the exploratory network analysis methods outlined in the book as well as a few others.
 
 ## Example Network Objects
 
@@ -23,6 +23,8 @@ In the following chunk of code we initialize all of the packages that we will us
 # initialize packages
 library(igraph)
 library(statnet)
+#>         Installed ReposVer Built  
+#> network "1.17.1"  "1.17.2" "4.2.0"
 library(intergraph)
 library(vegan)
 
@@ -84,11 +86,11 @@ Although the calculations behind the scenes for centrality metrics, clustering a
 
 Certain network metrics require networks with specific properties and may produce unexpected results if the wrong kind of network is used. For example, closeness centrality is only well defined for binary networks that have no isolates. If you were to use the `igraph::closeness` command to calculate closeness centrality on a network with isolates, you would get results but you would also get a warning telling you "closeness centrality is not well-defined for disconnected graphs." For other functions if you provide data that does not meet the criteria required by that function you my instead get an error and have no results returned. In some cases, however, a function may simply return results and not provide any warning so it is important that you are careful when selecting methods to avoid providing data that violates assumptions of the method provided. Remember, that if you have questions about how a function works or what it requires you can type `?function_name` at the console with the function in question and you will get the help document that should provide more information. You can also include package names in the help call to ensure you get the correct function (i.e., `?igraph::degree`)
 
-## Centrality
+## Centrality{#Centrality}
 
 One of the most common kinds of exploratory network analysis involves calculating basic network centrality and centralization statistics. There are a wide array of methods available in R through the `igraph` and `statnet` packages. In this section we highlight a few examples as well as a few caveats to keep in mind.
 
-### Degree Centrality
+### Degree Centrality{#Degree}
 
 Degree centrality can be calculated using the `igraph::degree` function for simple networks with or without isolates as well as simple directed networks. This method is not, however, appropriate for weighted networks or similarity networks (because it expects binary values). If you apply the `igraph::degree` function to a weighted network object you will simply get the binary network degree centrality values. The alternative for calculating weighted degree for weighted and similarity networks is to simply calculate the row sums of the underlying similarity matrix (minus 1 to account for self loops) or adjacency matrix. For the degree function the returned output is a vector of values representing degree centrality which can further be assigned to an R object, plotted, or otherwise used. We provide a few examples here to illustrate. Note that for directed graphs you can also specify the mode as `in` for indegree or `out` for outdegree or `all` for the sum of both.
 
@@ -189,7 +191,7 @@ edge_density(weighted_net)
 #> [1] 0.383908
 ```
 
-### Betweenness Centrality
+### Betweenness Centrality{#Betweenness}
 
 The betweenness functions work very much like the degree function calls above. Betweenness centrality in `igraph` can be calculated for simple networks with and without isolates, directed networks, and weighted networks. In the case of weighted networks or similarity networks, the shortest paths between sets of nodes are calculated such that the path of greatest weight is taken at each juncture. You can normalize your results by using `normalize = TRUE` just like you could for degree. The `igraph::betweenness` function will automatically detect if a graph is directed or weighted and use the appropriate method but you can also specify a particular edge attribute to use for weight if you perhaps have more than one weighting scheme.
 
@@ -233,7 +235,7 @@ centr_betw(simple_net)
 #> [1] 13050
 ```
 
-### Eigenvector Centrality
+### Eigenvector Centrality{#Eigenvector}
 
 The `igraph::eigen_centrality` function can be calculated for simple networks with and without isolates, directed networks, and weighted networks. By default scores are scaled such that the maximum score of 1. You can turn this scaling of by using the `scale = FALSE` argument. This function automatically detects whether a network object is directed or weighted but you can also call edge attributes to specify a particular weight attribute. By default this function outputs many other features of the analysis such as the number of steps toward convergence and the number of iterations but if you just want the centrality results you can use the atomic vector call to \$vector.
 
@@ -258,7 +260,7 @@ eigen_centrality(
 #>      0.05355994      0.10123595
 ```
 
-### Page Rank Centrality
+### Page Rank Centrality{#PageRank}
 
 The `igraph::page_rank` function can be calculated for simple networks with and without isolates, directed networks, and weighted networks. By default scores are scaled such that the maximum score is 1. You can turn this scaling off by using the `scale = FALSE` argument. This function automatically detects whether a network object is directed or weighted but you can also call edge attributes to specify a particular weight attribute. You can change the algorithm used to implement the page rank algorithm (see help for details) and can also change the damping factor if desired.
 
@@ -283,7 +285,7 @@ page_rank(
 #>      0.02610001      0.03551477
 ```
 
-### Closeness Centrality
+### Closeness Centrality {#Closeness}
 
 The `igraph::closeness` function calculates closeness centrality and can be calculated for directed and undirected simple or weighted networks with no isolates. This function can also be used for networks with isolates, but you will receive an additional message suggesting that closeness is undefined for networks that are not fully connected. For very large networks you can use the `igraph::estimate_closeness` function with a cutoff setting that will consider paths of length up to cutoff to calculate closeness scores. For directed networks you can also specify whether connections in, out, or in both directions should be used.
 
@@ -314,7 +316,7 @@ igraph::closeness(directed_net, mode = "in")[1:5]
 #>      0.04347826      0.09090909
 ```
 
-### Hubs and Authorities
+### Hubs and Authorities {#HubsAndAuthorities}
 
 In directed networks it is possible to calculate hub and authority scores to identify nodes that are characterized by high indegree and high outdegree in particular. Because this is a measure that depends on direction it is only appropriate for directed network objects. If you run this function for an undirected network hub scores and authority scores will be identical. These functions can also be applied networks that are both directed and weighted. If you do not want all options printed you can use the atomic vector \$vector call as well.
 
@@ -333,7 +335,7 @@ igraph::authority_score(directed_net)$vector[1:5]
 #>      0.35970234      0.25265287
 ```
 
-## Triads and clustering
+## Triads and clustering{#Triads}
 
 Another important topic in network science concerns considerations of the overall structure and clustering of connections across a network as a whole. There are a variety of methods which have been developed to characterize the overall degree of clustering and closure in networks, many of which are based on counting triads of various configurations. In this section, we briefly outline approaches toward evaluating triads, transitivity, and clustering in R.
 
@@ -412,7 +414,7 @@ ggarrange(
 
 <img src="03-exploratory-analysis_files/figure-html/unnamed-chunk-10-1.png" width="576" />
 
-### Transitivity and Clustering
+### Transitivity and Clustering{#Transitivity}
 
 A network's global average transitivity (or clustering coefficient) is three times the number of closed triads over the total number of triads in a network. This measure can be calculated using `igraph::transitivity` for simple networks with or without isolates, directed networks, and weighted networks. There are options within the function to determine the specific type of transitivity (global transitivity is the default) and for how to treat isolates. See the help document (`?igraph::transitivity`) for more details. If you want to calculate local transitivity for a particular node you can use the `type = "local"` argument. This will return a `NA` value for nodes that are not part of any triads (isolates and nodes with a single connection).
 
@@ -431,11 +433,11 @@ igraph::transitivity(simple_net, type = "local")
 #> [31] 0.8222222
 ```
 
-## Walks, Paths, and Distance
+## Walks, Paths, and Distance{#WalksPathsDistance}
 
 There are a variety of network metrics which rely on distance and paths across networks that can be calculated in R. There are a great many functions available and we highlight just a few here.
 
-### Distance
+### Distance{#Distance}
 
 In some cases, you may simply want information about the graph distance between nodes in general or perhaps the average distance. There are a variety of functions that can help with this including `igraph::distances` and `igraph::mean_distance`. These work on simple networks, directed networks, and weighted networks.
 
@@ -455,7 +457,7 @@ igraph::mean_distance(simple_net)
 #> [1] 1.949425
 ```
 
-### Shortest Paths
+### Shortest Paths{#ShortestPaths}
 
 If you want to identify particular shortest paths to or from nodes in a network you can use the `igraph::shortest_paths` function or alternatively the `igraph::all_shortest_paths` if you want all shortest paths originating at a particular node. To call this function you simply need to provide a network object and an id for the origin and destination of the path. The simplest solution is just to call the node number. This function works with directed and undirected networks with or without weights. Although it can be applied to networks with isolates, the isolates themselves will produce `NA` results.
 
@@ -465,7 +467,7 @@ If you want to identify particular shortest paths to or from nodes in a network 
 igraph::shortest_paths(simple_net, from = 1, to = 21)
 #> $vpath
 #> $vpath[[1]]
-#> + 5/31 vertices, named, from ca6fbc1:
+#> + 5/31 vertices, named, from b68e1b9:
 #> [1] Apache.Creek          Casa.Malpais         
 #> [3] Garcia.Ranch          Heshotauthla         
 #> [5] Pueblo.de.los.Muertos
@@ -483,7 +485,7 @@ igraph::shortest_paths(simple_net, from = 1, to = 21)
 
 The output provides the ids for all nodes crossed in the path from origin to destination.
 
-### Diameter
+### Diameter{#Diameter}
 
 The `igraph::diameter` function calculates the diameter of a network (the longest shortest path) and you can also use the `farthest_vertices` function to get the ids of the nodes that form the ends of that longest shortest path. This metric can be calculated for directed and undirected, weighted and unweighted networks, with or without isolates.
 
@@ -494,14 +496,14 @@ igraph::diameter(directed_net, directed = TRUE)
 
 igraph::farthest_vertices(directed_net, directed = TRUE)
 #> $vertices
-#> + 2/30 vertices, named, from ca70b73:
+#> + 2/30 vertices, named, from b68f10b:
 #> [1] Apache Creek          Pueblo de los Muertos
 #> 
 #> $distance
 #> [1] 4
 ```
 
-## Components and Bridges
+## Components and Bridges{#Components}
 
 Identifying fully connected subgraphs within a large network is a common analytical procedure and is quite straight forward in R using the igraph package. If you first want to know whether or not a given network is fully connected you can use the `igraph::is_connected` function to check.
 
@@ -532,9 +534,9 @@ components <- igraph::decompose(simple_net, min.vertices = 1)
 
 components
 #> [[1]]
-#> IGRAPH cca5894 UN-- 30 167 -- 
+#> IGRAPH b8caf9d UN-- 30 167 -- 
 #> + attr: name (v/c)
-#> + edges from cca5894 (vertex names):
+#> + edges from b8caf9d (vertex names):
 #>  [1] Apache.Creek--Casa.Malpais        
 #>  [2] Apache.Creek--Coyote.Creek        
 #>  [3] Apache.Creek--Hooper.Ranch        
@@ -546,9 +548,9 @@ components
 #> + ... omitted several edges
 #> 
 #> [[2]]
-#> IGRAPH cca58bc UN-- 1 0 -- 
+#> IGRAPH b8cafc3 UN-- 1 0 -- 
 #> + attr: name (v/c)
-#> + edges from cca58bc (vertex names):
+#> + edges from b8cafc3 (vertex names):
 
 V(components[[2]])$name
 #> [1] "WS.Ranch"
@@ -556,7 +558,7 @@ V(components[[2]])$name
 
 In the example here this network is fully connected with the exception of 1 node (WS Ranch). When you run the decompose function it separates WS ranch into a component as an isolate with no edges.
 
-### Cutpoints
+### Cutpoints{#Cutpoints}
 
 A cutpoint is a node, the removal which creates a network with a higher number of components. There is not a convenient igraph function for identifying cutpoints but there is a function in the `sna` package within the `statnet` suite. Using the `intergraph` package we can easily convert an `igraph` object to an `sna` object (using the `asNetwork` function) within the call to use this function.
 
@@ -579,7 +581,7 @@ plot(simple_net)
 
 The example here reveals that Ojo Bonito is a cutpoint and if we look at the figure we can see that it is the sole connection with Baca Pueblo which would otherwise become and isolate and distinct component if Ojo Bonito were removed.
 
-### Bridges
+### Bridges{#Bridges}
 
 A bridge is an edge, the removal of which results in a network with a higher number of components. The function igraph::min_cut finds bridges in network objects for sets of nodes or for the graph as a whole. The output of this function includes a vector called \$cut which provides the edges representing bridges. By default this function only outputs the cut value but you can use the argument `value.only = FALSE` to get the full output.
 
@@ -590,15 +592,15 @@ min_cut(simple_net_noiso, value.only = FALSE)
 #> [1] 1
 #> 
 #> $cut
-#> + 1/167 edge from ca7020b (vertex names):
+#> + 1/167 edge from b68e7a3 (vertex names):
 #> [1] Ojo Bonito--Baca Pueblo
 #> 
 #> $partition1
-#> + 1/30 vertex, named, from ca7020b:
+#> + 1/30 vertex, named, from b68e7a3:
 #> [1] Baca Pueblo
 #> 
 #> $partition2
-#> + 29/30 vertices, named, from ca7020b:
+#> + 29/30 vertices, named, from b68e7a3:
 #>  [1] Apache Creek          Casa Malpais         
 #>  [3] Coyote Creek          Hooper Ranch         
 #>  [5] Horse Camp Mill       Hubble Corner        
@@ -614,18 +616,18 @@ min_cut(simple_net_noiso, value.only = FALSE)
 
 As this example illustrates the edge between Ojo Bonito and Baca Pueblo is a bridge (perhaps not surprising as Ojo Bonito was a cut point).
 
-## Cliques and Communities
+## Cliques and Communities{#CliquesAndCommunities}
 
 Another very common task in network analysis involves creating cohesive sub-groups of nodes in a larger network. There are wide variety of methods available for defining such groups and we highlight a few of the most common here.
 
-### Cliques
+### Cliques{#Cliques}
 
 A clique as a network science concept is arguably the strictest method of defining a cohesive subgroup. It is any set of three or more nodes in which each node is directly connected to all other nodes. It can be alternatively defined as a completely connected subnetwork, or a subnetwork with maximum density. The function `igraph::max_cliques` finds all maximal cliques in a network and outputs a list object with nodes in each set indicated. For the sake of space here we only output one clique of the 24 that were defined by this function call.
 
 
 ```r
 max_cliques(simple_net, min = 1)[[24]]
-#> + 9/31 vertices, named, from ca6fbc1:
+#> + 9/31 vertices, named, from b68e1b9:
 #> [1] Los.Gigantes    Cienega         Tinaja         
 #> [4] Spier.170       Scribe.S        Pescado.Cluster
 #> [7] Mirabal         Heshotauthla    Yellowhouse
@@ -633,7 +635,7 @@ max_cliques(simple_net, min = 1)[[24]]
 
 Note in this list that the same node can appear in more than one maximal clique.
 
-### K-cores
+### K-cores{#KCores}
 
 A k-core is a maximal subnetwork in which each vertex has at least degree k within the subnetwork. In R this can be obtained using the `igraph::coreness` function and the filtering by value as appropriate. This function creates a vector of k values which can then be used to remove nodes as appropriate or symbolize them in plots.
 
@@ -657,11 +659,11 @@ plot(simple_net, vertex.color = col_set[kcore])
 
 In the plot shown here the darker read colors represent higher maximal k-core values.
 
-### Cluster Detection Algorithms
+### Cluster Detection Algorithms{#ClusterDetection}
 
 R allows you to use a variety of common cluster detection algorithms to define groups of nodes in a network using a variety of different assumptions. We highlight a few of the most common here.
 
-#### Girvan-Newman Clustering
+#### Girvan-Newman Clustering{#GirvanNewman}
 
 Girvan-Newman clustering is a divisive algorithm based on betweenness that defines a partition of network that maximizes modularity by removing nodes with high betweenness iteratively (see discussion in Brughmans and Peeples 2022 Chapter 4.6). In R this is referred to as the `igraph::edge.betweenness.community` function. This function can be used on directed or undirected networks with or without edge weights. This function outputs a variety of information including individual edge betweenness scores, modularity information, and partition membership. See the help documents for more information
 
@@ -674,7 +676,7 @@ plot(simple_net, vertex.color = GN$membership)
 
 <img src="03-exploratory-analysis_files/figure-html/unnamed-chunk-22-1.png" width="672" />
 
-#### Walktrap Algorithm
+#### Walktrap Algorithm{#Walktrap}
 
 The walktrap algorithm is designed to work for either binary or weighted networks and defines communities by generating a large number of short random walks and determining which sets of nodes consistently fall along the same short random walks. This can called using the `igraph::cluster_walktrap` function. The "steps" argument determines the length of the short walks and is set to 4 by default.
 
@@ -687,7 +689,7 @@ plot(simple_net, vertex.color = WT$membership)
 
 <img src="03-exploratory-analysis_files/figure-html/unnamed-chunk-23-1.png" width="672" />
 
-#### Louvain Modularity
+#### Louvain Modularity{#Louvain}
 
 Louvain modularity is a cluster detection algorithm based on modularity. The algorithm iteratively moves nodes among community definitions in a way that optimizes modularity. This measure can be calculated on simple networks, directed networks, and weighted networks and is implemented in R through the `igraph::cluster_louvain` function.
 
@@ -700,7 +702,7 @@ plot(simple_net, vertex.color = LV$membership)
 
 <img src="03-exploratory-analysis_files/figure-html/unnamed-chunk-24-1.png" width="672" />
 
-#### Calculating Modularity for Partitions
+#### Calculating Modularity for Partitions{#Modularity}
 
 If you would like to compare modularity scores among partitions of the same graph, this can be achieved using the `igraph::modularity` function. In the modularity call you simply supply an argument indicating the partition membership for each node. Note that this can also be used for attribute data such as regional designations. In the following chunk of code we will compare modularity for each of the clustering methods described above as well using subregion designations [from the original Cibola region attribute data](data/Cibola_attr.csv)
 
@@ -757,7 +759,7 @@ plot(LV, simple_net)
 
 <img src="03-exploratory-analysis_files/figure-html/unnamed-chunk-27-1.png" width="672" />
 
-## Case Study
+## Case Study: Roman Roads
 
 In the case study provided at the end of Chapter 4 of Brughmans and Peeples (2022) we take a simple network based on [Roman era roads](#RomanRoads) and spatial proximity of settlements in the Iberian Peninsula and calculate some basic exploratory network statistics. As described in the book, we can create different definitions and criteria for network edges and these can have impacts on the network and node level properties. In this case, we define three different networks as follows:
 
@@ -765,7 +767,7 @@ In the case study provided at the end of Chapter 4 of Brughmans and Peeples (202
 * `road_net2` - A network that retains all of the ties of the above network but also connects isolated nodes that are within 50 Kms of one of the road network settlements
 * `road_net3` - A network that retains all of the ties of the first road network but connects each isolate to its nearest neighbor among the road network settlements
 
-First let's read in the [data file](data/road_networks.RData) that contains all three networks and start by plotting them in turn on a map. We are using a custom network map function here that is save in a file called [map_net.R](scripts/map_net.R) that takes locations with decimal degrees locations and plots a network directly on a map. We will go over the specifics of the function in more detail in the [Network Visualization](#Visualization) section but here we simply call the script directly from the .R file. Make sure you have the libraries initialized below to replicate this map.
+First let's read in the [data file](data/road_networks.RData) that contains all three networks and start by plotting them in turn on a map. We are using a custom network map function here that is save in a file called [map_net.R](scripts/map_net.R) that takes locations with decimal degrees locations and plots a network directly on a map. We will go over the specifics of the function in more detail in the [Network Visualization](#Visualization) and [Spatial Networks](#SpatialNetworks) sections but here we simply call the script directly from the .R file. Make sure you have the libraries initialized below to replicate this map.
 
 
 ```r

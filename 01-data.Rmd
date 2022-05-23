@@ -1,6 +1,6 @@
-# Data and Workspace Setup
+# Data and Workspace Setup{#DataWorkspaceSetup}
 
-This section provides downloadable files for the network datasets used in this online companion and in the book as well as information on the primary R packages used for analysis and visualization throughout this tutorial. We also provide very brief instructions for importing these data into R using R-studio and some guidance on setting up your R-studio working environment. For additional guidance see the resources provided in the introduction. 
+This section provides downloadable files for the network datasets used in this online companion and in the book as well as information on the primary R packages used for analysis and visualization throughout this tutorial. We also provide very brief instructions for importing these data into R using R-studio and some guidance on setting up your R-studio working environment. For additional guidance see [Getting Started in R](#GettingStarted). 
 
 ## Datasets{#Datasets}
 
@@ -25,6 +25,15 @@ Our primary source for roads of the entire Roman world is the Barrington Atlas o
 * [Hispania_nodes](data/Hispania_nodes.csv) - NodeIDs and names for Roman era settlements in the Iberian Peninsula along with names and latitude and longitude locations in decimal degrees.
 * [Hispania_roads](data/Hispania_roads.csv) - Edge list of road connections using NodeIDs from Hispania_nodes file. This file contains a "weight" variable defined for each edge which denotes the length of the road segment.
 
+The [Stanford ORBIS project](https://orbis.stanford.edu/) provide additional data from across the Roman World including settlements, roads, and characterizations of travel time. Some of these data have been wrapped into a convenient R compendium by [Sebastian Heath](https://github.com/sfsheath) and the data are available on GitHub here:
+
+```{r, eval=F}
+if (!require("devtools")) install.packages("devtools")
+devtools::install_github("sfsheath/cawd")
+```
+
+![Datasets used for our case studies on the road networks of (a) the Roman Empire as a whole (source: Ancient World Mapping Centre 2012), and (b) a highly-detailed representation of the Roman road network on the Iberian Peninsula (de Soto and Carreras 2021).](images/Fig.2.4.png){width=100%}
+
 ### Southwest Social Networks Project Ceramic Similarity Networks{#SWSN}
 
 The Southwest Social Networks (SWSN) Project (and subsequent [cyberSW](https://cybersw.org) project) is a large collaborative effort focused on exploring methods and models for network analysis of archaeological data to better understand patterns of interaction, population movement, and demographic change across the U.S. Southwest and Mexican Northwest through time (ca. A.D. 800-1800; Borck et al. 2015; Giomi et al. 2021; Mills et al. 2013a; 2013b; 2015; 2018; Peeples and Haas 2013; Peeples et al. 2016; Peeples and Roberts 2013). During the interval considered by this project the region was inhabited largely by sedentary agricultural populations (though more mobile populations were also present throughout this period) with communities as large as several thousand people at the peak. The region is blessed with excellent archaeological preservation, a fine grained chronology anchored by dendrochronological dates, and nearly 150 years of focused archaeological research. 
@@ -40,7 +49,9 @@ In these networks, individual settlements are treated as nodes and edges are def
 * [The Chaco World Attribute Data AD 1050-1100](data/AD1050attr.csv) - Attribute data for sites with Chacoan architectural features dating between AD 1050 and 1100 including site IDs, site names, site sub-regions, counts of different kinds of public architectural features, and jittered easting and northing site locations. 
 * [The Chaco World Ceramic Data AD 1050-1100](data/AD1050cer.csv) - Ceramic count data by ware for sites with Chacoan architectural features dating between AD 1050 and 1100.
 * [The Chaco World Network AD 1050-1100](data/AD1050net.csv) - Adjacency matrix of binarized network of ceramic similarity for sites with Chacoan architectural features dating between AD 1050 and 1100.
-* [San Pedro Networks throgh Time](data/Figure6_20.Rdata) - An .RData file that contains igraph network objects for the San Pedro region ceramic similarity networks for AD1250-1300, AD1300-1350, and AD1350-1400.
+* [San Pedro Networks throgh Time](data/Figure6_20.Rdata) - An .RData file that contains `igraph` network objects for the San Pedro region ceramic similarity networks for AD1250-1300, AD1300-1350, and AD1350-1400.
+
+![Map of the cyberSW project study area showing all sites in the database with the San Pedro and Chaco World subsets of the database shaded.](images/Fig.2.5.png){width=100%}
 
 ### Cibola Region Technological Similarity Networs{#Cibola}
 
@@ -54,16 +65,20 @@ Ceramic technological data from Peeples (2018): Additional data and documentatio
 * [Cibola Site Attributes](data/Cibola_attr.csv) - Site location, public architectural feature types, and sub-region designations for sites in the Cibola region sample.
 * [Cibola Binary Network Edge List](data/Cibola_edgelist.csv) - Binary edge list of Cibola technological similarity network.
 * [Cibola Binary Network Adjacency Matrix](data/Cibola_adj.csv) - Binary adjacency matrix of Cibola technological similarity network.
-* [Peeples2018.Rdata](data/Peeples2018.Rdata) - This file contains a number of objects in R format including the site attributes (site_info), a symmetric Brainerd-Robinson similarity matrix (ceramicBR), a binary network object in the statnet/network format (BRnet), and a weighted network object in the statnet/network format (BRnet_w) 
+* [Peeples2018.Rdata](data/Peeples2018.Rdata) - This file contains a number of objects in R format including the site attributes (`site_info`), a symmetric Brainerd-Robinson similarity matrix (`ceramicBR`), a binary network object in the `statnet/network` format (BRnet), and a weighted network object in the `statnet/network` format (`BRnet_w`) 
+
+![Network graph showing connections among Cibola region settlements based on strong similarities in the technological attributes of corrugated cooking pots recovered at each site. Sites are colour coded by region where sites in the northern half of the study area are shown in black and sites in the southern half are shown in white.](images/Fig.2.6.png){width=100%}
 
 ### Himalayan Visibility Networks{#Himalaya}
 
-Hundreds of forts and small fortified structures are located on mountain tops and ridges in the central Himalayan region of Garhwal in Uttarakhand (India). Despite being such a prominent feature of the history of the region that is interwoven with local folklore (Garhwal is derived from 'land of forts'), this fortification phenomenon has received very little research attention. It might have had its origins during the downfall of the Katyuri dynasty in the 11th century and continued up to the 15th century when the region was consolidated by the Parmar dynasty and possibly even later as attested by Mughal, Tibetan, and British aggressions.
+Hundreds of forts and small fortified structures are located on mountain tops and ridges in the central Himalayan region of Garhwal in Uttarakhand (India). Despite being such a prominent feature of the history of the region that is interwoven with local folklore (Garhwal is derived from 'land of forts'), this fortification phenomenon has received very little research attention. It might have had its origins during the downfall of the Katyuri dynasty in the 11th century and continued up to the 15th century when the region was consolidated by the Parmar dynasty and possibly even later as attested by Mughal, Tibetan, and British aggression.
 
 In the book we use this research context as an example of spatial networks and more specifically visibility networks.This is made possible thanks to the survey of forts in the region performed in the context of the PhD project by Dr Nagendra Singh Rawat (2017). We use a catalog of 193 sites (Rawat et al. 2020, Appendix S1), and use the case of Chaundkot fort and its surroundings as a particular case study. Chaundkot fort is theorized to have been one of the key strongholds in the region and is also the only one to have been partly excavated (Rawat and Nautiyal 2020). In these case studies we represent strongholds as nodes, and the ability for a line-of-sight to exist between observers located at a pair of strongholds is represented by a directed edge. The length of each line-of-sight is represented by an edge attribute.
 
 * [Himalayan Node data](data/Himalaya_nodes.csv) - Node attribute data for the Himalayan sites including locations in lat/long, elevation, site name/type, and descriptions of landscape features.
-* [Himalayan Edge List](data/Himalaya_visiblity.csv) - Edge list data with information on connections among nodes within 25kms of each other with information on the distance and whether or not the target site is visible from the source. Note that only edges with "Visible = TRUE" should be included as activated edges.
+* [Himalayan Edge List](data/Himalaya_visiblity.csv) - Edge list data with information on connections among nodes within 25kms of each other with information on the distance and whether or not the target site is visible from the source. Note that only edges with `Visible = TRUE` should be included as activated edges.
+
+![The 193 strongholds (nodes) connected by lines-of-sight up to 25km in length (at which distance large fire and smoke signals would have been visible). Node colours represent communities of nodes identified through the Louvain modularity method (see section 4.4.6) only for lines-of-sight up to 15km (see Rawat et al. 2021).](images/Fig.2.7.png){width=100%}
 
 ### Archaeological Publication Networks{#ArchPubs}
 
@@ -74,6 +89,8 @@ In previous work, we have turned the tools of archaeological network science on 
 * [Publication Networks Attribute Data](data/biblio_attr.csv) - Attribute data table including information on publications including a unique key identifier, publication type, publication title, publication date, and the author list separated by semi-colons.
 * [Publication Networks Co-Authorship Incidence Matrix](data/biblio_dat.csv) - An incidence matrix with unique publications as rows and authors as columns.
 
+![Two-mode archaeological publication network, representing a set of individual authors as nodes who are connected to nodes in a set of publication venues (journals, books, proceedings) in which they have published (see Brughmans and Peeples 2017:Fig. 10).](images/Fig.2.8.png){width=100%}
+
 ### Iron Age Sites in Southern Spain{#Guadalquivir}
 
 The Guadalquivir river valley in the south of Spain between present-day Seville and Córdoba was densely urbanized in the late Iron Age (early 5th c. BC to late 3rd c. BC). Many settlements were dotted along the rivers and the southern part of the valley (Fig. 2.6), and this settlement pattern was focused on nuclear settlements sometimes referred to as oppida. Some of these reveal defensive architecture and many are located on elevations. Previous studies of Iron Age settlements in the region have explored possible explanations for their locations (Keay and Earl 2011; Brughmans et al. 2014, 2015). Given their elevated locations, one theory that has received considerable attention was intervisibility. Could small settlements surrounding oppida be seen from them, and could oppida be located partly to allow for visual control over surrounding settlements? Did groups of Iron Age settlements tend to be intervisible, forming communities that were visible on a daily basis? Were there chains of intervisibility that allowed for passing on information from one site to another via visual smoke or fire signals, and did these chains follow the other key communication medium in the area: the navigable rivers? 
@@ -81,6 +98,8 @@ The Guadalquivir river valley in the south of Spain between present-day Seville 
 These questions have been explored in previous research using GIS and network methods, using a dataset of 86 sites and lines-of-sight connecting pairs of Iron Age settlements at distances up to 20km at which large fire and smoke signals would be visible (more about this dataset and research topic: Keay and Earl 2011; Brughmans et al. 2014, 2015). To account for errors in the Digital Elevation Model (DEM), a probabilistic line-of-sight analysis was performed that introduces random errors into the DEM which can have a blocking or enhancing effect on the lines-of-sight. The locations of these 86 sites and the network displayed in figure 2.9 are also available as Appendix A in Brughmans et al. 2014. These locations are used in Chapter 7 of the book to illustrate spatial network models that explore different geographical structures that might underlie the settlement pattern.
 
 * [Guadalquivir settlement data](data/Guadalquivir.csv) - Site number and locations in decimal degrees for all sites in the Guadalquivir survey area.
+
+![The lower Guadalquivir river valley with the 86 Iberian (Iron Age II) sites used in the case study. Note the clustering of sites around the rivers. Lines-of-sight with >50% probability shown. (Source: Brughmans et al. 2014:Fig. 6b.)](images/Fig.2.9.jpg){width=100%}
 
 ## Importing Data in R{#Importing}
 
@@ -188,8 +207,8 @@ knitr::kable(df, format = "markdown")
 
 In order to follow along with the examples in this Online Companion it will be easiest if you set up your R working directory in a similar format to that used in creating it. Specifically, we suggest you create a new working directory and create an R studio project tied to that specific directory. 
 
-In order to do this, open R-Studio and go to "File > New Project" and click on "New Directory > New Project" in the dialog and then give it an appropriate name and location on your disk. Next, navigate to that location on your disk and create two sub-folders: one called "data" (directory names are case sensitive) and second called "scripts." Place any of the data files you downloaded above or in any other section of this Online Companion in the "data" folder and place any .R scripts in the "scripts" folder. Note that if you chose the "Just Give Me Everything" download you will have a .zip file that already contains a sub-folders called "data" and "scripts" so be sure you're not double nesting your folders (you want "working_directory/data" not "working_directory/data/data").
+In order to do this, open R-Studio and go to "File > New Project" and click on "New Directory > New Project" in the dialog and then give it an appropriate name and location on your disk. Next, navigate to that location on your disk and create two sub-folders: one called "data" and one called "scripts" (directory names are case sensitive). Place any of the data files you downloaded above or in any other section of this Online Companion in the "data" folder and any R script files you download in the "scripts" folder. Note that if you chose the "Just Give Me Everything" download you will have a .zip file that already contains a sub-folder called "data" so be sure you're not double nesting your folders (you want "working_directory/data" not "working_directory/data/data").
 
 When you close R you will see a dialog that asks if you want to save your workspace image. If you do this and provide a name, you can reopen the .RData file at a later time and pick up exactly where your previous session left off.
 
-If you are new to the R environment and file structures, we suggest you reveiw the [Getting Started with R](#GettingStarted) section.
+If you are new to the R environment and file structures, we suggest you review the [Getting Started with R](#GettingStarted) section for more information.

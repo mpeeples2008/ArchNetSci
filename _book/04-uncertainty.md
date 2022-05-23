@@ -1,8 +1,30 @@
 # Quantifying Uncertainty{#Uncertainty}
 
-In almost any archaeological network study, the networks we create are incomplete (i.e., we know that we are missing nodes or edges for various reasons; site destruction, lack of survey coverage, looting, etc.). How might the fact that our networks are samples of a larger and typically unobtainable “total network” influence our interpretations of network structure and node position? In this section, we take inspiration from recent research in other areas of network research (Borgatti et al. 2006; Costenbader and Valente 2003; Smith and Moody 2013; Smith et al. 2017; Smith et al. 2022) and develop a means for assessing the impact of missing and poor quality information. This accompanies Chapter 5 of Brughmans and Peeples (2022) and we recommend that you read Chapter 5 as you work through the examples below. 
+In almost any archaeological network study, the networks we create are incomplete (i.e., we know that we are missing nodes or edges for various reasons: site destruction, lack of survey coverage, looting, etc.). How might the fact that our networks are samples of a larger and typically unobtainable “total network” influence our interpretations of network structure and node position? In this section, we take inspiration from recent research in other areas of network research (Borgatti et al. 2006; Costenbader and Valente 2003; Smith and Moody 2013; Smith et al. 2017; Smith et al. 2022) and develop a means for assessing the impact of missing and poor quality information in our networks. This accompanies Chapter 5 of Brughmans and Peeples (2022) and we recommend that you read Chapter 5 as you work through the examples below. 
 
 For most of the other analyses presented in the book it is possible to use a number of different network software packages to conduct similar analyses. The analyses presented in Chapter 5, however, require the creation of custom scripts and procedures that are only possible in a programming language environment like R. We attempt here to not only provide information on how to replicate the examples in the book but also provide guidance on how you might modify the functions and code provided here for your own purposes. 
+
+## R Scripts and Custom Functions{#Scripts}
+
+In this chapter, we have created a number of relatively complex custom functions to conduct the assessments of network uncertainty outlined in Chapter 5. We provide step by step overviews of how these functions work below but it is useful to bundle the functions into .R script files and call them directly from the file when working with your own data.
+
+The scripts described in detail below include:
+
+* [sim_missing_nodes.R](scripts/sim_missing_nodes.R) - Assessments of the stability of centrality metrics for networks with nodes missing at random or due to a biased sampling process.
+* [sim_missing_edges.R](scripts/sim_missing_edges.R) -Assessments of the stability of centrality metrics for networks with edges missing at random or due to a biased sampling process.
+* [sim_missing_inc.R](scripts/sim_missing_inc.R) - Assessments of the stability of centrality metrics for networks with nodes missing at random or based on biased sampling from incidence matrix data.
+* [sim_target_node.R](scripts/sim_target_node.R) - Assessments of the stability in rank order position of a target node in networks with nodes missing at random or due to a biased sampling process.
+* [sim_samp_error.R](scripts/sim_samp_error.R) - Assessments of the stability centrality metrics due to sampling error in frequency data underlying similarity networks.
+* [edge_prob.R](scripts/edge_prob.R) - Functions for conducting edge probability modeling and plotting candidate networks and centrality distributions.
+
+Each of these are described in greater detail below along with an example. To run these scripts in R, you need to put them in your working directory and then use the `source()` function. The `source` function will run all code within the .R file and initialize any functions they contain. For example:
+
+
+```r
+source("scripts/sim_missing_nodes.R")
+```
+
+Note that you must include the correct absolute or relative file path for the script to run properly.
 
 ## A General Approach to Uncertainty
 
@@ -30,6 +52,8 @@ library(tnet)
 library(ggpubr)
 library(dplyr)
 library(statnet)
+#>         Installed ReposVer Built  
+#> network "1.17.1"  "1.17.2" "4.2.0"
 
 # Import adjacency matrix and covert to network
 chaco <- read.csv(file = 'data/AD1050net.csv', row.names = 1)
@@ -103,7 +127,7 @@ ggplot(data = df) +
   )
 ```
 
-<img src="04-uncertainty_files/figure-html/unnamed-chunk-2-1.png" width="672" />
+<img src="04-uncertainty_files/figure-html/unnamed-chunk-3-1.png" width="672" />
 
 The code above worked reasonably well but it would be a bit laborious to modify the code every time we wanted to use a different data set or a different network metric or to consider biased sampling processes. In order to address this issue, we have created a general function called `sim_missing_nodes` that can replicate the analysis shown in the previous section for more centrality measures (betweenness, degree, or eigenvector) and, as we will see below, can also be used to assess biased sampling processes. The function  is essentially structured just like what we saw in the last chunk but with a few additions to assess which measure you plan on using, and to catch other errors. 
 
@@ -231,7 +255,7 @@ ggplot(data = ev_test) +
   )
 ```
 
-<img src="04-uncertainty_files/figure-html/unnamed-chunk-4-1.png" width="672" />
+<img src="04-uncertainty_files/figure-html/unnamed-chunk-5-1.png" width="672" />
 
 ## Edges Missing at Random{#EdgesAtRandom}
 
@@ -281,7 +305,7 @@ ggplot(data = dg_edge_test) +
   )
 ```
 
-<img src="04-uncertainty_files/figure-html/unnamed-chunk-6-1.png" width="672" />
+<img src="04-uncertainty_files/figure-html/unnamed-chunk-7-1.png" width="672" />
 
 ## Assessing Indivdiual Nodes/Edges{#IndNodesAtRandom}
 
@@ -346,7 +370,7 @@ ggplot(df, aes(x = RankOrder)) +
   )
 ```
 
-<img src="04-uncertainty_files/figure-html/unnamed-chunk-8-1.png" width="672" />
+<img src="04-uncertainty_files/figure-html/unnamed-chunk-9-1.png" width="672" />
 
 As we describe in the book, the position of Garcia Ranch as a highly central node appears to be stable to nodes missing at random. Indeed, by far the most common position for this node was 2 which is its position in the original network.
 
@@ -402,7 +426,7 @@ ggplot(data = dg_test) +
   )
 ```
 
-<img src="04-uncertainty_files/figure-html/unnamed-chunk-10-1.png" width="672" />
+<img src="04-uncertainty_files/figure-html/unnamed-chunk-11-1.png" width="672" />
 
 ### Resampling with Incidence Matrices{#SimIncidence}
 
@@ -458,7 +482,7 @@ ggraph(bib_net, layout = "fr") +
   theme(legend.position = "none")
 ```
 
-<img src="04-uncertainty_files/figure-html/unnamed-chunk-11-1.png" width="672" />
+<img src="04-uncertainty_files/figure-html/unnamed-chunk-12-1.png" width="672" />
 
 Although it may at first seem like we could use the same function we used previously to assess missing nodes, there are some key differences in the organization of data in this network that won't permit that. Specifically, we are interested in nodes (authors) missing at random, but we we want to model probabilities associated with publications. This is a slightly more complicated procedure because the function needs both the network object and the incidence matrix from which it was generated so that the sub-networks can be defined inside the function. We have created a `sim_missing_inc` function (simulating missing data using an incidence matrix) that conducts this task. 
 
@@ -578,7 +602,7 @@ ggplot(data = df) +
   )
 ```
 
-<img src="04-uncertainty_files/figure-html/unnamed-chunk-15-1.png" width="672" />
+<img src="04-uncertainty_files/figure-html/unnamed-chunk-16-1.png" width="672" />
 
 ## Edge Probability Modeling{#EdgeProbability}
 
@@ -622,7 +646,7 @@ ggraph(sim_net, layout = "fr") +
   theme_graph()
 ```
 
-<img src="04-uncertainty_files/figure-html/unnamed-chunk-16-1.png" width="672" />
+<img src="04-uncertainty_files/figure-html/unnamed-chunk-17-1.png" width="672" />
 
 In the next chunk of code we define a function that iterates over every edge in the simulated network we just created and defines each edge as either present or absent using a simple random binomial with the probability set by the edge weight as described above. The output of this function (`edge_prob`) is a list object that contains `nsim` `igraph` network objects that are candidate networks of the original.
 
@@ -730,7 +754,7 @@ comp3 <- ggraph(EL_test[[3]], layout = "fr") +
 ggarrange(comp1, comp2, comp3)
 ```
 
-<img src="04-uncertainty_files/figure-html/unnamed-chunk-18-1.png" width="672" />
+<img src="04-uncertainty_files/figure-html/unnamed-chunk-19-1.png" width="672" />
 
 We then use the `compile_stat` function to assess degree centrality for one particular node, displaying a histogram of values with mean indicated.
 
@@ -747,7 +771,7 @@ ggplot(dg_20, aes(val)) +
   theme_bw()
 ```
 
-<img src="04-uncertainty_files/figure-html/unnamed-chunk-19-1.png" width="672" />
+<img src="04-uncertainty_files/figure-html/unnamed-chunk-20-1.png" width="672" />
 
 ### Edge Probability and Similarity Networks{#EdgeProbSim}
 
@@ -812,7 +836,7 @@ comp3 <- ggraph(sim_nets[[3]],
 ggarrange(comp1, comp2, comp3)
 ```
 
-<img src="04-uncertainty_files/figure-html/unnamed-chunk-21-1.png" width="672" />
+<img src="04-uncertainty_files/figure-html/unnamed-chunk-22-1.png" width="672" />
 
 
 ```r
@@ -829,7 +853,7 @@ ggplot(bw_10, aes(val)) +
 #> `binwidth`.
 ```
 
-<img src="04-uncertainty_files/figure-html/unnamed-chunk-22-1.png" width="672" />
+<img src="04-uncertainty_files/figure-html/unnamed-chunk-23-1.png" width="672" />
 
 
 ## Small or Variable Sample Size{#SampleSize}
@@ -918,7 +942,7 @@ ggplot(df, aes(x = dg_cor)) +
   )
 ```
 
-<img src="04-uncertainty_files/figure-html/unnamed-chunk-24-1.png" width="672" />
+<img src="04-uncertainty_files/figure-html/unnamed-chunk-25-1.png" width="672" />
 
 As described in Chapter 5.3.5, in some cases we want to observe patterns of variation due to sampling error for individual sites or sets of sites. In the next chunk of code we illustrate how to produce figure 5.14 from the Brughmans and Peeples (2022) book. Specifically, this plot consists of a series of line plots where the x axis represents each node in the network ordered by degree centrality in the original observed network. For each node there is a vertical line which represents the 95% confidence interval around degree across the `nsim` random replicates produced to evaluate sampling error. The blue line represents degree in the original network and the red line represents median degree in the resampled networks.
 
@@ -996,6 +1020,6 @@ ggplot() +
   )
 ```
 
-<img src="04-uncertainty_files/figure-html/unnamed-chunk-25-1.png" width="672" />
+<img src="04-uncertainty_files/figure-html/unnamed-chunk-26-1.png" width="672" />
 
 
