@@ -7,7 +7,7 @@ documentclass: book
 bibliography: references.bib
 url: https://book.archnetworks.net
 description: |
-  This bookdown document accompanies the Cambridge Manuals in Archaeology book
+  This online bookdown document accompanies the Cambridge Manuals in Archaeology book
   *Archaeological Network Science* by Tom Brughmans and Matthew A. Peeples.
 link-citations: yes
 cover-image: "images/cover.png"
@@ -73,7 +73,14 @@ The easiest way to reproduce this document is to launch the project directly in 
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/mpeeples2008/ArchNetSci/main)
 
-You can also run the code and generate documents locally using R and R Studio. Download the entire R repository here: [main.zip](https://github.com/mpeeples2008/ArchNetSci/archive/refs/heads/main.zip). Unzip the files and then:
+You can also install this repository as an R package directly from GitHub using:
+
+```{r, eval=F}
+if (!require("devtools")) install.packages("devtools")
+devtools::install_github("mpeeples2008/ArchNetSci")
+```
+
+Finally, you can run the code and generate documents locally using R and R Studio by downloading the entire R repository here: [main.zip](https://github.com/mpeeples2008/ArchNetSci/archive/refs/heads/main.zip). Unzip the files and then:
 
 * Open the "Archaeological_Network_Science.Rproj" file in R studio.
 * Use the `renv::restore()` command to install the required packages and dependencies. Not that this is a large document that uses many packages so this may take some time.
@@ -82,8 +89,6 @@ You can also run the code and generate documents locally using R and R Studio. D
 This online bookdown document has been deployed using the Netlify platform and the badge below shows the current status of the build hosted at [https://book.archnetworks.net](book.archnetworks.net).
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/266d5736-f13a-4de4-b812-141c023f3a09/deploy-status)](https://app.netlify.com/sites/archnetworks/deploys)
-
-You can also
 
 ## Discord Community{-}
 

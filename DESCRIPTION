@@ -59,7 +59,7 @@ Remotes:
   liamgilbey/ggwaffle
 Suggests:
   edgebundle,
-  reticulate
+  reticulate,
   knitr,
   bslib,
   downlit,

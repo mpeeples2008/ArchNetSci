@@ -2,7 +2,7 @@
 FROM rocker/verse:4.2.0
 
 # required
-MAINTAINER Your Name <your_email@somewhere.com>
+MAINTAINER Matthew Peeples <Matthew.Peeeples@asu.edu>
 
 COPY . /ArchNetSci
 
