@@ -13,4 +13,4 @@ RUN . /etc/environment \
   && sudo apt-get update \
   && sudo apt-get install libudunits2-dev -y \
   # build this compendium package
-  && R -e "devtools::install('/ArchNetSci', dep=TRUE)" \
+  && R -e "devtools::install('/ArchNetSci')" \

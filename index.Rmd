@@ -716,7 +716,7 @@ The examples so far have covered most of the basic features of R and R-Studio. T
 
 ### Conditional Statements{- #Conditionals}
 
-Another common need for programming in R is to conduct an action conditioned on another action or variable state. For example, if A is TRUE then do B. If statements like this are formally in R using the following format:
+Another common need for programming in R is to conduct an action conditioned on another action or variable state. For example, if A is `TRUE` then do B. If statements like this are formally in R using the following format:
 
 ```{r, eval = F}
 # Example 1
@@ -760,7 +760,7 @@ if (x > 50) {
 
 In the first example above, the evaluation of `x > 50` was `FALSE` so the statement in brackets after `else` was evaluated. In the second example, the evaluation of `x*2 >50` was `TRUE` so the first statement was evaluated. Finally, in the third example, `x > 50` was `FALSE` and since there is no `else` statement nothing happened. 
 
-If you want to apply an if...else statement to a vector of values rather than one at a time, you can use a useful function `ifelse()`. The `ifelse()` function expects the first item in the parenthesis to be the test expression, followed by the event to execute if the statement is true and then the event to execute if the expression is false.
+If you want to apply an `if...else` statement to a vector of values rather than one at a time, you can use a useful function `ifelse()`. The `ifelse()` function expects the first item in the parenthesis to be the test expression, followed by the event to execute if the statement is true and then the event to execute if the expression is false.
 
 ```{r}
 x <- seq(5, 100, by = 5)
@@ -768,8 +768,6 @@ x
 
 ifelse(x > 50, "Greater Than 50", "Less Than 50")
 ```
-
-### which Function{- #which}
 
 Another useful and frequently used conditional function is the `which()` function. This function allows you to evaluate which items in an object meet a given condition. Let's take a look at an example to see how this works:
 
@@ -813,7 +811,7 @@ for (m in val_seq) {
 }
 ```
 
-We can also assign the results of any expressions in the curly brackets to a new variable. If you want to retain all results and not have the results rewritten, you will need to first define an output object before you start.
+We can also assign the results of any expressions in the curly brackets to a new object. If you want to retain all results and not have the results rewritten, you will need to first define an output object before you start.
 
 ```{r}
 # Compare these two chunks of code
@@ -848,7 +846,7 @@ function_name <- function(arguments) {
 function_name(arguments)
 ```
 
-This format is a fairly simple example. Some functions can be quite complex, but that complexity is usually about combining loops and conditional statements and other processes discussed above within the function rather than anything new or beyond what we've shown you so far. Let's take a look at a simple worked example to see how custom functions work:
+This format is a fairly simple example. Some functions can be quite complex, but that complexity is usually a product of combining loops and conditional statements and other processes discussed above within the function rather than anything new or beyond what we've shown you so far. Let's take a look at a simple worked example to see how custom functions work:
 
 ```{r}
 func1 <- function(x, y) {
@@ -876,7 +874,7 @@ val_seq <- seq(1:10)
 myfunct(val_seq)
 ```
 
-Let's break down what is happening in the chunk of code above. First, we defined a function with one argument `x`. Inside the function expression we then initialized a new variable for the output called `z`. We then enter a for loop that iterates values of `i` for a sequence of numbers from 1 to the length of vector `x`. The value of `z` at position `i` is defined as the value of `x` at position `i` times `i` divided by 5. Once this loop finishes, the function returns the vector `z` with the results. As this example shows, arguments need not be limited to single values and can include vectors, data.frames, matrices, lists, or any type of R object.
+Let's break down what is happening in the chunk of code above. First, we defined a function with one argument `x`. Inside the function expression we then initialized a new variable for the output called `z`. We then enter a for loop that iterates values of `i` for a sequence of numbers from 1 to the length of vector `x`. The value of `z` at position `i` is defined as the value of `x` at position `i` times `i` divided by `5`. Once this loop finishes, the function returns the vector `z` with the results. As this example shows, arguments need not be limited to single values and can include vectors, data.frames, matrices, lists, or any type of R object.
 
 ### Test Your Skills{-}
 
@@ -891,17 +889,14 @@ F_temp <- c(44, 59, 59, 39, 50, 59, 35)
 Once you have a working function, the use the `round()` function to convert your results to integers (check `?round()` if you need hints on how to do that) and output these results into an object called `res`. Finally run the chunk of code below for a surprise:
 
 ```{r, eval=F}
-c(LETTERS[res])
+paste(c(LETTERS[res]), collapse = "")
 ```
 
 We have provided the answer below but give this a try on your own first before peeking at the answer.
 
 No peeking until you try!!
 
-
-
-
-
+![Artwork by @allison_horst](images/monster_support.jpg)
 
 Here is our solution below:
 
@@ -921,7 +916,7 @@ out
 res <- round(out, digits = 0)
 res
 
-c(LETTERS[res])
+paste(c(LETTERS[res]), collapse = "")
 
 ```
 
