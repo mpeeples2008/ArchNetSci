@@ -8,6 +8,3 @@ COPY . /ArchNetSci
 
 # go into the repo directory
 RUN . /etc/environment \
-  # Install linux depedendencies here
-  # build this compendium package
-  && R -e "devtools::install('/ArchNetSci')" \
