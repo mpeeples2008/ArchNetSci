@@ -21,7 +21,6 @@ Imports:
   igraph,
   statnet,
   intergraph,
-  tnet,
   ggplot2,
   rjson,
   d3r,
@@ -56,11 +55,11 @@ Imports:
   scatterplot3d,
   patchwork,
   concaveman,
-  edgebundle,
-  reticulate
 Remotes:
   liamgilbey/ggwaffle
 Suggests:
+  edgebundle,
+  reticulate
   knitr,
   bslib,
   downlit,
