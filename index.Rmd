@@ -1,5 +1,5 @@
 ---
-title: "Online Companion to *Archaeological Network Science* by Brughmans and Peeples"
+title: "Online Companion to *Archaeological Network Science*"
 author: "Matthew A. Peeples and Tom Brughmans"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
