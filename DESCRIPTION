@@ -25,7 +25,6 @@ Imports:
   rjson,
   d3r,
   cccd,
-  RBGL,
   networkD3,
   visNetwork,
   GISTools,
@@ -60,6 +59,7 @@ Remotes:
 Suggests:
   edgebundle,
   reticulate,
+  RBGL,
   knitr,
   bslib,
   downlit,
