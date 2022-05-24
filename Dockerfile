@@ -5,6 +5,3 @@ FROM rocker/verse:4.2.0
 MAINTAINER Matthew Peeples <Matthew.Peeeples@asu.edu>
 
 COPY . /ArchNetSci
-
-# go into the repo directory
-RUN . /etc/environment \
