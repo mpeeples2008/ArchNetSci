@@ -1,7 +1,8 @@
 bookdown::bs4_book:
-  css: bs4_style.css
+  css: style.css
   theme:
     primary: "#096B72"
+    info: "#0dcaf0"
   repo: https://github.com/mpeeples2008/Archaeological_Network_Science
 bookdown::pdf_book:
   includes:

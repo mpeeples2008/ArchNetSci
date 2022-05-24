@@ -1,14 +1,14 @@
 # Data and Workspace Setup{#DataWorkspaceSetup}
 
-This section provides downloadable files for the network datasets used in this online companion and in the book as well as information on the primary R packages used for analysis and visualization throughout this tutorial. We also provide very brief instructions for importing these data into R using R-studio and some guidance on setting up your R-studio working environment. For additional guidance see [Getting Started in R](#GettingStarted). 
+This section provides downloadable files for the network data sets used in this online companion and in the book as well as information on the primary R packages used for analysis and visualization throughout this tutorial. We also provide very brief instructions for importing these data into R using R-studio and some guidance on setting up your R-studio working environment. For additional guidance see [Getting Started in R](#GettingStarted). 
 
-## Datasets{#Datasets}
+## Data Sets{#DataSets}
 
-In the analyses illustrated in this document we use a number of real and simulated archaeological datasets to serve as examples for particular data types and techniques. Most of the datasets used here are provided in .csv (comma separated value) or .RData formats and can be downloaded so that you can follow along with these analyses on your own computer. We encourage you to explore these files and see how they are formatted as a guide for setting up your own datasets.
+In the analyses illustrated in this document we use a number of real and simulated archaeological data sets to serve as examples for particular data types and techniques. Most of the data sets used here are provided in .csv (comma separated value) or .RData formats and can be downloaded so that you can follow along with these analyses on your own computer. We encourage you to explore these files and see how they are formatted as a guide for setting up your own data sets.
 
-The data used here include a range of different network data formats and types. The primary datasets are described in detail in Brughmans and Peeples (2022) Chapter 2.8. Note that where spatial locations for archaeological sites are provided the locations have been randomly jittered up to 10 kilometers from their actual locations to maintain data security.
+The data used here include a range of different network data formats and types. The primary data sets are described in detail in Brughmans and Peeples (2022) Chapter 2.8. Note that where spatial locations for archaeological sites are provided the locations have been randomly jittered up to 10 kilometers from their actual locations to maintain data security.
 
-For the files below you can right click and "save as" to save them for use locally. Note that there are many additional datasets relating to the replication of particular figures in the book that are provided where the code for that particular figure occurs. If you'd like to just download everything at once [see the next section](#Everything)
+For the files below you can right click and "save as" to save them for use locally. Note that there are many additional data sets relating to the replication of particular figures in the book that are provided where the code for that particular figure occurs. If you'd like to just download everything at once [see the next section](#Everything)
 
 ### Just Give Me Everything {#Everything}
 
@@ -33,7 +33,7 @@ if (!require("devtools")) install.packages("devtools")
 devtools::install_github("sfsheath/cawd")
 ```
 
-![Datasets used for our case studies on the road networks of (a) the Roman Empire as a whole (source: Ancient World Mapping Centre 2012), and (b) a highly-detailed representation of the Roman road network on the Iberian Peninsula (de Soto and Carreras 2021).](images/Fig.2.4.png){width=100%}
+![data sets used for our case studies on the road networks of (a) the Roman Empire as a whole (source: Ancient World Mapping Centre 2012), and (b) a highly-detailed representation of the Roman road network on the Iberian Peninsula (de Soto and Carreras 2021).](images/Fig.2.4.png){width=100%}
 
 ### Southwest Social Networks Project Ceramic Similarity Networks{#SWSN}
 
@@ -41,7 +41,7 @@ The Southwest Social Networks (SWSN) Project (and subsequent [cyberSW](https://c
 
 The SWSN/cyberSW project team has gathered a massive database with information on the location and size of tens of thousands of archaeological sites and ceramic and other material cultural typological frequency data consisting of millions of objects to explore how patterns of material similarity, exchange, and technology change across time and space in the study area. These data as well as tools needed to analyze them are available in an online platform called [cyberSW (cyberSW.org)](https://cybersw.org). This online platform even allows you to explore these data directly in your internet browser. The size and complexity of the SWSN/cyberSW data make it a particularly good example for discussing the decision processes involved in visualizing and analyzing large networks. 
 
-In several sections of this book we also use subsets of this larger dataset: the San Pedro Valley, and the Chaco World. The San Pedro Valley in southern Arizona is a well-studied portion of the SWSN study area (see Clark and Lyons 2012; Gerald 2019) that was an early focus of network methodological exploration by the team (Mills et al. 2013b). This data subset includes detailed ceramic typological frequency for all known major settlements across this region during the late pre-Hispanic period (ca. A.D. 1200-1450). The Chaco World is a large-scale social and political system that spanned much of the Colorado Plateau ca. A.D. 800-1150. This settlement system was marked by the construction of massive public architectural features known as great houses and great kivas. This subset of the database includes information on architecture and ceramic typological data for a large portion of the known Chacoan architectural complexes throughout the U.S. Southwest. The Chaco World has been a major focus of the SWSN/cyberSW project (Giomi et al. 2021; Giomi and Peeples 2019; Mills et al. 2018). 
+In several sections of this book we also use subsets of this larger data set: the San Pedro Valley, and the Chaco World. The San Pedro Valley in southern Arizona is a well-studied portion of the SWSN study area (see Clark and Lyons 2012; Gerald 2019) that was an early focus of network methodological exploration by the team (Mills et al. 2013b). This data subset includes detailed ceramic typological frequency for all known major settlements across this region during the late pre-Hispanic period (ca. A.D. 1200-1450). The Chaco World is a large-scale social and political system that spanned much of the Colorado Plateau ca. A.D. 800-1150. This settlement system was marked by the construction of massive public architectural features known as great houses and great kivas. This subset of the database includes information on architecture and ceramic typological data for a large portion of the known Chacoan architectural complexes throughout the U.S. Southwest. The Chaco World has been a major focus of the SWSN/cyberSW project (Giomi et al. 2021; Giomi and Peeples 2019; Mills et al. 2018). 
 
 In these networks, individual settlements are treated as nodes and edges are defined and weighted based on similarities in the ceramic wares recovered at those settlements. Ceramic data used to generate networks are apportioned into a sequence of 50-year chronological intervals using methods described in detail by Roberts and colleagues (2012) and Ortman (2016; see discussion in Mills et al. 2018) so that we are able to explore change through time. Site locations and other site attribute data are also considered in some examples. R implementations of these chronological apportioning methods are available on GitHub as well ([R implementation of Roberts et al. 2012](https://github.com/mpeeples2008/CeramicApportioning), [R implementation of Ortman 2016](https://github.com/mpeeples2008/UniformProbabilityDensityAnalysis)).
 
@@ -96,7 +96,7 @@ In previous work, we have turned the tools of archaeological network science on 
 
 The Guadalquivir river valley in the south of Spain between present-day Seville and Córdoba was densely urbanized in the late Iron Age (early 5th c. BC to late 3rd c. BC). Many settlements were dotted along the rivers and the southern part of the valley (Fig. 2.6), and this settlement pattern was focused on nuclear settlements sometimes referred to as oppida. Some of these reveal defensive architecture and many are located on elevations. Previous studies of Iron Age settlements in the region have explored possible explanations for their locations (Keay and Earl 2011; Brughmans et al. 2014, 2015). Given their elevated locations, one theory that has received considerable attention was intervisibility. Could small settlements surrounding oppida be seen from them, and could oppida be located partly to allow for visual control over surrounding settlements? Did groups of Iron Age settlements tend to be intervisible, forming communities that were visible on a daily basis? Were there chains of intervisibility that allowed for passing on information from one site to another via visual smoke or fire signals, and did these chains follow the other key communication medium in the area: the navigable rivers? 
 
-These questions have been explored in previous research using GIS and network methods, using a dataset of 86 sites and lines-of-sight connecting pairs of Iron Age settlements at distances up to 20km at which large fire and smoke signals would be visible (more about this dataset and research topic: Keay and Earl 2011; Brughmans et al. 2014, 2015). To account for errors in the Digital Elevation Model (DEM), a probabilistic line-of-sight analysis was performed that introduces random errors into the DEM which can have a blocking or enhancing effect on the lines-of-sight. The locations of these 86 sites and the network displayed in figure 2.9 are also available as Appendix A in Brughmans et al. 2014. These locations are used in Chapter 7 of the book to illustrate spatial network models that explore different geographical structures that might underlie the settlement pattern.
+These questions have been explored in previous research using GIS and network methods, using a data set of 86 sites and lines-of-sight connecting pairs of Iron Age settlements at distances up to 20km at which large fire and smoke signals would be visible (more about this data set and research topic: Keay and Earl 2011; Brughmans et al. 2014, 2015). To account for errors in the Digital Elevation Model (DEM), a probabilistic line-of-sight analysis was performed that introduces random errors into the DEM which can have a blocking or enhancing effect on the lines-of-sight. The locations of these 86 sites and the network displayed in figure 2.9 are also available as Appendix A in Brughmans et al. 2014. These locations are used in Chapter 7 of the book to illustrate spatial network models that explore different geographical structures that might underlie the settlement pattern.
 
 * [Guadalquivir settlement data](data/Guadalquivir.csv) - Site number and locations in decimal degrees for all sites in the Guadalquivir survey area.
 
@@ -123,7 +123,7 @@ head(EL1)
 #> 6 Apache Creek Mineral Creek Pueblo
 ```
 
-In addition to the .csv files, several examples in this book and several of the datasets above are provide as .RData files which can be read directly in R and can contain multiple R objects. These can be read directly into the R environment using the `load()` function. See the example below. Again note that you must specify the specific directory within the working directory where the file is located.
+In addition to the .csv files, several examples in this book and several of the data sets above are provide as .RData files which can be read directly in R and can contain multiple R objects. These can be read directly into the R environment using the `load()` function. See the example below. Again note that you must specify the specific directory within the working directory where the file is located.
 
 
 ```r
@@ -231,7 +231,6 @@ This version of the book was built with R version 4.2.0 (2022-04-22 ucrt) and th
 |networkD3      |0.4     |CRAN (R 4.2.0) |
 |networkDynamic |0.11.2  |CRAN (R 4.2.0) |
 |patchwork      |1.1.1   |CRAN (R 4.2.0) |
-|RBGL           |1.72.0  |Bioconductor   |
 |RColorBrewer   |1.1-3   |CRAN (R 4.2.0) |
 |Rcpp           |1.0.8.3 |CRAN (R 4.2.0) |
 |reshape2       |1.4.4   |CRAN (R 4.2.0) |
