@@ -55,11 +55,11 @@ Imports:
   patchwork,
   concaveman
 Remotes:
+  RBGL,
   liamgilbey/ggwaffle
 Suggests:
   edgebundle,
   reticulate,
-  RBGL,
   knitr,
   bslib,
   downlit,
