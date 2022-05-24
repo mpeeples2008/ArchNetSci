@@ -71,21 +71,21 @@ is_html = knitr::is_html_output()
 
 ```{asis, echo=is_html}
 <br>
-<img src="images/packages.png" width="80" height="80" alt="packages" align="left" style="margin: 0 1em 0 1em" />
+<img src="images/packages.png" width="70" height="70" alt="packages" align="left" style="margin: 0 1em 0 1em" />
 We use this icon to highlight our discussions of R packages used in this project. Check here for brief overviews and instructions on how to use and configure these packages.
 <br>
 <br>
-<img src="images/warning.png" width="80" height="80" alt="packages" align="left" style="margin: 0 1em 0 1em" />
+<img src="images/warning.png" width="70" height="70" alt="warning" align="left" style="margin: 0 1em 0 1em" />
 We use this icon to highlight particular areas of concern in our discussion of network methods and R code. In particular, we use this icon to warn you of common errors or pitfalls for particular functions.
 <br>
 <br>
-<img src="images/tip.png" width="80" alt="packages" align="left" style="margin: 0 1em 0 1em" />
+<img src="images/tip.png" width="70" alt="tip" align="left" style="margin: 0 1em 0 1em" />
 We use this icon to highlight helpful tips for using particular R functions or R studio procedures.
 <br>
 <br>
 ```
 
-In addition to this, we have attempted to add cross-references and links throughout the book so that you can quickly navigate between specific code chunks and general discussion of the procedures and issues covered in this document.
+In addition to this, we have attempted to add cross-references and links throughout the book so that you can quickly navigate between specific code chunks and general discussions of the procedures and issues covered in this document.
  
 ## Reproducibility{- #Repro}
 
@@ -150,10 +150,10 @@ This Online Companion to Archaeological Network Science is licensed under a [Cre
 We are devoted to seeing the community of archaeological network practitioners grow and we hope our book and these online resources will help to make this happen. You can support the growth of our community too!
 
 * Spread the word to your friends and colleagues
-* Share links to these online resources on social media using the #archnetworks hashtag
+* Share links to these online resources on social media using the [#archnetworks](https://twitter.com/search?q=%23archnetworks&src=typed_query) hashtag
 * Please cite the book *and* the Online Companion if you use methods or code from this document
-* Star the GitHub project repository and contribute to the project
-* Join our Discord and invite other interested people
+* Star the [GitHub project repository](https://github.com/mpeeples2008/ArchNetSci) and contribute to the project
+* [Join our Discord](https://discord.gg/Z9UXwjASM5) and invite other interested people
 * Share articles, teaching resources, data, or other archaeological network materials for posting on our associated website [(archnetworks.net)](https://archnetworks.net)
 * Buy the book 
 * Review the book on online book sellers
