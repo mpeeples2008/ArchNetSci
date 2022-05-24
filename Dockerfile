@@ -7,5 +7,4 @@ MAINTAINER Your Name <your_email@somewhere.com>
 COPY . /ArchNetSci
 
 # go into the repo directory
-RUN . 
-
+RUN . /ArchNEtSci \
