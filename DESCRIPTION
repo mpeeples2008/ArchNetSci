@@ -1,6 +1,6 @@
 Package: ArchNetSci
 Title: Online Companion to Archaeological Network Science
-Version: 0.0.9
+Version: 0.0.95
 License: CC BY-NC-ND 4.0
 Authors@R: 
     c(person(given = "Matthew",
