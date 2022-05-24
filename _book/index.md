@@ -1104,7 +1104,7 @@ We have provided the answer below but give this a try on your own first before p
 
 No peeking until you try!!
 
-![Artwork by @allison_horst](images/monster_support.jpg){width=100%}
+![Artwork by Allison Horst](images/monster_support.jpg){width=100%}
 
 Here is our solution below:
 

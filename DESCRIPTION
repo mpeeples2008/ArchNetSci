@@ -1,20 +1,20 @@
 Package: ArchNetSci
 Title: Online Companion to Archaeological Network Science
-Version: 0.0.95
-License: CC BY-NC-ND 4.0
+Version: 0.0.0.9000
 Authors@R: 
     c(person(given = "Matthew",
-             family = "Peeples",
-             role = c("aut", "cre"),
-             email = "Matthew.Peeples@asu.edu"),
-      person(given = "Tom",
-             family = "Brughmans",
-             role = "aut",
-             email = "t.b@cas.au.dk"))
-Description:
-  Package to install Online Companion to Archaeological Network Science.
+           family = "Peeples",
+           role = c("aut", "cre"),
+           email = "Matthew.Peeples@asu.edu"),
+    person(given = "Tom",
+           family = "Brughmans",
+           role = "aut",
+           email = "t.b@cas.au.dk"))
+Description:   Package to install Online Companion to Archaeological Network Science.
+License: CC BY-NC-ND 4.0
+ByteCompile: true
 Depends: 
-    R (>= 4.1.0)
+  R (>= 4.1.0)
 Imports:
   ape,
   devtools,
@@ -54,7 +54,7 @@ Imports:
   networkDynamic,
   scatterplot3d,
   patchwork,
-  concaveman,
+  concaveman
 Remotes:
   liamgilbey/ggwaffle
 Suggests:
@@ -67,4 +67,6 @@ Suggests:
   rmarkdown,
   xml2
 Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.0
