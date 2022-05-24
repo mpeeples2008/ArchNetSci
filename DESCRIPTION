@@ -56,7 +56,6 @@ Imports:
   patchwork,
   concaveman
 Remotes:
-  RBGL,
   liamgilbey/ggwaffle
 Suggests:
   edgebundle,
