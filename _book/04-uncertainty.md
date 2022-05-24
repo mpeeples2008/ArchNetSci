@@ -48,12 +48,9 @@ The first thing we need to do is initialize our required libraries, import the n
 library(igraph)
 library(reshape2)
 library(ggraph)
-library(tnet)
 library(ggpubr)
 library(dplyr)
 library(statnet)
-#>         Installed ReposVer Built  
-#> network "1.17.1"  "1.17.2" "4.2.0"
 
 # Import adjacency matrix and covert to network
 chaco <- read.csv(file = 'data/AD1050net.csv', row.names = 1)

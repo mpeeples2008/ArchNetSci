@@ -329,9 +329,9 @@
 <div class="sourceCode" id="cb223"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">tree1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/make_tree.html">make_tree</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">50</span>, children <span class="op">=</span> <span class="fl">5</span>, mode <span class="op">=</span> <span class="st">"undirected"</span><span class="op">)</span>
 <span class="va">tree1</span>
-<span class="co">#&gt; IGRAPH 057f77d U--- 50 49 -- Tree</span>
+<span class="co">#&gt; IGRAPH 05fb26f U--- 50 49 -- Tree</span>
 <span class="co">#&gt; + attr: name (g/c), children (g/n), mode (g/c)</span>
-<span class="co">#&gt; + edges from 057f77d:</span>
+<span class="co">#&gt; + edges from 05fb26f:</span>
 <span class="co">#&gt;  [1]  1-- 2  1-- 3  1-- 4  1-- 5  1-- 6  2-- 7  2-- 8  2-- 9</span>
 <span class="co">#&gt;  [9]  2--10  2--11  3--12  3--13  3--14  3--15  3--16  4--17</span>
 <span class="co">#&gt; [17]  4--18  4--19  4--20  4--21  5--22  5--23  5--24  5--25</span>
@@ -571,8 +571,6 @@
 <p>Next, in order to define a minimum distance network we simply binarize this matrix. We can do this using the <code>event2dichot</code> function within the <code>statnet</code> package and easily create an R network objects. Let’s try it out with the Roman Road data for thresholds of 100,000 and 250,000 meters.</p>
 <div class="sourceCode" id="cb235"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://statnet.org">statnet</a></span><span class="op">)</span>
-<span class="co">#&gt;         Installed ReposVer Built  </span>
-<span class="co">#&gt; network "1.17.1"  "1.17.2" "4.2.0"</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">geosphere</span><span class="op">)</span>
 <span class="va">d1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/geosphere/man/distm.html">distm</a></span><span class="op">(</span><span class="va">nodes</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">2</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>
 <span class="co"># Note we use the leq=TRUE argument here as we want nodes less than</span>
@@ -1034,7 +1032,7 @@ directed <span class="op">=</span> <span class="cn">F</span><span class="op">)</
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-05-23.</p>
+    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-05-24.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

@@ -46,7 +46,6 @@ The first thing we need to do is initialize our required libraries, import the n
 library(igraph)
 library(reshape2)
 library(ggraph)
-library(tnet)
 library(ggpubr)
 library(dplyr)
 library(statnet)
