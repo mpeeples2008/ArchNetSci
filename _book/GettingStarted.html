@@ -73,7 +73,7 @@
 <li><a class="active" href="GettingStarted.html">Gettings Started with R</a></li>
 <li><a class="" href="DataWorkspaceSetup.html"><span class="header-section-number">1</span> Data and Workspace Setup</a></li>
 <li><a class="" href="NetworkData.html"><span class="header-section-number">2</span> Network Data Formats</a></li>
-<li><a class="" href="exploratory-network-analysis.html"><span class="header-section-number">3</span> Exploratory Network Analysis</a></li>
+<li><a class="" href="Exploratory.html"><span class="header-section-number">3</span> Exploratory Network Analysis</a></li>
 <li><a class="" href="Uncertainty.html"><span class="header-section-number">4</span> Quantifying Uncertainty</a></li>
 <li><a class="" href="Visualization.html"><span class="header-section-number">5</span> Network Visualization</a></li>
 <li><a class="" href="SpatialNetworks.html"><span class="header-section-number">6</span> Spatial Networks</a></li>
@@ -593,14 +593,17 @@
 
 <span class="fu"><a href="https://rdrr.io/pkg/vegan/man/diversity.html">diversity</a></span><span class="op">(</span><span class="va">vec1</span>, index <span class="op">=</span> <span class="st">"simpson"</span><span class="op">)</span>
 <span class="co">#&gt; [1] 0.7259993</span></code></pre></div>
-<p>As this example shows, once a package is loaded using the <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> function, there is nothing special about using external functions. They are called at the Console just like built-in functions. There is, however, one additional consideration. Since there are so many packages and they are created by so many people, sometimes two packages will use the same function name. For example, the <code>igraph</code> and <code>sna</code> packages both use the function name <code>degree()</code> for degree centrality. If both packages are initialized in R, how will R know which one to use? The solution for this is to use the package name directly in the function call like this:</p>
+<p><br><img src="images/tip.png" height="80" alt="packages" align="left" style="margin: 0 1em 0 1em">
+As this example shows, once a package is loaded using the <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> function, there is nothing special about using external functions. They are called at the Console just like built-in functions. There is, however, one additional consideration. Since there are so many packages and they are created by so many people, sometimes two packages will use the same function name. For example, the <code>igraph</code> and <code>sna</code> packages both use the function name <code>degree()</code> for degree centrality. If both packages are initialized in R, how will R know which one to use? The solution for this is to use the package name directly in the function call like this:
+<br></p>
+<p>Let’s see how this works:</p>
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/degree.html">degree</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="co"># igraph degree function</span>
 <span class="fu">sna</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sna/man/degree.html">degree</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="co"># sna degree function</span></code></pre></div>
 <p>When writing code that others will use, it may be a good idea to include package names in function calls to avoid ambiguity.</p>
-<blockquote>
-<p>There are tons of useful packages out there and it can sometimes be a bit overwhelming trying to find them. Searching in a search engine for the simple letter “R” can also yield unexpected results. One helpful tip when searching for packages is to include “CRAN” or “package” in the search terms. CRAN stands for the Comprehensive R Archive Network and this is the archive that contains most of the peer reviewed and established packages for R.</p>
-</blockquote>
+<p><br><img src="images/tip.png" height="80" alt="packages" align="left" style="margin: 0 1em 0 1em">
+There are tons of useful packages out there and it can sometimes be a bit overwhelming trying to find them. Searching in a search engine for the simple letter “R” can also yield unexpected results. One helpful tip when searching for packages is to include “CRAN” or “package” in the search terms. CRAN stands for the Comprehensive R Archive Network and this is the archive that contains most of the peer reviewed and established packages for R.
+<br></p>
 </div>
 <div id="WorkingWithFiles" class="section level2 unnumbered">
 <h2>Working with Files<a class="anchor" aria-label="anchor" href="#WorkingWithFiles"><i class="fas fa-link"></i></a>
@@ -635,7 +638,9 @@
 <span class="co">#&gt; row 1  4 4 6</span>
 <span class="co">#&gt; row 2  2 2 4</span>
 <span class="co">#&gt; row 3 65 4 2</span></code></pre></div>
-<p>It is important to note here, however, that the <code><a href="https://rdrr.io/r/utils/read.table.html">read.csv()</a></code>function doesn’t know the difference between a data frame and a matrix unless you specify. Indeed, if we check, R sees <code>read_mat</code> as a data frame. For some purposes this doesn’t matter but where it does, we can convert it to a matrix using the <code><a href="https://rdrr.io/r/base/matrix.html">as.matrix()</a></code> function.</p>
+<p><br><img src="images/warning.png" width="80" height="80" alt="warning" align="left" style="margin: 0 1em 0 1em">
+It is important to note here, however, that the <code><a href="https://rdrr.io/r/utils/read.table.html">read.csv()</a></code>function doesn’t know the difference between a data frame and a matrix unless you specify. Indeed, if we check, R sees <code>read_mat</code> as a data frame. For some purposes this doesn’t matter but where it does, we can convert it to a matrix using the <code><a href="https://rdrr.io/r/base/matrix.html">as.matrix()</a></code> function.
+<br></p>
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">read_mat</span><span class="op">)</span>
 <span class="co">#&gt; 'data.frame':    3 obs. of  3 variables:</span>
@@ -651,7 +656,11 @@
 <h2>Plotting Data<a class="anchor" aria-label="anchor" href="#Plotting"><i class="fas fa-link"></i></a>
 </h2>
 <p>One of the great features of R is the ability to make all kinds of amazing data visualizations. Making simple graphics is very easy but as we will see, defining very specific details often requires a number of different packages and considerable care. Indeed, the vast majority of functions used in this Online Companion are used for visualizations.</p>
-<p>Let’s start with something simple by creating two vectors and then creating a bi-plot comparing them. When you use the <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> function the plot will automatically appear in the bottom right pane of your R-Studio window. We use the <code><a href="https://rdrr.io/r/stats/Normal.html">rnorm()</a></code> function here to generate random numbers from a normal distribution. We further use the <code><a href="https://rdrr.io/r/base/Random.html">set.seed()</a></code> function to ensure that we will always generate the same random numbers every time we make this call for reproducibility. If we entered a different number in <code><a href="https://rdrr.io/r/base/Random.html">set.seed()</a></code> we would get different results.</p>
+<p>Let’s start with something simple by creating two vectors and then creating a bi-plot comparing them. When you use the <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> function the plot will automatically appear in the bottom right pane of your R-Studio window. We use the <code><a href="https://rdrr.io/r/stats/Normal.html">rnorm()</a></code> function here to generate random numbers from a normal distribution.</p>
+<p><br><img src="images/tip.png" height="80" alt="packages" align="left" style="margin: 0 1em 0 1em">
+In the chunk of code below, and many other places in this document, we use the <code><a href="https://rdrr.io/r/base/Random.html">set.seed()</a></code> function. This function expects an integer and uses that number to initialize the random number generator built into R. If you use the same seed on your own computer, you will get the same results we do here. If we entered a different number in <code><a href="https://rdrr.io/r/base/Random.html">set.seed()</a></code> we would get different results. This helps us ensure our code is reproducible.
+<br></p>
+<p>Let’s take a look:</p>
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">465</span><span class="op">)</span>
 <span class="co"># Create a random normal variable with 5000 entries and </span>
@@ -662,17 +671,20 @@
 <span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">5000</span>, mean <span class="op">=</span> <span class="fl">5</span>, sd <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span>
 <span class="co"># plot the results</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">x</span>,<span class="va">y</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="index_files/figure-html/unnamed-chunk-38-1.png" width="672"></div>
+<div class="inline-figure"><img src="index_files/figure-html/unnamed-chunk-44-1.png" width="672"></div>
 <p>We can also easily create a histogram of a single variable with additional arguments:</p>
 <div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="va">x</span>, breaks<span class="op">=</span><span class="fl">20</span><span class="op">)</span> <span class="co"># breaks defines the number of bars</span></code></pre></div>
-<div class="inline-figure"><img src="index_files/figure-html/unnamed-chunk-39-1.png" width="672"></div>
+<div class="inline-figure"><img src="index_files/figure-html/unnamed-chunk-45-1.png" width="672"></div>
 <p>And boxplots:</p>
 <div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html">boxplot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="index_files/figure-html/unnamed-chunk-40-1.png" width="672"></div>
+<div class="inline-figure"><img src="index_files/figure-html/unnamed-chunk-46-1.png" width="672"></div>
 <p>There are lots of figures built right into base R and we suggest exploring the <a href="https://bookdown.org/content/b298e479-b1ab-49fa-b83d-a57c2b034d49/">R Gallery Book</a> which outlines many options.</p>
-<p>In the remainder of the Online Companion we will go into detail in how to modify and configure visualizations but it worth mentioning one more common visualization tool that has almost eclipsed base R graphics in popularity. That is the package <code>ggplot2</code>. This package can be used for all sorts of visualizations and it uses a format that is somewhat different from that of base R. Let’s look at an example:</p>
+<p><br><img src="images/packages.png" width="100" height="100" alt="packages" align="left" style="margin: 0 1em 0 1em">
+In the remainder of the Online Companion we will go into detail in how to modify and configure visualizations but it worth mentioning one more common visualization tool that has almost eclipsed base R graphics in popularity. That is the package <code>ggplot2</code>. This package can be used for all sorts of visualizations and it uses a format that is somewhat different from that of base R.
+<br></p>
+<p>Let’s look at an example:</p>
 <div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"ggplot2"</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
@@ -682,7 +694,7 @@
 
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">df</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="index_files/figure-html/unnamed-chunk-42-1.png" width="672"></div>
+<div class="inline-figure"><img src="index_files/figure-html/unnamed-chunk-49-1.png" width="672"></div>
 <p>In the code chunk above, we created a data frame (which <code>ggplot2</code> requires) combining our random x and y variables. Next, we made a generic call to ggplot2 using the <code>ggplot(data = df)</code> line. This creates a ggplot object set up with <code>df</code> as the data considered. Notice this line is followed by a <code>+</code>. This package will continue to read lines until a line does not end with this symbol and <code>ggplot</code> calls can often be quite long.</p>
 <p>The next line was the <code><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point()</a></code> function. This package designates different kinds of visualizations as <code>geom_</code> and there are many options (<code>geom_histogram</code>, <code>geom_bar</code>, <code>geom_polygon</code>, etc.). The <code>geom_point</code> function refers to a simple point plot. The argument inside the function is defined as <code>aes(x = x, y = y)</code>. In this package <code>aes</code> stands for aesthetics. In this case, we are using this aesthetics call to designate which variable will be on the x and which on the y axis, which is easy here as we named our variable appropriately.</p>
 <p>From here <code>ggplot2</code> includes seemingly endless customization options. There are way too many options out there for us to cover here but a good place to start is the <a href="https://r-graph-gallery.com/">R Graph Gallery</a> website.</p>
@@ -693,14 +705,14 @@
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span><span class="op">(</span><span class="st">"Numbers!!"</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span><span class="op">(</span><span class="st">"REALLY BIG NUMBERS"</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="index_files/figure-html/unnamed-chunk-43-1.png" width="672"></div>
+<div class="inline-figure"><img src="index_files/figure-html/unnamed-chunk-50-1.png" width="672"></div>
 <div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">df</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bin_2d.html">geom_bin2d</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_colour_continuous.html">scale_fill_continuous</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"viridis"</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="index_files/figure-html/unnamed-chunk-43-2.png" width="672"></div>
+<div class="inline-figure"><img src="index_files/figure-html/unnamed-chunk-50-2.png" width="672"></div>
 <div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="va">df2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>d1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html">rpois</a></span><span class="op">(</span><span class="fl">50</span>, lambda <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,
@@ -708,7 +720,7 @@
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">df2</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">d1</span>, fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">gp</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="index_files/figure-html/unnamed-chunk-43-3.png" width="672"></div>
+<div class="inline-figure"><img src="index_files/figure-html/unnamed-chunk-50-3.png" width="672"></div>
 </div>
 <div id="AdvancedR" class="section level2 unnumbered">
 <h2>More Advanced R Features<a class="anchor" aria-label="anchor" href="#AdvancedR"><i class="fas fa-link"></i></a>

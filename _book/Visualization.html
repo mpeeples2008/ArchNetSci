@@ -73,7 +73,7 @@
 <li><a class="" href="GettingStarted.html">Gettings Started with R</a></li>
 <li><a class="" href="DataWorkspaceSetup.html"><span class="header-section-number">1</span> Data and Workspace Setup</a></li>
 <li><a class="" href="NetworkData.html"><span class="header-section-number">2</span> Network Data Formats</a></li>
-<li><a class="" href="exploratory-network-analysis.html"><span class="header-section-number">3</span> Exploratory Network Analysis</a></li>
+<li><a class="" href="Exploratory.html"><span class="header-section-number">3</span> Exploratory Network Analysis</a></li>
 <li><a class="" href="Uncertainty.html"><span class="header-section-number">4</span> Quantifying Uncertainty</a></li>
 <li><a class="active" href="Visualization.html"><span class="header-section-number">5</span> Network Visualization</a></li>
 <li><a class="" href="SpatialNetworks.html"><span class="header-section-number">6</span> Spatial Networks</a></li>
@@ -102,10 +102,15 @@
 <h2>
 <span class="header-section-number">5.2</span> Visualizing Networks in R<a class="anchor" aria-label="anchor" href="#visualizing-networks-in-r"><i class="fas fa-link"></i></a>
 </h2>
-<p>There are many tools available for creating network visualizations in R including functions built directly into the <code>igraph</code> and <code>statnet</code> packages. Before we get into the details, we first briefly illustrate the primary network plotting options for <code>igraph</code>, <code>statnet</code> and a visualization package called <code>ggraph</code>. We start here by initializing our required libraries and reading in an adjacency matrix and creating network objects in both the <code>igraph</code> and <code>statnet</code> format. These will be the basis for all examples in this section.</p>
+<p><br><img src="images/packages.png" width="100" height="100" alt="packages" align="left" style="margin: 0 1em 0 1em">
+There are many tools available for creating network visualizations in R including functions built directly into the <code>igraph</code> and <code>statnet</code> packages. Before we get into the details, we first briefly illustrate the primary network plotting options for <code>igraph</code>, <code>statnet</code> and a visualization package called <code>ggraph</code>. We start here by initializing our required libraries and reading in an adjacency matrix and creating network objects in both the <code>igraph</code> and <code>statnet</code> format. These will be the basis for all examples in this section.
+<br></p>
+<p>Let’s start by reading in our example data and then we describe each package in turn:</p>
 <div class="sourceCode" id="cb151"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://igraph.org">igraph</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://statnet.org">statnet</a></span><span class="op">)</span>
+<span class="co">#&gt;         Installed ReposVer Built  </span>
+<span class="co">#&gt; network "1.17.1"  "1.17.2" "4.2.0"</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggraph.data-imaginist.com">ggraph</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://mbojan.github.io/intergraph">intergraph</a></span><span class="op">)</span>
 
@@ -121,9 +126,9 @@
 <span class="va">Cibola_i</span> <span class="op">&lt;-</span> <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/graph_from_adjacency_matrix.html">graph_from_adjacency_matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">Cibola</span><span class="op">)</span>,
                                                 mode <span class="op">=</span> <span class="st">"undirected"</span><span class="op">)</span>
 <span class="va">Cibola_i</span>
-<span class="co">#&gt; IGRAPH a33a79d UN-- 31 167 -- </span>
+<span class="co">#&gt; IGRAPH df2102b UN-- 31 167 -- </span>
 <span class="co">#&gt; + attr: name (v/c)</span>
-<span class="co">#&gt; + edges from a33a79d (vertex names):</span>
+<span class="co">#&gt; + edges from df2102b (vertex names):</span>
 <span class="co">#&gt;  [1] Apache.Creek--Casa.Malpais        </span>
 <span class="co">#&gt;  [2] Apache.Creek--Coyote.Creek        </span>
 <span class="co">#&gt;  [3] Apache.Creek--Hooper.Ranch        </span>
@@ -1171,7 +1176,7 @@ The figure that appears in the book was originally created using GIS software bu
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_void</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="va">figure_6_7</span></code></pre></div>
-<div class="inline-figure"><img src="05-visualization_files/figure-html/unnamed-chunk-2-1.png" width="672"></div>
+<div class="inline-figure"><img src="05-visualization_files/figure-html/unnamed-chunk-4-1.png" width="672"></div>
 </div>
 <div id="Figure_6_8" class="section level3 unnumbered">
 <h3>Figure 6.8: Graph Layout Algorithms<a class="anchor" aria-label="anchor" href="#Figure_6_8"><i class="fas fa-link"></i></a>
@@ -2043,11 +2048,11 @@ The figure that appears in the book was originally created using GIS software bu
            size<span class="op">=</span><span class="fl">4</span><span class="op">)</span>
 
 <span class="va">similt.net</span></code></pre></div>
-<div class="inline-figure"><img src="05-visualization_files/figure-html/unnamed-chunk-4-1.png" width="672"></div>
+<div class="inline-figure"><img src="05-visualization_files/figure-html/unnamed-chunk-6-1.png" width="672"></div>
 <div class="sourceCode" id="cb205"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="va">lin.net</span></code></pre></div>
-<div class="inline-figure"><img src="05-visualization_files/figure-html/unnamed-chunk-4-2.png" width="672"></div>
+<div class="inline-figure"><img src="05-visualization_files/figure-html/unnamed-chunk-6-2.png" width="672"></div>
 </div>
 <div id="Figure_6_23" class="section level3 unnumbered">
 <h3>Figure 6:23: Timelines and Time Prisms<a class="anchor" aria-label="anchor" href="#Figure_6_23"><i class="fas fa-link"></i></a>
@@ -2233,7 +2238,7 @@ The figure that appears in the book was originally created using GIS software bu
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_size.html">scale_size</a></span><span class="op">(</span>range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1.5</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="va">myCols</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/theme_graph.html">theme_graph</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="05-visualization_files/figure-html/unnamed-chunk-5-1.png" width="672"></div>
+<div class="inline-figure"><img src="05-visualization_files/figure-html/unnamed-chunk-7-1.png" width="672"></div>
 </div>
 <div id="Figure_6_27" class="section level3 unnumbered">
 <h3>Figure 6.27: SWSN Example 2<a class="anchor" aria-label="anchor" href="#Figure_6_27"><i class="fas fa-link"></i></a>
@@ -2307,7 +2312,7 @@ The figure that appears in the book was originally created using GIS software bu
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_color_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"white"</span>, <span class="st">"skyblue"</span>, <span class="st">"dodgerblue"</span>,
                                 <span class="st">"darkblue"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/theme_graph.html">theme_graph</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="05-visualization_files/figure-html/unnamed-chunk-6-1.png" width="672"></div>
+<div class="inline-figure"><img src="05-visualization_files/figure-html/unnamed-chunk-8-1.png" width="672"></div>
 
 </div>
 </div>

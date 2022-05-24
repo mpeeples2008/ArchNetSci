@@ -12,7 +12,18 @@ If you plan on working through this entire tutorial and would like to download a
 
 ## Visualizing Networks in R
 
+```{r, echo=FALSE}
+is_html = knitr::is_html_output()
+```
+
+```{asis, echo=is_html}
+<br>
+<img src="images/packages.png" width="100" height="100" alt="packages" align="left" style="margin: 0 1em 0 1em" />
 There are many tools available for creating network visualizations in R including functions built directly into the `igraph` and `statnet` packages. Before we get into the details, we first briefly illustrate the primary network plotting options for `igraph`, `statnet` and a visualization package called `ggraph`. We start here by initializing our required libraries and reading in an adjacency matrix and creating network objects in both the `igraph` and `statnet` format. These will be the basis for all examples in this section.
+<br>
+```
+
+Let's start by reading in our example data and then we describe each package in turn:
 
 ```{r Chapter6_read_data, warning=F, message=F}
 library(igraph)

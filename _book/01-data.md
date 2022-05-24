@@ -130,9 +130,14 @@ In addition to the .csv files, several examples in this book and several of the 
 load("data/map.RData")
 ```
 
-## Installing Required/Suggested R Packages
+## Required/Suggested R Packages{#PrimaryPackages}
 
+
+
+<br>
+<img src="images/packages.png" width="100" height="100" alt="packages" align="left" style="margin: 0 1em 0 1em" />
 In this appendix we rely on a number of pre-existing R packages. In order to use these packages in a new installation of R and R-studio, you first need to install them. Note that you will only need to do this once on a new installation of R. To install packages, you can click on the "Packages" tab in the window in the bottom right of R studio, then click the "Install" button at the top and type the names of the packages separated by commas. Alternatively you can install packages from the console by simply typing `install.packages("nameofpackagehere")`. 
+
 
 `install.packages(c("statnet", "igraph"))`
 
@@ -142,8 +147,6 @@ We use a number of R packages in the modules here and in the book for manipulati
 * [statnet (Krivitsky et al. 2020)](http://statnet.org/) - A suite of packages designed for the management and statistical analysis of networks
 * [intergraph (Bojanowski 2015)](https://cran.r-project.org/web/packages/intergraph/intergraph.pdf) - a set of routines for coercing objects between common network formats in R
 * [ggraph (Pederson 2021)](https://CRAN.R-project.org/package=ggraph) - a powerful graph visualization package that is based off of the ggplot2 plotting format
-
-### A Brief Introduction to the Primary Network Packages in R{#PrimaryPackages}
 
 Throughout this Online Companion, we will consistently rely on `igraph` and `statnet` (`statnet` is actually a suite of packages that includes `sna`, `network`, `ergm`, and others). For the most part these two packages do many of the same things. You can use them to calculate centrality metrics, define groups, or evaluate other network structures. In general `igraph` is a bit more centered on complex networks and mathematical models and `statnet` and affiliated packages are more focused on social network analysis though there is considerable overlap. 
 
@@ -188,7 +191,14 @@ if(!requireNamespace("BiocManager", quietly = TRUE))
 BiocManager::install("RBGL")
 ```
 
+
+
+
+<br>
+<img src="images/warning.png" width="80" height="80" alt="warning" align="left" style="margin: 0 1em 0 1em" />
 In addition to the R packages listed above, there is one procedure used in this Online Companion that requires you to have an installation of Python 3.7 with particular packages associated with it. In order to implement these sections of code, you will need to also run the following lines of code. Note that this is a large install that takes about about 1.4 GB of hard drive space so only do this if you have the space and REALLY want to explore edge bundling ([see Edge Bundling Visualizations](#Figure_6_17)). You will be able to reproduce everything in this document except for two chunks of code without this so feel free to sit this one out.
+
+To install Python with the required libraries, run the following chunk of code:
 
 
 ```r

@@ -1,4 +1,4 @@
-# Exploratory Network Analysis
+# Exploratory Network Analysis{#Exploratory}
 
 Exploratory network analysis is simply exploratory data analysis applied to network data. This covers a range of statistical and visual techniques designed to explore the structure of networks as well as the relative positions of nodes and edges. These methods can be used to look for particular structures or patterning of interest, such as the most central nodes, or to summarize and describe the structure of the network to paint a general picture of it before further analysis. This section serves as a companion to Chapter 4 in the Brughmans and Peeples book (2022) and provides basic examples of the exploratory network analysis methods outlined in the book as well as a few others.
 
@@ -23,6 +23,8 @@ In the following chunk of code we initialize all of the packages that we will us
 # initialize packages
 library(igraph)
 library(statnet)
+#>         Installed ReposVer Built  
+#> network "1.17.1"  "1.17.2" "4.2.0"
 library(intergraph)
 library(vegan)
 
@@ -285,8 +287,17 @@ page_rank(
 
 ### Closeness Centrality {#Closeness}
 
-The `igraph::closeness` function calculates closeness centrality and can be calculated for directed and undirected simple or weighted networks with no isolates. This function can also be used for networks with isolates, but you will receive an additional message suggesting that closeness is undefined for networks that are not fully connected. For very large networks you can use the `igraph::estimate_closeness` function with a cutoff setting that will consider paths of length up to cutoff to calculate closeness scores. For directed networks you can also specify whether connections in, out, or in both directions should be used.
+The `igraph::closeness` function calculates closeness centrality and can be calculated for directed and undirected simple or weighted networks with no isolates. This function can also be used for networks with isolates, but you may receive an additional message suggesting that closeness is undefined for networks that are not fully connected. For very large networks you can use the `igraph::estimate_closeness` function with a cutoff setting that will consider paths of length up to cutoff to calculate closeness scores. For directed networks you can also specify whether connections in, out, or in both directions should be used.
 
+
+
+<br>
+<img src="images/warning.png" width="80" height="80" alt="warning" align="left" style="margin: 0 1em 0 1em" />
+Note that the function `igraph::closeness()` should not normally be used with networks with multiple components. Depending on your settings, however, the function call may not return an error so be careful.
+<br>
+
+Let's take a look at some examples:
+ 
 
 ```r
 igraph::closeness(simple_net)[1:5]
@@ -410,7 +421,7 @@ ggarrange(
 )
 ```
 
-<img src="03-exploratory-analysis_files/figure-html/unnamed-chunk-10-1.png" width="576" />
+<img src="03-exploratory-analysis_files/figure-html/unnamed-chunk-12-1.png" width="576" />
 
 ### Transitivity and Clustering{#Transitivity}
 
@@ -465,7 +476,7 @@ If you want to identify particular shortest paths to or from nodes in a network 
 igraph::shortest_paths(simple_net, from = 1, to = 21)
 #> $vpath
 #> $vpath[[1]]
-#> + 5/31 vertices, named, from 36e7455:
+#> + 5/31 vertices, named, from 6ea4af7:
 #> [1] Apache.Creek          Casa.Malpais         
 #> [3] Garcia.Ranch          Heshotauthla         
 #> [5] Pueblo.de.los.Muertos
@@ -494,7 +505,7 @@ igraph::diameter(directed_net, directed = TRUE)
 
 igraph::farthest_vertices(directed_net, directed = TRUE)
 #> $vertices
-#> + 2/30 vertices, named, from 36e80de:
+#> + 2/30 vertices, named, from 6ea5b43:
 #> [1] Apache Creek          Pueblo de los Muertos
 #> 
 #> $distance
@@ -532,9 +543,9 @@ components <- igraph::decompose(simple_net, min.vertices = 1)
 
 components
 #> [[1]]
-#> IGRAPH 39737a3 UN-- 30 167 -- 
+#> IGRAPH 70e540e UN-- 30 167 -- 
 #> + attr: name (v/c)
-#> + edges from 39737a3 (vertex names):
+#> + edges from 70e540e (vertex names):
 #>  [1] Apache.Creek--Casa.Malpais        
 #>  [2] Apache.Creek--Coyote.Creek        
 #>  [3] Apache.Creek--Hooper.Ranch        
@@ -546,9 +557,9 @@ components
 #> + ... omitted several edges
 #> 
 #> [[2]]
-#> IGRAPH 39737ba UN-- 1 0 -- 
+#> IGRAPH 70e5426 UN-- 1 0 -- 
 #> + attr: name (v/c)
-#> + edges from 39737ba (vertex names):
+#> + edges from 70e5426 (vertex names):
 
 V(components[[2]])$name
 #> [1] "WS.Ranch"
@@ -575,7 +586,7 @@ set.seed(4536)
 plot(simple_net)
 ```
 
-<img src="03-exploratory-analysis_files/figure-html/unnamed-chunk-18-1.png" width="672" />
+<img src="03-exploratory-analysis_files/figure-html/unnamed-chunk-20-1.png" width="672" />
 
 The example here reveals that Ojo Bonito is a cutpoint and if we look at the figure we can see that it is the sole connection with Baca Pueblo which would otherwise become and isolate and distinct component if Ojo Bonito were removed.
 
@@ -590,15 +601,15 @@ min_cut(simple_net_noiso, value.only = FALSE)
 #> [1] 1
 #> 
 #> $cut
-#> + 1/167 edge from 36e78e1 (vertex names):
+#> + 1/167 edge from 6ea52be (vertex names):
 #> [1] Ojo Bonito--Baca Pueblo
 #> 
 #> $partition1
-#> + 1/30 vertex, named, from 36e78e1:
+#> + 1/30 vertex, named, from 6ea52be:
 #> [1] Baca Pueblo
 #> 
 #> $partition2
-#> + 29/30 vertices, named, from 36e78e1:
+#> + 29/30 vertices, named, from 6ea52be:
 #>  [1] Apache Creek          Casa Malpais         
 #>  [3] Coyote Creek          Hooper Ranch         
 #>  [5] Horse Camp Mill       Hubble Corner        
@@ -625,7 +636,7 @@ A clique as a network science concept is arguably the strictest method of defini
 
 ```r
 max_cliques(simple_net, min = 1)[[24]]
-#> + 9/31 vertices, named, from 36e7455:
+#> + 9/31 vertices, named, from 6ea4af7:
 #> [1] Los.Gigantes    Cienega         Tinaja         
 #> [4] Spier.170       Scribe.S        Pescado.Cluster
 #> [7] Mirabal         Heshotauthla    Yellowhouse
@@ -653,7 +664,7 @@ set.seed(2509)
 plot(simple_net, vertex.color = col_set[kcore])
 ```
 
-<img src="03-exploratory-analysis_files/figure-html/unnamed-chunk-21-1.png" width="672" />
+<img src="03-exploratory-analysis_files/figure-html/unnamed-chunk-23-1.png" width="672" />
 
 In the plot shown here the darker read colors represent higher maximal k-core values.
 
@@ -672,7 +683,7 @@ set.seed(4353)
 plot(simple_net, vertex.color = GN$membership)
 ```
 
-<img src="03-exploratory-analysis_files/figure-html/unnamed-chunk-22-1.png" width="672" />
+<img src="03-exploratory-analysis_files/figure-html/unnamed-chunk-24-1.png" width="672" />
 
 #### Walktrap Algorithm{#Walktrap}
 
@@ -685,7 +696,7 @@ set.seed(4353)
 plot(simple_net, vertex.color = WT$membership)
 ```
 
-<img src="03-exploratory-analysis_files/figure-html/unnamed-chunk-23-1.png" width="672" />
+<img src="03-exploratory-analysis_files/figure-html/unnamed-chunk-25-1.png" width="672" />
 
 #### Louvain Modularity{#Louvain}
 
@@ -698,7 +709,7 @@ set.seed(4353)
 plot(simple_net, vertex.color = LV$membership)
 ```
 
-<img src="03-exploratory-analysis_files/figure-html/unnamed-chunk-24-1.png" width="672" />
+<img src="03-exploratory-analysis_files/figure-html/unnamed-chunk-26-1.png" width="672" />
 
 #### Calculating Modularity for Partitions{#Modularity}
 
@@ -755,7 +766,7 @@ set.seed(54)
 plot(LV, simple_net)
 ```
 
-<img src="03-exploratory-analysis_files/figure-html/unnamed-chunk-27-1.png" width="672" />
+<img src="03-exploratory-analysis_files/figure-html/unnamed-chunk-29-1.png" width="672" />
 
 ## Case Study: Roman Roads
 

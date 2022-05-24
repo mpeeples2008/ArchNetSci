@@ -15,6 +15,11 @@ The network data formats we discuss in this section include:
 * Adjacency matrix - A network data format consisting of a matrix of size *n x n*, with a set of rows equal to the number of nodes, and a set of columns equal to the number of nodes. When a pair of nodes is connected by an edge (i.e., when they are adjacent), then the corresponding cell will have an entry.
 * Incidence matrix - A network data format consisting of a matrix of size *n x e*, with a set of rows equal to the number of nodes, and a set of columns equal to the number of edges. An entry is made in a cell if the corresponding node and edge are connected. Each column in the incidence matrix has two entries.
 
+
+
+
+<br>
+<img src="images/packages.png" width="100" height="100" alt="packages" align="left" style="margin: 0 1em 0 1em" />
 Let's first get started by initializing all of the packages we will use in this section.
 
 
@@ -22,6 +27,8 @@ Let's first get started by initializing all of the packages we will use in this 
 # initialize packages
 library(igraph)
 library(statnet)
+#>         Installed ReposVer Built  
+#> network "1.17.1"  "1.17.2" "4.2.0"
 library(intergraph)
 library(vegan)
 library(multinet)
@@ -73,9 +80,9 @@ Cibola_net <-
 
 # Display igraph network object and then plot a simple node-link diagram
 Cibola_net
-#> IGRAPH 30e6ec4 UN-- 30 167 -- 
+#> IGRAPH 688983e UN-- 30 167 -- 
 #> + attr: name (v/c)
-#> + edges from 30e6ec4 (vertex names):
+#> + edges from 688983e (vertex names):
 #>  [1] Apache Creek--Casa Malpais        
 #>  [2] Apache Creek--Coyote Creek        
 #>  [3] Apache Creek--Hooper Ranch        
@@ -89,7 +96,7 @@ set.seed(3523) # set random seed to ensure graph layout stays the same each time
 plot(Cibola_net)
 ```
 
-<img src="02-network-data-formats_files/figure-html/unnamed-chunk-2-1.png" width="672" />
+<img src="02-network-data-formats_files/figure-html/unnamed-chunk-4-1.png" width="672" />
 
 ### Adjacency List
 
@@ -104,7 +111,7 @@ adj_list <- igraph::as_adj_edge_list(Cibola_net)
 
 # examine adjacency list for the site Apache Creek
 adj_list$`Apache Creek`
-#> + 11/167 edges from 30e6ec4 (vertex names):
+#> + 11/167 edges from 688983e (vertex names):
 #>  [1] Apache Creek--Casa Malpais        
 #>  [2] Apache Creek--Coyote Creek        
 #>  [3] Apache Creek--Hooper Ranch        
@@ -120,7 +127,7 @@ adj_list$`Apache Creek`
 # It is also possible to call specific nodes by number. In this case,
 # site 2 is Casa Malpais
 adj_list[[2]] 
-#> + 11/167 edges from 30e6ec4 (vertex names):
+#> + 11/167 edges from 688983e (vertex names):
 #>  [1] Apache Creek--Casa Malpais   
 #>  [2] Casa Malpais--Coyote Creek   
 #>  [3] Casa Malpais--Hooper Ranch   
@@ -181,7 +188,7 @@ set.seed(4352)
 plot(Cibola_net2)
 ```
 
-<img src="02-network-data-formats_files/figure-html/unnamed-chunk-4-1.png" width="672" />
+<img src="02-network-data-formats_files/figure-html/unnamed-chunk-6-1.png" width="672" />
 
 Note when you compare this network graph to the one produced based on the edge list there is an additional unconnected node (WS Ranch) that was not shown in the previous network. This is one of the advantages of an adjacency matrix is it provides a way of easily including unconnected nodes without having to manually add them or include self-loops.
  
@@ -243,7 +250,7 @@ set.seed(4543)
 plot(Cibola_inc, vertex.color = as.numeric(V(Cibola_inc)$type) + 1)
 ```
 
-<img src="02-network-data-formats_files/figure-html/unnamed-chunk-5-1.png" width="672" />
+<img src="02-network-data-formats_files/figure-html/unnamed-chunk-7-1.png" width="672" />
 
 ### Node and Edge Information
 
@@ -302,9 +309,9 @@ V(Cibola_net2)$region
 # Note that "region" is now listed as an attribute when we view 
 # the network object
 Cibola_net2
-#> IGRAPH 3114893 UN-- 31 167 -- 
+#> IGRAPH 68b506f UN-- 31 167 -- 
 #> + attr: name (v/c), region (v/c)
-#> + edges from 3114893 (vertex names):
+#> + edges from 68b506f (vertex names):
 #>  [1] Apache.Creek--Casa.Malpais        
 #>  [2] Apache.Creek--Coyote.Creek        
 #>  [3] Apache.Creek--Hooper.Ranch        
@@ -325,7 +332,7 @@ set.seed(43534)
 plot(Cibola_net2, vertex.color = as.factor(V(Cibola_net2)$region))
 ```
 
-<img src="02-network-data-formats_files/figure-html/unnamed-chunk-8-1.png" width="672" />
+<img src="02-network-data-formats_files/figure-html/unnamed-chunk-10-1.png" width="672" />
 
 ## Types of Networks{#TypesOfNetworks}
 
@@ -358,9 +365,9 @@ simple_net_i <-
   igraph::graph_from_adjacency_matrix(as.matrix(adj_mat2),
                                       mode = "undirected")
 simple_net_i
-#> IGRAPH 31e8e82 UN-- 31 167 -- 
+#> IGRAPH 697f003 UN-- 31 167 -- 
 #> + attr: name (v/c)
-#> + edges from 31e8e82 (vertex names):
+#> + edges from 697f003 (vertex names):
 #>  [1] Apache.Creek--Casa.Malpais        
 #>  [2] Apache.Creek--Coyote.Creek        
 #>  [3] Apache.Creek--Hooper.Ranch        
@@ -417,9 +424,9 @@ EL2 <- Cibola_edgelist[sample(seq(1, nrow(Cibola_edgelist)), 125,
 directed_net <-
   igraph::graph_from_edgelist(as.matrix(EL2), directed = TRUE)
 directed_net
-#> IGRAPH 31ef1bb DN-- 30 125 -- 
+#> IGRAPH 6985be6 DN-- 30 125 -- 
 #> + attr: name (v/c)
-#> + edges from 31ef1bb (vertex names):
+#> + edges from 6985be6 (vertex names):
 #>  [1] Coyote Creek   ->Techado Springs      
 #>  [2] Hubble Corner  ->Tri-R Pueblo         
 #>  [3] Hubble Corner  ->Techado Springs      
@@ -451,7 +458,7 @@ set.seed(4353)
 plot(directed_net)
 ```
 
-<img src="02-network-data-formats_files/figure-html/unnamed-chunk-10-1.png" width="672" />
+<img src="02-network-data-formats_files/figure-html/unnamed-chunk-12-1.png" width="672" />
 
 Notice that when we look at the igraph network plot it has arrows indicating the direction of connection in the edge list. If you are making your own directed edge list, the sending node by default will be in the left column and the receiving node in the right column. In the adjacency matrix the upper and lower triangles are no longer identical. Again, if you are generating your own adjacency matrix, you can simply mark edges sent from nodes denoted as rows and edges received from the same nodes as columns. Finally, in the plot, since R recognizes this as a directed igraph object when we plot the network, it automatically shows arrows indicating the direction of the edge.
 
@@ -510,7 +517,7 @@ set.seed(574)
 plot(weighted_net, edge.width = E(weighted_net)$weight)
 ```
 
-<img src="02-network-data-formats_files/figure-html/unnamed-chunk-11-1.png" width="672" />
+<img src="02-network-data-formats_files/figure-html/unnamed-chunk-13-1.png" width="672" />
 
 Notice in the final plot that line thickness is used to indicate edges with various weights. We will explore further options for such visualizations in the network [visualizations section](#Visualization) of this document.
 
@@ -532,9 +539,9 @@ Cibola_inc <- igraph::graph_from_incidence_matrix(Cibola_clust,
                                                   directed = FALSE,
                                                   multiple = TRUE)
 Cibola_inc
-#> IGRAPH 322b727 UN-B 41 2214 -- 
+#> IGRAPH 69d197e UN-B 41 2214 -- 
 #> + attr: type (v/l), name (v/c)
-#> + edges from 322b727 (vertex names):
+#> + edges from 69d197e (vertex names):
 #>  [1] Apache Creek--Clust1 Apache Creek--Clust1
 #>  [3] Apache Creek--Clust1 Apache Creek--Clust1
 #>  [5] Apache Creek--Clust1 Apache Creek--Clust1
@@ -549,7 +556,7 @@ set.seed(4537643)
 plot(Cibola_inc, vertex.color = as.numeric(V(Cibola_inc)$type) + 1)
 ```
 
-<img src="02-network-data-formats_files/figure-html/unnamed-chunk-12-1.png" width="672" />
+<img src="02-network-data-formats_files/figure-html/unnamed-chunk-14-1.png" width="672" />
 
 In this case since most clusters are present at most sites, this creates a pretty busy network that may not be particularly useful. An alternative to this is to define some threshold (either in terms of raw count or proportion) to define an edge between a node of one class and another. We provide an example here and build a function that you could modify to do this for your own data. In this function you can set the proportion threshold that you would like to used to define an edge between two classes of nodes. If the proportion of that cluster at that site is greater than or equal to that threshold an edge will be present. In the example below the threshold is set at 0.25 meaning that we will define edges between nodes that share a common type that makes of at least a quarter of the assemblage of both sites.
 
@@ -599,7 +606,7 @@ plot(two_mode_net,
      vertex.color = as.numeric(V(Cibola_inc)$type) + 1)
 ```
 
-<img src="02-network-data-formats_files/figure-html/unnamed-chunk-13-1.png" width="672" />
+<img src="02-network-data-formats_files/figure-html/unnamed-chunk-15-1.png" width="672" />
 
 Notice how there are now far fewer ties and if you are familiar with the sites in question you might notice some clear regional patterning. 
 
@@ -617,7 +624,7 @@ site_net <- igraph::graph_from_adjacency_matrix(site_mode,
 plot(site_net)
 ```
 
-<img src="02-network-data-formats_files/figure-html/unnamed-chunk-14-1.png" width="672" />
+<img src="02-network-data-formats_files/figure-html/unnamed-chunk-16-1.png" width="672" />
 
 ```r
 
@@ -648,7 +655,7 @@ clust_net <- igraph::graph_from_adjacency_matrix(clust_mode,
 plot(clust_net)
 ```
 
-<img src="02-network-data-formats_files/figure-html/unnamed-chunk-14-2.png" width="672" />
+<img src="02-network-data-formats_files/figure-html/unnamed-chunk-16-2.png" width="672" />
 
 ### Similarity Networks{#SimilarityNetworks}
 
@@ -822,7 +829,7 @@ set.seed(7564)
 plot(BRnet)
 ```
 
-<img src="02-network-data-formats_files/figure-html/unnamed-chunk-18-1.png" width="672" />
+<img src="02-network-data-formats_files/figure-html/unnamed-chunk-20-1.png" width="672" />
 
 In the next chunk of code we will use the $\chi^2$ distances to create binary networks. This time, we will not use an absolute value to define ties as present, but instead will define those similarities greater than 80 percent of all similarities as present. We will then once again plot just as above.
 
@@ -860,7 +867,7 @@ set.seed(346)
 plot(Xnet)
 ```
 
-<img src="02-network-data-formats_files/figure-html/unnamed-chunk-19-1.png" width="672" />
+<img src="02-network-data-formats_files/figure-html/unnamed-chunk-21-1.png" width="672" />
 
 ##### Creating Weighted Network Objects {-}
 
@@ -903,7 +910,7 @@ set.seed(4634)
 plot(Mor_wt)
 ```
 
-<img src="02-network-data-formats_files/figure-html/unnamed-chunk-20-1.png" width="672" />
+<img src="02-network-data-formats_files/figure-html/unnamed-chunk-22-1.png" width="672" />
 
 The resulting network is nearly complete so it is a bit unwieldy for plotting but calculating network statistics on this weighted network can often still be useful as we will see in the exploratory analysis section.
 
@@ -931,9 +938,9 @@ ego_nets <- make_ego_graph(Cibola_net)
 
 # Examine the first ego-network
 ego_nets[[1]]
-#> IGRAPH 3360fa0 UN-- 12 59 -- 
+#> IGRAPH 6b11032 UN-- 12 59 -- 
 #> + attr: name (v/c)
-#> + edges from 3360fa0 (vertex names):
+#> + edges from 6b11032 (vertex names):
 #>  [1] Apache Creek--Casa Malpais   
 #>  [2] Apache Creek--Coyote Creek   
 #>  [3] Casa Malpais--Coyote Creek   
@@ -949,7 +956,7 @@ set.seed(754)
 plot(ego_nets[[1]])
 ```
 
-<img src="02-network-data-formats_files/figure-html/unnamed-chunk-21-1.png" width="672" />
+<img src="02-network-data-formats_files/figure-html/unnamed-chunk-23-1.png" width="672" />
 
 ```r
 
@@ -958,7 +965,7 @@ set.seed(45367)
 plot(ego_nets[[30]])
 ```
 
-<img src="02-network-data-formats_files/figure-html/unnamed-chunk-21-2.png" width="672" />
+<img src="02-network-data-formats_files/figure-html/unnamed-chunk-23-2.png" width="672" />
 
 In these ego-networks, only nodes connected to the target nodes (Apache Creek in the first example and then Platt Ranch in the second) are shown and only edges among those included nodes are shown.
 
@@ -979,10 +986,10 @@ In most of the examples in this document we have been using the `igraph` package
 ```r
 Mor_wt_i <- asIgraph(Mor_wt)
 Mor_wt_i
-#> IGRAPH 3385714 U-W- 31 465 -- 
+#> IGRAPH 6b33f87 U-W- 31 465 -- 
 #> + attr: na (v/l), vertex.names (v/c), na (e/l),
 #> | weight (e/n)
-#> + edges from 3385714:
+#> + edges from 6b33f87:
 #>  [1] 1-- 2 1-- 3 1-- 4 1-- 5 1-- 6 1-- 7 1-- 8 1-- 9 1--10
 #> [10] 1--11 1--12 1--13 1--14 1--15 1--16 1--17 1--18 1--19
 #> [19] 1--20 1--21 1--22 1--23 1--24 1--25 1--26 1--27 1--28
@@ -1022,7 +1029,7 @@ summary(florentine)
 plot(florentine)
 ```
 
-<img src="02-network-data-formats_files/figure-html/unnamed-chunk-24-1.png" width="672" />
+<img src="02-network-data-formats_files/figure-html/unnamed-chunk-26-1.png" width="672" />
 
 The `multinet` network objects are compatible with `igraph` and individual layers can be analyzed just like other `igraph` network objects. Where this `multinet` approach likely has greater utility is in conducting comparisons among layers or conducting analyses that take several layers into account simultaneously. A detailed exploration of this approach is beyond the scope of this document (but we provide a simple example below) and we suggest interested readers read the package information and tutorials associated with this package for more. In the example here we calculate degree across multiple layers using the `degree_ml` function and then run a Louvain cluster detection algorithm across all graph layers using `glouvain_ml`. Multilayer networks have considerable potential for archaeological data and we hope to see more research in this area in the future.
 
@@ -1032,38 +1039,38 @@ The `multinet` network objects are compatible with `igraph` and individual layer
 # multilayer network, the multinet package can help us do that directly
 # and quite simply.
 multinet::degree_ml(florentine)
-#>  [1]  3  1  3 11  6  6  3  6  4  2  7  3  4  6  5
+#>  [1]  2  7  4  3  4 11  3  6  6  3  6  3  1  6  5
 
 # Similarly, we could apply cluster detection algorithms to all layers
 # of a multilayer network simultaneously.
 multinet::glouvain_ml(florentine)
 #>           actor    layer cid
-#> 1       Albizzi marriage   0
-#> 2     Barbadori marriage   0
-#> 3     Barbadori business   0
-#> 4        Ginori marriage   0
-#> 5        Ginori business   0
-#> 6      Bischeri marriage   1
-#> 7      Bischeri business   1
-#> 8    Castellani marriage   1
-#> 9    Castellani business   1
-#> 10      Strozzi marriage   1
-#> 11      Peruzzi marriage   1
-#> 12      Peruzzi business   1
-#> 13     Guadagni marriage   1
-#> 14     Guadagni business   1
-#> 15 Lamberteschi marriage   1
-#> 16 Lamberteschi business   1
-#> 17   Acciaiuoli marriage   2
-#> 18     Salviati marriage   2
-#> 19     Salviati business   2
-#> 20       Medici marriage   2
-#> 21       Medici business   2
-#> 22        Pazzi marriage   2
-#> 23        Pazzi business   2
-#> 24      Ridolfi marriage   2
-#> 25   Tornabuoni marriage   2
-#> 26   Tornabuoni business   2
+#> 1      Bischeri marriage   0
+#> 2      Bischeri business   0
+#> 3      Guadagni marriage   0
+#> 4      Guadagni business   0
+#> 5  Lamberteschi marriage   0
+#> 6  Lamberteschi business   0
+#> 7         Pazzi marriage   1
+#> 8         Pazzi business   1
+#> 9    Tornabuoni marriage   1
+#> 10   Tornabuoni business   1
+#> 11      Ridolfi marriage   1
+#> 12       Medici marriage   1
+#> 13       Medici business   1
+#> 14     Salviati marriage   1
+#> 15     Salviati business   1
+#> 16       Ginori marriage   1
+#> 17       Ginori business   1
+#> 18      Albizzi marriage   1
+#> 19   Acciaiuoli marriage   1
+#> 20      Peruzzi marriage   2
+#> 21      Peruzzi business   2
+#> 22      Strozzi marriage   2
+#> 23   Castellani marriage   2
+#> 24   Castellani business   2
+#> 25    Barbadori marriage   2
+#> 26    Barbadori business   2
 ```
 
 For an archaeological example of multilevel network analysis [this GitHub project](https://github.com/ajupton/archy-multilayer-nets) by Andy Upton.

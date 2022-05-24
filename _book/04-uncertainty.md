@@ -51,6 +51,8 @@ library(ggraph)
 library(ggpubr)
 library(dplyr)
 library(statnet)
+#>         Installed ReposVer Built  
+#> network "1.17.1"  "1.17.2" "4.2.0"
 
 # Import adjacency matrix and covert to network
 chaco <- read.csv(file = 'data/AD1050net.csv', row.names = 1)

@@ -10,7 +10,7 @@ description: |
   This online bookdown document accompanies the Cambridge Manuals in Archaeology book
   *Archaeological Network Science* by Tom Brughmans and Matthew A. Peeples.
 link-citations: yes
-cover-image: "images/cover.png"
+cover-image: images/cover.png
 ---
 
 # Welcome{-}
@@ -63,6 +63,30 @@ A few suggestions on where to start:
 * If you are already an avid network analyst and R user and are just looking for code chunks to implement something in particular, feel free to skip around. We have tried to make each Section as independent as possible so that you can pick and choose what you want to work on.
 * If you're a real pro and are designing your own network analyses or visualizations, we would love it if you contributed to the project to help this document grow.
 
+Throughout this document we use a few icons to indicate information about packages, warnings, and general useful tips. Keep an eye out for the symbols below:
+
+```{r, echo=FALSE}
+is_html = knitr::is_html_output()
+```
+
+```{asis, echo=is_html}
+<br>
+<img src="images/packages.png" width="80" height="80" alt="packages" align="left" style="margin: 0 1em 0 1em" />
+We use this icon to highlight our discussions of R packages used in this project. Check here for brief overviews and instructions on how to use and configure these packages.
+<br>
+<br>
+<img src="images/warning.png" width="80" height="80" alt="packages" align="left" style="margin: 0 1em 0 1em" />
+We use this icon to highlight particular areas of concern in our discussion of network methods and R code. In particular, we use this icon to warn you of common errors or pitfalls for particular functions.
+<br>
+<br>
+<img src="images/tip.png" width="80" alt="packages" align="left" style="margin: 0 1em 0 1em" />
+We use this icon to highlight helpful tips for using particular R functions or R studio procedures.
+<br>
+<br>
+```
+
+In addition to this, we have attempted to add cross-references and links throughout the book so that you can quickly navigate between specific code chunks and general discussion of the procedures and issues covered in this document.
+ 
 ## Reproducibility{- #Repro}
 
 The most recent version of this document was built with `r R.version.string`. We suggest you use a recent version of R when attempting to use the code in this document. 
@@ -584,7 +608,14 @@ diversity(vec1, index = "simpson")
 
 ```
 
+```{asis, echo=is_html}
+<br>
+<img src="images/tip.png" height="80" alt="packages" align="left" style="margin: 0 1em 0 1em" />
 As this example shows, once a package is loaded using the `library()` function, there is nothing special about using external functions. They are called at the Console just like built-in functions. There is, however, one additional consideration. Since there are so many packages and they are created by so many people, sometimes two packages will use the same function name. For example, the `igraph` and `sna` packages both use the function name `degree()` for degree centrality. If both packages are initialized in R, how will R know which one to use? The solution for this is to use the package name directly in the function call like this:
+<br>
+```
+
+Let's see how this works:
 
 ```{r, eval=F}
 igraph::degree(data) # igraph degree function
@@ -593,7 +624,13 @@ sna::degree(data) # sna degree function
 
 When writing code that others will use, it may be a good idea to include package names in function calls to avoid ambiguity.
 
-> There are tons of useful packages out there and it can sometimes be a bit overwhelming trying to find them. Searching in a search engine for the simple letter "R" can also yield unexpected results. One helpful tip when searching for packages is to include "CRAN" or "package" in the search terms. CRAN stands for the Comprehensive R Archive Network and this is the archive that contains most of the peer reviewed and established packages for R. 
+```{asis, echo=is_html}
+<br>
+<img src="images/tip.png" height="80" alt="packages" align="left" style="margin: 0 1em 0 1em" />
+There are tons of useful packages out there and it can sometimes be a bit overwhelming trying to find them. Searching in a search engine for the simple letter "R" can also yield unexpected results. One helpful tip when searching for packages is to include "CRAN" or "package" in the search terms. CRAN stands for the Comprehensive R Archive Network and this is the archive that contains most of the peer reviewed and established packages for R. 
+<br>
+```
+
 
 ## Working with Files{- #WorkingWithFiles}
 
@@ -626,7 +663,15 @@ read_mat <- read.csv(file = "output_mat.csv", header = T, row.names = 1)
 read_mat
 ```
 
+
+```{asis, echo=is_html}
+<br>
+<img src="images/warning.png" width="80" height="80" alt="warning" align="left" style="margin: 0 1em 0 1em" />
 It is important to note here, however, that the `read.csv()`function doesn't know the difference between a data frame and a matrix unless you specify. Indeed, if we check, R sees `read_mat` as a data frame. For some purposes this doesn't matter but where it does, we can convert it to a matrix using the `as.matrix()` function.
+<br>
+```
+
+
 
 ```{r}
 str(read_mat)
@@ -640,7 +685,16 @@ There are lots of different functions for reading in files in different formats 
 
 One of the great features of R is the ability to make all kinds of amazing data visualizations. Making simple graphics is very easy but as we will see, defining very specific details often requires a number of different packages and considerable care. Indeed, the vast majority of functions used in this Online Companion are used for visualizations.
 
-Let's start with something simple by creating two vectors and then creating a bi-plot comparing them. When you use the `plot()` function the plot will automatically appear in the bottom right pane of your R-Studio window. We use the `rnorm()` function here to generate random numbers from a normal distribution. We further use the `set.seed()` function to ensure that we will always generate the same random numbers every time we make this call for reproducibility. If we entered a different number in `set.seed()` we would get different results.
+Let's start with something simple by creating two vectors and then creating a bi-plot comparing them. When you use the `plot()` function the plot will automatically appear in the bottom right pane of your R-Studio window. We use the `rnorm()` function here to generate random numbers from a normal distribution. 
+
+```{asis, echo=is_html}
+<br>
+<img src="images/tip.png" height="80" alt="packages" align="left" style="margin: 0 1em 0 1em" />
+In the chunk of code below, and many other places in this document, we use the `set.seed()` function. This function expects an integer and uses that number to initialize the random number generator built into R. If you use the same seed on your own computer, you will get the same results we do here. If we entered a different number in `set.seed()` we would get different results. This helps us ensure our code is reproducible. 
+<br>
+```
+
+Let's take a look:
 
 ```{r}
 set.seed(465)
@@ -668,7 +722,14 @@ boxplot(x, y)
 
 There are lots of figures built right into base R and we suggest exploring the [R Gallery Book](https://bookdown.org/content/b298e479-b1ab-49fa-b83d-a57c2b034d49/) which outlines many options.
 
-In the remainder of the Online Companion we will go into detail in how to modify and configure visualizations but it worth mentioning one more common visualization tool that has almost eclipsed base R graphics in popularity. That is the package `ggplot2`. This package can be used for all sorts of visualizations and it uses a format that is somewhat different from that of base R. Let's look at an example:
+```{asis, echo=is_html}
+<br>
+<img src="images/packages.png" width="100" height="100" alt="packages" align="left" style="margin: 0 1em 0 1em" />
+In the remainder of the Online Companion we will go into detail in how to modify and configure visualizations but it worth mentioning one more common visualization tool that has almost eclipsed base R graphics in popularity. That is the package `ggplot2`. This package can be used for all sorts of visualizations and it uses a format that is somewhat different from that of base R. 
+<br>
+```
+
+Let's look at an example:
 
 ```{r, eval=F}
 install.packages("ggplot2")

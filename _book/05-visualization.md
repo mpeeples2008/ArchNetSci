@@ -12,12 +12,21 @@ If you plan on working through this entire tutorial and would like to download a
 
 ## Visualizing Networks in R
 
+
+
+<br>
+<img src="images/packages.png" width="100" height="100" alt="packages" align="left" style="margin: 0 1em 0 1em" />
 There are many tools available for creating network visualizations in R including functions built directly into the `igraph` and `statnet` packages. Before we get into the details, we first briefly illustrate the primary network plotting options for `igraph`, `statnet` and a visualization package called `ggraph`. We start here by initializing our required libraries and reading in an adjacency matrix and creating network objects in both the `igraph` and `statnet` format. These will be the basis for all examples in this section.
+<br>
+
+Let's start by reading in our example data and then we describe each package in turn:
 
 
 ```r
 library(igraph)
 library(statnet)
+#>         Installed ReposVer Built  
+#> network "1.17.1"  "1.17.2" "4.2.0"
 library(ggraph)
 library(intergraph)
 
@@ -33,9 +42,9 @@ Cibola_attr <- read.csv(file = "data/Cibola_attr.csv", header = TRUE)
 Cibola_i <- igraph::graph_from_adjacency_matrix(as.matrix(Cibola),
                                                 mode = "undirected")
 Cibola_i
-#> IGRAPH a33a79d UN-- 31 167 -- 
+#> IGRAPH df2102b UN-- 31 167 -- 
 #> + attr: name (v/c)
-#> + edges from a33a79d (vertex names):
+#> + edges from df2102b (vertex names):
 #>  [1] Apache.Creek--Casa.Malpais        
 #>  [2] Apache.Creek--Coyote.Creek        
 #>  [3] Apache.Creek--Hooper.Ranch        
@@ -1239,7 +1248,7 @@ figure_6_7 <- ggmap(base3, darken = 0.35) +
 figure_6_7
 ```
 
-<img src="05-visualization_files/figure-html/unnamed-chunk-2-1.png" width="672" />
+<img src="05-visualization_files/figure-html/unnamed-chunk-4-1.png" width="672" />
 
 ### Figure 6.8: Graph Layout Algorithms {- #Figure_6_8}
 
@@ -2184,14 +2193,14 @@ lin.net <- ggraph(SPgraph, layout="linear") +
 similt.net
 ```
 
-<img src="05-visualization_files/figure-html/unnamed-chunk-4-1.png" width="672" />
+<img src="05-visualization_files/figure-html/unnamed-chunk-6-1.png" width="672" />
 
 ```r
 
 lin.net
 ```
 
-<img src="05-visualization_files/figure-html/unnamed-chunk-4-2.png" width="672" />
+<img src="05-visualization_files/figure-html/unnamed-chunk-6-2.png" width="672" />
 
 ### Figure 6:23: Timelines and Time Prisms {- #Figure_6_23}
 
@@ -11065,7 +11074,7 @@ ggraph(net, layout = "fr") +
   theme_graph()
 ```
 
-<img src="05-visualization_files/figure-html/unnamed-chunk-5-1.png" width="672" />
+<img src="05-visualization_files/figure-html/unnamed-chunk-7-1.png" width="672" />
 
 ### Figure 6.27: SWSN Example 2{- #Figure_6_27}
 
@@ -11143,5 +11152,5 @@ ggmap(base2, darken = 0.5) +
   theme_graph()
 ```
 
-<img src="05-visualization_files/figure-html/unnamed-chunk-6-1.png" width="672" />
+<img src="05-visualization_files/figure-html/unnamed-chunk-8-1.png" width="672" />
 

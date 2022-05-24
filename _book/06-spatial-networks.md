@@ -6,7 +6,13 @@ Working with geographic data in R can be a bit complicated and we cannot cover a
 
 ## Working with Geographic Data{#GeoData}
 
+
+<br>
+<img src="images/packages.png" width="100" height="100" alt="packages" align="left" style="margin: 0 1em 0 1em" />
 There are a number of packages for R that are designed explicitly for working with spatial data. Before we get into the spatial analyses it is useful to first briefly introduce these packages and aspects of spatial data analysis in R.
+<br>
+
+The primary packages include:
 
 * `sf` - This package is designed for plotting and encoding simple spatial features and vector data and converting locations among different map projections. Check [here](https://r-spatial.github.io/sf/) for a good brief overview of the package.
 * `ggmap` - This package is a visualization tool that allows you to combine typical R figures in the `ggplot2` format with static maps available online through services like Google Maps, Stamen Maps, OpenStreet Maps, and others. This package is useful for quickly generating maps with a background layer and that is how we use it here.  
@@ -89,7 +95,7 @@ map <- get_stamenmap(bbox = c(-9.5, 36, 3, 43.8),
 ggmap(map)
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-2-1.png" width="672" />
+<img src="06-spatial-networks_files/figure-html/unnamed-chunk-4-1.png" width="672" />
 
 ## Data and Datasets
 
@@ -209,7 +215,7 @@ ggraph(road_net, layout = 'kk') +
   theme_graph()
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-5-1.png" width="672" />
+<img src="06-spatial-networks_files/figure-html/unnamed-chunk-7-1.png" width="672" />
 
 Now, by way of example, we can generate a small random network that is planar and see the results of the test. Note that in the network graph that is produced the visual is not planar but could be a small number of nodes were moved. Unfortunately planar graph drawing is not currently implemented into `igraph` or other packages so you cannot automatically plot a graph as planar even if it meets the criteria of a planar graph. 
 
@@ -224,7 +230,7 @@ ggraph(g, layout = "stress") +
   theme_graph()
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-6-1.png" width="672" />
+<img src="06-spatial-networks_files/figure-html/unnamed-chunk-8-1.png" width="672" />
 
 ```r
 g <- as_graphnel(g)
@@ -245,7 +251,7 @@ ggraph(g, layout = "stress") +
   theme_graph()
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-7-1.png" width="672" />
+<img src="06-spatial-networks_files/figure-html/unnamed-chunk-9-1.png" width="672" />
 
 ```r
 g <- as_graphnel(g)
@@ -269,9 +275,9 @@ Let's create a simple tree using the `make_tree` function in igraph.
 ```r
 tree1 <- make_tree(n = 50, children = 5, mode = "undirected")
 tree1
-#> IGRAPH 05fb26f U--- 50 49 -- Tree
+#> IGRAPH 5224447 U--- 50 49 -- Tree
 #> + attr: name (g/c), children (g/n), mode (g/c)
-#> + edges from 05fb26f:
+#> + edges from 5224447:
 #>  [1]  1-- 2  1-- 3  1-- 4  1-- 5  1-- 6  2-- 7  2-- 8  2-- 9
 #>  [9]  2--10  2--11  3--12  3--13  3--14  3--15  3--16  4--17
 #> [17]  4--18  4--19  4--20  4--21  5--22  5--23  5--24  5--25
@@ -282,7 +288,7 @@ tree1
 plot(tree1)
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-8-1.png" width="672" />
+<img src="06-spatial-networks_files/figure-html/unnamed-chunk-10-1.png" width="672" />
 
 In the example here you can see the branch and leaf structure of the network where there are central nodes that are hubs to a number of other nodes and so on, but there are no cycles back to the previous nodes. Thus, such a tree is inherently hierarchical.In the next sub-section, we will discuss the use of minimum spanning trees.
 
@@ -299,7 +305,7 @@ ggraph(tree1,
   theme_void() 
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-9-1.png" width="672" />
+<img src="06-spatial-networks_files/figure-html/unnamed-chunk-11-1.png" width="672" />
 
 
 
@@ -326,7 +332,7 @@ ggraph(rng1, layout = "kk") +
   theme_graph()
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-10-1.png" width="672" />
+<img src="06-spatial-networks_files/figure-html/unnamed-chunk-12-1.png" width="672" />
 
 We can also plot the results using geographic coordinates.
 
@@ -341,7 +347,7 @@ ggraph(rng1,
   theme_graph()
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-11-1.png" width="672" />
+<img src="06-spatial-networks_files/figure-html/unnamed-chunk-13-1.png" width="672" />
 
 ### Gabriel Graphs
 
@@ -358,7 +364,7 @@ ggraph(gg1, layout = "stress") +
   theme_graph()
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-12-1.png" width="672" />
+<img src="06-spatial-networks_files/figure-html/unnamed-chunk-14-1.png" width="672" />
 
 ```r
 ggraph(gg1,
@@ -370,7 +376,7 @@ ggraph(gg1,
   theme_graph()
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-12-2.png" width="672" />
+<img src="06-spatial-networks_files/figure-html/unnamed-chunk-14-2.png" width="672" />
 
 ### Beta Skeletons
 
@@ -390,7 +396,7 @@ ggraph(beta_s,
   theme_graph()
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-13-1.png" width="672" />
+<img src="06-spatial-networks_files/figure-html/unnamed-chunk-15-1.png" width="672" />
 
 ### Minimum Spanning Trees
 
@@ -408,7 +414,7 @@ ggraph(mst_net, layout = "kk") +
   theme_graph()
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-14-1.png" width="672" />
+<img src="06-spatial-networks_files/figure-html/unnamed-chunk-16-1.png" width="672" />
 
 ```r
 # Extract edgelist from network object
@@ -449,7 +455,7 @@ ggmap(myMap) +
 #> (geom_point).
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-14-2.png" width="672" />
+<img src="06-spatial-networks_files/figure-html/unnamed-chunk-16-2.png" width="672" />
 
 Note that minimum spanning trees can also be used for weighted graphs such that weighted connections will be preferred in defining tree structure. See `?mst` for more details.
 
@@ -470,7 +476,7 @@ dt1 <- deldir(nodes[, 3], nodes[, 2])
 plot(dt1)
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-15-1.png" width="672" />
+<img src="06-spatial-networks_files/figure-html/unnamed-chunk-17-1.png" width="672" />
 
 ```r
 # Extract Voronoi polygons for plotting
@@ -513,7 +519,7 @@ ggmap(myMap) +
   theme_void()
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-15-2.png" width="672" />
+<img src="06-spatial-networks_files/figure-html/unnamed-chunk-17-2.png" width="672" />
 
 ### K-nearest Neighbors
 
@@ -545,7 +551,7 @@ ggraph(g, layout = "manual",
   theme_graph()
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-16-1.png" width="672" />
+<img src="06-spatial-networks_files/figure-html/unnamed-chunk-18-1.png" width="672" />
 
 ### Maximum Distance Networks
 
@@ -558,6 +564,8 @@ Next, in order to define a minimum distance network we simply binarize this matr
 
 ```r
 library(statnet)
+#>         Installed ReposVer Built  
+#> network "1.17.1"  "1.17.2" "4.2.0"
 library(geosphere)
 d1 <- distm(nodes[, c(3, 2)])
 # Note we use the leq=TRUE argument here as we want nodes less than
@@ -586,7 +594,7 @@ ggraph(net100,
   theme_graph()
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-17-1.png" width="672" />
+<img src="06-spatial-networks_files/figure-html/unnamed-chunk-19-1.png" width="672" />
 
 ```r
 # Plot 250 Km network
@@ -599,7 +607,7 @@ ggraph(net250,
   theme_graph()
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-17-2.png" width="672" />
+<img src="06-spatial-networks_files/figure-html/unnamed-chunk-19-2.png" width="672" />
 
 ## Case Studies
 
@@ -681,7 +689,7 @@ g18 <- ggraph(net18,
 g18
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-20-1.png" width="672" />
+<img src="06-spatial-networks_files/figure-html/unnamed-chunk-22-1.png" width="672" />
 
 If we want to combine the degree distribution plot and the network into the same frame, we can use the `inset_element` function in the `patchwork` package.
 
@@ -705,13 +713,13 @@ plot_b <- g18 + inset_element(
 plot_a
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-21-1.png" width="672" />
+<img src="06-spatial-networks_files/figure-html/unnamed-chunk-23-1.png" width="672" />
 
 ```r
 plot_b
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-21-2.png" width="672" />
+<img src="06-spatial-networks_files/figure-html/unnamed-chunk-23-2.png" width="672" />
 
 Next, we calculate a relative neighborhood graph for the site locations and plot it with nodes positioned in geographic space.
 
@@ -740,7 +748,7 @@ plot_c <- g_rng + inset_element(
 plot_c
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-22-1.png" width="672" />
+<img src="06-spatial-networks_files/figure-html/unnamed-chunk-24-1.png" width="672" />
 
 The chunk of code below then calculates and plots the Gabrial graph with the associated degree distribution plot.
 
@@ -769,7 +777,7 @@ plot_d <- g_gg + inset_element(
 plot_d
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-23-1.png" width="672" />
+<img src="06-spatial-networks_files/figure-html/unnamed-chunk-25-1.png" width="672" />
 
 Next, we'll plot the K-nearest neighbors graphs for k= 2, 3, 4, and 6 with the associated degree distribution for each.
 
@@ -862,25 +870,25 @@ plot_d <- g_nn6 + inset_element(
 plot_a
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-24-1.png" width="672" />
+<img src="06-spatial-networks_files/figure-html/unnamed-chunk-26-1.png" width="672" />
 
 ```r
 plot_b
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-24-2.png" width="672" />
+<img src="06-spatial-networks_files/figure-html/unnamed-chunk-26-2.png" width="672" />
 
 ```r
 plot_c
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-24-3.png" width="672" />
+<img src="06-spatial-networks_files/figure-html/unnamed-chunk-26-3.png" width="672" />
 
 ```r
 plot_d
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-24-4.png" width="672" />
+<img src="06-spatial-networks_files/figure-html/unnamed-chunk-26-4.png" width="672" />
 
 
 ### Networks in Space in the U.S. Southwest
@@ -964,7 +972,7 @@ ggplot(data = dat) +
   )
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-26-1.png" width="672" />
+<img src="06-spatial-networks_files/figure-html/unnamed-chunk-28-1.png" width="672" />
 
 
 Finally, let's recreate figure 7.8 from the book to display the 36km minimum distance network for the Chaco region ca. AD 1050-1100. This follows the same basic format for plotting minimum distance networks we defined above.
@@ -1025,4 +1033,4 @@ figure7_8 <- ggmap(base, darken = 0.15) +
 figure7_8
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-27-1.png" width="672" />
+<img src="06-spatial-networks_files/figure-html/unnamed-chunk-29-1.png" width="672" />

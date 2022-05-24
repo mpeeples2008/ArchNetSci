@@ -8,7 +8,6 @@ Himalaya
 ArchPubs
 Guadalquivir
 Importing
-installing-requiredsuggested-r-packages
 PrimaryPackages
 ShouldIInstall
 PackagesUsed
@@ -30,7 +29,7 @@ SimilarityNetworks
 EgoNetworks
 ConvertingNetworkFormats
 Multinet
-exploratory-network-analysis
+Exploratory
 example-network-objects
 CalcMetric
 Centrality

@@ -15,7 +15,16 @@ The network data formats we discuss in this section include:
 * Adjacency matrix - A network data format consisting of a matrix of size *n x n*, with a set of rows equal to the number of nodes, and a set of columns equal to the number of nodes. When a pair of nodes is connected by an edge (i.e., when they are adjacent), then the corresponding cell will have an entry.
 * Incidence matrix - A network data format consisting of a matrix of size *n x e*, with a set of rows equal to the number of nodes, and a set of columns equal to the number of edges. An entry is made in a cell if the corresponding node and edge are connected. Each column in the incidence matrix has two entries.
 
+
+```{r, echo=FALSE}
+is_html = knitr::is_html_output()
+```
+
+```{asis, echo=is_html}
+<br>
+<img src="images/packages.png" width="100" height="100" alt="packages" align="left" style="margin: 0 1em 0 1em" />
 Let's first get started by initializing all of the packages we will use in this section.
+```
 
 ```{r, warning=F, message=F}
 # initialize packages
@@ -585,7 +594,14 @@ ego_size(Cibola_net)
 
 ### Converting Among Network Object Formats{#ConvertingNetworkFormats}
 
+```{asis, echo=is_html}
+<br>
+<img src="images/tip.png" height="80" alt="tip" align="left" style="margin: 0 1em 0 1em" />
 In most of the examples in this document we have been using the `igraph` package but for the similarity networks we chose to use `statnet` due to the convenience of functions for working directly with similarity data. Not to worry as it is easy to convert one format to another and preserve all of the attributes using a package called `intergraph`. By way of example below we can covert the weighted network object we created in the previous step and convert it to a `igraph` object and view the attributes using the `asIgraph` function. If we wanted to go the other direction and covert a `igraph` object to a `statnet` object we would instead use `asNetwrok`.
+<br>
+```
+
+Here is a simple example:
 
 ```{r, warning=F, message=F}
 Mor_wt_i <- asIgraph(Mor_wt)
