@@ -2,6 +2,10 @@
 FROM rocker/verse:4.2.0
 
 # required
-MAINTAINER Matthew Peeples <Matthew.Peeeples@asu.edu>
+MAINTAINER Your Name <your_email@somewhere.com>
 
 COPY . /ArchNetSci
+
+# go into the repo directory
+RUN . 
+
