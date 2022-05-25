@@ -15,14 +15,7 @@ RUN echo "Checking for 'apt.txt'..." \
         && apt-get clean > /dev/null \
         && rm -rf /var/lib/apt/lists/* \
         ; fi
-USER ${NB_USER}
 
-## Copy local project ----
-ENV folder="/home/rstudio/"
-COPY . $folder
-RUN chown -R rstudio:rstudio $folder
-## Set working directory ----
-WORKDIR $folder
 ## Install R packages ----
 ENV RENV_VERSION 0.15.4
 RUN R -e "install.packages('remotes', repos = c(CRAN = 'https://cloud.r-project.org'))" \
