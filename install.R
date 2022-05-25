@@ -1,4 +1,3 @@
-packages <- c("igraph", "statnet", "intergraph", "ggraph",
-              "reshape2", "ggmap", "vegan", "sf", "tidyverse")
-
-install.packages(setdiff(packages, rownames(installed.packages())))
+install.packages('remotes', repos = c(CRAN = 'https://cloud.r-project.org'))
+remotes::install_github('rstudio/renv@${RENV_VERSION}')
+renv::restore()
