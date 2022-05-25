@@ -11,7 +11,7 @@ In order to facilitate the exploratory analysis examples in this section, we wan
  * `directed_net` - A directed binary network
  * `weighted_net` - An undirected weighted network
  * `sim_net_i` - A similarity network with edges weighted by similarity in the `igraph` format
- * `sim_net` - A similarity network with edges weighted by similarity in the `statnet` format
+ * `sim_net` - A similarity network with edges weighted by similarity in the `network` format
  * `sim_mat` - A data frame object containing a weighted similarity matrix
 
 Each of these will be used as appropriate to illustrate particular methods.
@@ -23,8 +23,9 @@ In the following chunk of code we initialize all of the packages that we will us
 # initialize packages
 library(igraph)
 library(statnet)
-#>         Installed ReposVer Built  
-#> network "1.17.1"  "1.17.2" "4.2.0"
+#>            Installed ReposVer Built  
+#> ergm.count "4.0.2"   "4.1.1"  "4.2.0"
+#> network    "1.17.1"  "1.17.2" "4.2.0"
 library(intergraph)
 library(vegan)
 
@@ -289,12 +290,12 @@ page_rank(
 
 The `igraph::closeness` function calculates closeness centrality and can be calculated for directed and undirected simple or weighted networks with no isolates. This function can also be used for networks with isolates, but you may receive an additional message suggesting that closeness is undefined for networks that are not fully connected. For very large networks you can use the `igraph::estimate_closeness` function with a cutoff setting that will consider paths of length up to cutoff to calculate closeness scores. For directed networks you can also specify whether connections in, out, or in both directions should be used.
 
-
-
-<br>
-<img src="images/warning.png" width="80" height="80" alt="warning" align="left" style="margin: 0 1em 0 1em" />
-Note that the function `igraph::closeness()` should not normally be used with networks with multiple components. Depending on your settings, however, the function call may not return an error so be careful.
-<br>
+<div class="rmdwarning">
+<p>Note that the function <code>igraph::closeness()</code> should not
+normally be used with networks with multiple components. Depending on
+your settings, however, the function call may not return an error so be
+careful.</p>
+</div>
 
 Let's take a look at some examples:
  
@@ -421,7 +422,7 @@ ggarrange(
 )
 ```
 
-<img src="03-exploratory-analysis_files/figure-html/unnamed-chunk-12-1.png" width="576" />
+<img src="03-exploratory-analysis_files/figure-html/unnamed-chunk-11-1.png" width="576" />
 
 ### Transitivity and Clustering{#Transitivity}
 
@@ -476,7 +477,7 @@ If you want to identify particular shortest paths to or from nodes in a network 
 igraph::shortest_paths(simple_net, from = 1, to = 21)
 #> $vpath
 #> $vpath[[1]]
-#> + 5/31 vertices, named, from 2f8c523:
+#> + 5/31 vertices, named, from 67ab3b5:
 #> [1] Apache.Creek          Casa.Malpais         
 #> [3] Garcia.Ranch          Heshotauthla         
 #> [5] Pueblo.de.los.Muertos
@@ -505,7 +506,7 @@ igraph::diameter(directed_net, directed = TRUE)
 
 igraph::farthest_vertices(directed_net, directed = TRUE)
 #> $vertices
-#> + 2/30 vertices, named, from 2f8d8f8:
+#> + 2/30 vertices, named, from 67ac2a9:
 #> [1] Apache Creek          Pueblo de los Muertos
 #> 
 #> $distance
@@ -543,9 +544,9 @@ components <- igraph::decompose(simple_net, min.vertices = 1)
 
 components
 #> [[1]]
-#> IGRAPH 31c4ef9 UN-- 30 167 -- 
+#> IGRAPH 69f90da UN-- 30 167 -- 
 #> + attr: name (v/c)
-#> + edges from 31c4ef9 (vertex names):
+#> + edges from 69f90da (vertex names):
 #>  [1] Apache.Creek--Casa.Malpais        
 #>  [2] Apache.Creek--Coyote.Creek        
 #>  [3] Apache.Creek--Hooper.Ranch        
@@ -557,9 +558,9 @@ components
 #> + ... omitted several edges
 #> 
 #> [[2]]
-#> IGRAPH 31c4f11 UN-- 1 0 -- 
+#> IGRAPH 69f9105 UN-- 1 0 -- 
 #> + attr: name (v/c)
-#> + edges from 31c4f11 (vertex names):
+#> + edges from 69f9105 (vertex names):
 
 V(components[[2]])$name
 #> [1] "WS.Ranch"
@@ -569,7 +570,7 @@ In the example here this network is fully connected with the exception of 1 node
 
 ### Cutpoints{#Cutpoints}
 
-A cutpoint is a node, the removal which creates a network with a higher number of components. There is not a convenient igraph function for identifying cutpoints but there is a function in the `sna` package within the `statnet` suite. Using the `intergraph` package we can easily convert an `igraph` object to an `sna` object (using the `asNetwork` function) within the call to use this function.
+A cutpoint is a node, the removal which creates a network with a higher number of components. There is not a convenient igraph function for identifying cutpoints but there is a function in the `sna` package within the `statnet` suite. Using the `intergraph` package we can easily convert an `igraph` object to a `network` object (using the `asNetwork` function) within the call to use this function.
 
 The `sna::cutpoint` function returns the node id for any cutpoints detected. We can use the numbers returned to find the name of the node in question.
 
@@ -586,7 +587,7 @@ set.seed(4536)
 plot(simple_net)
 ```
 
-<img src="03-exploratory-analysis_files/figure-html/unnamed-chunk-20-1.png" width="672" />
+<img src="03-exploratory-analysis_files/figure-html/unnamed-chunk-19-1.png" width="672" />
 
 The example here reveals that Ojo Bonito is a cutpoint and if we look at the figure we can see that it is the sole connection with Baca Pueblo which would otherwise become and isolate and distinct component if Ojo Bonito were removed.
 
@@ -601,15 +602,15 @@ min_cut(simple_net_noiso, value.only = FALSE)
 #> [1] 1
 #> 
 #> $cut
-#> + 1/167 edge from 2f8cc71 (vertex names):
+#> + 1/167 edge from 67ab95e (vertex names):
 #> [1] Ojo Bonito--Baca Pueblo
 #> 
 #> $partition1
-#> + 1/30 vertex, named, from 2f8cc71:
+#> + 1/30 vertex, named, from 67ab95e:
 #> [1] Baca Pueblo
 #> 
 #> $partition2
-#> + 29/30 vertices, named, from 2f8cc71:
+#> + 29/30 vertices, named, from 67ab95e:
 #>  [1] Apache Creek          Casa Malpais         
 #>  [3] Coyote Creek          Hooper Ranch         
 #>  [5] Horse Camp Mill       Hubble Corner        
@@ -636,7 +637,7 @@ A clique as a network science concept is arguably the strictest method of defini
 
 ```r
 max_cliques(simple_net, min = 1)[[24]]
-#> + 9/31 vertices, named, from 2f8c523:
+#> + 9/31 vertices, named, from 67ab3b5:
 #> [1] Los.Gigantes    Cienega         Tinaja         
 #> [4] Spier.170       Scribe.S        Pescado.Cluster
 #> [7] Mirabal         Heshotauthla    Yellowhouse
@@ -664,7 +665,7 @@ set.seed(2509)
 plot(simple_net, vertex.color = col_set[kcore])
 ```
 
-<img src="03-exploratory-analysis_files/figure-html/unnamed-chunk-23-1.png" width="672" />
+<img src="03-exploratory-analysis_files/figure-html/unnamed-chunk-22-1.png" width="672" />
 
 In the plot shown here the darker read colors represent higher maximal k-core values.
 
@@ -683,7 +684,7 @@ set.seed(4353)
 plot(simple_net, vertex.color = GN$membership)
 ```
 
-<img src="03-exploratory-analysis_files/figure-html/unnamed-chunk-24-1.png" width="672" />
+<img src="03-exploratory-analysis_files/figure-html/unnamed-chunk-23-1.png" width="672" />
 
 #### Walktrap Algorithm{#Walktrap}
 
@@ -696,7 +697,7 @@ set.seed(4353)
 plot(simple_net, vertex.color = WT$membership)
 ```
 
-<img src="03-exploratory-analysis_files/figure-html/unnamed-chunk-25-1.png" width="672" />
+<img src="03-exploratory-analysis_files/figure-html/unnamed-chunk-24-1.png" width="672" />
 
 #### Louvain Modularity{#Louvain}
 
@@ -709,7 +710,7 @@ set.seed(4353)
 plot(simple_net, vertex.color = LV$membership)
 ```
 
-<img src="03-exploratory-analysis_files/figure-html/unnamed-chunk-26-1.png" width="672" />
+<img src="03-exploratory-analysis_files/figure-html/unnamed-chunk-25-1.png" width="672" />
 
 #### Calculating Modularity for Partitions{#Modularity}
 
@@ -766,7 +767,7 @@ set.seed(54)
 plot(LV, simple_net)
 ```
 
-<img src="03-exploratory-analysis_files/figure-html/unnamed-chunk-29-1.png" width="672" />
+<img src="03-exploratory-analysis_files/figure-html/unnamed-chunk-28-1.png" width="672" />
 
 ## Case Study: Roman Roads
 

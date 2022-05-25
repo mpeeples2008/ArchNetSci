@@ -251,7 +251,11 @@ In some cases, we are interested in the potential impact of missing edges rather
 
 In this section, will conduct an analysis similar to that described above for assessing missing nodes. Specifically, we will sub-sample our networks by removing a fraction of edges and then test the stability of centrality measures and node position across a range of sampling fractions. 
 
-The function we defined in the previous only needs to be modified slightly to help assess edges as well. We have created a new function and [associated script file](scripts/sim_missing_edges.R) that accomplishes this goal. To give you a peak beneath the hood, here are the primary lines that we needed to change. We replaced the first chunk of code here which creates a sub sample based on `vcount` or vertex count with a new line that uses `ecount` or edge count. We then further switched the `induced_subgraph` and instead used the `delete_edges` function. Note that you should not try to evaluate the chunk of code below as it contains only portions of the larger functions.
+The function we defined in the previous only needs to be modified slightly to help assess edges as well. We have created a new function and [associated script file](scripts/sim_missing_edges.R) that accomplishes this goal. To give you a peak beneath the hood, here are the primary lines that we needed to change. We replaced the first chunk of code here which creates a sub sample based on `vcount` or vertex count with a new line that uses `ecount` or edge count. We then further switched the `induced_subgraph` and instead used the `delete_edges` function. 
+
+```{block, type="rmdwarning"}
+Note that you should not try to evaluate the chunk of code below as it contains only portions of the larger functions described here and will return an error.
+```
 
 ```{r, eval=F}
 # Code from sim_missing_nodes
@@ -297,7 +301,7 @@ This sub-section follows along with Chapter 5.3.2 in Brughmans and Peeples (2022
 
 We define a new function to conduct these analyses below. This function is similar to those used above but instead of providing Spearman's $/rho$ values it outputs the specific rank order of the node in question across each simulation.
 
-The function requires four pieces of information from the user:
+The function requires six pieces of information from the user:
 
 * `net` - An `igraph` network object. Again this is currently set up for simple networks but could easily be modified.
 * `target` - The name of the `target` node you wish to assess (exactly as it is written in the network object).
@@ -363,7 +367,9 @@ The `sim_missing_nodes` and `sime_missing_edges` functions we created above can 
 
 Let's look under the hood to see how this change is implemented in the code. We only need to modify one line of code to include biased sampling processes. In the chunk of code below we have two lines that use the `sample` function. This function takes a vector of numbers and selects a sample (without replacement by default) of the specified size. If you add the argument `prob` it will use the vector or probabilities provided to weight the sample. That's all there is to it. 
 
+```{block, type="rmdwarning"}
 The code chunk below is just for the purposes of demonstration and only represents part of the function so don't try to evaluate this chunk or you'll get an error.
+```
 
 ```{r, eval=F}
 # Random sampling process
@@ -446,7 +452,7 @@ ggraph(bib_net, layout = "fr") +
 
 Although it may at first seem like we could use the same function we used previously to assess missing nodes, there are some key differences in the organization of data in this network that won't permit that. Specifically, we are interested in nodes (authors) missing at random, but we we want to model probabilities associated with publications. This is a slightly more complicated procedure because the function needs both the network object and the incidence matrix from which it was generated so that the sub-networks can be defined inside the function. We have created a `sim_missing_inc` function (simulating missing data using an incidence matrix) that conducts this task. 
 
-This function requires six specific pieces of information from the user:
+This function requires five specific pieces of information from the user:
 
 * `net` - You must include a network object in `igraph` format. We use a simple network here but the code could be modified for directed or valued networks.
 * `inc` - You must also include an incidence matrix (as an R matrix object) which describes the relationships between. The incidence matrix needs to have unique row names and column names. The mode you are interested in assessing should be the columns (in other words if you are interested in authors missing at random authors should be represented by columns and publications by rows).
@@ -455,6 +461,11 @@ This function requires six specific pieces of information from the user:
 * `lookup_dat` - Finally, you need to provide a data frame or matrix that contains two columns. The first column should be the unique name for each row in the incidence matrix (publication key in this case). The second column should include a numeric value between 0 and 1 which indicates the probability that each row will be retained in the resampling process. If you include nothing for `missing_probs` the function will remove columns at random with an equal probability for each.
 
 In our example here, we must first calculate the data we need to provide for the `missing_probs` argument above. To do this we simply take the vector of publication years in the `bib` object we read in and rescale them such that the maximum value (most recent publication) equals 1 and older publications are less than 1. This will mean that older publications will more often be removed in our random sub-samples than newer ones as outlined in the example in the book.
+
+```{block, type="rmdwarning"}
+Note that the script provided here is focused on assessing whichever category of nodes is represented by columns in the original incidence matrix. You would need to modify this code to use it for an incidence matrix where rows or your target or simply use the `t()` transpose function to place columns in the target position.
+```
+
 
 ```{r, warning=F, message=F}
 # Create a dataframe of all unique combinations of publication code

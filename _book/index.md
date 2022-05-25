@@ -1,7 +1,7 @@
 ---
 title: "Online Companion to *Archaeological Network Science*"
 author: "Matthew A. Peeples and Tom Brughmans"
-date: "2022-05-24"
+date: "2022-05-25"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: references.bib
@@ -28,7 +28,7 @@ For more information on the book and the authors check the project website here:
 
 **Cite this document as:**
 
-> Peeples, Matthew A. and Tom Brughmans (2022). Online Companion to Archaeological Network Science by Brughmans and Peeples. <https://archnetworks.net>, Accessed 2022-05-24.
+> Peeples, Matthew A. and Tom Brughmans (2022). Online Companion to Archaeological Network Science by Brughmans and Peeples. <https://archnetworks.net>, Accessed 2022-05-25.
 
 **The associated book can be cited as**
 
@@ -57,26 +57,27 @@ A few suggestions on where to start:
 * If you are already an avid network analyst and R user and are just looking for code chunks to implement something in particular, feel free to skip around. We have tried to make each Section as independent as possible so that you can pick and choose what you want to work on.
 * If you're a real pro and are designing your own network analyses or visualizations, we would love it if you contributed to the project to help this document grow.
 
-Throughout this document we use a few icons to indicate information about packages, warnings, and general useful tips. Keep an eye out for the symbols below:
+Throughout this document we use a few icons to indicate information about packages, warnings, and general useful tips. Keep an eye out for the callouts below:
+
+<div class="rmdnote">
+<p>We use this icon to highlight our discussions of R packages used in
+this project. Check here for brief overviews and instructions on how to
+use and configure these packages.</p>
+</div>
+
+<div class="rmdwarning">
+<p>We use this icon to highlight particular areas of concern in our
+discussion of network methods and R code. In particular, we use this
+icon to warn you of common errors or pitfalls for particular
+functions.</p>
+</div>
+
+<div class="rmdtip">
+<p>We use this icon to highlight helpful tips for using particular R
+functions or R studio procedures.</p>
+</div>
 
 
-
-<br>
-<img src="images/packages.png" width="70" height="70" alt="packages" align="left" style="margin: 0 1em 0 1em" />
-We use this icon to highlight our discussions of R packages used in this project. Check here for brief overviews and instructions on how to use and configure these packages.
-<br>
-<br>
-<img src="images/warning.png" width="70" height="70" alt="warning" align="left" style="margin: 0 1em 0 1em" />
-We use this icon to highlight particular areas of concern in our discussion of network methods and R code. In particular, we use this icon to warn you of common errors or pitfalls for particular functions.
-<br>
-<br>
-<img src="images/tip.png" width="70" alt="tip" align="left" style="margin: 0 1em 0 1em" />
-We use this icon to highlight helpful tips for using particular R functions or R studio procedures.
-<br>
-<br>
-
-In addition to this, we have attempted to add cross-references and links throughout the book so that you can quickly navigate between specific code chunks and general discussions of the procedures and issues covered in this document.
- 
 ## Reproducibility{- #Repro}
 
 The most recent version of this document was built with R version 4.2.0 (2022-04-22 ucrt). We suggest you use a recent version of R when attempting to use the code in this document. 
@@ -296,6 +297,8 @@ When formatting object names there are a few common styles such as:
 * `kebab-case-style` - skewered right down the middle
 
 In general any of these styles is fine, but we suggest you try to remain consistent. Also, avoid using `.` to separate words as that is used by particular R functions and calls in other ways and can cause confusion. 
+
+![Illustration by Allison Horst](images/case.jpg){width=100%}
 
 Many mathematical constants are built right into R so be sure not to overwrite any of these (or any other function) by giving an object the same name.
 
@@ -724,12 +727,20 @@ diversity(vec1, index = "simpson")
 #> [1] 0.7259993
 ```
 
-<br>
-<img src="images/tip.png" height="80" alt="packages" align="left" style="margin: 0 1em 0 1em" />
-As this example shows, once a package is loaded using the `library()` function, there is nothing special about using external functions. They are called at the Console just like built-in functions. There is, however, one additional consideration. Since there are so many packages and they are created by so many people, sometimes two packages will use the same function name. For example, the `igraph` and `sna` packages both use the function name `degree()` for degree centrality. If both packages are initialized in R, how will R know which one to use? The solution for this is to use the package name directly in the function call like this:
-<br>
+<div class="rmdtip">
+<p>As this example shows, once a package is loaded using the
+<code>library()</code> function, there is nothing special about using
+external functions. They are called at the Console just like built-in
+functions. There is, however, one additional consideration. Since there
+are so many packages and they are created by so many people, sometimes
+two packages will use the same function name. For example, the
+<code>igraph</code> and <code>sna</code> packages both use the function
+name <code>degree()</code> for degree centrality. If both packages are
+initialized in R, how will R know which one to use? The solution for
+this is to use the package name directly in the function call like the
+code below:</p>
+</div>
 
-Let's see how this works:
 
 
 ```r
@@ -739,11 +750,15 @@ sna::degree(data) # sna degree function
 
 When writing code that others will use, it may be a good idea to include package names in function calls to avoid ambiguity.
 
-<br>
-<img src="images/tip.png" height="80" alt="packages" align="left" style="margin: 0 1em 0 1em" />
-There are tons of useful packages out there and it can sometimes be a bit overwhelming trying to find them. Searching in a search engine for the simple letter "R" can also yield unexpected results. One helpful tip when searching for packages is to include "CRAN" or "package" in the search terms. CRAN stands for the Comprehensive R Archive Network and this is the archive that contains most of the peer reviewed and established packages for R. 
-<br>
-
+<div class="rmdtip">
+<p>There are tons of useful packages out there and it can sometimes be a
+bit overwhelming trying to find them. Searching in a search engine for
+the simple letter “R” can also yield unexpected results. One helpful tip
+when searching for packages is to include “CRAN” or “package” in the
+search terms. CRAN stands for the Comprehensive R Archive Network and
+this is the archive that contains most of the peer reviewed and
+established packages for R.</p>
+</div>
 
 ## Working with Files{- #WorkingWithFiles}
 
@@ -786,13 +801,14 @@ read_mat
 #> row 3 65 4 2
 ```
 
-
-<br>
-<img src="images/warning.png" width="80" height="80" alt="warning" align="left" style="margin: 0 1em 0 1em" />
-It is important to note here, however, that the `read.csv()`function doesn't know the difference between a data frame and a matrix unless you specify. Indeed, if we check, R sees `read_mat` as a data frame. For some purposes this doesn't matter but where it does, we can convert it to a matrix using the `as.matrix()` function.
-<br>
-
-
+<div class="rmdwarning">
+<p>It is important to note here, however, that the
+<code>read.csv()</code>function doesn’t know the difference between a
+data frame and a matrix unless you specify. Indeed, if we check, R sees
+<code>read_mat</code> as a data frame. For some purposes this doesn’t
+matter but where it does, we can convert it to a matrix using the
+<code>as.matrix()</code> function.</p>
+</div>
 
 
 ```r
@@ -814,12 +830,16 @@ One of the great features of R is the ability to make all kinds of amazing data 
 
 Let's start with something simple by creating two vectors and then creating a bi-plot comparing them. When you use the `plot()` function the plot will automatically appear in the bottom right pane of your R-Studio window. We use the `rnorm()` function here to generate random numbers from a normal distribution. 
 
-<br>
-<img src="images/tip.png" height="80" alt="packages" align="left" style="margin: 0 1em 0 1em" />
-In the chunk of code below, and many other places in this document, we use the `set.seed()` function. This function expects an integer and uses that number to initialize the random number generator built into R. If you use the same seed on your own computer, you will get the same results we do here. If we entered a different number in `set.seed()` we would get different results. This helps us ensure our code is reproducible. 
-<br>
+<div class="rmdtip">
+<p>In the chunk of code below, and many other places in this document,
+we use the <code>set.seed()</code> function. This function expects an
+integer and uses that number to initialize the random number generator
+built into R. If you use the same seed on your own computer, you will
+get the same results we do here. If we entered a different number in
+<code>set.seed()</code> we would get different results. This helps us
+ensure our code is reproducible.</p>
+</div>
 
-Let's take a look:
 
 
 ```r
@@ -834,7 +854,7 @@ y <- rnorm(5000, mean = 5, sd = 0.5)
 plot(x,y)
 ```
 
-<img src="index_files/figure-html/unnamed-chunk-44-1.png" width="672" />
+<img src="index_files/figure-html/unnamed-chunk-45-1.png" width="672" />
 
 We can also easily create a histogram of a single variable with additional arguments:
 
@@ -843,7 +863,7 @@ We can also easily create a histogram of a single variable with additional argum
 hist(x, breaks=20) # breaks defines the number of bars
 ```
 
-<img src="index_files/figure-html/unnamed-chunk-45-1.png" width="672" />
+<img src="index_files/figure-html/unnamed-chunk-46-1.png" width="672" />
 
 And boxplots:
 
@@ -852,16 +872,20 @@ And boxplots:
 boxplot(x, y)
 ```
 
-<img src="index_files/figure-html/unnamed-chunk-46-1.png" width="672" />
+<img src="index_files/figure-html/unnamed-chunk-47-1.png" width="672" />
 
 There are lots of figures built right into base R and we suggest exploring the [R Gallery Book](https://bookdown.org/content/b298e479-b1ab-49fa-b83d-a57c2b034d49/) which outlines many options.
 
-<br>
-<img src="images/packages.png" width="100" height="100" alt="packages" align="left" style="margin: 0 1em 0 1em" />
-In the remainder of the Online Companion we will go into detail in how to modify and configure visualizations but it worth mentioning one more common visualization tool that has almost eclipsed base R graphics in popularity. That is the package `ggplot2`. This package can be used for all sorts of visualizations and it uses a format that is somewhat different from that of base R. 
-<br>
+<div class="rmdnote">
+<p>In the remainder of the Online Companion we will go into detail in
+how to modify and configure visualizations but it worth mentioning one
+more common visualization tool that has almost eclipsed base R graphics
+in popularity. That is the package <code>ggplot2</code>. This package
+can be used for all sorts of visualizations and it uses a format that is
+somewhat different from that of base R.</p>
+</div>
 
-Let's look at an example:
+Let's take a look at an example:
 
 
 ```r
@@ -878,7 +902,7 @@ ggplot(data = df) +
   geom_point(aes(x = x, y = y))
 ```
 
-<img src="index_files/figure-html/unnamed-chunk-49-1.png" width="672" />
+<img src="index_files/figure-html/unnamed-chunk-50-1.png" width="672" />
 
 In the code chunk above, we created a data frame (which `ggplot2` requires) combining our random x and y variables. Next, we made a generic call to ggplot2 using the `ggplot(data = df)` line. This creates a ggplot object set up with `df` as the data considered. Notice this line is followed by a `+`. This package will continue to read lines until a line does not end with this symbol and `ggplot` calls can often be quite long. 
 
@@ -897,7 +921,7 @@ ggplot(data = df) +
   theme_minimal()
 ```
 
-<img src="index_files/figure-html/unnamed-chunk-50-1.png" width="672" />
+<img src="index_files/figure-html/unnamed-chunk-51-1.png" width="672" />
 
 ```r
 
@@ -907,7 +931,7 @@ ggplot(data = df) +
   theme_bw()
 ```
 
-<img src="index_files/figure-html/unnamed-chunk-50-2.png" width="672" />
+<img src="index_files/figure-html/unnamed-chunk-51-2.png" width="672" />
 
 ```r
 
@@ -918,7 +942,7 @@ ggplot(data = df2) +
   theme_bw()
 ```
 
-<img src="index_files/figure-html/unnamed-chunk-50-3.png" width="672" />
+<img src="index_files/figure-html/unnamed-chunk-51-3.png" width="672" />
 
 ## More Advanced R Features{- #AdvancedR}
 

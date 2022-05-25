@@ -5,15 +5,9 @@ This section follows along with Chapter 7 of Brughmans and Peeples (2022) to pro
 Working with geographic data in R can be a bit complicated and we cannot cover all aspects in this brief tutorial. If you are interested in exploring geospatial networks more, we suggest you take a look at the excellent and free [*Geocomputation With R*](https://geocompr.robinlovelace.net/) book by Robin Lovelace, Jakob Nowosad, and Jannes Muenchow. The book is a bookdown document just like this tutorial and provides excellent and up to date coverage of spatial operations and the management of spatial data in R. 
 
 ## Working with Geographic Data{#GeoData}
-```{r, echo=FALSE}
-is_html = knitr::is_html_output()
-```
 
-```{asis, echo=is_html}
-<br>
-<img src="images/packages.png" width="100" height="100" alt="packages" align="left" style="margin: 0 1em 0 1em" />
+```{block, type="rmdnote"}
 There are a number of packages for R that are designed explicitly for working with spatial data. Before we get into the spatial analyses it is useful to first briefly introduce these packages and aspects of spatial data analysis in R.
-<br>
 ```
 
 The primary packages include:
@@ -47,7 +41,7 @@ Another feature used throughout this guide that needs further explanation is the
 * `maptype` - a name that indicates the style of map to use ([check here for options]https://rdrr.io/cran/ggmap/man/get_stamenmap.html).
 * `zoom` - a variable denonting the detail or zoom level to be retrieved. Higher number give more detail but take longer to detail.
 
-With the ggmap package, these background maps can easily be incorporated into network graphics.
+With the `ggmap` package, these background maps can easily be incorporated into network graphics.
 
 ```{r}
 library(ggmap)
@@ -59,7 +53,7 @@ ggmap(map)
 
 ## Data and Datasets
 
-For the initial examples in this section we will use the Roman Road data from the Iberian Peninsula. This dataset consists of a [csv file of a set of Roman settlements](data/Hispania_nodes.csv) and a [csv file of an edge list](data/Hispania_roads) defining connections among those settlements in terms of roads.
+For the initial examples in this section we will use the Roman Road data from the Iberian Peninsula. This data set consists of a [csv file of a set of Roman settlements](data/Hispania_nodes.csv) and a [csv file of an edge list](data/Hispania_roads) defining connections among those settlements in terms of roads.
 
 First we map the basic road network. We have commented the code below to explain what is happening at each stage.
 
@@ -136,7 +130,11 @@ ggmap(myMap) +
 
 A planar network is a network that can be drawn on a plane where the edges do not cross but instead always end in nodes. In many small networks it is relatively easy to determine whether or not a network is planar by simply viewing a network graph. In larger graphs, this can sometimes be difficult. 
 
-There is a package available for R called `RBGL` which is an R implementation of something called the Boost Graph Library. This set of routines includes many powerful tools for characterizing network topology including planarity. This package is not, however, in the CRAN archive where the packages we have worked with so far reside so it needs to be installed from another archive called Bioconductor. In order to install this library, run the following lines of code.
+```{block, type="rmdnote"}
+There is a package available for R called `RBGL` which is an R implementation of something called the Boost Graph Library. This set of routines includes many powerful tools for characterizing network topology including planarity. This package is not, however, in the CRAN archive where the packages we have worked with so far reside so it needs to be installed from another archive called Bioconductor.
+```
+
+In order to install the `RBGL` and `BiocManager` libraries (if required), run the following lines of code.
 
 ```{r, eval=F, warning=F, message=F}
 if(!requireNamespace("BiocManager", quietly = TRUE))
@@ -156,7 +154,7 @@ g <- as_graphnel(road_net)
 boyerMyrvoldPlanarityTest(g)
 ```
 
-This results suggests that our Roman Road data is not planar. We can plot the data to evaluate this and do see crossed edges that could not be repositioned. 
+This results suggests that our Roman Road data is not planar. We can plot the data to evaluate this and do see crossed edges that could not be re-positioned. 
 
 ```{r, warning=F, message=F, fig.height=7, fig.width=7}
 library(ggraph)
@@ -228,8 +226,6 @@ ggraph(tree1,
   theme_void() 
 ```
 
-
-
 ## Spatial Network Models
 
 In Chapter 7.5 in Brughmans and Peeples (2022) we go over a series of spatial network models that provide a number of different ways of defining networks from spatial data. In this sub-section we demonstrate how to define and analyze networks using these approaches. 
@@ -238,7 +234,9 @@ In Chapter 7.5 in Brughmans and Peeples (2022) we go over a series of spatial ne
 
 Relative neighborhood graph: a pair of nodes are connected if there are no other nodes in the area marked by the overlap of a circle around each node with a radius equal to the distance between the nodes.
 
-The R package `cccd` contains functions to define relative neighborhood networks from distance data using the `rng` function. This function can either take a distance matrix object as created above or a set of coordinates to calculate the distance within the call. The output of this function is an igraph object. For large graphs it is also possible to limit the search for possible neighbors to k neighbors. 
+```{block, type="rmdnote"}
+The R package `cccd` contains functions to define relative neighborhood networks from distance data using the `rng` function. This function can either take a distance matrix object as created above or a set of coordinates to calculate the distance within the call. The output of this function is an igraph object. For large graphs it is also possible to limit the search for possible neighbors to $k$ neighbors. 
+```
 
 Let's use our previously created distance matrix and plot the results. 
 
@@ -359,9 +357,11 @@ Delaunay triangulation: a pair of nodes are connected by an edge if and only if 
 
 Voronoi diagram or Thiessen polygons: for each node in a set of nodes in a Euclidean plane, a region is created covering the area that is closer or equidistant to that node than it is to any other node in the set.
 
+```{block, type="rmdnote"}
 The package `deldir` in R allows for the calculation of Delaunay triangles with x and y coordinates as input. By default the `deldir` function will define a boundary that extends slightly beyond the xy coordinates of all points included in the analysis. This boundary can also be specified within the call using the `rw` argument. See `?deldir` for more details. 
+```
 
-The results of this function can be directly plotted and the output also contains coordinates necessary to integrate the results into another type of figure like a `ggmap`. Let's take a look.
+The results of the `deldir` function can be directly plotted and the output also contains coordinates necessary to integrate the results into another type of figure like a `ggmap`. Let's take a look.
 
 ```{r, warning=F, message=F, fig.height=5, fig.width=7}
 library(deldir)
@@ -440,7 +440,9 @@ ggraph(g, layout = "manual",
 
 Maximum distance network: each node is connected to all other nodes at a distance closer than or equal to a threshold value. In order define a maximum distance network we simply need to define a threshold distance and define all nodes greater than that distance as unconnected and nodes within that distance as connected. This can be done in base R using the dist function we used above.
 
+```{block, type="rmdtip"}
 Since the coordinates we are using here are in decimal degrees we need to calculate distances based on "great circles" across the globe rather than Euclidean distances on a projected plane. There is a function called `distm` in the `geosphere` package that allows us to do this. If you are working with projected data, you can simply use the `dist` function in the place of `distm` like the example below.
+```
 
 Next, in order to define a minimum distance network we simply binarize this matrix. We can do this using the `event2dichot` function within the `statnet` package and easily create an R network objects. Let's try it out with the Roman Road data for thresholds of 100,000 and 250,000 meters.
 
@@ -554,7 +556,10 @@ g18 <- ggraph(net18,
 g18
 ```
 
-If we want to combine the degree distribution plot and the network into the same frame, we can use the `inset_element` function in the `patchwork` package.
+```{block, type="rmdnote"}
+If we want to combine the degree distribution plot and the network into the same frame, we can use the `inset_element` function in the `patchwork` package. This function lets us place one plot inside another in the `ggplot2` format.
+```
+
 
 ```{r, message=F, warning=F, fig.height=4,fig.width=7}
 library(patchwork)
@@ -726,7 +731,7 @@ plot_d
 
 The second case study in Chapter 7 of Brughmans and Peeples (2022) provides an example of how we can use spatial network methods to analyze material cultural network data. We use the Chaco World data here and you can download the [map data](data/map.RData), [the site attribute data](data/AD1050attr.csv), and [the ceramic frequency data](data/AD1050cer.csv) to follow along.
 
-The first analysis expores the degree to which similarities in ceramics (in terms of Brainerd-Robinson similarity based on wares) can be explained by spatial distance. To do this we simply define a ceramic similarity matrix, a Euclidean distance matrix, and the fit a model using distance to explain ceramic similarity using a general additive model (`gam`) approach. The `gam` function we use here is in the `mgcv` package. Note that the object `dmat` is created using the `dist` function as the data we started with are already projected site locations using UTM coordinates. 
+The first analysis explores the degree to which similarities in ceramics (in terms of Brainerd-Robinson similarity based on wares) can be explained by spatial distance. To do this we simply define a ceramic similarity matrix, a Euclidean distance matrix, and the fit a model using distance to explain ceramic similarity using a general additive model (`gam`) approach. The `gam` function we use here is in the `mgcv` package. Note that the object `dmat` is created using the `dist` function as the data we started with are already projected site locations using UTM coordinates. 
 
 ```{r, warning=F, message=F}
 library(mgcv)

@@ -51,8 +51,9 @@ library(ggraph)
 library(ggpubr)
 library(dplyr)
 library(statnet)
-#>         Installed ReposVer Built  
-#> network "1.17.1"  "1.17.2" "4.2.0"
+#>            Installed ReposVer Built  
+#> ergm.count "4.0.2"   "4.1.1"  "4.2.0"
+#> network    "1.17.1"  "1.17.2" "4.2.0"
 
 # Import adjacency matrix and covert to network
 chaco <- read.csv(file = 'data/AD1050net.csv', row.names = 1)
@@ -262,7 +263,13 @@ In some cases, we are interested in the potential impact of missing edges rather
 
 In this section, will conduct an analysis similar to that described above for assessing missing nodes. Specifically, we will sub-sample our networks by removing a fraction of edges and then test the stability of centrality measures and node position across a range of sampling fractions. 
 
-The function we defined in the previous only needs to be modified slightly to help assess edges as well. We have created a new function and [associated script file](scripts/sim_missing_edges.R) that accomplishes this goal. To give you a peak beneath the hood, here are the primary lines that we needed to change. We replaced the first chunk of code here which creates a sub sample based on `vcount` or vertex count with a new line that uses `ecount` or edge count. We then further switched the `induced_subgraph` and instead used the `delete_edges` function. Note that you should not try to evaluate the chunk of code below as it contains only portions of the larger functions.
+The function we defined in the previous only needs to be modified slightly to help assess edges as well. We have created a new function and [associated script file](scripts/sim_missing_edges.R) that accomplishes this goal. To give you a peak beneath the hood, here are the primary lines that we needed to change. We replaced the first chunk of code here which creates a sub sample based on `vcount` or vertex count with a new line that uses `ecount` or edge count. We then further switched the `induced_subgraph` and instead used the `delete_edges` function. 
+
+<div class="rmdwarning">
+<p>Note that you should not try to evaluate the chunk of code below as
+it contains only portions of the larger functions described here and
+will return an error.</p>
+</div>
 
 
 ```r
@@ -304,7 +311,7 @@ ggplot(data = dg_edge_test) +
   )
 ```
 
-<img src="04-uncertainty_files/figure-html/unnamed-chunk-7-1.png" width="672" />
+<img src="04-uncertainty_files/figure-html/unnamed-chunk-8-1.png" width="672" />
 
 ## Assessing Indivdiual Nodes/Edges{#IndNodesAtRandom}
 
@@ -312,7 +319,7 @@ This sub-section follows along with Chapter 5.3.2 in Brughmans and Peeples (2022
 
 We define a new function to conduct these analyses below. This function is similar to those used above but instead of providing Spearman's $/rho$ values it outputs the specific rank order of the node in question across each simulation.
 
-The function requires four pieces of information from the user:
+The function requires six pieces of information from the user:
 
 * `net` - An `igraph` network object. Again this is currently set up for simple networks but could easily be modified.
 * `target` - The name of the `target` node you wish to assess (exactly as it is written in the network object).
@@ -369,7 +376,7 @@ ggplot(df, aes(x = RankOrder)) +
   )
 ```
 
-<img src="04-uncertainty_files/figure-html/unnamed-chunk-9-1.png" width="672" />
+<img src="04-uncertainty_files/figure-html/unnamed-chunk-10-1.png" width="672" />
 
 As we describe in the book, the position of Garcia Ranch as a highly central node appears to be stable to nodes missing at random. Indeed, by far the most common position for this node was 2 which is its position in the original network.
 
@@ -381,7 +388,11 @@ The `sim_missing_nodes` and `sime_missing_edges` functions we created above can 
 
 Let's look under the hood to see how this change is implemented in the code. We only need to modify one line of code to include biased sampling processes. In the chunk of code below we have two lines that use the `sample` function. This function takes a vector of numbers and selects a sample (without replacement by default) of the specified size. If you add the argument `prob` it will use the vector or probabilities provided to weight the sample. That's all there is to it. 
 
-The code chunk below is just for the purposes of demonstration and only represents part of the function so don't try to evaluate this chunk or you'll get an error.
+<div class="rmdwarning">
+<p>The code chunk below is just for the purposes of demonstration and
+only represents part of the function so don’t try to evaluate this chunk
+or you’ll get an error.</p>
+</div>
 
 
 ```r
@@ -425,7 +436,7 @@ ggplot(data = dg_test) +
   )
 ```
 
-<img src="04-uncertainty_files/figure-html/unnamed-chunk-11-1.png" width="672" />
+<img src="04-uncertainty_files/figure-html/unnamed-chunk-13-1.png" width="672" />
 
 ### Resampling with Incidence Matrices{#SimIncidence}
 
@@ -481,11 +492,11 @@ ggraph(bib_net, layout = "fr") +
   theme(legend.position = "none")
 ```
 
-<img src="04-uncertainty_files/figure-html/unnamed-chunk-12-1.png" width="672" />
+<img src="04-uncertainty_files/figure-html/unnamed-chunk-14-1.png" width="672" />
 
 Although it may at first seem like we could use the same function we used previously to assess missing nodes, there are some key differences in the organization of data in this network that won't permit that. Specifically, we are interested in nodes (authors) missing at random, but we we want to model probabilities associated with publications. This is a slightly more complicated procedure because the function needs both the network object and the incidence matrix from which it was generated so that the sub-networks can be defined inside the function. We have created a `sim_missing_inc` function (simulating missing data using an incidence matrix) that conducts this task. 
 
-This function requires six specific pieces of information from the user:
+This function requires five specific pieces of information from the user:
 
 * `net` - You must include a network object in `igraph` format. We use a simple network here but the code could be modified for directed or valued networks.
 * `inc` - You must also include an incidence matrix (as an R matrix object) which describes the relationships between. The incidence matrix needs to have unique row names and column names. The mode you are interested in assessing should be the columns (in other words if you are interested in authors missing at random authors should be represented by columns and publications by rows).
@@ -494,6 +505,15 @@ This function requires six specific pieces of information from the user:
 * `lookup_dat` - Finally, you need to provide a data frame or matrix that contains two columns. The first column should be the unique name for each row in the incidence matrix (publication key in this case). The second column should include a numeric value between 0 and 1 which indicates the probability that each row will be retained in the resampling process. If you include nothing for `missing_probs` the function will remove columns at random with an equal probability for each.
 
 In our example here, we must first calculate the data we need to provide for the `missing_probs` argument above. To do this we simply take the vector of publication years in the `bib` object we read in and rescale them such that the maximum value (most recent publication) equals 1 and older publications are less than 1. This will mean that older publications will more often be removed in our random sub-samples than newer ones as outlined in the example in the book.
+
+<div class="rmdwarning">
+<p>Note that the script provided here is focused on assessing whichever
+category of nodes is represented by columns in the original incidence
+matrix. You would need to modify this code to use it for an incidence
+matrix where rows or your target or simply use the <code>t()</code>
+transpose function to place columns in the target position.</p>
+</div>
+
 
 
 ```r
@@ -601,7 +621,7 @@ ggplot(data = df) +
   )
 ```
 
-<img src="04-uncertainty_files/figure-html/unnamed-chunk-16-1.png" width="672" />
+<img src="04-uncertainty_files/figure-html/unnamed-chunk-19-1.png" width="672" />
 
 ## Edge Probability Modeling{#EdgeProbability}
 
@@ -645,7 +665,7 @@ ggraph(sim_net, layout = "fr") +
   theme_graph()
 ```
 
-<img src="04-uncertainty_files/figure-html/unnamed-chunk-17-1.png" width="672" />
+<img src="04-uncertainty_files/figure-html/unnamed-chunk-20-1.png" width="672" />
 
 In the next chunk of code we define a function that iterates over every edge in the simulated network we just created and defines each edge as either present or absent using a simple random binomial with the probability set by the edge weight as described above. The output of this function (`edge_prob`) is a list object that contains `nsim` `igraph` network objects that are candidate networks of the original.
 
@@ -753,7 +773,7 @@ comp3 <- ggraph(EL_test[[3]], layout = "fr") +
 ggarrange(comp1, comp2, comp3)
 ```
 
-<img src="04-uncertainty_files/figure-html/unnamed-chunk-19-1.png" width="672" />
+<img src="04-uncertainty_files/figure-html/unnamed-chunk-22-1.png" width="672" />
 
 We then use the `compile_stat` function to assess degree centrality for one particular node, displaying a histogram of values with mean indicated.
 
@@ -770,7 +790,7 @@ ggplot(dg_20, aes(val)) +
   theme_bw()
 ```
 
-<img src="04-uncertainty_files/figure-html/unnamed-chunk-20-1.png" width="672" />
+<img src="04-uncertainty_files/figure-html/unnamed-chunk-23-1.png" width="672" />
 
 ### Edge Probability and Similarity Networks{#EdgeProbSim}
 
@@ -835,7 +855,7 @@ comp3 <- ggraph(sim_nets[[3]],
 ggarrange(comp1, comp2, comp3)
 ```
 
-<img src="04-uncertainty_files/figure-html/unnamed-chunk-22-1.png" width="672" />
+<img src="04-uncertainty_files/figure-html/unnamed-chunk-25-1.png" width="672" />
 
 
 ```r
@@ -852,7 +872,7 @@ ggplot(bw_10, aes(val)) +
 #> `binwidth`.
 ```
 
-<img src="04-uncertainty_files/figure-html/unnamed-chunk-23-1.png" width="672" />
+<img src="04-uncertainty_files/figure-html/unnamed-chunk-26-1.png" width="672" />
 
 
 ## Small or Variable Sample Size{#SampleSize}
@@ -941,7 +961,7 @@ ggplot(df, aes(x = dg_cor)) +
   )
 ```
 
-<img src="04-uncertainty_files/figure-html/unnamed-chunk-25-1.png" width="672" />
+<img src="04-uncertainty_files/figure-html/unnamed-chunk-28-1.png" width="672" />
 
 As described in Chapter 5.3.5, in some cases we want to observe patterns of variation due to sampling error for individual sites or sets of sites. In the next chunk of code we illustrate how to produce figure 5.14 from the Brughmans and Peeples (2022) book. Specifically, this plot consists of a series of line plots where the x axis represents each node in the network ordered by degree centrality in the original observed network. For each node there is a vertical line which represents the 95% confidence interval around degree across the `nsim` random replicates produced to evaluate sampling error. The blue line represents degree in the original network and the red line represents median degree in the resampled networks.
 
@@ -1019,6 +1039,6 @@ ggplot() +
   )
 ```
 
-<img src="04-uncertainty_files/figure-html/unnamed-chunk-26-1.png" width="672" />
+<img src="04-uncertainty_files/figure-html/unnamed-chunk-29-1.png" width="672" />
 
 

@@ -12,12 +12,17 @@ If you plan on working through this entire tutorial and would like to download a
 
 ## Visualizing Networks in R
 
-
-
-<br>
-<img src="images/packages.png" width="100" height="100" alt="packages" align="left" style="margin: 0 1em 0 1em" />
-There are many tools available for creating network visualizations in R including functions built directly into the `igraph` and `statnet` packages. Before we get into the details, we first briefly illustrate the primary network plotting options for `igraph`, `statnet` and a visualization package called `ggraph`. We start here by initializing our required libraries and reading in an adjacency matrix and creating network objects in both the `igraph` and `statnet` format. These will be the basis for all examples in this section.
-<br>
+<div class="rmdnote">
+<p>There are many tools available for creating network visualizations in
+R including functions built directly into the <code>igraph</code> and
+<code>statnet</code> packages. Before we get into the details, we first
+briefly illustrate the primary network plotting options for
+<code>igraph</code>, <code>statnet</code> and a visualization package
+called <code>ggraph</code>. We start here by initializing our required
+libraries and reading in an adjacency matrix and creating network
+objects in both the <code>igraph</code> and <code>statnet</code> format.
+These will be the basis for all examples in this section.</p>
+</div>
 
 Let's start by reading in our example data and then we describe each package in turn:
 
@@ -25,8 +30,9 @@ Let's start by reading in our example data and then we describe each package in 
 ```r
 library(igraph)
 library(statnet)
-#>         Installed ReposVer Built  
-#> network "1.17.1"  "1.17.2" "4.2.0"
+#>            Installed ReposVer Built  
+#> ergm.count "4.0.2"   "4.1.1"  "4.2.0"
+#> network    "1.17.1"  "1.17.2" "4.2.0"
 library(ggraph)
 library(intergraph)
 
@@ -42,9 +48,9 @@ Cibola_attr <- read.csv(file = "data/Cibola_attr.csv", header = TRUE)
 Cibola_i <- igraph::graph_from_adjacency_matrix(as.matrix(Cibola),
                                                 mode = "undirected")
 Cibola_i
-#> IGRAPH 9fbb8d6 UN-- 31 167 -- 
+#> IGRAPH e90c7b6 UN-- 31 167 -- 
 #> + attr: name (v/c)
-#> + edges from 9fbb8d6 (vertex names):
+#> + edges from e90c7b6 (vertex names):
 #>  [1] Apache.Creek--Casa.Malpais        
 #>  [2] Apache.Creek--Coyote.Creek        
 #>  [3] Apache.Creek--Hooper.Ranch        
@@ -138,7 +144,7 @@ plot(
 
 The `ggraph` package provides a powerful set of tools for plotting and visualizing network data in R. The format used for this package is a bit different from what we saw above and instead relies on the `ggplot2` style of plots where a plot type is called and modifications are made with sets of lines with additional arguments separated by `+`. Although this takes a bit of getting used to we have found that the ggplot format is often more intuitive for making complex graphics once you understand the basics.
 
-Essentially, the way the `ggraph` call works is you start with a `ggraph` function call which includes the network object and the layout information. You then provide lines specifying the edges `geom_edge_link` and nodes `geom_node_point` features and so on. Conveniently the `ggraph` function call will take either an `igraph` or a `network/statnet` object so you do not need to convert.
+Essentially, the way the `ggraph` call works is you start with a `ggraph` function call which includes the network object and the layout information. You then provide lines specifying the edges `geom_edge_link` and nodes `geom_node_point` features and so on. Conveniently the `ggraph` function call will take either an `igraph` or a `network` object so you do not need to convert.
 
 Here is an example. Here we first the call for the igraph network object `Cibola_i` and specify the Fruchterman-Reingold layout using `layout = "fr"`. Next, we call the `geom_edge_link` and specify edge colors. The `geom_node_point` call then specifies many attributes of the nodes including the fill color, outline color, transparency (alpha), shape, and size using the `igraph::degree` function. The `scale_size` call then tells the plot to scale the node size specified in the previous line to range between 1 and 4. Finally `theme_graph` is a basic call to the `ggraph` theme that tells the plot to make the background white and to remove the margins around the edge of the plot. Let's see how this looks. 
 
@@ -171,7 +177,7 @@ There are many options for the ggraph package and we recommend exploring the hel
 
 ## Network Visualization Options
 
-In this section we illustrate some of the most useful graphical options for visualizing networks, focusing in particular on the `ggraph` format. In most cases there are similar options available in the plotting functions for both `statnet` and `igraph`. Where relevant we reference specific figures from the book and this tutorial and the code for all of the figures produced in R is presented in the next session. For all of the examples in this section we will use the [Cibola technological similarity data (click here to download)](data/Peeples2018.Rdata). First we call the required packages and import the data.
+In this section we illustrate some of the most useful graphical options for visualizing networks, focusing in particular on the `ggraph` format. In most cases there are similar options available in the plotting functions for both `network` and `igraph`. Where relevant we reference specific figures from the book and this tutorial and the code for all of the figures produced in R is presented in the next session. For all of the examples in this section we will use the [Cibola technological similarity data (click here to download)](data/Peeples2018.Rdata). First we call the required packages and import the data.
 
 
 ```r
@@ -242,7 +248,14 @@ ggraph(net,
 
 <img src="05-visualization_files/figure-html/map1-1.png" width="672" />
 
-When working with geographic data, it is also sometimes useful to plot directly on top of some sort of base map. There are many options for this but one of the most convenient is to use the `sf` and `ggmap` packages to directly download the relevant base map layer and plot directly on top of it. This first requires converting points to latitude and longitude in decimal degrees if they are not already in that format. See the details on the [sf package](https://r-spatial.github.io/sf/) and [ggmap package](https://github.com/dkahle/ggmap) for more details. In addition to this example [Figure 6.7 in the book](#Figure_6_7) provides another example. The next Section on [Spatial Networks](#SpatialNetworks) provides more information about map projects and geographic data.
+When working with geographic data, it is also sometimes useful to plot directly on top of some sort of base map. There are many options for this but one of the most convenient is to use the `sf` and `ggmap` packages to directly download the relevant base map layer and plot directly on top of it. This first requires converting points to latitude and longitude in decimal degrees if they are not already in that format. See the details on the [sf package](https://r-spatial.github.io/sf/) and [ggmap package](https://github.com/dkahle/ggmap) for more details. 
+
+<div class="rmdtip">
+<p>We describe the spcifics of spatial data handling, geographic
+coordinates, and projection in the section on <a
+href="#SpatialNetworks">Spatial Networks</a>. See that section for a
+full description and how R deals with geographic information.</p>
+</div>
 
 
 
@@ -308,6 +321,14 @@ ggmap(base_cibola, darken = 0.35) +
 
 There are a wide variety of shape-based and algorithmic layouts available for use in R. In most cases, all it takes to change layouts is to simply modify a single line the `ggraph` call to specify our desired layout. The `ggraph` package can use any of the `igraph` layouts as well as many that are built directly into the package. See `?ggraph` for more details and to see the options. Here we show a few examples. Note that we leave the figures calls the same except for the argument `layout = "yourlayout"` in each `ggraph` call and the `ggtitle` name. For the layouts that involve randomization, we use the `set.seed()` function to make sure they will always plot the same. See the discussion of [Figure 6.8](#Figure_6_8) below for more details. Beyond this [Figure 6.9](#Figure_6_9) provides additional options that can be used for hierarchical network data.
 
+<div class="rmdtip">
+<p>If you do not specify a graph layout in <code>ggraph</code>, the
+plotting function will automatically choose a layout using the
+<code>layout_nicely()</code> function. Although this sometimes produces
+useful the layout used is not specified in the call so we recommend
+supplying a <code>layout</code> argument directly.</p>
+</div>
+
 
 ```r
 # circular layout
@@ -344,6 +365,19 @@ ggarrange(circ_net, fr_net, dh_net, nrow = 1, ncol = 3)
 
 <img src="05-visualization_files/figure-html/layouts-1.png" width="672" />
 
+<div class="rmdnote">
+<p>In the code above we used the <code>ggarrange</code> function within
+the <code>ggpubr</code> package to combine the figures into a single
+output. This function works with any <code>ggplot2</code> or
+<code>ggraph</code> format output when you supply the names of each
+figure in the order you want them to appear and the number of rows
+<code>nrow</code> and number of columns <code>ncol</code> you want the
+resulting combined figure to have. If you want to label each figure
+using the <code>ggarrange</code> function you can use the
+<code>labels</code> argument.</p>
+</div>
+
+
 ### Node and Edge Options{#NodeEdgeOptions}
 
 There are many options for altering color and symbol for nodes and edges within R. In this section we very briefly discuss some of the most common options. For more details see the discussion of [figures 6.10 through 6.16](#Figure_6_10) below.
@@ -364,7 +398,7 @@ ggpubr::show_point_shapes()
 
 There are many options for selecting colors for nodes and edges. These can be assigned using standard color names or can be assigned using rgb or hex codes. It is also possible to use standard palettes in packages like `RColorBrewer` or `scales` to specify categorical or continuous color schemes. This is often done using either the `scale_fill_brewer` or `scale_color_brewer` calls from `RColorBrewer`. Here are a couple of examples. In these examples, colors are grouped by site region, node size is scaled to degree centrality, and node and edge color and shape are specified in each call. Note the `alpha` command which controls the transparency of the relevant part of the plot. The scale_size call specifies the maximum and minimum size of points in the plot.
 
-The [R Graph Gallery](https://www.r-graph-gallery.com/38-rcolorbrewers-palettes.html) has a good overview of the available color palettes in RColorBrewer and when the can be used. 
+The [R Graph Gallery](https://www.r-graph-gallery.com/38-rcolorbrewers-palettes.html) has a good overview of the available color palettes in `RColorBrewer` and when the can be used. The "Set2" palette used here is a good one for people with many kinds of color vision deficencies. 
 
 
 ```r
@@ -426,7 +460,7 @@ ggraph(net2, "stress") +
 
 <img src="05-visualization_files/figure-html/edge_options1-1.png" width="672" />
 
-Another feature of edges that is often important in visualizations is the presence or absence and type of arrows. Arrows can be modified in ggraph using the `arrow` argument within a `geom_edge_link` call. The most relevant options are the length of the arrow (which determines size), the `type` argument which specifies an open or closed arrow, and the spacing of the arrow which can be set by the `end_cap` and `start_cap` respectively which define the gap between the arrow point and the node. These values can all be set using absolute measurements as shown in the example below. Since this is an undirected network we use the argument `ends = "first"` to simulated a directed network so that arrowheads will only be drawn the first time an edge appears in the edge list. See `?arrow` for more details on options. 
+Another feature of edges that is often important in visualizations is the presence or absence and type of arrows. Arrows can be modified in `ggraph` using the `arrow` argument within a `geom_edge_link` call. The most relevant options are the length of the arrow (which determines size), the `type` argument which specifies an open or closed arrow, and the spacing of the arrow which can be set by the `end_cap` and `start_cap` respectively which define the gap between the arrow point and the node. These values can all be set using absolute measurements as shown in the example below. Since this is an undirected network we use the argument `ends = "first"` to simulated a directed network so that arrowheads will only be drawn the first time an edge appears in the edge list. See `?arrow` for more details on options. 
 
 
 ```r
@@ -448,7 +482,7 @@ ggraph(net, "stress") +
 
 <img src="05-visualization_files/figure-html/edge_options2-1.png" width="672" />
 
-Another common consideration with edges is the shape of the edges themselves. So far we have used examples where the edges are all straight lines, but it is also possible to draw them as arcs or so that they fan out from nodes so that multiple connections are visible. In general, all you need to do to change this option is to use another command in the "geom_edge_" family of commands. For example, in the following chunk of code we produce a network with arcs rather than straight lines. In this case the argument "strength" controls the amount of bend in the lines.
+Another common consideration with edges is the shape of the edges themselves. So far we have used examples where the edges are all straight lines, but it is also possible to draw them as arcs or so that they fan out from nodes so that multiple connections are visible. In general, all you need to do to change this option is to use another command in the `geom_edge_` family of commands. For example, in the following chunk of code we produce a network with arcs rather than straight lines. In this case the argument "strength" controls the amount of bend in the lines.
 
 
 ```r
@@ -473,6 +507,13 @@ ggraph(net2, "kk") +
 ```
 
 <img src="05-visualization_files/figure-html/edge_density-1.png" width="672" />
+
+<div class="rmdtip">
+<p>If you want to see all of the possible options for
+<code>geom_edge_</code> commands, simply use the help command on any one
+of the functions (i.e., <code>?geom_edge_arc</code>) and scroll down in
+the help window to the section labeled “See Also.”</p>
+</div>
 
 ### Label Options{#LabelOptions}
 
@@ -761,7 +802,16 @@ figure_6_2
 
 Figure 6.3. Examples of less common network visuals techniques for Peeples’s (2018) ceramic technological similarity data. 
 
-Fig 6.3a - A weighted heat plot of the underlying similarity matrix with hierarchical clusters shown on each axis. This plot relies on a packages called `superheat` that produces plots formatted as we see here.
+Fig 6.3a - A weighted heat plot of the underlying similarity matrix with hierarchical clusters shown on each axis. This plot relies on a packages called `superheat` that produces plots formatted as we see here. The required input is a symmetric similarity matrix object. 
+
+<div class="rmdnote">
+<p>In the chunk of code below we use the <code>as.ggplot</code> function
+from the <code>ggplotify</code> package. This function converts a non
+<code>ggplot2</code> style function into a <code>ggplot2</code> format
+so that it can be further used with packages like <code>ggpubr</code>
+and <code>colorblindr</code>.</p>
+</div>
+
 
 
 ```r
@@ -796,7 +846,7 @@ F6.3a
 
 Fig. 6.3b - An arcplot with within group ties shown above the plot and between group ties shown below.
 
-For this plot, we read in a adjacency matrix that is ordered in the order we want it to show up in the final plot. [Download the file here](data/Peeples_arcplot.csv) to follow along.
+For this plot, we read in a adjacency matrix that is ordered in the order we want it to show up in the final plot. [Download the file here](data/Peeples_arcplot.csv) to follow along. Note that the object `grp` must be produced in the same order that the nodes appear in the original adjacency matrix file.
 
 
 
@@ -841,7 +891,18 @@ F6.3b
 
 Fig. 6.3c - Network plot with sites in geographic locations and edges bundled using the edge bundling hammer routine.
 
-This function requires the `edgebundle` package be installed along with `reticulate` and Python 3.7 (see [Packages](#Packages)) and uses the [Cibola technological similarity data](data/Peeples2018.Rdata). Check [Data and Workspace Setup](#ShouldIInstall) section for more details on getting the edge bundling package and Python up and running.
+<div class="rmdwarning">
+<p>This function requires the <code>edgebundle</code> package be
+installed along with <code>reticulate</code> and Python 3.7 (see <a
+href="#Packages">Packages</a>) and uses the <a
+href="data/Peeples2018.Rdata">Cibola technological similarity data</a>.
+Check <a href="#ShouldIInstall">Data and Workspace Setup</a> section for
+more details on getting the edge bundling package and Python up and
+running.</p>
+<p>Be aware that this function may take a long time on your computer
+depending on your processing power and RAM.</p>
+</div>
+
 
 
 ```r
@@ -877,6 +938,20 @@ This is a somewhat complicated plot that requires a couple of specialized librar
 devtools::install_github("liamgilbey/ggwaffle")
 ```
 
+<div class="rmdtip">
+<p>There are numerous projects that are in the R CRAN archive and those
+packages have been peer reviewed and evaluated. There are many other
+packages and compendiums designed for use in R that are not yet in the
+CRAN archive. Frequently these are found as packages in development on
+GitHub. In order to use these packages in development, you can use the
+<code>install_github</code> function wrapped inside the
+<code>devtools</code> package (though it originates in the
+<code>remotes</code> package). In order to install a package from
+GitHub, you type supply “username/packagename” inside the
+<code>install_github</code> call.</p>
+</div>
+
+Let's now look at the figure code:
 
 
 ```r
@@ -979,6 +1054,15 @@ F6.3d
 
 <img src="05-visualization_files/figure-html/Fig6_3d-1.png" width="576" />
 
+<div class="rmdtip">
+<p>The inspiration for the example above came from a <a
+href="https://www.r-bloggers.com/2020/03/ggraph-tricks-for-common-problems/">R
+blogpost by schochastics (David Schoch)</a>. As that post shows, any
+figures that can be treated as <code>ggplot2</code> objects can be used
+in the place of nodes by defining them as “annotations.” See the post
+for more details.</p>
+</div>
+
 Now let's look at all of the figures together.
 
 ![](images/Figure_6_3.jpg.jpeg){width=100%}
@@ -987,7 +1071,13 @@ Now let's look at all of the figures together.
 
 Figure 6.4. A network among Clovis era sites in the Western U.S. with connections based on shared lithic raw material sources. Nodes are scaled based on betweenness centrality with the top seven sites labelled. Colour-coded clusters were defined using the Louvain algorithm. 
  
-This example shows how to define and indicate groups and label points based on their values. Note the use of the `ifelse` call in the `geom_node_text` portion of the plot. See [here](#Conditionals) for more information on how `ifelse` statements work.
+<div class="rmdtip">
+<p>This example shows how to define and indicate groups and label points
+based on their values. Note the use of the <code>ifelse</code> call in
+the <code>geom_node_text</code> portion of the plot. See <a
+href="#Conditionals">here</a> for more information on how
+<code>ifelse</code> statements work.</p>
+</div>
 
 
 ```r
@@ -1046,6 +1136,15 @@ Figure 6.5. An example of the same network graph with two simple user defined la
 
 Figure 6.5 was produced in [NetDraw](https://sites.google.com/site/netdrawsoftware/download) by creating a simple network and taking screen shots of two configurations of nodes. There are a few options for creating a similar figures in R. The simplest is to use an igraph network object and the `tkplot` function. This function brings up a window that lets you drag and move nodes (with or without an initial algorithmic layout) and when you're done you can assign the new positions to a variable to use for plotting. [Use these data](data/Peeples2018.Rdata) to follow along.
 
+<div class="rmdwarning">
+<p>Note that if you are running this package in your browser via binder,
+the function below will not work as you do not have permission to open
+the tkplot on the virtual server. To follow along with the plotting of
+this figure you can use the pre-determined locatoins by reading in this
+file <code>load(file="data/Coords.Rdata")</code></p>
+</div>
+
+
 
 ```r
 library(igraph)
@@ -1060,7 +1159,7 @@ Coords <- tkplot.getcoords(locs)
 
 ```
 
-This will bring up a window like the example below and when you click "Close" it will automatically create the variables with the node location information for plotting.
+This will bring up a window like the example below and when you click "Close" it will automatically create the variables with the node location information for plotting. 
 
 ![](images/interactive.jpg){width=100%}
 
@@ -1151,6 +1250,18 @@ ggmap(myMap) +
 Figure 6.7. This ceramic similarity network of the San Pedro River Valley in Arizona shows the challenges of creating geographic network layouts. (a) Shows sites in their original locations whereas (b) shifts locations to improve the visibility of network structure. Note how the distorted geographic layout retains the basic relationships among the nodes while altering their locations slightly.
 
 Unfortunately as the first map contains real site locations we cannot share those data here. The second map can still be reproduced given nothing but the code below. The only difference required to produce Figure 6.7a would be to replace the `coord` site coordinates with the actual site locations. the `coord` object used here was created by taking the original site locations and applying the `jitter` function, which jitters x and y coordinates by a specified amount.
+
+<div class="rmdnote">
+<p>In the code below we use the <code>scalebar</code> function within
+the <code>ggsn</code> package to draw a scale for the map. Note that we
+provide the coordinate locations in decimal degrees of the minimum
+values on the x and y axis where we want the scale to appear, the
+geographic transformation (see <a href="#SpatialNetworks">Spatial
+Networks</a> for more details), and the style of scale. See
+<code>?scalebar</code> for options. There is also a <code>north</code>
+function in the same package that lets you generate north arrows.</p>
+</div>
+
 
 
 ```r
@@ -1248,13 +1359,13 @@ figure_6_7 <- ggmap(base3, darken = 0.35) +
 figure_6_7
 ```
 
-<img src="05-visualization_files/figure-html/unnamed-chunk-4-1.png" width="672" />
+<img src="05-visualization_files/figure-html/unnamed-chunk-14-1.png" width="672" />
 
 ### Figure 6.8: Graph Layout Algorithms {- #Figure_6_8}
 
 Fig. 6.8. Several different graph layouts all using the Bronze Age Aegean geographic network (Evans et al. 2011). In each graph, nodes are scaled based on betweenness centrality and colour-coded based on clusters defined using modularity maximisation.
 
-In the code below the only thing we change between each plot is the `layout` argument in `ggraph`. See [the CRAN project page on ggraph](https://cran.r-project.org/web/packages/ggraph/vignettes/Layouts.html) for more information on available layouts. 
+In the code below the only thing we change between each plot is the `layout` argument in `ggraph`. See [the CRAN project page on ggraph](https://cran.r-project.org/web/packages/ggraph/vignettes/Layouts.html) for more information on available layouts. We plot clusters by color here to make it easier to track differences between the layout options.
 
 
 ```r
@@ -1687,10 +1798,14 @@ library(igraph)
 
 load("data/Figure6_13.Rdata")
 # two_mode_net - igraph two mode network object
-# img.1 <- readPNG("images/site.png")
-#img.2 <- readPNG("images/pot.png")
+# img.1 <- readPNG("images/sites.png")
+#img.2 <- readPNG("images/ceramic.png")
 
 # Set Vector property to images by mode
+# Note that if you want to set a different image
+# for each node you can simply create a long list
+# containing image names for node type 1 followed
+# by image names for node type 2.
 V(two_mode_net)$raster <- list(img.1, img.2)[V(two_mode_net)$type + 1]
 
 set.seed(34673)
@@ -1700,8 +1815,7 @@ plot(
   vertex.label = NA,
   vertex.size = 16,
   vertex.size2 = 16,
-  edge.width = 2,
-  edge.color = "red"
+  edge.color = "gray"
 )
 ```
 
@@ -1723,14 +1837,17 @@ Cibola <-
 Cibola_i <- igraph::graph_from_adjacency_matrix(as.matrix(Cibola),
                                                 mode = "undirected")
 # Set Vector property to images using a list with a length
-# determined by the number of nodes in the network
-V(Cibola_i)$raster <- list(img.2, img.1, img.2, img.2, img.1,
-                           img.2, img.2, img.2, img.1, img.1,
-                           img.1, img.2, img.2, img.2, img.1,
-                           img.1, img.2, img.1, img.1, img.1,
-                           img.1, img.1, img.2, img.1, img.2,
-                           img.1, img.2, img.2, img.2, img.2,
-                           img.1)
+# determined by the number of nodes in the network.
+# Here we divide the northern and southern portions of the
+# study area.
+V(Cibola_i)$raster <- list(img.2, img.1, img.2, img.2,
+                           img.1, img.2, img.2, img.1,
+                           img.1, img.1, img.2, img.2,
+                           img.2, img.1, img.1, img.2,
+                           img.1, img.1, img.1, img.1,
+                           img.1, img.2, img.1, img.1,
+                           img.2, img.1, img.2, img.2,
+                           img.2, img.2, img.1)
 
 set.seed(34673)
 plot(
@@ -1739,7 +1856,7 @@ plot(
   vertex.label = NA,
   vertex.size = 16,
   vertex.size2 = 16,
-  edge.color = "red"
+  edge.color = "gray"
 )
 ```
 
@@ -1779,7 +1896,7 @@ ggraph(g.net, layout = "fr") +
 
 Fig. 6.15. Two methods of displaying directed ties using arrows (left) and arcs (right). Both of these simple networks represent the same relationships shown in the adjacency matrix in the centre.
 
-See the tutorial on [edges](#EdgeOptions) above for more details on using arrows in `ggraph`.
+See the tutorial on [edges](#EdgeOptions) above for more details on using arrows in `ggraph`. We use the `grid.table` function here from the `gridExtra` package to plot tabular data as a figure.
 
 
 ```r
@@ -1898,16 +2015,28 @@ ggarrange(g0.50, g0.75, g0.90, nrow = 1, ncol = 3)
 
 ### Figure 6.17: Edge Bundling {- #Figure_6_17}
 
-Fig. 6.17. Network map of ceramic similarity from the U.S. Southwest/Mexican Northwest ca. AD 1350–1400 based on the hammer bundling algorithm. 
+Fig. 6.17. Network map of ceramic similarity from the U.S. Southwest/Mexican Northwest ca. AD 1350–1400 based on the hammer bundling algorithm. Note that this figure will look somewhat different from the one in the book as the locations of sites have been jittered for data security
 
-This function relies on the `edgebundle` package to combine sets of nodes with similar relations into single paths. This package also requires that you install the `reticulate` package which connects R to Python 3.7 and you must also have Python installed on your computer with the `datashader` Python libraries. To install an instance of Python with all of the required libraries you can use the following call: 
+<div class="rmdwarning">
+<p>This function relies on the <code>edgebundle</code> package to
+combine sets of nodes with similar relations into single paths. This
+package also requires that you install the <code>reticulate</code>
+package which connects R to Python 3.7 and you must also have Python
+installed on your computer with the <code>datashader</code> Python
+libraries.</p>
+<p>Note that this will require about 1.4 GB of disk space and several
+minutes so make sure you have adequate space and time before
+beginning.</p>
+</div>
+
+To install an instance of Python with all of the required libraries you can use the following call: 
 
 
 ```r
 edgebundle::install_bundle_py(method = "auto", conda = "auto")
 ```
 
-Note that this will require about 1.4 GB of disk space so make sure you have adequate space before beginning. [Use these data](data/Figure6_17.Rdata) to follow along. Note that this procedure can take several seconds to a few minutes depending on the speed of your computer. Note that this figure will look somewhat different from the one in the book as the locations of sites have been jittered for data security
+[Use these data](data/Figure6_17.Rdata) to follow along. 
 
 
 ```r
@@ -1973,7 +2102,7 @@ ggmap(base2, darken = 0.15) +
 
 Fig. 6.18. Example of a group-in-a-box custom graph layout created in NodeXL based on ceramic similarity data from the U.S. Southwest/Mexican Northwest ca. AD 1350-1400. 
 
-The group-in-a-box network format is, as far as we are aware, currently only implemented in the [NodeXL](https://www.smrfoundation.org/nodexl/) platform. This software package is an add-in for Microsoft Excel that allows for the creation and analysis of network graphs using a wide variety of useful visualization tools. To produce a "Group-in-a-box" layout you simply need to paste a set of edge list values into the NodeXL Excel Template, define groups (based on an algorithm or some vertex attribute), and the be sure to select "Layout each of the graph's groups in its own box" in the layout options. 
+The group-in-a-box network format is, as far as we are aware, currently only implemented in the [NodeXL](https://www.smrfoundation.org/nodexl/) platform. This software package is an add-in for Microsoft Excel that allows for the creation and analysis of network graphs using a wide variety of useful visualization tools. To produce a "Group-in-a-box" layout you simply need to paste a set of edge list values into the NodeXL Excel Template, define groups (based on an algorithm or some vertex attribute), and be sure to select "Layout each of the graph's groups in its own box" in the layout options. 
 
 For more details on how to use NodeXL see the extensive documentation online. There are commercial versions of the software available but the group-in-a-box example shown here can be produced in the free version.
 
@@ -2063,9 +2192,11 @@ figure6_19
 
 Fig. 6.20. Nodetrix visualisation of the Peeples (2018) ceramic technological data showing one dense cluster as an adjacency matrix and the remainder of the graph as a node-link diagram.
 
+![Nodetrix visualization](images/nodetrix.jpg){width=100%}
+
 This Nodetrix interactive visualization was created using the Javascript implementation available on [GitHub](https://github.com/IRT-SystemX/nodetrix) by user [jdfekete](https://github.com/jdfekete/), Jean-Daniel Fekete who was one of the original authors of the method (Henry et al. 2007). 
 
-The details of running the Javascript program are described on the GitHub page and are beyond this scope of this tutorial. We do illustrate below, however, how you can export R in the *.json format required by this program using the `d3r` and `rjson` packages. 
+The details of running the Javascript program are described on the GitHub page and are beyond this scope of this tutorial. We do illustrate below, however, how you can export R in the *.json format required by this program using the `d3r` and `rjson` packages. The code below expects and `igraph` network object.
 
 
 ```r
@@ -2085,6 +2216,8 @@ dj <- jsonlite::toJSON(dj)
 
 write(dj, "network.json")
 ```
+
+To see a live version of this tool in action [check here](https://aviz.fr/Research/Nodetrix).
 
 ### Figure 6.21: The Filmstrip Approach {- #Figure_6_21}
 
@@ -2193,20 +2326,28 @@ lin.net <- ggraph(SPgraph, layout="linear") +
 similt.net
 ```
 
-<img src="05-visualization_files/figure-html/unnamed-chunk-6-1.png" width="672" />
+<img src="05-visualization_files/figure-html/unnamed-chunk-17-1.png" width="672" />
 
 ```r
 
 lin.net
 ```
 
-<img src="05-visualization_files/figure-html/unnamed-chunk-6-2.png" width="672" />
+<img src="05-visualization_files/figure-html/unnamed-chunk-17-2.png" width="672" />
 
 ### Figure 6:23: Timelines and Time Prisms {- #Figure_6_23}
 
 Fig. 6.23. This plot shows two displays of the same ceramic similarity data from the Sonoran Desert in the U.S. Southwest as a time prism (top) and timeline (bottom).
 
-These examples were drawn from work outline on a workshop focused on temporal networks by Skye Bender-deMoll. [Click here](https://statnet.org/Workshops/ndtv_workshop.html) to see the detailed workshop overview. Note that the data required is a list object that contains multiple temporal slices of the same network in `network` format from the `statnet` suite of packages. Each network must have the same number of nodes and the same node identifiers must be used in every network in the list.
+These examples were drawn from work outline on a workshop focused on temporal networks by Skye Bender-deMoll. [Click here](https://statnet.org/Workshops/ndtv_workshop.html) to see the detailed workshop overview. The functions for animating and plotting temporal networks used here come from the `ndtv` and `networkDynamic` packages.
+
+<div class="rmdwarning">
+<p>Note that the data required is a list object that contains multiple
+temporal slices of the same network in <code>network</code> format from
+the <code>statnet</code> suite of packages. Each network must have the
+same number of nodes and the same node identifiers must be used in every
+network in the list.</p>
+</div>
 
 [Use these data](data/Figure6_23.Rdata) to follow along.
 
@@ -11074,13 +11215,25 @@ ggraph(net, layout = "fr") +
   theme_graph()
 ```
 
-<img src="05-visualization_files/figure-html/unnamed-chunk-7-1.png" width="672" />
+<img src="05-visualization_files/figure-html/unnamed-chunk-19-1.png" width="672" />
 
 ### Figure 6.27: SWSN Example 2{- #Figure_6_27}
 
 Fig. 6.27. An explicit geographic map network of the SWSN project area through time (Mills et al. 2013).
 
 The original version of this figure was produced in ArcGIS using data prepared in R. Here we show how these same network maps with edges color coded by geographic length can be produced in R. We provide code to prepare a map for one time period (AD1300-1350). [Use these data](data/Figure6_27.Rdata) to follow along. Note that this figure will differ slightly from the one in the book and in the original Mills et al. 2013 publication as site locations have been jittered. In this example we use geographic coordinates to calculate distance. See the [spatial networks](#SpatialNetworks) section for more details.
+
+<div class="rmdtip">
+<p>Note for short edges to be visible on top of long edges here we must
+first sort the order of edges bu length in the original edge list before
+converting it into a igraph network object. In the three lines beginning
+with <code># Order edges so shorest will plot last</code>, we use the
+<code>order</code> function and set <code>decreasing = T</code> so that
+edges will be listed from longest to shortest. The order of the edge
+list is the order that edges will be plotted.</p>
+</div>
+
+
 
 
 ```r
@@ -11152,5 +11305,5 @@ ggmap(base2, darken = 0.5) +
   theme_graph()
 ```
 
-<img src="05-visualization_files/figure-html/unnamed-chunk-8-1.png" width="672" />
+<img src="05-visualization_files/figure-html/unnamed-chunk-21-1.png" width="672" />
 

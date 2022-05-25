@@ -11,7 +11,7 @@ In order to facilitate the exploratory analysis examples in this section, we wan
  * `directed_net` - A directed binary network
  * `weighted_net` - An undirected weighted network
  * `sim_net_i` - A similarity network with edges weighted by similarity in the `igraph` format
- * `sim_net` - A similarity network with edges weighted by similarity in the `statnet` format
+ * `sim_net` - A similarity network with edges weighted by similarity in the `network` format
  * `sim_mat` - A data frame object containing a weighted similarity matrix
 
 Each of these will be used as appropriate to illustrate particular methods.
@@ -196,15 +196,8 @@ page_rank(
 
 The `igraph::closeness` function calculates closeness centrality and can be calculated for directed and undirected simple or weighted networks with no isolates. This function can also be used for networks with isolates, but you may receive an additional message suggesting that closeness is undefined for networks that are not fully connected. For very large networks you can use the `igraph::estimate_closeness` function with a cutoff setting that will consider paths of length up to cutoff to calculate closeness scores. For directed networks you can also specify whether connections in, out, or in both directions should be used.
 
-```{r, echo=FALSE}
-is_html = knitr::is_html_output()
-```
-
-```{asis, echo=is_html}
-<br>
-<img src="images/warning.png" width="80" height="80" alt="warning" align="left" style="margin: 0 1em 0 1em" />
+```{block, type="rmdwarning"}
 Note that the function `igraph::closeness()` should not normally be used with networks with multiple components. Depending on your settings, however, the function call may not return an error so be careful.
-<br>
 ```
 
 Let's take a look at some examples:
@@ -380,7 +373,7 @@ In the example here this network is fully connected with the exception of 1 node
 
 ### Cutpoints{#Cutpoints}
 
-A cutpoint is a node, the removal which creates a network with a higher number of components. There is not a convenient igraph function for identifying cutpoints but there is a function in the `sna` package within the `statnet` suite. Using the `intergraph` package we can easily convert an `igraph` object to an `sna` object (using the `asNetwork` function) within the call to use this function.
+A cutpoint is a node, the removal which creates a network with a higher number of components. There is not a convenient igraph function for identifying cutpoints but there is a function in the `sna` package within the `statnet` suite. Using the `intergraph` package we can easily convert an `igraph` object to a `network` object (using the `asNetwork` function) within the call to use this function.
 
 The `sna::cutpoint` function returns the node id for any cutpoints detected. We can use the numbers returned to find the name of the node in question.
 

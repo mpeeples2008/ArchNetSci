@@ -15,16 +15,7 @@ The network data formats we discuss in this section include:
 * Adjacency matrix - A network data format consisting of a matrix of size *n x n*, with a set of rows equal to the number of nodes, and a set of columns equal to the number of nodes. When a pair of nodes is connected by an edge (i.e., when they are adjacent), then the corresponding cell will have an entry.
 * Incidence matrix - A network data format consisting of a matrix of size *n x e*, with a set of rows equal to the number of nodes, and a set of columns equal to the number of edges. An entry is made in a cell if the corresponding node and edge are connected. Each column in the incidence matrix has two entries.
 
-
-```{r, echo=FALSE}
-is_html = knitr::is_html_output()
-```
-
-```{asis, echo=is_html}
-<br>
-<img src="images/packages.png" width="100" height="100" alt="packages" align="left" style="margin: 0 1em 0 1em" />
 Let's first get started by initializing all of the packages we will use in this section.
-```
 
 ```{r, warning=F, message=F}
 # initialize packages
@@ -35,7 +26,9 @@ library(vegan)
 library(multinet)
 ```
 
+```{block, type="rmdnote"}
 The primary packages used in this Section (`igraph`, `statnet`, and `intergraph`) are already described [in the last section](#PrimaryPackages). We also use here the `vegan` package which includes many functions focused on community ecology. In this document, we rely on this package to calculate several distance/similarity metrics that are useful for generating [similarity networks](#SimilarityNetworks). Finally, we provide a brief example at the end of this section using `multinet` which is a package focused on conducting [multilayer network analyses](#Multinet).
+```
 
 ### Defining Network Objects in R{#NetworkDataFunctions}
 
@@ -387,7 +380,7 @@ Similarity networks simply refer to one-mode networks where nodes are defined as
 
 There are many different ways to define and track similarity network data for use in R. In this example, we will show several methods using the affiliation data we used in the previous example. Specifically, we will define and weight edges based on similarities in the frequencies of ceramic technological clusters at sites in our Cibola region sample.
 
-For most of these examples we will use the statnet package and the network package within it rather than igraph because statnet has a few additional functions that are useful when working with similarity data. In the following examples, we will first demonstrate several different similarity/distance metrics and then discuss approaches to binarization of these similarity networks and other options for working with weighted data.
+For most of these examples we will use the `statnet` package and the `network` package object format within it rather than `igraph` because `statnet` has a few additional functions that are useful when working with similarity data. In the following examples, we will first demonstrate several different similarity/distance metrics and then discuss approaches to binarization of these similarity networks and other options for working with weighted data.
 
 #### Brainerd-Robinson Similarity {-}
 
@@ -594,11 +587,8 @@ ego_size(Cibola_net)
 
 ### Converting Among Network Object Formats{#ConvertingNetworkFormats}
 
-```{asis, echo=is_html}
-<br>
-<img src="images/tip.png" height="80" alt="tip" align="left" style="margin: 0 1em 0 1em" />
-In most of the examples in this document we have been using the `igraph` package but for the similarity networks we chose to use `statnet` due to the convenience of functions for working directly with similarity data. Not to worry as it is easy to convert one format to another and preserve all of the attributes using a package called `intergraph`. By way of example below we can covert the weighted network object we created in the previous step and convert it to a `igraph` object and view the attributes using the `asIgraph` function. If we wanted to go the other direction and covert a `igraph` object to a `statnet` object we would instead use `asNetwrok`.
-<br>
+```{block, type="rmdtip"}
+In most of the examples in this document we have been using the `igraph` package but for the similarity networks we chose to use `statnet` due to the convenience of functions for working directly with similarity data. Not to worry as it is easy to convert one format to another and preserve all of the attributes using a package called `intergraph`. By way of example below we can covert the weighted network object we created in the previous step and convert it to a `igraph` object and view the attributes using the `asIgraph` function. If we wanted to go the other direction and covert a `igraph` object to a `network` object (which is the format all of the `statnet` package require) we would instead use `asNetwrok`.
 ```
 
 Here is a simple example:

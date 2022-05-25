@@ -98,23 +98,35 @@
 <p>This section follows Chapter 3.2 in Brughmans and Peeples (2022) to provide examples of the same network and attribute data in a variety of different data formats as well as code for converting among these formats in R.</p>
 <p>The network data formats we discuss in this section include:</p>
 <ul>
-<li>Edge list - A network data format consisting of a list of connected node pairs. <em>E=((n1,n2),(n1,n3),(n1,n4),…,(ni,nj))</em>. It can also be represented as a matrix with two columns for source and target nodes respectively and with one edge per row.
-*Adjacency list - A network data format consisting of a set of rows, where the first node in each row is connected to all subsequent nodes in that same row.</li>
+<li>Edge list - A network data format consisting of a list of connected node pairs. <em>E=((n1,n2),(n1,n3),(n1,n4),…,(ni,nj))</em>. It can also be represented as a matrix with two columns for source and target nodes respectively and with one edge per row.</li>
+<li>Adjacency list - A network data format consisting of a set of rows, where the first node in each row is connected to all subsequent nodes in that same row.</li>
 <li>Adjacency matrix - A network data format consisting of a matrix of size <em>n x n</em>, with a set of rows equal to the number of nodes, and a set of columns equal to the number of nodes. When a pair of nodes is connected by an edge (i.e., when they are adjacent), then the corresponding cell will have an entry.</li>
 <li>Incidence matrix - A network data format consisting of a matrix of size <em>n x e</em>, with a set of rows equal to the number of nodes, and a set of columns equal to the number of edges. An entry is made in a cell if the corresponding node and edge are connected. Each column in the incidence matrix has two entries.</li>
 </ul>
-<p><br><img src="images/packages.png" width="100" height="100" alt="packages" align="left" style="margin: 0 1em 0 1em">
-Let’s first get started by initializing all of the packages we will use in this section.</p>
+<p>Let’s first get started by initializing all of the packages we will use in this section.</p>
 <div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># initialize packages</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://igraph.org">igraph</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://statnet.org">statnet</a></span><span class="op">)</span>
-<span class="co">#&gt;         Installed ReposVer Built  </span>
-<span class="co">#&gt; network "1.17.1"  "1.17.2" "4.2.0"</span>
+<span class="co">#&gt;            Installed ReposVer Built  </span>
+<span class="co">#&gt; ergm.count "4.0.2"   "4.1.1"  "4.2.0"</span>
+<span class="co">#&gt; network    "1.17.1"  "1.17.2" "4.2.0"</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://mbojan.github.io/intergraph">intergraph</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/vegandevs/vegan">vegan</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">multinet</span><span class="op">)</span></code></pre></div>
-<p>The primary packages used in this Section (<code>igraph</code>, <code>statnet</code>, and <code>intergraph</code>) are already described <a href="DataWorkspaceSetup.html#PrimaryPackages">in the last section</a>. We also use here the <code>vegan</code> package which includes many functions focused on community ecology. In this document, we rely on this package to calculate several distance/similarity metrics that are useful for generating <a href="NetworkData.html#SimilarityNetworks">similarity networks</a>. Finally, we provide a brief example at the end of this section using <code>multinet</code> which is a package focused on conducting <a href="NetworkData.html#Multinet">multilayer network analyses</a>.</p>
+<div class="rmdnote">
+<p>
+The primary packages used in this Section (<code>igraph</code>,
+<code>statnet</code>, and <code>intergraph</code>) are already described
+<a href="DataWorkspaceSetup.html#PrimaryPackages">in the last section</a>. We also use here the
+<code>vegan</code> package which includes many functions focused on
+community ecology. In this document, we rely on this package to
+calculate several distance/similarity metrics that are useful for
+generating <a href="NetworkData.html#SimilarityNetworks">similarity networks</a>.
+Finally, we provide a brief example at the end of this section using
+<code>multinet</code> which is a package focused on conducting <a href="#Multinet">multilayer network analyses</a>.
+</p>
+</div>
 <div id="NetworkDataFunctions" class="section level3" number="2.1.1">
 <h3>
 <span class="header-section-number">2.1.1</span> Defining Network Objects in R<a class="anchor" aria-label="anchor" href="#NetworkDataFunctions"><i class="fas fa-link"></i></a>
@@ -158,9 +170,9 @@ Let’s first get started by initializing all of the packages we will use in thi
 
 <span class="co"># Display igraph network object and then plot a simple node-link diagram</span>
 <span class="va">Cibola_net</span>
-<span class="co">#&gt; IGRAPH 29693b5 UN-- 30 167 -- </span>
+<span class="co">#&gt; IGRAPH 608e759 UN-- 30 167 -- </span>
 <span class="co">#&gt; + attr: name (v/c)</span>
-<span class="co">#&gt; + edges from 29693b5 (vertex names):</span>
+<span class="co">#&gt; + edges from 608e759 (vertex names):</span>
 <span class="co">#&gt;  [1] Apache Creek--Casa Malpais        </span>
 <span class="co">#&gt;  [2] Apache Creek--Coyote Creek        </span>
 <span class="co">#&gt;  [3] Apache Creek--Hooper Ranch        </span>
@@ -172,7 +184,7 @@ Let’s first get started by initializing all of the packages we will use in thi
 <span class="co">#&gt; + ... omitted several edges</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">3523</span><span class="op">)</span> <span class="co"># set random seed to ensure graph layout stays the same each time.</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">Cibola_net</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="02-network-data-formats_files/figure-html/unnamed-chunk-4-1.png" width="672"></div>
+<div class="inline-figure"><img src="02-network-data-formats_files/figure-html/unnamed-chunk-3-1.png" width="672"></div>
 </div>
 <div id="adjacency-list" class="section level3" number="2.1.3">
 <h3>
@@ -186,7 +198,7 @@ Let’s first get started by initializing all of the packages we will use in thi
 
 <span class="co"># examine adjacency list for the site Apache Creek</span>
 <span class="va">adj_list</span><span class="op">$</span><span class="va">`Apache Creek`</span>
-<span class="co">#&gt; + 11/167 edges from 29693b5 (vertex names):</span>
+<span class="co">#&gt; + 11/167 edges from 608e759 (vertex names):</span>
 <span class="co">#&gt;  [1] Apache Creek--Casa Malpais        </span>
 <span class="co">#&gt;  [2] Apache Creek--Coyote Creek        </span>
 <span class="co">#&gt;  [3] Apache Creek--Hooper Ranch        </span>
@@ -202,7 +214,7 @@ Let’s first get started by initializing all of the packages we will use in thi
 <span class="co"># It is also possible to call specific nodes by number. In this case,</span>
 <span class="co"># site 2 is Casa Malpais</span>
 <span class="va">adj_list</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span> 
-<span class="co">#&gt; + 11/167 edges from 29693b5 (vertex names):</span>
+<span class="co">#&gt; + 11/167 edges from 608e759 (vertex names):</span>
 <span class="co">#&gt;  [1] Apache Creek--Casa Malpais   </span>
 <span class="co">#&gt;  [2] Casa Malpais--Coyote Creek   </span>
 <span class="co">#&gt;  [3] Casa Malpais--Hooper Ranch   </span>
@@ -258,7 +270,7 @@ Let’s first get started by initializing all of the packages we will use in thi
                                       mode <span class="op">=</span> <span class="st">"undirected"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">4352</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">Cibola_net2</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="02-network-data-formats_files/figure-html/unnamed-chunk-6-1.png" width="672"></div>
+<div class="inline-figure"><img src="02-network-data-formats_files/figure-html/unnamed-chunk-5-1.png" width="672"></div>
 <p>Note when you compare this network graph to the one produced based on the edge list there is an additional unconnected node (WS Ranch) that was not shown in the previous network. This is one of the advantages of an adjacency matrix is it provides a way of easily including unconnected nodes without having to manually add them or include self-loops.</p>
 </div>
 <div id="incidence-matrix" class="section level3" number="2.1.5">
@@ -315,7 +327,7 @@ Let’s first get started by initializing all of the packages we will use in thi
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">4543</span><span class="op">)</span>
 <span class="co"># Plot as two-mode network</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">Cibola_inc</span>, vertex.color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html">V</a></span><span class="op">(</span><span class="va">Cibola_inc</span><span class="op">)</span><span class="op">$</span><span class="va">type</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="02-network-data-formats_files/figure-html/unnamed-chunk-7-1.png" width="672"></div>
+<div class="inline-figure"><img src="02-network-data-formats_files/figure-html/unnamed-chunk-6-1.png" width="672"></div>
 </div>
 <div id="node-and-edge-information" class="section level3" number="2.1.6">
 <h3>
@@ -369,9 +381,9 @@ Let’s first get started by initializing all of the packages we will use in thi
 <span class="co"># Note that "region" is now listed as an attribute when we view </span>
 <span class="co"># the network object</span>
 <span class="va">Cibola_net2</span>
-<span class="co">#&gt; IGRAPH 29981d3 UN-- 31 167 -- </span>
+<span class="co">#&gt; IGRAPH 60c0af1 UN-- 31 167 -- </span>
 <span class="co">#&gt; + attr: name (v/c), region (v/c)</span>
-<span class="co">#&gt; + edges from 29981d3 (vertex names):</span>
+<span class="co">#&gt; + edges from 60c0af1 (vertex names):</span>
 <span class="co">#&gt;  [1] Apache.Creek--Casa.Malpais        </span>
 <span class="co">#&gt;  [2] Apache.Creek--Coyote.Creek        </span>
 <span class="co">#&gt;  [3] Apache.Creek--Hooper.Ranch        </span>
@@ -386,7 +398,7 @@ Let’s first get started by initializing all of the packages we will use in thi
 <code class="sourceCode R">
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">43534</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">Cibola_net2</span>, vertex.color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html">V</a></span><span class="op">(</span><span class="va">Cibola_net2</span><span class="op">)</span><span class="op">$</span><span class="va">region</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="02-network-data-formats_files/figure-html/unnamed-chunk-10-1.png" width="672"></div>
+<div class="inline-figure"><img src="02-network-data-formats_files/figure-html/unnamed-chunk-9-1.png" width="672"></div>
 </div>
 </div>
 <div id="TypesOfNetworks" class="section level2" number="2.2">
@@ -421,9 +433,9 @@ Let’s first get started by initializing all of the packages we will use in thi
   <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/graph_from_adjacency_matrix.html">graph_from_adjacency_matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">adj_mat2</span><span class="op">)</span>,
                                       mode <span class="op">=</span> <span class="st">"undirected"</span><span class="op">)</span>
 <span class="va">simple_net_i</span>
-<span class="co">#&gt; IGRAPH 2a6cd6a UN-- 31 167 -- </span>
+<span class="co">#&gt; IGRAPH 61b5cf4 UN-- 31 167 -- </span>
 <span class="co">#&gt; + attr: name (v/c)</span>
-<span class="co">#&gt; + edges from 2a6cd6a (vertex names):</span>
+<span class="co">#&gt; + edges from 61b5cf4 (vertex names):</span>
 <span class="co">#&gt;  [1] Apache.Creek--Casa.Malpais        </span>
 <span class="co">#&gt;  [2] Apache.Creek--Coyote.Creek        </span>
 <span class="co">#&gt;  [3] Apache.Creek--Hooper.Ranch        </span>
@@ -477,9 +489,9 @@ Let’s first get started by initializing all of the packages we will use in thi
 <span class="va">directed_net</span> <span class="op">&lt;-</span>
   <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/graph_from_edgelist.html">graph_from_edgelist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">EL2</span><span class="op">)</span>, directed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="va">directed_net</span>
-<span class="co">#&gt; IGRAPH 2a744e7 DN-- 30 125 -- </span>
+<span class="co">#&gt; IGRAPH 61be14e DN-- 30 125 -- </span>
 <span class="co">#&gt; + attr: name (v/c)</span>
-<span class="co">#&gt; + edges from 2a744e7 (vertex names):</span>
+<span class="co">#&gt; + edges from 61be14e (vertex names):</span>
 <span class="co">#&gt;  [1] Coyote Creek   -&gt;Techado Springs      </span>
 <span class="co">#&gt;  [2] Hubble Corner  -&gt;Tri-R Pueblo         </span>
 <span class="co">#&gt;  [3] Hubble Corner  -&gt;Techado Springs      </span>
@@ -509,7 +521,7 @@ Let’s first get started by initializing all of the packages we will use in thi
 <span class="co"># Plot network</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">4353</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">directed_net</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="02-network-data-formats_files/figure-html/unnamed-chunk-12-1.png" width="672"></div>
+<div class="inline-figure"><img src="02-network-data-formats_files/figure-html/unnamed-chunk-11-1.png" width="672"></div>
 <p>Notice that when we look at the igraph network plot it has arrows indicating the direction of connection in the edge list. If you are making your own directed edge list, the sending node by default will be in the left column and the receiving node in the right column. In the adjacency matrix the upper and lower triangles are no longer identical. Again, if you are generating your own adjacency matrix, you can simply mark edges sent from nodes denoted as rows and edges received from the same nodes as columns. Finally, in the plot, since R recognizes this as a directed igraph object when we plot the network, it automatically shows arrows indicating the direction of the edge.</p>
 </div>
 <div id="WeightedNetworks" class="section level3" number="2.2.3">
@@ -564,7 +576,7 @@ Let’s first get started by initializing all of the packages we will use in thi
 <span class="co"># Plot the network</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">574</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">weighted_net</span>, edge.width <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/E.html">E</a></span><span class="op">(</span><span class="va">weighted_net</span><span class="op">)</span><span class="op">$</span><span class="va">weight</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="02-network-data-formats_files/figure-html/unnamed-chunk-13-1.png" width="672"></div>
+<div class="inline-figure"><img src="02-network-data-formats_files/figure-html/unnamed-chunk-12-1.png" width="672"></div>
 <p>Notice in the final plot that line thickness is used to indicate edges with various weights. We will explore further options for such visualizations in the network <a href="Visualization.html#Visualization">visualizations section</a> of this document.</p>
 </div>
 <div id="TwoMode" class="section level3" number="2.2.4">
@@ -584,9 +596,9 @@ Let’s first get started by initializing all of the packages we will use in thi
                                                   directed <span class="op">=</span> <span class="cn">FALSE</span>,
                                                   multiple <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="va">Cibola_inc</span>
-<span class="co">#&gt; IGRAPH 2ab2bd3 UN-B 41 2214 -- </span>
+<span class="co">#&gt; IGRAPH 6207fed UN-B 41 2214 -- </span>
 <span class="co">#&gt; + attr: type (v/l), name (v/c)</span>
-<span class="co">#&gt; + edges from 2ab2bd3 (vertex names):</span>
+<span class="co">#&gt; + edges from 6207fed (vertex names):</span>
 <span class="co">#&gt;  [1] Apache Creek--Clust1 Apache Creek--Clust1</span>
 <span class="co">#&gt;  [3] Apache Creek--Clust1 Apache Creek--Clust1</span>
 <span class="co">#&gt;  [5] Apache Creek--Clust1 Apache Creek--Clust1</span>
@@ -599,7 +611,7 @@ Let’s first get started by initializing all of the packages we will use in thi
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">4537643</span><span class="op">)</span>
 <span class="co"># Plot as two-mode network</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">Cibola_inc</span>, vertex.color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html">V</a></span><span class="op">(</span><span class="va">Cibola_inc</span><span class="op">)</span><span class="op">$</span><span class="va">type</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="02-network-data-formats_files/figure-html/unnamed-chunk-14-1.png" width="672"></div>
+<div class="inline-figure"><img src="02-network-data-formats_files/figure-html/unnamed-chunk-13-1.png" width="672"></div>
 <p>In this case since most clusters are present at most sites, this creates a pretty busy network that may not be particularly useful. An alternative to this is to define some threshold (either in terms of raw count or proportion) to define an edge between a node of one class and another. We provide an example here and build a function that you could modify to do this for your own data. In this function you can set the proportion threshold that you would like to used to define an edge between two classes of nodes. If the proportion of that cluster at that site is greater than or equal to that threshold an edge will be present. In the example below the threshold is set at 0.25 meaning that we will define edges between nodes that share a common type that makes of at least a quarter of the assemblage of both sites.</p>
 <div class="sourceCode" id="cb77"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Define function for creating incidence matrix with threshold</span>
@@ -644,7 +656,7 @@ Let’s first get started by initializing all of the packages we will use in thi
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">4537</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">two_mode_net</span>, 
      vertex.color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html">V</a></span><span class="op">(</span><span class="va">Cibola_inc</span><span class="op">)</span><span class="op">$</span><span class="va">type</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="02-network-data-formats_files/figure-html/unnamed-chunk-15-1.png" width="672"></div>
+<div class="inline-figure"><img src="02-network-data-formats_files/figure-html/unnamed-chunk-14-1.png" width="672"></div>
 <p>Notice how there are now far fewer ties and if you are familiar with the sites in question you might notice some clear regional patterning.</p>
 <p>It is also possible to create one-mode projections of the two-mode data here using simple matrix algebra. All you need to do is multiply a matrix by the transpose of that matrix. The results will be a adjacency matrix for whichever set of nodes represented the rows in the first matrix in the matrix multiplication. Here is an example using the <code>mod_clust</code> incidence matrix with threshold created above. In the resulting incidence matrix individual cells will represent the number of different edges in common between the nodes in question and can be treated like an edge weight. The diagonal of the matrix will be the total number of clusters that were present in a site assemblage. In R the operator <code>%*%</code> indicates matrix mulitplication and the function <code><a href="https://rdrr.io/r/base/t.html">t()</a></code> will transpose a given matrix.</p>
 <div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
@@ -656,7 +668,7 @@ Let’s first get started by initializing all of the packages we will use in thi
                                                 mode <span class="op">=</span> <span class="st">"undirected"</span>,
                                                 diag <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">site_net</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="02-network-data-formats_files/figure-html/unnamed-chunk-16-1.png" width="672"></div>
+<div class="inline-figure"><img src="02-network-data-formats_files/figure-html/unnamed-chunk-15-1.png" width="672"></div>
 <div class="sourceCode" id="cb79"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="co"># Now lets create a one-mode projection focused on ceramic</span>
@@ -684,7 +696,7 @@ Let’s first get started by initializing all of the packages we will use in thi
                                                  mode <span class="op">=</span> <span class="st">"undirected"</span>,
                                                  diag <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">clust_net</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="02-network-data-formats_files/figure-html/unnamed-chunk-16-2.png" width="672"></div>
+<div class="inline-figure"><img src="02-network-data-formats_files/figure-html/unnamed-chunk-15-2.png" width="672"></div>
 </div>
 <div id="SimilarityNetworks" class="section level3" number="2.2.5">
 <h3>
@@ -692,7 +704,7 @@ Let’s first get started by initializing all of the packages we will use in thi
 </h3>
 <p>Similarity networks simply refer to one-mode networks where nodes are defined as entities of interest with edges defined and/or weighted based on some metric of similarity (or distance) defined based on the features, attributes, or assemblage associated with that node. Such an approach is frequently used in archaeology to explore material cultural networks where nodes are contexts of interests (e.g., sites, excavation units, houses, etc.) and edges are defined or weighted based on similarities in the relative frequencies of artifacts or particular classes of artifacts recovered in those contexts.</p>
 <p>There are many different ways to define and track similarity network data for use in R. In this example, we will show several methods using the affiliation data we used in the previous example. Specifically, we will define and weight edges based on similarities in the frequencies of ceramic technological clusters at sites in our Cibola region sample.</p>
-<p>For most of these examples we will use the statnet package and the network package within it rather than igraph because statnet has a few additional functions that are useful when working with similarity data. In the following examples, we will first demonstrate several different similarity/distance metrics and then discuss approaches to binarization of these similarity networks and other options for working with weighted data.</p>
+<p>For most of these examples we will use the <code>statnet</code> package and the <code>network</code> package object format within it rather than <code>igraph</code> because <code>statnet</code> has a few additional functions that are useful when working with similarity data. In the following examples, we will first demonstrate several different similarity/distance metrics and then discuss approaches to binarization of these similarity networks and other options for working with weighted data.</p>
 <div id="brainerd-robinson-similarity" class="section level4 unnumbered">
 <h4>Brainerd-Robinson Similarity<a class="anchor" aria-label="anchor" href="#brainerd-robinson-similarity"><i class="fas fa-link"></i></a>
 </h4>
@@ -837,7 +849,7 @@ Let’s first get started by initializing all of the packages we will use in thi
 <span class="co"># plot network using default layout</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">7564</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">BRnet</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="02-network-data-formats_files/figure-html/unnamed-chunk-20-1.png" width="672"></div>
+<div class="inline-figure"><img src="02-network-data-formats_files/figure-html/unnamed-chunk-19-1.png" width="672"></div>
 <p>In the next chunk of code we will use the <span class="math inline">\(\chi^2\)</span> distances to create binary networks. This time, we will not use an absolute value to define ties as present, but instead will define those similarities greater than 80 percent of all similarities as present. We will then once again plot just as above.</p>
 <div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Note we use 1 minus chacoX01 here so to convert a distance</span>
@@ -870,7 +882,7 @@ Let’s first get started by initializing all of the packages we will use in thi
 <span class="co"># plot network using default layout</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">346</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">Xnet</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="02-network-data-formats_files/figure-html/unnamed-chunk-21-1.png" width="672"></div>
+<div class="inline-figure"><img src="02-network-data-formats_files/figure-html/unnamed-chunk-20-1.png" width="672"></div>
 </div>
 <div id="creating-weighted-network-objects" class="section level5 unnumbered">
 <h5>Creating Weighted Network Objects<a class="anchor" aria-label="anchor" href="#creating-weighted-network-objects"><i class="fas fa-link"></i></a>
@@ -909,7 +921,7 @@ Let’s first get started by initializing all of the packages we will use in thi
 <span class="co"># plot weighted network using default layout</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">4634</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">Mor_wt</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="02-network-data-formats_files/figure-html/unnamed-chunk-22-1.png" width="672"></div>
+<div class="inline-figure"><img src="02-network-data-formats_files/figure-html/unnamed-chunk-21-1.png" width="672"></div>
 <p>The resulting network is nearly complete so it is a bit unwieldy for plotting but calculating network statistics on this weighted network can often still be useful as we will see in the exploratory analysis section.</p>
 </div>
 </div>
@@ -937,9 +949,9 @@ Let’s first get started by initializing all of the packages we will use in thi
 
 <span class="co"># Examine the first ego-network</span>
 <span class="va">ego_nets</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>
-<span class="co">#&gt; IGRAPH 2befc42 UN-- 12 59 -- </span>
+<span class="co">#&gt; IGRAPH 6376850 UN-- 12 59 -- </span>
 <span class="co">#&gt; + attr: name (v/c)</span>
-<span class="co">#&gt; + edges from 2befc42 (vertex names):</span>
+<span class="co">#&gt; + edges from 6376850 (vertex names):</span>
 <span class="co">#&gt;  [1] Apache Creek--Casa Malpais   </span>
 <span class="co">#&gt;  [2] Apache Creek--Coyote Creek   </span>
 <span class="co">#&gt;  [3] Casa Malpais--Coyote Creek   </span>
@@ -953,13 +965,13 @@ Let’s first get started by initializing all of the packages we will use in thi
 <span class="co"># Plot Apache Creek ego-network</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">754</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">ego_nets</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="02-network-data-formats_files/figure-html/unnamed-chunk-23-1.png" width="672"></div>
+<div class="inline-figure"><img src="02-network-data-formats_files/figure-html/unnamed-chunk-22-1.png" width="672"></div>
 <div class="sourceCode" id="cb87"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="co"># Plot Platt Ranch ego-network for comparison</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">45367</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">ego_nets</span><span class="op">[[</span><span class="fl">30</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="02-network-data-formats_files/figure-html/unnamed-chunk-23-2.png" width="672"></div>
+<div class="inline-figure"><img src="02-network-data-formats_files/figure-html/unnamed-chunk-22-2.png" width="672"></div>
 <p>In these ego-networks, only nodes connected to the target nodes (Apache Creek in the first example and then Platt Ranch in the second) are shown and only edges among those included nodes are shown.</p>
 <p>It is also possible to determine the size of ego-networks for an entire one-mode network using the <code>ego_size</code> function. The output of this function is a vector that can be further assigned as a network node attribute.</p>
 <div class="sourceCode" id="cb88"><pre class="downlit sourceCode r">
@@ -971,17 +983,30 @@ Let’s first get started by initializing all of the packages we will use in thi
 <h3>
 <span class="header-section-number">2.2.7</span> Converting Among Network Object Formats<a class="anchor" aria-label="anchor" href="#ConvertingNetworkFormats"><i class="fas fa-link"></i></a>
 </h3>
-<p><br><img src="images/tip.png" height="80" alt="tip" align="left" style="margin: 0 1em 0 1em">
-In most of the examples in this document we have been using the <code>igraph</code> package but for the similarity networks we chose to use <code>statnet</code> due to the convenience of functions for working directly with similarity data. Not to worry as it is easy to convert one format to another and preserve all of the attributes using a package called <code>intergraph</code>. By way of example below we can covert the weighted network object we created in the previous step and convert it to a <code>igraph</code> object and view the attributes using the <code>asIgraph</code> function. If we wanted to go the other direction and covert a <code>igraph</code> object to a <code>statnet</code> object we would instead use <code>asNetwrok</code>.
-<br></p>
+<div class="rmdtip">
+<p>
+In most of the examples in this document we have been using the
+<code>igraph</code> package but for the similarity networks we chose to
+use <code>statnet</code> due to the convenience of functions for working
+directly with similarity data. Not to worry as it is easy to convert one
+format to another and preserve all of the attributes using a package
+called <code>intergraph</code>. By way of example below we can covert
+the weighted network object we created in the previous step and convert
+it to a <code>igraph</code> object and view the attributes using the
+<code>asIgraph</code> function. If we wanted to go the other direction
+and covert a <code>igraph</code> object to a <code>network</code> object
+(which is the format all of the <code>statnet</code> package require) we
+would instead use <code>asNetwrok</code>.
+</p>
+</div>
 <p>Here is a simple example:</p>
 <div class="sourceCode" id="cb89"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">Mor_wt_i</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/intergraph/man/asIgraph.html">asIgraph</a></span><span class="op">(</span><span class="va">Mor_wt</span><span class="op">)</span>
 <span class="va">Mor_wt_i</span>
-<span class="co">#&gt; IGRAPH 2c13e44 U-W- 31 465 -- </span>
+<span class="co">#&gt; IGRAPH 63b051f U-W- 31 465 -- </span>
 <span class="co">#&gt; + attr: na (v/l), vertex.names (v/c), na (e/l),</span>
 <span class="co">#&gt; | weight (e/n)</span>
-<span class="co">#&gt; + edges from 2c13e44:</span>
+<span class="co">#&gt; + edges from 63b051f:</span>
 <span class="co">#&gt;  [1] 1-- 2 1-- 3 1-- 4 1-- 5 1-- 6 1-- 7 1-- 8 1-- 9 1--10</span>
 <span class="co">#&gt; [10] 1--11 1--12 1--13 1--14 1--15 1--16 1--17 1--18 1--19</span>
 <span class="co">#&gt; [19] 1--20 1--21 1--22 1--23 1--24 1--25 1--26 1--27 1--28</span>
@@ -1017,45 +1042,45 @@ In most of the examples in this document we have been using the <code>igraph</co
 
 <span class="co"># plot the data</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">florentine</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="02-network-data-formats_files/figure-html/unnamed-chunk-27-1.png" width="672"></div>
+<div class="inline-figure"><img src="02-network-data-formats_files/figure-html/unnamed-chunk-26-1.png" width="672"></div>
 <p>The <code>multinet</code> network objects are compatible with <code>igraph</code> and individual layers can be analyzed just like other <code>igraph</code> network objects. Where this <code>multinet</code> approach likely has greater utility is in conducting comparisons among layers or conducting analyses that take several layers into account simultaneously. A detailed exploration of this approach is beyond the scope of this document (but we provide a simple example below) and we suggest interested readers read the package information and tutorials associated with this package for more. In the example here we calculate degree across multiple layers using the <code>degree_ml</code> function and then run a Louvain cluster detection algorithm across all graph layers using <code>glouvain_ml</code>. Multilayer networks have considerable potential for archaeological data and we hope to see more research in this area in the future.</p>
 <div class="sourceCode" id="cb91"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># If we want to calculate degree centrality across multiple layers of a</span>
 <span class="co"># multilayer network, the multinet package can help us do that directly</span>
 <span class="co"># and quite simply.</span>
 <span class="fu">multinet</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/multinet/man/ActorMeasures.html">degree_ml</a></span><span class="op">(</span><span class="va">florentine</span><span class="op">)</span>
-<span class="co">#&gt;  [1]  2  4  3  7  4  3  1  6  3  6  6  3 11  6  5</span>
+<span class="co">#&gt;  [1]  6  3 11  7  4  4  3  3  2  6  3  6  5  6  1</span>
 
 <span class="co"># Similarly, we could apply cluster detection algorithms to all layers</span>
 <span class="co"># of a multilayer network simultaneously.</span>
 <span class="fu">multinet</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/multinet/man/Communities.html">glouvain_ml</a></span><span class="op">(</span><span class="va">florentine</span><span class="op">)</span>
 <span class="co">#&gt;           actor    layer cid</span>
-<span class="co">#&gt; 1      Guadagni business   0</span>
-<span class="co">#&gt; 2      Guadagni marriage   0</span>
-<span class="co">#&gt; 3      Bischeri business   0</span>
-<span class="co">#&gt; 4      Bischeri marriage   0</span>
-<span class="co">#&gt; 5  Lamberteschi business   0</span>
-<span class="co">#&gt; 6  Lamberteschi marriage   0</span>
-<span class="co">#&gt; 7         Pazzi business   1</span>
-<span class="co">#&gt; 8         Pazzi marriage   1</span>
-<span class="co">#&gt; 9    Tornabuoni business   1</span>
-<span class="co">#&gt; 10   Tornabuoni marriage   1</span>
-<span class="co">#&gt; 11      Ridolfi marriage   1</span>
-<span class="co">#&gt; 12   Acciaiuoli marriage   1</span>
+<span class="co">#&gt; 1      Bischeri business   0</span>
+<span class="co">#&gt; 2      Bischeri marriage   0</span>
+<span class="co">#&gt; 3  Lamberteschi business   0</span>
+<span class="co">#&gt; 4  Lamberteschi marriage   0</span>
+<span class="co">#&gt; 5      Guadagni business   0</span>
+<span class="co">#&gt; 6      Guadagni marriage   0</span>
+<span class="co">#&gt; 7       Albizzi marriage   1</span>
+<span class="co">#&gt; 8        Medici business   1</span>
+<span class="co">#&gt; 9        Medici marriage   1</span>
+<span class="co">#&gt; 10   Tornabuoni business   1</span>
+<span class="co">#&gt; 11   Tornabuoni marriage   1</span>
+<span class="co">#&gt; 12      Ridolfi marriage   1</span>
 <span class="co">#&gt; 13     Salviati business   1</span>
 <span class="co">#&gt; 14     Salviati marriage   1</span>
-<span class="co">#&gt; 15       Medici business   1</span>
-<span class="co">#&gt; 16       Medici marriage   1</span>
-<span class="co">#&gt; 17      Albizzi marriage   2</span>
-<span class="co">#&gt; 18       Ginori business   2</span>
-<span class="co">#&gt; 19       Ginori marriage   2</span>
-<span class="co">#&gt; 20      Peruzzi business   3</span>
-<span class="co">#&gt; 21      Peruzzi marriage   3</span>
-<span class="co">#&gt; 22      Strozzi marriage   3</span>
-<span class="co">#&gt; 23   Castellani business   3</span>
-<span class="co">#&gt; 24   Castellani marriage   3</span>
-<span class="co">#&gt; 25    Barbadori business   3</span>
-<span class="co">#&gt; 26    Barbadori marriage   3</span></code></pre></div>
+<span class="co">#&gt; 15        Pazzi business   1</span>
+<span class="co">#&gt; 16        Pazzi marriage   1</span>
+<span class="co">#&gt; 17       Ginori business   1</span>
+<span class="co">#&gt; 18       Ginori marriage   1</span>
+<span class="co">#&gt; 19   Acciaiuoli marriage   1</span>
+<span class="co">#&gt; 20    Barbadori business   2</span>
+<span class="co">#&gt; 21    Barbadori marriage   2</span>
+<span class="co">#&gt; 22      Peruzzi business   2</span>
+<span class="co">#&gt; 23      Peruzzi marriage   2</span>
+<span class="co">#&gt; 24      Strozzi marriage   2</span>
+<span class="co">#&gt; 25   Castellani business   2</span>
+<span class="co">#&gt; 26   Castellani marriage   2</span></code></pre></div>
 <p>For an archaeological example of multilevel network analysis <a href="https://github.com/ajupton/archy-multilayer-nets">this GitHub project</a> by Andy Upton.</p>
 
 </div>
@@ -1107,7 +1132,7 @@ In most of the examples in this document we have been using the <code>igraph</co
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-05-24.</p>
+    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-05-25.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

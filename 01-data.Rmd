@@ -65,7 +65,7 @@ Ceramic technological data from Peeples (2018): Additional data and documentatio
 * [Cibola Site Attributes](data/Cibola_attr.csv) - Site location, public architectural feature types, and sub-region designations for sites in the Cibola region sample.
 * [Cibola Binary Network Edge List](data/Cibola_edgelist.csv) - Binary edge list of Cibola technological similarity network.
 * [Cibola Binary Network Adjacency Matrix](data/Cibola_adj.csv) - Binary adjacency matrix of Cibola technological similarity network.
-* [Peeples2018.Rdata](data/Peeples2018.Rdata) - This file contains a number of objects in R format including the site attributes (`site_info`), a symmetric Brainerd-Robinson similarity matrix (`ceramicBR`), a binary network object in the `statnet/network` format (BRnet), and a weighted network object in the `statnet/network` format (`BRnet_w`) 
+* [Peeples2018.Rdata](data/Peeples2018.Rdata) - This file contains a number of objects in R format including the site attributes (`site_info`), a symmetric Brainerd-Robinson similarity matrix (`ceramicBR`), a binary network object in the `statnet/network` format (BRnet), and a weighted network object in the `network` format (`BRnet_w`) 
 
 ![Network graph showing connections among Cibola region settlements based on strong similarities in the technological attributes of corrugated cooking pots recovered at each site. Sites are colour coded by region where sites in the northern half of the study area are shown in black and sites in the southern half are shown in white.](images/Fig.2.6.png){width=100%}
 
@@ -122,29 +122,22 @@ load("data/map.RData")
 
 ## Required/Suggested R Packages{#PrimaryPackages}
 
-```{r, echo=FALSE}
-is_html = knitr::is_html_output()
-```
-
-```{asis, echo=is_html}
-<br>
-<img src="images/packages.png" width="100" height="100" alt="packages" align="left" style="margin: 0 1em 0 1em" />
+```{block, type="rmdnote"}
 In this appendix we rely on a number of pre-existing R packages. In order to use these packages in a new installation of R and R-studio, you first need to install them. Note that you will only need to do this once on a new installation of R. To install packages, you can click on the "Packages" tab in the window in the bottom right of R studio, then click the "Install" button at the top and type the names of the packages separated by commas. Alternatively you can install packages from the console by simply typing `install.packages("nameofpackagehere")`. 
 ```
-
 
 `install.packages(c("statnet", "igraph"))`
 
 We use a number of R packages in the modules here and in the book for manipulating and analyzing network data and for other general analyses and procedures. The most frequently used network packages include:
 
 * [igraph (Csardi and Nepusz 2006)](https://igraph.org/) - analytical routines for simple graphs and graph analysis
-* [statnet (Krivitsky et al. 2020)](http://statnet.org/) - A suite of packages designed for the management and statistical analysis of networks
+* [statnet (Krivitsky et al. 2020)](http://statnet.org/) - A suite of packages designed for the management and statistical analysis of networks including `network`, `sna`, `ergm`, and others.
 * [intergraph (Bojanowski 2015)](https://cran.r-project.org/web/packages/intergraph/intergraph.pdf) - a set of routines for coercing objects between common network formats in R
 * [ggraph (Pederson 2021)](https://CRAN.R-project.org/package=ggraph) - a powerful graph visualization package that is based off of the ggplot2 plotting format
 
 Throughout this Online Companion, we will consistently rely on `igraph` and `statnet` (`statnet` is actually a suite of packages that includes `sna`, `network`, `ergm`, and others). For the most part these two packages do many of the same things. You can use them to calculate centrality metrics, define groups, or evaluate other network structures. In general `igraph` is a bit more centered on complex networks and mathematical models and `statnet` and affiliated packages are more focused on social network analysis though there is considerable overlap. 
 
-Although `igraph` and `statnet` have many of the same features, they are not directly compatible and use different network formats to store data in R. Adding to the potential confusion, function call names are often the same between the two packages. For example degree centrality is calculated using a `degree()` function in both. If you simply use the `degree()` call R will use the function from whichever package was initialized most recently. If this is the wrong package for your data format, you will get an error. In order to avoid such errors and to clear up ambiguity we use the package name followed by `::` in the function call (i.e., `igraph::function_name` or `sna::function_name`) so that R knows which package we intend to use. You can do this with any R function where you want to specify the package (`package::function_name`).
+Although `igraph` and the `statnet` suite of packages have many of the same features, they are not directly compatible and use different network formats to store data in R. Adding to the potential confusion, function call names are often the same between the two packages. For example degree centrality is calculated using a `degree()` function in both. If you simply use the `degree()` call R will use the function from whichever package was initialized most recently. If this is the wrong package for your data format, you will get an error. In order to avoid such errors and to clear up ambiguity we use the package name followed by `::` in the function call (i.e., `igraph::function_name` or `sna::function_name`) so that R knows which package we intend to use. You can do this with any R function where you want to specify the package (`package::function_name`).
 
 In general in this Online Companion we use the `igraph` package wherever possible as we find the data format and especially the functions for converting between network data types to be the most useful and intuitive for most kinds of analyses. We use `statnet` and affiliated packages in specific cases where `igraph` lacks specific functionality or important features. Luckily the package called `intergraph` lets us convert network objects from one format to another as we will see in the examples ahead. 
 
@@ -184,13 +177,7 @@ BiocManager::install("RBGL")
 ```
 
 
-```{r, echo=FALSE}
-is_html = knitr::is_html_output()
-```
-
-```{asis, echo=is_html}
-<br>
-<img src="images/warning.png" width="80" height="80" alt="warning" align="left" style="margin: 0 1em 0 1em" />
+```{block, type="rmdwarning"}
 In addition to the R packages listed above, there is one procedure used in this Online Companion that requires you to have an installation of Python 3.7 with particular packages associated with it. In order to implement these sections of code, you will need to also run the following lines of code. Note that this is a large install that takes about about 1.4 GB of hard drive space so only do this if you have the space and REALLY want to explore edge bundling ([see Edge Bundling Visualizations](#Figure_6_17)). You will be able to reproduce everything in this document except for two chunks of code without this so feel free to sit this one out.
 ```
 
@@ -225,7 +212,11 @@ knitr::kable(df, format = "markdown")
 
 In order to follow along with the examples in this Online Companion it will be easiest if you set up your R working directory in a similar format to that used in creating it. Specifically, we suggest you create a new working directory and create an R studio project tied to that specific directory. 
 
-In order to do this, open R-Studio and go to "File > New Project" and click on "New Directory > New Project" in the dialog and then give it an appropriate name and location on your disk. Next, navigate to that location on your disk and create two sub-folders: one called "data" and one called "scripts" (directory names are case sensitive). Place any of the data files you downloaded above or in any other section of this Online Companion in the "data" folder and any R script files you download in the "scripts" folder. Note that if you chose the "Just Give Me Everything" download you will have a .zip file that already contains a sub-folder called "data" so be sure you're not double nesting your folders (you want "working_directory/data" not "working_directory/data/data").
+In order to do this, open R-Studio and go to "File > New Project" and click on "New Directory > New Project" in the dialog and then give it an appropriate name and location on your disk. Next, navigate to that location on your disk and create two sub-folders: one called "data" and one called "scripts" (directory names are case sensitive). Place any of the data files you downloaded above or in any other section of this Online Companion in the "data" folder and any R script files you download in the "scripts" folder. 
+
+```{block, type="rmdwarning"}
+Note that if you chose the "Just Give Me Everything" download you will have a .zip file that already contains a sub-folder called "data" so be sure you're not double nesting your folders (you want "working_directory/data" not "working_directory/data/data").
+```
 
 When you close R you will see a dialog that asks if you want to save your workspace image. If you do this and provide a name, you can reopen the .RData file at a later time and pick up exactly where your previous session left off.
 

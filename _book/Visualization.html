@@ -102,15 +102,26 @@
 <h2>
 <span class="header-section-number">5.2</span> Visualizing Networks in R<a class="anchor" aria-label="anchor" href="#visualizing-networks-in-r"><i class="fas fa-link"></i></a>
 </h2>
-<p><br><img src="images/packages.png" width="100" height="100" alt="packages" align="left" style="margin: 0 1em 0 1em">
-There are many tools available for creating network visualizations in R including functions built directly into the <code>igraph</code> and <code>statnet</code> packages. Before we get into the details, we first briefly illustrate the primary network plotting options for <code>igraph</code>, <code>statnet</code> and a visualization package called <code>ggraph</code>. We start here by initializing our required libraries and reading in an adjacency matrix and creating network objects in both the <code>igraph</code> and <code>statnet</code> format. These will be the basis for all examples in this section.
-<br></p>
+<div class="rmdnote">
+<p>
+There are many tools available for creating network visualizations in
+R including functions built directly into the <code>igraph</code> and
+<code>statnet</code> packages. Before we get into the details, we first
+briefly illustrate the primary network plotting options for
+<code>igraph</code>, <code>statnet</code> and a visualization package
+called <code>ggraph</code>. We start here by initializing our required
+libraries and reading in an adjacency matrix and creating network
+objects in both the <code>igraph</code> and <code>statnet</code> format.
+These will be the basis for all examples in this section.
+</p>
+</div>
 <p>Let’s start by reading in our example data and then we describe each package in turn:</p>
 <div class="sourceCode" id="cb151"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://igraph.org">igraph</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://statnet.org">statnet</a></span><span class="op">)</span>
-<span class="co">#&gt;         Installed ReposVer Built  </span>
-<span class="co">#&gt; network "1.17.1"  "1.17.2" "4.2.0"</span>
+<span class="co">#&gt;            Installed ReposVer Built  </span>
+<span class="co">#&gt; ergm.count "4.0.2"   "4.1.1"  "4.2.0"</span>
+<span class="co">#&gt; network    "1.17.1"  "1.17.2" "4.2.0"</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggraph.data-imaginist.com">ggraph</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://mbojan.github.io/intergraph">intergraph</a></span><span class="op">)</span>
 
@@ -126,9 +137,9 @@ There are many tools available for creating network visualizations in R includin
 <span class="va">Cibola_i</span> <span class="op">&lt;-</span> <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/graph_from_adjacency_matrix.html">graph_from_adjacency_matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">Cibola</span><span class="op">)</span>,
                                                 mode <span class="op">=</span> <span class="st">"undirected"</span><span class="op">)</span>
 <span class="va">Cibola_i</span>
-<span class="co">#&gt; IGRAPH 9fbb8d6 UN-- 31 167 -- </span>
+<span class="co">#&gt; IGRAPH e90c7b6 UN-- 31 167 -- </span>
 <span class="co">#&gt; + attr: name (v/c)</span>
-<span class="co">#&gt; + edges from 9fbb8d6 (vertex names):</span>
+<span class="co">#&gt; + edges from e90c7b6 (vertex names):</span>
 <span class="co">#&gt;  [1] Apache.Creek--Casa.Malpais        </span>
 <span class="co">#&gt;  [2] Apache.Creek--Coyote.Creek        </span>
 <span class="co">#&gt;  [3] Apache.Creek--Hooper.Ranch        </span>
@@ -207,7 +218,7 @@ There are many tools available for creating network visualizations in R includin
 <span class="header-section-number">5.2.3</span> ggraph<a class="anchor" aria-label="anchor" href="#ggraph"><i class="fas fa-link"></i></a>
 </h3>
 <p>The <code>ggraph</code> package provides a powerful set of tools for plotting and visualizing network data in R. The format used for this package is a bit different from what we saw above and instead relies on the <code>ggplot2</code> style of plots where a plot type is called and modifications are made with sets of lines with additional arguments separated by <code>+</code>. Although this takes a bit of getting used to we have found that the ggplot format is often more intuitive for making complex graphics once you understand the basics.</p>
-<p>Essentially, the way the <code>ggraph</code> call works is you start with a <code>ggraph</code> function call which includes the network object and the layout information. You then provide lines specifying the edges <code>geom_edge_link</code> and nodes <code>geom_node_point</code> features and so on. Conveniently the <code>ggraph</code> function call will take either an <code>igraph</code> or a <code>network/statnet</code> object so you do not need to convert.</p>
+<p>Essentially, the way the <code>ggraph</code> call works is you start with a <code>ggraph</code> function call which includes the network object and the layout information. You then provide lines specifying the edges <code>geom_edge_link</code> and nodes <code>geom_node_point</code> features and so on. Conveniently the <code>ggraph</code> function call will take either an <code>igraph</code> or a <code>network</code> object so you do not need to convert.</p>
 <p>Here is an example. Here we first the call for the igraph network object <code>Cibola_i</code> and specify the Fruchterman-Reingold layout using <code>layout = "fr"</code>. Next, we call the <code>geom_edge_link</code> and specify edge colors. The <code>geom_node_point</code> call then specifies many attributes of the nodes including the fill color, outline color, transparency (alpha), shape, and size using the <code><a href="https://rdrr.io/pkg/igraph/man/degree.html">igraph::degree</a></code> function. The <code>scale_size</code> call then tells the plot to scale the node size specified in the previous line to range between 1 and 4. Finally <code>theme_graph</code> is a basic call to the <code>ggraph</code> theme that tells the plot to make the background white and to remove the margins around the edge of the plot. Let’s see how this looks.</p>
 <p>In the next section we go over the most common options in <code>ggraph</code> in detail.</p>
 <div class="sourceCode" id="cb156"><pre class="downlit sourceCode r">
@@ -236,7 +247,7 @@ There are many tools available for creating network visualizations in R includin
 <h2>
 <span class="header-section-number">5.3</span> Network Visualization Options<a class="anchor" aria-label="anchor" href="#network-visualization-options"><i class="fas fa-link"></i></a>
 </h2>
-<p>In this section we illustrate some of the most useful graphical options for visualizing networks, focusing in particular on the <code>ggraph</code> format. In most cases there are similar options available in the plotting functions for both <code>statnet</code> and <code>igraph</code>. Where relevant we reference specific figures from the book and this tutorial and the code for all of the figures produced in R is presented in the next session. For all of the examples in this section we will use the <a href="data/Peeples2018.Rdata">Cibola technological similarity data (click here to download)</a>. First we call the required packages and import the data.</p>
+<p>In this section we illustrate some of the most useful graphical options for visualizing networks, focusing in particular on the <code>ggraph</code> format. In most cases there are similar options available in the plotting functions for both <code>network</code> and <code>igraph</code>. Where relevant we reference specific figures from the book and this tutorial and the code for all of the figures produced in R is presented in the next session. For all of the examples in this section we will use the <a href="data/Peeples2018.Rdata">Cibola technological similarity data (click here to download)</a>. First we call the required packages and import the data.</p>
 <div class="sourceCode" id="cb157"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://igraph.org">igraph</a></span><span class="op">)</span>
@@ -299,7 +310,14 @@ There are many tools available for creating network visualizations in R includin
                   show.legend <span class="op">=</span> <span class="cn">F</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/theme_graph.html">theme_graph</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="05-visualization_files/figure-html/map1-1.png" width="672"></div>
-<p>When working with geographic data, it is also sometimes useful to plot directly on top of some sort of base map. There are many options for this but one of the most convenient is to use the <code>sf</code> and <code>ggmap</code> packages to directly download the relevant base map layer and plot directly on top of it. This first requires converting points to latitude and longitude in decimal degrees if they are not already in that format. See the details on the <a href="https://r-spatial.github.io/sf/">sf package</a> and <a href="https://github.com/dkahle/ggmap">ggmap package</a> for more details. In addition to this example <a href="Visualization.html#Figure_6_7">Figure 6.7 in the book</a> provides another example. The next Section on <a href="SpatialNetworks.html#SpatialNetworks">Spatial Networks</a> provides more information about map projects and geographic data.</p>
+<p>When working with geographic data, it is also sometimes useful to plot directly on top of some sort of base map. There are many options for this but one of the most convenient is to use the <code>sf</code> and <code>ggmap</code> packages to directly download the relevant base map layer and plot directly on top of it. This first requires converting points to latitude and longitude in decimal degrees if they are not already in that format. See the details on the <a href="https://r-spatial.github.io/sf/">sf package</a> and <a href="https://github.com/dkahle/ggmap">ggmap package</a> for more details.</p>
+<div class="rmdtip">
+<p>
+We describe the spcifics of spatial data handling, geographic
+coordinates, and projection in the section on <a href="#SpatialNetworks">Spatial Networks</a>. See that section for a
+full description and how R deals with geographic information.
+</p>
+</div>
 <div class="sourceCode" id="cb160"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/dkahle/ggmap">ggmap</a></span><span class="op">)</span>
@@ -361,6 +379,15 @@ There are many tools available for creating network visualizations in R includin
 <span class="header-section-number">5.3.1.3</span> Shape-Based and Algorithmic Layouts<a class="anchor" aria-label="anchor" href="#AlgorithmicLayouts"><i class="fas fa-link"></i></a>
 </h4>
 <p>There are a wide variety of shape-based and algorithmic layouts available for use in R. In most cases, all it takes to change layouts is to simply modify a single line the <code>ggraph</code> call to specify our desired layout. The <code>ggraph</code> package can use any of the <code>igraph</code> layouts as well as many that are built directly into the package. See <code><a href="https://ggraph.data-imaginist.com/reference/ggraph.html">?ggraph</a></code> for more details and to see the options. Here we show a few examples. Note that we leave the figures calls the same except for the argument <code>layout = "yourlayout"</code> in each <code>ggraph</code> call and the <code>ggtitle</code> name. For the layouts that involve randomization, we use the <code><a href="https://rdrr.io/r/base/Random.html">set.seed()</a></code> function to make sure they will always plot the same. See the discussion of <a href="Visualization.html#Figure_6_8">Figure 6.8</a> below for more details. Beyond this <a href="Visualization.html#Figure_6_9">Figure 6.9</a> provides additional options that can be used for hierarchical network data.</p>
+<div class="rmdtip">
+<p>
+If you do not specify a graph layout in <code>ggraph</code>, the
+plotting function will automatically choose a layout using the
+<code><a href="https://rdrr.io/pkg/igraph/man/layout_nicely.html">layout_nicely()</a></code> function. Although this sometimes produces
+useful the layout used is not specified in the call so we recommend
+supplying a <code>layout</code> argument directly.
+</p>
+</div>
 <div class="sourceCode" id="cb161"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># circular layout</span>
 <span class="va">circ_net</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">net</span>, layout <span class="op">=</span> <span class="st">"circle"</span><span class="op">)</span> <span class="op">+</span>
@@ -393,6 +420,19 @@ There are many tools available for creating network visualizations in R includin
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rpkgs.datanovia.com/ggpubr/">ggpubr</a></span><span class="op">)</span>
 <span class="fu"><a href="https://rpkgs.datanovia.com/ggpubr/reference/ggarrange.html">ggarrange</a></span><span class="op">(</span><span class="va">circ_net</span>, <span class="va">fr_net</span>, <span class="va">dh_net</span>, nrow <span class="op">=</span> <span class="fl">1</span>, ncol <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="05-visualization_files/figure-html/layouts-1.png" width="672"></div>
+<div class="rmdnote">
+<p>
+In the code above we used the <code>ggarrange</code> function within
+the <code>ggpubr</code> package to combine the figures into a single
+output. This function works with any <code>ggplot2</code> or
+<code>ggraph</code> format output when you supply the names of each
+figure in the order you want them to appear and the number of rows
+<code>nrow</code> and number of columns <code>ncol</code> you want the
+resulting combined figure to have. If you want to label each figure
+using the <code>ggarrange</code> function you can use the
+<code>labels</code> argument.
+</p>
+</div>
 </div>
 </div>
 <div id="NodeEdgeOptions" class="section level3" number="5.3.2">
@@ -411,7 +451,7 @@ There are many tools available for creating network visualizations in R includin
 <span class="fu">ggpubr</span><span class="fu">::</span><span class="fu"><a href="https://rpkgs.datanovia.com/ggpubr/reference/show_point_shapes.html">show_point_shapes</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="05-visualization_files/figure-html/pch_points-1.png" width="672"></div>
 <p>There are many options for selecting colors for nodes and edges. These can be assigned using standard color names or can be assigned using rgb or hex codes. It is also possible to use standard palettes in packages like <code>RColorBrewer</code> or <code>scales</code> to specify categorical or continuous color schemes. This is often done using either the <code>scale_fill_brewer</code> or <code>scale_color_brewer</code> calls from <code>RColorBrewer</code>. Here are a couple of examples. In these examples, colors are grouped by site region, node size is scaled to degree centrality, and node and edge color and shape are specified in each call. Note the <code>alpha</code> command which controls the transparency of the relevant part of the plot. The scale_size call specifies the maximum and minimum size of points in the plot.</p>
-<p>The <a href="https://www.r-graph-gallery.com/38-rcolorbrewers-palettes.html">R Graph Gallery</a> has a good overview of the available color palettes in RColorBrewer and when the can be used.</p>
+<p>The <a href="https://www.r-graph-gallery.com/38-rcolorbrewers-palettes.html">R Graph Gallery</a> has a good overview of the available color palettes in <code>RColorBrewer</code> and when the can be used. The “Set2” palette used here is a good one for people with many kinds of color vision deficencies.</p>
 <div class="sourceCode" id="cb163"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">RColorBrewer</span><span class="op">)</span>
 
@@ -464,7 +504,7 @@ There are many tools available for creating network visualizations in R includin
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>edge_color <span class="op">=</span> <span class="st">"Edge Weight Color Scale"</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/theme_graph.html">theme_graph</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="05-visualization_files/figure-html/edge_options1-1.png" width="672"></div>
-<p>Another feature of edges that is often important in visualizations is the presence or absence and type of arrows. Arrows can be modified in ggraph using the <code>arrow</code> argument within a <code>geom_edge_link</code> call. The most relevant options are the length of the arrow (which determines size), the <code>type</code> argument which specifies an open or closed arrow, and the spacing of the arrow which can be set by the <code>end_cap</code> and <code>start_cap</code> respectively which define the gap between the arrow point and the node. These values can all be set using absolute measurements as shown in the example below. Since this is an undirected network we use the argument <code>ends = "first"</code> to simulated a directed network so that arrowheads will only be drawn the first time an edge appears in the edge list. See <code><a href="https://rdrr.io/r/grid/arrow.html">?arrow</a></code> for more details on options.</p>
+<p>Another feature of edges that is often important in visualizations is the presence or absence and type of arrows. Arrows can be modified in <code>ggraph</code> using the <code>arrow</code> argument within a <code>geom_edge_link</code> call. The most relevant options are the length of the arrow (which determines size), the <code>type</code> argument which specifies an open or closed arrow, and the spacing of the arrow which can be set by the <code>end_cap</code> and <code>start_cap</code> respectively which define the gap between the arrow point and the node. These values can all be set using absolute measurements as shown in the example below. Since this is an undirected network we use the argument <code>ends = "first"</code> to simulated a directed network so that arrowheads will only be drawn the first time an edge appears in the edge list. See <code><a href="https://rdrr.io/r/grid/arrow.html">?arrow</a></code> for more details on options.</p>
 <div class="sourceCode" id="cb165"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">436</span><span class="op">)</span>
 <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">net</span>, <span class="st">"stress"</span><span class="op">)</span> <span class="op">+</span>
@@ -481,7 +521,7 @@ There are many tools available for creating network visualizations in R includin
   <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">4</span>, col <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/theme_graph.html">theme_graph</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="05-visualization_files/figure-html/edge_options2-1.png" width="672"></div>
-<p>Another common consideration with edges is the shape of the edges themselves. So far we have used examples where the edges are all straight lines, but it is also possible to draw them as arcs or so that they fan out from nodes so that multiple connections are visible. In general, all you need to do to change this option is to use another command in the “geom_edge_” family of commands. For example, in the following chunk of code we produce a network with arcs rather than straight lines. In this case the argument “strength” controls the amount of bend in the lines.</p>
+<p>Another common consideration with edges is the shape of the edges themselves. So far we have used examples where the edges are all straight lines, but it is also possible to draw them as arcs or so that they fan out from nodes so that multiple connections are visible. In general, all you need to do to change this option is to use another command in the <code>geom_edge_</code> family of commands. For example, in the following chunk of code we produce a network with arcs rather than straight lines. In this case the argument “strength” controls the amount of bend in the lines.</p>
 <div class="sourceCode" id="cb166"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">436</span><span class="op">)</span>
 <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">net</span>, <span class="st">"kk"</span><span class="op">)</span> <span class="op">+</span>
@@ -497,6 +537,14 @@ There are many tools available for creating network visualizations in R includin
   <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">4</span>, col <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/theme_graph.html">theme_graph</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="05-visualization_files/figure-html/edge_density-1.png" width="672"></div>
+<div class="rmdtip">
+<p>
+If you want to see all of the possible options for
+<code>geom_edge_</code> commands, simply use the help command on any one
+of the functions (i.e., <code><a href="https://ggraph.data-imaginist.com/reference/geom_edge_arc.html">?geom_edge_arc</a></code>) and scroll down in
+the help window to the section labeled “See Also.”
+</p>
+</div>
 </div>
 </div>
 <div id="LabelOptions" class="section level3" number="5.3.3">
@@ -740,7 +788,16 @@ There are many tools available for creating network visualizations in R includin
 <h3>Figure 6.3: Examples of Rare Network Plot Formats<a class="anchor" aria-label="anchor" href="#Figure_6_3"><i class="fas fa-link"></i></a>
 </h3>
 <p>Figure 6.3. Examples of less common network visuals techniques for Peeples’s (2018) ceramic technological similarity data.</p>
-<p>Fig 6.3a - A weighted heat plot of the underlying similarity matrix with hierarchical clusters shown on each axis. This plot relies on a packages called <code>superheat</code> that produces plots formatted as we see here.</p>
+<p>Fig 6.3a - A weighted heat plot of the underlying similarity matrix with hierarchical clusters shown on each axis. This plot relies on a packages called <code>superheat</code> that produces plots formatted as we see here. The required input is a symmetric similarity matrix object.</p>
+<div class="rmdnote">
+<p>
+In the chunk of code below we use the <code>as.ggplot</code> function
+from the <code>ggplotify</code> package. This function converts a non
+<code>ggplot2</code> style function into a <code>ggplot2</code> format
+so that it can be further used with packages like <code>ggpubr</code>
+and <code>colorblindr</code>.
+</p>
+</div>
 <div class="sourceCode" id="cb179"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 
@@ -769,7 +826,7 @@ There are many tools available for creating network visualizations in R includin
 <span class="va">F6.3a</span></code></pre></div>
 <div class="inline-figure"><img src="05-visualization_files/figure-html/Fig6_3a-1.png" width="672"></div>
 <p>Fig. 6.3b - An arcplot with within group ties shown above the plot and between group ties shown below.</p>
-<p>For this plot, we read in a adjacency matrix that is ordered in the order we want it to show up in the final plot. <a href="data/Peeples_arcplot.csv">Download the file here</a> to follow along.</p>
+<p>For this plot, we read in a adjacency matrix that is ordered in the order we want it to show up in the final plot. <a href="data/Peeples_arcplot.csv">Download the file here</a> to follow along. Note that the object <code>grp</code> must be produced in the same order that the nodes appear in the original adjacency matrix file.</p>
 <div class="sourceCode" id="cb180"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 
@@ -807,7 +864,19 @@ There are many tools available for creating network visualizations in R includin
 <span class="va">F6.3b</span></code></pre></div>
 <div class="inline-figure"><img src="05-visualization_files/figure-html/Fig6_3b-1.png" width="672"></div>
 <p>Fig. 6.3c - Network plot with sites in geographic locations and edges bundled using the edge bundling hammer routine.</p>
-<p>This function requires the <code>edgebundle</code> package be installed along with <code>reticulate</code> and Python 3.7 (see <a href="#Packages">Packages</a>) and uses the <a href="data/Peeples2018.Rdata">Cibola technological similarity data</a>. Check <a href="DataWorkspaceSetup.html#ShouldIInstall">Data and Workspace Setup</a> section for more details on getting the edge bundling package and Python up and running.</p>
+<div class="rmdwarning">
+<p>
+This function requires the <code>edgebundle</code> package be
+installed along with <code>reticulate</code> and Python 3.7 (see <a href="#Packages">Packages</a>) and uses the <a href="data/Peeples2018.Rdata">Cibola technological similarity data</a>.
+Check <a href="DataWorkspaceSetup.html#ShouldIInstall">Data and Workspace Setup</a> section for
+more details on getting the edge bundling package and Python up and
+running.
+</p>
+<p>
+Be aware that this function may take a long time on your computer
+depending on your processing power and RAM.
+</p>
+</div>
 <div class="sourceCode" id="cb181"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://edgebundle.schochastics.net/">edgebundle</a></span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span><span class="op">(</span><span class="st">"data/Peeples2018.Rdata"</span><span class="op">)</span>
@@ -833,6 +902,21 @@ There are many tools available for creating network visualizations in R includin
 <p>This is a somewhat complicated plot that requires a couple of specialized libraries and additional steps along the way. We provide comments in the code below to help you follow along. Essentially the routine creates a series of waffle plots and then uses them as annotations to replace the nodes in the final <code>ggraph</code>. This plot requires that you install a development package called <code>ggwaffle</code>. Run the line of code below before creating the figure if you need to add this package.</p>
 <div class="sourceCode" id="cb182"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"liamgilbey/ggwaffle"</span><span class="op">)</span></code></pre></div>
+<div class="rmdtip">
+<p>
+There are numerous projects that are in the R CRAN archive and those
+packages have been peer reviewed and evaluated. There are many other
+packages and compendiums designed for use in R that are not yet in the
+CRAN archive. Frequently these are found as packages in development on
+GitHub. In order to use these packages in development, you can use the
+<code>install_github</code> function wrapped inside the
+<code>devtools</code> package (though it originates in the
+<code>remotes</code> package). In order to install a package from
+GitHub, you type supply “username/packagename” inside the
+<code>install_github</code> call.
+</p>
+</div>
+<p>Let’s now look at the figure code:</p>
 <div class="sourceCode" id="cb183"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Initialize libraries</span>
 <span class="co"># devtools::install_github("liamgilbey/ggwaffle") # run this if ggwaffle not installed</span>
@@ -930,6 +1014,15 @@ There are many tools available for creating network visualizations in R includin
 <span class="va">F6.3d</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/funprog.html">Reduce</a></span><span class="op">(</span><span class="st">"+"</span>, <span class="va">annot_list</span>, <span class="va">p</span><span class="op">)</span>
 <span class="va">F6.3d</span></code></pre></div>
 <div class="inline-figure"><img src="05-visualization_files/figure-html/Fig6_3d-1.png" width="576"></div>
+<div class="rmdtip">
+<p>
+The inspiration for the example above came from a <a href="https://www.r-bloggers.com/2020/03/ggraph-tricks-for-common-problems/">R
+blogpost by schochastics (David Schoch)</a>. As that post shows, any
+figures that can be treated as <code>ggplot2</code> objects can be used
+in the place of nodes by defining them as “annotations.” See the post
+for more details.
+</p>
+</div>
 <p>Now let’s look at all of the figures together.</p>
 <div class="inline-figure"><img src="images/Figure_6_3.jpg.jpeg" style="width:100.0%"></div>
 </div>
@@ -937,7 +1030,14 @@ There are many tools available for creating network visualizations in R includin
 <h3>Figure 6.4: Simple Network with Clusters<a class="anchor" aria-label="anchor" href="#Figure_6_4"><i class="fas fa-link"></i></a>
 </h3>
 <p>Figure 6.4. A network among Clovis era sites in the Western U.S. with connections based on shared lithic raw material sources. Nodes are scaled based on betweenness centrality with the top seven sites labelled. Colour-coded clusters were defined using the Louvain algorithm.</p>
-<p>This example shows how to define and indicate groups and label points based on their values. Note the use of the <code>ifelse</code> call in the <code>geom_node_text</code> portion of the plot. See <a href="GettingStarted.html#Conditionals">here</a> for more information on how <code>ifelse</code> statements work.</p>
+<div class="rmdtip">
+<p>
+This example shows how to define and indicate groups and label points
+based on their values. Note the use of the <code>ifelse</code> call in
+the <code>geom_node_text</code> portion of the plot. See <a href="#Conditionals">here</a> for more information on how
+<code>ifelse</code> statements work.
+</p>
+</div>
 <div class="sourceCode" id="cb184"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggforce.data-imaginist.com">ggforce</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggraph.data-imaginist.com">ggraph</a></span><span class="op">)</span>
@@ -991,6 +1091,15 @@ There are many tools available for creating network visualizations in R includin
 </h3>
 <p>Figure 6.5. An example of the same network graph with two simple user defined layouts created interactively.</p>
 <p>Figure 6.5 was produced in <a href="https://sites.google.com/site/netdrawsoftware/download">NetDraw</a> by creating a simple network and taking screen shots of two configurations of nodes. There are a few options for creating a similar figures in R. The simplest is to use an igraph network object and the <code>tkplot</code> function. This function brings up a window that lets you drag and move nodes (with or without an initial algorithmic layout) and when you’re done you can assign the new positions to a variable to use for plotting. <a href="data/Peeples2018.Rdata">Use these data</a> to follow along.</p>
+<div class="rmdwarning">
+<p>
+Note that if you are running this package in your browser via binder,
+the function below will not work as you do not have permission to open
+the tkplot on the virtual server. To follow along with the plotting of
+this figure you can use the pre-determined locatoins by reading in this
+file <code>load(file=“data/Coords.Rdata”)</code>
+</p>
+</div>
 <div class="sourceCode" id="cb185"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://igraph.org">igraph</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://mbojan.github.io/intergraph">intergraph</a></span><span class="op">)</span>
@@ -1083,6 +1192,18 @@ The figure that appears in the book was originally created using GIS software bu
 </h3>
 <p>Figure 6.7. This ceramic similarity network of the San Pedro River Valley in Arizona shows the challenges of creating geographic network layouts. (a) Shows sites in their original locations whereas (b) shifts locations to improve the visibility of network structure. Note how the distorted geographic layout retains the basic relationships among the nodes while altering their locations slightly.</p>
 <p>Unfortunately as the first map contains real site locations we cannot share those data here. The second map can still be reproduced given nothing but the code below. The only difference required to produce Figure 6.7a would be to replace the <code>coord</code> site coordinates with the actual site locations. the <code>coord</code> object used here was created by taking the original site locations and applying the <code>jitter</code> function, which jitters x and y coordinates by a specified amount.</p>
+<div class="rmdnote">
+<p>
+In the code below we use the <code>scalebar</code> function within
+the <code>ggsn</code> package to draw a scale for the map. Note that we
+provide the coordinate locations in decimal degrees of the minimum
+values on the x and y axis where we want the scale to appear, the
+geographic transformation (see <a href="SpatialNetworks.html#SpatialNetworks">Spatial
+Networks</a> for more details), and the style of scale. See
+<code><a href="https://rdrr.io/pkg/ggsn/man/scalebar.html">?scalebar</a></code> for options. There is also a <code>north</code>
+function in the same package that lets you generate north arrows.
+</p>
+</div>
 <div class="sourceCode" id="cb188"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://igraph.org">igraph</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span>
@@ -1176,13 +1297,13 @@ The figure that appears in the book was originally created using GIS software bu
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_void</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="va">figure_6_7</span></code></pre></div>
-<div class="inline-figure"><img src="05-visualization_files/figure-html/unnamed-chunk-4-1.png" width="672"></div>
+<div class="inline-figure"><img src="05-visualization_files/figure-html/unnamed-chunk-14-1.png" width="672"></div>
 </div>
 <div id="Figure_6_8" class="section level3 unnumbered">
 <h3>Figure 6.8: Graph Layout Algorithms<a class="anchor" aria-label="anchor" href="#Figure_6_8"><i class="fas fa-link"></i></a>
 </h3>
 <p>Fig. 6.8. Several different graph layouts all using the Bronze Age Aegean geographic network (Evans et al. 2011). In each graph, nodes are scaled based on betweenness centrality and colour-coded based on clusters defined using modularity maximisation.</p>
-<p>In the code below the only thing we change between each plot is the <code>layout</code> argument in <code>ggraph</code>. See <a href="https://cran.r-project.org/web/packages/ggraph/vignettes/Layouts.html">the CRAN project page on ggraph</a> for more information on available layouts.</p>
+<p>In the code below the only thing we change between each plot is the <code>layout</code> argument in <code>ggraph</code>. See <a href="https://cran.r-project.org/web/packages/ggraph/vignettes/Layouts.html">the CRAN project page on ggraph</a> for more information on available layouts. We plot clusters by color here to make it easier to track differences between the layout options.</p>
 <div class="sourceCode" id="cb189"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 
@@ -1588,10 +1709,14 @@ The figure that appears in the book was originally created using GIS software bu
 
 <span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span><span class="op">(</span><span class="st">"data/Figure6_13.Rdata"</span><span class="op">)</span>
 <span class="co"># two_mode_net - igraph two mode network object</span>
-<span class="co"># img.1 &lt;- readPNG("images/site.png")</span>
-<span class="co">#img.2 &lt;- readPNG("images/pot.png")</span>
+<span class="co"># img.1 &lt;- readPNG("images/sites.png")</span>
+<span class="co">#img.2 &lt;- readPNG("images/ceramic.png")</span>
 
 <span class="co"># Set Vector property to images by mode</span>
+<span class="co"># Note that if you want to set a different image</span>
+<span class="co"># for each node you can simply create a long list</span>
+<span class="co"># containing image names for node type 1 followed</span>
+<span class="co"># by image names for node type 2.</span>
 <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html">V</a></span><span class="op">(</span><span class="va">two_mode_net</span><span class="op">)</span><span class="op">$</span><span class="va">raster</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">img.1</span>, <span class="va">img.2</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html">V</a></span><span class="op">(</span><span class="va">two_mode_net</span><span class="op">)</span><span class="op">$</span><span class="va">type</span> <span class="op">+</span> <span class="fl">1</span><span class="op">]</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">34673</span><span class="op">)</span>
@@ -1601,8 +1726,7 @@ The figure that appears in the book was originally created using GIS software bu
   vertex.label <span class="op">=</span> <span class="cn">NA</span>,
   vertex.size <span class="op">=</span> <span class="fl">16</span>,
   vertex.size2 <span class="op">=</span> <span class="fl">16</span>,
-  edge.width <span class="op">=</span> <span class="fl">2</span>,
-  edge.color <span class="op">=</span> <span class="st">"red"</span>
+  edge.color <span class="op">=</span> <span class="st">"gray"</span>
 <span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="05-visualization_files/figure-html/Fig6_13-1.png" width="672"></div>
 <p>If you want to use images in a one mode network you can follow the sample below using <a href="data/Cibola_adj.csv">these data</a>. Note that in the line with <code>V(Cibola_i)$raster</code> you can either assign a single image or an image for each node in the network.</p>
@@ -1619,14 +1743,17 @@ The figure that appears in the book was originally created using GIS software bu
 <span class="va">Cibola_i</span> <span class="op">&lt;-</span> <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/graph_from_adjacency_matrix.html">graph_from_adjacency_matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">Cibola</span><span class="op">)</span>,
                                                 mode <span class="op">=</span> <span class="st">"undirected"</span><span class="op">)</span>
 <span class="co"># Set Vector property to images using a list with a length</span>
-<span class="co"># determined by the number of nodes in the network</span>
-<span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html">V</a></span><span class="op">(</span><span class="va">Cibola_i</span><span class="op">)</span><span class="op">$</span><span class="va">raster</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">img.2</span>, <span class="va">img.1</span>, <span class="va">img.2</span>, <span class="va">img.2</span>, <span class="va">img.1</span>,
-                           <span class="va">img.2</span>, <span class="va">img.2</span>, <span class="va">img.2</span>, <span class="va">img.1</span>, <span class="va">img.1</span>,
-                           <span class="va">img.1</span>, <span class="va">img.2</span>, <span class="va">img.2</span>, <span class="va">img.2</span>, <span class="va">img.1</span>,
-                           <span class="va">img.1</span>, <span class="va">img.2</span>, <span class="va">img.1</span>, <span class="va">img.1</span>, <span class="va">img.1</span>,
-                           <span class="va">img.1</span>, <span class="va">img.1</span>, <span class="va">img.2</span>, <span class="va">img.1</span>, <span class="va">img.2</span>,
-                           <span class="va">img.1</span>, <span class="va">img.2</span>, <span class="va">img.2</span>, <span class="va">img.2</span>, <span class="va">img.2</span>,
-                           <span class="va">img.1</span><span class="op">)</span>
+<span class="co"># determined by the number of nodes in the network.</span>
+<span class="co"># Here we divide the northern and southern portions of the</span>
+<span class="co"># study area.</span>
+<span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html">V</a></span><span class="op">(</span><span class="va">Cibola_i</span><span class="op">)</span><span class="op">$</span><span class="va">raster</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">img.2</span>, <span class="va">img.1</span>, <span class="va">img.2</span>, <span class="va">img.2</span>,
+                           <span class="va">img.1</span>, <span class="va">img.2</span>, <span class="va">img.2</span>, <span class="va">img.1</span>,
+                           <span class="va">img.1</span>, <span class="va">img.1</span>, <span class="va">img.2</span>, <span class="va">img.2</span>,
+                           <span class="va">img.2</span>, <span class="va">img.1</span>, <span class="va">img.1</span>, <span class="va">img.2</span>,
+                           <span class="va">img.1</span>, <span class="va">img.1</span>, <span class="va">img.1</span>, <span class="va">img.1</span>,
+                           <span class="va">img.1</span>, <span class="va">img.2</span>, <span class="va">img.1</span>, <span class="va">img.1</span>,
+                           <span class="va">img.2</span>, <span class="va">img.1</span>, <span class="va">img.2</span>, <span class="va">img.2</span>,
+                           <span class="va">img.2</span>, <span class="va">img.2</span>, <span class="va">img.1</span><span class="op">)</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">34673</span><span class="op">)</span>
 <span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span>
@@ -1635,7 +1762,7 @@ The figure that appears in the book was originally created using GIS software bu
   vertex.label <span class="op">=</span> <span class="cn">NA</span>,
   vertex.size <span class="op">=</span> <span class="fl">16</span>,
   vertex.size2 <span class="op">=</span> <span class="fl">16</span>,
-  edge.color <span class="op">=</span> <span class="st">"red"</span>
+  edge.color <span class="op">=</span> <span class="st">"gray"</span>
 <span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="05-visualization_files/figure-html/Fig6_13b-1.png" width="672"></div>
 </div>
@@ -1669,7 +1796,7 @@ The figure that appears in the book was originally created using GIS software bu
 <h3>Figure 6.15: Edge Direction<a class="anchor" aria-label="anchor" href="#Figure_6_15"><i class="fas fa-link"></i></a>
 </h3>
 <p>Fig. 6.15. Two methods of displaying directed ties using arrows (left) and arcs (right). Both of these simple networks represent the same relationships shown in the adjacency matrix in the centre.</p>
-<p>See the tutorial on <a href="Visualization.html#EdgeOptions">edges</a> above for more details on using arrows in <code>ggraph</code>.</p>
+<p>See the tutorial on <a href="Visualization.html#EdgeOptions">edges</a> above for more details on using arrows in <code>ggraph</code>. We use the <code>grid.table</code> function here from the <code>gridExtra</code> package to plot tabular data as a figure.</p>
 <div class="sourceCode" id="cb197"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://igraph.org">igraph</a></span><span class="op">)</span>
@@ -1781,11 +1908,26 @@ The figure that appears in the book was originally created using GIS software bu
 <div id="Figure_6_17" class="section level3 unnumbered">
 <h3>Figure 6.17: Edge Bundling<a class="anchor" aria-label="anchor" href="#Figure_6_17"><i class="fas fa-link"></i></a>
 </h3>
-<p>Fig. 6.17. Network map of ceramic similarity from the U.S. Southwest/Mexican Northwest ca. AD 1350–1400 based on the hammer bundling algorithm.</p>
-<p>This function relies on the <code>edgebundle</code> package to combine sets of nodes with similar relations into single paths. This package also requires that you install the <code>reticulate</code> package which connects R to Python 3.7 and you must also have Python installed on your computer with the <code>datashader</code> Python libraries. To install an instance of Python with all of the required libraries you can use the following call:</p>
+<p>Fig. 6.17. Network map of ceramic similarity from the U.S. Southwest/Mexican Northwest ca. AD 1350–1400 based on the hammer bundling algorithm. Note that this figure will look somewhat different from the one in the book as the locations of sites have been jittered for data security</p>
+<div class="rmdwarning">
+<p>
+This function relies on the <code>edgebundle</code> package to
+combine sets of nodes with similar relations into single paths. This
+package also requires that you install the <code>reticulate</code>
+package which connects R to Python 3.7 and you must also have Python
+installed on your computer with the <code>datashader</code> Python
+libraries.
+</p>
+<p>
+Note that this will require about 1.4 GB of disk space and several
+minutes so make sure you have adequate space and time before
+beginning.
+</p>
+</div>
+<p>To install an instance of Python with all of the required libraries you can use the following call:</p>
 <div class="sourceCode" id="cb199"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">edgebundle</span><span class="fu">::</span><span class="fu"><a href="http://edgebundle.schochastics.net/reference/install_bundle_py.html">install_bundle_py</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"auto"</span>, conda <span class="op">=</span> <span class="st">"auto"</span><span class="op">)</span></code></pre></div>
-<p>Note that this will require about 1.4 GB of disk space so make sure you have adequate space before beginning. <a href="data/Figure6_17.Rdata">Use these data</a> to follow along. Note that this procedure can take several seconds to a few minutes depending on the speed of your computer. Note that this figure will look somewhat different from the one in the book as the locations of sites have been jittered for data security</p>
+<p><a href="data/Figure6_17.Rdata">Use these data</a> to follow along.</p>
 <div class="sourceCode" id="cb200"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://igraph.org">igraph</a></span><span class="op">)</span>
@@ -1847,7 +1989,7 @@ The figure that appears in the book was originally created using GIS software bu
 <h3>Figure 6.18: Group-in-a-box<a class="anchor" aria-label="anchor" href="#Figure_6_18"><i class="fas fa-link"></i></a>
 </h3>
 <p>Fig. 6.18. Example of a group-in-a-box custom graph layout created in NodeXL based on ceramic similarity data from the U.S. Southwest/Mexican Northwest ca. AD 1350-1400.</p>
-<p>The group-in-a-box network format is, as far as we are aware, currently only implemented in the <a href="https://www.smrfoundation.org/nodexl/">NodeXL</a> platform. This software package is an add-in for Microsoft Excel that allows for the creation and analysis of network graphs using a wide variety of useful visualization tools. To produce a “Group-in-a-box” layout you simply need to paste a set of edge list values into the NodeXL Excel Template, define groups (based on an algorithm or some vertex attribute), and the be sure to select “Layout each of the graph’s groups in its own box” in the layout options.</p>
+<p>The group-in-a-box network format is, as far as we are aware, currently only implemented in the <a href="https://www.smrfoundation.org/nodexl/">NodeXL</a> platform. This software package is an add-in for Microsoft Excel that allows for the creation and analysis of network graphs using a wide variety of useful visualization tools. To produce a “Group-in-a-box” layout you simply need to paste a set of edge list values into the NodeXL Excel Template, define groups (based on an algorithm or some vertex attribute), and be sure to select “Layout each of the graph’s groups in its own box” in the layout options.</p>
 <p>For more details on how to use NodeXL see the extensive documentation online. There are commercial versions of the software available but the group-in-a-box example shown here can be produced in the free version.</p>
 <div class="inline-figure"><img src="images/group-in-a-box.jpg" style="width:100.0%"></div>
 <p>To download an Excel workbook set up for the example provided in the book <a href="%22data/NodeXLGraph1.xlsx%22">click here</a>. When you open this In Excel, it will ask you if it can install the necessary extensions. Say yes to continue and replicate the results in the book.</p>
@@ -1930,8 +2072,11 @@ The figure that appears in the book was originally created using GIS software bu
 <h3>Figure 6.20: Nodetrix Diagram<a class="anchor" aria-label="anchor" href="#Figure_6_20"><i class="fas fa-link"></i></a>
 </h3>
 <p>Fig. 6.20. Nodetrix visualisation of the Peeples (2018) ceramic technological data showing one dense cluster as an adjacency matrix and the remainder of the graph as a node-link diagram.</p>
+<div class="figure">
+<img src="images/nodetrix.jpg" style="width:100.0%" alt=""><p class="caption">Nodetrix visualization</p>
+</div>
 <p>This Nodetrix interactive visualization was created using the Javascript implementation available on <a href="https://github.com/IRT-SystemX/nodetrix">GitHub</a> by user <a href="https://github.com/jdfekete/">jdfekete</a>, Jean-Daniel Fekete who was one of the original authors of the method (Henry et al. 2007).</p>
-<p>The details of running the Javascript program are described on the GitHub page and are beyond this scope of this tutorial. We do illustrate below, however, how you can export R in the *.json format required by this program using the <code>d3r</code> and <code>rjson</code> packages.</p>
+<p>The details of running the Javascript program are described on the GitHub page and are beyond this scope of this tutorial. We do illustrate below, however, how you can export R in the *.json format required by this program using the <code>d3r</code> and <code>rjson</code> packages. The code below expects and <code>igraph</code> network object.</p>
 <div class="sourceCode" id="cb202"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/timelyportfolio/d3r">d3r</a></span><span class="op">)</span>
@@ -1948,6 +2093,7 @@ The figure that appears in the book was originally created using GIS software bu
 <span class="va">dj</span> <span class="op">&lt;-</span> <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html">toJSON</a></span><span class="op">(</span><span class="va">dj</span><span class="op">)</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/write.html">write</a></span><span class="op">(</span><span class="va">dj</span>, <span class="st">"network.json"</span><span class="op">)</span></code></pre></div>
+<p>To see a live version of this tool in action <a href="https://aviz.fr/Research/Nodetrix">check here</a>.</p>
 </div>
 <div id="Figure_6_21" class="section level3 unnumbered">
 <h3>Figure 6.21: The Filmstrip Approach<a class="anchor" aria-label="anchor" href="#Figure_6_21"><i class="fas fa-link"></i></a>
@@ -2048,17 +2194,26 @@ The figure that appears in the book was originally created using GIS software bu
            size<span class="op">=</span><span class="fl">4</span><span class="op">)</span>
 
 <span class="va">similt.net</span></code></pre></div>
-<div class="inline-figure"><img src="05-visualization_files/figure-html/unnamed-chunk-6-1.png" width="672"></div>
+<div class="inline-figure"><img src="05-visualization_files/figure-html/unnamed-chunk-17-1.png" width="672"></div>
 <div class="sourceCode" id="cb205"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="va">lin.net</span></code></pre></div>
-<div class="inline-figure"><img src="05-visualization_files/figure-html/unnamed-chunk-6-2.png" width="672"></div>
+<div class="inline-figure"><img src="05-visualization_files/figure-html/unnamed-chunk-17-2.png" width="672"></div>
 </div>
 <div id="Figure_6_23" class="section level3 unnumbered">
 <h3>Figure 6:23: Timelines and Time Prisms<a class="anchor" aria-label="anchor" href="#Figure_6_23"><i class="fas fa-link"></i></a>
 </h3>
 <p>Fig. 6.23. This plot shows two displays of the same ceramic similarity data from the Sonoran Desert in the U.S. Southwest as a time prism (top) and timeline (bottom).</p>
-<p>These examples were drawn from work outline on a workshop focused on temporal networks by Skye Bender-deMoll. <a href="https://statnet.org/Workshops/ndtv_workshop.html">Click here</a> to see the detailed workshop overview. Note that the data required is a list object that contains multiple temporal slices of the same network in <code>network</code> format from the <code>statnet</code> suite of packages. Each network must have the same number of nodes and the same node identifiers must be used in every network in the list.</p>
+<p>These examples were drawn from work outline on a workshop focused on temporal networks by Skye Bender-deMoll. <a href="https://statnet.org/Workshops/ndtv_workshop.html">Click here</a> to see the detailed workshop overview. The functions for animating and plotting temporal networks used here come from the <code>ndtv</code> and <code>networkDynamic</code> packages.</p>
+<div class="rmdwarning">
+<p>
+Note that the data required is a list object that contains multiple
+temporal slices of the same network in <code>network</code> format from
+the <code>statnet</code> suite of packages. Each network must have the
+same number of nodes and the same node identifiers must be used in every
+network in the list.
+</p>
+</div>
 <p><a href="data/Figure6_23.Rdata">Use these data</a> to follow along.</p>
 <div class="sourceCode" id="cb206"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
@@ -2238,13 +2393,24 @@ The figure that appears in the book was originally created using GIS software bu
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_size.html">scale_size</a></span><span class="op">(</span>range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1.5</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="va">myCols</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/theme_graph.html">theme_graph</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="05-visualization_files/figure-html/unnamed-chunk-7-1.png" width="672"></div>
+<div class="inline-figure"><img src="05-visualization_files/figure-html/unnamed-chunk-19-1.png" width="672"></div>
 </div>
 <div id="Figure_6_27" class="section level3 unnumbered">
 <h3>Figure 6.27: SWSN Example 2<a class="anchor" aria-label="anchor" href="#Figure_6_27"><i class="fas fa-link"></i></a>
 </h3>
 <p>Fig. 6.27. An explicit geographic map network of the SWSN project area through time (Mills et al. 2013).</p>
 <p>The original version of this figure was produced in ArcGIS using data prepared in R. Here we show how these same network maps with edges color coded by geographic length can be produced in R. We provide code to prepare a map for one time period (AD1300-1350). <a href="data/Figure6_27.Rdata">Use these data</a> to follow along. Note that this figure will differ slightly from the one in the book and in the original Mills et al. 2013 publication as site locations have been jittered. In this example we use geographic coordinates to calculate distance. See the <a href="SpatialNetworks.html#SpatialNetworks">spatial networks</a> section for more details.</p>
+<div class="rmdtip">
+<p>
+Note for short edges to be visible on top of long edges here we must
+first sort the order of edges bu length in the original edge list before
+converting it into a igraph network object. In the three lines beginning
+with <code># Order edges so shorest will plot last</code>, we use the
+<code>order</code> function and set <code>decreasing = T</code> so that
+edges will be listed from longest to shortest. The order of the edge
+list is the order that edges will be plotted.
+</p>
+</div>
 <div class="sourceCode" id="cb212"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://statnet.org">statnet</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://igraph.org">igraph</a></span><span class="op">)</span>
@@ -2312,7 +2478,7 @@ The figure that appears in the book was originally created using GIS software bu
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_color_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"white"</span>, <span class="st">"skyblue"</span>, <span class="st">"dodgerblue"</span>,
                                 <span class="st">"darkblue"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/theme_graph.html">theme_graph</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="05-visualization_files/figure-html/unnamed-chunk-8-1.png" width="672"></div>
+<div class="inline-figure"><img src="05-visualization_files/figure-html/unnamed-chunk-21-1.png" width="672"></div>
 
 </div>
 </div>
@@ -2389,7 +2555,7 @@ The figure that appears in the book was originally created using GIS software bu
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-05-24.</p>
+    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-05-25.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

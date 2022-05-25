@@ -142,8 +142,9 @@
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rpkgs.datanovia.com/ggpubr/">ggpubr</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://statnet.org">statnet</a></span><span class="op">)</span>
-<span class="co">#&gt;         Installed ReposVer Built  </span>
-<span class="co">#&gt; network "1.17.1"  "1.17.2" "4.2.0"</span>
+<span class="co">#&gt;            Installed ReposVer Built  </span>
+<span class="co">#&gt; ergm.count "4.0.2"   "4.1.1"  "4.2.0"</span>
+<span class="co">#&gt; network    "1.17.1"  "1.17.2" "4.2.0"</span>
 
 <span class="co"># Import adjacency matrix and covert to network</span>
 <span class="va">chaco</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">'data/AD1050net.csv'</span>, row.names <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
@@ -341,7 +342,14 @@
 </h2>
 <p>In some cases, we are interested in the potential impact of missing edges rather than missing nodes. For example, if we have created a network of co-presence (based on shared ceramic types, site mentions on monuments, or some other similar data) how robust is our network to the omission of certain edges? How are different centrality metrics influenced by edge omission?</p>
 <p>In this section, will conduct an analysis similar to that described above for assessing missing nodes. Specifically, we will sub-sample our networks by removing a fraction of edges and then test the stability of centrality measures and node position across a range of sampling fractions.</p>
-<p>The function we defined in the previous only needs to be modified slightly to help assess edges as well. We have created a new function and <a href="scripts/sim_missing_edges.R">associated script file</a> that accomplishes this goal. To give you a peak beneath the hood, here are the primary lines that we needed to change. We replaced the first chunk of code here which creates a sub sample based on <code>vcount</code> or vertex count with a new line that uses <code>ecount</code> or edge count. We then further switched the <code>induced_subgraph</code> and instead used the <code>delete_edges</code> function. Note that you should not try to evaluate the chunk of code below as it contains only portions of the larger functions.</p>
+<p>The function we defined in the previous only needs to be modified slightly to help assess edges as well. We have created a new function and <a href="scripts/sim_missing_edges.R">associated script file</a> that accomplishes this goal. To give you a peak beneath the hood, here are the primary lines that we needed to change. We replaced the first chunk of code here which creates a sub sample based on <code>vcount</code> or vertex count with a new line that uses <code>ecount</code> or edge count. We then further switched the <code>induced_subgraph</code> and instead used the <code>delete_edges</code> function.</p>
+<div class="rmdwarning">
+<p>
+Note that you should not try to evaluate the chunk of code below as
+it contains only portions of the larger functions described here and
+will return an error.
+</p>
+</div>
 <div class="sourceCode" id="cb130"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Code from sim_missing_nodes</span>
 <span class="va">sub_samp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/gorder.html">vcount</a></span><span class="op">(</span><span class="va">net</span><span class="op">)</span>, prob <span class="op">=</span> <span class="va">missing_probs</span><span class="op">)</span>,
@@ -375,7 +383,7 @@
     axis.title.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">rel</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span>,
     legend.text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">rel</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span>
   <span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="04-uncertainty_files/figure-html/unnamed-chunk-7-1.png" width="672"></div>
+<div class="inline-figure"><img src="04-uncertainty_files/figure-html/unnamed-chunk-8-1.png" width="672"></div>
 </div>
 <div id="IndNodesAtRandom" class="section level2" number="4.5">
 <h2>
@@ -383,7 +391,7 @@
 </h2>
 <p>This sub-section follows along with Chapter 5.3.2 in Brughmans and Peeples (2022). In some cases we may be interested not simply in the robustness of a particular network metric to a specific kind of perturbation across all nodes or edges, but instead in the potential variability of the position or characteristics of a single node (or group of nodes) due to such perturbations. In order to explore individual nodes, we can employ similar procedures to those outlined above with a few additional modifications to our function. In this example we will use the <a href="DataWorkspaceSetup.html#Cibola">Cibola technological similarity network</a>. As we describe in the book, we want to assess the stability of the position of the Garcia Ranch site. Specifically, we want to know the whether or not the high betweenness centrality value of Garcia Ranch is robust to nodes missing at random in this network.</p>
 <p>We define a new function to conduct these analyses below. This function is similar to those used above but instead of providing Spearman’s <span class="math inline">\(/rho\)</span> values it outputs the specific rank order of the node in question across each simulation.</p>
-<p>The function requires four pieces of information from the user:</p>
+<p>The function requires six pieces of information from the user:</p>
 <ul>
 <li>
 <code>net</code> - An <code>igraph</code> network object. Again this is currently set up for simple networks but could easily be modified.</li>
@@ -436,7 +444,7 @@
     axis.title.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">rel</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span>,
     axis.title.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">rel</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span>
   <span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="04-uncertainty_files/figure-html/unnamed-chunk-9-1.png" width="672"></div>
+<div class="inline-figure"><img src="04-uncertainty_files/figure-html/unnamed-chunk-10-1.png" width="672"></div>
 <p>As we describe in the book, the position of Garcia Ranch as a highly central node appears to be stable to nodes missing at random. Indeed, by far the most common position for this node was 2 which is its position in the original network.</p>
 </div>
 <div id="MissingBiased" class="section level2" number="4.6">
@@ -446,7 +454,13 @@
 <p>This sub-section follows along with Brughmans and Peeples (2022) Chapter 5.3.3. There are many contexts where we are interested in modeling data that are not missing at random but instead are influenced by some biased sampling process. For example, say we have a study area where there have been lots of general reconnaissance surveys that have recorded most of the large sites but few full coverage surveys that have captured smaller sites. In that case, we may wish to model missingness such that small sites would more likely be missing than large sites.</p>
 <p>The <code>sim_missing_nodes</code> and <code>sime_missing_edges</code> functions we created above can both help us test the impacts of biased sampling processes. In order to do this we simply use the additional argument <code>missing_probs</code>. This argument requires a vector the same length as the number of nodes or edges, depending on which function you are using. This vector should contain numeric values between 0 and 1 that denote the probabilities that a node or edge will be retained in the sub-sampling effort (and must be in the same order that nodes or edges are recorded in the network object).</p>
 <p>Let’s look under the hood to see how this change is implemented in the code. We only need to modify one line of code to include biased sampling processes. In the chunk of code below we have two lines that use the <code>sample</code> function. This function takes a vector of numbers and selects a sample (without replacement by default) of the specified size. If you add the argument <code>prob</code> it will use the vector or probabilities provided to weight the sample. That’s all there is to it.</p>
-<p>The code chunk below is just for the purposes of demonstration and only represents part of the function so don’t try to evaluate this chunk or you’ll get an error.</p>
+<div class="rmdwarning">
+<p>
+The code chunk below is just for the purposes of demonstration and
+only represents part of the function so don’t try to evaluate this chunk
+or you’ll get an error.
+</p>
+</div>
 <div class="sourceCode" id="cb134"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Random sampling process</span>
 <span class="va">sub_samp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/gorder.html">vcount</a></span><span class="op">(</span><span class="va">net</span><span class="op">)</span><span class="op">)</span>, 
@@ -481,7 +495,7 @@
     axis.title.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">rel</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span>,
     legend.text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">rel</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span>
   <span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="04-uncertainty_files/figure-html/unnamed-chunk-11-1.png" width="672"></div>
+<div class="inline-figure"><img src="04-uncertainty_files/figure-html/unnamed-chunk-13-1.png" width="672"></div>
 <div id="SimIncidence" class="section level3" number="4.6.1">
 <h3>
 <span class="header-section-number">4.6.1</span> Resampling with Incidence Matrices<a class="anchor" aria-label="anchor" href="#SimIncidence"><i class="fas fa-link"></i></a>
@@ -533,9 +547,9 @@
                   alpha <span class="op">=</span> <span class="fl">0.75</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/theme_graph.html">theme_graph</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="04-uncertainty_files/figure-html/unnamed-chunk-12-1.png" width="672"></div>
+<div class="inline-figure"><img src="04-uncertainty_files/figure-html/unnamed-chunk-14-1.png" width="672"></div>
 <p>Although it may at first seem like we could use the same function we used previously to assess missing nodes, there are some key differences in the organization of data in this network that won’t permit that. Specifically, we are interested in nodes (authors) missing at random, but we we want to model probabilities associated with publications. This is a slightly more complicated procedure because the function needs both the network object and the incidence matrix from which it was generated so that the sub-networks can be defined inside the function. We have created a <code>sim_missing_inc</code> function (simulating missing data using an incidence matrix) that conducts this task.</p>
-<p>This function requires six specific pieces of information from the user:</p>
+<p>This function requires five specific pieces of information from the user:</p>
 <ul>
 <li>
 <code>net</code> - You must include a network object in <code>igraph</code> format. We use a simple network here but the code could be modified for directed or valued networks.</li>
@@ -549,6 +563,15 @@
 <code>lookup_dat</code> - Finally, you need to provide a data frame or matrix that contains two columns. The first column should be the unique name for each row in the incidence matrix (publication key in this case). The second column should include a numeric value between 0 and 1 which indicates the probability that each row will be retained in the resampling process. If you include nothing for <code>missing_probs</code> the function will remove columns at random with an equal probability for each.</li>
 </ul>
 <p>In our example here, we must first calculate the data we need to provide for the <code>missing_probs</code> argument above. To do this we simply take the vector of publication years in the <code>bib</code> object we read in and rescale them such that the maximum value (most recent publication) equals 1 and older publications are less than 1. This will mean that older publications will more often be removed in our random sub-samples than newer ones as outlined in the example in the book.</p>
+<div class="rmdwarning">
+<p>
+Note that the script provided here is focused on assessing whichever
+category of nodes is represented by columns in the original incidence
+matrix. You would need to modify this code to use it for an incidence
+matrix where rows or your target or simply use the <code><a href="https://rdrr.io/r/base/t.html">t()</a></code>
+transpose function to place columns in the target position.
+</p>
+</div>
 <div class="sourceCode" id="cb137"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Create a dataframe of all unique combinations of publication code</span>
 <span class="co"># and year from attributes data</span>
@@ -640,7 +663,7 @@
     axis.title.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">rel</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span>,
     legend.text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">rel</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span>
   <span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="04-uncertainty_files/figure-html/unnamed-chunk-16-1.png" width="672"></div>
+<div class="inline-figure"><img src="04-uncertainty_files/figure-html/unnamed-chunk-19-1.png" width="672"></div>
 </div>
 </div>
 <div id="EdgeProbability" class="section level2" number="4.7">
@@ -680,7 +703,7 @@
     repel <span class="op">=</span> <span class="cn">F</span>
   <span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/theme_graph.html">theme_graph</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="04-uncertainty_files/figure-html/unnamed-chunk-17-1.png" width="672"></div>
+<div class="inline-figure"><img src="04-uncertainty_files/figure-html/unnamed-chunk-20-1.png" width="672"></div>
 <p>In the next chunk of code we define a function that iterates over every edge in the simulated network we just created and defines each edge as either present or absent using a simple random binomial with the probability set by the edge weight as described above. The output of this function (<code>edge_prob</code>) is a list object that contains <code>nsim</code> <code>igraph</code> network objects that are candidate networks of the original.</p>
 <p>In order to extract values of interest from these candidate networks, we created another function called <code>compile_stat</code>. This function iterates over all <code>nsim</code> networks in the <code>net_list</code> list object and calculates the centrality metric of interest in this case returning the results as a simple matrix. It is then possible to compare things like average degree or the distribution of degree for particular nodes across all of the candidate networks. We have placed these two functions in an additional script file called <a href="scripts/edge_prob">edge_prob.R</a> which you can download to use and modify on your own.</p>
 <div class="sourceCode" id="cb142"><pre class="downlit sourceCode r">
@@ -778,7 +801,7 @@
   <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/theme_graph.html">theme_graph</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="fu"><a href="https://rpkgs.datanovia.com/ggpubr/reference/ggarrange.html">ggarrange</a></span><span class="op">(</span><span class="va">comp1</span>, <span class="va">comp2</span>, <span class="va">comp3</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="04-uncertainty_files/figure-html/unnamed-chunk-19-1.png" width="672"></div>
+<div class="inline-figure"><img src="04-uncertainty_files/figure-html/unnamed-chunk-22-1.png" width="672"></div>
 <p>We then use the <code>compile_stat</code> function to assess degree centrality for one particular node, displaying a histogram of values with mean indicated.</p>
 <div class="sourceCode" id="cb144"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dg_stat</span> <span class="op">&lt;-</span> <span class="fu">compile_stat</span><span class="op">(</span><span class="va">EL_test</span>, met <span class="op">=</span> <span class="st">"degree"</span><span class="op">)</span>
@@ -790,7 +813,7 @@
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span><span class="op">(</span><span class="st">"Degree Centrality of Node 20"</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_vline</a></span><span class="op">(</span>xintercept <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">dg_20</span><span class="op">$</span><span class="va">val</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">'red'</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="04-uncertainty_files/figure-html/unnamed-chunk-20-1.png" width="672"></div>
+<div class="inline-figure"><img src="04-uncertainty_files/figure-html/unnamed-chunk-23-1.png" width="672"></div>
 <div id="EdgeProbSim" class="section level3" number="4.7.1">
 <h3>
 <span class="header-section-number">4.7.1</span> Edge Probability and Similarity Networks<a class="anchor" aria-label="anchor" href="#EdgeProbSim"><i class="fas fa-link"></i></a>
@@ -847,7 +870,7 @@
   <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/theme_graph.html">theme_graph</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="fu"><a href="https://rpkgs.datanovia.com/ggpubr/reference/ggarrange.html">ggarrange</a></span><span class="op">(</span><span class="va">comp1</span>, <span class="va">comp2</span>, <span class="va">comp3</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="04-uncertainty_files/figure-html/unnamed-chunk-22-1.png" width="672"></div>
+<div class="inline-figure"><img src="04-uncertainty_files/figure-html/unnamed-chunk-25-1.png" width="672"></div>
 <div class="sourceCode" id="cb147"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">bw_test</span> <span class="op">&lt;-</span> <span class="fu">compile_stat</span><span class="op">(</span><span class="va">sim_nets</span>, met <span class="op">=</span> <span class="st">"betweenness"</span><span class="op">)</span>
 
@@ -860,7 +883,7 @@
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value with</span>
 <span class="co">#&gt; `binwidth`.</span></code></pre></div>
-<div class="inline-figure"><img src="04-uncertainty_files/figure-html/unnamed-chunk-23-1.png" width="672"></div>
+<div class="inline-figure"><img src="04-uncertainty_files/figure-html/unnamed-chunk-26-1.png" width="672"></div>
 </div>
 </div>
 <div id="SampleSize" class="section level2" number="4.8">
@@ -939,7 +962,7 @@
     axis.title.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">rel</a></span><span class="op">(</span><span class="fl">1.5</span><span class="op">)</span><span class="op">)</span>,
     legend.text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">rel</a></span><span class="op">(</span><span class="fl">1.5</span><span class="op">)</span><span class="op">)</span>
   <span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="04-uncertainty_files/figure-html/unnamed-chunk-25-1.png" width="672"></div>
+<div class="inline-figure"><img src="04-uncertainty_files/figure-html/unnamed-chunk-28-1.png" width="672"></div>
 <p>As described in Chapter 5.3.5, in some cases we want to observe patterns of variation due to sampling error for individual sites or sets of sites. In the next chunk of code we illustrate how to produce figure 5.14 from the Brughmans and Peeples (2022) book. Specifically, this plot consists of a series of line plots where the x axis represents each node in the network ordered by degree centrality in the original observed network. For each node there is a vertical line which represents the 95% confidence interval around degree across the <code>nsim</code> random replicates produced to evaluate sampling error. The blue line represents degree in the original network and the red line represents median degree in the resampled networks.</p>
 <p>To create this plot, we first iterate through every object in <code>sim_nets</code> and calculate weighted degree centrality and then add that to a two-column matrix along with a node id. Once we have done this for all simulations, we use the <code>summarise</code> function to calculate the Mean and</p>
 <div class="sourceCode" id="cb150"><pre class="downlit sourceCode r">
@@ -1010,7 +1033,7 @@
     axis.title.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">rel</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span>,
     legend.text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">rel</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span>
   <span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="04-uncertainty_files/figure-html/unnamed-chunk-26-1.png" width="672"></div>
+<div class="inline-figure"><img src="04-uncertainty_files/figure-html/unnamed-chunk-29-1.png" width="672"></div>
 
 </div>
 </div>
@@ -1050,7 +1073,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-05-24.</p>
+    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-05-25.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
