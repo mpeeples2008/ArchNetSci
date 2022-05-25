@@ -169,21 +169,9 @@ data analysis in R.
 <p>With the <code>ggmap</code> package, these background maps can easily be incorporated into network graphics.</p>
 <div class="sourceCode" id="cb214"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/dkahle/ggmap">ggmap</a></span><span class="op">)</span>
-<span class="co">#&gt; Loading required package: ggplot2</span>
-<span class="co">#&gt; Google's Terms of Service: https://cloud.google.com/maps-platform/terms/.</span>
-<span class="co">#&gt; Please cite ggmap if you use it! See citation("ggmap") for details.</span>
 <span class="va">map</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ggmap/man/get_stamenmap.html">get_stamenmap</a></span><span class="op">(</span>bbox <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">9.5</span>, <span class="fl">36</span>, <span class="fl">3</span>, <span class="fl">43.8</span><span class="op">)</span>,
                        maptype <span class="op">=</span> <span class="st">"terrain"</span>,
                        zoom <span class="op">=</span> <span class="fl">6</span><span class="op">)</span>
-<span class="co">#&gt; Source : http://tile.stamen.com/terrain/6/30/23.png</span>
-<span class="co">#&gt; Source : http://tile.stamen.com/terrain/6/31/23.png</span>
-<span class="co">#&gt; Source : http://tile.stamen.com/terrain/6/32/23.png</span>
-<span class="co">#&gt; Source : http://tile.stamen.com/terrain/6/30/24.png</span>
-<span class="co">#&gt; Source : http://tile.stamen.com/terrain/6/31/24.png</span>
-<span class="co">#&gt; Source : http://tile.stamen.com/terrain/6/32/24.png</span>
-<span class="co">#&gt; Source : http://tile.stamen.com/terrain/6/30/25.png</span>
-<span class="co">#&gt; Source : http://tile.stamen.com/terrain/6/31/25.png</span>
-<span class="co">#&gt; Source : http://tile.stamen.com/terrain/6/32/25.png</span>
 <span class="fu"><a href="https://rdrr.io/pkg/ggmap/man/ggmap.html">ggmap</a></span><span class="op">(</span><span class="va">map</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-3-1.png" width="672"></div>
 </div>
@@ -347,9 +335,9 @@ to be installed from another archive called Bioconductor.
 <div class="sourceCode" id="cb223"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">tree1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/make_tree.html">make_tree</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">50</span>, children <span class="op">=</span> <span class="fl">5</span>, mode <span class="op">=</span> <span class="st">"undirected"</span><span class="op">)</span>
 <span class="va">tree1</span>
-<span class="co">#&gt; IGRAPH 5c47874 U--- 50 49 -- Tree</span>
+<span class="co">#&gt; IGRAPH 67d9b68 U--- 50 49 -- Tree</span>
 <span class="co">#&gt; + attr: name (g/c), children (g/n), mode (g/c)</span>
-<span class="co">#&gt; + edges from 5c47874:</span>
+<span class="co">#&gt; + edges from 67d9b68:</span>
 <span class="co">#&gt;  [1]  1-- 2  1-- 3  1-- 4  1-- 5  1-- 6  2-- 7  2-- 8  2-- 9</span>
 <span class="co">#&gt;  [9]  2--10  2--11  3--12  3--13  3--14  3--15  3--16  4--17</span>
 <span class="co">#&gt; [17]  4--18  4--19  4--20  4--21  5--22  5--23  5--24  5--25</span>

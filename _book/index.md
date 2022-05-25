@@ -5,6 +5,7 @@ date: "2022-05-25"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: references.bib
+biblio-style: apalike
 url: https://book.archnetworks.net
 description: |
   This online bookdown document accompanies the Cambridge Manuals in Archaeology book

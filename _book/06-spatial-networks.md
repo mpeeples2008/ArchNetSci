@@ -78,21 +78,9 @@ With the `ggmap` package, these background maps can easily be incorporated into 
 
 ```r
 library(ggmap)
-#> Loading required package: ggplot2
-#> Google's Terms of Service: https://cloud.google.com/maps-platform/terms/.
-#> Please cite ggmap if you use it! See citation("ggmap") for details.
 map <- get_stamenmap(bbox = c(-9.5, 36, 3, 43.8),
                        maptype = "terrain",
                        zoom = 6)
-#> Source : http://tile.stamen.com/terrain/6/30/23.png
-#> Source : http://tile.stamen.com/terrain/6/31/23.png
-#> Source : http://tile.stamen.com/terrain/6/32/23.png
-#> Source : http://tile.stamen.com/terrain/6/30/24.png
-#> Source : http://tile.stamen.com/terrain/6/31/24.png
-#> Source : http://tile.stamen.com/terrain/6/32/24.png
-#> Source : http://tile.stamen.com/terrain/6/30/25.png
-#> Source : http://tile.stamen.com/terrain/6/31/25.png
-#> Source : http://tile.stamen.com/terrain/6/32/25.png
 ggmap(map)
 ```
 
@@ -285,9 +273,9 @@ Let's create a simple tree using the `make_tree` function in igraph.
 ```r
 tree1 <- make_tree(n = 50, children = 5, mode = "undirected")
 tree1
-#> IGRAPH 5c47874 U--- 50 49 -- Tree
+#> IGRAPH 67d9b68 U--- 50 49 -- Tree
 #> + attr: name (g/c), children (g/n), mode (g/c)
-#> + edges from 5c47874:
+#> + edges from 67d9b68:
 #>  [1]  1-- 2  1-- 3  1-- 4  1-- 5  1-- 6  2-- 7  2-- 8  2-- 9
 #>  [9]  2--10  2--11  3--12  3--13  3--14  3--15  3--16  4--17
 #> [17]  4--18  4--19  4--20  4--21  5--22  5--23  5--24  5--25

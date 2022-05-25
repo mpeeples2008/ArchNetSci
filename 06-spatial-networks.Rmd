@@ -43,7 +43,7 @@ Another feature used throughout this guide that needs further explanation is the
 
 With the `ggmap` package, these background maps can easily be incorporated into network graphics.
 
-```{r}
+```{r, warning=F, message=F}
 library(ggmap)
 map <- get_stamenmap(bbox = c(-9.5, 36, 3, 43.8),
                        maptype = "terrain",
