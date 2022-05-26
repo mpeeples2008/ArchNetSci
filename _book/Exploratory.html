@@ -71,13 +71,14 @@
         <ul class="book-toc list-unstyled">
 <li><a class="" href="index.html">Welcome</a></li>
 <li><a class="" href="GettingStarted.html">Gettings Started with R</a></li>
-<li><a class="" href="DataWorkspaceSetup.html"><span class="header-section-number">1</span> Data and Workspace Setup</a></li>
-<li><a class="" href="NetworkData.html"><span class="header-section-number">2</span> Network Data Formats</a></li>
+<li><a class="" href="DataAndWorkspace.html"><span class="header-section-number">1</span> Data and Workspace Setup</a></li>
+<li><a class="" href="NetworkData.html"><span class="header-section-number">2</span> Network Data in R</a></li>
 <li><a class="active" href="Exploratory.html"><span class="header-section-number">3</span> Exploratory Network Analysis</a></li>
 <li><a class="" href="Uncertainty.html"><span class="header-section-number">4</span> Quantifying Uncertainty</a></li>
 <li><a class="" href="Visualization.html"><span class="header-section-number">5</span> Network Visualization</a></li>
 <li><a class="" href="SpatialNetworks.html"><span class="header-section-number">6</span> Spatial Networks</a></li>
-<li><a class="" href="references-and-r-packages.html">References and R Packages</a></li>
+<li><a class="" href="TableOfContents.html">Table of Contents Quick Reference</a></li>
+<li><a class="" href="references-and-r-packages-1.html">References and R Packages</a></li>
 </ul>
 
         <div class="book-extra">
@@ -90,9 +91,9 @@
 <span class="header-section-number">Section 3</span> Exploratory Network Analysis<a class="anchor" aria-label="anchor" href="#Exploratory"><i class="fas fa-link"></i></a>
 </h1>
 <p>Exploratory network analysis is simply exploratory data analysis applied to network data. This covers a range of statistical and visual techniques designed to explore the structure of networks as well as the relative positions of nodes and edges. These methods can be used to look for particular structures or patterning of interest, such as the most central nodes, or to summarize and describe the structure of the network to paint a general picture of it before further analysis. This section serves as a companion to Chapter 4 in the Brughmans and Peeples book (2022) and provides basic examples of the exploratory network analysis methods outlined in the book as well as a few others.</p>
-<div id="example-network-objects" class="section level2" number="3.1">
+<div id="ExampleNetworkObjects" class="section level2" number="3.1">
 <h2>
-<span class="header-section-number">3.1</span> Example Network Objects<a class="anchor" aria-label="anchor" href="#example-network-objects"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.1</span> Example Network Objects<a class="anchor" aria-label="anchor" href="#ExampleNetworkObjects"><i class="fas fa-link"></i></a>
 </h2>
 <p>In order to facilitate the exploratory analysis examples in this section, we want to first create a set of <code>igraph</code> and <code>statnet</code> network objects that will serve our purposes across all of the analyses below. Specifically, we will generate and define:</p>
 <ul>
@@ -112,7 +113,7 @@
 <code>sim_mat</code> - A data frame object containing a weighted similarity matrix</li>
 </ul>
 <p>Each of these will be used as appropriate to illustrate particular methods.</p>
-<p>In the following chunk of code we initialize all of the packages that we will use in this section and define all of the network objects that we will use (using the object names above). In these examples we will once again use the <a href="DataWorkspaceSetup.html#Cibola">Cibola technological similarity data</a> we used in the <a href="NetworkData.html#NetworkData">Network Data Formats</a> section previously.</p>
+<p>In the following chunk of code we initialize all of the packages that we will use in this section and define all of the network objects that we will use (using the object names above). In these examples we will once again use the <a href="DataAndWorkspace.html#Cibola">Cibola technological similarity data</a> we used in the <a href="NetworkData.html#NetworkData">Network Data Formats</a> section previously.</p>
 <div class="sourceCode" id="cb92"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># initialize packages</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://igraph.org">igraph</a></span><span class="op">)</span>
@@ -427,14 +428,14 @@ careful.
 <span class="co">#&gt;      0.35970234      0.25265287</span></code></pre></div>
 </div>
 </div>
-<div id="Triads" class="section level2" number="3.4">
+<div id="TriadsAndClustering" class="section level2" number="3.4">
 <h2>
-<span class="header-section-number">3.4</span> Triads and clustering<a class="anchor" aria-label="anchor" href="#Triads"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.4</span> Triads and clustering<a class="anchor" aria-label="anchor" href="#TriadsAndClustering"><i class="fas fa-link"></i></a>
 </h2>
 <p>Another important topic in network science concerns considerations of the overall structure and clustering of connections across a network as a whole. There are a variety of methods which have been developed to characterize the overall degree of clustering and closure in networks, many of which are based on counting triads of various configurations. In this section, we briefly outline approaches toward evaluating triads, transitivity, and clustering in R.</p>
-<div id="triads" class="section level3" number="3.4.1">
+<div id="Triads" class="section level3" number="3.4.1">
 <h3>
-<span class="header-section-number">3.4.1</span> Triads<a class="anchor" aria-label="anchor" href="#triads"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.4.1</span> Triads<a class="anchor" aria-label="anchor" href="#Triads"><i class="fas fa-link"></i></a>
 </h3>
 <p>A triad is simply a set of three nodes and a description of the configuration of edges among them. For undirected graphs, there are four possibilities for describing the connections among those nodes (empty graph, 1 connection, 2 connections, 3 connections). For directed graphs the situation is considerably more complicated because ties can be considered in both directions and an edge in one direction isn’t necessarily reciprocated. Thus there are 16 different configurations that can exist (see Brughmans and Peeples 2022: Figure 4.4).</p>
 <p>One common method for outlining the overall structural properties of a network is to conduct a “triad census” which counts each of the 4 or 16 possible triads for a given network. Although a triad census can be conducted on an undirected network using the <code><a href="https://rdrr.io/pkg/igraph/man/triad_census.html">igraph::triad_census</a></code> function, a warning will be returned along with 0 results for all impossible triad configurations so be aware. The results are returned as a vector of counts of each possible node configuration in an order outlined in the help document associated with the function (see <code><a href="https://rdrr.io/pkg/igraph/man/triad_census.html">?triad_census</a></code> for more).</p>
@@ -553,7 +554,7 @@ careful.
 <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/distances.html">shortest_paths</a></span><span class="op">(</span><span class="va">simple_net</span>, from <span class="op">=</span> <span class="fl">1</span>, to <span class="op">=</span> <span class="fl">21</span><span class="op">)</span>
 <span class="co">#&gt; $vpath</span>
 <span class="co">#&gt; $vpath[[1]]</span>
-<span class="co">#&gt; + 5/31 vertices, named, from 734390d:</span>
+<span class="co">#&gt; + 5/31 vertices, named, from f74da9d:</span>
 <span class="co">#&gt; [1] Apache.Creek          Casa.Malpais         </span>
 <span class="co">#&gt; [3] Garcia.Ranch          Heshotauthla         </span>
 <span class="co">#&gt; [5] Pueblo.de.los.Muertos</span>
@@ -580,16 +581,16 @@ careful.
 
 <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/diameter.html">farthest_vertices</a></span><span class="op">(</span><span class="va">directed_net</span>, directed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="co">#&gt; $vertices</span>
-<span class="co">#&gt; + 2/30 vertices, named, from 7344a89:</span>
+<span class="co">#&gt; + 2/30 vertices, named, from f74e94a:</span>
 <span class="co">#&gt; [1] Apache Creek          Pueblo de los Muertos</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $distance</span>
 <span class="co">#&gt; [1] 4</span></code></pre></div>
 </div>
 </div>
-<div id="Components" class="section level2" number="3.6">
+<div id="ComponentsAndBridges" class="section level2" number="3.6">
 <h2>
-<span class="header-section-number">3.6</span> Components and Bridges<a class="anchor" aria-label="anchor" href="#Components"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.6</span> Components and Bridges<a class="anchor" aria-label="anchor" href="#ComponentsAndBridges"><i class="fas fa-link"></i></a>
 </h2>
 <p>Identifying fully connected subgraphs within a large network is a common analytical procedure and is quite straight forward in R using the igraph package. If you first want to know whether or not a given network is fully connected you can use the <code><a href="https://rdrr.io/pkg/igraph/man/components.html">igraph::is_connected</a></code> function to check.</p>
 <div class="sourceCode" id="cb107"><pre class="downlit sourceCode r">
@@ -602,9 +603,9 @@ careful.
 <div class="sourceCode" id="cb108"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/components.html">count_components</a></span><span class="op">(</span><span class="va">simple_net</span><span class="op">)</span>
 <span class="co">#&gt; [1] 2</span></code></pre></div>
-<div id="identifying-components" class="section level3" number="3.6.1">
+<div id="IdentifyingComponents" class="section level3" number="3.6.1">
 <h3>
-<span class="header-section-number">3.6.1</span> Identifying Components<a class="anchor" aria-label="anchor" href="#identifying-components"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.6.1</span> Identifying Components<a class="anchor" aria-label="anchor" href="#IdentifyingComponents"><i class="fas fa-link"></i></a>
 </h3>
 <p>If you want to decompose a network object into its distinct components you can use the <code><a href="https://rdrr.io/pkg/igraph/man/decompose.html">igraph::decompose</a></code> function which outputs a list object with each entry representing a distinct component. Each object in the list can then be called using <code>[[k]]</code> where <code>k</code> is the number of the item in the list.</p>
 <div class="sourceCode" id="cb109"><pre class="downlit sourceCode r">
@@ -612,9 +613,9 @@ careful.
 
 <span class="va">components</span>
 <span class="co">#&gt; [[1]]</span>
-<span class="co">#&gt; IGRAPH 759aa26 UN-- 30 167 -- </span>
+<span class="co">#&gt; IGRAPH f988358 UN-- 30 167 -- </span>
 <span class="co">#&gt; + attr: name (v/c)</span>
-<span class="co">#&gt; + edges from 759aa26 (vertex names):</span>
+<span class="co">#&gt; + edges from f988358 (vertex names):</span>
 <span class="co">#&gt;  [1] Apache.Creek--Casa.Malpais        </span>
 <span class="co">#&gt;  [2] Apache.Creek--Coyote.Creek        </span>
 <span class="co">#&gt;  [3] Apache.Creek--Hooper.Ranch        </span>
@@ -626,9 +627,9 @@ careful.
 <span class="co">#&gt; + ... omitted several edges</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; [[2]]</span>
-<span class="co">#&gt; IGRAPH 759aa4b UN-- 1 0 -- </span>
+<span class="co">#&gt; IGRAPH f98837e UN-- 1 0 -- </span>
 <span class="co">#&gt; + attr: name (v/c)</span>
-<span class="co">#&gt; + edges from 759aa4b (vertex names):</span>
+<span class="co">#&gt; + edges from f98837e (vertex names):</span>
 
 <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html">V</a></span><span class="op">(</span><span class="va">components</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">$</span><span class="va">name</span>
 <span class="co">#&gt; [1] "WS.Ranch"</span></code></pre></div>
@@ -664,15 +665,15 @@ careful.
 <span class="co">#&gt; [1] 1</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $cut</span>
-<span class="co">#&gt; + 1/167 edge from 734400c (vertex names):</span>
+<span class="co">#&gt; + 1/167 edge from f74e039 (vertex names):</span>
 <span class="co">#&gt; [1] Ojo Bonito--Baca Pueblo</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $partition1</span>
-<span class="co">#&gt; + 1/30 vertex, named, from 734400c:</span>
+<span class="co">#&gt; + 1/30 vertex, named, from f74e039:</span>
 <span class="co">#&gt; [1] Baca Pueblo</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $partition2</span>
-<span class="co">#&gt; + 29/30 vertices, named, from 734400c:</span>
+<span class="co">#&gt; + 29/30 vertices, named, from f74e039:</span>
 <span class="co">#&gt;  [1] Apache Creek          Casa Malpais         </span>
 <span class="co">#&gt;  [3] Coyote Creek          Hooper Ranch         </span>
 <span class="co">#&gt;  [5] Horse Camp Mill       Hubble Corner        </span>
@@ -699,7 +700,7 @@ careful.
 <p>A clique as a network science concept is arguably the strictest method of defining a cohesive subgroup. It is any set of three or more nodes in which each node is directly connected to all other nodes. It can be alternatively defined as a completely connected subnetwork, or a subnetwork with maximum density. The function <code><a href="https://rdrr.io/pkg/igraph/man/cliques.html">igraph::max_cliques</a></code> finds all maximal cliques in a network and outputs a list object with nodes in each set indicated. For the sake of space here we only output one clique of the 24 that were defined by this function call.</p>
 <div class="sourceCode" id="cb112"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/cliques.html">max_cliques</a></span><span class="op">(</span><span class="va">simple_net</span>, min <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">[[</span><span class="fl">24</span><span class="op">]</span><span class="op">]</span>
-<span class="co">#&gt; + 9/31 vertices, named, from 734390d:</span>
+<span class="co">#&gt; + 9/31 vertices, named, from f74da9d:</span>
 <span class="co">#&gt; [1] Los.Gigantes    Cienega         Tinaja         </span>
 <span class="co">#&gt; [4] Spier.170       Scribe.S        Pescado.Cluster</span>
 <span class="co">#&gt; [7] Mirabal         Heshotauthla    Yellowhouse</span></code></pre></div>
@@ -788,9 +789,9 @@ careful.
 <span class="co">#&gt; [1] 0.1325612</span></code></pre></div>
 <p>Note that although modularity can be useful in comparing among partitions like this approach has been shown to be poor at detecting small communities within a network so will not always be appropriate.</p>
 </div>
-<div id="finding-edges-within-and-between-communities" class="section level4" number="3.7.3.5">
+<div id="FindingEdgesBetween" class="section level4" number="3.7.3.5">
 <h4>
-<span class="header-section-number">3.7.3.5</span> Finding Edges Within and Between Communities<a class="anchor" aria-label="anchor" href="#finding-edges-within-and-between-communities"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.7.3.5</span> Finding Edges Within and Between Communities<a class="anchor" aria-label="anchor" href="#FindingEdgesBetween"><i class="fas fa-link"></i></a>
 </h4>
 <p>In many cases you may be interested in identifying edges that remain within or extend between some network partition. This can be done using the <code><a href="https://rdrr.io/pkg/igraph/man/communities.html">igraph::crossing</a></code> function. This function expects a igraph cluster definition object and an igraph network and will return a list of <code>TRUE</code> and <code>FALSE</code> values for each edge where true indicates an edge that extends beyond the cluster assigned to the nodes. Let’s take a look at the first 10 edges in our simple_net object based on the Louvain cluster definition.</p>
 <div class="sourceCode" id="cb118"><pre class="downlit sourceCode r">
@@ -815,9 +816,9 @@ careful.
 </div>
 </div>
 </div>
-<div id="case-study-roman-roads" class="section level2" number="3.8">
+<div id="ExploratoryRomanRoads" class="section level2" number="3.8">
 <h2>
-<span class="header-section-number">3.8</span> Case Study: Roman Roads<a class="anchor" aria-label="anchor" href="#case-study-roman-roads"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.8</span> Case Study: Roman Roads<a class="anchor" aria-label="anchor" href="#ExploratoryRomanRoads"><i class="fas fa-link"></i></a>
 </h2>
 <p>In the case study provided at the end of Chapter 4 of Brughmans and Peeples (2022) we take a simple network based on <a href="#RomanRoads">Roman era roads</a> and spatial proximity of settlements in the Iberian Peninsula and calculate some basic exploratory network statistics. As described in the book, we can create different definitions and criteria for network edges and these can have impacts on the network and node level properties. In this case, we define three different networks as follows:</p>
 <ul>
@@ -1083,13 +1084,13 @@ Open Triad Count
 </div>
 </div>
   <div class="chapter-nav">
-<div class="prev"><a href="NetworkData.html"><span class="header-section-number">2</span> Network Data Formats</a></div>
+<div class="prev"><a href="NetworkData.html"><span class="header-section-number">2</span> Network Data in R</a></div>
 <div class="next"><a href="Uncertainty.html"><span class="header-section-number">4</span> Quantifying Uncertainty</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
 <li><a class="nav-link" href="#Exploratory"><span class="header-section-number">3</span> Exploratory Network Analysis</a></li>
-<li><a class="nav-link" href="#example-network-objects"><span class="header-section-number">3.1</span> Example Network Objects</a></li>
+<li><a class="nav-link" href="#ExampleNetworkObjects"><span class="header-section-number">3.1</span> Example Network Objects</a></li>
 <li><a class="nav-link" href="#CalcMetric"><span class="header-section-number">3.2</span> Calculating Network Metrics in R</a></li>
 <li>
 <a class="nav-link" href="#Centrality"><span class="header-section-number">3.3</span> Centrality</a><ul class="nav navbar-nav">
@@ -1102,8 +1103,8 @@ Open Triad Count
 </ul>
 </li>
 <li>
-<a class="nav-link" href="#Triads"><span class="header-section-number">3.4</span> Triads and clustering</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#triads"><span class="header-section-number">3.4.1</span> Triads</a></li>
+<a class="nav-link" href="#TriadsAndClustering"><span class="header-section-number">3.4</span> Triads and clustering</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#Triads"><span class="header-section-number">3.4.1</span> Triads</a></li>
 <li><a class="nav-link" href="#Transitivity"><span class="header-section-number">3.4.2</span> Transitivity and Clustering</a></li>
 </ul>
 </li>
@@ -1115,8 +1116,8 @@ Open Triad Count
 </ul>
 </li>
 <li>
-<a class="nav-link" href="#Components"><span class="header-section-number">3.6</span> Components and Bridges</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#identifying-components"><span class="header-section-number">3.6.1</span> Identifying Components</a></li>
+<a class="nav-link" href="#ComponentsAndBridges"><span class="header-section-number">3.6</span> Components and Bridges</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#IdentifyingComponents"><span class="header-section-number">3.6.1</span> Identifying Components</a></li>
 <li><a class="nav-link" href="#Cutpoints"><span class="header-section-number">3.6.2</span> Cutpoints</a></li>
 <li><a class="nav-link" href="#Bridges"><span class="header-section-number">3.6.3</span> Bridges</a></li>
 </ul>
@@ -1128,7 +1129,7 @@ Open Triad Count
 <li><a class="nav-link" href="#ClusterDetection"><span class="header-section-number">3.7.3</span> Cluster Detection Algorithms</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#case-study-roman-roads"><span class="header-section-number">3.8</span> Case Study: Roman Roads</a></li>
+<li><a class="nav-link" href="#ExploratoryRomanRoads"><span class="header-section-number">3.8</span> Case Study: Roman Roads</a></li>
 </ul>
 
       <div class="book-extra">
@@ -1146,7 +1147,7 @@ Open Triad Count
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-05-25.</p>
+    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-05-26.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

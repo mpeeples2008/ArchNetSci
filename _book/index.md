@@ -1,7 +1,7 @@
 ---
 title: "Online Companion to *Archaeological Network Science*"
 author: "Matthew A. Peeples and Tom Brughmans"
-date: "2022-05-25"
+date: "2022-05-26"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: references.bib
@@ -14,7 +14,7 @@ link-citations: yes
 cover-image: images/cover.png
 ---
 
-# Welcome{-}
+# Welcome{- #Welcome}
 
 
 
@@ -23,13 +23,13 @@ This project serves as a companion to the Cambridge Manuals in Archaeology book 
 
 <a href="https://book.archnetworks.net"><img src="images/cover.png" width="250" height="375" alt="Brughmans and Peeples Book Cover" align="right" style="margin: 0 1em 0 1em" /></a>
 
-This document contains a series of tutorials that outline methods for managing, analyzing, and visualizing network data, primarily using the R programming language. We provide code and examples to replicate the analyses presented in the book as well as many other additional useful code snippets, examples, and tools. This Online Companion is designed to expand upon topics covered in the book and you may find it useful to follow along with these examples as you read the text. Sections 1 through 6 in this document correspond to the topics and information covered in Chapters 2 through 7 of the Brughmans and Peeples book. You can use the table of contents on the left-hand side of your screen to jump directly to a particular section and the table and contents on the right to navigate within each Section. 
+This document contains a series of tutorials that outline methods for managing, analyzing, and visualizing network data, primarily using the R programming language. We provide code and examples to replicate the analyses presented in the book as well as many other additional useful code snippets, examples, and tools. This Online Companion is designed to expand upon topics covered in the book and you may find it useful to follow along with these examples as you read the text. Sections 1 through 6 in this document correspond to the topics and information covered in Chapters 2 through 7 of the Brughmans and Peeples book. You can use the table of contents on the left-hand side of your screen to jump directly to a particular section and the table and contents on the right to navigate within each section. 
 
 For more information on the book and the authors check the project website here: [archnetworks.net](https://archnetworks.net).
 
 **Cite this document as:**
 
-> Peeples, Matthew A. and Tom Brughmans (2022). Online Companion to Archaeological Network Science by Brughmans and Peeples. <https://archnetworks.net>, Accessed 2022-05-25.
+> Peeples, Matthew A. and Tom Brughmans (2022). Online Companion to Archaeological Network Science by Brughmans and Peeples. <https://archnetworks.net>, Accessed 2022-05-26.
 
 **The associated book can be cited as**
 
@@ -49,13 +49,13 @@ Note that this is a pre-release version of this document. Be aware that this doc
 
 ## How Should I Use This Online Companion?{- #HowTo}
 
-The tutorials here are designed to complement the text of the associated book (Brughmans and Peeples 2022) but can also stand alone as a guide to implementation if you have a basic background in network methods and terminology. Although each section of this guide builds upon the previous sections in terms of network concepts and R methods, the Sections are each independent in terms of data, examples, and code and can be run out of order if you choose.
+The tutorials here are designed to complement the text of the associated book (Brughmans and Peeples 2022) but can also stand alone as a guide to implementation if you have a basic background in network methods and terminology. Although each section of this guide builds upon the previous sections in terms of network concepts and R methods, the sections are each independent in terms of data, examples, and code and can be run out of order if you choose.
 
 A few suggestions on where to start:
 
 * If you are new to network analysis and R, we would suggest going through each section of this document, starting with "Getting Started with R" and then going through the numbered sections in order as you following along in the book.
-* If you are already familiar with R but new to network analysis, we suggest you read Section 1 to set up your data and workspace, and then follow along with the remaining numbered Sections and associated book chapters as you read.
-* If you are already an avid network analyst and R user and are just looking for code chunks to implement something in particular, feel free to skip around. We have tried to make each Section as independent as possible so that you can pick and choose what you want to work on.
+* If you are already familiar with R but new to network analysis, we suggest you read Section 1 to set up your data and workspace, and then follow along with the remaining numbered sections and associated book chapters as you read.
+* If you are already an avid network analyst and R user and are just looking for code chunks to implement something in particular, feel free to skip around. We have tried to make each section as independent as possible so that you can pick and choose what you want to work on. Use the [Table of Contents](#TableOfContents) to find topics quickly.
 * If you're a real pro and are designing your own network analyses or visualizations, we would love it if you contributed to the project to help this document grow.
 
 Throughout this document we use a few icons to indicate information about packages, warnings, and general useful tips. Keep an eye out for the callouts below:
@@ -107,7 +107,7 @@ This online bookdown document has been deployed using the Netlify platform and t
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/266d5736-f13a-4de4-b812-141c023f3a09/deploy-status)](https://app.netlify.com/sites/archnetworks/deploys)
 
-## Discord Community{-}
+## Discord Community{- #Discord}
 
 We have created an associated [Archaeological Network Science - Discord Server](https://discord.gg/Z9UXwjASM5), which we hope will provide an additional venue for archaeological network practitioners to collaborate, interact, and ask for help with this document or with archaeological networks broadly. We invite you to use this as a place to ask questions of the authors and the community at large. Note that this Discord is subject to the same [code of conduct](https://github.com/mpeeples2008/Archaeological_Network_Science/blob/main/CODE_OF_CONDUCT.md) we use for the GitHub repository and you must abide by that agreement to participate. We require that you have a Discord account with a verified email address.
 
@@ -115,7 +115,7 @@ We have created an associated [Archaeological Network Science - Discord Server](
 
 [Join our Discord](https://discord.gg/Z9UXwjASM5)
 
-## New to R and R Studio?{-}
+## New to R and R Studio?{- #NewToR}
 
 This network tutorials in this document are built for users with a basic familiarity with R and R-studio but if you're just getting started, don't worry. We have created a detailed guide to [Getting started with R](#GettingStarted). This document covers the installation of the required software and provides a basic introduction to the R programming environment that we hope will be enough to get you started. 
 
@@ -136,7 +136,7 @@ All contributors must agree to adhere to our [code of conduct](https://github.co
 This Online Companion to Archaeological Network Science is licensed under a [Creative Commons Attribution-NonCommercial-NoDerivitives 4.0 International License](http://creativecommons.org/licenses/by-nc-nd/4.0/).
 
 
-## Help Support this Project and Build the Community{-}
+## Help Build the Community{- #Community}
 
 We are devoted to seeing the community of archaeological network practitioners grow and we hope our book and these online resources will help to make this happen. You can support the growth of our community too!
 
@@ -146,10 +146,8 @@ We are devoted to seeing the community of archaeological network practitioners g
 * Star the [GitHub project repository](https://github.com/mpeeples2008/ArchNetSci) and contribute to the project
 * [Join our Discord](https://discord.gg/Z9UXwjASM5) and invite other interested people
 * Share articles, teaching resources, data, or other archaeological network materials for posting on our associated website [(archnetworks.net)](https://archnetworks.net)
-* Buy the book 
-* Review the book on online book sellers
 
-## Acknowledgements{-}
+## Acknowledgements{- #Acknowledgements}
 
 This online bookdown project and the associated book were made possible thanks to the support of several generous funding sources including: The Carlsberg Foundation, in the context of the Past Social Networks Project (CF21-0382); the National Science Foundation through both the Archaeology and the Measurement, Methodology, and Statistics programs (grant #1758690 and #1758606); and the School of Human Evolution and Social Change at Arizona State University. Thank you to Jens Emil Bødstrup Christoffersen for providing detailed comments on and for testing the initial version of this document. Any errors that remain are our own.
 
@@ -157,7 +155,7 @@ This online bookdown project and the associated book were made possible thanks t
 
 # Gettings Started with R{- #GettingStarted}
 
-In order to follow along with the code and examples in this document, you will need recent installations of both R and R-Studio on your computer. R and R-studio are available for Windows, MacOS, and Linux. This Section provides a very brief overview of how to get up and running. Following this, we introduce the basics of R and R-Studio to get you ready for the tutorials in the remainder of this document. If you follow this tutorial here we are confident you will be able to engage with the examples and code in this Online Companion.
+In order to follow along with the code and examples in this document, you will need recent installations of both R and R-Studio on your computer. R and R-studio are available for Windows, MacOS, and Linux. This section provides a very brief overview of how to get up and running. Following this, we introduce the basics of R and R-Studio to get you ready for the tutorials in the remainder of this document. If you follow this tutorial here we are confident you will be able to engage with the examples and code in this Online Companion.
 
 ## Download and Install R{- #InstallR}
 
@@ -167,19 +165,19 @@ The first step is to install a recent version of R (we recommend 4.2 or later as
 * Choose a mirror for your download selecting one in your country or the "Cloud" option.
 * Next, click on Windows, MacOS, or your Linux distribution and follow the instructions below.
 
-### Windows{-}
+### Windows{- #Windows}
 
 * Click the "base" sub-directory on the left hand side of the screen and then click "Download R-4.2.0 for Windows" (the version number should be 4.2 or later) to download the most recent version as an executable.
 * Once your download is complete, run the *.exe file and answer questions as prompted to complete the installation. 
 
-### MacOS{-}
+### MacOS{- #MacOS}
 
 To install R on MacOS, you first need to know which chip manufacturer your Mac has. In order to determine which chip you have go to the Apple menu and select "About This Mac" and look for information under "Processor" or "Chip" in the window that pops up. It will either be Intel or M1.
 
 * Next, click the on the link under "Latest release" for the *.pkg file for the appropriate Mac processor in your computer. There is a separate notarized and signed .pkg file Macs with Intel processors and Macs with Apple M1 processors (mostly produced 2020 and later). Note, these .pkg files are not interchangeable so confirm which one you need.
 * Once you have downloaded the appropriate .pkg, run it and answer the questions during the install as required.
 
-### Linux{-}
+### Linux{- #Linux}
 
 Linux installations of R are primarily done through the console but the instructions are slightly different depending on which distribution you are using.
 
@@ -198,7 +196,7 @@ In order to install R-Studio:
 * Download and run the latest "installer" file for the appropriate operating system.
 * Run the downloaded file and answer questions at prompts as appropriate. R-Studio should automatically detect your installation of R.
 
-## Run R-Studio{-}
+## Run R-Studio{- #RunRStudio}
 
 Once you've installed both R and R-Studio, open R-studio and look for the Console window (it will typically be the left hand side of the screen). That will tell you the version of R that is associated with the installation of R-Studio. If all goes well, it should be the recent version of R you just installed. 
 
@@ -210,7 +208,7 @@ R is a powerful statistical analysis platform that can be used to conduct some q
 
 Although R seems complicated at first, many quite complex statistical analyses are run with just a few lines of code. Once you learn the basics, more complex features of R are really just combinations of these basic procedures. You won't become an R expert overnight, but we've seen many students pick up the basics quite quickly and begin to take on their first analyses in R in a matter of hours. 
 
-#### Organization of R-Studio{-}
+### Organization of R-Studio{- #Org}
 
 First off, let's take a look at the R-Studio setup. When you first open R-Studio for the first time, you will see a screen divided into 3 panes. Before getting started click on "File" at the top of the screen and go to "New File > R Script" to open a 4th pane. You should see something like the screen below (Note that the color of your screen may be different as I am using a particular color setting that I find easier on my eyes).
 
@@ -537,7 +535,7 @@ The four most common object types in R are vectors, matrices, lists, and data fr
 * data frame - a set of values in a rectangular two-way table where different columns can be different data types
 * list - a list is a collection of other R objects that can be vectors, matrices, data frames or others in any format that are combined into a single object.
 
-#### Vectors{-}
+#### Vectors{- #Vec}
 
 We have already introduced vectors above but we can point out one more feature that is often useful in assessing vectors. The `length()` function tells you how many elements are in a vector.
 
@@ -548,7 +546,7 @@ length(v)
 #> [1] 10
 ```
 
-#### Matrices{-}
+#### Matrices{- #Mat}
 
 Once again, we have already introduced matrices above but there are a few more details that are worth addressing here. Again, if you want to call a specific value in a matrix you can use the `[,]` square brackets with the row number listed followed by a comma and the column number. For example:
 
@@ -571,7 +569,7 @@ dim(mat1)
 ```
 
 
-#### Data Frame{-}
+#### Data Frame{- #DF} 
 
 As the brief definitions above suggest, data frames are very similar to matrices but can include mixed data types in the same rectangular table. Each row and column must, however, have the same number of entries. A data frame can be created by combining a set of vectors. For example:
 
@@ -619,7 +617,7 @@ dat[2, 1]
 #> [1] "mastadon"
 ```
 
-#### Lists{-}
+#### Lists{- #List}
 
 A list is simply a convenient way of combining multiple objects into a single object. It doesn't matter what type of objects they are. Lists can be defined using the `list()` function. For example:
 
@@ -662,17 +660,17 @@ out1[[2]][2, 1] # row 2 column 1 in list object 2
 ```
 
 
-## The Workspace Tab{- #Workspace}
+## The Workspace Tab{- #WorkspaceTab}
 
 Now that we are starting to get into more complex calls and functions, it will be useful to write and edit the code before executing it rather than typing it directly into the Console. To do this, we can work in the Workspace tab R script document we created at the beginning of this tutorial (Go to File > New File > R Script to open a new document). These .R documents can be edited and saved on your computer so that you can return to them later. Let's take a look at how this works.
 
 Think of the R script document as a draft of what you plan to type to the Console. 
 
-#### Setting the Working Directory{- #Directory}
+### Setting the Working Directory{- #Directory}
 
 Before we get started, let's save the blank R file we just created. First, we want to define the "Working Directory" where files associated with this project will go. To do that go to the menu at the top of the screen and click "Session > Set Working Directory > Choose Working Directory" and then navigate to the location where you would like to save the file. Next, click on "File > Save As" and define a name for your R script. This should end in .R as this is the extension R and R studio recognize for R Scripts.
 
-#### Working with your first R script{- #Files}
+### Working with your first R script{- #FirstScript}
 
 Now that you have saved this script, you can type mathematical operations, functions, and other code just as we did directly in the Console above. The main advantage is that if you make a mistake you can go back and fix it more easily. Go ahead and copy the code in the next code chunk below and paste it in your R script int he Workspace window and then save the document.
 
@@ -761,7 +759,7 @@ this is the archive that contains most of the peer reviewed and
 established packages for R.</p>
 </div>
 
-## Working with Files{- #WorkingWithFiles}
+## Working with External Files{- #WorkingWithFiles}
 
 In many cases we may wish to either write or read an external files with R. Frequently these files take the shape of spreadsheets such as Excel documents or csv (comma separated value) documents. R has many functions for reading in such data and most are built-in to base R. Let's try this out by first writing a .csv (comma separated value) file from a matrix we generate and then reading it back in. Note that any files you write from the console will go directly to the R working directory unless you otherwise specify.
 
@@ -911,7 +909,7 @@ The next line was the `geom_point()` function. This package designates different
 
 From here `ggplot2` includes seemingly endless customization options. There are way too many options out there for us to cover here but a good place to start is the [R Graph Gallery](https://r-graph-gallery.com/) website. 
 
-We will cover many examples and the [visualization Section](#Visualization) of this tutorial in particular leans heavily on the `ggplot2` format but for now, let's just see a couple of additional examples. 
+We will cover many examples and the [visualization section](#Visualization) of this tutorial in particular leans heavily on the `ggplot2` format but for now, let's just see a couple of additional examples. 
 
 
 ```r
@@ -1154,7 +1152,7 @@ myfunct(val_seq)
 
 Let's break down what is happening in the chunk of code above. First, we defined a function with one argument `x`. Inside the function expression we then initialized a new variable for the output called `z`. We then enter a for loop that iterates values of `i` for a sequence of numbers from 1 to the length of vector `x`. The value of `z` at position `i` is defined as the value of `x` at position `i` times `i` divided by `5`. Once this loop finishes, the function returns the vector `z` with the results. As this example shows, arguments need not be limited to single values and can include vectors, data.frames, matrices, lists, or any type of R object.
 
-### Test Your Skills{-}
+## Test Your Skills{- #TestYourSkills}
 
 If you've followed along with this tutorial so far, you should be able to do many basic operations in R and R-Studio. Let's now put your skills to the test. Use what you have learned above to create a function that converts Fahrenheit temperatures to Celsius. The formula for this conversion is `(F_temp - 32) * 5 / 9`. Create a function that reads in the F temperature and outputs C and the run it for the  sequence of values below. 
 

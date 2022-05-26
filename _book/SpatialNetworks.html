@@ -71,13 +71,14 @@
         <ul class="book-toc list-unstyled">
 <li><a class="" href="index.html">Welcome</a></li>
 <li><a class="" href="GettingStarted.html">Gettings Started with R</a></li>
-<li><a class="" href="DataWorkspaceSetup.html"><span class="header-section-number">1</span> Data and Workspace Setup</a></li>
-<li><a class="" href="NetworkData.html"><span class="header-section-number">2</span> Network Data Formats</a></li>
+<li><a class="" href="DataAndWorkspace.html"><span class="header-section-number">1</span> Data and Workspace Setup</a></li>
+<li><a class="" href="NetworkData.html"><span class="header-section-number">2</span> Network Data in R</a></li>
 <li><a class="" href="Exploratory.html"><span class="header-section-number">3</span> Exploratory Network Analysis</a></li>
 <li><a class="" href="Uncertainty.html"><span class="header-section-number">4</span> Quantifying Uncertainty</a></li>
 <li><a class="" href="Visualization.html"><span class="header-section-number">5</span> Network Visualization</a></li>
 <li><a class="active" href="SpatialNetworks.html"><span class="header-section-number">6</span> Spatial Networks</a></li>
-<li><a class="" href="references-and-r-packages.html">References and R Packages</a></li>
+<li><a class="" href="TableOfContents.html">Table of Contents Quick Reference</a></li>
+<li><a class="" href="references-and-r-packages-1.html">References and R Packages</a></li>
 </ul>
 
         <div class="book-extra">
@@ -93,7 +94,7 @@
 <p>Working with geographic data in R can be a bit complicated and we cannot cover all aspects in this brief tutorial. If you are interested in exploring geospatial networks more, we suggest you take a look at the excellent and free <a href="https://geocompr.robinlovelace.net/"><em>Geocomputation With R</em></a> book by Robin Lovelace, Jakob Nowosad, and Jannes Muenchow. The book is a bookdown document just like this tutorial and provides excellent and up to date coverage of spatial operations and the management of spatial data in R.</p>
 <div id="GeoData" class="section level2" number="6.1">
 <h2>
-<span class="header-section-number">6.1</span> Working with Geographic Data<a class="anchor" aria-label="anchor" href="#GeoData"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.1</span> Working with Geographic Data in R<a class="anchor" aria-label="anchor" href="#GeoData"><i class="fas fa-link"></i></a>
 </h2>
 <div class="rmdnote">
 <p>
@@ -121,7 +122,7 @@ data analysis in R.
 </ul>
 <p>The spatial data we use in this document consists of vector data. This simply means that our mapping data re not images or pixels representing space but instead spatial coordinates that define locations and distances. One key aspect of spatial data in R, especially at large scales, is that we often need to define a projection or coordinate reference system to produce accurate maps.</p>
 <p>A coordinate reference system (CRS) is a formal definition of how spatial points relate to the surface of the globe. CRS typically fall into two categories: geographic coordinate systems and projected coordinate systems. The most common geographic coordinate system is the latitude/longitude system which describes locations on the surface of the Earth in terms of angular coordinates from the Prime Meridian and Equator. A projected data set refers to the process through which map makers take a spherical Earth and create a flat map. Projections distort and move the area, distance, and shape to varying degrees and provide xy location coordinates in linear units. The advantages and disadvantages of these systems are beyond the scope of this document but it is important to note that R often requires us to defined our coordinate reference system when working with spatial data.</p>
-<p>In the code below and in several other sections of the book you have seen function calls that include an argument called <code>crs</code>. This is the coordinate reference system object used by R which provides a numeric code denoting the CRS used by a given dataset. Just like we take external .csv data and covert them into network objects R understands, we need to import spatial data and convert to an object R recognizes. We do this in the <code>sf</code> package using the <code>st_as_sf</code> function.</p>
+<p>In the code below and in several other sections of the book you have seen function calls that include an argument called <code>crs</code>. This is the coordinate reference system object used by R which provides a numeric code denoting the CRS used by a given data set. Just like we take external .csv data and covert them into network objects R understands, we need to import spatial data and convert to an object R recognizes. We do this in the <code>sf</code> package using the <code>st_as_sf</code> function.</p>
 <p>To use this function you take a data frame which includes location xy information, you use the <code>coords</code> argument to specify which fields are the x and y coordinates, and then use the <code>crs</code> code to specify the coordinate reference system used. In this example we use code <code>4326</code> which refers to the WGS84 World Geodetic System of geographic coordinates. <a href="https://epsg.io/">See this website</a> to look up many common <code>crs</code> code options.</p>
 <div class="sourceCode" id="cb213"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span>
@@ -175,9 +176,9 @@ data analysis in R.
 <span class="fu"><a href="https://rdrr.io/pkg/ggmap/man/ggmap.html">ggmap</a></span><span class="op">(</span><span class="va">map</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-3-1.png" width="672"></div>
 </div>
-<div id="data-and-datasets" class="section level2" number="6.2">
+<div id="ExampleData" class="section level2" number="6.2">
 <h2>
-<span class="header-section-number">6.2</span> Data and Datasets<a class="anchor" aria-label="anchor" href="#data-and-datasets"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.2</span> Example Data<a class="anchor" aria-label="anchor" href="#ExampleData"><i class="fas fa-link"></i></a>
 </h2>
 <p>For the initial examples in this section we will use the Roman Road data from the Iberian Peninsula. This data set consists of a <a href="data/Hispania_nodes.csv">csv file of a set of Roman settlements</a> and a <a href="data/Hispania_roads">csv file of an edge list</a> defining connections among those settlements in terms of roads.</p>
 <p>First we map the basic road network. We have commented the code below to explain what is happening at each stage.</p>
@@ -248,13 +249,13 @@ data analysis in R.
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_void</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="06-spatial-networks_files/figure-html/spatial_networks-1.png" width="672"></div>
 </div>
-<div id="planar-networks-and-trees" class="section level2" number="6.3">
+<div id="PlanarTrees" class="section level2" number="6.3">
 <h2>
-<span class="header-section-number">6.3</span> Planar Networks and Trees<a class="anchor" aria-label="anchor" href="#planar-networks-and-trees"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.3</span> Planar Networks and Trees<a class="anchor" aria-label="anchor" href="#PlanarTrees"><i class="fas fa-link"></i></a>
 </h2>
-<div id="evaluating-planarity" class="section level3" number="6.3.1">
+<div id="evaluating-planarityevaluating-planarity" class="section level3" number="6.3.1">
 <h3>
-<span class="header-section-number">6.3.1</span> Evaluating Planarity<a class="anchor" aria-label="anchor" href="#evaluating-planarity"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.3.1</span> Evaluating Planarity{#Evaluating Planarity}<a class="anchor" aria-label="anchor" href="#evaluating-planarityevaluating-planarity"><i class="fas fa-link"></i></a>
 </h3>
 <p>A planar network is a network that can be drawn on a plane where the edges do not cross but instead always end in nodes. In many small networks it is relatively easy to determine whether or not a network is planar by simply viewing a network graph. In larger graphs, this can sometimes be difficult.</p>
 <div class="rmdnote">
@@ -320,9 +321,9 @@ to be installed from another archive called Bioconductor.
 <span class="fu"><a href="https://rdrr.io/pkg/RBGL/man/boyerMyrvoldPlanarityTest.html">boyerMyrvoldPlanarityTest</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span>
 <span class="co">#&gt; [1] TRUE</span></code></pre></div>
 </div>
-<div id="defining-trees" class="section level3" number="6.3.2">
+<div id="DefiningTrees" class="section level3" number="6.3.2">
 <h3>
-<span class="header-section-number">6.3.2</span> Defining Trees<a class="anchor" aria-label="anchor" href="#defining-trees"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.3.2</span> Defining Trees<a class="anchor" aria-label="anchor" href="#DefiningTrees"><i class="fas fa-link"></i></a>
 </h3>
 <p>A tree is a network that is connected and acyclic. Trees contain the minimum number of edges for a set of nodes to be connected, which results in an acyclic network with some interesting properties:</p>
 <ul>
@@ -335,9 +336,9 @@ to be installed from another archive called Bioconductor.
 <div class="sourceCode" id="cb223"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">tree1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/make_tree.html">make_tree</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">50</span>, children <span class="op">=</span> <span class="fl">5</span>, mode <span class="op">=</span> <span class="st">"undirected"</span><span class="op">)</span>
 <span class="va">tree1</span>
-<span class="co">#&gt; IGRAPH 67d9b68 U--- 50 49 -- Tree</span>
+<span class="co">#&gt; IGRAPH eb0c4d5 U--- 50 49 -- Tree</span>
 <span class="co">#&gt; + attr: name (g/c), children (g/n), mode (g/c)</span>
-<span class="co">#&gt; + edges from 67d9b68:</span>
+<span class="co">#&gt; + edges from eb0c4d5:</span>
 <span class="co">#&gt;  [1]  1-- 2  1-- 3  1-- 4  1-- 5  1-- 6  2-- 7  2-- 8  2-- 9</span>
 <span class="co">#&gt;  [9]  2--10  2--11  3--12  3--13  3--14  3--15  3--16  4--17</span>
 <span class="co">#&gt; [17]  4--18  4--19  4--20  4--21  5--22  5--23  5--24  5--25</span>
@@ -360,14 +361,14 @@ to be installed from another archive called Bioconductor.
 <div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-11-1.png" width="672"></div>
 </div>
 </div>
-<div id="spatial-network-models" class="section level2" number="6.4">
+<div id="SpatialNetworkModels" class="section level2" number="6.4">
 <h2>
-<span class="header-section-number">6.4</span> Spatial Network Models<a class="anchor" aria-label="anchor" href="#spatial-network-models"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.4</span> Spatial Network Models<a class="anchor" aria-label="anchor" href="#SpatialNetworkModels"><i class="fas fa-link"></i></a>
 </h2>
 <p>In Chapter 7.5 in Brughmans and Peeples (2022) we go over a series of spatial network models that provide a number of different ways of defining networks from spatial data. In this sub-section we demonstrate how to define and analyze networks using these approaches.</p>
-<div id="relative-neighborhood-networks" class="section level3" number="6.4.1">
+<div id="RelativeNeighborhoods" class="section level3" number="6.4.1">
 <h3>
-<span class="header-section-number">6.4.1</span> Relative Neighborhood Networks<a class="anchor" aria-label="anchor" href="#relative-neighborhood-networks"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.4.1</span> Relative Neighborhood Networks<a class="anchor" aria-label="anchor" href="#RelativeNeighborhoods"><i class="fas fa-link"></i></a>
 </h3>
 <p>Relative neighborhood graph: a pair of nodes are connected if there are no other nodes in the area marked by the overlap of a circle around each node with a radius equal to the distance between the nodes.</p>
 <div class="rmdnote">
@@ -401,9 +402,9 @@ graphs it is also possible to limit the search for possible neighbors to
   <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/theme_graph.html">theme_graph</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-14-1.png" width="672"></div>
 </div>
-<div id="gabriel-graphs" class="section level3" number="6.4.2">
+<div id="GabrialGraphs" class="section level3" number="6.4.2">
 <h3>
-<span class="header-section-number">6.4.2</span> Gabriel Graphs<a class="anchor" aria-label="anchor" href="#gabriel-graphs"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.4.2</span> Gabriel Graphs<a class="anchor" aria-label="anchor" href="#GabrialGraphs"><i class="fas fa-link"></i></a>
 </h3>
 <p>Gabriel graph: a pair of nodes are connected in a Gabriel graph if no other nodes lie within the circular region with a diameter equal to the distance between the pair of nodes.</p>
 <p>Again we can use a function in the <code>cccd</code> package to define Gabriel Graph igraph objects from x and y coordinates. Let’s take a look using the Roman Road data. See <code><a href="https://rdrr.io/pkg/cccd/man/gg.html">?gg</a></code> for details on the options including different algorithms for calculating Gabriel Graphs. We define a Gabriel graph here and plot it using an algorithmic layout and then geographic coordinates.</p>
@@ -424,9 +425,9 @@ graphs it is also possible to limit the search for possible neighbors to
   <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/theme_graph.html">theme_graph</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-15-2.png" width="672"></div>
 </div>
-<div id="beta-skeletons" class="section level3" number="6.4.3">
+<div id="BetaSkeletons" class="section level3" number="6.4.3">
 <h3>
-<span class="header-section-number">6.4.3</span> Beta Skeletons<a class="anchor" aria-label="anchor" href="#beta-skeletons"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.4.3</span> Beta Skeletons<a class="anchor" aria-label="anchor" href="#BetaSkeletons"><i class="fas fa-link"></i></a>
 </h3>
 <p>Beta skeleton: a Gabriel graph in which the diameter of the circle is controlled by a parameter beta.</p>
 <p>In R the <code>gg</code> function for producing Gabriel Graphs has the procedure for beta skeletons built directly in. The argument r in the gg function controls the beta parameter. When r = 1 a traditional Gabriel graph is returned. When the parameter r &gt; 1 there is a stricter definition of connection resulting in fewer ties and when r &lt; 1 link criteria are loosened. See <code><a href="https://rdrr.io/pkg/cccd/man/gg.html">?gg</a></code> for more details.</p>
@@ -441,9 +442,9 @@ graphs it is also possible to limit the search for possible neighbors to
   <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/theme_graph.html">theme_graph</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-16-1.png" width="672"></div>
 </div>
-<div id="minimum-spanning-trees" class="section level3" number="6.4.4">
+<div id="MinSpanningTrees" class="section level3" number="6.4.4">
 <h3>
-<span class="header-section-number">6.4.4</span> Minimum Spanning Trees<a class="anchor" aria-label="anchor" href="#minimum-spanning-trees"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.4.4</span> Minimum Spanning Trees<a class="anchor" aria-label="anchor" href="#MinSpanningTrees"><i class="fas fa-link"></i></a>
 </h3>
 <p>Minimum spanning tree: in a set of nodes in the Euclidean plane, edges are created between pairs of nodes to form a tree where each node can be reached by each other node, such that the sum of the Euclidean edge lengths is less than the sum for any other spanning tree.</p>
 <p>Perhaps the most common use-case for trees in archaeological networks is to define the minimum spanning tree of a given graph or the minimum set of nodes and edges required for a fully connected graph. The <code>igraph</code> package has a function called <code>mst</code> that defines the minimum spanning tree for a given graph. Let’s try this with the Roman Road and then plot it as a node-link diagram and a map.</p>
@@ -495,9 +496,9 @@ graphs it is also possible to limit the search for possible neighbors to
 <div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-17-2.png" width="672"></div>
 <p>Note that minimum spanning trees can also be used for weighted graphs such that weighted connections will be preferred in defining tree structure. See <code><a href="https://rdrr.io/pkg/igraph/man/mst.html">?mst</a></code> for more details.</p>
 </div>
-<div id="delaunay-triangulation" class="section level3" number="6.4.5">
+<div id="DelaunayTri" class="section level3" number="6.4.5">
 <h3>
-<span class="header-section-number">6.4.5</span> Delaunay Triangulation<a class="anchor" aria-label="anchor" href="#delaunay-triangulation"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.4.5</span> Delaunay Triangulation<a class="anchor" aria-label="anchor" href="#DelaunayTri"><i class="fas fa-link"></i></a>
 </h3>
 <p>Delaunay triangulation: a pair of nodes are connected by an edge if and only if their corresponding regions in a Voronoi diagram share a side.</p>
 <p>Voronoi diagram or Thiessen polygons: for each node in a set of nodes in a Euclidean plane, a region is created covering the area that is closer or equidistant to that node than it is to any other node in the set.</p>
@@ -558,9 +559,9 @@ analysis. This boundary can also be specified within the call using the
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_void</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-19-2.png" width="672"></div>
 </div>
-<div id="k-nearest-neighbors" class="section level3" number="6.4.6">
+<div id="KNN" class="section level3" number="6.4.6">
 <h3>
-<span class="header-section-number">6.4.6</span> K-nearest Neighbors<a class="anchor" aria-label="anchor" href="#k-nearest-neighbors"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.4.6</span> K-nearest Neighbors<a class="anchor" aria-label="anchor" href="#KNN"><i class="fas fa-link"></i></a>
 </h3>
 <p>K-nearest neighbor network: each node is connected to K other nodes closest to it.</p>
 <p>The <code>cccd</code> package has a routine that allows for the calculation of K-nearest neighbor graphs from geographic coordinates or a precomputed distance matrix. In this example we use the Roman Road data and calculate K=1 and K=6 nearest neighbor networks and plot the both simultaneously.</p>
@@ -587,9 +588,9 @@ analysis. This boundary can also be specified within the call using the
   <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/theme_graph.html">theme_graph</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-20-1.png" width="672"></div>
 </div>
-<div id="maximum-distance-networks" class="section level3" number="6.4.7">
+<div id="MaxDist" class="section level3" number="6.4.7">
 <h3>
-<span class="header-section-number">6.4.7</span> Maximum Distance Networks<a class="anchor" aria-label="anchor" href="#maximum-distance-networks"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.4.7</span> Maximum Distance Networks<a class="anchor" aria-label="anchor" href="#MaxDist"><i class="fas fa-link"></i></a>
 </h3>
 <p>Maximum distance network: each node is connected to all other nodes at a distance closer than or equal to a threshold value. In order define a maximum distance network we simply need to define a threshold distance and define all nodes greater than that distance as unconnected and nodes within that distance as connected. This can be done in base R using the dist function we used above.</p>
 <div class="rmdtip">
@@ -648,13 +649,13 @@ directed <span class="op">=</span> <span class="cn">F</span><span class="op">)</
 <div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-22-2.png" width="672"></div>
 </div>
 </div>
-<div id="case-studies" class="section level2" number="6.5">
+<div id="SpaceCaseStudies" class="section level2" number="6.5">
 <h2>
-<span class="header-section-number">6.5</span> Case Studies<a class="anchor" aria-label="anchor" href="#case-studies"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.5</span> Case Studies<a class="anchor" aria-label="anchor" href="#SpaceCaseStudies"><i class="fas fa-link"></i></a>
 </h2>
-<div id="proximity-of-iron-age-sites-in-southern-spain" class="section level3" number="6.5.1">
+<div id="IronAgeSpain" class="section level3" number="6.5.1">
 <h3>
-<span class="header-section-number">6.5.1</span> Proximity of Iron Age sites in Southern Spain<a class="anchor" aria-label="anchor" href="#proximity-of-iron-age-sites-in-southern-spain"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.5.1</span> Proximity of Iron Age sites in Southern Spain<a class="anchor" aria-label="anchor" href="#IronAgeSpain"><i class="fas fa-link"></i></a>
 </h3>
 <p>The first case study in Chapter 7 of Brughmans and Peeples (2022) is an example of several of the methods for defining networks using spatial data outlined above using the locations of 86 sites in the Guadalquivir river valley in Southern Spain. In the code chunks below, we replicate the analyses presented in the book.</p>
 <p>First we read in the data which represents site location information in lat/long decimal degrees.</p>
@@ -895,9 +896,9 @@ plot inside another in the <code>ggplot2</code> format.
 <code class="sourceCode R"><span class="va">plot_d</span></code></pre></div>
 <div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-30-4.png" width="672"></div>
 </div>
-<div id="networks-in-space-in-the-u.s.-southwest" class="section level3" number="6.5.2">
+<div id="SpaceSW" class="section level3" number="6.5.2">
 <h3>
-<span class="header-section-number">6.5.2</span> Networks in Space in the U.S. Southwest<a class="anchor" aria-label="anchor" href="#networks-in-space-in-the-u.s.-southwest"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.5.2</span> Networks in Space in the U.S. Southwest<a class="anchor" aria-label="anchor" href="#SpaceSW"><i class="fas fa-link"></i></a>
 </h3>
 <p>The second case study in Chapter 7 of Brughmans and Peeples (2022) provides an example of how we can use spatial network methods to analyze material cultural network data. We use the Chaco World data here and you can download the <a href="data/map.RData">map data</a>, <a href="data/AD1050attr.csv">the site attribute data</a>, and <a href="data/AD1050cer.csv">the ceramic frequency data</a> to follow along.</p>
 <p>The first analysis explores the degree to which similarities in ceramics (in terms of Brainerd-Robinson similarity based on wares) can be explained by spatial distance. To do this we simply define a ceramic similarity matrix, a Euclidean distance matrix, and the fit a model using distance to explain ceramic similarity using a general additive model (<code>gam</code>) approach. The <code>gam</code> function we use here is in the <code>mgcv</code> package. Note that the object <code>dmat</code> is created using the <code>dist</code> function as the data we started with are already projected site locations using UTM coordinates.</p>
@@ -1030,34 +1031,34 @@ plot inside another in the <code>ggplot2</code> format.
 </div>
   <div class="chapter-nav">
 <div class="prev"><a href="Visualization.html"><span class="header-section-number">5</span> Network Visualization</a></div>
-<div class="next"><a href="references-and-r-packages.html">References and R Packages</a></div>
+<div class="next"><a href="TableOfContents.html">Table of Contents Quick Reference</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
 <li><a class="nav-link" href="#SpatialNetworks"><span class="header-section-number">6</span> Spatial Networks</a></li>
-<li><a class="nav-link" href="#GeoData"><span class="header-section-number">6.1</span> Working with Geographic Data</a></li>
-<li><a class="nav-link" href="#data-and-datasets"><span class="header-section-number">6.2</span> Data and Datasets</a></li>
+<li><a class="nav-link" href="#GeoData"><span class="header-section-number">6.1</span> Working with Geographic Data in R</a></li>
+<li><a class="nav-link" href="#ExampleData"><span class="header-section-number">6.2</span> Example Data</a></li>
 <li>
-<a class="nav-link" href="#planar-networks-and-trees"><span class="header-section-number">6.3</span> Planar Networks and Trees</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#evaluating-planarity"><span class="header-section-number">6.3.1</span> Evaluating Planarity</a></li>
-<li><a class="nav-link" href="#defining-trees"><span class="header-section-number">6.3.2</span> Defining Trees</a></li>
+<a class="nav-link" href="#PlanarTrees"><span class="header-section-number">6.3</span> Planar Networks and Trees</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#evaluating-planarityevaluating-planarity"><span class="header-section-number">6.3.1</span> Evaluating Planarity{#Evaluating Planarity}</a></li>
+<li><a class="nav-link" href="#DefiningTrees"><span class="header-section-number">6.3.2</span> Defining Trees</a></li>
 </ul>
 </li>
 <li>
-<a class="nav-link" href="#spatial-network-models"><span class="header-section-number">6.4</span> Spatial Network Models</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#relative-neighborhood-networks"><span class="header-section-number">6.4.1</span> Relative Neighborhood Networks</a></li>
-<li><a class="nav-link" href="#gabriel-graphs"><span class="header-section-number">6.4.2</span> Gabriel Graphs</a></li>
-<li><a class="nav-link" href="#beta-skeletons"><span class="header-section-number">6.4.3</span> Beta Skeletons</a></li>
-<li><a class="nav-link" href="#minimum-spanning-trees"><span class="header-section-number">6.4.4</span> Minimum Spanning Trees</a></li>
-<li><a class="nav-link" href="#delaunay-triangulation"><span class="header-section-number">6.4.5</span> Delaunay Triangulation</a></li>
-<li><a class="nav-link" href="#k-nearest-neighbors"><span class="header-section-number">6.4.6</span> K-nearest Neighbors</a></li>
-<li><a class="nav-link" href="#maximum-distance-networks"><span class="header-section-number">6.4.7</span> Maximum Distance Networks</a></li>
+<a class="nav-link" href="#SpatialNetworkModels"><span class="header-section-number">6.4</span> Spatial Network Models</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#RelativeNeighborhoods"><span class="header-section-number">6.4.1</span> Relative Neighborhood Networks</a></li>
+<li><a class="nav-link" href="#GabrialGraphs"><span class="header-section-number">6.4.2</span> Gabriel Graphs</a></li>
+<li><a class="nav-link" href="#BetaSkeletons"><span class="header-section-number">6.4.3</span> Beta Skeletons</a></li>
+<li><a class="nav-link" href="#MinSpanningTrees"><span class="header-section-number">6.4.4</span> Minimum Spanning Trees</a></li>
+<li><a class="nav-link" href="#DelaunayTri"><span class="header-section-number">6.4.5</span> Delaunay Triangulation</a></li>
+<li><a class="nav-link" href="#KNN"><span class="header-section-number">6.4.6</span> K-nearest Neighbors</a></li>
+<li><a class="nav-link" href="#MaxDist"><span class="header-section-number">6.4.7</span> Maximum Distance Networks</a></li>
 </ul>
 </li>
 <li>
-<a class="nav-link" href="#case-studies"><span class="header-section-number">6.5</span> Case Studies</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#proximity-of-iron-age-sites-in-southern-spain"><span class="header-section-number">6.5.1</span> Proximity of Iron Age sites in Southern Spain</a></li>
-<li><a class="nav-link" href="#networks-in-space-in-the-u.s.-southwest"><span class="header-section-number">6.5.2</span> Networks in Space in the U.S. Southwest</a></li>
+<a class="nav-link" href="#SpaceCaseStudies"><span class="header-section-number">6.5</span> Case Studies</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#IronAgeSpain"><span class="header-section-number">6.5.1</span> Proximity of Iron Age sites in Southern Spain</a></li>
+<li><a class="nav-link" href="#SpaceSW"><span class="header-section-number">6.5.2</span> Networks in Space in the U.S. Southwest</a></li>
 </ul>
 </li>
 </ul>
@@ -1077,7 +1078,7 @@ plot inside another in the <code>ggplot2</code> format.
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-05-25.</p>
+    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-05-26.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

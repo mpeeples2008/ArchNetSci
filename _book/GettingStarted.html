@@ -71,13 +71,14 @@
         <ul class="book-toc list-unstyled">
 <li><a class="" href="index.html">Welcome</a></li>
 <li><a class="active" href="GettingStarted.html">Gettings Started with R</a></li>
-<li><a class="" href="DataWorkspaceSetup.html"><span class="header-section-number">1</span> Data and Workspace Setup</a></li>
-<li><a class="" href="NetworkData.html"><span class="header-section-number">2</span> Network Data Formats</a></li>
+<li><a class="" href="DataAndWorkspace.html"><span class="header-section-number">1</span> Data and Workspace Setup</a></li>
+<li><a class="" href="NetworkData.html"><span class="header-section-number">2</span> Network Data in R</a></li>
 <li><a class="" href="Exploratory.html"><span class="header-section-number">3</span> Exploratory Network Analysis</a></li>
 <li><a class="" href="Uncertainty.html"><span class="header-section-number">4</span> Quantifying Uncertainty</a></li>
 <li><a class="" href="Visualization.html"><span class="header-section-number">5</span> Network Visualization</a></li>
 <li><a class="" href="SpatialNetworks.html"><span class="header-section-number">6</span> Spatial Networks</a></li>
-<li><a class="" href="references-and-r-packages.html">References and R Packages</a></li>
+<li><a class="" href="TableOfContents.html">Table of Contents Quick Reference</a></li>
+<li><a class="" href="references-and-r-packages-1.html">References and R Packages</a></li>
 </ul>
 
         <div class="book-extra">
@@ -88,7 +89,7 @@
   </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="GettingStarted" class="section level1 unnumbered">
 <h1>Gettings Started with R<a class="anchor" aria-label="anchor" href="#GettingStarted"><i class="fas fa-link"></i></a>
 </h1>
-<p>In order to follow along with the code and examples in this document, you will need recent installations of both R and R-Studio on your computer. R and R-studio are available for Windows, MacOS, and Linux. This Section provides a very brief overview of how to get up and running. Following this, we introduce the basics of R and R-Studio to get you ready for the tutorials in the remainder of this document. If you follow this tutorial here we are confident you will be able to engage with the examples and code in this Online Companion.</p>
+<p>In order to follow along with the code and examples in this document, you will need recent installations of both R and R-Studio on your computer. R and R-studio are available for Windows, MacOS, and Linux. This section provides a very brief overview of how to get up and running. Following this, we introduce the basics of R and R-Studio to get you ready for the tutorials in the remainder of this document. If you follow this tutorial here we are confident you will be able to engage with the examples and code in this Online Companion.</p>
 <div id="InstallR" class="section level2 unnumbered">
 <h2>Download and Install R<a class="anchor" aria-label="anchor" href="#InstallR"><i class="fas fa-link"></i></a>
 </h2>
@@ -98,16 +99,16 @@
 <li>Choose a mirror for your download selecting one in your country or the “Cloud” option.</li>
 <li>Next, click on Windows, MacOS, or your Linux distribution and follow the instructions below.</li>
 </ul>
-<div id="windows" class="section level3 unnumbered">
-<h3>Windows<a class="anchor" aria-label="anchor" href="#windows"><i class="fas fa-link"></i></a>
+<div id="Windows" class="section level3 unnumbered">
+<h3>Windows<a class="anchor" aria-label="anchor" href="#Windows"><i class="fas fa-link"></i></a>
 </h3>
 <ul>
 <li>Click the “base” sub-directory on the left hand side of the screen and then click “Download R-4.2.0 for Windows” (the version number should be 4.2 or later) to download the most recent version as an executable.</li>
 <li>Once your download is complete, run the *.exe file and answer questions as prompted to complete the installation.</li>
 </ul>
 </div>
-<div id="macos" class="section level3 unnumbered">
-<h3>MacOS<a class="anchor" aria-label="anchor" href="#macos"><i class="fas fa-link"></i></a>
+<div id="MacOS" class="section level3 unnumbered">
+<h3>MacOS<a class="anchor" aria-label="anchor" href="#MacOS"><i class="fas fa-link"></i></a>
 </h3>
 <p>To install R on MacOS, you first need to know which chip manufacturer your Mac has. In order to determine which chip you have go to the Apple menu and select “About This Mac” and look for information under “Processor” or “Chip” in the window that pops up. It will either be Intel or M1.</p>
 <ul>
@@ -115,8 +116,8 @@
 <li>Once you have downloaded the appropriate .pkg, run it and answer the questions during the install as required.</li>
 </ul>
 </div>
-<div id="linux" class="section level3 unnumbered">
-<h3>Linux<a class="anchor" aria-label="anchor" href="#linux"><i class="fas fa-link"></i></a>
+<div id="Linux" class="section level3 unnumbered">
+<h3>Linux<a class="anchor" aria-label="anchor" href="#Linux"><i class="fas fa-link"></i></a>
 </h3>
 <p>Linux installations of R are primarily done through the console but the instructions are slightly different depending on which distribution you are using.</p>
 <ul>
@@ -138,8 +139,8 @@
 <li>Run the downloaded file and answer questions at prompts as appropriate. R-Studio should automatically detect your installation of R.</li>
 </ul>
 </div>
-<div id="run-r-studio" class="section level2 unnumbered">
-<h2>Run R-Studio<a class="anchor" aria-label="anchor" href="#run-r-studio"><i class="fas fa-link"></i></a>
+<div id="RunRStudio" class="section level2 unnumbered">
+<h2>Run R-Studio<a class="anchor" aria-label="anchor" href="#RunRStudio"><i class="fas fa-link"></i></a>
 </h2>
 <p>Once you’ve installed both R and R-Studio, open R-studio and look for the Console window (it will typically be the left hand side of the screen). That will tell you the version of R that is associated with the installation of R-Studio. If all goes well, it should be the recent version of R you just installed.</p>
 <div class="figure">
@@ -151,9 +152,9 @@
 </h2>
 <p>R is a powerful statistical analysis platform that can be used to conduct some quite complex analyses. The learning curve is a bit steep when first getting started but the payoff is HUGE because the ecosystem of existing R scripts and packages is so large and diverse. We cannot hope to cover everything R and R-Studio can do in this very short intro here. Our tutorial here is a version of the “Introduction to R programming” that Peeples has used in the first week of his Quantitative and Formal Methods in Archaeology class for a number of years. Hopefully this will get you started.</p>
 <p>Although R seems complicated at first, many quite complex statistical analyses are run with just a few lines of code. Once you learn the basics, more complex features of R are really just combinations of these basic procedures. You won’t become an R expert overnight, but we’ve seen many students pick up the basics quite quickly and begin to take on their first analyses in R in a matter of hours.</p>
-<div id="organization-of-r-studio" class="section level4 unnumbered">
-<h4>Organization of R-Studio<a class="anchor" aria-label="anchor" href="#organization-of-r-studio"><i class="fas fa-link"></i></a>
-</h4>
+<div id="Org" class="section level3 unnumbered">
+<h3>Organization of R-Studio<a class="anchor" aria-label="anchor" href="#Org"><i class="fas fa-link"></i></a>
+</h3>
 <p>First off, let’s take a look at the R-Studio setup. When you first open R-Studio for the first time, you will see a screen divided into 3 panes. Before getting started click on “File” at the top of the screen and go to “New File &gt; R Script” to open a 4th pane. You should see something like the screen below (Note that the color of your screen may be different as I am using a particular color setting that I find easier on my eyes).</p>
 <div class="figure">
 <img src="images/r-studio.jpg" style="width:100.0%" alt=""><p class="caption">R-Studio</p>
@@ -448,8 +449,8 @@
 <li>data frame - a set of values in a rectangular two-way table where different columns can be different data types</li>
 <li>list - a list is a collection of other R objects that can be vectors, matrices, data frames or others in any format that are combined into a single object.</li>
 </ul>
-<div id="vectors" class="section level4 unnumbered">
-<h4>Vectors<a class="anchor" aria-label="anchor" href="#vectors"><i class="fas fa-link"></i></a>
+<div id="Vec" class="section level4 unnumbered">
+<h4>Vectors<a class="anchor" aria-label="anchor" href="#Vec"><i class="fas fa-link"></i></a>
 </h4>
 <p>We have already introduced vectors above but we can point out one more feature that is often useful in assessing vectors. The <code><a href="https://rdrr.io/r/base/length.html">length()</a></code> function tells you how many elements are in a vector.</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
@@ -457,8 +458,8 @@
 <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">v</span><span class="op">)</span>
 <span class="co">#&gt; [1] 10</span></code></pre></div>
 </div>
-<div id="matrices" class="section level4 unnumbered">
-<h4>Matrices<a class="anchor" aria-label="anchor" href="#matrices"><i class="fas fa-link"></i></a>
+<div id="Mat" class="section level4 unnumbered">
+<h4>Matrices<a class="anchor" aria-label="anchor" href="#Mat"><i class="fas fa-link"></i></a>
 </h4>
 <p>Once again, we have already introduced matrices above but there are a few more details that are worth addressing here. Again, if you want to call a specific value in a matrix you can use the <code>[,]</code> square brackets with the row number listed followed by a comma and the column number. For example:</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
@@ -473,8 +474,8 @@
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">mat1</span><span class="op">)</span>
 <span class="co">#&gt; [1] 2 2</span></code></pre></div>
 </div>
-<div id="data-frame" class="section level4 unnumbered">
-<h4>Data Frame<a class="anchor" aria-label="anchor" href="#data-frame"><i class="fas fa-link"></i></a>
+<div id="DF" class="section level4 unnumbered">
+<h4>Data Frame<a class="anchor" aria-label="anchor" href="#DF"><i class="fas fa-link"></i></a>
 </h4>
 <p>As the brief definitions above suggest, data frames are very similar to matrices but can include mixed data types in the same rectangular table. Each row and column must, however, have the same number of entries. A data frame can be created by combining a set of vectors. For example:</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
@@ -511,8 +512,8 @@
 <span class="va">dat</span><span class="op">[</span><span class="fl">2</span>, <span class="fl">1</span><span class="op">]</span>
 <span class="co">#&gt; [1] "mastadon"</span></code></pre></div>
 </div>
-<div id="lists" class="section level4 unnumbered">
-<h4>Lists<a class="anchor" aria-label="anchor" href="#lists"><i class="fas fa-link"></i></a>
+<div id="List" class="section level4 unnumbered">
+<h4>Lists<a class="anchor" aria-label="anchor" href="#List"><i class="fas fa-link"></i></a>
 </h4>
 <p>A list is simply a convenient way of combining multiple objects into a single object. It doesn’t matter what type of objects they are. Lists can be defined using the <code><a href="https://rdrr.io/r/base/list.html">list()</a></code> function. For example:</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
@@ -544,19 +545,19 @@
 </div>
 </div>
 </div>
-<div id="Workspace" class="section level2 unnumbered">
-<h2>The Workspace Tab<a class="anchor" aria-label="anchor" href="#Workspace"><i class="fas fa-link"></i></a>
+<div id="WorkspaceTab" class="section level2 unnumbered">
+<h2>The Workspace Tab<a class="anchor" aria-label="anchor" href="#WorkspaceTab"><i class="fas fa-link"></i></a>
 </h2>
 <p>Now that we are starting to get into more complex calls and functions, it will be useful to write and edit the code before executing it rather than typing it directly into the Console. To do this, we can work in the Workspace tab R script document we created at the beginning of this tutorial (Go to File &gt; New File &gt; R Script to open a new document). These .R documents can be edited and saved on your computer so that you can return to them later. Let’s take a look at how this works.</p>
 <p>Think of the R script document as a draft of what you plan to type to the Console.</p>
-<div id="Directory" class="section level4 unnumbered">
-<h4>Setting the Working Directory<a class="anchor" aria-label="anchor" href="#Directory"><i class="fas fa-link"></i></a>
-</h4>
+<div id="Directory" class="section level3 unnumbered">
+<h3>Setting the Working Directory<a class="anchor" aria-label="anchor" href="#Directory"><i class="fas fa-link"></i></a>
+</h3>
 <p>Before we get started, let’s save the blank R file we just created. First, we want to define the “Working Directory” where files associated with this project will go. To do that go to the menu at the top of the screen and click “Session &gt; Set Working Directory &gt; Choose Working Directory” and then navigate to the location where you would like to save the file. Next, click on “File &gt; Save As” and define a name for your R script. This should end in .R as this is the extension R and R studio recognize for R Scripts.</p>
 </div>
-<div id="Files" class="section level4 unnumbered">
-<h4>Working with your first R script<a class="anchor" aria-label="anchor" href="#Files"><i class="fas fa-link"></i></a>
-</h4>
+<div id="FirstScript" class="section level3 unnumbered">
+<h3>Working with your first R script<a class="anchor" aria-label="anchor" href="#FirstScript"><i class="fas fa-link"></i></a>
+</h3>
 <p>Now that you have saved this script, you can type mathematical operations, functions, and other code just as we did directly in the Console above. The main advantage is that if you make a mistake you can go back and fix it more easily. Go ahead and copy the code in the next code chunk below and paste it in your R script int he Workspace window and then save the document.</p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mat3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span>
@@ -628,7 +629,7 @@ established packages for R.
 </div>
 </div>
 <div id="WorkingWithFiles" class="section level2 unnumbered">
-<h2>Working with Files<a class="anchor" aria-label="anchor" href="#WorkingWithFiles"><i class="fas fa-link"></i></a>
+<h2>Working with External Files<a class="anchor" aria-label="anchor" href="#WorkingWithFiles"><i class="fas fa-link"></i></a>
 </h2>
 <p>In many cases we may wish to either write or read an external files with R. Frequently these files take the shape of spreadsheets such as Excel documents or csv (comma separated value) documents. R has many functions for reading in such data and most are built-in to base R. Let’s try this out by first writing a .csv (comma separated value) file from a matrix we generate and then reading it back in. Note that any files you write from the console will go directly to the R working directory unless you otherwise specify.</p>
 <p>To write a csv file we use the <code><a href="https://rdrr.io/r/utils/write.table.html">write.csv()</a></code> function. First we will create a simple matrix, add row names and column names, and then export it.</p>
@@ -741,7 +742,7 @@ somewhat different from that of base R.
 <p>In the code chunk above, we created a data frame (which <code>ggplot2</code> requires) combining our random x and y variables. Next, we made a generic call to ggplot2 using the <code>ggplot(data = df)</code> line. This creates a ggplot object set up with <code>df</code> as the data considered. Notice this line is followed by a <code>+</code>. This package will continue to read lines until a line does not end with this symbol and <code>ggplot</code> calls can often be quite long.</p>
 <p>The next line was the <code><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point()</a></code> function. This package designates different kinds of visualizations as <code>geom_</code> and there are many options (<code>geom_histogram</code>, <code>geom_bar</code>, <code>geom_polygon</code>, etc.). The <code>geom_point</code> function refers to a simple point plot. The argument inside the function is defined as <code>aes(x = x, y = y)</code>. In this package <code>aes</code> stands for aesthetics. In this case, we are using this aesthetics call to designate which variable will be on the x and which on the y axis, which is easy here as we named our variable appropriately.</p>
 <p>From here <code>ggplot2</code> includes seemingly endless customization options. There are way too many options out there for us to cover here but a good place to start is the <a href="https://r-graph-gallery.com/">R Graph Gallery</a> website.</p>
-<p>We will cover many examples and the <a href="Visualization.html#Visualization">visualization Section</a> of this tutorial in particular leans heavily on the <code>ggplot2</code> format but for now, let’s just see a couple of additional examples.</p>
+<p>We will cover many examples and the <a href="Visualization.html#Visualization">visualization section</a> of this tutorial in particular leans heavily on the <code>ggplot2</code> format but for now, let’s just see a couple of additional examples.</p>
 <div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">df</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">y</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">"blue"</span>, fill <span class="op">=</span> <span class="st">"darkorchid4"</span><span class="op">)</span> <span class="op">+</span>
@@ -929,9 +930,10 @@ somewhat different from that of base R.
 <span class="co">#&gt;  [1]  0.2  0.8  1.8  3.2  5.0  7.2  9.8 12.8 16.2 20.0</span></code></pre></div>
 <p>Let’s break down what is happening in the chunk of code above. First, we defined a function with one argument <code>x</code>. Inside the function expression we then initialized a new variable for the output called <code>z</code>. We then enter a for loop that iterates values of <code>i</code> for a sequence of numbers from 1 to the length of vector <code>x</code>. The value of <code>z</code> at position <code>i</code> is defined as the value of <code>x</code> at position <code>i</code> times <code>i</code> divided by <code>5</code>. Once this loop finishes, the function returns the vector <code>z</code> with the results. As this example shows, arguments need not be limited to single values and can include vectors, data.frames, matrices, lists, or any type of R object.</p>
 </div>
-<div id="test-your-skills" class="section level3 unnumbered">
-<h3>Test Your Skills<a class="anchor" aria-label="anchor" href="#test-your-skills"><i class="fas fa-link"></i></a>
-</h3>
+</div>
+<div id="TestYourSkills" class="section level2 unnumbered">
+<h2>Test Your Skills<a class="anchor" aria-label="anchor" href="#TestYourSkills"><i class="fas fa-link"></i></a>
+</h2>
 <p>If you’ve followed along with this tutorial so far, you should be able to do many basic operations in R and R-Studio. Let’s now put your skills to the test. Use what you have learned above to create a function that converts Fahrenheit temperatures to Celsius. The formula for this conversion is <code>(F_temp - 32) * 5 / 9</code>. Create a function that reads in the F temperature and outputs C and the run it for the sequence of values below.</p>
 <p>Hints: Remember that you can’t use <code>F</code> as an object name because that is the designation R uses for <code>FALSE</code>. Also, think about what you are trying to accomplish here. You want to create a function that iterates across a vector. That’s very much what the previous example did so you can use that code as inspiration.</p>
 <div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
@@ -969,25 +971,25 @@ somewhat different from that of base R.
 
 </div>
 </div>
-</div>
   <div class="chapter-nav">
 <div class="prev"><a href="index.html">Welcome</a></div>
-<div class="next"><a href="DataWorkspaceSetup.html"><span class="header-section-number">1</span> Data and Workspace Setup</a></div>
+<div class="next"><a href="DataAndWorkspace.html"><span class="header-section-number">1</span> Data and Workspace Setup</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
 <li><a class="nav-link" href="#GettingStarted">Gettings Started with R</a></li>
 <li>
 <a class="nav-link" href="#InstallR">Download and Install R</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#windows">Windows</a></li>
-<li><a class="nav-link" href="#macos">MacOS</a></li>
-<li><a class="nav-link" href="#linux">Linux</a></li>
+<li><a class="nav-link" href="#Windows">Windows</a></li>
+<li><a class="nav-link" href="#MacOS">MacOS</a></li>
+<li><a class="nav-link" href="#Linux">Linux</a></li>
 </ul>
 </li>
 <li><a class="nav-link" href="#InstallRStudio">Download and Install R-Studio</a></li>
-<li><a class="nav-link" href="#run-r-studio">Run R-Studio</a></li>
+<li><a class="nav-link" href="#RunRStudio">Run R-Studio</a></li>
 <li>
 <a class="nav-link" href="#RBasics">R and R-Studio Basics</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#Org">Organization of R-Studio</a></li>
 <li><a class="nav-link" href="#Math">Mathematical Operations</a></li>
 <li><a class="nav-link" href="#Variables">Creating Variables/Objects</a></li>
 <li><a class="nav-link" href="#Logical">Logical Operators</a></li>
@@ -998,18 +1000,23 @@ somewhat different from that of base R.
 <li><a class="nav-link" href="#ObjectTypes">Object Types in R</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#Workspace">The Workspace Tab</a></li>
+<li>
+<a class="nav-link" href="#WorkspaceTab">The Workspace Tab</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#Directory">Setting the Working Directory</a></li>
+<li><a class="nav-link" href="#FirstScript">Working with your first R script</a></li>
+</ul>
+</li>
 <li><a class="nav-link" href="#InstallPackages">Installing and Using Packages</a></li>
-<li><a class="nav-link" href="#WorkingWithFiles">Working with Files</a></li>
+<li><a class="nav-link" href="#WorkingWithFiles">Working with External Files</a></li>
 <li><a class="nav-link" href="#Plotting">Plotting Data</a></li>
 <li>
 <a class="nav-link" href="#AdvancedR">More Advanced R Features</a><ul class="nav navbar-nav">
 <li><a class="nav-link" href="#Conditionals">Conditional Statements</a></li>
 <li><a class="nav-link" href="#Loops">Loops</a></li>
 <li><a class="nav-link" href="#CustomFunctions">Custom Functions</a></li>
-<li><a class="nav-link" href="#test-your-skills">Test Your Skills</a></li>
 </ul>
 </li>
+<li><a class="nav-link" href="#TestYourSkills">Test Your Skills</a></li>
 </ul>
 
       <div class="book-extra">
@@ -1027,7 +1034,7 @@ somewhat different from that of base R.
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-05-25.</p>
+    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-05-26.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

@@ -2,7 +2,7 @@
 
 Exploratory network analysis is simply exploratory data analysis applied to network data. This covers a range of statistical and visual techniques designed to explore the structure of networks as well as the relative positions of nodes and edges. These methods can be used to look for particular structures or patterning of interest, such as the most central nodes, or to summarize and describe the structure of the network to paint a general picture of it before further analysis. This section serves as a companion to Chapter 4 in the Brughmans and Peeples book (2022) and provides basic examples of the exploratory network analysis methods outlined in the book as well as a few others.
 
-## Example Network Objects
+## Example Network Objects{#ExampleNetworkObjects}
 
 In order to facilitate the exploratory analysis examples in this section, we want to first create a set of `igraph` and `statnet` network objects that will serve our purposes across all of the analyses below. Specifically, we will generate and define:
 
@@ -345,11 +345,11 @@ igraph::authority_score(directed_net)$vector[1:5]
 #>      0.35970234      0.25265287
 ```
 
-## Triads and clustering{#Triads}
+## Triads and clustering{#TriadsAndClustering}
 
 Another important topic in network science concerns considerations of the overall structure and clustering of connections across a network as a whole. There are a variety of methods which have been developed to characterize the overall degree of clustering and closure in networks, many of which are based on counting triads of various configurations. In this section, we briefly outline approaches toward evaluating triads, transitivity, and clustering in R.
 
-### Triads
+### Triads{#Triads}
 
 A triad is simply a set of three nodes and a description of the configuration of edges among them. For undirected graphs, there are four possibilities for describing the connections among those nodes (empty graph, 1 connection, 2 connections, 3 connections). For directed graphs the situation is considerably more complicated because ties can be considered in both directions and an edge in one direction isn't necessarily reciprocated. Thus there are 16 different configurations that can exist (see Brughmans and Peeples 2022: Figure 4.4).
 
@@ -477,7 +477,7 @@ If you want to identify particular shortest paths to or from nodes in a network 
 igraph::shortest_paths(simple_net, from = 1, to = 21)
 #> $vpath
 #> $vpath[[1]]
-#> + 5/31 vertices, named, from 734390d:
+#> + 5/31 vertices, named, from f74da9d:
 #> [1] Apache.Creek          Casa.Malpais         
 #> [3] Garcia.Ranch          Heshotauthla         
 #> [5] Pueblo.de.los.Muertos
@@ -506,14 +506,14 @@ igraph::diameter(directed_net, directed = TRUE)
 
 igraph::farthest_vertices(directed_net, directed = TRUE)
 #> $vertices
-#> + 2/30 vertices, named, from 7344a89:
+#> + 2/30 vertices, named, from f74e94a:
 #> [1] Apache Creek          Pueblo de los Muertos
 #> 
 #> $distance
 #> [1] 4
 ```
 
-## Components and Bridges{#Components}
+## Components and Bridges{#ComponentsAndBridges}
 
 Identifying fully connected subgraphs within a large network is a common analytical procedure and is quite straight forward in R using the igraph package. If you first want to know whether or not a given network is fully connected you can use the `igraph::is_connected` function to check.
 
@@ -534,7 +534,7 @@ igraph::count_components(simple_net)
 #> [1] 2
 ```
 
-### Identifying Components
+### Identifying Components{#IdentifyingComponents}
 
 If you want to decompose a network object into its distinct components you can use the `igraph::decompose` function which outputs a list object with each entry representing a distinct component. Each object in the list can then be called using `[[k]]` where `k` is the number of the item in the list.
 
@@ -544,9 +544,9 @@ components <- igraph::decompose(simple_net, min.vertices = 1)
 
 components
 #> [[1]]
-#> IGRAPH 759aa26 UN-- 30 167 -- 
+#> IGRAPH f988358 UN-- 30 167 -- 
 #> + attr: name (v/c)
-#> + edges from 759aa26 (vertex names):
+#> + edges from f988358 (vertex names):
 #>  [1] Apache.Creek--Casa.Malpais        
 #>  [2] Apache.Creek--Coyote.Creek        
 #>  [3] Apache.Creek--Hooper.Ranch        
@@ -558,9 +558,9 @@ components
 #> + ... omitted several edges
 #> 
 #> [[2]]
-#> IGRAPH 759aa4b UN-- 1 0 -- 
+#> IGRAPH f98837e UN-- 1 0 -- 
 #> + attr: name (v/c)
-#> + edges from 759aa4b (vertex names):
+#> + edges from f98837e (vertex names):
 
 V(components[[2]])$name
 #> [1] "WS.Ranch"
@@ -602,15 +602,15 @@ min_cut(simple_net_noiso, value.only = FALSE)
 #> [1] 1
 #> 
 #> $cut
-#> + 1/167 edge from 734400c (vertex names):
+#> + 1/167 edge from f74e039 (vertex names):
 #> [1] Ojo Bonito--Baca Pueblo
 #> 
 #> $partition1
-#> + 1/30 vertex, named, from 734400c:
+#> + 1/30 vertex, named, from f74e039:
 #> [1] Baca Pueblo
 #> 
 #> $partition2
-#> + 29/30 vertices, named, from 734400c:
+#> + 29/30 vertices, named, from f74e039:
 #>  [1] Apache Creek          Casa Malpais         
 #>  [3] Coyote Creek          Hooper Ranch         
 #>  [5] Horse Camp Mill       Hubble Corner        
@@ -637,7 +637,7 @@ A clique as a network science concept is arguably the strictest method of defini
 
 ```r
 max_cliques(simple_net, min = 1)[[24]]
-#> + 9/31 vertices, named, from 734390d:
+#> + 9/31 vertices, named, from f74da9d:
 #> [1] Los.Gigantes    Cienega         Tinaja         
 #> [4] Spier.170       Scribe.S        Pescado.Cluster
 #> [7] Mirabal         Heshotauthla    Yellowhouse
@@ -738,7 +738,7 @@ modularity(simple_net, membership = as.factor(Cibola_attr$Region))
 
 Note that although modularity can be useful in comparing among partitions like this approach has been shown to be poor at detecting small communities within a network so will not always be appropriate.
 
-#### Finding Edges Within and Between Communities
+#### Finding Edges Within and Between Communities{#FindingEdgesBetween}
 
 In many cases you may be interested in identifying edges that remain within or extend between some network partition. This can be done using the `igraph::crossing` function. This function expects a igraph cluster definition object and an igraph network and will return a list of `TRUE` and `FALSE` values for each edge where true indicates an edge that extends beyond the cluster assigned to the nodes. Let's take a look at the first 10 edges in our simple_net object based on the Louvain cluster definition.
 
@@ -769,7 +769,7 @@ plot(LV, simple_net)
 
 <img src="03-exploratory-analysis_files/figure-html/unnamed-chunk-28-1.png" width="672" />
 
-## Case Study: Roman Roads
+## Case Study: Roman Roads{#ExploratoryRomanRoads}
 
 In the case study provided at the end of Chapter 4 of Brughmans and Peeples (2022) we take a simple network based on [Roman era roads](#RomanRoads) and spatial proximity of settlements in the Iberian Peninsula and calculate some basic exploratory network statistics. As described in the book, we can create different definitions and criteria for network edges and these can have impacts on the network and node level properties. In this case, we define three different networks as follows:
 

@@ -4,13 +4,13 @@ This section follows along with Brughmans and Peeples (2022) chapter 6 to illust
 
 There are already some excellent resources online for learning how to create beautiful and informative network visuals. We recommend the excellent online materials produced by Dr. Katherine Ognyanova [available on her website](https://kateto.net/) and her [Static and dynamic network visualization with R](https://kateto.net/network-visualization) workshop materials in particular. Many of the examples here and in the book take inspiration from her work. In addition to this, the [R Graph Gallery](https://www.r-graph-gallery.com/) website created by [Holtz Yan](https://github.com/holtzy) provides numerous excellent examples of plots in R using the ggplot2 and ggraph packages among many others. If you are new to R, it will probably be helpful for you to read a bit about basic graphic functions (including in the tutorials listed here) before getting started.
 
-## Datasets and R Setup
+## Data and R Setup{#VizDatasets}
 
 In order to make it as easy as possible for users to replicate specific visuals from the book and the other examples in this tutorial we have tried to make the examples as modular as possible. This means that we provide calls to initialize the required libraries for each plot within each relevant chunk of code (so that you can more easily tell what package does what) and we also provide links to download the data required to replicate each figure in the description of that figure below. The data sets we use here include both .csv and other format files as well as .Rdata files that contain sets of specific R objects formatted as required for individual chunks of code.
 
 If you plan on working through this entire tutorial and would like to download all of the associated data at once [you can download this zip file](All_data.zip). Simply extract this zip folder into your R working directory and the examples below will then work. Note that all of the examples below are setup such that the data should be contained in a sub-folder of your working directory called "data" (note that directories and file names are case sensitive).
 
-## Visualizing Networks in R
+## Visualizing Networks in R{#ViZInR}
 
 ```{block, type="rmdnote"}
 There are many tools available for creating network visualizations in R including functions built directly into the `igraph` and `statnet` packages. Before we get into the details, we first briefly illustrate the primary network plotting options for `igraph`, `statnet` and a visualization package called `ggraph`. We start here by initializing our required libraries and reading in an adjacency matrix and creating network objects in both the `igraph` and `statnet` format. These will be the basis for all examples in this section.
@@ -42,7 +42,7 @@ Cibola_n <- asNetwork(Cibola_i)
 Cibola_n
 ```
 
-### network/statnet
+### `network` package{#networkpackage}
 
 All you need to do to plot a `network/statnet` network object is to simply type `plot(nameofnetwork)`. By default, this creates a network plot where all nodes and edges are shown the same color and weight using the Fruchterman-Reingold graph layout by default. There are, however, many options that can be altered for this basic plot. In order to see the details you can type `?plot.network` at the console for the associated document. 
 
@@ -65,7 +65,7 @@ plot(
 )
 ```
 
-### igraph
+### `igraph` package{#igraphpackage}
 
 The `igraph` package also has a built in plotting function called `plot.igraph`. To call this you again just need to type `plot(yournetworkhere)` and provide an igraph object (R can tell what kind of object you have if you simply type plot). The default igraph plot again uses a Fruchterman-Reingold layout just like `statnet/network` but by default each node is labeled. 
 
@@ -89,7 +89,7 @@ plot(
 )
 ```
 
-### ggraph
+### `ggraph` package{#ggraphpackage}
 
 The `ggraph` package provides a powerful set of tools for plotting and visualizing network data in R. The format used for this package is a bit different from what we saw above and instead relies on the `ggplot2` style of plots where a plot type is called and modifications are made with sets of lines with additional arguments separated by `+`. Although this takes a bit of getting used to we have found that the ggplot format is often more intuitive for making complex graphics once you understand the basics.
 
@@ -121,7 +121,7 @@ ggraph(Cibola_i, layout = "fr") +
 
 There are many options for the ggraph package and we recommend exploring the help document (?ggraph) as well as the [Data Imaginist](https://www.data-imaginist.com/tags/visualization) ggraph tutorial online for more. Most of the examples below will use the ggraph format.
 
-## Network Visualization Options
+## Network Visualization Options{#NetVizOptions}
 
 In this section we illustrate some of the most useful graphical options for visualizing networks, focusing in particular on the `ggraph` format. In most cases there are similar options available in the plotting functions for both `network` and `igraph`. Where relevant we reference specific figures from the book and this tutorial and the code for all of the figures produced in R is presented in the next session. For all of the examples in this section we will use the [Cibola technological similarity data (click here to download)](data/Peeples2018.Rdata). First we call the required packages and import the data.
 
@@ -415,7 +415,7 @@ ggraph(net2, "kk") +
 If you want to see all of the possible options for `geom_edge_` commands, simply use the help command on any one of the functions (i.e., `?geom_edge_arc`) and scroll down in the help window to the section labeled "See Also."
 ```
 
-### Label Options{#LabelOptions}
+### Labels {#LabelOptions}
 
 In many cases you may want to label either the nodes, edges, or other features of a network. This is relatively easy to do in `ggraph` with the `geom_node_text()` command. This will place labels as specified on each node. If you use the `repel = TRUE` argument it will repel the names slightly from the node to make them more readable. As shown in the example for [Figure 6.4](#Figure_6_4) it is also possible to filter labels to label only certain nodes.
 
@@ -451,7 +451,7 @@ ggraph(g, layout = 'stress') +
   theme_graph()
 ```
 
-### Be Kind to the Color Blind{#Colorbind}
+### Be Kind to the Color Blind{#Colorblind}
 
 When selecting your color schemes, it is important to consider the impact of a particular color scheme on color blind readers. There is an excellent set of R scripts on GitHub in a package called [colorblindr](https://github.com/clauswilke/colorblindr) by Claus Wilke which can help you do just that. I have slightly modified the code from the `colorblindr` package and created a script called [colorblindr.R](data/colorblindr.R) which you can download and use to test out your network. Simply run the code in the script and then use the `cvd_grid2()` function on a `ggplot` or `ggraph` object to see simulated colors.
 

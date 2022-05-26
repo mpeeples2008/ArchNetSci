@@ -4,7 +4,7 @@ In almost any archaeological network study, the networks we create are incomplet
 
 For most of the other analyses presented in the book it is possible to use a number of different network software packages to conduct similar analyses. The analyses presented in Chapter 5, however, require the creation of custom scripts and procedures that are only possible in a programming language environment like R. We attempt here to not only provide information on how to replicate the examples in the book but also provide guidance on how you might modify the functions and code provided here for your own purposes. 
 
-## R Scripts and Custom Functions{#Scripts}
+## R Scripts and Custom Functions{#UncertaintyScripts}
 
 In this chapter, we have created a number of relatively complex custom functions to conduct the assessments of network uncertainty outlined in Chapter 5. We provide step by step overviews of how these functions work below but it is useful to bundle the functions into .R script files and call them directly from the file when working with your own data.
 
@@ -25,7 +25,7 @@ source("scripts/sim_missing_nodes.R")
 
 Note that you must include the correct absolute or relative file path for the script to run properly.
 
-## A General Approach to Uncertainty
+## A General Approach to Uncertainty{#UncertaintyGeneral}
 
 As outlined in the book, our basic approach to quantifying and dealing with uncertainty is to use the sample we have as a means for understanding the robustness or vulnerability of the population from which that sample was drawn to the kinds of variability or perturbations we might expect. The procedures we outline primarily take the following basic form: 
 
@@ -40,7 +40,7 @@ The underlying assumption of the approach outlined here is that the robustness o
 
 This sub-section accompanies the discussion of nodes or edges missing at random in Brughmans and Peeples (2022) Chapter 5.3.1. Here we take one interval of the Chaco World ceramic similarity network (ca. A.D. 1050-1100) and simulate the impact of nodes missing at random on network centrality statistics. Download the [ceramic similarity adjacency matrix](data/AD1050net.csv) to follow along.
 
-The first thing we need to do is initialize our required libraries, import the network adjacency matrix, and convert it into a `igraph` network object. For several of the examples in this Section we are using a simple undirected network though the code would also work for weighted or directed networks as well.
+The first thing we need to do is initialize our required libraries, import the network adjacency matrix, and convert it into a `igraph` network object. For several of the examples in this section we are using a simple undirected network though the code would also work for weighted or directed networks as well.
 
 ```{r, message=F, warning=F}
 library(igraph)
@@ -783,7 +783,7 @@ ggplot(bw_10, aes(val)) +
 ```
 
 
-## Small or Variable Sample Size{#SampleSize}
+## Uncertainty Due to Small or Variable Sample Size{#SampleSize}
 
 This section follows Brughmans and Peeples (2022) Chapter 5.3.5 to provide an example of how you can use the simulation approach outlined here to assess sampling variability in the frequency data underlying archaeological networks. In this example, we use apportioned ceramic frequency data from the Chaco World portion of the [Southwest Social Networks database](#SWSN). You can [download the data here](data/AD1050cer.csv) to follow along.
 

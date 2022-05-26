@@ -1,10 +1,10 @@
-# Network Data Formats {#NetworkData}
+# Network Data in R {#NetworkData}
 
 A network is simply a set of entities and the formally defined relationships among them. There are, however, many different ways that networks can be encoded and displayed. This section provides examples of many of the most common network formats and data types discussed in Chapter 3 of Brughmans and Peeples 2022. For most of the examples below we use the Cibola technological similarity network data set (described in Chapter 2.8.3 and [here](#Cibola)) because it is relatively small and easy to display in a variety of formats.
 
 Throughout this document, we refer to the unique bounded entities connected in a formal network as **nodes** and the connections between them as **edges** but note that there are many other terms used in the literature and in the documentation for the R packages used here. Nodes are often referred to as **vertices** or **actors** and edges are often referred to as **ties** or **links**. Note that we use **network** to refer to the formal system of interdependent pairwise relationships (edges) among a set of entities (nodes) but the term **graph** is often used equivalently in mathematics and other fields.
 
-## Network Data Formats
+## Network Data Formats{#NetworkDataFormats}
 
 This section follows Chapter 3.2 in Brughmans and Peeples (2022) to provide examples of the same network and attribute data in a variety of different data formats as well as code for converting among these formats in R. 
 
@@ -32,7 +32,7 @@ The primary packages used in this Section (`igraph`, `statnet`, and `intergraph`
 
 ### Defining Network Objects in R{#NetworkDataFunctions}
 
-In general most of the examples of network data formats in the remainder of this Section are converted into R network objects in two basic steps. 
+In general most of the examples of network data formats in the remainder of this section are converted into R network objects in two basic steps. 
 
 * First, we read in some external data file that contains network data, usually generated in some sort of spreadsheet program, and create an R data frame or matrix object.
 * Next, we call a function that expects the given data format (edge list, adjacency matrix, incidence matrix, etc.) and converts it in to an R network object.
@@ -70,7 +70,7 @@ set.seed(3523) # set random seed to ensure graph layout stays the same each time
 plot(Cibola_net)
 ```
 
-### Adjacency List
+### Adjacency List{#AdjacencyList}
 
 The adjacency list consists of a set of rows, where the first node in each row is connected to all subsequent nodes in that same row. It is therefore more concise than the edge list (in which each relationship has its own row), but unlike the edge list it does not result in rows of equal length (each row in an edge list typically has two values, representing the pair of nodes). Adjacency lists are relatively rare in practice but can sometimes be useful formats for directly gathering network data in small networks and are supported by many network analysis software packages. 
 
@@ -91,7 +91,7 @@ adj_list[[2]]
 
 The output for a particular node can be called by either referencing the name using using `$` followed by the site name or `[[k]]` double brackets where `k` is the row number of the node in question. The printed output is essentially a list of all of the edges incident on the node in question identified by the name of the sending and receiving node. 
 
-### Adjacency Matrix
+### Adjacency Matrix{#AdjacencyMatrix}
 
 The adjacency matrix is perhaps the most common and versatile network data format for data analysis in network science (in sociology it is sometimes referred to as the sociomatrix). It is a symmetric matrix of size *n x n*, with a set of rows and columns denoting the nodes in that network. The node names or identifiers are typically used to label both rows and columns. When a pair of nodes is connected by an edge (i.e. when they are adjacent), the corresponding cell will have an entry. The diagonal of this matrix represents "self loops" and can variously be defined as connected or unconnected depending on the application. 
 
@@ -119,7 +119,7 @@ plot(Cibola_net2)
 
 Note when you compare this network graph to the one produced based on the edge list there is an additional unconnected node (WS Ranch) that was not shown in the previous network. This is one of the advantages of an adjacency matrix is it provides a way of easily including unconnected nodes without having to manually add them or include self-loops.
  
-### Incidence Matrix
+### Incidence Matrix{#IncidenceMatrix}
 
 An incidence matrix is most frequently used to define connections among different sets of nodes in a two-mode or bipartite network where the rows and columns represent two different classes of nodes and the presence/absence or value of an edge is indicated in the corresponding cell.
 
@@ -147,7 +147,7 @@ set.seed(4543)
 plot(Cibola_inc, vertex.color = as.numeric(V(Cibola_inc)$type) + 1)
 ```
 
-### Node and Edge Information
+### Node and Edge Information{#NodeAttributes}
 
 Frequently we want to use other information about nodes and edges (node location, site type, edge weight, etc.) in our analyses and need to track these data in a separate attribute object or data column. One common way to do this is to simply create a data frame that contains the required attribute information and call specific data from this data frame when needed. As the following example shows, it is also possible to directly assign attributes to nodes or edges in an `igraph` network object and use those for subsequent analyses using the `V()` for nodes (V for vertices) and `E()` for edges calls within `igraph`.
 
@@ -382,7 +382,7 @@ There are many different ways to define and track similarity network data for us
 
 For most of these examples we will use the `statnet` package and the `network` package object format within it rather than `igraph` because `statnet` has a few additional functions that are useful when working with similarity data. In the following examples, we will first demonstrate several different similarity/distance metrics and then discuss approaches to binarization of these similarity networks and other options for working with weighted data.
 
-#### Brainerd-Robinson Similarity {-}
+#### Brainerd-Robinson Similarity {- #BrainerdRobinson}
 
 The first metric we will explore here is a rescaled version of the Brainerd-Robinson (BR) similarity metric. This BR measure is commonly used in archaeology including in a number of recent (and not so recent) network studies. This measure represents the total similarity in proportional representation of categories and is defined as:
 
@@ -413,7 +413,7 @@ Cibola_BR[1:4, 1:4]
 
 At this point we could simply define this as a weighted network object where weights are equal to the similarity scores, or we could define a threshold for defining edges as present or absent. We will discuss these options in detail after presenting other similarity/distance metrics.
 
-#### Morisita's Overlap Index {-}
+#### Morisita's Overlap Index {- ?#Morisita}
 
 Another measure that has been used for defining similarities among assemblages for archaeological similarity networks is Morisita's overlap index. This measure is a measure of the overlap of individual assemblages within a larger population that takes the size of samples into account. Specifically, the approach assumes that as sample size increases diversity will likely increase. This measure produces results that are very similar to the Brainerd-Robinson metric in practice in most cases but this measure may be preferred where there are dramatic differences in assemblage sizes among observations. 
 
@@ -438,7 +438,7 @@ Cibola_Mor[1:4, 1:4]
 ```
 
 
-#### $\chi^{2}$ Distance {-}
+#### $\chi^{2}$ Distance {- #ChiSquare}
 
 The next measure we will use is the $\chi^{2}$ distance metric which is the basis of correspondence analysis and related methods commonly used for frequency seriation in archaeology (note that this should probably really be called the $\chi$ distance since the typical form we use is not squared, but the name persists this way in the literature so that's what we use here). This measure is defined as:
 
@@ -469,7 +469,7 @@ Cibola_X01 <- 1 - (Cibola_X / max(Cibola_X))
 Cibola_X01[1:4, 1:4]
 ```
 
-#### Creating Network Objects from Similarity Matrices {-}
+#### Creating Network Objects from Similarity Matrices {- #NetFromSim}
 
 Now that we have defined our three measures of similarity, the next step is to convert these into network objects that our R packages will be able to work with. We can do this by either creating binary networks (where ties are either present or absent) or weighted networks (which in many cases are simply the raw similarity/distance matrices we calculated above). We will provide examples of both approaches, starting with simple binary networks. There are many ways to define networks from matrices like those we generated above and our examples below should not been seen as an exhaustive set of procedures.
 
@@ -585,23 +585,6 @@ ego_size(Cibola_net)
 
 ```
 
-### Converting Among Network Object Formats{#ConvertingNetworkFormats}
-
-```{block, type="rmdtip"}
-In most of the examples in this document we have been using the `igraph` package but for the similarity networks we chose to use `statnet` due to the convenience of functions for working directly with similarity data. Not to worry as it is easy to convert one format to another and preserve all of the attributes using a package called `intergraph`. By way of example below we can covert the weighted network object we created in the previous step and convert it to a `igraph` object and view the attributes using the `asIgraph` function. If we wanted to go the other direction and covert a `igraph` object to a `network` object (which is the format all of the `statnet` package require) we would instead use `asNetwrok`.
-```
-
-Here is a simple example:
-
-```{r, warning=F, message=F}
-Mor_wt_i <- asIgraph(Mor_wt)
-Mor_wt_i
-
-# view first 10 edge weights to show that they are retained
-E(Mor_wt_i)$weight[1:10]
-
-```
-
 ### Multilayer Network{#Multinet}
 
 In the simplest terms, multilayer networks are networks where a single set of nodes are connected by two or more sets of edges that each represent a different kind of relationship among the nodes. This is a relatively new area of network science in archaeological network research but we expect this will likely change in the coming years. There are now new R packages which help manage and analyze multilayer network data.
@@ -635,3 +618,20 @@ multinet::glouvain_ml(florentine)
 ```
 
 For an archaeological example of multilevel network analysis [this GitHub project](https://github.com/ajupton/archy-multilayer-nets) by Andy Upton.
+
+## Converting Among Network Object Types{#ConvertingNetworkFormats}
+
+```{block, type="rmdtip"}
+In most of the examples in this document we have been using the `igraph` package but for the similarity networks we chose to use `statnet` due to the convenience of functions for working directly with similarity data. Not to worry as it is easy to convert one format to another and preserve all of the attributes using a package called `intergraph`. By way of example below we can covert the weighted network object we created in the previous step and convert it to a `igraph` object and view the attributes using the `asIgraph` function. If we wanted to go the other direction and covert a `igraph` object to a `network` object (which is the format all of the `statnet` package require) we would instead use `asNetwrok`.
+```
+
+Here is a simple example:
+
+```{r, warning=F, message=F}
+Mor_wt_i <- asIgraph(Mor_wt)
+Mor_wt_i
+
+# view first 10 edge weights to show that they are retained
+E(Mor_wt_i)$weight[1:10]
+
+```

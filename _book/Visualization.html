@@ -71,13 +71,14 @@
         <ul class="book-toc list-unstyled">
 <li><a class="" href="index.html">Welcome</a></li>
 <li><a class="" href="GettingStarted.html">Gettings Started with R</a></li>
-<li><a class="" href="DataWorkspaceSetup.html"><span class="header-section-number">1</span> Data and Workspace Setup</a></li>
-<li><a class="" href="NetworkData.html"><span class="header-section-number">2</span> Network Data Formats</a></li>
+<li><a class="" href="DataAndWorkspace.html"><span class="header-section-number">1</span> Data and Workspace Setup</a></li>
+<li><a class="" href="NetworkData.html"><span class="header-section-number">2</span> Network Data in R</a></li>
 <li><a class="" href="Exploratory.html"><span class="header-section-number">3</span> Exploratory Network Analysis</a></li>
 <li><a class="" href="Uncertainty.html"><span class="header-section-number">4</span> Quantifying Uncertainty</a></li>
 <li><a class="active" href="Visualization.html"><span class="header-section-number">5</span> Network Visualization</a></li>
 <li><a class="" href="SpatialNetworks.html"><span class="header-section-number">6</span> Spatial Networks</a></li>
-<li><a class="" href="references-and-r-packages.html">References and R Packages</a></li>
+<li><a class="" href="TableOfContents.html">Table of Contents Quick Reference</a></li>
+<li><a class="" href="references-and-r-packages-1.html">References and R Packages</a></li>
 </ul>
 
         <div class="book-extra">
@@ -91,16 +92,16 @@
 </h1>
 <p>This section follows along with Brughmans and Peeples (2022) chapter 6 to illustrate the wide variety of techniques which can be used for network visualization. We begin with some general examples of network plotting and then demonstrate how to replicate all of the specific examples that appear in the book. For most of the examples below we rely on R but in a few cases we use other software and provide additional details and data formats.</p>
 <p>There are already some excellent resources online for learning how to create beautiful and informative network visuals. We recommend the excellent online materials produced by Dr. Katherine Ognyanova <a href="https://kateto.net/">available on her website</a> and her <a href="https://kateto.net/network-visualization">Static and dynamic network visualization with R</a> workshop materials in particular. Many of the examples here and in the book take inspiration from her work. In addition to this, the <a href="https://www.r-graph-gallery.com/">R Graph Gallery</a> website created by <a href="https://github.com/holtzy">Holtz Yan</a> provides numerous excellent examples of plots in R using the ggplot2 and ggraph packages among many others. If you are new to R, it will probably be helpful for you to read a bit about basic graphic functions (including in the tutorials listed here) before getting started.</p>
-<div id="datasets-and-r-setup" class="section level2" number="5.1">
+<div id="VizDatasets" class="section level2" number="5.1">
 <h2>
-<span class="header-section-number">5.1</span> Datasets and R Setup<a class="anchor" aria-label="anchor" href="#datasets-and-r-setup"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.1</span> Data and R Setup<a class="anchor" aria-label="anchor" href="#VizDatasets"><i class="fas fa-link"></i></a>
 </h2>
 <p>In order to make it as easy as possible for users to replicate specific visuals from the book and the other examples in this tutorial we have tried to make the examples as modular as possible. This means that we provide calls to initialize the required libraries for each plot within each relevant chunk of code (so that you can more easily tell what package does what) and we also provide links to download the data required to replicate each figure in the description of that figure below. The data sets we use here include both .csv and other format files as well as .Rdata files that contain sets of specific R objects formatted as required for individual chunks of code.</p>
 <p>If you plan on working through this entire tutorial and would like to download all of the associated data at once <a href="All_data.zip">you can download this zip file</a>. Simply extract this zip folder into your R working directory and the examples below will then work. Note that all of the examples below are setup such that the data should be contained in a sub-folder of your working directory called “data” (note that directories and file names are case sensitive).</p>
 </div>
-<div id="visualizing-networks-in-r" class="section level2" number="5.2">
+<div id="ViZInR" class="section level2" number="5.2">
 <h2>
-<span class="header-section-number">5.2</span> Visualizing Networks in R<a class="anchor" aria-label="anchor" href="#visualizing-networks-in-r"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.2</span> Visualizing Networks in R<a class="anchor" aria-label="anchor" href="#ViZInR"><i class="fas fa-link"></i></a>
 </h2>
 <div class="rmdnote">
 <p>
@@ -137,9 +138,9 @@ These will be the basis for all examples in this section.
 <span class="va">Cibola_i</span> <span class="op">&lt;-</span> <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/graph_from_adjacency_matrix.html">graph_from_adjacency_matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">Cibola</span><span class="op">)</span>,
                                                 mode <span class="op">=</span> <span class="st">"undirected"</span><span class="op">)</span>
 <span class="va">Cibola_i</span>
-<span class="co">#&gt; IGRAPH f3f8071 UN-- 31 167 -- </span>
+<span class="co">#&gt; IGRAPH 77e577d UN-- 31 167 -- </span>
 <span class="co">#&gt; + attr: name (v/c)</span>
-<span class="co">#&gt; + edges from f3f8071 (vertex names):</span>
+<span class="co">#&gt; + edges from 77e577d (vertex names):</span>
 <span class="co">#&gt;  [1] Apache.Creek--Casa.Malpais        </span>
 <span class="co">#&gt;  [2] Apache.Creek--Coyote.Creek        </span>
 <span class="co">#&gt;  [3] Apache.Creek--Hooper.Ranch        </span>
@@ -168,9 +169,9 @@ These will be the basis for all examples in this section.
 <span class="co">#&gt;     vertex.names </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; No edge attributes</span></code></pre></div>
-<div id="networkstatnet" class="section level3" number="5.2.1">
+<div id="networkpackage" class="section level3" number="5.2.1">
 <h3>
-<span class="header-section-number">5.2.1</span> network/statnet<a class="anchor" aria-label="anchor" href="#networkstatnet"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.2.1</span> <code>network</code> package<a class="anchor" aria-label="anchor" href="#networkpackage"><i class="fas fa-link"></i></a>
 </h3>
 <p>All you need to do to plot a <code>network/statnet</code> network object is to simply type <code>plot(nameofnetwork)</code>. By default, this creates a network plot where all nodes and edges are shown the same color and weight using the Fruchterman-Reingold graph layout by default. There are, however, many options that can be altered for this basic plot. In order to see the details you can type <code><a href="https://rdrr.io/pkg/network/man/plot.network.html">?plot.network</a></code> at the console for the associated document.</p>
 <div class="sourceCode" id="cb152"><pre class="downlit sourceCode r">
@@ -190,9 +191,9 @@ These will be the basis for all examples in this section.
 <span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="05-visualization_files/figure-html/Fig_network_net-1.png" width="672"></div>
 </div>
-<div id="igraph" class="section level3" number="5.2.2">
+<div id="igraphpackage" class="section level3" number="5.2.2">
 <h3>
-<span class="header-section-number">5.2.2</span> igraph<a class="anchor" aria-label="anchor" href="#igraph"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.2.2</span> <code>igraph</code> package<a class="anchor" aria-label="anchor" href="#igraphpackage"><i class="fas fa-link"></i></a>
 </h3>
 <p>The <code>igraph</code> package also has a built in plotting function called <code>plot.igraph</code>. To call this you again just need to type <code>plot(yournetworkhere)</code> and provide an igraph object (R can tell what kind of object you have if you simply type plot). The default igraph plot again uses a Fruchterman-Reingold layout just like <code>statnet/network</code> but by default each node is labeled.</p>
 <div class="sourceCode" id="cb154"><pre class="downlit sourceCode r">
@@ -213,9 +214,9 @@ These will be the basis for all examples in this section.
 <span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="05-visualization_files/figure-html/Fig_igraph-1.png" width="672"></div>
 </div>
-<div id="ggraph" class="section level3" number="5.2.3">
+<div id="ggraphpackage" class="section level3" number="5.2.3">
 <h3>
-<span class="header-section-number">5.2.3</span> ggraph<a class="anchor" aria-label="anchor" href="#ggraph"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.2.3</span> <code>ggraph</code> package<a class="anchor" aria-label="anchor" href="#ggraphpackage"><i class="fas fa-link"></i></a>
 </h3>
 <p>The <code>ggraph</code> package provides a powerful set of tools for plotting and visualizing network data in R. The format used for this package is a bit different from what we saw above and instead relies on the <code>ggplot2</code> style of plots where a plot type is called and modifications are made with sets of lines with additional arguments separated by <code>+</code>. Although this takes a bit of getting used to we have found that the ggplot format is often more intuitive for making complex graphics once you understand the basics.</p>
 <p>Essentially, the way the <code>ggraph</code> call works is you start with a <code>ggraph</code> function call which includes the network object and the layout information. You then provide lines specifying the edges <code>geom_edge_link</code> and nodes <code>geom_node_point</code> features and so on. Conveniently the <code>ggraph</code> function call will take either an <code>igraph</code> or a <code>network</code> object so you do not need to convert.</p>
@@ -243,9 +244,9 @@ These will be the basis for all examples in this section.
 <p>There are many options for the ggraph package and we recommend exploring the help document (?ggraph) as well as the <a href="https://www.data-imaginist.com/tags/visualization">Data Imaginist</a> ggraph tutorial online for more. Most of the examples below will use the ggraph format.</p>
 </div>
 </div>
-<div id="network-visualization-options" class="section level2" number="5.3">
+<div id="NetVizOptions" class="section level2" number="5.3">
 <h2>
-<span class="header-section-number">5.3</span> Network Visualization Options<a class="anchor" aria-label="anchor" href="#network-visualization-options"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.3</span> Network Visualization Options<a class="anchor" aria-label="anchor" href="#NetVizOptions"><i class="fas fa-link"></i></a>
 </h2>
 <p>In this section we illustrate some of the most useful graphical options for visualizing networks, focusing in particular on the <code>ggraph</code> format. In most cases there are similar options available in the plotting functions for both <code>network</code> and <code>igraph</code>. Where relevant we reference specific figures from the book and this tutorial and the code for all of the figures produced in R is presented in the next session. For all of the examples in this section we will use the <a href="data/Peeples2018.Rdata">Cibola technological similarity data (click here to download)</a>. First we call the required packages and import the data.</p>
 <div class="sourceCode" id="cb157"><pre class="downlit sourceCode r">
@@ -549,7 +550,7 @@ the help window to the section labeled “See Also.”
 </div>
 <div id="LabelOptions" class="section level3" number="5.3.3">
 <h3>
-<span class="header-section-number">5.3.3</span> Label Options<a class="anchor" aria-label="anchor" href="#LabelOptions"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.3.3</span> Labels<a class="anchor" aria-label="anchor" href="#LabelOptions"><i class="fas fa-link"></i></a>
 </h3>
 <p>In many cases you may want to label either the nodes, edges, or other features of a network. This is relatively easy to do in <code>ggraph</code> with the <code><a href="https://ggraph.data-imaginist.com/reference/geom_node_text.html">geom_node_text()</a></code> command. This will place labels as specified on each node. If you use the <code>repel = TRUE</code> argument it will repel the names slightly from the node to make them more readable. As shown in the example for <a href="Visualization.html#Figure_6_4">Figure 6.4</a> it is also possible to filter labels to label only certain nodes.</p>
 <div class="sourceCode" id="cb168"><pre class="downlit sourceCode r">
@@ -582,9 +583,9 @@ the help window to the section labeled “See Also.”
   <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/theme_graph.html">theme_graph</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="05-visualization_files/figure-html/edge_label-1.png" width="672"></div>
 </div>
-<div id="Colorbind" class="section level3" number="5.3.4">
+<div id="Colorblind" class="section level3" number="5.3.4">
 <h3>
-<span class="header-section-number">5.3.4</span> Be Kind to the Color Blind<a class="anchor" aria-label="anchor" href="#Colorbind"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.3.4</span> Be Kind to the Color Blind<a class="anchor" aria-label="anchor" href="#Colorblind"><i class="fas fa-link"></i></a>
 </h3>
 <p>When selecting your color schemes, it is important to consider the impact of a particular color scheme on color blind readers. There is an excellent set of R scripts on GitHub in a package called <a href="https://github.com/clauswilke/colorblindr">colorblindr</a> by Claus Wilke which can help you do just that. I have slightly modified the code from the <code>colorblindr</code> package and created a script called <a href="data/colorblindr.R">colorblindr.R</a> which you can download and use to test out your network. Simply run the code in the script and then use the <code>cvd_grid2()</code> function on a <code>ggplot</code> or <code>ggraph</code> object to see simulated colors.</p>
 <p>The chunk of code below loads the <code>colorblindr.R</code> script and then plots a figure using <code>RColorBrewer</code> color <code>Set2</code> in its original unmodified format and then as it might look to readers with some of the most common forms of color vision issues. Download the <a href="scripts/colorblindr.R">colorblindr.R script</a> to follow along.</p>
@@ -868,7 +869,7 @@ and <code>colorblindr</code>.
 <p>
 This function requires the <code>edgebundle</code> package be
 installed along with <code>reticulate</code> and Python 3.7 (see <a href="#Packages">Packages</a>) and uses the <a href="data/Peeples2018.Rdata">Cibola technological similarity data</a>.
-Check <a href="DataWorkspaceSetup.html#ShouldIInstall">Data and Workspace Setup</a> section for
+Check <a href="DataAndWorkspace.html#ShouldIInstall">Data and Workspace Setup</a> section for
 more details on getting the edge bundling package and Python up and
 running.
 </p>
@@ -1998,7 +1999,7 @@ beginning.
 <h3>Figure 6.19: Weighted Adjacency Matrix<a class="anchor" aria-label="anchor" href="#Figure_6_19"><i class="fas fa-link"></i></a>
 </h3>
 <p>Fig. 6.19. Dual display of a network graph and associated weighted adjacency matrix based on Peeples (2018) ceramic technology data.</p>
-<p>This plot uses a sub-set of the <a href="DataWorkspaceSetup.html#Cibola">Cibola technological similarity network</a> data to produce both a typical node-link diagram and an associated weighted adjacency matrix. <a href="data/Figure6_19.Rdata">Use these data</a> to follow along.</p>
+<p>This plot uses a sub-set of the <a href="DataAndWorkspace.html#Cibola">Cibola technological similarity network</a> data to produce both a typical node-link diagram and an associated weighted adjacency matrix. <a href="data/Figure6_19.Rdata">Use these data</a> to follow along.</p>
 <div class="sourceCode" id="cb201"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://igraph.org">igraph</a></span><span class="op">)</span>
@@ -2490,20 +2491,20 @@ list is the order that edges will be plotted.
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
 <li><a class="nav-link" href="#Visualization"><span class="header-section-number">5</span> Network Visualization</a></li>
-<li><a class="nav-link" href="#datasets-and-r-setup"><span class="header-section-number">5.1</span> Datasets and R Setup</a></li>
+<li><a class="nav-link" href="#VizDatasets"><span class="header-section-number">5.1</span> Data and R Setup</a></li>
 <li>
-<a class="nav-link" href="#visualizing-networks-in-r"><span class="header-section-number">5.2</span> Visualizing Networks in R</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#networkstatnet"><span class="header-section-number">5.2.1</span> network/statnet</a></li>
-<li><a class="nav-link" href="#igraph"><span class="header-section-number">5.2.2</span> igraph</a></li>
-<li><a class="nav-link" href="#ggraph"><span class="header-section-number">5.2.3</span> ggraph</a></li>
+<a class="nav-link" href="#ViZInR"><span class="header-section-number">5.2</span> Visualizing Networks in R</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#networkpackage"><span class="header-section-number">5.2.1</span> network package</a></li>
+<li><a class="nav-link" href="#igraphpackage"><span class="header-section-number">5.2.2</span> igraph package</a></li>
+<li><a class="nav-link" href="#ggraphpackage"><span class="header-section-number">5.2.3</span> ggraph package</a></li>
 </ul>
 </li>
 <li>
-<a class="nav-link" href="#network-visualization-options"><span class="header-section-number">5.3</span> Network Visualization Options</a><ul class="nav navbar-nav">
+<a class="nav-link" href="#NetVizOptions"><span class="header-section-number">5.3</span> Network Visualization Options</a><ul class="nav navbar-nav">
 <li><a class="nav-link" href="#GraphLayouts"><span class="header-section-number">5.3.1</span> Graph Layout</a></li>
 <li><a class="nav-link" href="#NodeEdgeOptions"><span class="header-section-number">5.3.2</span> Node and Edge Options</a></li>
-<li><a class="nav-link" href="#LabelOptions"><span class="header-section-number">5.3.3</span> Label Options</a></li>
-<li><a class="nav-link" href="#Colorbind"><span class="header-section-number">5.3.4</span> Be Kind to the Color Blind</a></li>
+<li><a class="nav-link" href="#LabelOptions"><span class="header-section-number">5.3.3</span> Labels</a></li>
+<li><a class="nav-link" href="#Colorblind"><span class="header-section-number">5.3.4</span> Be Kind to the Color Blind</a></li>
 <li><a class="nav-link" href="#VizCommunities"><span class="header-section-number">5.3.5</span> Communities and Groups</a></li>
 </ul>
 </li>
@@ -2555,7 +2556,7 @@ list is the order that edges will be plotted.
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-05-25.</p>
+    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-05-26.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

@@ -4,7 +4,7 @@ This section follows along with Chapter 7 of Brughmans and Peeples (2022) to pro
 
 Working with geographic data in R can be a bit complicated and we cannot cover all aspects in this brief tutorial. If you are interested in exploring geospatial networks more, we suggest you take a look at the excellent and free [*Geocomputation With R*](https://geocompr.robinlovelace.net/) book by Robin Lovelace, Jakob Nowosad, and Jannes Muenchow. The book is a bookdown document just like this tutorial and provides excellent and up to date coverage of spatial operations and the management of spatial data in R. 
 
-## Working with Geographic Data{#GeoData}
+## Working with Geographic Data in R{#GeoData}
 
 <div class="rmdnote">
 <p>There are a number of packages for R that are designed explicitly for
@@ -26,7 +26,7 @@ The spatial data we use in this document consists of vector data. This simply me
 
 A coordinate reference system (CRS) is a formal definition of how spatial points relate to the surface of the globe. CRS typically fall into two categories: geographic coordinate systems and projected coordinate systems. The most common geographic coordinate system is the latitude/longitude system which describes locations on the surface of the Earth in terms of angular coordinates from the Prime Meridian and Equator. A projected data set refers to the process through which map makers take a spherical Earth and create a flat map. Projections distort and move the area, distance, and shape to varying degrees and provide xy location coordinates in linear units. The advantages and disadvantages of these systems are beyond the scope of this document but it is important to note that R often requires us to defined our coordinate reference system when working with spatial data.
 
-In the code below and in several other sections of the book you have seen function calls that include an argument called `crs`. This is the coordinate reference system object used by R which provides a numeric code denoting the CRS used by a given dataset. Just like we take external .csv data and covert them into network objects R understands, we need to import spatial data and convert to an object R recognizes. We do this in the `sf` package using the `st_as_sf` function.
+In the code below and in several other sections of the book you have seen function calls that include an argument called `crs`. This is the coordinate reference system object used by R which provides a numeric code denoting the CRS used by a given data set. Just like we take external .csv data and covert them into network objects R understands, we need to import spatial data and convert to an object R recognizes. We do this in the `sf` package using the `st_as_sf` function.
 
 To use this function you take a data frame which includes location xy information, you use the `coords` argument to specify which fields are the x and y coordinates, and then use the `crs` code to specify the coordinate reference system used. In this example we use code `4326` which refers to the WGS84 World Geodetic System of geographic coordinates. [See this website](https://epsg.io/) to look up many common `crs` code options.
 
@@ -86,7 +86,7 @@ ggmap(map)
 
 <img src="06-spatial-networks_files/figure-html/unnamed-chunk-3-1.png" width="672" />
 
-## Data and Datasets
+## Example Data{#ExampleData}
 
 For the initial examples in this section we will use the Roman Road data from the Iberian Peninsula. This data set consists of a [csv file of a set of Roman settlements](data/Hispania_nodes.csv) and a [csv file of an edge list](data/Hispania_roads) defining connections among those settlements in terms of roads.
 
@@ -162,9 +162,9 @@ ggmap(myMap) +
 
 <img src="06-spatial-networks_files/figure-html/spatial_networks-1.png" width="672" />
 
-## Planar Networks and Trees
+## Planar Networks and Trees{#PlanarTrees}
 
-### Evaluating Planarity
+### Evaluating Planarity{#Evaluating Planarity}
 
 A planar network is a network that can be drawn on a plane where the edges do not cross but instead always end in nodes. In many small networks it is relatively easy to determine whether or not a network is planar by simply viewing a network graph. In larger graphs, this can sometimes be difficult. 
 
@@ -257,7 +257,7 @@ boyerMyrvoldPlanarityTest(g)
 #> [1] TRUE
 ```
 
-### Defining Trees
+### Defining Trees {#DefiningTrees}
 
 A tree is a network that is connected and acyclic. Trees contain the minimum number of edges for a set of nodes to be connected, which results in an acyclic network with some interesting properties:
 
@@ -273,9 +273,9 @@ Let's create a simple tree using the `make_tree` function in igraph.
 ```r
 tree1 <- make_tree(n = 50, children = 5, mode = "undirected")
 tree1
-#> IGRAPH 67d9b68 U--- 50 49 -- Tree
+#> IGRAPH eb0c4d5 U--- 50 49 -- Tree
 #> + attr: name (g/c), children (g/n), mode (g/c)
-#> + edges from 67d9b68:
+#> + edges from eb0c4d5:
 #>  [1]  1-- 2  1-- 3  1-- 4  1-- 5  1-- 6  2-- 7  2-- 8  2-- 9
 #>  [9]  2--10  2--11  3--12  3--13  3--14  3--15  3--16  4--17
 #> [17]  4--18  4--19  4--20  4--21  5--22  5--23  5--24  5--25
@@ -305,11 +305,11 @@ ggraph(tree1,
 
 <img src="06-spatial-networks_files/figure-html/unnamed-chunk-11-1.png" width="672" />
 
-## Spatial Network Models
+## Spatial Network Models {#SpatialNetworkModels}
 
 In Chapter 7.5 in Brughmans and Peeples (2022) we go over a series of spatial network models that provide a number of different ways of defining networks from spatial data. In this sub-section we demonstrate how to define and analyze networks using these approaches. 
 
-### Relative Neighborhood Networks 
+### Relative Neighborhood Networks {#RelativeNeighborhoods}
 
 Relative neighborhood graph: a pair of nodes are connected if there are no other nodes in the area marked by the overlap of a circle around each node with a radius equal to the distance between the nodes.
 
@@ -353,7 +353,7 @@ ggraph(rng1,
 
 <img src="06-spatial-networks_files/figure-html/unnamed-chunk-14-1.png" width="672" />
 
-### Gabriel Graphs
+### Gabriel Graphs{#GabrialGraphs}
 
 Gabriel graph: a pair of nodes are connected in a Gabriel graph if no other nodes lie within the circular region with a diameter equal to the distance between the pair of nodes.
 
@@ -382,7 +382,7 @@ ggraph(gg1,
 
 <img src="06-spatial-networks_files/figure-html/unnamed-chunk-15-2.png" width="672" />
 
-### Beta Skeletons
+### Beta Skeletons{#BetaSkeletons}
 
 Beta skeleton: a Gabriel graph in which the diameter of the circle is controlled by a parameter beta.
 
@@ -402,7 +402,7 @@ ggraph(beta_s,
 
 <img src="06-spatial-networks_files/figure-html/unnamed-chunk-16-1.png" width="672" />
 
-### Minimum Spanning Trees
+### Minimum Spanning Trees{#MinSpanningTrees}
 
 Minimum spanning tree: in a set of nodes in the Euclidean plane, edges are created between pairs of nodes to form a tree where each node can be reached by each other node, such that the sum of the Euclidean edge lengths is less than the sum for any other spanning tree.
 
@@ -463,7 +463,7 @@ ggmap(myMap) +
 
 Note that minimum spanning trees can also be used for weighted graphs such that weighted connections will be preferred in defining tree structure. See `?mst` for more details.
 
-### Delaunay Triangulation
+### Delaunay Triangulation{#DelaunayTri}
 
 Delaunay triangulation: a pair of nodes are connected by an edge if and only if their corresponding regions in a Voronoi diagram share a side.
 
@@ -532,7 +532,7 @@ ggmap(myMap) +
 
 <img src="06-spatial-networks_files/figure-html/unnamed-chunk-19-2.png" width="672" />
 
-### K-nearest Neighbors
+### K-nearest Neighbors {#KNN}
 
 K-nearest neighbor network: each node is connected to K other nodes closest to it.
 
@@ -564,7 +564,7 @@ ggraph(g, layout = "manual",
 
 <img src="06-spatial-networks_files/figure-html/unnamed-chunk-20-1.png" width="672" />
 
-### Maximum Distance Networks
+### Maximum Distance Networks{#MaxDist}
 
 Maximum distance network: each node is connected to all other nodes at a distance closer than or equal to a threshold value. In order define a maximum distance network we simply need to define a threshold distance and define all nodes greater than that distance as unconnected and nodes within that distance as connected. This can be done in base R using the dist function we used above.
 
@@ -629,9 +629,9 @@ ggraph(net250,
 
 <img src="06-spatial-networks_files/figure-html/unnamed-chunk-22-2.png" width="672" />
 
-## Case Studies
+## Case Studies{#SpaceCaseStudies}
 
-### Proximity of Iron Age sites in Southern Spain
+### Proximity of Iron Age sites in Southern Spain{#IronAgeSpain}
 
 The first case study in Chapter 7 of Brughmans and Peeples (2022) is an example of several of the methods for defining networks using spatial data outlined above using the locations of 86 sites in the Guadalquivir river valley in Southern Spain. In the code chunks below, we replicate the analyses presented in the book.
 
@@ -917,7 +917,7 @@ plot_d
 <img src="06-spatial-networks_files/figure-html/unnamed-chunk-30-4.png" width="672" />
 
 
-### Networks in Space in the U.S. Southwest
+### Networks in Space in the U.S. Southwest{#SpaceSW}
 
 The second case study in Chapter 7 of Brughmans and Peeples (2022) provides an example of how we can use spatial network methods to analyze material cultural network data. We use the Chaco World data here and you can download the [map data](data/map.RData), [the site attribute data](data/AD1050attr.csv), and [the ceramic frequency data](data/AD1050cer.csv) to follow along.
 

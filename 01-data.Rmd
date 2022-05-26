@@ -1,4 +1,4 @@
-# Data and Workspace Setup{#DataWorkspaceSetup}
+# Data and Workspace Setup{#DataAndWorkspace}
 
 This section provides downloadable files for the network data sets used in this online companion and in the book as well as information on the primary R packages used for analysis and visualization throughout this tutorial. We also provide very brief instructions for importing these data into R using R-studio and some guidance on setting up your R-studio working environment. For additional guidance see [Getting Started in R](#GettingStarted). 
 
@@ -53,7 +53,7 @@ In these networks, individual settlements are treated as nodes and edges are def
 
 ![Map of the cyberSW project study area showing all sites in the database with the San Pedro and Chaco World subsets of the database shaded.](images/Fig.2.5.png){width=100%}
 
-### Cibola Region Technological Similarity Networs{#Cibola}
+### Cibola Region Technological Similarity Networks{#Cibola}
 
 The Cibola region along the Arizona and New Mexico border in the U.S. Southwest is a large and diverse physiographic region spanning the southern edge of the Colorado Plateau and the ancestral homeland of the contemporary Zuni (A:shiwi) people. Peeples and colleagues (Peeples 2011, 2018; Peeples et al. 2021) have explored patterns of technological similarity and communities of practice in this region at a series of sites dating ca. A.D. 1100-1350 through explorations of corrugated ceramic cooking pots. Corrugated pots, which are produced across much of the U.S. Southwest from at least the 9th through the 14th centuries, are coiled ceramic vessels where the coils used to make the vessel are never fully smoothed. Thus, these ceramics retain substantial amounts of evidence of the specific techniques used to produce them.
 
@@ -154,7 +154,7 @@ packages <- c("igraph", "statnet", "intergraph", "ggraph",
 install.packages(setdiff(packages, rownames(installed.packages())))  
 ```
 
-If you have plenty of disk space and time and don't wont to worry about installing packages piecemeal, you can install everything at the same time using the code below. Note that there are a large number of packages and dependencies here and many are only used in one or two places in this Online Companion. Most of the packages are used in the [Network Visualization](#Visualization) Section. We generally recommend that you install packages as you need them while you work through this document but you do you. 
+If you have plenty of disk space and time and don't wont to worry about installing packages piecemeal, you can install everything at the same time using the code below. Note that there are a large number of packages and dependencies here and many are only used in one or two places in this Online Companion. Most of the packages are used in the [Network Visualization](#Visualization) section. We generally recommend that you install packages as you need them while you work through this document but you do you. 
 
 If you choose to install everything, however, you can simply run the chunk of code below. Note that the code below will not reinstall packages already installed in your current version of R. Note if you are familiar with Git and R Environments, it will be much faster to just use the `renv::restore()` function to build an environment from the repository. See the [Reproducibility section](#Repro) in the introduction for more information.
 
@@ -190,7 +190,7 @@ library(reticulate)
 install_bundle_py(method = "auto", conda = "auto")
 ```
 
-### R Packages Used{#PackagesUsed}
+### R Environment{#Environment}
 
 This version of the book was built with `r R.version.string` and the following packages:
 
