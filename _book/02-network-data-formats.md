@@ -87,9 +87,9 @@ Cibola_net <-
 
 # Display igraph network object and then plot a simple node-link diagram
 Cibola_net
-#> IGRAPH f0899e1 UN-- 30 167 -- 
+#> IGRAPH 4d65013 UN-- 30 167 -- 
 #> + attr: name (v/c)
-#> + edges from f0899e1 (vertex names):
+#> + edges from 4d65013 (vertex names):
 #>  [1] Apache Creek--Casa Malpais        
 #>  [2] Apache Creek--Coyote Creek        
 #>  [3] Apache Creek--Hooper Ranch        
@@ -118,7 +118,7 @@ adj_list <- igraph::as_adj_edge_list(Cibola_net)
 
 # examine adjacency list for the site Apache Creek
 adj_list$`Apache Creek`
-#> + 11/167 edges from f0899e1 (vertex names):
+#> + 11/167 edges from 4d65013 (vertex names):
 #>  [1] Apache Creek--Casa Malpais        
 #>  [2] Apache Creek--Coyote Creek        
 #>  [3] Apache Creek--Hooper Ranch        
@@ -134,7 +134,7 @@ adj_list$`Apache Creek`
 # It is also possible to call specific nodes by number. In this case,
 # site 2 is Casa Malpais
 adj_list[[2]] 
-#> + 11/167 edges from f0899e1 (vertex names):
+#> + 11/167 edges from 4d65013 (vertex names):
 #>  [1] Apache Creek--Casa Malpais   
 #>  [2] Casa Malpais--Coyote Creek   
 #>  [3] Casa Malpais--Hooper Ranch   
@@ -316,9 +316,9 @@ V(Cibola_net2)$region
 # Note that "region" is now listed as an attribute when we view 
 # the network object
 Cibola_net2
-#> IGRAPH f0baea9 UN-- 31 167 -- 
+#> IGRAPH 4d9b8ca UN-- 31 167 -- 
 #> + attr: name (v/c), region (v/c)
-#> + edges from f0baea9 (vertex names):
+#> + edges from 4d9b8ca (vertex names):
 #>  [1] Apache.Creek--Casa.Malpais        
 #>  [2] Apache.Creek--Coyote.Creek        
 #>  [3] Apache.Creek--Hooper.Ranch        
@@ -372,9 +372,9 @@ simple_net_i <-
   igraph::graph_from_adjacency_matrix(as.matrix(adj_mat2),
                                       mode = "undirected")
 simple_net_i
-#> IGRAPH f1ab2bd UN-- 31 167 -- 
+#> IGRAPH 4ea3f82 UN-- 31 167 -- 
 #> + attr: name (v/c)
-#> + edges from f1ab2bd (vertex names):
+#> + edges from 4ea3f82 (vertex names):
 #>  [1] Apache.Creek--Casa.Malpais        
 #>  [2] Apache.Creek--Coyote.Creek        
 #>  [3] Apache.Creek--Hooper.Ranch        
@@ -431,9 +431,9 @@ EL2 <- Cibola_edgelist[sample(seq(1, nrow(Cibola_edgelist)), 125,
 directed_net <-
   igraph::graph_from_edgelist(as.matrix(EL2), directed = TRUE)
 directed_net
-#> IGRAPH f1b2f60 DN-- 30 125 -- 
+#> IGRAPH 4eacbe7 DN-- 30 125 -- 
 #> + attr: name (v/c)
-#> + edges from f1b2f60 (vertex names):
+#> + edges from 4eacbe7 (vertex names):
 #>  [1] Coyote Creek   ->Techado Springs      
 #>  [2] Hubble Corner  ->Tri-R Pueblo         
 #>  [3] Hubble Corner  ->Techado Springs      
@@ -546,9 +546,9 @@ Cibola_inc <- igraph::graph_from_incidence_matrix(Cibola_clust,
                                                   directed = FALSE,
                                                   multiple = TRUE)
 Cibola_inc
-#> IGRAPH f1f9e2e UN-B 41 2214 -- 
+#> IGRAPH 4effc8a UN-B 41 2214 -- 
 #> + attr: type (v/l), name (v/c)
-#> + edges from f1f9e2e (vertex names):
+#> + edges from 4effc8a (vertex names):
 #>  [1] Apache Creek--Clust1 Apache Creek--Clust1
 #>  [3] Apache Creek--Clust1 Apache Creek--Clust1
 #>  [5] Apache Creek--Clust1 Apache Creek--Clust1
@@ -945,9 +945,9 @@ ego_nets <- make_ego_graph(Cibola_net)
 
 # Examine the first ego-network
 ego_nets[[1]]
-#> IGRAPH f356472 UN-- 12 59 -- 
+#> IGRAPH 508cd7e UN-- 12 59 -- 
 #> + attr: name (v/c)
-#> + edges from f356472 (vertex names):
+#> + edges from 508cd7e (vertex names):
 #>  [1] Apache Creek--Casa Malpais   
 #>  [2] Apache Creek--Coyote Creek   
 #>  [3] Casa Malpais--Coyote Creek   
@@ -1019,38 +1019,38 @@ The `multinet` network objects are compatible with `igraph` and individual layer
 # multilayer network, the multinet package can help us do that directly
 # and quite simply.
 multinet::degree_ml(florentine)
-#>  [1]  6  3  6  1  4  3 11  4  3  6  3  5  6  7  2
+#>  [1] 11  4  3  2  3  7  4  6  3  6  6  6  5  3  1
 
 # Similarly, we could apply cluster detection algorithms to all layers
 # of a multilayer network simultaneously.
 multinet::glouvain_ml(florentine)
 #>           actor    layer cid
-#> 1    Castellani business   0
-#> 2    Castellani marriage   0
-#> 3      Bischeri business   0
-#> 4      Bischeri marriage   0
-#> 5       Strozzi marriage   0
-#> 6  Lamberteschi business   0
-#> 7  Lamberteschi marriage   0
-#> 8      Guadagni business   0
-#> 9      Guadagni marriage   0
-#> 10      Peruzzi business   0
-#> 11      Peruzzi marriage   0
-#> 12   Acciaiuoli marriage   1
-#> 13   Tornabuoni business   1
-#> 14   Tornabuoni marriage   1
-#> 15      Ridolfi marriage   1
-#> 16       Medici business   1
-#> 17       Medici marriage   1
-#> 18     Salviati business   1
-#> 19     Salviati marriage   1
-#> 20        Pazzi business   1
-#> 21        Pazzi marriage   1
-#> 22       Ginori business   2
-#> 23       Ginori marriage   2
-#> 24      Albizzi marriage   2
-#> 25    Barbadori business   2
-#> 26    Barbadori marriage   2
+#> 1        Ginori business   0
+#> 2        Ginori marriage   0
+#> 3     Barbadori business   0
+#> 4     Barbadori marriage   0
+#> 5       Albizzi marriage   0
+#> 6       Peruzzi business   1
+#> 7       Peruzzi marriage   1
+#> 8       Strozzi marriage   1
+#> 9      Guadagni business   1
+#> 10     Guadagni marriage   1
+#> 11   Castellani business   1
+#> 12   Castellani marriage   1
+#> 13     Bischeri business   1
+#> 14     Bischeri marriage   1
+#> 15 Lamberteschi business   1
+#> 16 Lamberteschi marriage   1
+#> 17       Medici business   2
+#> 18       Medici marriage   2
+#> 19   Tornabuoni business   2
+#> 20   Tornabuoni marriage   2
+#> 21      Ridolfi marriage   2
+#> 22        Pazzi business   2
+#> 23        Pazzi marriage   2
+#> 24     Salviati business   2
+#> 25     Salviati marriage   2
+#> 26   Acciaiuoli marriage   2
 ```
 
 For an archaeological example of multilevel network analysis [this GitHub project](https://github.com/ajupton/archy-multilayer-nets) by Andy Upton.
@@ -1078,10 +1078,10 @@ Here is a simple example:
 ```r
 Mor_wt_i <- asIgraph(Mor_wt)
 Mor_wt_i
-#> IGRAPH f3ca12f U-W- 31 465 -- 
+#> IGRAPH 511b729 U-W- 31 465 -- 
 #> + attr: na (v/l), vertex.names (v/c), na (e/l),
 #> | weight (e/n)
-#> + edges from f3ca12f:
+#> + edges from 511b729:
 #>  [1] 1-- 2 1-- 3 1-- 4 1-- 5 1-- 6 1-- 7 1-- 8 1-- 9 1--10
 #> [10] 1--11 1--12 1--13 1--14 1--15 1--16 1--17 1--18 1--19
 #> [19] 1--20 1--21 1--22 1--23 1--24 1--25 1--26 1--27 1--28

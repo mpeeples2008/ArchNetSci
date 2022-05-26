@@ -97,6 +97,8 @@ if (!require("devtools")) install.packages("devtools")
 devtools::install_github("mpeeples2008/ArchNetSci")
 ```
 
+This package installation includes all of the dependencies required to run the code in this document and will create folders named "data" and "scripts" in the installation directory with all of the required files to replicate the analyses in this document.
+
 Finally, you can run the code and generate documents locally using R and R Studio by downloading the entire R repository here: [main.zip](https://github.com/mpeeples2008/ArchNetSci/archive/refs/heads/main.zip). Unzip the files and then:
 
 * Open the "Archaeological_Network_Science.Rproj" file in R studio.
