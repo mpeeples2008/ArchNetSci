@@ -17,31 +17,18 @@ The network data formats we discuss in this section include:
 
 Let's first get started by initializing all of the packages we will use in this section.
 
-
-```r
+```{r, warning=F, message=F}
 # initialize packages
 library(igraph)
 library(statnet)
-#>            Installed ReposVer Built  
-#> ergm.count "4.0.2"   "4.1.1"  "4.2.0"
-#> network    "1.17.1"  "1.17.2" "4.2.0"
 library(intergraph)
 library(vegan)
 library(multinet)
 ```
 
-<div class="rmdnote">
-<p>The primary packages used in this Section (<code>igraph</code>,
-<code>statnet</code>, and <code>intergraph</code>) are already described
-<a href="#PrimaryPackages">in the last section</a>. We also use here the
-<code>vegan</code> package which includes many functions focused on
-community ecology. In this document, we rely on this package to
-calculate several distance/similarity metrics that are useful for
-generating <a href="#SimilarityNetworks">similarity networks</a>.
-Finally, we provide a brief example at the end of this section using
-<code>multinet</code> which is a package focused on conducting <a
-href="#Multinet">multilayer network analyses</a>.</p>
-</div>
+```{block, type="rmdnote"}
+The primary packages used in this Section (`igraph`, `statnet`, and `intergraph`) are already described [in the last section](#PrimaryPackages). We also use here the `vegan` package which includes many functions focused on community ecology. In this document, we rely on this package to calculate several distance/similarity metrics that are useful for generating [similarity networks](#SimilarityNetworks). Finally, we provide a brief example at the end of this section using `multinet` which is a package focused on conducting [multilayer network analyses](#Multinet).
+```
 
 ### Defining Network Objects in R{#NetworkDataFunctions}
 
@@ -62,21 +49,13 @@ The edge list is a very quick and easy way to capture network data. It simply li
 
 In this example, we import the Cibola data set in this format as a data frame and then convert it to an `igraph` network object for further analysis. You can download the [edgelist file here](data/Cibola_edgelist.csv) to follow along on your own. Since the edges in this network are undirected this will be a simple binary network, and we will use the `directed = FALSE` argument in the `igraph::graph_from_edgelist` function call. This function simply takes a edge list in tabular format and converts it to a network object R recognizes that can further be used for analysis and visualization.
 
-
-```r
+```{r, warning=F, message=F}
 # Read in edgelist file as dataframe
 Cibola_edgelist <-
   read.csv(file = "data/Cibola_edgelist.csv", header = TRUE)
 
 # Examine the first several rows
 head(Cibola_edgelist)
-#>           FROM                   TO
-#> 1 Apache Creek         Casa Malpais
-#> 2 Apache Creek         Coyote Creek
-#> 3 Apache Creek         Hooper Ranch
-#> 4 Apache Creek      Horse Camp Mill
-#> 5 Apache Creek        Hubble Corner
-#> 6 Apache Creek Mineral Creek Pueblo
 
 # Create graph object. The dataframe is converted to a matrix as that
 #is required by this specific function. Since this is an undirected
@@ -87,23 +66,9 @@ Cibola_net <-
 
 # Display igraph network object and then plot a simple node-link diagram
 Cibola_net
-#> IGRAPH 27abbba UN-- 30 167 -- 
-#> + attr: name (v/c)
-#> + edges from 27abbba (vertex names):
-#>  [1] Apache Creek--Casa Malpais        
-#>  [2] Apache Creek--Coyote Creek        
-#>  [3] Apache Creek--Hooper Ranch        
-#>  [4] Apache Creek--Horse Camp Mill     
-#>  [5] Apache Creek--Hubble Corner       
-#>  [6] Apache Creek--Mineral Creek Pueblo
-#>  [7] Apache Creek--Rudd Creek Ruin     
-#>  [8] Apache Creek--Techado Springs     
-#> + ... omitted several edges
 set.seed(3523) # set random seed to ensure graph layout stays the same each time.
 plot(Cibola_net)
 ```
-
-<img src="02-network-data-formats_files/figure-html/unnamed-chunk-3-1.png" width="672" />
 
 ### Adjacency List{#AdjacencyList}
 
@@ -111,41 +76,17 @@ The adjacency list consists of a set of rows, where the first node in each row i
 
 In the following chunk of code, we convert the network object we created above into an adjacency list using the `igraph::as_adj_edge_list()` function and examine a couple of the rows.
 
-
-```r
+```{r, warning=F, message=F}
 # Convert edge list to adjacency list using igraph function
 adj_list <- igraph::as_adj_edge_list(Cibola_net)
 
 # examine adjacency list for the site Apache Creek
 adj_list$`Apache Creek`
-#> + 11/167 edges from 27abbba (vertex names):
-#>  [1] Apache Creek--Casa Malpais        
-#>  [2] Apache Creek--Coyote Creek        
-#>  [3] Apache Creek--Hooper Ranch        
-#>  [4] Apache Creek--Horse Camp Mill     
-#>  [5] Apache Creek--Hubble Corner       
-#>  [6] Apache Creek--Mineral Creek Pueblo
-#>  [7] Apache Creek--Rudd Creek Ruin     
-#>  [8] Apache Creek--Techado Springs     
-#>  [9] Apache Creek--Tri-R Pueblo        
-#> [10] Apache Creek--UG481               
-#> + ... omitted several edges
 
 # It is also possible to call specific nodes by number. In this case,
 # site 2 is Casa Malpais
 adj_list[[2]] 
-#> + 11/167 edges from 27abbba (vertex names):
-#>  [1] Apache Creek--Casa Malpais   
-#>  [2] Casa Malpais--Coyote Creek   
-#>  [3] Casa Malpais--Hooper Ranch   
-#>  [4] Casa Malpais--Horse Camp Mill
-#>  [5] Casa Malpais--Hubble Corner  
-#>  [6] Casa Malpais--Rudd Creek Ruin
-#>  [7] Casa Malpais--Techado Springs
-#>  [8] Casa Malpais--Tri-R Pueblo   
-#>  [9] Casa Malpais--UG481          
-#> [10] Casa Malpais--Garcia Ranch   
-#> + ... omitted several edges
+
 ```
 
 The output for a particular node can be called by either referencing the name using using `$` followed by the site name or `[[k]]` double brackets where `k` is the row number of the node in question. The printed output is essentially a list of all of the edges incident on the node in question identified by the name of the sending and receiving node. 
@@ -156,24 +97,10 @@ The adjacency matrix is perhaps the most common and versatile network data forma
 
 We can obtain an adjacency matrix object in R by converting our network object created above or by reading in a file directly with rows and columns denoting site and with 0 or 1 denoting the presence or absence of a relation. We take the data frame object `adj_mat` which is a square matrix of 1s and 0s and convert it into a network object using the `igraph::graph_from_adjacency_matrix()` function. You can download the csv file to follow along on your own [here](data/Cibola_adj.csv).
 
-
-```r
+```{r, warning=F, message=F}
 # Convert to adjacency matrix then display first few rows/columns
 adj_mat <- igraph::as_adjacency_matrix(Cibola_net)
 adj_mat[1:5, 1:5]
-#> 5 x 5 sparse Matrix of class "dgCMatrix"
-#>                 Apache Creek Casa Malpais Coyote Creek
-#> Apache Creek               .            1            1
-#> Casa Malpais               1            .            1
-#> Coyote Creek               1            1            .
-#> Hooper Ranch               1            1            1
-#> Horse Camp Mill            1            1            1
-#>                 Hooper Ranch Horse Camp Mill
-#> Apache Creek               1               1
-#> Casa Malpais               1               1
-#> Coyote Creek               1               1
-#> Hooper Ranch               .               1
-#> Horse Camp Mill            1               .
 
 # Read in adjacency matrix and convert to network object for plotting
 adj_mat2 <-
@@ -182,11 +109,6 @@ adj_mat2 <-
            row.names = 1)
 
 adj_mat2[1:4,1:4]
-#>              Apache.Creek Atsinna Baca.Pueblo Casa.Malpais
-#> Apache Creek            0       0           0            1
-#> Atsinna                 0       0           0            0
-#> Baca Pueblo             0       0           0            0
-#> Casa Malpais            1       0           0            0
 
 Cibola_net2 <-
   igraph::graph_from_adjacency_matrix(as.matrix(adj_mat2),
@@ -194,8 +116,6 @@ Cibola_net2 <-
 set.seed(4352)
 plot(Cibola_net2)
 ```
-
-<img src="02-network-data-formats_files/figure-html/unnamed-chunk-5-1.png" width="672" />
 
 Note when you compare this network graph to the one produced based on the edge list there is an additional unconnected node (WS Ranch) that was not shown in the previous network. This is one of the advantages of an adjacency matrix is it provides a way of easily including unconnected nodes without having to manually add them or include self-loops.
  
@@ -207,28 +127,13 @@ By way of example here we can read in the data that were used to generate the on
 
 After reading in this rectangular data frame, we can create a network object using the `igraph::graph_from_incidence_matrix()` function. We then plot it as a simple two-mode network with color representing node class. We discuss plotting options in greater detail in the visualization section of this document. You can download the csv file to follow along on your own [here](data/Cibola_clust.csv).
 
-
-```r
+```{r, warning=F, message=F}
 # Read in two-way table of sites and ceramic technological clusters
 Cibola_clust <-
   read.csv(file = "data/Cibola_clust.csv",
            header = TRUE,
            row.names = 1)
 head(Cibola_clust)
-#>              Clust1 Clust2 Clust3 Clust4 Clust5 Clust6
-#> Apache Creek      7      3      6     16      6      1
-#> Atsinna           0     12     26      5      0      1
-#> Baca Pueblo       0      9      3     12      1      2
-#> Casa Malpais      2     15      7     28     17     16
-#> Cienega           2     28     34      2      0     10
-#> Coyote Creek     10     13      8     30     20      5
-#>              Clust7 Clust8 Clust9 Clust10
-#> Apache Creek      1      2      0       0
-#> Atsinna           6      0      7       0
-#> Baca Pueblo       5      0     16       1
-#> Casa Malpais      2      5      1       0
-#> Cienega          11      0      5       1
-#> Coyote Creek      1      8      0       5
 
 # Convert into a network object using the incidence matrix format. Note that
 # multiple=TRUE as we want this defined as a bipartite network.
@@ -236,28 +141,11 @@ Cibola_inc <-
   igraph::graph_from_incidence_matrix(Cibola_clust, directed = FALSE, multiple =
                                         TRUE)
 head(Cibola_inc)
-#> 6 x 41 sparse Matrix of class "dgCMatrix"
-#>                                                           
-#> Apache Creek . . . . . . . . . . . . . . . . . . . . . . .
-#> Atsinna      . . . . . . . . . . . . . . . . . . . . . . .
-#> Baca Pueblo  . . . . . . . . . . . . . . . . . . . . . . .
-#> Casa Malpais . . . . . . . . . . . . . . . . . . . . . . .
-#> Cienega      . . . . . . . . . . . . . . . . . . . . . . .
-#> Coyote Creek . . . . . . . . . . . . . . . . . . . . . . .
-#>                                                         
-#> Apache Creek . . . . . . . .  7  3  6 16  6  1  1 2  . .
-#> Atsinna      . . . . . . . .  . 12 26  5  .  1  6 .  7 .
-#> Baca Pueblo  . . . . . . . .  .  9  3 12  1  2  5 . 16 1
-#> Casa Malpais . . . . . . . .  2 15  7 28 17 16  2 5  1 .
-#> Cienega      . . . . . . . .  2 28 34  2  . 10 11 .  5 1
-#> Coyote Creek . . . . . . . . 10 13  8 30 20  5  1 8  . 5
 
 set.seed(4543)
 # Plot as two-mode network
 plot(Cibola_inc, vertex.color = as.numeric(V(Cibola_inc)$type) + 1)
 ```
-
-<img src="02-network-data-formats_files/figure-html/unnamed-chunk-6-1.png" width="672" />
 
 ### Node and Edge Information{#NodeAttributes}
 
@@ -265,81 +153,35 @@ Frequently we want to use other information about nodes and edges (node location
 
 In the following example we use [this file](data/Cibola_attr.csv) which includes basic attribute data by site (node) for all sites in the network we've been working with here. This file includes x and y coordinates for the sites, information on the presence/absence and shape of Great Kiva public architectural features at those sites, and the Region to which they have been assigned. First we read in the data.
 
-
-```r
+```{r, warning=F, message=F}
 # Read in attribute data and look at the first few rows.
 Cibola_attr <- read.csv(file = "data/Cibola_attr.csv", header = TRUE)
 head(Cibola_attr)
-#>           Site      x       y             Great.Kiva
-#> 1 Apache Creek 724125 3747310 Rectangular Great Kiva
-#> 2      Atsinna 726741 3895499                   none
-#> 3  Baca Pueblo 651431 3797143                   none
-#> 4 Casa Malpais 659021 3786211 Rectangular Great Kiva
-#> 5      Cienega 738699 3887985                   none
-#> 6 Coyote Creek 671154 3780509 Rectangular Great Kiva
-#>                  Region
-#> 1    Mogollon Highlands
-#> 2       El Morro Valley
-#> 3 Upper Little Colorado
-#> 4 Upper Little Colorado
-#> 5       El Morro Valley
-#> 6 Upper Little Colorado
+
 ```
 
 In order to assign an attribute to a particular node or edge we can use the `V` and `E` (vertex and edge) calls in `igraph`. For example, in the following example, we will assign a `region` variable to each node in the network we created above using the `V` function to assign a vertex attribute. You simply type the name of the network object in the parenthesis after `V` and use the `$` atomic variable symbol to assign a name to the attribute that will be associated with that network object.
 
-
-```r
+```{r, warning=F, message=F}
 # Assign a variable called "region" to the Cibola_net2 based on the
 # column in the Cibola_attr table called "Region"
 V(Cibola_net2)$region <- Cibola_attr$Region
 
 # If we now call that attribute we get a vector listing each assigned value
 V(Cibola_net2)$region
-#>  [1] "Mogollon Highlands"    "El Morro Valley"      
-#>  [3] "Upper Little Colorado" "Upper Little Colorado"
-#>  [5] "El Morro Valley"       "Upper Little Colorado"
-#>  [7] "Mogollon Highlands"    "Carrizo Wash"         
-#>  [9] "Pescado Basin"         "West Zuni"            
-#> [11] "Upper Little Colorado" "Mariana Mesa"         
-#> [13] "Mariana Mesa"          "West Zuni"            
-#> [15] "El Morro Valley"       "Vernon Area"          
-#> [17] "El Morro Valley"       "West Zuni"            
-#> [19] "Pescado Basin"         "Carrizo Wash"         
-#> [21] "El Morro Valley"       "Upper Little Colorado"
-#> [23] "El Morro Valley"       "West Zuni"            
-#> [25] "Mariana Mesa"          "El Morro Valley"      
-#> [27] "Mariana Mesa"          "Mariana Mesa"         
-#> [29] "Mariana Mesa"          "Mogollon Highlands"   
-#> [31] "Pescado Basin"
 
 # Note that "region" is now listed as an attribute when we view 
 # the network object
 Cibola_net2
-#> IGRAPH 27e26cd UN-- 31 167 -- 
-#> + attr: name (v/c), region (v/c)
-#> + edges from 27e26cd (vertex names):
-#>  [1] Apache.Creek--Casa.Malpais        
-#>  [2] Apache.Creek--Coyote.Creek        
-#>  [3] Apache.Creek--Hooper.Ranch        
-#>  [4] Apache.Creek--Horse.Camp.Mill     
-#>  [5] Apache.Creek--Hubble.Corner       
-#>  [6] Apache.Creek--Mineral.Creek.Pueblo
-#>  [7] Apache.Creek--Rudd.Creek.Ruin     
-#>  [8] Apache.Creek--Techado.Springs     
-#> + ... omitted several edges
 ```
 
 This can further be used for plotting or other analyses by calling the variable as a factor ([see this resource](https://r4ds.had.co.nz/factors.html) or the [Getting Started with R](#DataTypes) to learn more about the factor data.
 
-
-```r
+```{r, warning=F, message=F}
 
 set.seed(43534)
 plot(Cibola_net2, vertex.color = as.factor(V(Cibola_net2)$region))
 ```
-
-<img src="02-network-data-formats_files/figure-html/unnamed-chunk-9-1.png" width="672" />
 
 ## Types of Networks{#TypesOfNetworks}
 
@@ -359,8 +201,7 @@ In this section, we cover:
 
 We call a network a simple network (or simple graph) if we only have a set of nodes and a set of edges connecting them, with no additional information about the edges or specific rules they need to follow. Simple networks are, in other words, unweighted and undirected one-mode networks. By way of example we will use the Cibola region [adjacency matrix file](data/Cibola_adj.csv) and convert it into a simple network using both `igraph` and `network`. Notice how in both examples we specify that this is an undirected network (`mode = "undirected"` and `directed = FALSE`). 
 
-
-```r
+```{r, warning=F, message=F}
 # Read in raw adjacency matrix file
 adj_mat2 <-
   read.csv(file = "data/Cibola_adj.csv",
@@ -372,38 +213,11 @@ simple_net_i <-
   igraph::graph_from_adjacency_matrix(as.matrix(adj_mat2),
                                       mode = "undirected")
 simple_net_i
-#> IGRAPH 28dc6d9 UN-- 31 167 -- 
-#> + attr: name (v/c)
-#> + edges from 28dc6d9 (vertex names):
-#>  [1] Apache.Creek--Casa.Malpais        
-#>  [2] Apache.Creek--Coyote.Creek        
-#>  [3] Apache.Creek--Hooper.Ranch        
-#>  [4] Apache.Creek--Horse.Camp.Mill     
-#>  [5] Apache.Creek--Hubble.Corner       
-#>  [6] Apache.Creek--Mineral.Creek.Pueblo
-#>  [7] Apache.Creek--Rudd.Creek.Ruin     
-#>  [8] Apache.Creek--Techado.Springs     
-#> + ... omitted several edges
 
 # Covert to a network object using statnet/network
 simple_net_s <-
   network::network(as.matrix(adj_mat2), directed = FALSE)
 simple_net_s
-#>  Network attributes:
-#>   vertices = 31 
-#>   directed = FALSE 
-#>   hyper = FALSE 
-#>   loops = FALSE 
-#>   multiple = FALSE 
-#>   bipartite = FALSE 
-#>   total edges= 167 
-#>     missing edges= 0 
-#>     non-missing edges= 167 
-#> 
-#>  Vertex attribute names: 
-#>     vertex.names 
-#> 
-#> No edge attributes
 ```
 
 Notice how the two formats differ in the way they internally store network data in R and the way they print output to the screen but that both show a total of 31 nodes (vertices) and 167 edges (for the igraph object the first row specifies node and edge numbers between the -- marks).
@@ -414,8 +228,7 @@ Sometimes relationships are directional, meaning they have an orientation. For e
 
 By way of example here we will modify the Cibola network edge list to remove some number of edges at random to simulate directed network data. We will then convert these data into various network and matrix formats to illustrate how directed networks are stored and used in R. We first use the `sample` function to define a sub-sample of our network nodes and then we create a network object from that random sub-sample. By randomly removing some edges from the edge list we are left with a directed network where not all edges will be reciprocated. 
 
-
-```r
+```{r, message=F, warning=F}
 # Read in edgelist file as dataframe
 Cibola_edgelist <-
   read.csv(file = "data/Cibola_edgelist.csv", header = TRUE)
@@ -431,41 +244,14 @@ EL2 <- Cibola_edgelist[sample(seq(1, nrow(Cibola_edgelist)), 125,
 directed_net <-
   igraph::graph_from_edgelist(as.matrix(EL2), directed = TRUE)
 directed_net
-#> IGRAPH 28e4cf1 DN-- 30 125 -- 
-#> + attr: name (v/c)
-#> + edges from 28e4cf1 (vertex names):
-#>  [1] Coyote Creek   ->Techado Springs      
-#>  [2] Hubble Corner  ->Tri-R Pueblo         
-#>  [3] Hubble Corner  ->Techado Springs      
-#>  [4] Heshotauthla   ->Pueblo de los Muertos
-#>  [5] Rudd Creek Ruin->Techado Springs      
-#>  [6] Heshotauthla   ->Hinkson              
-#>  [7] Los Gigantes   ->Yellowhouse          
-#>  [8] Los Gigantes   ->Pueblo de los Muertos
-#> + ... omitted several edges
 
 # View as adjacency matrix of direted network object
 (as_adjacency_matrix(directed_net))[1:5, 1:5]
-#> 5 x 5 sparse Matrix of class "dgCMatrix"
-#>                 Coyote Creek Techado Springs Hubble Corner
-#> Coyote Creek               .               1             1
-#> Techado Springs            .               .             .
-#> Hubble Corner              .               1             .
-#> Tri-R Pueblo               .               .             .
-#> Heshotauthla               .               .             .
-#>                 Tri-R Pueblo Heshotauthla
-#> Coyote Creek               .            .
-#> Techado Springs            1            .
-#> Hubble Corner              1            .
-#> Tri-R Pueblo               .            .
-#> Heshotauthla               .            .
 
 # Plot network
 set.seed(4353)
 plot(directed_net)
 ```
-
-<img src="02-network-data-formats_files/figure-html/unnamed-chunk-11-1.png" width="672" />
 
 Notice that when we look at the igraph network plot it has arrows indicating the direction of connection in the edge list. If you are making your own directed edge list, the sending node by default will be in the left column and the receiving node in the right column. In the adjacency matrix the upper and lower triangles are no longer identical. Again, if you are generating your own adjacency matrix, you can simply mark edges sent from nodes denoted as rows and edges received from the same nodes as columns. Finally, in the plot, since R recognizes this as a directed igraph object when we plot the network, it automatically shows arrows indicating the direction of the edge.
 
@@ -475,8 +261,7 @@ In many situations we want to add values to specific edges such as signs (someti
 
 In this example, we will randomly generate edge weights for the Cibola network edge list and adjacency matrix to illustrate how R handles these formats. We use the `sample` function again to create a random vector of values between 1 and 4 for every edge in the network and then add it to the edgelist as a new variable called `$Weight`. We then convert this data frame into a network object.
 
-
-```r
+```{r, warning=F, message=F}
 # Read in edge list file as data frame
 Cibola_edgelist <-
   read.csv(file = "data/Cibola_edgelist.csv", header = TRUE)
@@ -494,37 +279,16 @@ E(weighted_net)$weight <- Cibola_edgelist$Weight
 
 # Explore the first few rows and columns of network object
 head(get.data.frame(weighted_net))
-#>           from                   to weight
-#> 1 Apache Creek         Casa Malpais      4
-#> 2 Apache Creek         Coyote Creek      1
-#> 3 Apache Creek         Hooper Ranch      1
-#> 4 Apache Creek      Horse Camp Mill      3
-#> 5 Apache Creek        Hubble Corner      4
-#> 6 Apache Creek Mineral Creek Pueblo      4
 
 # View network as adjacency matrix. Notice the attr="weight" command that
 # indicates which edge attribute to use for values in the matrix
 head(as_adjacency_matrix(weighted_net, attr = "weight"))[1:5, 1:5]
-#> 5 x 5 sparse Matrix of class "dgCMatrix"
-#>                 Apache Creek Casa Malpais Coyote Creek
-#> Apache Creek               .            4            1
-#> Casa Malpais               4            .            1
-#> Coyote Creek               1            1            .
-#> Hooper Ranch               1            1            1
-#> Horse Camp Mill            3            2            4
-#>                 Hooper Ranch Horse Camp Mill
-#> Apache Creek               1               3
-#> Casa Malpais               1               2
-#> Coyote Creek               1               4
-#> Hooper Ranch               .               4
-#> Horse Camp Mill            4               .
 
 # Plot the network
 set.seed(574)
 plot(weighted_net, edge.width = E(weighted_net)$weight)
-```
 
-<img src="02-network-data-formats_files/figure-html/unnamed-chunk-12-1.png" width="672" />
+```
 
 Notice in the final plot that line thickness is used to indicate edges with various weights. We will explore further options for such visualizations in the network [visualizations section](#Visualization) of this document.
 
@@ -534,8 +298,7 @@ Two-mode networks are networks where two separate categories of nodes are define
 
 Two-mode network data are typically recorded in a two-way table with rows and columns representing two different classes of nodes and with individual cells representing the presence/absence or weight of edges between those classes of nodes. By way of example here we will return to the table of ceramic technological clusters by sites for the Cibola region data. The simplest way to create an unweighted two-mode network from these data is to create a network object directly from a two-way table as we saw above. In this example this will create an edge between each site and each technological cluster present there irrespective of relative frequency using the `igraph::graph_from_incidence_matrix` function.
 
-
-```r
+```{r, warning=F, message=F}
 # Read in two-way table of sites and ceramic technological clusters
 Cibola_clust <- read.csv(file = "data/Cibola_clust.csv",
                          header = TRUE,
@@ -546,29 +309,14 @@ Cibola_inc <- igraph::graph_from_incidence_matrix(Cibola_clust,
                                                   directed = FALSE,
                                                   multiple = TRUE)
 Cibola_inc
-#> IGRAPH 2931535 UN-B 41 2214 -- 
-#> + attr: type (v/l), name (v/c)
-#> + edges from 2931535 (vertex names):
-#>  [1] Apache Creek--Clust1 Apache Creek--Clust1
-#>  [3] Apache Creek--Clust1 Apache Creek--Clust1
-#>  [5] Apache Creek--Clust1 Apache Creek--Clust1
-#>  [7] Apache Creek--Clust1 Apache Creek--Clust2
-#>  [9] Apache Creek--Clust2 Apache Creek--Clust2
-#> [11] Apache Creek--Clust3 Apache Creek--Clust3
-#> [13] Apache Creek--Clust3 Apache Creek--Clust3
-#> [15] Apache Creek--Clust3 Apache Creek--Clust3
-#> + ... omitted several edges
 set.seed(4537643)
 # Plot as two-mode network
 plot(Cibola_inc, vertex.color = as.numeric(V(Cibola_inc)$type) + 1)
 ```
 
-<img src="02-network-data-formats_files/figure-html/unnamed-chunk-13-1.png" width="672" />
-
 In this case since most clusters are present at most sites, this creates a pretty busy network that may not be particularly useful. An alternative to this is to define some threshold (either in terms of raw count or proportion) to define an edge between a node of one class and another. We provide an example here and build a function that you could modify to do this for your own data. In this function you can set the proportion threshold that you would like to used to define an edge between two classes of nodes. If the proportion of that cluster at that site is greater than or equal to that threshold an edge will be present. In the example below the threshold is set at 0.25 meaning that we will define edges between nodes that share a common type that makes of at least a quarter of the assemblage of both sites.
 
-
-```r
+```{r, warning=F, message=F}
 # Define function for creating incidence matrix with threshold
 two_mode <- function (x, thresh = 0.25) {
   # Create matrix of proportions from x input into function
@@ -587,20 +335,6 @@ two_mode <- function (x, thresh = 0.25) {
 mod_clust <- two_mode(Cibola_clust, thresh = 0.25)
 # Examine the first few rows
 head(mod_clust)
-#>              Clust1 Clust2 Clust3 Clust4 Clust5 Clust6
-#> Apache Creek      0      0      0      1      0      0
-#> Atsinna           0      0      1      0      0      0
-#> Baca Pueblo       0      0      0      0      0      0
-#> Casa Malpais      0      0      0      1      0      0
-#> Cienega           0      1      1      0      0      0
-#> Coyote Creek      0      0      0      1      0      0
-#>              Clust7 Clust8 Clust9 Clust10
-#> Apache Creek      0      0      0       0
-#> Atsinna           0      0      0       0
-#> Baca Pueblo       0      0      1       0
-#> Casa Malpais      0      0      0       0
-#> Cienega           0      0      0       0
-#> Coyote Creek      0      0      0       0
 # Create a graph matrix from the new incidence matrix
 two_mode_net <- igraph::graph_from_incidence_matrix(
                           mod_clust,
@@ -613,14 +347,11 @@ plot(two_mode_net,
      vertex.color = as.numeric(V(Cibola_inc)$type) + 1)
 ```
 
-<img src="02-network-data-formats_files/figure-html/unnamed-chunk-14-1.png" width="672" />
-
 Notice how there are now far fewer ties and if you are familiar with the sites in question you might notice some clear regional patterning. 
 
 It is also possible to create one-mode projections of the two-mode data here using simple matrix algebra. All you need to do is multiply a matrix by the transpose of that matrix. The results will be a adjacency matrix for whichever set of nodes represented the rows in the first matrix in the matrix multiplication. Here is an example using the `mod_clust` incidence matrix with threshold created above. In the resulting incidence matrix individual cells will represent the number of different edges in common between the nodes in question and can be treated like an edge weight. The diagonal of the matrix will be the total number of clusters that were present in a site assemblage. In R the operator `%*%` indicates matrix mulitplication and the function `t()` will transpose a given matrix.
 
-
-```r
+```{r, warning=F, message=F}
 # In R the command "%*%" indicates matrix multiplication and "t()"
 # gives the transpose of the matrix within the parentheses.
 # Lets first create a one-mode projection focused on sites
@@ -629,11 +360,6 @@ site_net <- igraph::graph_from_adjacency_matrix(site_mode,
                                                 mode = "undirected",
                                                 diag = FALSE)
 plot(site_net)
-```
-
-<img src="02-network-data-formats_files/figure-html/unnamed-chunk-15-1.png" width="672" />
-
-```r
 
 # Now lets create a one-mode projection focused on ceramic
 # technological clusters.
@@ -641,28 +367,12 @@ plot(site_net)
 # matrix multiplication we transpose.
 clust_mode <- t(mod_clust) %*% mod_clust
 head(clust_mode)
-#>        Clust1 Clust2 Clust3 Clust4 Clust5 Clust6 Clust7
-#> Clust1      1      0      0      0      0      0      0
-#> Clust2      0     16      9      1      0      2      0
-#> Clust3      0      9     10      0      0      1      0
-#> Clust4      0      1      0     11      1      0      0
-#> Clust5      0      0      0      1      1      0      0
-#> Clust6      0      2      1      0      0      2      0
-#>        Clust8 Clust9 Clust10
-#> Clust1      0      0       0
-#> Clust2      0      0       0
-#> Clust3      0      0       0
-#> Clust4      0      0       0
-#> Clust5      0      0       0
-#> Clust6      0      0       0
 
 clust_net <- igraph::graph_from_adjacency_matrix(clust_mode,
                                                  mode = "undirected",
                                                  diag = FALSE)
 plot(clust_net)
 ```
-
-<img src="02-network-data-formats_files/figure-html/unnamed-chunk-15-2.png" width="672" />
 
 ### Similarity Networks{#SimilarityNetworks}
 
@@ -680,8 +390,7 @@ $$S = {\frac{2-\sum_{k} \left|x_{k} - y_{k}\right|} {2}}$$
 
 where, for all categories $k$, $x$ is the proportion of $k$ in the first assemblage and $y$ is the proportion of $k$ in the second. We subtract the sum from 2 as 2 is the maximum proportional difference possible between two samples. We further divide the result by 2. This provides a scale of similarity from 0-1 where 1 is perfect similarity and 0 indicates no similarity. The chunk below defines the code for calculating this modified BR similarity measure. Note here we use a distance metric called "Manhattan Distance" built into the `vegan` package in R. This metric is identical to the Brainerd-Robinson metric. We rescale our results to range from 0 to 1 after calculation.
 
-
-```r
+```{r}
 # Read in raw data
 Cibola_clust <-
   read.csv(file = "data/Cibola_clust.csv",
@@ -700,16 +409,6 @@ Cibola_BR <- (2 - as.matrix(vegan::vegdist(clust_p,
 
 # Lets look at the first few rows.
 Cibola_BR[1:4, 1:4]
-#>              Apache Creek   Atsinna Baca Pueblo
-#> Apache Creek    1.0000000 0.3433584   0.4455782
-#> Atsinna         0.3433584 1.0000000   0.5750090
-#> Baca Pueblo     0.4455782 0.5750090   1.0000000
-#> Casa Malpais    0.7050691 0.3740804   0.5608953
-#>              Casa Malpais
-#> Apache Creek    0.7050691
-#> Atsinna         0.3740804
-#> Baca Pueblo     0.5608953
-#> Casa Malpais    1.0000000
 ```
 
 At this point we could simply define this as a weighted network object where weights are equal to the similarity scores, or we could define a threshold for defining edges as present or absent. We will discuss these options in detail after presenting other similarity/distance metrics.
@@ -730,23 +429,12 @@ $S$ is the total number of columns.
 
 This metric ranges from 0 (where no categories overlap at all) to 1 where the categories occur in the same proportions in both samples. Because this metric works on absolute counts we can run the vegdist function directly on the "Cibola_clust" object. Because we want a similarity rather than a distance (which is the default for this function in R) we subtract the results from 1. 
 
-
-```r
+```{r}
 # Calculate matrix of Morisita similarities based on the
 # Cibola_clust two-way table.
 Cibola_Mor <- 1 - as.matrix(vegan::vegdist(Cibola_clust,
                                            method = 'morisita'))
 Cibola_Mor[1:4, 1:4]
-#>              Apache Creek   Atsinna Baca Pueblo
-#> Apache Creek    1.0000000 0.4885799   0.6014729
-#> Atsinna         0.4885799 1.0000000   0.5885682
-#> Baca Pueblo     0.6014729 0.5885682   1.0000000
-#> Casa Malpais    0.9060751 0.4459998   0.6529069
-#>              Casa Malpais
-#> Apache Creek    0.9060751
-#> Atsinna         0.4459998
-#> Baca Pueblo     0.6529069
-#> Casa Malpais    1.0000000
 ```
 
 
@@ -761,8 +449,7 @@ where $c_j$ denotes the $j_{th}$ element of the average row profile (the proport
 
 The code for calculating $\chi^{2}$ distances is defined in the chunk below and a new object called "Cibola_X" is created using this measure. It is sometimes preferable to rescale this measure so that it is bounded between 0 and 1. We create a second object called "Cibola_X01" which represents rescaled distances by simply dividing the matrix by the maximum observed value (there are many other ways to do this but this will be fine for our demonstration purposes). Again, we subtract these results from 1 to convert a distance to a similarity.
 
-
-```r
+```{r, warning=F, message=F}
 # Define function for calculating chi-squared distance
 chi_dist <- function(x) {
   # calculates the profile for every row
@@ -780,16 +467,6 @@ Cibola_X <- chi_dist(Cibola_clust)
 Cibola_X01 <- 1 - (Cibola_X / max(Cibola_X))
 
 Cibola_X01[1:4, 1:4]
-#>              Apache Creek   Atsinna Baca Pueblo
-#> Apache Creek    1.0000000 0.2904662   0.1010795
-#> Atsinna         0.2904662 1.0000000   0.3393173
-#> Baca Pueblo     0.1010795 0.3393173   1.0000000
-#> Casa Malpais    0.6166508 0.2999925   0.1469591
-#>              Casa Malpais
-#> Apache Creek    0.6166508
-#> Atsinna         0.2999925
-#> Baca Pueblo     0.1469591
-#> Casa Malpais    1.0000000
 ```
 
 #### Creating Network Objects from Similarity Matrices {- #NetFromSim}
@@ -802,8 +479,7 @@ First, we will produce a network object based on our BR similarity matrix create
 
 In the code below, the `event2dichot` function (from the `statnet` package) takes our matrix and divides it into 1s and 0s based on the cut off we choose. Here we're using and `absolute` cut off meaning we're assigning a specific value to use as the cut off (0.65). We then send the output of this function to the network function just as before. 
 
-
-```r
+```{r}
 # Define our binary network object from BR similarity
 BRnet <-
   network(event2dichot(Cibola_BR, 
@@ -815,33 +491,15 @@ BRnet <-
 BRnet %v% "vertex.names" <- row.names(Cibola_clust)
 # look at the results.
 BRnet
-#>  Network attributes:
-#>   vertices = 31 
-#>   directed = FALSE 
-#>   hyper = FALSE 
-#>   loops = FALSE 
-#>   multiple = FALSE 
-#>   bipartite = FALSE 
-#>   total edges= 167 
-#>     missing edges= 0 
-#>     non-missing edges= 167 
-#> 
-#>  Vertex attribute names: 
-#>     vertex.names 
-#> 
-#> No edge attributes
 
 # plot network using default layout
 set.seed(7564)
 plot(BRnet)
 ```
 
-<img src="02-network-data-formats_files/figure-html/unnamed-chunk-19-1.png" width="672" />
-
 In the next chunk of code we will use the $\chi^2$ distances to create binary networks. This time, we will not use an absolute value to define ties as present, but instead will define those similarities greater than 80 percent of all similarities as present. We will then once again plot just as above.
 
-
-```r
+```{r }
 # Note we use 1 minus chacoX01 here so to convert a distance
 # to a similarity
 Xnet <-
@@ -853,28 +511,11 @@ Xnet <-
 Xnet %v% "vertex.names" <- row.names(Cibola_clust)
 # look at the results
 Xnet
-#>  Network attributes:
-#>   vertices = 31 
-#>   directed = FALSE 
-#>   hyper = FALSE 
-#>   loops = FALSE 
-#>   multiple = FALSE 
-#>   bipartite = FALSE 
-#>   total edges= 80 
-#>     missing edges= 0 
-#>     non-missing edges= 80 
-#> 
-#>  Vertex attribute names: 
-#>     vertex.names 
-#> 
-#> No edge attributes
 
 # plot network using default layout
 set.seed(346)
 plot(Xnet)
 ```
-
-<img src="02-network-data-formats_files/figure-html/unnamed-chunk-20-1.png" width="672" />
 
 ##### Creating Weighted Network Objects {-}
 
@@ -882,8 +523,7 @@ It is also possible to use R to create weighted networks where individual edges 
 
 If you do, however, chose do create a weighted network object from a similarity matrix it only requires a slight modification from the procedure above. In the chunk of code below, we will simply add the arguments `ignore.eval = F` and `names.eval = "weight"` to let the network function know we would like weights to be retained and we would like that attribute called 'weight'. We will apply this to the matrix of Morisita similarities defined above and then plot the result. 
 
-
-```r
+```{r }
 # create weighted network object from co-occurrence matrix by
 # adding the ignore.eval=F argument
 Mor_wt <- network(
@@ -895,29 +535,11 @@ Mor_wt <- network(
 
 Mor_wt %v% "vertex.names" <- row.names(Cibola_Mor)
 Mor_wt
-#>  Network attributes:
-#>   vertices = 31 
-#>   directed = FALSE 
-#>   hyper = FALSE 
-#>   loops = FALSE 
-#>   multiple = FALSE 
-#>   bipartite = FALSE 
-#>   total edges= 465 
-#>     missing edges= 0 
-#>     non-missing edges= 465 
-#> 
-#>  Vertex attribute names: 
-#>     vertex.names 
-#> 
-#>  Edge attribute names: 
-#>     weight
 
 # plot weighted network using default layout
 set.seed(4634)
 plot(Mor_wt)
 ```
-
-<img src="02-network-data-formats_files/figure-html/unnamed-chunk-21-1.png" width="672" />
 
 The resulting network is nearly complete so it is a bit unwieldy for plotting but calculating network statistics on this weighted network can often still be useful as we will see in the exploratory analysis section.
 
@@ -927,8 +549,7 @@ When we aim to understand the relational environment within which an entity is e
 
 Extracting an ego-network from an existing igraph network object in R is very easy. Here we will extract and plot the ego-network for Apache Creek, the first site in the network files we created above. First we read in data and create a network object and then we apply the `igraph::make_ego_graph` function to the network object we created.
 
-
-```r
+```{r, warning=F, message=F}
 # Read in edgelist file as dataframe
 Cibola_edgelist <-
   read.csv(file = "data/Cibola_edgelist.csv", header = TRUE)
@@ -945,44 +566,23 @@ ego_nets <- make_ego_graph(Cibola_net)
 
 # Examine the first ego-network
 ego_nets[[1]]
-#> IGRAPH 2a9d396 UN-- 12 59 -- 
-#> + attr: name (v/c)
-#> + edges from 2a9d396 (vertex names):
-#>  [1] Apache Creek--Casa Malpais   
-#>  [2] Apache Creek--Coyote Creek   
-#>  [3] Casa Malpais--Coyote Creek   
-#>  [4] Apache Creek--Hooper Ranch   
-#>  [5] Casa Malpais--Hooper Ranch   
-#>  [6] Coyote Creek--Hooper Ranch   
-#>  [7] Apache Creek--Horse Camp Mill
-#>  [8] Casa Malpais--Horse Camp Mill
-#> + ... omitted several edges
 
 # Plot Apache Creek ego-network
 set.seed(754)
 plot(ego_nets[[1]])
-```
-
-<img src="02-network-data-formats_files/figure-html/unnamed-chunk-22-1.png" width="672" />
-
-```r
 
 # Plot Platt Ranch ego-network for comparison
 set.seed(45367)
 plot(ego_nets[[30]])
 ```
 
-<img src="02-network-data-formats_files/figure-html/unnamed-chunk-22-2.png" width="672" />
-
 In these ego-networks, only nodes connected to the target nodes (Apache Creek in the first example and then Platt Ranch in the second) are shown and only edges among those included nodes are shown.
 
 It is also possible to determine the size of ego-networks for an entire one-mode network using the `ego_size` function. The output of this function is a vector that can be further assigned as a network node attribute.
 
-
-```r
+```{r}
 ego_size(Cibola_net)
-#>  [1] 12 12 12 12 13 14 13 13 10 14 15  7  9 14 13 14 15 11
-#> [19] 14 14 15  2 14 19 15 12 12 11  7  6
+
 ```
 
 ### Multilayer Network{#Multinet}
@@ -991,108 +591,47 @@ In the simplest terms, multilayer networks are networks where a single set of no
 
 The `multinet` package (Rossi and Vega 2021) is designed to facilitate the analysis of multilayer networks. In order to explore some of the possibilities here we use example data and analyses included in this package. Specifically, we will look at the famous network data on Florentine families in the 14th century where connections were defined in terms of both business and marriage.
 
-
-```r
+```{r}
 # create object with Florentine multilayer network data
 florentine <- ml_florentine()
 
 # Examine the data
 florentine
-#> ml-net[15, 2, 26, 35 (35,0)]
 summary(florentine)
-#>           n  m dir nc slc      dens        cc      apl dia
-#> _flat_   15 35   0  1  15 0.3333333 0.3409091 2.085714   4
-#> business 11 15   0  1  11 0.2727273 0.4166667 2.381818   5
-#> marriage 15 20   0  1  15 0.1904762 0.1914894 2.485714   5
 
 # plot the data
 plot(florentine)
-```
 
-<img src="02-network-data-formats_files/figure-html/unnamed-chunk-24-1.png" width="672" />
+```
 
 The `multinet` network objects are compatible with `igraph` and individual layers can be analyzed just like other `igraph` network objects. Where this `multinet` approach likely has greater utility is in conducting comparisons among layers or conducting analyses that take several layers into account simultaneously. A detailed exploration of this approach is beyond the scope of this document (but we provide a simple example below) and we suggest interested readers read the package information and tutorials associated with this package for more. In the example here we calculate degree across multiple layers using the `degree_ml` function and then run a Louvain cluster detection algorithm across all graph layers using `glouvain_ml`. Multilayer networks have considerable potential for archaeological data and we hope to see more research in this area in the future.
 
-
-```r
+```{r}
 # If we want to calculate degree centrality across multiple layers of a
 # multilayer network, the multinet package can help us do that directly
 # and quite simply.
 multinet::degree_ml(florentine)
-#>  [1]  1  3  2  4  7  6  5  6  3  6  3  6 11  4  3
 
 # Similarly, we could apply cluster detection algorithms to all layers
 # of a multilayer network simultaneously.
 multinet::glouvain_ml(florentine)
-#>           actor    layer cid
-#> 1       Strozzi marriage   0
-#> 2       Peruzzi business   0
-#> 3       Peruzzi marriage   0
-#> 4      Guadagni business   0
-#> 5      Guadagni marriage   0
-#> 6  Lamberteschi business   0
-#> 7  Lamberteschi marriage   0
-#> 8    Castellani business   0
-#> 9    Castellani marriage   0
-#> 10     Bischeri business   0
-#> 11     Bischeri marriage   0
-#> 12    Barbadori business   1
-#> 13    Barbadori marriage   1
-#> 14      Albizzi marriage   1
-#> 15       Ginori business   1
-#> 16       Ginori marriage   1
-#> 17   Acciaiuoli marriage   2
-#> 18     Salviati business   2
-#> 19     Salviati marriage   2
-#> 20        Pazzi business   2
-#> 21        Pazzi marriage   2
-#> 22       Medici business   2
-#> 23       Medici marriage   2
-#> 24   Tornabuoni business   2
-#> 25   Tornabuoni marriage   2
-#> 26      Ridolfi marriage   2
 ```
 
 For an archaeological example of multilevel network analysis [this GitHub project](https://github.com/ajupton/archy-multilayer-nets) by Andy Upton.
 
 ## Converting Among Network Object Types{#ConvertingNetworkFormats}
 
-<div class="rmdtip">
-<p>In most of the examples in this document we have been using the
-<code>igraph</code> package but for the similarity networks we chose to
-use <code>statnet</code> due to the convenience of functions for working
-directly with similarity data. Not to worry as it is easy to convert one
-format to another and preserve all of the attributes using a package
-called <code>intergraph</code>. By way of example below we can covert
-the weighted network object we created in the previous step and convert
-it to a <code>igraph</code> object and view the attributes using the
-<code>asIgraph</code> function. If we wanted to go the other direction
-and covert a <code>igraph</code> object to a <code>network</code> object
-(which is the format all of the <code>statnet</code> package require) we
-would instead use <code>asNetwrok</code>.</p>
-</div>
+```{block, type="rmdtip"}
+In most of the examples in this document we have been using the `igraph` package but for the similarity networks we chose to use `statnet` due to the convenience of functions for working directly with similarity data. Not to worry as it is easy to convert one format to another and preserve all of the attributes using a package called `intergraph`. By way of example below we can covert the weighted network object we created in the previous step and convert it to a `igraph` object and view the attributes using the `asIgraph` function. If we wanted to go the other direction and covert a `igraph` object to a `network` object (which is the format all of the `statnet` package require) we would instead use `asNetwrok`.
+```
 
 Here is a simple example:
 
-
-```r
+```{r, warning=F, message=F}
 Mor_wt_i <- asIgraph(Mor_wt)
 Mor_wt_i
-#> IGRAPH 2b1c284 U-W- 31 465 -- 
-#> + attr: na (v/l), vertex.names (v/c), na (e/l),
-#> | weight (e/n)
-#> + edges from 2b1c284:
-#>  [1] 1-- 2 1-- 3 1-- 4 1-- 5 1-- 6 1-- 7 1-- 8 1-- 9 1--10
-#> [10] 1--11 1--12 1--13 1--14 1--15 1--16 1--17 1--18 1--19
-#> [19] 1--20 1--21 1--22 1--23 1--24 1--25 1--26 1--27 1--28
-#> [28] 1--29 1--30 1--31 2-- 3 2-- 4 2-- 5 2-- 6 2-- 7 2-- 8
-#> [37] 2-- 9 2--10 2--11 2--12 2--13 2--14 2--15 2--16 2--17
-#> [46] 2--18 2--19 2--20 2--21 2--22 2--23 2--24 2--25 2--26
-#> [55] 2--27 2--28 2--29 2--30 2--31 3-- 4 3-- 5 3-- 6 3-- 7
-#> + ... omitted several edges
 
 # view first 10 edge weights to show that they are retained
 E(Mor_wt_i)$weight[1:10]
-#>  [1] 0.4885799 0.6014729 0.9060751 0.4049019 1.0000000
-#>  [6] 0.7087214 0.7724938 0.4521581 0.7996468 1.0000000
+
 ```

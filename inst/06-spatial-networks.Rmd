@@ -6,12 +6,9 @@ Working with geographic data in R can be a bit complicated and we cannot cover a
 
 ## Working with Geographic Data in R{#GeoData}
 
-<div class="rmdnote">
-<p>There are a number of packages for R that are designed explicitly for
-working with spatial data. Before we get into the spatial analyses it is
-useful to first briefly introduce these packages and aspects of spatial
-data analysis in R.</p>
-</div>
+```{block, type="rmdnote"}
+There are a number of packages for R that are designed explicitly for working with spatial data. Before we get into the spatial analyses it is useful to first briefly introduce these packages and aspects of spatial data analysis in R.
+```
 
 The primary packages include:
 
@@ -30,41 +27,12 @@ In the code below and in several other sections of the book you have seen functi
 
 To use this function you take a data frame which includes location xy information, you use the `coords` argument to specify which fields are the x and y coordinates, and then use the `crs` code to specify the coordinate reference system used. In this example we use code `4326` which refers to the WGS84 World Geodetic System of geographic coordinates. [See this website](https://epsg.io/) to look up many common `crs` code options.
 
-
-```r
+```{r, message=F, warning=F}
 library(sf)
 nodes <- read.csv("data/Hispania_nodes.csv", header = T)
 locs <- st_as_sf(nodes, coords = c("long", "lat"), crs = 4326)
 
 locs
-#> Simple feature collection with 122 features and 2 fields
-#> Geometry type: POINT
-#> Dimension:     XY
-#> Bounding box:  xmin: -9.1453 ymin: 36.0899 xmax: 3.1705 ymax: 43.5494
-#> Geodetic CRS:  WGS 84
-#> First 10 features:
-#>    Id                                    name
-#> 1  n0                               "Bracara"
-#> 2  n1                           "Iria Flavia"
-#> 3  n2                               "Saltigi"
-#> 4  n3                              "Bilbilis"
-#> 5  n4                             "Scallabis"
-#> 6  n5                  "Mercablum/Merifabion"
-#> 7  n6 "Valentia (Hispania Tarraconensis) (1)"
-#> 8  n7                               "Italica"
-#> 9  n8               "Acci/Col. Iulia Gemella"
-#> 10 n9                               "Toletum"
-#>                   geometry
-#> 1   POINT (-8.427 41.5501)
-#> 2  POINT (-8.5974 42.8101)
-#> 3  POINT (-1.7228 38.9186)
-#> 4  POINT (-1.6083 41.3766)
-#> 5  POINT (-8.6871 39.2362)
-#> 6  POINT (-6.0886 36.2765)
-#> 7  POINT (-0.3755 39.4758)
-#> 8  POINT (-6.0449 37.4411)
-#> 9  POINT (-3.1346 37.3003)
-#> 10 POINT (-4.0245 39.8567)
 ```
 
 Another feature used throughout this guide that needs further explanation is the `ggmap` funtion `get_stamenmap`. This function automatically retrieves a background map for you using a few arguments:
@@ -75,8 +43,7 @@ Another feature used throughout this guide that needs further explanation is the
 
 With the `ggmap` package, these background maps can easily be incorporated into network graphics.
 
-
-```r
+```{r, warning=F, message=F}
 library(ggmap)
 map <- get_stamenmap(bbox = c(-9.5, 36, 3, 43.8),
                        maptype = "terrain",
@@ -84,16 +51,13 @@ map <- get_stamenmap(bbox = c(-9.5, 36, 3, 43.8),
 ggmap(map)
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-3-1.png" width="672" />
-
 ## Example Data{#ExampleData}
 
 For the initial examples in this section we will use the Roman Road data from the Iberian Peninsula. This data set consists of a [csv file of a set of Roman settlements](data/Hispania_nodes.csv) and a [csv file of an edge list](data/Hispania_roads) defining connections among those settlements in terms of roads.
 
 First we map the basic road network. We have commented the code below to explain what is happening at each stage.
 
-
-```r
+```{r spatial_networks, warning=F, message=F, fig.height=5, fig.width=7}
 library(igraph)
 library(ggmap)
 library(sf)
@@ -160,27 +124,19 @@ ggmap(myMap) +
   theme_void()
 ```
 
-<img src="06-spatial-networks_files/figure-html/spatial_networks-1.png" width="672" />
-
 ## Planar Networks and Trees{#PlanarTrees}
 
 ### Evaluating Planarity{#Evaluating Planarity}
 
 A planar network is a network that can be drawn on a plane where the edges do not cross but instead always end in nodes. In many small networks it is relatively easy to determine whether or not a network is planar by simply viewing a network graph. In larger graphs, this can sometimes be difficult. 
 
-<div class="rmdnote">
-<p>There is a package available for R called <code>RBGL</code> which is
-an R implementation of something called the Boost Graph Library. This
-set of routines includes many powerful tools for characterizing network
-topology including planarity. This package is not, however, in the CRAN
-archive where the packages we have worked with so far reside so it needs
-to be installed from another archive called Bioconductor.</p>
-</div>
+```{block, type="rmdnote"}
+There is a package available for R called `RBGL` which is an R implementation of something called the Boost Graph Library. This set of routines includes many powerful tools for characterizing network topology including planarity. This package is not, however, in the CRAN archive where the packages we have worked with so far reside so it needs to be installed from another archive called Bioconductor.
+```
 
 In order to install the `RBGL` and `BiocManager` libraries (if required), run the following lines of code.
 
-
-```r
+```{r, eval=F, warning=F, message=F}
 if(!requireNamespace("BiocManager", quietly = TRUE))
   install.packages("BiocManager")
 BiocManager::install("RBGL")
@@ -190,20 +146,17 @@ With this in place we can now preform an analysis called the Boyer-Myrvold plana
 
 Let's take a look at our Roman Road data.
 
-
-```r
+```{r, warning=F, message=F, fig.height=7, fig.width=7}
 library(RBGL)
 # First convert to a graphNEL object for planarity test
 g <- as_graphnel(road_net)
 # Implement test
 boyerMyrvoldPlanarityTest(g)
-#> [1] FALSE
 ```
 
 This results suggests that our Roman Road data is not planar. We can plot the data to evaluate this and do see crossed edges that could not be re-positioned. 
 
-
-```r
+```{r, warning=F, message=F, fig.height=7, fig.width=7}
 library(ggraph)
 set.seed(5364)
 ggraph(road_net, layout = 'kk') +
@@ -213,12 +166,9 @@ ggraph(road_net, layout = 'kk') +
   theme_graph()
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-7-1.png" width="672" />
-
 Now, by way of example, we can generate a small random network that is planar and see the results of the test. Note that in the network graph that is produced the visual is not planar but could be a small number of nodes were moved. Unfortunately planar graph drawing is not currently implemented into `igraph` or other packages so you cannot automatically plot a graph as planar even if it meets the criteria of a planar graph. 
 
-
-```r
+```{r, fig.height=5, fig.width=7}
 set.seed(49)
 g <- erdos.renyi.game(20, 1 / 8)
 set.seed(939)
@@ -226,20 +176,13 @@ ggraph(g, layout = "stress") +
   geom_edge_link() +
   geom_node_point(size = 2) +
   theme_graph()
-```
-
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-8-1.png" width="672" />
-
-```r
 g <- as_graphnel(g)
 boyerMyrvoldPlanarityTest(g)
-#> [1] TRUE
 ```
 
 Here is another example where the graph layout algorithm happens to produce a planar graph.
 
-
-```r
+```{r, fig.height=5, fig.width=7}
 set.seed(4957)
 g <- erdos.renyi.game(20, 1 / 8)
 set.seed(939)
@@ -247,14 +190,8 @@ ggraph(g, layout = "stress") +
   geom_edge_link() +
   geom_node_point(size = 2) +
   theme_graph()
-```
-
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-9-1.png" width="672" />
-
-```r
 g <- as_graphnel(g)
 boyerMyrvoldPlanarityTest(g)
-#> [1] TRUE
 ```
 
 ### Defining Trees {#DefiningTrees}
@@ -269,31 +206,17 @@ In R using the igraph package it is possible to both generate trees and also to 
 
 Let's create a simple tree using the `make_tree` function in igraph.
 
-
-```r
+```{r, fig.height=5, fig.width=7}
 tree1 <- make_tree(n = 50, children = 5, mode = "undirected")
 tree1
-#> IGRAPH 24a1b8c U--- 50 49 -- Tree
-#> + attr: name (g/c), children (g/n), mode (g/c)
-#> + edges from 24a1b8c:
-#>  [1]  1-- 2  1-- 3  1-- 4  1-- 5  1-- 6  2-- 7  2-- 8  2-- 9
-#>  [9]  2--10  2--11  3--12  3--13  3--14  3--15  3--16  4--17
-#> [17]  4--18  4--19  4--20  4--21  5--22  5--23  5--24  5--25
-#> [25]  5--26  6--27  6--28  6--29  6--30  6--31  7--32  7--33
-#> [33]  7--34  7--35  7--36  8--37  8--38  8--39  8--40  8--41
-#> [41]  9--42  9--43  9--44  9--45  9--46 10--47 10--48 10--49
-#> [49] 10--50
 plot(tree1)
 ```
-
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-10-1.png" width="672" />
 
 In the example here you can see the branch and leaf structure of the network where there are central nodes that are hubs to a number of other nodes and so on, but there are no cycles back to the previous nodes. Thus, such a tree is inherently hierarchical.In the next sub-section, we will discuss the use of minimum spanning trees.
 
 It is also possible plot trees with a heirarchical network layout where nodes are arranged at levels of the hierarchy. In this case you need to specify the node or nodes that represent the first layer using the `root` call within the `ggraph` call. 
 
-
-```r
+```{r, warning=F, message=F,fig.height=5, fig.width=7}
 ggraph(tree1,
        layout = 'igraph',
        algorithm = 'tree',
@@ -303,8 +226,6 @@ ggraph(tree1,
   theme_void() 
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-11-1.png" width="672" />
-
 ## Spatial Network Models {#SpatialNetworkModels}
 
 In Chapter 7.5 in Brughmans and Peeples (2022) we go over a series of spatial network models that provide a number of different ways of defining networks from spatial data. In this sub-section we demonstrate how to define and analyze networks using these approaches. 
@@ -313,21 +234,14 @@ In Chapter 7.5 in Brughmans and Peeples (2022) we go over a series of spatial ne
 
 Relative neighborhood graph: a pair of nodes are connected if there are no other nodes in the area marked by the overlap of a circle around each node with a radius equal to the distance between the nodes.
 
-<div class="rmdnote">
-<p>The R package <code>cccd</code> contains functions to define relative
-neighborhood networks from distance data using the <code>rng</code>
-function. This function can either take a distance matrix object as
-created above or a set of coordinates to calculate the distance within
-the call. The output of this function is an igraph object. For large
-graphs it is also possible to limit the search for possible neighbors to
-<span class="math inline">\(k\)</span> neighbors.</p>
-</div>
+```{block, type="rmdnote"}
+The R package `cccd` contains functions to define relative neighborhood networks from distance data using the `rng` function. This function can either take a distance matrix object as created above or a set of coordinates to calculate the distance within the call. The output of this function is an igraph object. For large graphs it is also possible to limit the search for possible neighbors to $k$ neighbors. 
+```
 
 Let's use our previously created distance matrix and plot the results. 
 
 
-
-```r
+```{r, message=F, warning=F, fig.height=5, fig.width=7}
 library(cccd)
 rng1 <- rng(nodes[, c(3, 2)])
 ggraph(rng1, layout = "kk") +
@@ -336,12 +250,9 @@ ggraph(rng1, layout = "kk") +
   theme_graph()
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-13-1.png" width="672" />
-
 We can also plot the results using geographic coordinates.
 
-
-```r
+```{r, fig.height=5, fig.width=7}
 ggraph(rng1,
        layout = "manual",
        x = nodes[, 3],
@@ -351,26 +262,18 @@ ggraph(rng1,
   theme_graph()
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-14-1.png" width="672" />
-
 ### Gabriel Graphs{#GabrialGraphs}
 
 Gabriel graph: a pair of nodes are connected in a Gabriel graph if no other nodes lie within the circular region with a diameter equal to the distance between the pair of nodes.
 
 Again we can use a function in the `cccd` package to define Gabriel Graph igraph objects from x and y coordinates. Let's take a look using the Roman Road data. See `?gg` for details on the options including different algorithms for calculating Gabriel Graphs. We define a Gabriel graph here and plot it using an algorithmic layout and then geographic coordinates.
 
-
-```r
+```{r, fig.height=5, fig.width=7}
 gg1 <- gg(x = nodes[, c(3, 2)])
 ggraph(gg1, layout = "stress") +
   geom_edge_link() +
   geom_node_point(size = 2) +
   theme_graph()
-```
-
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-15-1.png" width="672" />
-
-```r
 ggraph(gg1,
        layout = "manual",
        x = nodes[, 3],
@@ -380,16 +283,13 @@ ggraph(gg1,
   theme_graph()
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-15-2.png" width="672" />
-
 ### Beta Skeletons{#BetaSkeletons}
 
 Beta skeleton: a Gabriel graph in which the diameter of the circle is controlled by a parameter beta.
 
 In R the `gg` function for producing Gabriel Graphs has the procedure for beta skeletons built directly in. The argument r in the gg function controls the beta parameter. When r = 1 a traditional Gabriel graph is returned. When the parameter r > 1 there is a stricter definition of connection resulting in fewer ties and when r < 1 link criteria are loosened. See `?gg` for more details.
 
-
-```r
+```{r, fig.height=5, fig.width=7}
 beta_s <- gg(x = nodes[, c(3, 2)], r = 1.5)
 ggraph(beta_s,
        layout = "manual",
@@ -400,27 +300,19 @@ ggraph(beta_s,
   theme_graph()
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-16-1.png" width="672" />
-
 ### Minimum Spanning Trees{#MinSpanningTrees}
 
 Minimum spanning tree: in a set of nodes in the Euclidean plane, edges are created between pairs of nodes to form a tree where each node can be reached by each other node, such that the sum of the Euclidean edge lengths is less than the sum for any other spanning tree.
 
 Perhaps the most common use-case for trees in archaeological networks is to define the minimum spanning tree of a given graph or the minimum set of nodes and edges required for a fully connected graph. The `igraph` package has a function called `mst` that defines the minimum spanning tree for a given graph. Let's try this with the Roman Road and then plot it as a node-link diagram and a map.
 
-
-```r
+```{r, fig.height=5, fig.width=7}
 mst_net <- igraph::mst(road_net)
 set.seed(4643)
 ggraph(mst_net, layout = "kk") +
   geom_edge_link() +
   geom_node_point(size = 4) +
   theme_graph()
-```
-
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-17-1.png" width="672" />
-
-```r
 # Extract edgelist from network object
 edgelist <- get.edgelist(mst_net)
 # Create dataframe of beginning and ending points of edges
@@ -455,11 +347,7 @@ ggmap(myMap) +
     show.legend = F
   ) +
   theme_void()
-#> Warning: Removed 2 rows containing missing values
-#> (geom_point).
 ```
-
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-17-2.png" width="672" />
 
 Note that minimum spanning trees can also be used for weighted graphs such that weighted connections will be preferred in defining tree structure. See `?mst` for more details.
 
@@ -469,27 +357,16 @@ Delaunay triangulation: a pair of nodes are connected by an edge if and only if 
 
 Voronoi diagram or Thiessen polygons: for each node in a set of nodes in a Euclidean plane, a region is created covering the area that is closer or equidistant to that node than it is to any other node in the set.
 
-<div class="rmdnote">
-<p>The package <code>deldir</code> in R allows for the calculation of
-Delaunay triangles with x and y coordinates as input. By default the
-<code>deldir</code> function will define a boundary that extends
-slightly beyond the xy coordinates of all points included in the
-analysis. This boundary can also be specified within the call using the
-<code>rw</code> argument. See <code>?deldir</code> for more details.</p>
-</div>
+```{block, type="rmdnote"}
+The package `deldir` in R allows for the calculation of Delaunay triangles with x and y coordinates as input. By default the `deldir` function will define a boundary that extends slightly beyond the xy coordinates of all points included in the analysis. This boundary can also be specified within the call using the `rw` argument. See `?deldir` for more details. 
+```
 
 The results of the `deldir` function can be directly plotted and the output also contains coordinates necessary to integrate the results into another type of figure like a `ggmap`. Let's take a look.
 
-
-```r
+```{r, warning=F, message=F, fig.height=5, fig.width=7}
 library(deldir)
 dt1 <- deldir(nodes[, 3], nodes[, 2])
 plot(dt1)
-```
-
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-19-1.png" width="672" />
-
-```r
 # Extract Voronoi polygons for plotting
 mapdat <- as.data.frame(dt1$dirsgs)
 # Extract network for plotting
@@ -530,16 +407,13 @@ ggmap(myMap) +
   theme_void()
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-19-2.png" width="672" />
-
 ### K-nearest Neighbors {#KNN}
 
 K-nearest neighbor network: each node is connected to K other nodes closest to it.
 
 The `cccd` package has a routine that allows for the calculation of K-nearest neighbor graphs from geographic coordinates or a precomputed distance matrix. In this example we use the Roman Road data and calculate K=1 and K=6 nearest neighbor networks and plot the both simultaneously.
 
-
-```r
+```{r, warning=F, message=F, fig.height=5, fig.width=7}
 # Calculate k=1 nearest neighbor graph
 nn1 <- nng(x = nodes[, c(3, 2)], k = 1)
 # Calculate k=6 nearest neighbor graph
@@ -562,30 +436,18 @@ ggraph(g, layout = "manual",
   theme_graph()
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-20-1.png" width="672" />
-
 ### Maximum Distance Networks{#MaxDist}
 
 Maximum distance network: each node is connected to all other nodes at a distance closer than or equal to a threshold value. In order define a maximum distance network we simply need to define a threshold distance and define all nodes greater than that distance as unconnected and nodes within that distance as connected. This can be done in base R using the dist function we used above.
 
-<div class="rmdtip">
-<p>Since the coordinates we are using here are in decimal degrees we
-need to calculate distances based on “great circles” across the globe
-rather than Euclidean distances on a projected plane. There is a
-function called <code>distm</code> in the <code>geosphere</code> package
-that allows us to do this. If you are working with projected data, you
-can simply use the <code>dist</code> function in the place of
-<code>distm</code> like the example below.</p>
-</div>
+```{block, type="rmdtip"}
+Since the coordinates we are using here are in decimal degrees we need to calculate distances based on "great circles" across the globe rather than Euclidean distances on a projected plane. There is a function called `distm` in the `geosphere` package that allows us to do this. If you are working with projected data, you can simply use the `dist` function in the place of `distm` like the example below.
+```
 
 Next, in order to define a minimum distance network we simply binarize this matrix. We can do this using the `event2dichot` function within the `statnet` package and easily create an R network objects. Let's try it out with the Roman Road data for thresholds of 100,000 and 250,000 meters.
 
-
-```r
+```{r, warning=F, message=F, fig.height=5, fig.width=7}
 library(statnet)
-#>            Installed ReposVer Built  
-#> ergm.count "4.0.2"   "4.1.1"  "4.2.0"
-#> network    "1.17.1"  "1.17.2" "4.2.0"
 library(geosphere)
 d1 <- distm(nodes[, c(3, 2)])
 # Note we use the leq=TRUE argument here as we want nodes less than
@@ -612,11 +474,6 @@ ggraph(net100,
   geom_edge_link() +
   geom_node_point(size = 2) +
   theme_graph()
-```
-
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-22-1.png" width="672" />
-
-```r
 # Plot 250 Km network
 ggraph(net250,
        layout = "manual",
@@ -627,8 +484,6 @@ ggraph(net250,
   theme_graph()
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-22-2.png" width="672" />
-
 ## Case Studies{#SpaceCaseStudies}
 
 ### Proximity of Iron Age sites in Southern Spain{#IronAgeSpain}
@@ -637,29 +492,21 @@ The first case study in Chapter 7 of Brughmans and Peeples (2022) is an example 
 
 First we read in the data which represents site location information in lat/long decimal degrees.
 
-
-```r
+```{r}
 guad <- read.csv("data/Guadalquivir.csv", header=TRUE)
 ```
 
 Next we create a distance matrix based on the decimal degrees locations using the "distm" function.
 
-
-```r
+```{r, message=F, warning=F, fig.height=5, fig.width=7}
 library(geosphere)
 g_dist1 <- as.matrix(distm(guad[, c(2, 3)]))
 g_dist1[1:4, 1:4]
-#>          [,1]     [,2]     [,3]     [,4]
-#> [1,]     0.00 69995.82 42265.58 51296.53
-#> [2,] 69995.82     0.00 28240.50 29202.84
-#> [3,] 42265.58 28240.50     0.00 23692.10
-#> [4,] 51296.53 29202.84 23692.10     0.00
 ```
 
 From here we can create maximum distance networks at both the 10km and 18km distance and plot it using the geographic location of nodes for node placement.
 
-
-```r
+```{r, message=F, warning=F, fig.height=5, fig.width=7}
 library(intergraph)
 # Note we use the leq=TRUE argument here as we want nodes less than the threshold to count.
 net10 <- asIgraph(network(
@@ -709,18 +556,12 @@ g18 <- ggraph(net18,
 g18
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-25-1.png" width="672" />
-
-<div class="rmdnote">
-<p>If we want to combine the degree distribution plot and the network
-into the same frame, we can use the <code>inset_element</code> function
-in the <code>patchwork</code> package. This function lets us place one
-plot inside another in the <code>ggplot2</code> format.</p>
-</div>
+```{block, type="rmdnote"}
+If we want to combine the degree distribution plot and the network into the same frame, we can use the `inset_element` function in the `patchwork` package. This function lets us place one plot inside another in the `ggplot2` format.
+```
 
 
-
-```r
+```{r, message=F, warning=F, fig.height=4,fig.width=7}
 library(patchwork)
 plot_a <- g10 + inset_element(
   h10,
@@ -737,20 +578,12 @@ plot_b <- g18 + inset_element(
   top = 0.99
 )
 plot_a
-```
-
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-27-1.png" width="672" />
-
-```r
 plot_b
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-27-2.png" width="672" />
-
 Next, we calculate a relative neighborhood graph for the site locations and plot it with nodes positioned in geographic space.
 
-
-```r
+```{r, fig.height=5, fig.width=7}
 rng1 <- rng(guad[, 2:3])
 g_rng <- ggraph(rng1,
                 layout = "manual",
@@ -774,12 +607,9 @@ plot_c <- g_rng + inset_element(
 plot_c
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-28-1.png" width="672" />
-
 The chunk of code below then calculates and plots the Gabrial graph with the associated degree distribution plot.
 
-
-```r
+```{r, fig.height=5, fig.width=7}
 gg1 <- gg(x = guad[, 2:3])
 g_gg <- ggraph(gg1,
                layout = "manual",
@@ -803,12 +633,9 @@ plot_d <- g_gg + inset_element(
 plot_d
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-29-1.png" width="672" />
-
 Next, we'll plot the K-nearest neighbors graphs for k= 2, 3, 4, and 6 with the associated degree distribution for each.
 
-
-```r
+```{r, warning=F, message=F, fig.height=6, fig.width=7}
 # Calculate k=2,3,4, and 6 nearest neighbor graphs
 nn2 <- nng(x = guad[, 2:3], k = 2)
 nn3 <- nng(x = guad[, 2:3], k = 3)
@@ -894,27 +721,10 @@ plot_d <- g_nn6 + inset_element(
   top = 0.99
 )
 plot_a
-```
-
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-30-1.png" width="672" />
-
-```r
 plot_b
-```
-
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-30-2.png" width="672" />
-
-```r
 plot_c
-```
-
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-30-3.png" width="672" />
-
-```r
 plot_d
 ```
-
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-30-4.png" width="672" />
 
 
 ### Networks in Space in the U.S. Southwest{#SpaceSW}
@@ -923,8 +733,7 @@ The second case study in Chapter 7 of Brughmans and Peeples (2022) provides an e
 
 The first analysis explores the degree to which similarities in ceramics (in terms of Brainerd-Robinson similarity based on wares) can be explained by spatial distance. To do this we simply define a ceramic similarity matrix, a Euclidean distance matrix, and the fit a model using distance to explain ceramic similarity using a general additive model (`gam`) approach. The `gam` function we use here is in the `mgcv` package. Note that the object `dmat` is created using the `dist` function as the data we started with are already projected site locations using UTM coordinates. 
 
-
-```r
+```{r, warning=F, message=F}
 library(mgcv)
 load('data/map.RData')
 attr <- read.csv('data/AD1050attr.csv', row.names = 1)
@@ -938,32 +747,13 @@ sim <-
 dmat <- as.matrix(dist(attr[, 9:10]))
 fit <- gam(as.vector(sim) ~ as.vector(dmat))
 summary(fit)
-#> 
-#> Family: gaussian 
-#> Link function: identity 
-#> 
-#> Formula:
-#> as.vector(sim) ~ as.vector(dmat)
-#> 
-#> Parametric coefficients:
-#>                   Estimate Std. Error t value Pr(>|t|)    
-#> (Intercept)      7.979e-01  2.547e-03   313.3   <2e-16 ***
-#> as.vector(dmat) -2.487e-06  1.448e-08  -171.8   <2e-16 ***
-#> ---
-#> Signif. codes:  
-#> 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-#> 
-#> 
-#> R-sq.(adj) =  0.372   Deviance explained = 37.2%
-#> GCV = 0.082702  Scale est. = 0.082699  n = 49729
 ```
 
 As these results show and as described in the book, spatial distance is a statistically significant predictor of ceramic similarity and distance appear to explain about 37.2% of the variation in ceramic similarity.
 
 The next analysis presented the book creates a series of minimum distance networks from 36Kms all the way out to nearly 400Kms in concentric days travel (36Kms is about one day of travel on foot) and explore the proportion of variance explained by networks constrained on each distance.
 
-
-```r
+```{r, warning=F, message=F, fig.width=7, fig.height=5}
 # Create a sequence of distances from 36km to 400kms by concentric
 # days travel on foot
 kms <- seq(36000, 400000, by = 36000)
@@ -998,13 +788,10 @@ ggplot(data = dat) +
   )
 ```
 
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-32-1.png" width="672" />
-
 
 Finally, let's recreate figure 7.8 from the book to display the 36km minimum distance network for the Chaco region ca. AD 1050-1100. This follows the same basic format for plotting minimum distance networks we defined above.
 
-
-```r
+```{r, warning=F, message=F, fig.height=7, fig.width=7}
 d36 <- as.matrix(dist(attr[, 9:10]))
 d36[d36 < 36001] <- 1
 d36[d36 > 1] <- 0
@@ -1058,5 +845,3 @@ figure7_8 <- ggmap(base, darken = 0.15) +
   theme_void()
 figure7_8
 ```
-
-<img src="06-spatial-networks_files/figure-html/unnamed-chunk-33-1.png" width="672" />
