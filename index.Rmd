@@ -93,8 +93,10 @@ You can also install this repository as an R package directly from GitHub using:
 
 ```{r, eval=F}
 if (!require("devtools")) install.packages("devtools")
-devtools::install_github("mpeeples2008/ArchNetSci")
+devtools::install_github("mpeeples2008/archnetpkg")
 ```
+
+Note that this package installs from a separate repository [found here](https://github.com/mpeeples2008/archnetpkg) which includes all of the dependencies required to run the code in this document but does not include the markdown files. The package folder includes a folder called "extdata" that includes the data and .R scripts used in this project.
 
 Finally, you can run the code and generate documents locally using R and R Studio by downloading the entire R repository here: [main.zip](https://github.com/mpeeples2008/ArchNetSci/archive/refs/heads/main.zip). Unzip the files and then:
 
