@@ -6,7 +6,7 @@ The purpose of this section is to provide a quick index of topics covered in thi
 
 [Welcome](#Welcome)
 
-* [How Should I Use this Online Companion](#HowTo)
+* [How Should I Use this Online Companion?](#HowTo)
 * [Reproducibility](#Repro)
 * [Discord Community](#Discord)
 * [New to R and R Studio?](#NewToR)

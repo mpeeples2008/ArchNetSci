@@ -477,7 +477,7 @@ If you want to identify particular shortest paths to or from nodes in a network 
 igraph::shortest_paths(simple_net, from = 1, to = 21)
 #> $vpath
 #> $vpath[[1]]
-#> + 5/31 vertices, named, from 2e9ad21:
+#> + 5/31 vertices, named, from 8f23312:
 #> [1] Apache.Creek          Casa.Malpais         
 #> [3] Garcia.Ranch          Heshotauthla         
 #> [5] Pueblo.de.los.Muertos
@@ -506,7 +506,7 @@ igraph::diameter(directed_net, directed = TRUE)
 
 igraph::farthest_vertices(directed_net, directed = TRUE)
 #> $vertices
-#> + 2/30 vertices, named, from 2e9bda1:
+#> + 2/30 vertices, named, from 8f241fa:
 #> [1] Apache Creek          Pueblo de los Muertos
 #> 
 #> $distance
@@ -544,9 +544,9 @@ components <- igraph::decompose(simple_net, min.vertices = 1)
 
 components
 #> [[1]]
-#> IGRAPH 30e8fe7 UN-- 30 167 -- 
+#> IGRAPH 9160831 UN-- 30 167 -- 
 #> + attr: name (v/c)
-#> + edges from 30e8fe7 (vertex names):
+#> + edges from 9160831 (vertex names):
 #>  [1] Apache.Creek--Casa.Malpais        
 #>  [2] Apache.Creek--Coyote.Creek        
 #>  [3] Apache.Creek--Hooper.Ranch        
@@ -558,9 +558,9 @@ components
 #> + ... omitted several edges
 #> 
 #> [[2]]
-#> IGRAPH 30e901b UN-- 1 0 -- 
+#> IGRAPH 916085b UN-- 1 0 -- 
 #> + attr: name (v/c)
-#> + edges from 30e901b (vertex names):
+#> + edges from 916085b (vertex names):
 
 V(components[[2]])$name
 #> [1] "WS.Ranch"
@@ -602,15 +602,15 @@ min_cut(simple_net_noiso, value.only = FALSE)
 #> [1] 1
 #> 
 #> $cut
-#> + 1/167 edge from 2e9b32e (vertex names):
+#> + 1/167 edge from 8f238d8 (vertex names):
 #> [1] Ojo Bonito--Baca Pueblo
 #> 
 #> $partition1
-#> + 1/30 vertex, named, from 2e9b32e:
+#> + 1/30 vertex, named, from 8f238d8:
 #> [1] Baca Pueblo
 #> 
 #> $partition2
-#> + 29/30 vertices, named, from 2e9b32e:
+#> + 29/30 vertices, named, from 8f238d8:
 #>  [1] Apache Creek          Casa Malpais         
 #>  [3] Coyote Creek          Hooper Ranch         
 #>  [5] Horse Camp Mill       Hubble Corner        
@@ -637,7 +637,7 @@ A clique as a network science concept is arguably the strictest method of defini
 
 ```r
 max_cliques(simple_net, min = 1)[[24]]
-#> + 9/31 vertices, named, from 2e9ad21:
+#> + 9/31 vertices, named, from 8f23312:
 #> [1] Los.Gigantes    Cienega         Tinaja         
 #> [4] Spier.170       Scribe.S        Pescado.Cluster
 #> [7] Mirabal         Heshotauthla    Yellowhouse

@@ -43,7 +43,7 @@ Another feature used throughout this guide that needs further explanation is the
 
 With the `ggmap` package, these background maps can easily be incorporated into network graphics.
 
-```{r, warning=F, message=F}
+```{r, warning=F, message=F, cache=T}
 library(ggmap)
 map <- get_stamenmap(bbox = c(-9.5, 36, 3, 43.8),
                        maptype = "terrain",
@@ -635,7 +635,7 @@ plot_d
 
 Next, we'll plot the K-nearest neighbors graphs for k= 2, 3, 4, and 6 with the associated degree distribution for each.
 
-```{r, warning=F, message=F, fig.height=6, fig.width=7}
+```{r, warning=F, message=F, fig.height=6, fig.width=7, cache=T}
 # Calculate k=2,3,4, and 6 nearest neighbor graphs
 nn2 <- nng(x = guad[, 2:3], k = 2)
 nn3 <- nng(x = guad[, 2:3], k = 3)
@@ -733,7 +733,7 @@ The second case study in Chapter 7 of Brughmans and Peeples (2022) provides an e
 
 The first analysis explores the degree to which similarities in ceramics (in terms of Brainerd-Robinson similarity based on wares) can be explained by spatial distance. To do this we simply define a ceramic similarity matrix, a Euclidean distance matrix, and the fit a model using distance to explain ceramic similarity using a general additive model (`gam`) approach. The `gam` function we use here is in the `mgcv` package. Note that the object `dmat` is created using the `dist` function as the data we started with are already projected site locations using UTM coordinates. 
 
-```{r, warning=F, message=F}
+```{r, warning=F, message=F, cache=T}
 library(mgcv)
 load('data/map.RData')
 attr <- read.csv('data/AD1050attr.csv', row.names = 1)
@@ -753,7 +753,7 @@ As these results show and as described in the book, spatial distance is a statis
 
 The next analysis presented the book creates a series of minimum distance networks from 36Kms all the way out to nearly 400Kms in concentric days travel (36Kms is about one day of travel on foot) and explore the proportion of variance explained by networks constrained on each distance.
 
-```{r, warning=F, message=F, fig.width=7, fig.height=5}
+```{r, warning=F, message=F, fig.width=7, fig.height=5, cache=T}
 # Create a sequence of distances from 36km to 400kms by concentric
 # days travel on foot
 kms <- seq(36000, 400000, by = 36000)
@@ -791,7 +791,7 @@ ggplot(data = dat) +
 
 Finally, let's recreate figure 7.8 from the book to display the 36km minimum distance network for the Chaco region ca. AD 1050-1100. This follows the same basic format for plotting minimum distance networks we defined above.
 
-```{r, warning=F, message=F, fig.height=7, fig.width=7}
+```{r, warning=F, message=F, fig.height=7, fig.width=7, cache=T}
 d36 <- as.matrix(dist(attr[, 9:10]))
 d36[d36 < 36001] <- 1
 d36[d36 > 1] <- 0

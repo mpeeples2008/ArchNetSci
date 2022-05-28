@@ -49,7 +49,6 @@ library(igraph)
 library(reshape2)
 library(ggraph)
 library(ggpubr)
-library(dplyr)
 library(statnet)
 #>            Installed ReposVer Built  
 #> ergm.count "4.0.2"   "4.1.1"  "4.2.0"
@@ -986,7 +985,7 @@ colnames(df) <- c("site", "degree") # add column names
 # and other statistics for degree by site.
 out <- df %>%
   group_by(site) %>%
-  summarise(
+  dplyr::summarise(
     Mean = mean(degree),
     Median = median(degree),
     Max = max(degree),

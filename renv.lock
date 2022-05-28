@@ -741,24 +741,6 @@
       "Hash": "cf6b206a045a684728c3267ef7596190",
       "Requirements": []
     },
-    "downlit": {
-      "Package": "downlit",
-      "Version": "0.4.0",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "ba63dc9ab5a31f3209892437e40c5f60",
-      "Requirements": [
-        "brio",
-        "desc",
-        "digest",
-        "evaluate",
-        "fansi",
-        "memoise",
-        "rlang",
-        "vctrs",
-        "yaml"
-      ]
-    },
     "dplyr": {
       "Package": "dplyr",
       "Version": "1.0.9",
@@ -2717,23 +2699,12 @@
     },
     "tinytex": {
       "Package": "tinytex",
-      "Version": "0.38",
+      "Version": "0.39",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "759d047596ac173433985deddf313450",
+      "Hash": "29f67ab15405b390b90e56ff22198ead",
       "Requirements": [
         "xfun"
-      ]
-    },
-    "tnet": {
-      "Package": "tnet",
-      "Version": "3.0.16",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "1625865c6eebcbef12a3e81cdb9fd2cd",
-      "Requirements": [
-        "igraph",
-        "survival"
       ]
     },
     "trust": {

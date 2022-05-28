@@ -196,7 +196,7 @@ We describe the spcifics of spatial data handling, geographic coordinates, and p
 ```
 
 
-```{r geo_layout, warning=F, message=F, fig.heigh=7, fig.width=7}
+```{r geo_layout, warning=F, message=F, fig.heigh=7, fig.width=7, cache=T}
 library(sf)
 library(ggmap)
 
@@ -288,10 +288,8 @@ dh_net <- ggraph(net, layout = "dh") +
   theme_graph() +
   theme(plot.title = element_text(size = rel(1)))
 
-
 library(ggpubr)
-ggarrange(circ_net, fr_net, dh_net, nrow = 1, ncol = 3)
-
+ggarrange(circ_net, fr_net, dh_net, nrow = 1) 
 ```
 
 ```{block, type="rmdnote"}
@@ -680,7 +678,7 @@ In the chunk of code below we use the `as.ggplot` function from the `ggplotify` 
 ```
 
 
-```{r Fig6_3a, message=F, warning=F, fig.width=7, fig.height=7}
+```{r Fig6_3a, message=F, warning=F, fig.width=7, fig.height=7, cache=T}
 
 
 library(igraph)
@@ -759,7 +757,7 @@ Be aware that this function may take a long time on your computer depending on y
 ```
 
 
-```{r Fig6_3c, message=F, warning=F, fig.width=7, fig.height=7}
+```{r Fig6_3c, message=F, warning=F, fig.width=7, fig.height=7, cache=T}
 library(edgebundle)
 load("data/Peeples2018.Rdata")
 
@@ -999,7 +997,7 @@ plot(Cibola_i, layout=Coords)
 Fig. 6.6. Map of major Roman roads and major settlements on the Iberian Peninsula, (a) with roads mapped along their actual geographic paths and (b) roads shown as simple line segments between nodes. 
 The figure that appears in the book was originally created using GIS software but it is possible to prepare a quite similar figure in R using the tools we outlined above. To reproduce the results presented here you will need to download [the node information file](data/Hispania_nodes.csv) and the [road edge list](data/Hispania_roads.csv). We have created a script called [map_net.R](scripts/map_net.R) which will produce similar maps when supplied with a network object and a file with node locations in lat/long coordinates. For more information on how R works with geographic data see the [spatial networks](#SpatialNetworks) section of this document.
 
-```{r Fig6_6, warning=F, message=F}
+```{r Fig6_6, warning=F, message=F, cache=T}
 
 
 library(igraph)
@@ -1076,7 +1074,7 @@ In the code below we use the `scalebar` function within the `ggsn` package to dr
 ```
 
 
-```{r, message=F, warning=F, fig.height=7, fig.width=7}
+```{r, message=F, warning=F, fig.height=7, fig.width=7, cache=T}
 library(igraph)
 library(sf)
 library(ggmap)
@@ -1371,7 +1369,7 @@ Fig. 6.9. Examples of visualisations based on hierarchical graph data. (a) Graph
 
 These graphs are based on a hierarchical graph that was created by assigning nodes to the leaves of a hierarchical cluster analysis performed on the Cibola ceramic technological cluster data. The data for 6.9d were randomly generated following an example on the R Graph Gallery. [Use these data](data/Figure6_9.Rdata) to follow along.
 
-```{r Fig6_9, warning=F, message=F, fig.height=7, fig.width=7}
+```{r Fig6_9, warning=F, message=F, fig.height=7, fig.width=7, cache=T}
 # initialize libraries
 library(igraph)
 library(ggraph)
@@ -1585,7 +1583,7 @@ We have found in practice that this feature in R works best for simple icons. If
 
 In the place of the example in the book, we here demonstrate how you can use image files with R to create nodes as pictures. You can [download the data](data/Figure6_13.Rdata) to follow along. This .RData file also includes the images used here in R format and the code used to read in .png images is shown below but commented out.
 
-```{r Fig6_13, fig.height=7, fig.width=7, warning=F, message=F}
+```{r Fig6_13, fig.height=7, fig.width=7, warning=F, message=F, cache=T}
 library(png)
 library(igraph)
 
@@ -1615,7 +1613,7 @@ plot(
 
 If you want to use images in a one mode network you can follow the sample below using [these data](data/Cibola_adj.csv). Note that in the line with `V(Cibola_i)$raster` you can either assign a single image or an image for each node in the network.
 
-```{r Fig6_13b, fig.height=7, fig.width=7, warning=F, message=F}
+```{r Fig6_13b, fig.height=7, fig.width=7, warning=F, message=F, cache=T}
 library(png)
 library(igraph)
 
@@ -1740,7 +1738,7 @@ Fig. 6.16. These networks all show the same data based on similarity scores amon
 
 The following chunk of code uses [ceramic similarity data from the SWSN database](data/Figure6_16.Rdata) and defines three different cutoff thresholds for defining edges. Note the only difference is the `thresh` argument in the `event2dichot` function.
 
-```{r Fig6_16, warning=F, message=F, fig.height=3, fig.width=7}
+```{r Fig6_16, warning=F, message=F, fig.height=3, fig.width=7, cache=T}
 
 library(igraph)
 library(statnet)
@@ -1813,7 +1811,7 @@ edgebundle::install_bundle_py(method = "auto", conda = "auto")
 
 [Use these data](data/Figure6_17.Rdata) to follow along. 
 
-```{r Fig6_17, fig.width=7, fig.height=7, warning=F, message=F}
+```{r Fig6_17, fig.width=7, fig.height=7, warning=F, message=F, cache=T}
 
 library(igraph)
 library(ggraph)
@@ -2278,7 +2276,7 @@ Note for short edges to be visible on top of long edges here we must first sort 
 
 
 
-```{r, warning=F, message=F, fig.width=7, fig.height=7}
+```{r Fig6_27, warning=F, message=F, fig.width=7, fig.height=7, cache=T}
 library(statnet)
 library(igraph)
 library(intergraph)
