@@ -510,7 +510,7 @@ In the case study provided at the end of Chapter 4 of Brughmans and Peeples (202
 
 First let's read in the [data file](data/road_networks.RData) that contains all three networks and start by plotting them in turn on a map. We are using a custom network map function here that is save in a file called [map_net.R](scripts/map_net.R) that takes locations with decimal degrees locations and plots a network directly on a map. We will go over the specifics of the function in more detail in the [Network Visualization](#Visualization) and [Spatial Networks](#SpatialNetworks) sections but here we simply call the script directly from the .R file. Make sure you have the libraries initialized below to replicate this map.
 
-```{r iberian_roads, warning=F, message=F}
+```{r iberian_roads, warning=F, message=F, cache=T}
 
 library(igraph)
 library(ggmap)

@@ -6,7 +6,7 @@ The purpose of this section is to provide a quick index of topics covered in thi
 
 [Welcome](#Welcome)
 
-* [How Should I Use this Online Companion](#HowTo)
+* [How Should I Use this Online Companion?](#HowTo)
 * [Reproducibility](#Repro)
 * [Discord Community](#Discord)
 * [New to R and R Studio?](#NewToR)
@@ -215,6 +215,21 @@ The purpose of this section is to provide a quick index of topics covered in thi
   + [Proximity of Iron Age Sites in Southern Spain](#IronAgeSpain)
   + [Networks in Space in the U.S. Southwest](#SpaceSW)
   
+## Section 7: Going Beyond the Book{-}
+
+[Going Beyond the Book](#BeyondTheBook)
+
+* [Exponential Random Graph Models (ERGM)](#ERGM)
+  + [ERGMs in R](#ERGMsInR)
+  + [Cranborne Chase Visibility Network Example](#CranborneChase)
+  + [Assessments of Network Properties](#NetProperties)
+  + [Fitting Models with `ergm`](#FitModels)
+  + [Building a Model Based on Theory](#ModelTheory)
+  + [Assessing Goodness-of-Fit](#GOF)
+  + [Asessing Model Degeneracy and MCMC Diagnostics](#Diagnostics)
+  + [Simulating Networks from ERGMs](#SimERGMs)
+  + [Choosing ERGM Terms](#ERGMterms)
+
 ## References and R Packages{-}
 
 [References and R Packages](https://book.archnetworks.net/references-and-r-packages.html)

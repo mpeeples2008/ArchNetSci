@@ -47,7 +47,6 @@ library(igraph)
 library(reshape2)
 library(ggraph)
 library(ggpubr)
-library(dplyr)
 library(statnet)
 
 # Import adjacency matrix and covert to network
@@ -67,7 +66,7 @@ Let's start with the simple version. We have commented the code chunk below so t
 * `nsim` which is the number of simulations to conduct at each sampling fraction
 * `props` which is a vector of sampling proportions to be test (0 > value < 1).
 
-```{r, warning=F, message=F}
+```{r, warning=F, message=F, cache=T}
 # Calculate node level metric of interest (betweenness in this case)
 # in the original network object
 met_orig <- igraph::betweenness(chaco_net)
@@ -226,7 +225,7 @@ The script is long, but it largely consists of a series of `if...else` statement
 
 Let's give this new function a try and calculate eigenvector centrality on the same `chaco_net` network object. Note that the function above has the `melt` function built in so the data returned are in a format required to create the plot.
 
-```{r, warning=F, message=F}
+```{r, warning=F, message=F, cache=T}
 # Run the function
 set.seed(5609)
 ev_test <- sim_missing_nodes(net = chaco_net, met = "eigenvector")
@@ -272,7 +271,7 @@ sub_net <- igraph::delete_edges(net, which(!(seq(1, ecount(net))
 
 Let's call our new function and assess the impact of edges missing at random on degree centrality to give this a try. We use the same default arguments for `nsim` and `props` as we did above. Since we have saved our function as a .R file, we can initialize it using the `source` function which lets you run all code in a specified .R file.
 
-```{r, warning=F, message=F}
+```{r, warning=F, message=F, cache=T}
 # First initilze the function using the .R script
 source("scripts/sim_missing_edges.R")
 
@@ -327,7 +326,7 @@ Cibola_net <-
 
 Now lets initialize our function from our script using the `source()` function, run the function, and create a bar plot to visualize the results. Following the example in the book, we are assessing the robustness of the rank order position of Garcia Ranch in terms of betweenness centrality to nodes missing at random. Note that Garcia Ranch has the second highest centrality score in the original network:
 
-```{r, warning=F, message=F}
+```{r, warning=F, message=F, cache=T}
 source("scripts/sim_target_node.R")
 
 # Run the function
@@ -384,7 +383,7 @@ sub_samp <- sample(seq(1, vcount(net)), prob = missing_probs,
 
 Now, let's try a real example using the `chaco_net` data again by creating a random variable to stand in for `missing_probs` here. We will test the impact on missing nodes. We simply create a vector of 223 random uniform numbers using the `runif` function to simulate probabilties associated with the 223 nodes. In practice, these probabilities could be based on site size, visibility, or any other feature you choose.
 
-```{r, warning=F, message=F}
+```{r, warning=F, message=F, cache=T}
 # Create 233 random numbers between 0 and 1 to stand in for 
 # node probabilities
 set.seed(4463)
@@ -415,7 +414,7 @@ In the book, we illustrate our approach to biased sampling using the [co-authors
 
 First we need to provide two data files. The first is the [bibliographic attribute data](data/biblio_attr.csv) which includes date, publication type, and other information on each publication designated by a unique identifier. The second is an [incidence matrix](data/biblio_dat2.csv) of publications denoted by unique identifier (rows) and authors (columns). We read this into R and then create an adjacency matrix of author to author connections using matrix algebra (multiply the incidence matrix by the transpose of the incidence matrix), convert it into a `igraph` network object and then calculate betweenness centrality for all nodes. We plot a simple network node link diagram to visualize these data.
 
-```{r, warning=F, message=F}
+```{r, warning=F, message=F, cache=T}
 
 # Read in publication and author attribute data
 bib <- read.csv('data/biblio_attr.csv')
@@ -487,7 +486,7 @@ head(lookup_dat)
 
 With the probabilities of retention for `missing_probs` in place, we can then call source code for our [sim_missing_inc.R script](scripts/sim_missing_inc.R) and run the function. Following the example in the book we run the function for `nsim = 1000` and for 3 sampling fractions `(0.9, 0.8, 0.7)` with the metric of interest as `betweenness`. Let's first run the function for our "probability by date" biased sampling process.
 
-```{r, warning=F, message=F}
+```{r, warning=F, message=F, cache=T}
 
 source("scripts/sim_missing_inc.R")
 
@@ -505,7 +504,7 @@ head(bib_bias)
 
 Next we want to run the function again to simulate nodes missing at random. All we need to do is change the `missing_probs` argument to `NA` (or exclude that argument altogether). Let's run it:
 
-```{r, warning=F, message=F}
+```{r, warning=F, message=F, cache=T}
 
 # Run the function
 set.seed(4363)
@@ -559,7 +558,7 @@ Since we do not have any data structured in exactly this way, we will use a smal
 
 Let's read in the data and plot it:
 
-```{r, warning=F, message=F, fig.height=7,fig.width=7}
+```{r, warning=F, message=F, fig.height=7,fig.width=7, cache=T}
 # Read in edge_list
 sim_edge <- as.matrix(read.csv("data/sim_edge.csv",
                      header = T, row.names = 1))
@@ -643,7 +642,7 @@ compile_stat <- function(net_list, met) {
 
 Now we run the edge_prob function for `nsim = 1000` and display a few candidate networks. 
 
-```{r, fig.width=7, fig.height=7}
+```{r, fig.width=7, fig.height=7, cache=T}
 EL_test <- edge_prob(sim_net, nsim = 1000, probs = sim_edge[,3])
 
 set.seed(9651)
@@ -728,7 +727,7 @@ sim_nets <- edge_prob(Cibola_wt, nsim = 1000, probs = E(Cibola_wt)$weight)
 
 Now let's plot a couple of the candidate networks:
 
-```{r, warning=F, message=F, fig.width = 7}
+```{r, warning=F, message=F, fig.width = 7, cache=T}
 # Precompute layout
 set.seed(9631)
 xy <- layout_with_fr(Cibola_wt)
@@ -832,7 +831,7 @@ The following chunk of code runs the `sim_samp_error` function defined above for
 
 Note that this could take several seconds to a few minutes depending on your computer.
 
-```{r, warning=F, message=F}
+```{r, warning=F, message=F, cache=T}
 set.seed(4634)
 sim_nets <- sim_samp_error(cer = ceramic, nsim = 1000)
 
@@ -872,7 +871,7 @@ As described in Chapter 5.3.5, in some cases we want to observe patterns of vari
 To create this plot, we first iterate through every object in `sim_nets` and calculate weighted degree centrality and then add that to a two-column matrix along with a node id. Once we have done this for all simulations, we use the `summarise` function to calculate the Mean and 
 
 
-```{r, warning=F, message=F}
+```{r, warning=F, message=F, cache=T}
 # Create data frame containing degree and site id for nsim random
 # similarity matrices
 df <- matrix(NA, 1, 2) # define empty matrix
@@ -889,7 +888,7 @@ colnames(df) <- c("site", "degree") # add column names
 # and other statistics for degree by site.
 out <- df %>%
   group_by(site) %>%
-  summarise(
+  dplyr::summarise(
     Mean = mean(degree),
     Median = median(degree),
     Max = max(degree),

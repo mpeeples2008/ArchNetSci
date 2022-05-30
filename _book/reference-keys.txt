@@ -107,3 +107,14 @@ MaxDist
 SpaceCaseStudies
 IronAgeSpain
 SpaceSW
+BeyondTheBook
+ERGM
+ERGMsInR
+CranborneChase
+NetProperties
+fitting-models-with-ergm
+ModelTheory
+GOF
+Diagnostics
+SimERGMs
+ERGMterms

@@ -60,6 +60,7 @@ Remotes:
 Suggests:
   edgebundle,
   reticulate,
+  latticeExtra,
   knitr,
   bslib,
   downlit,
