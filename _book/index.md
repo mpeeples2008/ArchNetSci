@@ -1,7 +1,7 @@
 ---
 title: "Online Companion to *Archaeological Network Science*"
 author: "Matthew A. Peeples and Tom Brughmans"
-date: "2022-05-30"
+date: "2022-05-31"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: references.bib
@@ -29,7 +29,7 @@ For more information on the book and the authors check the project website here:
 
 **Cite this document as:**
 
-> Peeples, Matthew A. and Tom Brughmans (2022). Online Companion to Archaeological Network Science by Brughmans and Peeples. <https://archnetworks.net>, Accessed 2022-05-30.
+> Peeples, Matthew A. and Tom Brughmans (2022). Online Companion to Archaeological Network Science by Brughmans and Peeples. <https://archnetworks.net>, Accessed 2022-05-31.
 
 **The associated book can be cited as**
 
@@ -91,6 +91,10 @@ The content of this document is designed to be as accessible and reproducible as
 The easiest way to reproduce this document is to launch the project directly in your browser using [Binder](https://mybinder.org/). When you click on the link below it will open a browser based instance of R studio with all of the required packages and files. From there you can test and evaluate the code directly.
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/mpeeples2008/ArchNetSci/main)
+
+When you open Binder you will see a window with the logo and a spinning progress wheel. It will typically only take a minute or so to get up and running and then you will see the screen below. Click on the "R-Studio" link under "Notebook" and it will open a new window with an R-Studio instance that you can use just like you would on your own computer. If you click on the Binder link and it is taking a long time, click to "show" the build logs. If you are "lucky" enough to be the first to initialize Binder after a new build of the GitHub project it will take quite a bit longer to get started. Grab a coffee, tea, Dr. Pepper, or other beverage of choice as it will be approximately 20-25 minutes before R-Studio loads.
+
+![Binder Notebook Page](images/binder.jpg){width=100%}
 
 You can also install this repository as an R package directly from GitHub using:
 

@@ -22,9 +22,6 @@ Let's first get started by initializing all of the packages we will use in this 
 # initialize packages
 library(igraph)
 library(statnet)
-#>            Installed ReposVer Built  
-#> ergm.count "4.0.2"   "4.1.1"  "4.2.0"
-#> network    "1.17.1"  "1.17.2" "4.2.0"
 library(intergraph)
 library(vegan)
 library(multinet)
@@ -87,9 +84,9 @@ Cibola_net <-
 
 # Display igraph network object and then plot a simple node-link diagram
 Cibola_net
-#> IGRAPH 28a020d UN-- 30 167 -- 
+#> IGRAPH 00365d3 UN-- 30 167 -- 
 #> + attr: name (v/c)
-#> + edges from 28a020d (vertex names):
+#> + edges from 00365d3 (vertex names):
 #>  [1] Apache Creek--Casa Malpais        
 #>  [2] Apache Creek--Coyote Creek        
 #>  [3] Apache Creek--Hooper Ranch        
@@ -118,7 +115,7 @@ adj_list <- igraph::as_adj_edge_list(Cibola_net)
 
 # examine adjacency list for the site Apache Creek
 adj_list$`Apache Creek`
-#> + 11/167 edges from 28a020d (vertex names):
+#> + 11/167 edges from 00365d3 (vertex names):
 #>  [1] Apache Creek--Casa Malpais        
 #>  [2] Apache Creek--Coyote Creek        
 #>  [3] Apache Creek--Hooper Ranch        
@@ -134,7 +131,7 @@ adj_list$`Apache Creek`
 # It is also possible to call specific nodes by number. In this case,
 # site 2 is Casa Malpais
 adj_list[[2]] 
-#> + 11/167 edges from 28a020d (vertex names):
+#> + 11/167 edges from 00365d3 (vertex names):
 #>  [1] Apache Creek--Casa Malpais   
 #>  [2] Casa Malpais--Coyote Creek   
 #>  [3] Casa Malpais--Hooper Ranch   
@@ -316,9 +313,9 @@ V(Cibola_net2)$region
 # Note that "region" is now listed as an attribute when we view 
 # the network object
 Cibola_net2
-#> IGRAPH 28d0f7b UN-- 31 167 -- 
+#> IGRAPH 006ad47 UN-- 31 167 -- 
 #> + attr: name (v/c), region (v/c)
-#> + edges from 28d0f7b (vertex names):
+#> + edges from 006ad47 (vertex names):
 #>  [1] Apache.Creek--Casa.Malpais        
 #>  [2] Apache.Creek--Coyote.Creek        
 #>  [3] Apache.Creek--Hooper.Ranch        
@@ -372,9 +369,9 @@ simple_net_i <-
   igraph::graph_from_adjacency_matrix(as.matrix(adj_mat2),
                                       mode = "undirected")
 simple_net_i
-#> IGRAPH 29ce2ef UN-- 31 167 -- 
+#> IGRAPH 0167590 UN-- 31 167 -- 
 #> + attr: name (v/c)
-#> + edges from 29ce2ef (vertex names):
+#> + edges from 0167590 (vertex names):
 #>  [1] Apache.Creek--Casa.Malpais        
 #>  [2] Apache.Creek--Coyote.Creek        
 #>  [3] Apache.Creek--Hooper.Ranch        
@@ -431,9 +428,9 @@ EL2 <- Cibola_edgelist[sample(seq(1, nrow(Cibola_edgelist)), 125,
 directed_net <-
   igraph::graph_from_edgelist(as.matrix(EL2), directed = TRUE)
 directed_net
-#> IGRAPH 29d7fd8 DN-- 30 125 -- 
+#> IGRAPH 016ff3a DN-- 30 125 -- 
 #> + attr: name (v/c)
-#> + edges from 29d7fd8 (vertex names):
+#> + edges from 016ff3a (vertex names):
 #>  [1] Coyote Creek   ->Techado Springs      
 #>  [2] Hubble Corner  ->Tri-R Pueblo         
 #>  [3] Hubble Corner  ->Techado Springs      
@@ -546,9 +543,9 @@ Cibola_inc <- igraph::graph_from_incidence_matrix(Cibola_clust,
                                                   directed = FALSE,
                                                   multiple = TRUE)
 Cibola_inc
-#> IGRAPH 2a21969 UN-B 41 2214 -- 
+#> IGRAPH 01bfd71 UN-B 41 2214 -- 
 #> + attr: type (v/l), name (v/c)
-#> + edges from 2a21969 (vertex names):
+#> + edges from 01bfd71 (vertex names):
 #>  [1] Apache Creek--Clust1 Apache Creek--Clust1
 #>  [3] Apache Creek--Clust1 Apache Creek--Clust1
 #>  [5] Apache Creek--Clust1 Apache Creek--Clust1
@@ -945,9 +942,9 @@ ego_nets <- make_ego_graph(Cibola_net)
 
 # Examine the first ego-network
 ego_nets[[1]]
-#> IGRAPH 2b8c15d UN-- 12 59 -- 
+#> IGRAPH 03416ba UN-- 12 59 -- 
 #> + attr: name (v/c)
-#> + edges from 2b8c15d (vertex names):
+#> + edges from 03416ba (vertex names):
 #>  [1] Apache Creek--Casa Malpais   
 #>  [2] Apache Creek--Coyote Creek   
 #>  [3] Casa Malpais--Coyote Creek   
@@ -1019,38 +1016,38 @@ The `multinet` network objects are compatible with `igraph` and individual layer
 # multilayer network, the multinet package can help us do that directly
 # and quite simply.
 multinet::degree_ml(florentine)
-#>  [1] 11  2  3  4  7  4  3  5  6  3  1  6  3  6  6
+#>  [1]  4  7 11  3  2  4  3  1  6  5  6  3  6  3  6
 
 # Similarly, we could apply cluster detection algorithms to all layers
 # of a multilayer network simultaneously.
 multinet::glouvain_ml(florentine)
 #>           actor    layer cid
-#> 1       Strozzi marriage   0
-#> 2       Peruzzi business   0
-#> 3       Peruzzi marriage   0
-#> 4  Lamberteschi business   0
-#> 5  Lamberteschi marriage   0
-#> 6      Guadagni business   0
-#> 7      Guadagni marriage   0
-#> 8    Castellani business   0
-#> 9    Castellani marriage   0
-#> 10     Bischeri business   0
-#> 11     Bischeri marriage   0
-#> 12       Medici business   1
-#> 13       Medici marriage   1
-#> 14        Pazzi business   1
-#> 15        Pazzi marriage   1
-#> 16     Salviati business   1
-#> 17     Salviati marriage   1
-#> 18   Tornabuoni business   1
-#> 19   Tornabuoni marriage   1
-#> 20      Ridolfi marriage   1
-#> 21    Barbadori business   1
-#> 22    Barbadori marriage   1
-#> 23      Albizzi marriage   1
-#> 24   Acciaiuoli marriage   1
-#> 25       Ginori business   1
-#> 26       Ginori marriage   1
+#> 1        Medici business   0
+#> 2        Medici marriage   0
+#> 3      Salviati business   0
+#> 4      Salviati marriage   0
+#> 5         Pazzi business   0
+#> 6         Pazzi marriage   0
+#> 7    Tornabuoni business   0
+#> 8    Tornabuoni marriage   0
+#> 9       Ridolfi marriage   0
+#> 10   Acciaiuoli marriage   0
+#> 11      Strozzi marriage   1
+#> 12      Peruzzi business   1
+#> 13      Peruzzi marriage   1
+#> 14     Guadagni business   1
+#> 15     Guadagni marriage   1
+#> 16 Lamberteschi business   1
+#> 17 Lamberteschi marriage   1
+#> 18   Castellani business   1
+#> 19   Castellani marriage   1
+#> 20     Bischeri business   1
+#> 21     Bischeri marriage   1
+#> 22       Ginori business   2
+#> 23       Ginori marriage   2
+#> 24      Albizzi marriage   2
+#> 25    Barbadori business   2
+#> 26    Barbadori marriage   2
 ```
 
 For an archaeological example of multilevel network analysis [this GitHub project](https://github.com/ajupton/archy-multilayer-nets) by Andy Upton.
@@ -1078,10 +1075,10 @@ Here is a simple example:
 ```r
 Mor_wt_i <- asIgraph(Mor_wt)
 Mor_wt_i
-#> IGRAPH 2c054ce U-W- 31 465 -- 
+#> IGRAPH 03d0e8f U-W- 31 465 -- 
 #> + attr: na (v/l), vertex.names (v/c), na (e/l),
 #> | weight (e/n)
-#> + edges from 2c054ce:
+#> + edges from 03d0e8f:
 #>  [1] 1-- 2 1-- 3 1-- 4 1-- 5 1-- 6 1-- 7 1-- 8 1-- 9 1--10
 #> [10] 1--11 1--12 1--13 1--14 1--15 1--16 1--17 1--18 1--19
 #> [19] 1--20 1--21 1--22 1--23 1--24 1--25 1--26 1--27 1--28

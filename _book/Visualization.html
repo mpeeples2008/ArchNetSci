@@ -121,9 +121,6 @@ These will be the basis for all examples in this section.
 <div class="sourceCode" id="cb151"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://igraph.org">igraph</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://statnet.org">statnet</a></span><span class="op">)</span>
-<span class="co">#&gt;            Installed ReposVer Built  </span>
-<span class="co">#&gt; ergm.count "4.0.2"   "4.1.1"  "4.2.0"</span>
-<span class="co">#&gt; network    "1.17.1"  "1.17.2" "4.2.0"</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggraph.data-imaginist.com">ggraph</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://mbojan.github.io/intergraph">intergraph</a></span><span class="op">)</span>
 
@@ -139,9 +136,9 @@ These will be the basis for all examples in this section.
 <span class="va">Cibola_i</span> <span class="op">&lt;-</span> <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/graph_from_adjacency_matrix.html">graph_from_adjacency_matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">Cibola</span><span class="op">)</span>,
                                                 mode <span class="op">=</span> <span class="st">"undirected"</span><span class="op">)</span>
 <span class="va">Cibola_i</span>
-<span class="co">#&gt; IGRAPH 3ce0e86 UN-- 31 167 -- </span>
+<span class="co">#&gt; IGRAPH 16c72ab UN-- 31 167 -- </span>
 <span class="co">#&gt; + attr: name (v/c)</span>
-<span class="co">#&gt; + edges from 3ce0e86 (vertex names):</span>
+<span class="co">#&gt; + edges from 16c72ab (vertex names):</span>
 <span class="co">#&gt;  [1] Apache.Creek--Casa.Malpais        </span>
 <span class="co">#&gt;  [2] Apache.Creek--Coyote.Creek        </span>
 <span class="co">#&gt;  [3] Apache.Creek--Hooper.Ranch        </span>
@@ -2078,6 +2075,13 @@ beginning.
 </div>
 <p>This Nodetrix interactive visualization was created using the Javascript implementation available on <a href="https://github.com/IRT-SystemX/nodetrix">GitHub</a> by user <a href="https://github.com/jdfekete/">jdfekete</a>, Jean-Daniel Fekete who was one of the original authors of the method (Henry et al. 2007).</p>
 <p>The details of running the Javascript program are described on the GitHub page and are beyond this scope of this tutorial. We do illustrate below, however, how you can export R in the *.json format required by this program using the <code>d3r</code> and <code>rjson</code> packages. The code below expects and <code>igraph</code> network object.</p>
+<div class="rmdwarning">
+<p>
+Note that the Nodetrix.js application expects node names/designations
+with no spaces in a node attribute called “name” so be sure to check
+before you run the code below.
+</p>
+</div>
 <div class="sourceCode" id="cb202"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/timelyportfolio/d3r">d3r</a></span><span class="op">)</span>
@@ -2094,7 +2098,9 @@ beginning.
 <span class="va">dj</span> <span class="op">&lt;-</span> <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html">toJSON</a></span><span class="op">(</span><span class="va">dj</span><span class="op">)</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/write.html">write</a></span><span class="op">(</span><span class="va">dj</span>, <span class="st">"network.json"</span><span class="op">)</span></code></pre></div>
-<p>To see a live version of this tool in action <a href="https://aviz.fr/Research/Nodetrix">check here</a>.</p>
+<p>Here is a live demo of the Nodetrix Application in use with the Cibola technological similarity data. To see a full screen version of this tool in action <a href="https://mattpeeples.net/nodetrix/">click here</a>.</p>
+<iframe src="https://mattpeeples.net/nodetrix/" width="672" height="600px" data-external="1">
+</iframe>
 </div>
 <div id="Figure_6_21" class="section level3 unnumbered">
 <h3>Figure 6.21: The Filmstrip Approach<a class="anchor" aria-label="anchor" href="#Figure_6_21"><i class="fas fa-link"></i></a>
@@ -2195,11 +2201,11 @@ beginning.
            size<span class="op">=</span><span class="fl">4</span><span class="op">)</span>
 
 <span class="va">similt.net</span></code></pre></div>
-<div class="inline-figure"><img src="05-visualization_files/figure-html/unnamed-chunk-17-1.png" width="672"></div>
+<div class="inline-figure"><img src="05-visualization_files/figure-html/unnamed-chunk-19-1.png" width="672"></div>
 <div class="sourceCode" id="cb205"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="va">lin.net</span></code></pre></div>
-<div class="inline-figure"><img src="05-visualization_files/figure-html/unnamed-chunk-17-2.png" width="672"></div>
+<div class="inline-figure"><img src="05-visualization_files/figure-html/unnamed-chunk-19-2.png" width="672"></div>
 </div>
 <div id="Figure_6_23" class="section level3 unnumbered">
 <h3>Figure 6:23: Timelines and Time Prisms<a class="anchor" aria-label="anchor" href="#Figure_6_23"><i class="fas fa-link"></i></a>
@@ -2399,7 +2405,7 @@ network in the list.
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_size.html">scale_size</a></span><span class="op">(</span>range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1.5</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="va">myCols</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/theme_graph.html">theme_graph</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="05-visualization_files/figure-html/unnamed-chunk-19-1.png" width="672"></div>
+<div class="inline-figure"><img src="05-visualization_files/figure-html/unnamed-chunk-21-1.png" width="672"></div>
 </div>
 <div id="Figure_6_27" class="section level3 unnumbered">
 <h3>Figure 6.27: SWSN Example 2<a class="anchor" aria-label="anchor" href="#Figure_6_27"><i class="fas fa-link"></i></a>
@@ -2561,7 +2567,7 @@ list is the order that edges will be plotted.
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-05-30.</p>
+    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-05-31.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

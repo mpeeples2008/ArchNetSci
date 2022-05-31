@@ -226,9 +226,10 @@ The purpose of this section is to provide a quick index of topics covered in thi
   + [Fitting Models with `ergm`](#FitModels)
   + [Building a Model Based on Theory](#ModelTheory)
   + [Assessing Goodness-of-Fit](#GOF)
-  + [Asessing Model Degeneracy and MCMC Diagnostics](#Diagnostics)
+  + [Asessing Models and MCMC Diagnostics](#Diagnostics)
   + [Simulating Networks from ERGMs](#SimERGMs)
-  + [Choosing ERGM Terms](#ERGMterms)
+  + [Additinoal Info on ERGM Terms](#ERGMterms)
+    - [Avoiding Model Degeneracy](#Degeneracy)
 
 ## References and R Packages{-}
 

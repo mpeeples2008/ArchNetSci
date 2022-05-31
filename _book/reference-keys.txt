@@ -118,3 +118,4 @@ GOF
 Diagnostics
 SimERGMs
 ERGMterms
+Degeneracy

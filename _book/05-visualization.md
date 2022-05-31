@@ -30,9 +30,6 @@ Let's start by reading in our example data and then we describe each package in 
 ```r
 library(igraph)
 library(statnet)
-#>            Installed ReposVer Built  
-#> ergm.count "4.0.2"   "4.1.1"  "4.2.0"
-#> network    "1.17.1"  "1.17.2" "4.2.0"
 library(ggraph)
 library(intergraph)
 
@@ -48,9 +45,9 @@ Cibola_attr <- read.csv(file = "data/Cibola_attr.csv", header = TRUE)
 Cibola_i <- igraph::graph_from_adjacency_matrix(as.matrix(Cibola),
                                                 mode = "undirected")
 Cibola_i
-#> IGRAPH 3ce0e86 UN-- 31 167 -- 
+#> IGRAPH 16c72ab UN-- 31 167 -- 
 #> + attr: name (v/c)
-#> + edges from 3ce0e86 (vertex names):
+#> + edges from 16c72ab (vertex names):
 #>  [1] Apache.Creek--Casa.Malpais        
 #>  [2] Apache.Creek--Coyote.Creek        
 #>  [3] Apache.Creek--Hooper.Ranch        
@@ -2195,7 +2192,14 @@ Fig. 6.20. Nodetrix visualisation of the Peeples (2018) ceramic technological da
 
 This Nodetrix interactive visualization was created using the Javascript implementation available on [GitHub](https://github.com/IRT-SystemX/nodetrix) by user [jdfekete](https://github.com/jdfekete/), Jean-Daniel Fekete who was one of the original authors of the method (Henry et al. 2007). 
 
-The details of running the Javascript program are described on the GitHub page and are beyond this scope of this tutorial. We do illustrate below, however, how you can export R in the *.json format required by this program using the `d3r` and `rjson` packages. The code below expects and `igraph` network object.
+The details of running the Javascript program are described on the GitHub page and are beyond this scope of this tutorial. We do illustrate below, however, how you can export R in the *.json format required by this program using the `d3r` and `rjson` packages. The code below expects and `igraph` network object. 
+
+<div class="rmdwarning">
+<p>Note that the Nodetrix.js application expects node names/designations
+with no spaces in a node attribute called “name” so be sure to check
+before you run the code below.</p>
+</div>
+
 
 
 ```r
@@ -2216,7 +2220,10 @@ dj <- jsonlite::toJSON(dj)
 write(dj, "network.json")
 ```
 
-To see a live version of this tool in action [check here](https://aviz.fr/Research/Nodetrix).
+
+Here is a live demo of the Nodetrix Application in use with the Cibola technological similarity data. To see a full screen version of this tool in action [click here](https://mattpeeples.net/nodetrix/).
+
+<iframe src="https://mattpeeples.net/nodetrix/" width="672" height="600px" data-external="1"></iframe>
 
 ### Figure 6.21: The Filmstrip Approach {- #Figure_6_21}
 
@@ -2325,14 +2332,14 @@ lin.net <- ggraph(SPgraph, layout="linear") +
 similt.net
 ```
 
-<img src="05-visualization_files/figure-html/unnamed-chunk-17-1.png" width="672" />
+<img src="05-visualization_files/figure-html/unnamed-chunk-19-1.png" width="672" />
 
 ```r
 
 lin.net
 ```
 
-<img src="05-visualization_files/figure-html/unnamed-chunk-17-2.png" width="672" />
+<img src="05-visualization_files/figure-html/unnamed-chunk-19-2.png" width="672" />
 
 ### Figure 6:23: Timelines and Time Prisms {- #Figure_6_23}
 
@@ -11218,7 +11225,7 @@ ggraph(net, layout = "fr") +
   theme_graph()
 ```
 
-<img src="05-visualization_files/figure-html/unnamed-chunk-19-1.png" width="672" />
+<img src="05-visualization_files/figure-html/unnamed-chunk-21-1.png" width="672" />
 
 ### Figure 6.27: SWSN Example 2{- #Figure_6_27}
 

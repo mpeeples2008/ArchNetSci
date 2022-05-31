@@ -1963,7 +1963,12 @@ Fig. 6.20. Nodetrix visualisation of the Peeples (2018) ceramic technological da
 
 This Nodetrix interactive visualization was created using the Javascript implementation available on [GitHub](https://github.com/IRT-SystemX/nodetrix) by user [jdfekete](https://github.com/jdfekete/), Jean-Daniel Fekete who was one of the original authors of the method (Henry et al. 2007). 
 
-The details of running the Javascript program are described on the GitHub page and are beyond this scope of this tutorial. We do illustrate below, however, how you can export R in the *.json format required by this program using the `d3r` and `rjson` packages. The code below expects and `igraph` network object.
+The details of running the Javascript program are described on the GitHub page and are beyond this scope of this tutorial. We do illustrate below, however, how you can export R in the *.json format required by this program using the `d3r` and `rjson` packages. The code below expects and `igraph` network object. 
+
+```{block, type="rmdwarning"}
+Note that the Nodetrix.js application expects node names/designations with no spaces in a node attribute called "name" so be sure to check before you run the code below.
+```
+
 
 ```{r Fig6_20, warning=F, message=F, eval=F}
 
@@ -1983,7 +1988,12 @@ dj <- jsonlite::toJSON(dj)
 write(dj, "network.json")
 ```
 
-To see a live version of this tool in action [check here](https://aviz.fr/Research/Nodetrix).
+
+Here is a live demo of the Nodetrix Application in use with the Cibola technological similarity data. To see a full screen version of this tool in action [click here](https://mattpeeples.net/nodetrix/).
+
+```{r, echo=F}
+knitr::include_url("https://mattpeeples.net/nodetrix/", height="600px")
+```
 
 ### Figure 6.21: The Filmstrip Approach {- #Figure_6_21}
 
