@@ -7,7 +7,7 @@
 name: 'Dependency Review'
 on:
   schedule:
-    - chron: '0 0 0 ? * 2/7 *'
+    - chron: '@weekly'
 
 permissions:
   contents: read
