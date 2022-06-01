@@ -3,7 +3,7 @@
 To visit the rendered bookdown version of this project [click here](https://book.archnetworks.net)
 
 ![Github last-commit](https://img.shields.io/github/last-commit/mpeeples2008/ArchNetSci) ![GitHub repo size](https://img.shields.io/github/repo-size/mpeeples2008/ArchNetSci)
- [![Docker Image CI](https://github.com/mpeeples2008/ArchNetSci/actions/workflows/docker-image.yml/badge.svg)](https://github.com/mpeeples2008/ArchNetSci/actions/workflows/docker-image.yml)   [![HitCount](https://hits.dwyl.com/mpeeples2008/ArchNetSci.svg?style=flat-square)](http://hits.dwyl.com/mpeeples2008/ArchNetSci)
+ [![Docker Image CI](https://github.com/mpeeples2008/ArchNetSci/actions/workflows/docker-image.yml/badge.svg)](https://github.com/mpeeples2008/ArchNetSci/actions/workflows/docker-image.yml)   [![HitCount](https://hits.dwyl.com/mpeeples2008/ArchNetSci.svg)](http://hits.dwyl.com/mpeeples2008/ArchNetSci)
 
 
 
