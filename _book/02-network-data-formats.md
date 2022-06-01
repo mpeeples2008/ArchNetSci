@@ -10,10 +10,10 @@ This section follows Chapter 3.2 in Brughmans and Peeples (2022) to provide exam
 
 The network data formats we discuss in this section include:
 
-* Edge list - A network data format consisting of a list of connected node pairs. *E=((n1,n2),(n1,n3),(n1,n4),...,(ni,nj))*. It can also be represented as a matrix with two columns for source and target nodes respectively and with one edge per row.
-* Adjacency list - A network data format consisting of a set of rows, where the first node in each row is connected to all subsequent nodes in that same row.
-* Adjacency matrix - A network data format consisting of a matrix of size *n x n*, with a set of rows equal to the number of nodes, and a set of columns equal to the number of nodes. When a pair of nodes is connected by an edge (i.e., when they are adjacent), then the corresponding cell will have an entry.
-* Incidence matrix - A network data format consisting of a matrix of size *n x e*, with a set of rows equal to the number of nodes, and a set of columns equal to the number of edges. An entry is made in a cell if the corresponding node and edge are connected. Each column in the incidence matrix has two entries.
+* **Edge list** - A network data format consisting of a list of connected node pairs. *E=((n1,n2),(n1,n3),(n1,n4),...,(ni,nj))*. It can also be represented as a matrix with two columns for source and target nodes respectively and with one edge per row.
+* **Adjacency list** - A network data format consisting of a set of rows, where the first node in each row is connected to all subsequent nodes in that same row.
+* **Adjacency matrix** - A network data format consisting of a matrix of size *n x n*, with a set of rows equal to the number of nodes, and a set of columns equal to the number of nodes. When a pair of nodes is connected by an edge (i.e., when they are adjacent), then the corresponding cell will have an entry.
+* **Incidence matrix** - A network data format consisting of a matrix of size *n x e*, with a set of rows equal to the number of nodes, and a set of columns equal to the number of edges. An entry is made in a cell if the corresponding node and edge are connected. Each column in the incidence matrix has two entries.
 
 Let's first get started by initializing all of the packages we will use in this section.
 
@@ -22,6 +22,9 @@ Let's first get started by initializing all of the packages we will use in this 
 # initialize packages
 library(igraph)
 library(statnet)
+#>      Installed ReposVer Built  
+#> ergm "4.2.1"   "4.2.2"  "4.2.0"
+#> sna  "2.6"     "2.7"    "4.2.0"
 library(intergraph)
 library(vegan)
 library(multinet)
@@ -84,9 +87,9 @@ Cibola_net <-
 
 # Display igraph network object and then plot a simple node-link diagram
 Cibola_net
-#> IGRAPH 00365d3 UN-- 30 167 -- 
+#> IGRAPH 623b692 UN-- 30 167 -- 
 #> + attr: name (v/c)
-#> + edges from 00365d3 (vertex names):
+#> + edges from 623b692 (vertex names):
 #>  [1] Apache Creek--Casa Malpais        
 #>  [2] Apache Creek--Coyote Creek        
 #>  [3] Apache Creek--Hooper Ranch        
@@ -115,7 +118,7 @@ adj_list <- igraph::as_adj_edge_list(Cibola_net)
 
 # examine adjacency list for the site Apache Creek
 adj_list$`Apache Creek`
-#> + 11/167 edges from 00365d3 (vertex names):
+#> + 11/167 edges from 623b692 (vertex names):
 #>  [1] Apache Creek--Casa Malpais        
 #>  [2] Apache Creek--Coyote Creek        
 #>  [3] Apache Creek--Hooper Ranch        
@@ -131,7 +134,7 @@ adj_list$`Apache Creek`
 # It is also possible to call specific nodes by number. In this case,
 # site 2 is Casa Malpais
 adj_list[[2]] 
-#> + 11/167 edges from 00365d3 (vertex names):
+#> + 11/167 edges from 623b692 (vertex names):
 #>  [1] Apache Creek--Casa Malpais   
 #>  [2] Casa Malpais--Coyote Creek   
 #>  [3] Casa Malpais--Hooper Ranch   
@@ -313,9 +316,9 @@ V(Cibola_net2)$region
 # Note that "region" is now listed as an attribute when we view 
 # the network object
 Cibola_net2
-#> IGRAPH 006ad47 UN-- 31 167 -- 
+#> IGRAPH 626b895 UN-- 31 167 -- 
 #> + attr: name (v/c), region (v/c)
-#> + edges from 006ad47 (vertex names):
+#> + edges from 626b895 (vertex names):
 #>  [1] Apache.Creek--Casa.Malpais        
 #>  [2] Apache.Creek--Coyote.Creek        
 #>  [3] Apache.Creek--Hooper.Ranch        
@@ -344,13 +347,13 @@ This section roughly follows Brughmans and Peeples (2022) Chapter 3.3 to describ
 
 In this section, we cover:
 
-* Simple Networks - A set of nodes and a set of edges with no additional information about them.
-* Directed Networks - A network consisting of a set of nodes and edges connecting them for which the orientation or direction is specified. In other words when A is connected to B, B is not necessarily connected to A.
-* Signed, Categorized, and Weighted Networks - This category refers to networks where edges (relationships) have additional nominal, ordinal, or metric information encoded in them. A signed network is a network where the edges carry a positive or negative sign indicating some opposed property of relations in the network. A categorized network is a network where edges are classified according to some nominal category that does not necessarily represent an opposition. A weighted network is one in which the edges carry a non-binary value which indicates the strength of a given relationship.
-* Two-Mode Networks - A network where two separate categories of nodes are defined with edges defined only between these categories.
-* Similarity Networks - Networks where edges are defined or weighted based on a quantitative metric of similarity or distance based on node attributes or artifact assemblages.
-* Ego Networks - A network including a focal node, the set of nodes the ego is connected to by an edge and the edges between nodes in this set.
-* Multilayer Networks - A network where a single set of nodes is connected by two or more sets of edges that each represent a different kind of relationship among the nodes.
+* **Simple Networks** - A set of nodes and a set of edges with no additional information about them.
+* **Directed Networks** - A network consisting of a set of nodes and edges connecting them for which the orientation or direction is specified. In other words when A is connected to B, B is not necessarily connected to A.
+* **Signed, Categorized, and Weighted Networks** - This category refers to networks where edges (relationships) have additional nominal, ordinal, or metric information encoded in them. A signed network is a network where the edges carry a positive or negative sign indicating some opposed property of relations in the network. A categorized network is a network where edges are classified according to some nominal category that does not necessarily represent an opposition. A weighted network is one in which the edges carry a non-binary value which indicates the strength of a given relationship.
+* **Two-Mode Networks** - A network where two separate categories of nodes are defined with edges defined only between these categories.
+* **Similarity Networks** - Networks where edges are defined or weighted based on a quantitative metric of similarity or distance based on node attributes or artifact assemblages.
+* **Ego Networks** - A network including a focal node, the set of nodes the ego is connected to by an edge and the edges between nodes in this set.
+* **Multilayer Networks** - A network where a single set of nodes is connected by two or more sets of edges that each represent a different kind of relationship among the nodes.
 
 ### Simple Networks{#SimpleNetworks}
 
@@ -369,9 +372,9 @@ simple_net_i <-
   igraph::graph_from_adjacency_matrix(as.matrix(adj_mat2),
                                       mode = "undirected")
 simple_net_i
-#> IGRAPH 0167590 UN-- 31 167 -- 
+#> IGRAPH 635b983 UN-- 31 167 -- 
 #> + attr: name (v/c)
-#> + edges from 0167590 (vertex names):
+#> + edges from 635b983 (vertex names):
 #>  [1] Apache.Creek--Casa.Malpais        
 #>  [2] Apache.Creek--Coyote.Creek        
 #>  [3] Apache.Creek--Hooper.Ranch        
@@ -428,9 +431,9 @@ EL2 <- Cibola_edgelist[sample(seq(1, nrow(Cibola_edgelist)), 125,
 directed_net <-
   igraph::graph_from_edgelist(as.matrix(EL2), directed = TRUE)
 directed_net
-#> IGRAPH 016ff3a DN-- 30 125 -- 
+#> IGRAPH 6363c36 DN-- 30 125 -- 
 #> + attr: name (v/c)
-#> + edges from 016ff3a (vertex names):
+#> + edges from 6363c36 (vertex names):
 #>  [1] Coyote Creek   ->Techado Springs      
 #>  [2] Hubble Corner  ->Tri-R Pueblo         
 #>  [3] Hubble Corner  ->Techado Springs      
@@ -543,9 +546,9 @@ Cibola_inc <- igraph::graph_from_incidence_matrix(Cibola_clust,
                                                   directed = FALSE,
                                                   multiple = TRUE)
 Cibola_inc
-#> IGRAPH 01bfd71 UN-B 41 2214 -- 
+#> IGRAPH 63acef9 UN-B 41 2214 -- 
 #> + attr: type (v/l), name (v/c)
-#> + edges from 01bfd71 (vertex names):
+#> + edges from 63acef9 (vertex names):
 #>  [1] Apache Creek--Clust1 Apache Creek--Clust1
 #>  [3] Apache Creek--Clust1 Apache Creek--Clust1
 #>  [5] Apache Creek--Clust1 Apache Creek--Clust1
@@ -942,9 +945,9 @@ ego_nets <- make_ego_graph(Cibola_net)
 
 # Examine the first ego-network
 ego_nets[[1]]
-#> IGRAPH 03416ba UN-- 12 59 -- 
+#> IGRAPH 652187e UN-- 12 59 -- 
 #> + attr: name (v/c)
-#> + edges from 03416ba (vertex names):
+#> + edges from 652187e (vertex names):
 #>  [1] Apache Creek--Casa Malpais   
 #>  [2] Apache Creek--Coyote Creek   
 #>  [3] Casa Malpais--Coyote Creek   
@@ -1016,36 +1019,36 @@ The `multinet` network objects are compatible with `igraph` and individual layer
 # multilayer network, the multinet package can help us do that directly
 # and quite simply.
 multinet::degree_ml(florentine)
-#>  [1]  4  7 11  3  2  4  3  1  6  5  6  3  6  3  6
+#>  [1]  2  3  4  7  6  5  3  4  3  1  3  6  6  6 11
 
 # Similarly, we could apply cluster detection algorithms to all layers
 # of a multilayer network simultaneously.
 multinet::glouvain_ml(florentine)
 #>           actor    layer cid
-#> 1        Medici business   0
-#> 2        Medici marriage   0
-#> 3      Salviati business   0
-#> 4      Salviati marriage   0
-#> 5         Pazzi business   0
-#> 6         Pazzi marriage   0
-#> 7    Tornabuoni business   0
-#> 8    Tornabuoni marriage   0
-#> 9       Ridolfi marriage   0
-#> 10   Acciaiuoli marriage   0
-#> 11      Strozzi marriage   1
-#> 12      Peruzzi business   1
-#> 13      Peruzzi marriage   1
-#> 14     Guadagni business   1
-#> 15     Guadagni marriage   1
-#> 16 Lamberteschi business   1
-#> 17 Lamberteschi marriage   1
-#> 18   Castellani business   1
-#> 19   Castellani marriage   1
-#> 20     Bischeri business   1
-#> 21     Bischeri marriage   1
-#> 22       Ginori business   2
-#> 23       Ginori marriage   2
-#> 24      Albizzi marriage   2
+#> 1       Strozzi marriage   0
+#> 2       Peruzzi business   0
+#> 3       Peruzzi marriage   0
+#> 4      Guadagni business   0
+#> 5      Guadagni marriage   0
+#> 6  Lamberteschi business   0
+#> 7  Lamberteschi marriage   0
+#> 8    Castellani business   0
+#> 9    Castellani marriage   0
+#> 10     Bischeri business   0
+#> 11     Bischeri marriage   0
+#> 12        Pazzi business   1
+#> 13        Pazzi marriage   1
+#> 14     Salviati business   1
+#> 15     Salviati marriage   1
+#> 16      Ridolfi marriage   1
+#> 17   Tornabuoni business   1
+#> 18   Tornabuoni marriage   1
+#> 19   Acciaiuoli marriage   1
+#> 20       Medici business   1
+#> 21       Medici marriage   1
+#> 22      Albizzi marriage   2
+#> 23       Ginori business   2
+#> 24       Ginori marriage   2
 #> 25    Barbadori business   2
 #> 26    Barbadori marriage   2
 ```
@@ -1075,10 +1078,10 @@ Here is a simple example:
 ```r
 Mor_wt_i <- asIgraph(Mor_wt)
 Mor_wt_i
-#> IGRAPH 03d0e8f U-W- 31 465 -- 
+#> IGRAPH 659b865 U-W- 31 465 -- 
 #> + attr: na (v/l), vertex.names (v/c), na (e/l),
 #> | weight (e/n)
-#> + edges from 03d0e8f:
+#> + edges from 659b865:
 #>  [1] 1-- 2 1-- 3 1-- 4 1-- 5 1-- 6 1-- 7 1-- 8 1-- 9 1--10
 #> [10] 1--11 1--12 1--13 1--14 1--15 1--16 1--17 1--18 1--19
 #> [19] 1--20 1--21 1--22 1--23 1--24 1--25 1--26 1--27 1--28

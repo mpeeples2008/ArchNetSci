@@ -100,16 +100,23 @@
 <p>This section follows Chapter 3.2 in Brughmans and Peeples (2022) to provide examples of the same network and attribute data in a variety of different data formats as well as code for converting among these formats in R.</p>
 <p>The network data formats we discuss in this section include:</p>
 <ul>
-<li>Edge list - A network data format consisting of a list of connected node pairs. <em>E=((n1,n2),(n1,n3),(n1,n4),…,(ni,nj))</em>. It can also be represented as a matrix with two columns for source and target nodes respectively and with one edge per row.</li>
-<li>Adjacency list - A network data format consisting of a set of rows, where the first node in each row is connected to all subsequent nodes in that same row.</li>
-<li>Adjacency matrix - A network data format consisting of a matrix of size <em>n x n</em>, with a set of rows equal to the number of nodes, and a set of columns equal to the number of nodes. When a pair of nodes is connected by an edge (i.e., when they are adjacent), then the corresponding cell will have an entry.</li>
-<li>Incidence matrix - A network data format consisting of a matrix of size <em>n x e</em>, with a set of rows equal to the number of nodes, and a set of columns equal to the number of edges. An entry is made in a cell if the corresponding node and edge are connected. Each column in the incidence matrix has two entries.</li>
+<li>
+<strong>Edge list</strong> - A network data format consisting of a list of connected node pairs. <em>E=((n1,n2),(n1,n3),(n1,n4),…,(ni,nj))</em>. It can also be represented as a matrix with two columns for source and target nodes respectively and with one edge per row.</li>
+<li>
+<strong>Adjacency list</strong> - A network data format consisting of a set of rows, where the first node in each row is connected to all subsequent nodes in that same row.</li>
+<li>
+<strong>Adjacency matrix</strong> - A network data format consisting of a matrix of size <em>n x n</em>, with a set of rows equal to the number of nodes, and a set of columns equal to the number of nodes. When a pair of nodes is connected by an edge (i.e., when they are adjacent), then the corresponding cell will have an entry.</li>
+<li>
+<strong>Incidence matrix</strong> - A network data format consisting of a matrix of size <em>n x e</em>, with a set of rows equal to the number of nodes, and a set of columns equal to the number of edges. An entry is made in a cell if the corresponding node and edge are connected. Each column in the incidence matrix has two entries.</li>
 </ul>
 <p>Let’s first get started by initializing all of the packages we will use in this section.</p>
 <div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># initialize packages</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://igraph.org">igraph</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://statnet.org">statnet</a></span><span class="op">)</span>
+<span class="co">#&gt;      Installed ReposVer Built  </span>
+<span class="co">#&gt; ergm "4.2.1"   "4.2.2"  "4.2.0"</span>
+<span class="co">#&gt; sna  "2.6"     "2.7"    "4.2.0"</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://mbojan.github.io/intergraph">intergraph</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/vegandevs/vegan">vegan</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">multinet</span><span class="op">)</span></code></pre></div>
@@ -169,9 +176,9 @@ Finally, we provide a brief example at the end of this section using
 
 <span class="co"># Display igraph network object and then plot a simple node-link diagram</span>
 <span class="va">Cibola_net</span>
-<span class="co">#&gt; IGRAPH 00365d3 UN-- 30 167 -- </span>
+<span class="co">#&gt; IGRAPH 623b692 UN-- 30 167 -- </span>
 <span class="co">#&gt; + attr: name (v/c)</span>
-<span class="co">#&gt; + edges from 00365d3 (vertex names):</span>
+<span class="co">#&gt; + edges from 623b692 (vertex names):</span>
 <span class="co">#&gt;  [1] Apache Creek--Casa Malpais        </span>
 <span class="co">#&gt;  [2] Apache Creek--Coyote Creek        </span>
 <span class="co">#&gt;  [3] Apache Creek--Hooper Ranch        </span>
@@ -197,7 +204,7 @@ Finally, we provide a brief example at the end of this section using
 
 <span class="co"># examine adjacency list for the site Apache Creek</span>
 <span class="va">adj_list</span><span class="op">$</span><span class="va">`Apache Creek`</span>
-<span class="co">#&gt; + 11/167 edges from 00365d3 (vertex names):</span>
+<span class="co">#&gt; + 11/167 edges from 623b692 (vertex names):</span>
 <span class="co">#&gt;  [1] Apache Creek--Casa Malpais        </span>
 <span class="co">#&gt;  [2] Apache Creek--Coyote Creek        </span>
 <span class="co">#&gt;  [3] Apache Creek--Hooper Ranch        </span>
@@ -213,7 +220,7 @@ Finally, we provide a brief example at the end of this section using
 <span class="co"># It is also possible to call specific nodes by number. In this case,</span>
 <span class="co"># site 2 is Casa Malpais</span>
 <span class="va">adj_list</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span> 
-<span class="co">#&gt; + 11/167 edges from 00365d3 (vertex names):</span>
+<span class="co">#&gt; + 11/167 edges from 623b692 (vertex names):</span>
 <span class="co">#&gt;  [1] Apache Creek--Casa Malpais   </span>
 <span class="co">#&gt;  [2] Casa Malpais--Coyote Creek   </span>
 <span class="co">#&gt;  [3] Casa Malpais--Hooper Ranch   </span>
@@ -380,9 +387,9 @@ Finally, we provide a brief example at the end of this section using
 <span class="co"># Note that "region" is now listed as an attribute when we view </span>
 <span class="co"># the network object</span>
 <span class="va">Cibola_net2</span>
-<span class="co">#&gt; IGRAPH 006ad47 UN-- 31 167 -- </span>
+<span class="co">#&gt; IGRAPH 626b895 UN-- 31 167 -- </span>
 <span class="co">#&gt; + attr: name (v/c), region (v/c)</span>
-<span class="co">#&gt; + edges from 006ad47 (vertex names):</span>
+<span class="co">#&gt; + edges from 626b895 (vertex names):</span>
 <span class="co">#&gt;  [1] Apache.Creek--Casa.Malpais        </span>
 <span class="co">#&gt;  [2] Apache.Creek--Coyote.Creek        </span>
 <span class="co">#&gt;  [3] Apache.Creek--Hooper.Ranch        </span>
@@ -407,13 +414,20 @@ Finally, we provide a brief example at the end of this section using
 <p>This section roughly follows Brughmans and Peeples (2022) Chapter 3.3 to describe and provide examples in R format of many of the most common types of networks. In the examples below we will use the <code>igraph</code> R package but we also show how to use the <code>statnet</code> and <code>network</code> packages where applicable.</p>
 <p>In this section, we cover:</p>
 <ul>
-<li>Simple Networks - A set of nodes and a set of edges with no additional information about them.</li>
-<li>Directed Networks - A network consisting of a set of nodes and edges connecting them for which the orientation or direction is specified. In other words when A is connected to B, B is not necessarily connected to A.</li>
-<li>Signed, Categorized, and Weighted Networks - This category refers to networks where edges (relationships) have additional nominal, ordinal, or metric information encoded in them. A signed network is a network where the edges carry a positive or negative sign indicating some opposed property of relations in the network. A categorized network is a network where edges are classified according to some nominal category that does not necessarily represent an opposition. A weighted network is one in which the edges carry a non-binary value which indicates the strength of a given relationship.</li>
-<li>Two-Mode Networks - A network where two separate categories of nodes are defined with edges defined only between these categories.</li>
-<li>Similarity Networks - Networks where edges are defined or weighted based on a quantitative metric of similarity or distance based on node attributes or artifact assemblages.</li>
-<li>Ego Networks - A network including a focal node, the set of nodes the ego is connected to by an edge and the edges between nodes in this set.</li>
-<li>Multilayer Networks - A network where a single set of nodes is connected by two or more sets of edges that each represent a different kind of relationship among the nodes.</li>
+<li>
+<strong>Simple Networks</strong> - A set of nodes and a set of edges with no additional information about them.</li>
+<li>
+<strong>Directed Networks</strong> - A network consisting of a set of nodes and edges connecting them for which the orientation or direction is specified. In other words when A is connected to B, B is not necessarily connected to A.</li>
+<li>
+<strong>Signed, Categorized, and Weighted Networks</strong> - This category refers to networks where edges (relationships) have additional nominal, ordinal, or metric information encoded in them. A signed network is a network where the edges carry a positive or negative sign indicating some opposed property of relations in the network. A categorized network is a network where edges are classified according to some nominal category that does not necessarily represent an opposition. A weighted network is one in which the edges carry a non-binary value which indicates the strength of a given relationship.</li>
+<li>
+<strong>Two-Mode Networks</strong> - A network where two separate categories of nodes are defined with edges defined only between these categories.</li>
+<li>
+<strong>Similarity Networks</strong> - Networks where edges are defined or weighted based on a quantitative metric of similarity or distance based on node attributes or artifact assemblages.</li>
+<li>
+<strong>Ego Networks</strong> - A network including a focal node, the set of nodes the ego is connected to by an edge and the edges between nodes in this set.</li>
+<li>
+<strong>Multilayer Networks</strong> - A network where a single set of nodes is connected by two or more sets of edges that each represent a different kind of relationship among the nodes.</li>
 </ul>
 <div id="SimpleNetworks" class="section level3" number="2.2.1">
 <h3>
@@ -432,9 +446,9 @@ Finally, we provide a brief example at the end of this section using
   <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/graph_from_adjacency_matrix.html">graph_from_adjacency_matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">adj_mat2</span><span class="op">)</span>,
                                       mode <span class="op">=</span> <span class="st">"undirected"</span><span class="op">)</span>
 <span class="va">simple_net_i</span>
-<span class="co">#&gt; IGRAPH 0167590 UN-- 31 167 -- </span>
+<span class="co">#&gt; IGRAPH 635b983 UN-- 31 167 -- </span>
 <span class="co">#&gt; + attr: name (v/c)</span>
-<span class="co">#&gt; + edges from 0167590 (vertex names):</span>
+<span class="co">#&gt; + edges from 635b983 (vertex names):</span>
 <span class="co">#&gt;  [1] Apache.Creek--Casa.Malpais        </span>
 <span class="co">#&gt;  [2] Apache.Creek--Coyote.Creek        </span>
 <span class="co">#&gt;  [3] Apache.Creek--Hooper.Ranch        </span>
@@ -488,9 +502,9 @@ Finally, we provide a brief example at the end of this section using
 <span class="va">directed_net</span> <span class="op">&lt;-</span>
   <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/graph_from_edgelist.html">graph_from_edgelist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">EL2</span><span class="op">)</span>, directed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="va">directed_net</span>
-<span class="co">#&gt; IGRAPH 016ff3a DN-- 30 125 -- </span>
+<span class="co">#&gt; IGRAPH 6363c36 DN-- 30 125 -- </span>
 <span class="co">#&gt; + attr: name (v/c)</span>
-<span class="co">#&gt; + edges from 016ff3a (vertex names):</span>
+<span class="co">#&gt; + edges from 6363c36 (vertex names):</span>
 <span class="co">#&gt;  [1] Coyote Creek   -&gt;Techado Springs      </span>
 <span class="co">#&gt;  [2] Hubble Corner  -&gt;Tri-R Pueblo         </span>
 <span class="co">#&gt;  [3] Hubble Corner  -&gt;Techado Springs      </span>
@@ -595,9 +609,9 @@ Finally, we provide a brief example at the end of this section using
                                                   directed <span class="op">=</span> <span class="cn">FALSE</span>,
                                                   multiple <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="va">Cibola_inc</span>
-<span class="co">#&gt; IGRAPH 01bfd71 UN-B 41 2214 -- </span>
+<span class="co">#&gt; IGRAPH 63acef9 UN-B 41 2214 -- </span>
 <span class="co">#&gt; + attr: type (v/l), name (v/c)</span>
-<span class="co">#&gt; + edges from 01bfd71 (vertex names):</span>
+<span class="co">#&gt; + edges from 63acef9 (vertex names):</span>
 <span class="co">#&gt;  [1] Apache Creek--Clust1 Apache Creek--Clust1</span>
 <span class="co">#&gt;  [3] Apache Creek--Clust1 Apache Creek--Clust1</span>
 <span class="co">#&gt;  [5] Apache Creek--Clust1 Apache Creek--Clust1</span>
@@ -949,9 +963,9 @@ Finally, we provide a brief example at the end of this section using
 
 <span class="co"># Examine the first ego-network</span>
 <span class="va">ego_nets</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>
-<span class="co">#&gt; IGRAPH 03416ba UN-- 12 59 -- </span>
+<span class="co">#&gt; IGRAPH 652187e UN-- 12 59 -- </span>
 <span class="co">#&gt; + attr: name (v/c)</span>
-<span class="co">#&gt; + edges from 03416ba (vertex names):</span>
+<span class="co">#&gt; + edges from 652187e (vertex names):</span>
 <span class="co">#&gt;  [1] Apache Creek--Casa Malpais   </span>
 <span class="co">#&gt;  [2] Apache Creek--Coyote Creek   </span>
 <span class="co">#&gt;  [3] Casa Malpais--Coyote Creek   </span>
@@ -1007,36 +1021,36 @@ Finally, we provide a brief example at the end of this section using
 <span class="co"># multilayer network, the multinet package can help us do that directly</span>
 <span class="co"># and quite simply.</span>
 <span class="fu">multinet</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/multinet/man/ActorMeasures.html">degree_ml</a></span><span class="op">(</span><span class="va">florentine</span><span class="op">)</span>
-<span class="co">#&gt;  [1]  4  7 11  3  2  4  3  1  6  5  6  3  6  3  6</span>
+<span class="co">#&gt;  [1]  2  3  4  7  6  5  3  4  3  1  3  6  6  6 11</span>
 
 <span class="co"># Similarly, we could apply cluster detection algorithms to all layers</span>
 <span class="co"># of a multilayer network simultaneously.</span>
 <span class="fu">multinet</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/multinet/man/Communities.html">glouvain_ml</a></span><span class="op">(</span><span class="va">florentine</span><span class="op">)</span>
 <span class="co">#&gt;           actor    layer cid</span>
-<span class="co">#&gt; 1        Medici business   0</span>
-<span class="co">#&gt; 2        Medici marriage   0</span>
-<span class="co">#&gt; 3      Salviati business   0</span>
-<span class="co">#&gt; 4      Salviati marriage   0</span>
-<span class="co">#&gt; 5         Pazzi business   0</span>
-<span class="co">#&gt; 6         Pazzi marriage   0</span>
-<span class="co">#&gt; 7    Tornabuoni business   0</span>
-<span class="co">#&gt; 8    Tornabuoni marriage   0</span>
-<span class="co">#&gt; 9       Ridolfi marriage   0</span>
-<span class="co">#&gt; 10   Acciaiuoli marriage   0</span>
-<span class="co">#&gt; 11      Strozzi marriage   1</span>
-<span class="co">#&gt; 12      Peruzzi business   1</span>
-<span class="co">#&gt; 13      Peruzzi marriage   1</span>
-<span class="co">#&gt; 14     Guadagni business   1</span>
-<span class="co">#&gt; 15     Guadagni marriage   1</span>
-<span class="co">#&gt; 16 Lamberteschi business   1</span>
-<span class="co">#&gt; 17 Lamberteschi marriage   1</span>
-<span class="co">#&gt; 18   Castellani business   1</span>
-<span class="co">#&gt; 19   Castellani marriage   1</span>
-<span class="co">#&gt; 20     Bischeri business   1</span>
-<span class="co">#&gt; 21     Bischeri marriage   1</span>
-<span class="co">#&gt; 22       Ginori business   2</span>
-<span class="co">#&gt; 23       Ginori marriage   2</span>
-<span class="co">#&gt; 24      Albizzi marriage   2</span>
+<span class="co">#&gt; 1       Strozzi marriage   0</span>
+<span class="co">#&gt; 2       Peruzzi business   0</span>
+<span class="co">#&gt; 3       Peruzzi marriage   0</span>
+<span class="co">#&gt; 4      Guadagni business   0</span>
+<span class="co">#&gt; 5      Guadagni marriage   0</span>
+<span class="co">#&gt; 6  Lamberteschi business   0</span>
+<span class="co">#&gt; 7  Lamberteschi marriage   0</span>
+<span class="co">#&gt; 8    Castellani business   0</span>
+<span class="co">#&gt; 9    Castellani marriage   0</span>
+<span class="co">#&gt; 10     Bischeri business   0</span>
+<span class="co">#&gt; 11     Bischeri marriage   0</span>
+<span class="co">#&gt; 12        Pazzi business   1</span>
+<span class="co">#&gt; 13        Pazzi marriage   1</span>
+<span class="co">#&gt; 14     Salviati business   1</span>
+<span class="co">#&gt; 15     Salviati marriage   1</span>
+<span class="co">#&gt; 16      Ridolfi marriage   1</span>
+<span class="co">#&gt; 17   Tornabuoni business   1</span>
+<span class="co">#&gt; 18   Tornabuoni marriage   1</span>
+<span class="co">#&gt; 19   Acciaiuoli marriage   1</span>
+<span class="co">#&gt; 20       Medici business   1</span>
+<span class="co">#&gt; 21       Medici marriage   1</span>
+<span class="co">#&gt; 22      Albizzi marriage   2</span>
+<span class="co">#&gt; 23       Ginori business   2</span>
+<span class="co">#&gt; 24       Ginori marriage   2</span>
 <span class="co">#&gt; 25    Barbadori business   2</span>
 <span class="co">#&gt; 26    Barbadori marriage   2</span></code></pre></div>
 <p>For an archaeological example of multilevel network analysis <a href="https://github.com/ajupton/archy-multilayer-nets">this GitHub project</a> by Andy Upton.</p>
@@ -1066,10 +1080,10 @@ would instead use <code>asNetwrok</code>.
 <div class="sourceCode" id="cb91"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">Mor_wt_i</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/intergraph/man/asIgraph.html">asIgraph</a></span><span class="op">(</span><span class="va">Mor_wt</span><span class="op">)</span>
 <span class="va">Mor_wt_i</span>
-<span class="co">#&gt; IGRAPH 03d0e8f U-W- 31 465 -- </span>
+<span class="co">#&gt; IGRAPH 659b865 U-W- 31 465 -- </span>
 <span class="co">#&gt; + attr: na (v/l), vertex.names (v/c), na (e/l),</span>
 <span class="co">#&gt; | weight (e/n)</span>
-<span class="co">#&gt; + edges from 03d0e8f:</span>
+<span class="co">#&gt; + edges from 659b865:</span>
 <span class="co">#&gt;  [1] 1-- 2 1-- 3 1-- 4 1-- 5 1-- 6 1-- 7 1-- 8 1-- 9 1--10</span>
 <span class="co">#&gt; [10] 1--11 1--12 1--13 1--14 1--15 1--16 1--17 1--18 1--19</span>
 <span class="co">#&gt; [19] 1--20 1--21 1--22 1--23 1--24 1--25 1--26 1--27 1--28</span>
@@ -1132,7 +1146,7 @@ would instead use <code>asNetwrok</code>.
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-05-31.</p>
+    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-06-01.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

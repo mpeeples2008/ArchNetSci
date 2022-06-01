@@ -6,13 +6,13 @@ Exploratory network analysis is simply exploratory data analysis applied to netw
 
 In order to facilitate the exploratory analysis examples in this section, we want to first create a set of `igraph` and `statnet` network objects that will serve our purposes across all of the analyses below. Specifically, we will generate and define:
 
- * `simple_net` - A simple undirected binary network with isolates
- * `simple_net_noiso` - A simple undirected binary network without isolates
- * `directed_net` - A directed binary network
- * `weighted_net` - An undirected weighted network
- * `sim_net_i` - A similarity network with edges weighted by similarity in the `igraph` format
- * `sim_net` - A similarity network with edges weighted by similarity in the `network` format
- * `sim_mat` - A data frame object containing a weighted similarity matrix
+ * **`simple_net`** - A simple undirected binary network with isolates
+ * **`simple_net_noiso`** - A simple undirected binary network without isolates
+ * **`directed_net`** - A directed binary network
+ * **`weighted_net`** - An undirected weighted network
+ * **`sim_net_i`** - A similarity network with edges weighted by similarity in the `igraph` format
+ * **`sim_net`** - A similarity network with edges weighted by similarity in the `network` format
+ * **`sim_mat`** - A data frame object containing a weighted similarity matrix
 
 Each of these will be used as appropriate to illustrate particular methods.
 
@@ -23,6 +23,9 @@ In the following chunk of code we initialize all of the packages that we will us
 # initialize packages
 library(igraph)
 library(statnet)
+#>      Installed ReposVer Built  
+#> ergm "4.2.1"   "4.2.2"  "4.2.0"
+#> sna  "2.6"     "2.7"    "4.2.0"
 library(intergraph)
 library(vegan)
 
@@ -365,7 +368,7 @@ igraph::triad_census(simple_net)
 #> [12]    0    0    0    0  470
 ```
 
-Often can be useful to visualize the motifs defined for each entry in the triad census and this can be done using the `graph_from_isomorphism_class()` function which outputs every possible combination of nodes of a given size you specify (3 in this case). We can plot these configurations in a single plot using the `ggraph` and `ggpubr` packages. These packages are described in more detail in the visualization section of this document.
+Often can be useful to visualize the motifs defined for each entry in the triad census and this can be done using the `graph_from_isomorphism_class()` function which outputs every possible combination of nodes of a given size you specify (3 in this case). We can plot these configurations in a single plot using the `ggraph` and `ggpubr` packages. These packages are described in more detail in the visualization section of this document. We label each configuration using the "isomporhism code" that are frequently used to describe triads.
 
 
 ```r
@@ -375,12 +378,16 @@ library(ggpubr)
 g <- list()
 xy <-
   as.data.frame(matrix(
-    c(0.1, 0.1, 0.9, 0.1, 0.45, 0.45),
+    c(0.1, 0.1, 0.9, 0.1, 0.5, 0.45),
     nrow = 3,
     ncol = 2,
     byrow = T
   ))
 
+
+names <- c("003", "012", "102", "021D", "021U", "021C",
+           "111D", "111U", "030T", "030C", "201", "120D",
+           "120U", "120C", "210", "300")
 
 for (i in 0:15) {
   g_temp <- graph_from_isomorphism_class(size = 3,
@@ -402,10 +409,10 @@ for (i in 0:15) {
     ) +
     theme_graph(
       plot_margin =
-        margin(0, 0, 0, 0),
-      border = T,
-      foreground = "black"
-    )
+        margin(2, 2, 2, 2)
+    ) +
+    ggtitle(names[i + 1]) +
+    theme(plot.title = element_text(hjust = 0.5))
 }
 
 # motifs ordered by order in triad_census function
@@ -413,7 +420,7 @@ ggarrange(
   g[[1]], g[[2]], g[[4]], g[[7]],
   g[[3]], g[[5]], g[[6]], g[[10]],
   g[[8]], g[[12]], g[[11]], g[[9]],
-  g[[13]], g[[14]], g[[15]], g[[16]],
+  g[[14]], g[[13]], g[[15]], g[[16]],
   nrow = 4,
   ncol = 4
 )
@@ -474,7 +481,7 @@ If you want to identify particular shortest paths to or from nodes in a network 
 igraph::shortest_paths(simple_net, from = 1, to = 21)
 #> $vpath
 #> $vpath[[1]]
-#> + 5/31 vertices, named, from 07fe416:
+#> + 5/31 vertices, named, from 69695a5:
 #> [1] Apache.Creek          Casa.Malpais         
 #> [3] Garcia.Ranch          Heshotauthla         
 #> [5] Pueblo.de.los.Muertos
@@ -503,7 +510,7 @@ igraph::diameter(directed_net, directed = TRUE)
 
 igraph::farthest_vertices(directed_net, directed = TRUE)
 #> $vertices
-#> + 2/30 vertices, named, from 07ff490:
+#> + 2/30 vertices, named, from 696a638:
 #> [1] Apache Creek          Pueblo de los Muertos
 #> 
 #> $distance
@@ -541,9 +548,9 @@ components <- igraph::decompose(simple_net, min.vertices = 1)
 
 components
 #> [[1]]
-#> IGRAPH 0aa4f3c UN-- 30 167 -- 
+#> IGRAPH 6bf0afc UN-- 30 167 -- 
 #> + attr: name (v/c)
-#> + edges from 0aa4f3c (vertex names):
+#> + edges from 6bf0afc (vertex names):
 #>  [1] Apache.Creek--Casa.Malpais        
 #>  [2] Apache.Creek--Coyote.Creek        
 #>  [3] Apache.Creek--Hooper.Ranch        
@@ -555,9 +562,9 @@ components
 #> + ... omitted several edges
 #> 
 #> [[2]]
-#> IGRAPH 0aa4f61 UN-- 1 0 -- 
+#> IGRAPH 6bf0b2b UN-- 1 0 -- 
 #> + attr: name (v/c)
-#> + edges from 0aa4f61 (vertex names):
+#> + edges from 6bf0b2b (vertex names):
 
 V(components[[2]])$name
 #> [1] "WS.Ranch"
@@ -599,15 +606,15 @@ min_cut(simple_net_noiso, value.only = FALSE)
 #> [1] 1
 #> 
 #> $cut
-#> + 1/167 edge from 07feab0 (vertex names):
+#> + 1/167 edge from 6969c49 (vertex names):
 #> [1] Ojo Bonito--Baca Pueblo
 #> 
 #> $partition1
-#> + 1/30 vertex, named, from 07feab0:
+#> + 1/30 vertex, named, from 6969c49:
 #> [1] Baca Pueblo
 #> 
 #> $partition2
-#> + 29/30 vertices, named, from 07feab0:
+#> + 29/30 vertices, named, from 6969c49:
 #>  [1] Apache Creek          Casa Malpais         
 #>  [3] Coyote Creek          Hooper Ranch         
 #>  [5] Horse Camp Mill       Hubble Corner        
@@ -634,7 +641,7 @@ A clique as a network science concept is arguably the strictest method of defini
 
 ```r
 max_cliques(simple_net, min = 1)[[24]]
-#> + 9/31 vertices, named, from 07fe416:
+#> + 9/31 vertices, named, from 69695a5:
 #> [1] Los.Gigantes    Cienega         Tinaja         
 #> [4] Spier.170       Scribe.S        Pescado.Cluster
 #> [7] Mirabal         Heshotauthla    Yellowhouse
@@ -770,9 +777,9 @@ plot(LV, simple_net)
 
 In the case study provided at the end of Chapter 4 of Brughmans and Peeples (2022) we take a simple network based on [Roman era roads](#RomanRoads) and spatial proximity of settlements in the Iberian Peninsula and calculate some basic exploratory network statistics. As described in the book, we can create different definitions and criteria for network edges and these can have impacts on the network and node level properties. In this case, we define three different networks as follows:
 
-* `road_net` - A basic network where every road connecting two settlements is an edge
-* `road_net2` - A network that retains all of the ties of the above network but also connects isolated nodes that are within 50 Kms of one of the road network settlements
-* `road_net3` - A network that retains all of the ties of the first road network but connects each isolate to its nearest neighbor among the road network settlements
+* **`road_net`** - A basic network where every road connecting two settlements is an edge
+* **`road_net2`** - A network that retains all of the ties of the above network but also connects isolated nodes that are within 50 Kms of one of the road network settlements
+* **`road_net3`** - A network that retains all of the ties of the first road network but connects each isolate to its nearest neighbor among the road network settlements
 
 First let's read in the [data file](data/road_networks.RData) that contains all three networks and start by plotting them in turn on a map. We are using a custom network map function here that is save in a file called [map_net.R](scripts/map_net.R) that takes locations with decimal degrees locations and plots a network directly on a map. We will go over the specifics of the function in more detail in the [Network Visualization](#Visualization) and [Spatial Networks](#SpatialNetworks) sections but here we simply call the script directly from the .R file. Make sure you have the libraries initialized below to replicate this map.
 
@@ -960,3 +967,5 @@ knitr::kable(ns_res, format = "html")
   </tr>
 </tbody>
 </table>
+
+For an extended discussion of the Cranborne Chase case study and exponential random graph models (ERGM) see the [Beyond the Book](#BeyondTheBook) section.

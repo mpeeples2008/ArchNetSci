@@ -99,19 +99,19 @@
 <p>In order to facilitate the exploratory analysis examples in this section, we want to first create a set of <code>igraph</code> and <code>statnet</code> network objects that will serve our purposes across all of the analyses below. Specifically, we will generate and define:</p>
 <ul>
 <li>
-<code>simple_net</code> - A simple undirected binary network with isolates</li>
+<strong><code>simple_net</code></strong> - A simple undirected binary network with isolates</li>
 <li>
-<code>simple_net_noiso</code> - A simple undirected binary network without isolates</li>
+<strong><code>simple_net_noiso</code></strong> - A simple undirected binary network without isolates</li>
 <li>
-<code>directed_net</code> - A directed binary network</li>
+<strong><code>directed_net</code></strong> - A directed binary network</li>
 <li>
-<code>weighted_net</code> - An undirected weighted network</li>
+<strong><code>weighted_net</code></strong> - An undirected weighted network</li>
 <li>
-<code>sim_net_i</code> - A similarity network with edges weighted by similarity in the <code>igraph</code> format</li>
+<strong><code>sim_net_i</code></strong> - A similarity network with edges weighted by similarity in the <code>igraph</code> format</li>
 <li>
-<code>sim_net</code> - A similarity network with edges weighted by similarity in the <code>network</code> format</li>
+<strong><code>sim_net</code></strong> - A similarity network with edges weighted by similarity in the <code>network</code> format</li>
 <li>
-<code>sim_mat</code> - A data frame object containing a weighted similarity matrix</li>
+<strong><code>sim_mat</code></strong> - A data frame object containing a weighted similarity matrix</li>
 </ul>
 <p>Each of these will be used as appropriate to illustrate particular methods.</p>
 <p>In the following chunk of code we initialize all of the packages that we will use in this section and define all of the network objects that we will use (using the object names above). In these examples we will once again use the <a href="DataAndWorkspace.html#Cibola">Cibola technological similarity data</a> we used in the <a href="NetworkData.html#NetworkData">Network Data Formats</a> section previously.</p>
@@ -119,6 +119,9 @@
 <code class="sourceCode R"><span class="co"># initialize packages</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://igraph.org">igraph</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://statnet.org">statnet</a></span><span class="op">)</span>
+<span class="co">#&gt;      Installed ReposVer Built  </span>
+<span class="co">#&gt; ergm "4.2.1"   "4.2.2"  "4.2.0"</span>
+<span class="co">#&gt; sna  "2.6"     "2.7"    "4.2.0"</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://mbojan.github.io/intergraph">intergraph</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/vegandevs/vegan">vegan</a></span><span class="op">)</span>
 
@@ -447,7 +450,7 @@ careful.
 <span class="co">#&gt; motifs.c:1165 : Triad census called on an undirected graph.</span>
 <span class="co">#&gt;  [1] 1033    0 2551    0    0    0    0    0    0    0  441</span>
 <span class="co">#&gt; [12]    0    0    0    0  470</span></code></pre></div>
-<p>Often can be useful to visualize the motifs defined for each entry in the triad census and this can be done using the <code><a href="https://rdrr.io/pkg/igraph/man/graph_from_isomorphism_class.html">graph_from_isomorphism_class()</a></code> function which outputs every possible combination of nodes of a given size you specify (3 in this case). We can plot these configurations in a single plot using the <code>ggraph</code> and <code>ggpubr</code> packages. These packages are described in more detail in the visualization section of this document.</p>
+<p>Often can be useful to visualize the motifs defined for each entry in the triad census and this can be done using the <code><a href="https://rdrr.io/pkg/igraph/man/graph_from_isomorphism_class.html">graph_from_isomorphism_class()</a></code> function which outputs every possible combination of nodes of a given size you specify (3 in this case). We can plot these configurations in a single plot using the <code>ggraph</code> and <code>ggpubr</code> packages. These packages are described in more detail in the visualization section of this document. We label each configuration using the “isomporhism code” that are frequently used to describe triads.</p>
 <div class="sourceCode" id="cb102"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggraph.data-imaginist.com">ggraph</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rpkgs.datanovia.com/ggpubr/">ggpubr</a></span><span class="op">)</span>
@@ -455,12 +458,16 @@ careful.
 <span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="op">)</span>
 <span class="va">xy</span> <span class="op">&lt;-</span>
   <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span>
-    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">0.1</span>, <span class="fl">0.9</span>, <span class="fl">0.1</span>, <span class="fl">0.45</span>, <span class="fl">0.45</span><span class="op">)</span>,
+    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">0.1</span>, <span class="fl">0.9</span>, <span class="fl">0.1</span>, <span class="fl">0.5</span>, <span class="fl">0.45</span><span class="op">)</span>,
     nrow <span class="op">=</span> <span class="fl">3</span>,
     ncol <span class="op">=</span> <span class="fl">2</span>,
     byrow <span class="op">=</span> <span class="cn">T</span>
   <span class="op">)</span><span class="op">)</span>
 
+
+<span class="va">names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"003"</span>, <span class="st">"012"</span>, <span class="st">"102"</span>, <span class="st">"021D"</span>, <span class="st">"021U"</span>, <span class="st">"021C"</span>,
+           <span class="st">"111D"</span>, <span class="st">"111U"</span>, <span class="st">"030T"</span>, <span class="st">"030C"</span>, <span class="st">"201"</span>, <span class="st">"120D"</span>,
+           <span class="st">"120U"</span>, <span class="st">"120C"</span>, <span class="st">"210"</span>, <span class="st">"300"</span><span class="op">)</span>
 
 <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">0</span><span class="op">:</span><span class="fl">15</span><span class="op">)</span> <span class="op">{</span>
   <span class="va">g_temp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/graph_from_isomorphism_class.html">graph_from_isomorphism_class</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">3</span>,
@@ -482,10 +489,10 @@ careful.
     <span class="op">)</span> <span class="op">+</span>
     <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/theme_graph.html">theme_graph</a></span><span class="op">(</span>
       plot_margin <span class="op">=</span>
-        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">margin</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,
-      border <span class="op">=</span> <span class="cn">T</span>,
-      foreground <span class="op">=</span> <span class="st">"black"</span>
-    <span class="op">)</span>
+        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">margin</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>
+    <span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="va">names</span><span class="op">[</span><span class="va">i</span> <span class="op">+</span> <span class="fl">1</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>plot.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>hjust <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span>
 <span class="op">}</span>
 
 <span class="co"># motifs ordered by order in triad_census function</span>
@@ -493,7 +500,7 @@ careful.
   <span class="va">g</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, <span class="va">g</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>, <span class="va">g</span><span class="op">[[</span><span class="fl">4</span><span class="op">]</span><span class="op">]</span>, <span class="va">g</span><span class="op">[[</span><span class="fl">7</span><span class="op">]</span><span class="op">]</span>,
   <span class="va">g</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span>, <span class="va">g</span><span class="op">[[</span><span class="fl">5</span><span class="op">]</span><span class="op">]</span>, <span class="va">g</span><span class="op">[[</span><span class="fl">6</span><span class="op">]</span><span class="op">]</span>, <span class="va">g</span><span class="op">[[</span><span class="fl">10</span><span class="op">]</span><span class="op">]</span>,
   <span class="va">g</span><span class="op">[[</span><span class="fl">8</span><span class="op">]</span><span class="op">]</span>, <span class="va">g</span><span class="op">[[</span><span class="fl">12</span><span class="op">]</span><span class="op">]</span>, <span class="va">g</span><span class="op">[[</span><span class="fl">11</span><span class="op">]</span><span class="op">]</span>, <span class="va">g</span><span class="op">[[</span><span class="fl">9</span><span class="op">]</span><span class="op">]</span>,
-  <span class="va">g</span><span class="op">[[</span><span class="fl">13</span><span class="op">]</span><span class="op">]</span>, <span class="va">g</span><span class="op">[[</span><span class="fl">14</span><span class="op">]</span><span class="op">]</span>, <span class="va">g</span><span class="op">[[</span><span class="fl">15</span><span class="op">]</span><span class="op">]</span>, <span class="va">g</span><span class="op">[[</span><span class="fl">16</span><span class="op">]</span><span class="op">]</span>,
+  <span class="va">g</span><span class="op">[[</span><span class="fl">14</span><span class="op">]</span><span class="op">]</span>, <span class="va">g</span><span class="op">[[</span><span class="fl">13</span><span class="op">]</span><span class="op">]</span>, <span class="va">g</span><span class="op">[[</span><span class="fl">15</span><span class="op">]</span><span class="op">]</span>, <span class="va">g</span><span class="op">[[</span><span class="fl">16</span><span class="op">]</span><span class="op">]</span>,
   nrow <span class="op">=</span> <span class="fl">4</span>,
   ncol <span class="op">=</span> <span class="fl">4</span>
 <span class="op">)</span></code></pre></div>
@@ -552,7 +559,7 @@ careful.
 <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/distances.html">shortest_paths</a></span><span class="op">(</span><span class="va">simple_net</span>, from <span class="op">=</span> <span class="fl">1</span>, to <span class="op">=</span> <span class="fl">21</span><span class="op">)</span>
 <span class="co">#&gt; $vpath</span>
 <span class="co">#&gt; $vpath[[1]]</span>
-<span class="co">#&gt; + 5/31 vertices, named, from 07fe416:</span>
+<span class="co">#&gt; + 5/31 vertices, named, from 69695a5:</span>
 <span class="co">#&gt; [1] Apache.Creek          Casa.Malpais         </span>
 <span class="co">#&gt; [3] Garcia.Ranch          Heshotauthla         </span>
 <span class="co">#&gt; [5] Pueblo.de.los.Muertos</span>
@@ -579,7 +586,7 @@ careful.
 
 <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/diameter.html">farthest_vertices</a></span><span class="op">(</span><span class="va">directed_net</span>, directed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="co">#&gt; $vertices</span>
-<span class="co">#&gt; + 2/30 vertices, named, from 07ff490:</span>
+<span class="co">#&gt; + 2/30 vertices, named, from 696a638:</span>
 <span class="co">#&gt; [1] Apache Creek          Pueblo de los Muertos</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $distance</span>
@@ -611,9 +618,9 @@ careful.
 
 <span class="va">components</span>
 <span class="co">#&gt; [[1]]</span>
-<span class="co">#&gt; IGRAPH 0aa4f3c UN-- 30 167 -- </span>
+<span class="co">#&gt; IGRAPH 6bf0afc UN-- 30 167 -- </span>
 <span class="co">#&gt; + attr: name (v/c)</span>
-<span class="co">#&gt; + edges from 0aa4f3c (vertex names):</span>
+<span class="co">#&gt; + edges from 6bf0afc (vertex names):</span>
 <span class="co">#&gt;  [1] Apache.Creek--Casa.Malpais        </span>
 <span class="co">#&gt;  [2] Apache.Creek--Coyote.Creek        </span>
 <span class="co">#&gt;  [3] Apache.Creek--Hooper.Ranch        </span>
@@ -625,9 +632,9 @@ careful.
 <span class="co">#&gt; + ... omitted several edges</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; [[2]]</span>
-<span class="co">#&gt; IGRAPH 0aa4f61 UN-- 1 0 -- </span>
+<span class="co">#&gt; IGRAPH 6bf0b2b UN-- 1 0 -- </span>
 <span class="co">#&gt; + attr: name (v/c)</span>
-<span class="co">#&gt; + edges from 0aa4f61 (vertex names):</span>
+<span class="co">#&gt; + edges from 6bf0b2b (vertex names):</span>
 
 <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html">V</a></span><span class="op">(</span><span class="va">components</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">$</span><span class="va">name</span>
 <span class="co">#&gt; [1] "WS.Ranch"</span></code></pre></div>
@@ -663,15 +670,15 @@ careful.
 <span class="co">#&gt; [1] 1</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $cut</span>
-<span class="co">#&gt; + 1/167 edge from 07feab0 (vertex names):</span>
+<span class="co">#&gt; + 1/167 edge from 6969c49 (vertex names):</span>
 <span class="co">#&gt; [1] Ojo Bonito--Baca Pueblo</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $partition1</span>
-<span class="co">#&gt; + 1/30 vertex, named, from 07feab0:</span>
+<span class="co">#&gt; + 1/30 vertex, named, from 6969c49:</span>
 <span class="co">#&gt; [1] Baca Pueblo</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $partition2</span>
-<span class="co">#&gt; + 29/30 vertices, named, from 07feab0:</span>
+<span class="co">#&gt; + 29/30 vertices, named, from 6969c49:</span>
 <span class="co">#&gt;  [1] Apache Creek          Casa Malpais         </span>
 <span class="co">#&gt;  [3] Coyote Creek          Hooper Ranch         </span>
 <span class="co">#&gt;  [5] Horse Camp Mill       Hubble Corner        </span>
@@ -698,7 +705,7 @@ careful.
 <p>A clique as a network science concept is arguably the strictest method of defining a cohesive subgroup. It is any set of three or more nodes in which each node is directly connected to all other nodes. It can be alternatively defined as a completely connected subnetwork, or a subnetwork with maximum density. The function <code><a href="https://rdrr.io/pkg/igraph/man/cliques.html">igraph::max_cliques</a></code> finds all maximal cliques in a network and outputs a list object with nodes in each set indicated. For the sake of space here we only output one clique of the 24 that were defined by this function call.</p>
 <div class="sourceCode" id="cb112"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/cliques.html">max_cliques</a></span><span class="op">(</span><span class="va">simple_net</span>, min <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">[[</span><span class="fl">24</span><span class="op">]</span><span class="op">]</span>
-<span class="co">#&gt; + 9/31 vertices, named, from 07fe416:</span>
+<span class="co">#&gt; + 9/31 vertices, named, from 69695a5:</span>
 <span class="co">#&gt; [1] Los.Gigantes    Cienega         Tinaja         </span>
 <span class="co">#&gt; [4] Spier.170       Scribe.S        Pescado.Cluster</span>
 <span class="co">#&gt; [7] Mirabal         Heshotauthla    Yellowhouse</span></code></pre></div>
@@ -821,11 +828,11 @@ careful.
 <p>In the case study provided at the end of Chapter 4 of Brughmans and Peeples (2022) we take a simple network based on <a href="#RomanRoads">Roman era roads</a> and spatial proximity of settlements in the Iberian Peninsula and calculate some basic exploratory network statistics. As described in the book, we can create different definitions and criteria for network edges and these can have impacts on the network and node level properties. In this case, we define three different networks as follows:</p>
 <ul>
 <li>
-<code>road_net</code> - A basic network where every road connecting two settlements is an edge</li>
+<strong><code>road_net</code></strong> - A basic network where every road connecting two settlements is an edge</li>
 <li>
-<code>road_net2</code> - A network that retains all of the ties of the above network but also connects isolated nodes that are within 50 Kms of one of the road network settlements</li>
+<strong><code>road_net2</code></strong> - A network that retains all of the ties of the above network but also connects isolated nodes that are within 50 Kms of one of the road network settlements</li>
 <li>
-<code>road_net3</code> - A network that retains all of the ties of the first road network but connects each isolate to its nearest neighbor among the road network settlements</li>
+<strong><code>road_net3</code></strong> - A network that retains all of the ties of the first road network but connects each isolate to its nearest neighbor among the road network settlements</li>
 </ul>
 <p>First let’s read in the <a href="data/road_networks.RData">data file</a> that contains all three networks and start by plotting them in turn on a map. We are using a custom network map function here that is save in a file called <a href="scripts/map_net.R">map_net.R</a> that takes locations with decimal degrees locations and plots a network directly on a map. We will go over the specifics of the function in more detail in the <a href="Visualization.html#Visualization">Network Visualization</a> and <a href="SpatialNetworks.html#SpatialNetworks">Spatial Networks</a> sections but here we simply call the script directly from the .R file. Make sure you have the libraries initialized below to replicate this map.</p>
 <div class="sourceCode" id="cb120"><pre class="downlit sourceCode r">
@@ -1079,6 +1086,8 @@ Open Triad Count
 </tr>
 </tbody>
 </table></div>
+<p>For an extended discussion of the Cranborne Chase case study and exponential random graph models (ERGM) see the <a href="BeyondTheBook.html#BeyondTheBook">Beyond the Book</a> section.</p>
+
 </div>
 </div>
   <div class="chapter-nav">
@@ -1145,7 +1154,7 @@ Open Triad Count
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-05-31.</p>
+    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-06-01.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

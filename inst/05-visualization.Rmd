@@ -8,7 +8,7 @@ There are already some excellent resources online for learning how to create bea
 
 In order to make it as easy as possible for users to replicate specific visuals from the book and the other examples in this tutorial we have tried to make the examples as modular as possible. This means that we provide calls to initialize the required libraries for each plot within each relevant chunk of code (so that you can more easily tell what package does what) and we also provide links to download the data required to replicate each figure in the description of that figure below. The data sets we use here include both .csv and other format files as well as .Rdata files that contain sets of specific R objects formatted as required for individual chunks of code.
 
-If you plan on working through this entire tutorial and would like to download all of the associated data at once [you can download this zip file](All_data.zip). Simply extract this zip folder into your R working directory and the examples below will then work. Note that all of the examples below are setup such that the data should be contained in a sub-folder of your working directory called "data" (note that directories and file names are case sensitive).
+If you plan on working through this entire tutorial and would like to download all of the associated data at once [you can download this zip file](https:/archnetworks.net/All_data.zip). Simply extract this zip folder into your R working directory and the examples below will then work. Note that all of the examples below are setup such that the data should be contained in a sub-folder of your working directory called "data" (note that directories and file names are case sensitive).
 
 ## Visualizing Networks in R{#ViZInR}
 
@@ -1963,7 +1963,12 @@ Fig. 6.20. Nodetrix visualisation of the Peeples (2018) ceramic technological da
 
 This Nodetrix interactive visualization was created using the Javascript implementation available on [GitHub](https://github.com/IRT-SystemX/nodetrix) by user [jdfekete](https://github.com/jdfekete/), Jean-Daniel Fekete who was one of the original authors of the method (Henry et al. 2007). 
 
-The details of running the Javascript program are described on the GitHub page and are beyond this scope of this tutorial. We do illustrate below, however, how you can export R in the *.json format required by this program using the `d3r` and `rjson` packages. The code below expects and `igraph` network object.
+The details of running the Javascript program are described on the GitHub page and are beyond this scope of this tutorial. We do illustrate below, however, how you can export R in the *.json format required by this program using the `d3r` and `rjson` packages. The code below expects and `igraph` network object. 
+
+```{block, type="rmdwarning"}
+Note that the Nodetrix.js application expects node names/designations with no spaces in a node attribute called "name" so be sure to check before you run the code below.
+```
+
 
 ```{r Fig6_20, warning=F, message=F, eval=F}
 
@@ -1983,7 +1988,12 @@ dj <- jsonlite::toJSON(dj)
 write(dj, "network.json")
 ```
 
-To see a live version of this tool in action [check here](https://aviz.fr/Research/Nodetrix).
+
+Here is a live demo of the Nodetrix Application in use with the Cibola technological similarity data. To see a full screen version of this tool in action [click here](https://mattpeeples.net/nodetrix/).
+
+```{r, echo=F}
+knitr::include_url("https://mattpeeples.net/nodetrix/", height="600px")
+```
 
 ### Figure 6.21: The Filmstrip Approach {- #Figure_6_21}
 

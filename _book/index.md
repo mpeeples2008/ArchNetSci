@@ -1,7 +1,7 @@
 ---
 title: "Online Companion to *Archaeological Network Science*"
 author: "Matthew A. Peeples and Tom Brughmans"
-date: "2022-05-31"
+date: "2022-06-01"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: references.bib
@@ -29,7 +29,7 @@ For more information on the book and the authors check the project website here:
 
 **Cite this document as:**
 
-> Peeples, Matthew A. and Tom Brughmans (2022). Online Companion to Archaeological Network Science by Brughmans and Peeples. <https://archnetworks.net>, Accessed 2022-05-31.
+> Peeples, Matthew A. and Tom Brughmans (2022). Online Companion to Archaeological Network Science by Brughmans and Peeples. <https://archnetworks.net>, Accessed 2022-06-01.
 
 **The associated book can be cited as**
 
@@ -116,13 +116,13 @@ This online bookdown document has been deployed using the Netlify platform and t
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/266d5736-f13a-4de4-b812-141c023f3a09/deploy-status)](https://app.netlify.com/sites/archnetworks/deploys)
 
-## Discord Community{- #Discord}
+## Computational Archaeology Discord Community{- #Discord}
 
-We have created an associated [Archaeological Network Science - Discord Server](https://discord.gg/Z9UXwjASM5), which we hope will provide an additional venue for archaeological network practitioners to collaborate, interact, and ask for help with this document or with archaeological networks broadly. We invite you to use this as a place to ask questions of the authors and the community at large. Note that this Discord is subject to the same [code of conduct](https://github.com/mpeeples2008/ArchNetSci/blob/main/CODE_OF_CONDUCT.md) we use for the GitHub repository and you must abide by that agreement to participate. We require that you have a Discord account with a verified email address.
+We have created an [Archaeological Network Science Channel on the Computational Archaeology Discord Server](https://discord.gg/Z9UXwjASM5), which we hope will provide an additional venue for archaeological network practitioners to collaborate, interact, and ask for help with this document or with archaeological networks (and other computational methods). We invite you to use this as a place to ask questions of the authors and the community at large. Note that this Discord is subject to the same [code of conduct](https://github.com/mpeeples2008/ArchNetSci/blob/main/CODE_OF_CONDUCT.md) we use for the GitHub repository and you must abide by that agreement to participate. We require that you have a Discord account with a verified email address.
 
 <a href="https://discord.gg/Z9UXwjASM5"><img src="images/Discord_Logo.png" width="300" alt="Discord Logo" style="margin: 0 1em 0 1em" /></a>
 
-[Join our Discord](https://discord.gg/Z9UXwjASM5)
+[Join the Computational Archaeology Discord](https://discord.gg/Z9UXwjASM5)
 
 ## New to R and R Studio?{- #NewToR}
 
@@ -138,13 +138,6 @@ If you detect a larger error such as code not running or if you would like to re
 
 All contributors must agree to adhere to our [code of conduct](https://github.com/mpeeples2008/ArchNetSci/blob/main/CODE_OF_CONDUCT.md).
 
-## Project License{-}
-
-[![](https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png)](http://creativecommons.org/licenses/by-nc-nd/4.0/)
-
-This Online Companion to Archaeological Network Science is licensed under a [Creative Commons Attribution-NonCommercial-NoDerivitives 4.0 International License](http://creativecommons.org/licenses/by-nc-nd/4.0/).
-
-
 ## Help Build the Community{- #Community}
 
 We are devoted to seeing the community of archaeological network practitioners grow and we hope our book and these online resources will help to make this happen. You can support the growth of our community too!
@@ -155,6 +148,12 @@ We are devoted to seeing the community of archaeological network practitioners g
 * Star the [GitHub project repository](https://github.com/mpeeples2008/ArchNetSci) and contribute to the project
 * [Join our Discord](https://discord.gg/Z9UXwjASM5) and invite other interested people
 * Share articles, teaching resources, data, or other archaeological network materials for posting on our associated website [(archnetworks.net)](https://archnetworks.net)
+
+## Project License{-}
+
+[![](https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png)](http://creativecommons.org/licenses/by-nc-nd/4.0/)
+
+This Online Companion to Archaeological Network Science is licensed under a [Creative Commons Attribution-NonCommercial-NoDerivitives 4.0 International License](http://creativecommons.org/licenses/by-nc-nd/4.0/).
 
 ## Acknowledgements{- #Acknowledgements}
 

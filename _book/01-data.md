@@ -14,7 +14,7 @@ For the files below you can right click and "save as" to save them for use local
 
 Hey, we get it. You're busy and just want all of the data in one convenient package. We provide all of the data used in the appendix here in a single .zip file for you to download. To follow along with the examples in this appendix you need to choose an R working directory and place the contents of the *.zip folder within it such that all of the individual files are contained within a folder called "data". Note that this includes all of the additional files that are required for reproducing particular figures as well.
 
-[All_data.zip](All_data.zip) - A single compressed file containing all of the data files used in this appendix.
+**[All_data.zip](https://archnetworks.net/All_data.zip)** - A single compressed file containing all of the data files used in this appendix.
 
 ### Roman Road Networks{#RomanRoad}
 
@@ -22,8 +22,8 @@ The development of an elaborate road system is one of the most enduring legacies
 
 Our primary source for roads of the entire Roman world is the Barrington Atlas of the Greek and Roman World (Talbert 2000) and their digitization by the Ancient World Mapping Center (2012). In many of our examples we will focus in particular on the roads of the Iberian Peninsula, which have been digitized in great detail by Pau de Soto (de Soto and Carreras 2021). In our analyses of the Roman road network ancient settlements are represented as nodes and the existence of a road between two settlements is represented by an edge. We also include the length of a road as an edge attribute.
 
-* [Hispania_nodes](data/Hispania_nodes.csv) - NodeIDs and names for Roman era settlements in the Iberian Peninsula along with names and latitude and longitude locations in decimal degrees.
-* [Hispania_roads](data/Hispania_roads.csv) - Edge list of road connections using NodeIDs from Hispania_nodes file. This file contains a "weight" variable defined for each edge which denotes the length of the road segment.
+* **[Hispania_nodes](data/Hispania_nodes.csv)** - NodeIDs and names for Roman era settlements in the Iberian Peninsula along with names and latitude and longitude locations in decimal degrees.
+* **[Hispania_roads](data/Hispania_roads.csv)** - Edge list of road connections using NodeIDs from Hispania_nodes file. This file contains a "weight" variable defined for each edge which denotes the length of the road segment.
 
 The [Stanford ORBIS project](https://orbis.stanford.edu/) provide additional data from across the Roman World including settlements, roads, and characterizations of travel time. Some of these data have been wrapped into a convenient R compendium by [Sebastian Heath](https://github.com/sfsheath) and the data are available on GitHub here:
 
@@ -45,12 +45,12 @@ In several sections of this book we also use subsets of this larger data set: th
 
 In these networks, individual settlements are treated as nodes and edges are defined and weighted based on similarities in the ceramic wares recovered at those settlements. Ceramic data used to generate networks are apportioned into a sequence of 50-year chronological intervals using methods described in detail by Roberts and colleagues (2012) and Ortman (2016; see discussion in Mills et al. 2018) so that we are able to explore change through time. Site locations and other site attribute data are also considered in some examples. R implementations of these chronological apportioning methods are available on GitHub as well ([R implementation of Roberts et al. 2012](https://github.com/mpeeples2008/CeramicApportioning), [R implementation of Ortman 2016](https://github.com/mpeeples2008/UniformProbabilityDensityAnalysis)).
 
-* [SWSN Attribute Data AD 1300-1350](data/AD1300attr.csv) - Attribute data for SWSN sites dating between AD 1300 and 1350 including site name, site sub-region (Macro), and jittered easting and northing UTM coordinates. 
-* [SWSN Similarity Data AD 1300-1350](data/AD1300sim.csv) - Symmetric similarity matrix based on Brainerd-Robinson similarities for all SWSN sites dating between AD 1300 and 1350.
-* [The Chaco World Attribute Data AD 1050-1100](data/AD1050attr.csv) - Attribute data for sites with Chacoan architectural features dating between AD 1050 and 1100 including site IDs, site names, site sub-regions, counts of different kinds of public architectural features, and jittered easting and northing site locations. 
-* [The Chaco World Ceramic Data AD 1050-1100](data/AD1050cer.csv) - Ceramic count data by ware for sites with Chacoan architectural features dating between AD 1050 and 1100.
-* [The Chaco World Network AD 1050-1100](data/AD1050net.csv) - Adjacency matrix of binarized network of ceramic similarity for sites with Chacoan architectural features dating between AD 1050 and 1100.
-* [San Pedro Networks throgh Time](data/Figure6_20.Rdata) - An .RData file that contains `igraph` network objects for the San Pedro region ceramic similarity networks for AD1250-1300, AD1300-1350, and AD1350-1400.
+* **[SWSN Attribute Data AD 1300-1350](data/AD1300attr.csv)** - Attribute data for SWSN sites dating between AD 1300 and 1350 including site name, site sub-region (Macro), and jittered easting and northing UTM coordinates. 
+* **[SWSN Similarity Data AD 1300-1350](data/AD1300sim.csv)** - Symmetric similarity matrix based on Brainerd-Robinson similarities for all SWSN sites dating between AD 1300 and 1350.
+* **[The Chaco World Attribute Data AD 1050-1100](data/AD1050attr.csv)** - Attribute data for sites with Chacoan architectural features dating between AD 1050 and 1100 including site IDs, site names, site sub-regions, counts of different kinds of public architectural features, and jittered easting and northing site locations. 
+* **[The Chaco World Ceramic Data AD 1050-1100](data/AD1050cer.csv)** - Ceramic count data by ware for sites with Chacoan architectural features dating between AD 1050 and 1100.
+* **[The Chaco World Network AD 1050-1100](data/AD1050net.csv)** - Adjacency matrix of binarized network of ceramic similarity for sites with Chacoan architectural features dating between AD 1050 and 1100.
+* **[San Pedro Networks throgh Time](data/Figure6_20.Rdata)** - An .RData file that contains `igraph` network objects for the San Pedro region ceramic similarity networks for AD1250-1300, AD1300-1350, and AD1350-1400.
 
 ![Map of the cyberSW project study area showing all sites in the database with the San Pedro and Chaco World subsets of the database shaded.](images/Fig.2.5.png){width=100%}
 
@@ -62,11 +62,11 @@ In the book we use data on ceramic technological production techniques to genera
 
 Ceramic technological data from Peeples (2018): Additional data and documentation from this project is available on tDAR [in this collection](https://core.tdar.org/project/427899/connected-communities-networks-identity-and-social-change-in-the-ancient-cibola-world). Nodes are defined as individual settlements with edges defined based on similarities in the technological attributes of cooking pots recovered at those settlements. For more details on the methods and assumptions used to define these networks see Peeples (2018, pg. 100-104). 
 
-* [Cibola Ceramic Technological Clusters](data/Cibola_clust.csv) - Counts of ceramic technological clusters for sites in the Cibola region sample.
-* [Cibola Site Attributes](data/Cibola_attr.csv) - Site location, public architectural feature types, and sub-region designations for sites in the Cibola region sample.
-* [Cibola Binary Network Edge List](data/Cibola_edgelist.csv) - Binary edge list of Cibola technological similarity network.
-* [Cibola Binary Network Adjacency Matrix](data/Cibola_adj.csv) - Binary adjacency matrix of Cibola technological similarity network.
-* [Peeples2018.Rdata](data/Peeples2018.Rdata) - This file contains a number of objects in R format including the site attributes (`site_info`), a symmetric Brainerd-Robinson similarity matrix (`ceramicBR`), a binary network object in the `statnet/network` format (BRnet), and a weighted network object in the `network` format (`BRnet_w`) 
+* **[Cibola Ceramic Technological Clusters](data/Cibola_clust.csv)** - Counts of ceramic technological clusters for sites in the Cibola region sample.
+* **[Cibola Site Attributes](data/Cibola_attr.csv)** - Site location, public architectural feature types, and sub-region designations for sites in the Cibola region sample.
+* **[Cibola Binary Network Edge List](data/Cibola_edgelist.csv)** - Binary edge list of Cibola technological similarity network.
+* **[Cibola Binary Network Adjacency Matrix](data/Cibola_adj.csv)** - Binary adjacency matrix of Cibola technological similarity network.
+* **[Peeples2018.Rdata](data/Peeples2018.Rdata)** - This file contains a number of objects in R format including the site attributes (`site_info`), a symmetric Brainerd-Robinson similarity matrix (`ceramicBR`), a binary network object in the `statnet/network` format (BRnet), and a weighted network object in the `network` format (`BRnet_w`) 
 
 ![Network graph showing connections among Cibola region settlements based on strong similarities in the technological attributes of corrugated cooking pots recovered at each site. Sites are colour coded by region where sites in the northern half of the study area are shown in black and sites in the southern half are shown in white.](images/Fig.2.6.png){width=100%}
 
@@ -76,8 +76,8 @@ Hundreds of forts and small fortified structures are located on mountain tops an
 
 In the book we use this research context as an example of spatial networks and more specifically visibility networks.This is made possible thanks to the survey of forts in the region performed in the context of the PhD project by Dr Nagendra Singh Rawat (2017). We use a catalog of 193 sites (Rawat et al. 2020, Appendix S1), and use the case of Chaundkot fort and its surroundings as a particular case study. Chaundkot fort is theorized to have been one of the key strongholds in the region and is also the only one to have been partly excavated (Rawat and Nautiyal 2020). In these case studies we represent strongholds as nodes, and the ability for a line-of-sight to exist between observers located at a pair of strongholds is represented by a directed edge. The length of each line-of-sight is represented by an edge attribute.
 
-* [Himalayan Node data](data/Himalaya_nodes.csv) - Node attribute data for the Himalayan sites including locations in lat/long, elevation, site name/type, and descriptions of landscape features.
-* [Himalayan Edge List](data/Himalaya_visiblity.csv) - Edge list data with information on connections among nodes within 25kms of each other with information on the distance and whether or not the target site is visible from the source. Note that only edges with `Visible = TRUE` should be included as activated edges.
+* **[Himalayan Node data](data/Himalaya_nodes.csv)** - Node attribute data for the Himalayan sites including locations in lat/long, elevation, site name/type, and descriptions of landscape features.
+* **[Himalayan Edge List](data/Himalaya_visiblity.csv)** - Edge list data with information on connections among nodes within 25kms of each other with information on the distance and whether or not the target site is visible from the source. Note that only edges with `Visible = TRUE` should be included as activated edges.
 
 ![The 193 strongholds (nodes) connected by lines-of-sight up to 25km in length (at which distance large fire and smoke signals would have been visible). Node colours represent communities of nodes identified through the Louvain modularity method (see section 4.4.6) only for lines-of-sight up to 15km (see Rawat et al. 2021).](images/Fig.2.7.png){width=100%}
 
@@ -87,8 +87,8 @@ Our knowledge and stories of past human behavior are as much shaped by the mater
 
 In previous work, we have turned the tools of archaeological network science on archaeological network researchers themselves (Brughmans 2013; Brughmans and Peeples 2017). We studied the co-authorship and citation practices of the more than 250 publications that have applied formal network methods to archaeological research topics from 1968 to the present. From a list of publications, an undirected co-authorship network can be made by representing individual authors as nodes, and connecting a pair of authors with an edge if they have been co-authors on one or more papers, with edge values representing the number of papers they co-authored. Moreover, a directed citation network can be made from the bibliographies of this list of publications. In a citation network, each node represents an individual publication which is connected to all other publications in its bibliography with a directed edge. The edge goes from the citing publication to the cited publication, so it represents the source and direction of academic influence as explicitly expressed in publication. We use networks of archaeological network research publications throughout this volume to illustrate concepts like the acyclic structure of citation networks.
 
-* [Publication Networks Attribute Data](data/biblio_attr.csv) - Attribute data table including information on publications including a unique key identifier, publication type, publication title, publication date, and the author list separated by semi-colons.
-* [Publication Networks Co-Authorship Incidence Matrix](data/biblio_dat.csv) - An incidence matrix with unique publications as rows and authors as columns.
+* **[Publication Networks Attribute Data](data/biblio_attr.csv)** - Attribute data table including information on publications including a unique key identifier, publication type, publication title, publication date, and the author list separated by semi-colons.
+* **[Publication Networks Co-Authorship Incidence Matrix](data/biblio_dat.csv)** - An incidence matrix with unique publications as rows and authors as columns.
 
 ![Two-mode archaeological publication network, representing a set of individual authors as nodes who are connected to nodes in a set of publication venues (journals, books, proceedings) in which they have published (see Brughmans and Peeples 2017:Fig. 10).](images/Fig.2.8.png){width=100%}
 
@@ -98,7 +98,7 @@ The Guadalquivir river valley in the south of Spain between present-day Seville 
 
 These questions have been explored in previous research using GIS and network methods, using a data set of 86 sites and lines-of-sight connecting pairs of Iron Age settlements at distances up to 20km at which large fire and smoke signals would be visible (more about this data set and research topic: Keay and Earl 2011; Brughmans et al. 2014, 2015). To account for errors in the Digital Elevation Model (DEM), a probabilistic line-of-sight analysis was performed that introduces random errors into the DEM which can have a blocking or enhancing effect on the lines-of-sight. The locations of these 86 sites and the network displayed in figure 2.9 are also available as Appendix A in Brughmans et al. 2014. These locations are used in Chapter 7 of the book to illustrate spatial network models that explore different geographical structures that might underlie the settlement pattern.
 
-* [Guadalquivir settlement data](data/Guadalquivir.csv) - Site number and locations in decimal degrees for all sites in the Guadalquivir survey area.
+* **[Guadalquivir settlement data](data/Guadalquivir.csv)** - Site number and locations in decimal degrees for all sites in the Guadalquivir survey area.
 
 ![The lower Guadalquivir river valley with the 86 Iberian (Iron Age II) sites used in the case study. Note the clustering of sites around the rivers. Lines-of-sight with >50% probability shown. (Source: Brughmans et al. 2014:Fig. 6b.)](images/Fig.2.9.jpg){width=100%}
 
@@ -148,10 +148,10 @@ console by simply typing
 
 We use a number of R packages in the modules here and in the book for manipulating and analyzing network data and for other general analyses and procedures. The most frequently used network packages include:
 
-* [igraph (Csardi and Nepusz 2006)](https://igraph.org/) - analytical routines for simple graphs and graph analysis
-* [statnet (Krivitsky et al. 2020)](http://statnet.org/) - A suite of packages designed for the management and statistical analysis of networks including `network`, `sna`, `ergm`, and others.
-* [intergraph (Bojanowski 2015)](https://cran.r-project.org/web/packages/intergraph/intergraph.pdf) - a set of routines for coercing objects between common network formats in R
-* [ggraph (Pederson 2021)](https://CRAN.R-project.org/package=ggraph) - a powerful graph visualization package that is based off of the ggplot2 plotting format
+* **[igraph (Csardi and Nepusz 2006)](https://igraph.org/)** - analytical routines for simple graphs and graph analysis
+* **[statnet (Krivitsky et al. 2020)](http://statnet.org/)** - A suite of packages designed for the management and statistical analysis of networks including `network`, `sna`, `ergm`, and others.
+* **[intergraph (Bojanowski 2015)](https://cran.r-project.org/web/packages/intergraph/intergraph.pdf)** - a set of routines for coercing objects between common network formats in R
+* **[ggraph (Pederson 2021)](https://CRAN.R-project.org/package=ggraph)** - a powerful graph visualization package that is based off of the ggplot2 plotting format
 
 Throughout this Online Companion, we will consistently rely on `igraph` and `statnet` (`statnet` is actually a suite of packages that includes `sna`, `network`, `ergm`, and others). For the most part these two packages do many of the same things. You can use them to calculate centrality metrics, define groups, or evaluate other network structures. In general `igraph` is a bit more centered on complex networks and mathematical models and `statnet` and affiliated packages are more focused on social network analysis though there is considerable overlap. 
 
@@ -185,7 +185,7 @@ packages <- c( "ape", "devtools", "igraph", "statnet", "intergraph",
   "ggsn", "tidyverse","superheat","ggplotify","ggforce", "colorspace",
   "ggmap", "dplyr", "ggpubr", "ggraph", "reshape2", "multinet",
   "RColorBrewer", "Rcpp", "deldir", "vegan", "geosphere", "networkDynamic",
-  "scatterplot3d", "patchwork", "concaveman")
+  "scatterplot3d", "patchwork", "concaveman", "latticeExtra")
 
 install.packages(setdiff(packages, rownames(installed.packages())))  
 

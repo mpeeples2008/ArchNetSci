@@ -101,7 +101,7 @@
 <p>In many ways, ERGMs are similar to logistic regression models where we predict the presence or absence of ties between pairs of nodes with edge formation modeled as dependent on network structure and properties (e.g., density, transitivity, centralization, etc.). Such models help us assess the probability that the observed network is a product of specified properties or generative processes that may be more or less likely to occur than we would expect by chance in a random network.</p>
 <p>The details of ERGMs and the underlying mathematics are beyond the scope of this document, but we present a brief overview of the highlights based heavily on <a href="http://statnet.org/Workshops/ergm_tutorial.html">a workshop on ERGM by the <code>statnet</code> team</a> (Krivitsky et al. 2021). See that workshop for more details.</p>
 <p>The general model form for an ERGM can be written as:</p>
-<p><span class="math display">\[P(Y=y) = \frac{\mathbf{exp}(\theta' g(y))}{k(\theta)}\]</span></p>
+<p><span class="math display">\[P(Y=y) = \frac{\text{exp}(\theta' g(y))}{k(\theta)}\]</span></p>
 <p>where</p>
 <ul>
 <li>
@@ -114,7 +114,7 @@
 <span class="math inline">\(k(\theta)\)</span> is a normalizing constant defined as numerator summed overall all possible networks constrained on the node set <span class="math inline">\(y\)</span>. In other words, all possible network configurations that could exist with the given node set.</li>
 </ul>
 <p>The general form for an ERGM expressed in terms of the entire network as we see above can also be expressed in terms of the conditional log odds of an edge existing between any two nodes as follows:</p>
-<p><span class="math display">\[\mathbf{logit}(Y_{ij}=y_{ij}) = \theta'\delta(y_{ij})\]</span></p>
+<p><span class="math display">\[\text{logit}(Y_{ij}=y_{ij}) = \theta'\delta(y_{ij})\]</span></p>
 <p>where</p>
 <ul>
 <li>
@@ -133,22 +133,22 @@ probability that an event does not occur (1 minus the probability that
 it occurs). This can be written formally as:
 </p>
 <p>
-<span class="math inline"><span class="math inline">\(\mathbf{log}(A) = \frac{\mathbf{log}(P(A)}{(1-P(A))}\)</span></span>
+<span class="math inline"><span class="math inline">\(\text{log}(A) = \frac{\text{log}(P(A)}{(1-P(A))}\)</span></span>
 </p>
 <p>
 where
 </p>
 <ul>
 <li>
-<span class="math inline"><span class="math inline">\(\mathbf{log}(A)\)</span></span> is the log odds
+<span class="math inline"><span class="math inline">\(\text{log}(A)\)</span></span> is the log odds
 of event A
 </li>
 <li>
-<span class="math inline"><span class="math inline">\(\mathbf{log}(P(A)\)</span></span> is the
+<span class="math inline"><span class="math inline">\(\text{log}(P(A)\)</span></span> is the
 probability of event A occurring
 </li>
 <li>
-<span class="math inline"><span class="math inline">\(\mathbf{log}(1-(P(A))\)</span></span> is the
+<span class="math inline"><span class="math inline">\(\text{log}(1-(P(A))\)</span></span> is the
 probability of event A not occurring
 </li>
 </ul>
@@ -182,7 +182,10 @@ in the <code>network</code> format to be analysed using the
 </div>
 <p>Let’s initialize our <code>statnet</code> suite to get started:</p>
 <div class="sourceCode" id="cb251"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://statnet.org">statnet</a></span><span class="op">)</span> <span class="co"># initialize statnet library</span></code></pre></div>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://statnet.org">statnet</a></span><span class="op">)</span> <span class="co"># initialize statnet library</span>
+<span class="co">#&gt;      Installed ReposVer Built  </span>
+<span class="co">#&gt; ergm "4.2.1"   "4.2.2"  "4.2.0"</span>
+<span class="co">#&gt; sna  "2.6"     "2.7"    "4.2.0"</span></code></pre></div>
 <p>In many ways it is easiest to describe what ERGMs do and how they work by example. In the next sections we provide a couple of archaeological examples that highlight some of the ways ERGMs have or could be used in archaeology. We further provide additional resources for taking these methods further.</p>
 </div>
 <div id="CranborneChase" class="section level3" number="7.1.2">
@@ -278,8 +281,8 @@ in the <code>network</code> format to be analysed using the
 </ul>
 <p>What the estimate (and associated standard error and p-value) indicates is how much a change in the term by one unit changes the likelihood that a particular edge is present. In this case, a change by one unit in the term <code>edges</code> refers to the addition of exactly 1 edge to the network (<span class="math inline">\(\delta(g(y)) = 1\)</span>) so the coefficient is an estimate of how much the addition of 1 edge to the network changes the likelihood of any particular edge:</p>
 <p><span class="math display">\[\begin{aligned}
-\mathbf{logit}(p(y)) &amp; = \theta \times \delta(g(y))\\
-&amp; = -2.2806 \times \text{change in the number of ties}\\
+\text{logit}(p(y)) &amp; = \theta \times \delta(g(y))\\
+&amp; = -2.2806 \times \text{change in the number of edges}\\
 &amp; = -2.2806 \times 1\\
 &amp; = -2.2806
 \end{aligned}\]</span></p>
@@ -301,15 +304,15 @@ in the <code>network</code> format to be analysed using the
 <p>The simple example above built an ERGM predicated on nothing but network density using the <code>edges</code> term. As outlined by Brughmans and Brandes (2017) there are specific features of the Cranborne Chase network development process theorized by Tilley which could be converted into a formal ERGM model using specific <code>ergm.terms</code>. Specifically, Tilley suggested that long barrows tended to be clustered into groups and intervisibility was a primary concern for some, but not all long barrows. Further, he suggested that long barrows tended to be clustered in sets and include straight paths where multiple barrows were visible from a single point. Finally, Tilley suggested that barrows that were already highly visible tended to attract new visibility connections through time. To capture this theory of network development in formal terms, Brughmans and Brandes (2017) create a set of terms to match Tilley’s expectations. They include the following terms:</p>
 <ul>
 <li>
-<code>edges</code> - the number of active edges: this term represents the tendency for long barrows to have visibility connections.</li>
+<strong><code>edges</code></strong> - the number of active edges: this term represents the tendency for long barrows to have visibility connections.</li>
 <li>
-<code>triangle</code> - the number of closed triangles: this term represents the clustering that Tilley expects in the network as networks with many closed triangles often have distinct clusters.</li>
+<strong><code>triangle</code></strong> - the number of closed triangles: this term represents the clustering that Tilley expects in the network as networks with many closed triangles often have distinct clusters.</li>
 <li>
-<code>threetrail</code> - the number of paths or trails of 3 (<code>threepath</code> and <code>threetrail</code> are used equivalently in the <code>ergm</code> here) in the network: this term is meant to capture Tilley’s visual pathways where multiple barrows are visible in a specific direction.</li>
+<strong><code>threetrail</code></strong> - the number of paths or trails of 3 (<code>threepath</code> and <code>threetrail</code> are used equivalently in the <code>ergm</code> here) in the network: this term is meant to capture Tilley’s visual pathways where multiple barrows are visible in a specific direction.</li>
 <li>
-<code>altkstar</code> - alternating stars: this term is used to represent certain nodes with high degree distribution representing the prominent nodes in the network generated through a process of preferential attachment.</li>
+<strong><code>altkstar</code></strong> - alternating stars: this term is used to represent certain nodes with high degree distribution representing the prominent nodes in the network generated through a process of preferential attachment.</li>
 <li>
-<code>isolates</code> - the number of isolates in the network: this term is here to capture the tendency for nodes to not be isolate as Tilley describes.</li>
+<strong><code>isolates</code></strong> - the number of isolates in the network: this term is here to capture the tendency for nodes to not be isolate as Tilley describes.</li>
 </ul>
 <p>Here are visual representations of these network configurations from Brughmans and Brandes (2017):</p>
 <div class="figure">
@@ -569,7 +572,7 @@ can be done about it, including alternatives to the
 <span class="header-section-number">7.1.8</span> Simulating Networks from ERGMs<a class="anchor" aria-label="anchor" href="#SimERGMs"><i class="fas fa-link"></i></a>
 </h3>
 <p>It is possible to generate and explore network simulated using a particular ERGM using the <code>simulate</code> function. Let’s generate some random networks from model 2 used above and then look at them along with the original network.</p>
-<p>In the code below we simply run a single <code>simulate</code> function with the model object, the argument <code>nsim</code> representing the number of networks we wish to generate, and <code>seed</code> which is the random seed for reproduceability. The output is a <code><a href="https://rdrr.io/r/base/list.html">list()</a></code> object containing multiple <code>network</code> format objects.</p>
+<p>In the code below we simply run a single <code>simulate</code> function with the model object, the argument <code>nsim</code> representing the number of networks we wish to generate, and <code>seed</code> which is the random seed for reproducability. The output is a <code><a href="https://rdrr.io/r/base/list.html">list()</a></code> object containing multiple <code>network</code> format objects.</p>
 <div class="sourceCode" id="cb266"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">sim_nets</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/simulate.html">simulate</a></span><span class="op">(</span><span class="va">mod2</span>, nsim <span class="op">=</span> <span class="fl">9</span>, seed <span class="op">=</span> <span class="fl">34464</span><span class="op">)</span>
 
@@ -806,7 +809,7 @@ anywhere and will just waste your time.
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-05-31.</p>
+    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-06-01.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

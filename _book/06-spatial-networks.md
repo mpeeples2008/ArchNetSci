@@ -15,12 +15,12 @@ data analysis in R.</p>
 
 The primary packages include:
 
-* `sf` - This package is designed for plotting and encoding simple spatial features and vector data and converting locations among different map projections. Check [here](https://r-spatial.github.io/sf/) for a good brief overview of the package.
-* `ggmap` - This package is a visualization tool that allows you to combine typical R figures in the `ggplot2` format with static maps available online through services like Google Maps, Stamen Maps, OpenStreet Maps, and others. This package is useful for quickly generating maps with a background layer and that is how we use it here.  
-* `cccd` - This is a package that is designed explicitly for working with spatial data and has a number of functions for defining networks based on relative neighborhoods and other spatial network definitions. 
-* `deldir` - This package package is designed to create spatial partitions including calculating Delaunay triangulation and Voronoi tessellations of spatial planes.
-* `geosphere` - This is a package focused on spherical trigonometry and has functions which allow us to calculate distances between points in spherical geographic space across the globe.
-* `RBGL` - This is an R implementation of a package called the Boost Graph Library. This package has a number of functions but we use it here as it provides a function to test for graph planarity.
+* **`sf`** - This package is designed for plotting and encoding simple spatial features and vector data and converting locations among different map projections. Check [here](https://r-spatial.github.io/sf/) for a good brief overview of the package.
+* **`ggmap`** - This package is a visualization tool that allows you to combine typical R figures in the `ggplot2` format with static maps available online through services like Google Maps, Stamen Maps, OpenStreet Maps, and others. This package is useful for quickly generating maps with a background layer and that is how we use it here.  
+* **`cccd`** - This is a package that is designed explicitly for working with spatial data and has a number of functions for defining networks based on relative neighborhoods and other spatial network definitions. 
+* **`deldir`** - This package package is designed to create spatial partitions including calculating Delaunay triangulation and Voronoi tessellations of spatial planes.
+* **`geosphere`** - This is a package focused on spherical trigonometry and has functions which allow us to calculate distances between points in spherical geographic space across the globe.
+* **`RBGL`** - This is an R implementation of a package called the Boost Graph Library. This package has a number of functions but we use it here as it provides a function to test for graph planarity.
 
 The spatial data we use in this document consists of vector data. This simply means that our mapping data re not images or pixels representing space but instead spatial coordinates that define locations and distances. One key aspect of spatial data in R, especially at large scales, is that we often need to define a projection or coordinate reference system to produce accurate maps. 
 
@@ -69,9 +69,9 @@ locs
 
 Another feature used throughout this guide that needs further explanation is the `ggmap` funtion `get_stamenmap`. This function automatically retrieves a background map for you using a few arguments:
 
-* `bbox` - the bounding box which represents the decimal degrees longitude and latitude coordinates of the lower left and upper right area you wish to map.
-* `maptype` - a name that indicates the style of map to use ([check here for options]https://rdrr.io/cran/ggmap/man/get_stamenmap.html).
-* `zoom` - a variable denonting the detail or zoom level to be retrieved. Higher number give more detail but take longer to detail.
+* **`bbox`** - the bounding box which represents the decimal degrees longitude and latitude coordinates of the lower left and upper right area you wish to map.
+* **`maptype`** - a name that indicates the style of map to use ([check here for options]https://rdrr.io/cran/ggmap/man/get_stamenmap.html).
+* **`zoom`** - a variable denoting the detail or zoom level to be retrieved. Higher number give more detail but take longer to detail.
 
 With the `ggmap` package, these background maps can easily be incorporated into network graphics.
 
@@ -273,9 +273,9 @@ Let's create a simple tree using the `make_tree` function in igraph.
 ```r
 tree1 <- make_tree(n = 50, children = 5, mode = "undirected")
 tree1
-#> IGRAPH 45f63ea U--- 50 49 -- Tree
+#> IGRAPH a3b5673 U--- 50 49 -- Tree
 #> + attr: name (g/c), children (g/n), mode (g/c)
-#> + edges from 45f63ea:
+#> + edges from a3b5673:
 #>  [1]  1-- 2  1-- 3  1-- 4  1-- 5  1-- 6  2-- 7  2-- 8  2-- 9
 #>  [9]  2--10  2--11  3--12  3--13  3--14  3--15  3--16  4--17
 #> [17]  4--18  4--19  4--20  4--21  5--22  5--23  5--24  5--25
@@ -583,6 +583,9 @@ Next, in order to define a minimum distance network we simply binarize this matr
 
 ```r
 library(statnet)
+#>      Installed ReposVer Built  
+#> ergm "4.2.1"   "4.2.2"  "4.2.0"
+#> sna  "2.6"     "2.7"    "4.2.0"
 library(geosphere)
 d1 <- distm(nodes[, c(3, 2)])
 # Note we use the leq=TRUE argument here as we want nodes less than

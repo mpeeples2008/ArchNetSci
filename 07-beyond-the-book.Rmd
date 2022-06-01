@@ -14,7 +14,7 @@ The details of ERGMs and the underlying mathematics are beyond the scope of this
 
 The general model form for an ERGM can be written as:
 
-$$P(Y=y) = \frac{\mathbf{exp}(\theta' g(y))}{k(\theta)}$$
+$$P(Y=y) = \frac{\text{exp}(\theta' g(y))}{k(\theta)}$$
 
 where 
 
@@ -25,7 +25,7 @@ where
 
 The general form for an ERGM expressed in terms of the entire network as we see above can also be expressed in terms of the conditional log odds of an edge existing between any two nodes as follows:
 
-$$\mathbf{logit}(Y_{ij}=y_{ij}) = \theta'\delta(y_{ij})$$
+$$\text{logit}(Y_{ij}=y_{ij}) = \theta'\delta(y_{ij})$$
 
 where
 
@@ -38,13 +38,13 @@ The coefficient estimates in ERGM models are returned in log odds which indicate
 ```{block, type="rmdtip"}
 The log odds is the logarithm of the odds ratio. The odds ratio refers to the probability that an event occurs divided by the probability that an event does not occur (1 minus the probability that it occurs). This can be written formally as:
 
-$\mathbf{log}(A) = \frac{\mathbf{log}(P(A)}{(1-P(A))}$
+$\text{log}(A) = \frac{\text{log}(P(A)}{(1-P(A))}$
 
 where
 
-* $\mathbf{log}(A)$ is the log odds of event A
-* $\mathbf{log}(P(A)$ is the probability of event A occurring
-* $\mathbf{log}(1-(P(A))$ is the probability of event A not occurring
+* $\text{log}(A)$ is the log odds of event A
+* $\text{log}(P(A)$ is the probability of event A occurring
+* $\text{log}(1-(P(A))$ is the probability of event A not occurring
 
 Negative log odds values indicate that probability of an event occurring is < 0.5 and positive log odds values indicate that the probability of an event occurring is > 0.5. Log odds will be exactly 0 when the probability of an event occurring is 0.5.
 ```
@@ -137,8 +137,8 @@ The summary output includes the call/model formula we used followed by the Maxim
 What the estimate (and associated standard error and p-value) indicates is how much a change in the term by one unit changes the likelihood that a particular edge is present. In this case, a change by one unit in the term `edges` refers to the addition of exactly 1 edge to the network ($\delta(g(y)) = 1$) so the coefficient is an estimate of how much the addition of 1 edge to the network changes the likelihood of any particular edge:
 
 $$\begin{aligned}
-\mathbf{logit}(p(y)) & = \theta \times \delta(g(y))\\
-& = -2.2806 \times \text{change in the number of ties}\\
+\text{logit}(p(y)) & = \theta \times \delta(g(y))\\
+& = -2.2806 \times \text{change in the number of edges}\\
 & = -2.2806 \times 1\\
 & = -2.2806
 \end{aligned}$$
@@ -163,11 +163,11 @@ Finally we can see our model fit statistics at the bottom with [AIC (Akaike Info
 
 The simple example above built an ERGM predicated on nothing but network density using the `edges` term. As outlined by Brughmans and Brandes (2017) there are specific features of the Cranborne Chase network development process theorized by Tilley which could be converted into a formal ERGM model using specific `ergm.terms`. Specifically, Tilley suggested that long barrows tended to be clustered into groups and intervisibility was a primary concern for some, but not all long barrows. Further, he suggested that long barrows tended to be clustered in sets and include straight paths where multiple barrows were visible from a single point. Finally, Tilley suggested that barrows that were already highly visible tended to attract new visibility connections through time. To capture this theory of network development in formal terms, Brughmans and Brandes (2017) create a set of terms to match Tilley's expectations. They include the following terms:
 
-* `edges` - the number of active edges: this term represents the tendency for long barrows to have visibility connections.
-* `triangle` - the number of closed triangles: this term represents the clustering that Tilley expects in the network as networks with many closed triangles often have distinct clusters.
-* `threetrail` - the number of paths or trails of 3 (`threepath` and `threetrail` are used equivalently in the `ergm` here) in the network: this term is meant to capture Tilley's visual pathways where multiple barrows are visible in a specific direction.
-* `altkstar` - alternating stars: this term is used to represent certain nodes with high degree distribution representing the prominent nodes in the network generated through a process of preferential attachment.
-* `isolates` - the number of isolates in the network: this term is here to capture the tendency for nodes to not be isolate as Tilley describes.
+* **`edges`** - the number of active edges: this term represents the tendency for long barrows to have visibility connections.
+* **`triangle`** - the number of closed triangles: this term represents the clustering that Tilley expects in the network as networks with many closed triangles often have distinct clusters.
+* **`threetrail`** - the number of paths or trails of 3 (`threepath` and `threetrail` are used equivalently in the `ergm` here) in the network: this term is meant to capture Tilley's visual pathways where multiple barrows are visible in a specific direction.
+* **`altkstar`** - alternating stars: this term is used to represent certain nodes with high degree distribution representing the prominent nodes in the network generated through a process of preferential attachment.
+* **`isolates`** - the number of isolates in the network: this term is here to capture the tendency for nodes to not be isolate as Tilley describes.
 
 Here are visual representations of these network configurations from Brughmans and Brandes (2017):
 

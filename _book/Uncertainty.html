@@ -101,17 +101,17 @@
 <p>The scripts described in detail below include:</p>
 <ul>
 <li>
-<a href="scripts/sim_missing_nodes.R">sim_missing_nodes.R</a> - Assessments of the stability of centrality metrics for networks with nodes missing at random or due to a biased sampling process.</li>
+<strong><a href="scripts/sim_missing_nodes.R">sim_missing_nodes.R</a></strong> - Assessments of the stability of centrality metrics for networks with nodes missing at random or due to a biased sampling process.</li>
 <li>
-<a href="scripts/sim_missing_edges.R">sim_missing_edges.R</a> -Assessments of the stability of centrality metrics for networks with edges missing at random or due to a biased sampling process.</li>
+<strong><a href="scripts/sim_missing_edges.R">sim_missing_edges.R</a></strong> -Assessments of the stability of centrality metrics for networks with edges missing at random or due to a biased sampling process.</li>
 <li>
-<a href="scripts/sim_missing_inc.R">sim_missing_inc.R</a> - Assessments of the stability of centrality metrics for networks with nodes missing at random or based on biased sampling from incidence matrix data.</li>
+<strong><a href="scripts/sim_missing_inc.R">sim_missing_inc.R</a></strong> - Assessments of the stability of centrality metrics for networks with nodes missing at random or based on biased sampling from incidence matrix data.</li>
 <li>
-<a href="scripts/sim_target_node.R">sim_target_node.R</a> - Assessments of the stability in rank order position of a target node in networks with nodes missing at random or due to a biased sampling process.</li>
+<strong><a href="scripts/sim_target_node.R">sim_target_node.R</a></strong> - Assessments of the stability in rank order position of a target node in networks with nodes missing at random or due to a biased sampling process.</li>
 <li>
-<a href="scripts/sim_samp_error.R">sim_samp_error.R</a> - Assessments of the stability centrality metrics due to sampling error in frequency data underlying similarity networks.</li>
+<strong><a href="scripts/sim_samp_error.R">sim_samp_error.R</a></strong> - Assessments of the stability centrality metrics due to sampling error in frequency data underlying similarity networks.</li>
 <li>
-<a href="scripts/edge_prob.R">edge_prob.R</a> - Functions for conducting edge probability modeling and plotting candidate networks and centrality distributions.</li>
+<strong><a href="scripts/edge_prob.R">edge_prob.R</a></strong> - Functions for conducting edge probability modeling and plotting candidate networks and centrality distributions.</li>
 </ul>
 <p>Each of these are described in greater detail below along with an example. To run these scripts in R, you need to put them in your working directory and then use the <code><a href="https://rdrr.io/r/base/source.html">source()</a></code> function. The <code>source</code> function will run all code within the .R file and initialize any functions they contain. For example:</p>
 <div class="sourceCode" id="cb125"><pre class="downlit sourceCode r">
@@ -143,6 +143,9 @@
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggraph.data-imaginist.com">ggraph</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rpkgs.datanovia.com/ggpubr/">ggpubr</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://statnet.org">statnet</a></span><span class="op">)</span>
+<span class="co">#&gt;      Installed ReposVer Built  </span>
+<span class="co">#&gt; ergm "4.2.1"   "4.2.2"  "4.2.0"</span>
+<span class="co">#&gt; sna  "2.6"     "2.7"    "4.2.0"</span>
 
 <span class="co"># Import adjacency matrix and covert to network</span>
 <span class="va">chaco</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">'data/AD1050net.csv'</span>, row.names <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
@@ -215,15 +218,15 @@
 <p>The function requires the following arguments:</p>
 <ul>
 <li>
-<code>net</code> - An <code>igraph</code> network object which can be undirected, directed, or weighted but must be a one-mode network.</li>
+<strong><code>net</code></strong> - An <code>igraph</code> network object which can be undirected, directed, or weighted but must be a one-mode network.</li>
 <li>
-<code>nsim</code> - The number of random simulated networks to be created at each sampling fraction. The default is 1000.</li>
+<strong><code>nsim</code></strong> - The number of random simulated networks to be created at each sampling fraction. The default is 1000.</li>
 <li>
-<code>props</code> - A vector containing the sampling fractions to consider. Numbers must be in decimal form and be greater than 0 and less than 1. The default is <code>props = c(0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1)</code>. Note that for small networks it is inadvisable to use very small values of <code>props</code>.</li>
+<strong><code>props</code></strong> - A vector containing the sampling fractions to consider. Numbers must be in decimal form and be greater than 0 and less than 1. The default is <code>props = c(0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1)</code>. Note that for small networks it is inadvisable to use very small values of <code>props</code>.</li>
 <li>
-<code>met</code> - This argument is used to define the metric of interest and must be one of: <code>"betweenness"</code>, <code>"degree"</code>, or <code>"eigenvector"</code>. If you do not specify this argument you will receive an error.</li>
+<strong><code>met</code></strong> - This argument is used to define the metric of interest and must be one of: <code>"betweenness"</code>, <code>"degree"</code>, or <code>"eigenvector"</code>. If you do not specify this argument you will receive an error.</li>
 <li>
-<code>missing_probs</code> - This argument expects a vector that has as many values as there are nodes in the network. Each value should be a probability value between 0 and 1 (inclusive) that a node will be retained in a sub-sample of the network. The default for this argument is <code>NA</code>. If the argument isn’t specified the function assumes you are testing nodes missing at random.</li>
+<strong><code>missing_probs</code></strong> - This argument expects a vector that has as many values as there are nodes in the network. Each value should be a probability value between 0 and 1 (inclusive) that a node will be retained in a sub-sample of the network. The default for this argument is <code>NA</code>. If the argument isn’t specified the function assumes you are testing nodes missing at random.</li>
 </ul>
 <p>Let’s take a look at the code. You can also download <a href="scripts/sim_missing_nodes.R">the script</a> to use it on your own data.</p>
 <div class="sourceCode" id="cb128"><pre class="downlit sourceCode r">
@@ -392,17 +395,17 @@ will return an error.
 <p>The function requires six pieces of information from the user:</p>
 <ul>
 <li>
-<code>net</code> - An <code>igraph</code> network object. Again this is currently set up for simple networks but could easily be modified.</li>
+<strong><code>net</code></strong> - An <code>igraph</code> network object. Again this is currently set up for simple networks but could easily be modified.</li>
 <li>
-<code>target</code> - The name of the <code>target</code> node you wish to assess (exactly as it is written in the network object).</li>
+<strong><code>target</code></strong> - The name of the <code>target</code> node you wish to assess (exactly as it is written in the network object).</li>
 <li>
-<code>prop</code> - The proportion of nodes you wish to retain in the test. This should be a single number &gt; 0 and &lt; 1.</li>
+<strong><code>prop</code></strong> - The proportion of nodes you wish to retain in the test. This should be a single number &gt; 0 and &lt; 1.</li>
 <li>
-<code>nsim</code> - The number of simulations. The default is 1000.</li>
+<strong><code>nsim</code></strong> - The number of simulations. The default is 1000.</li>
 <li>
-<code>met</code> - This argument is used to define the metric of interest and must be one of: <code>"betweenness"</code>, <code>"degree"</code>, or <code>"eigenvector"</code>. If you do not specify this argument you will receive an error.</li>
+<strong><code>met</code></strong> - This argument is used to define the metric of interest and must be one of: <code>"betweenness"</code>, <code>"degree"</code>, or <code>"eigenvector"</code>. If you do not specify this argument you will receive an error.</li>
 <li>
-<code>missing_probs</code> - This argument expects a vector that has as many values as there are nodes in the network. Each value should be a probability value between 0 and 1 (inclusive) that a node will be retained in a sub-sample of the network. You must include a probability value for the <code>target</code> node though that node will always be retained no matter what value you use. The default for this argument is <code>NA</code>. If the argument isn’t specified the function assumes you are testing nodes missing at random.</li>
+<strong><code>missing_probs</code></strong> - This argument expects a vector that has as many values as there are nodes in the network. Each value should be a probability value between 0 and 1 (inclusive) that a node will be retained in a sub-sample of the network. You must include a probability value for the <code>target</code> node though that node will always be retained no matter what value you use. The default for this argument is <code>NA</code>. If the argument isn’t specified the function assumes you are testing nodes missing at random.</li>
 </ul>
 <p>Briefly how this function works is it first determines which node number corresponds with the <code>target</code> you wish to assess and creates <code>nsim</code> subgraphs that retain that target. The metric of interest is then calculated in each network and the rank order position of the target node in every network is returned. This function can be calculated either as a “missing at random” process by leaving <code>missing_probs</code> set to the default <code>NA</code>.</p>
 <p>Let’s take a look at an example. <a href="data/Cibola_edgelist.csv">Use these data</a> to follow along. You can download the <a href="scripts/sim_target_node.R">sim_target_node.R script here</a></p>
@@ -550,15 +553,15 @@ or you’ll get an error.
 <p>This function requires five specific pieces of information from the user:</p>
 <ul>
 <li>
-<code>net</code> - You must include a network object in <code>igraph</code> format. We use a simple network here but the code could be modified for directed or valued networks.</li>
+<strong><code>net</code></strong> - You must include a network object in <code>igraph</code> format. We use a simple network here but the code could be modified for directed or valued networks.</li>
 <li>
-<code>inc</code> - You must also include an incidence matrix (as an R matrix object) which describes the relationships between. The incidence matrix needs to have unique row names and column names. The mode you are interested in assessing should be the columns (in other words if you are interested in authors missing at random authors should be represented by columns and publications by rows).</li>
+<strong><code>inc</code></strong> - You must also include an incidence matrix (as an R matrix object) which describes the relationships between. The incidence matrix needs to have unique row names and column names. The mode you are interested in assessing should be the columns (in other words if you are interested in authors missing at random authors should be represented by columns and publications by rows).</li>
 <li>
-<code>nsim</code> - You must specify the number of simulations to perform. The default is 1000.</li>
+<strong><code>nsim</code></strong> - You must specify the number of simulations to perform. The default is 1000.</li>
 <li>
-<code>props</code> - You must specify the proportion of nodes to be retained for each set of <code>nsim</code> runs. This should be provided as a vector of proportions ranging from &gt; 0 to 1. By default, the script will calculate a 0.9 sub-sample all the way down to a 0.1 sub-sample at 0.1 intervals using <code>props=c(0.9,0.8,0.7,0.6,0.5,0.4,0.3,0.2,0.1)</code>.</li>
+<strong><code>props</code></strong> - You must specify the proportion of nodes to be retained for each set of <code>nsim</code> runs. This should be provided as a vector of proportions ranging from &gt; 0 to 1. By default, the script will calculate a 0.9 sub-sample all the way down to a 0.1 sub-sample at 0.1 intervals using <code>props=c(0.9,0.8,0.7,0.6,0.5,0.4,0.3,0.2,0.1)</code>.</li>
 <li>
-<code>lookup_dat</code> - Finally, you need to provide a data frame or matrix that contains two columns. The first column should be the unique name for each row in the incidence matrix (publication key in this case). The second column should include a numeric value between 0 and 1 which indicates the probability that each row will be retained in the resampling process. If you include nothing for <code>missing_probs</code> the function will remove columns at random with an equal probability for each.</li>
+<strong><code>lookup_dat</code></strong> - Finally, you need to provide a data frame or matrix that contains two columns. The first column should be the unique name for each row in the incidence matrix (publication key in this case). The second column should include a numeric value between 0 and 1 which indicates the probability that each row will be retained in the resampling process. If you include nothing for <code>missing_probs</code> the function will remove columns at random with an equal probability for each.</li>
 </ul>
 <p>In our example here, we must first calculate the data we need to provide for the <code>missing_probs</code> argument above. To do this we simply take the vector of publication years in the <code>bib</code> object we read in and rescale them such that the maximum value (most recent publication) equals 1 and older publications are less than 1. This will mean that older publications will more often be removed in our random sub-samples than newer ones as outlined in the example in the book.</p>
 <div class="rmdwarning">
@@ -1071,7 +1074,7 @@ transpose function to place columns in the target position.
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-05-31.</p>
+    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-06-01.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

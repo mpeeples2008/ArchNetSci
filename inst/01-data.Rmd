@@ -14,7 +14,7 @@ For the files below you can right click and "save as" to save them for use local
 
 Hey, we get it. You're busy and just want all of the data in one convenient package. We provide all of the data used in the appendix here in a single .zip file for you to download. To follow along with the examples in this appendix you need to choose an R working directory and place the contents of the *.zip folder within it such that all of the individual files are contained within a folder called "data". Note that this includes all of the additional files that are required for reproducing particular figures as well.
 
-[All_data.zip](All_data.zip) - A single compressed file containing all of the data files used in this appendix.
+[All_data.zip](https://archnetworks.net/All_data.zip) - A single compressed file containing all of the data files used in this appendix.
 
 ### Roman Road Networks{#RomanRoad}
 

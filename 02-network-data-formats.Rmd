@@ -10,10 +10,10 @@ This section follows Chapter 3.2 in Brughmans and Peeples (2022) to provide exam
 
 The network data formats we discuss in this section include:
 
-* Edge list - A network data format consisting of a list of connected node pairs. *E=((n1,n2),(n1,n3),(n1,n4),...,(ni,nj))*. It can also be represented as a matrix with two columns for source and target nodes respectively and with one edge per row.
-* Adjacency list - A network data format consisting of a set of rows, where the first node in each row is connected to all subsequent nodes in that same row.
-* Adjacency matrix - A network data format consisting of a matrix of size *n x n*, with a set of rows equal to the number of nodes, and a set of columns equal to the number of nodes. When a pair of nodes is connected by an edge (i.e., when they are adjacent), then the corresponding cell will have an entry.
-* Incidence matrix - A network data format consisting of a matrix of size *n x e*, with a set of rows equal to the number of nodes, and a set of columns equal to the number of edges. An entry is made in a cell if the corresponding node and edge are connected. Each column in the incidence matrix has two entries.
+* **Edge list** - A network data format consisting of a list of connected node pairs. *E=((n1,n2),(n1,n3),(n1,n4),...,(ni,nj))*. It can also be represented as a matrix with two columns for source and target nodes respectively and with one edge per row.
+* **Adjacency list** - A network data format consisting of a set of rows, where the first node in each row is connected to all subsequent nodes in that same row.
+* **Adjacency matrix** - A network data format consisting of a matrix of size *n x n*, with a set of rows equal to the number of nodes, and a set of columns equal to the number of nodes. When a pair of nodes is connected by an edge (i.e., when they are adjacent), then the corresponding cell will have an entry.
+* **Incidence matrix** - A network data format consisting of a matrix of size *n x e*, with a set of rows equal to the number of nodes, and a set of columns equal to the number of edges. An entry is made in a cell if the corresponding node and edge are connected. Each column in the incidence matrix has two entries.
 
 Let's first get started by initializing all of the packages we will use in this section.
 
@@ -189,13 +189,13 @@ This section roughly follows Brughmans and Peeples (2022) Chapter 3.3 to describ
 
 In this section, we cover:
 
-* Simple Networks - A set of nodes and a set of edges with no additional information about them.
-* Directed Networks - A network consisting of a set of nodes and edges connecting them for which the orientation or direction is specified. In other words when A is connected to B, B is not necessarily connected to A.
-* Signed, Categorized, and Weighted Networks - This category refers to networks where edges (relationships) have additional nominal, ordinal, or metric information encoded in them. A signed network is a network where the edges carry a positive or negative sign indicating some opposed property of relations in the network. A categorized network is a network where edges are classified according to some nominal category that does not necessarily represent an opposition. A weighted network is one in which the edges carry a non-binary value which indicates the strength of a given relationship.
-* Two-Mode Networks - A network where two separate categories of nodes are defined with edges defined only between these categories.
-* Similarity Networks - Networks where edges are defined or weighted based on a quantitative metric of similarity or distance based on node attributes or artifact assemblages.
-* Ego Networks - A network including a focal node, the set of nodes the ego is connected to by an edge and the edges between nodes in this set.
-* Multilayer Networks - A network where a single set of nodes is connected by two or more sets of edges that each represent a different kind of relationship among the nodes.
+* **Simple Networks** - A set of nodes and a set of edges with no additional information about them.
+* **Directed Networks** - A network consisting of a set of nodes and edges connecting them for which the orientation or direction is specified. In other words when A is connected to B, B is not necessarily connected to A.
+* **Signed, Categorized, and Weighted Networks** - This category refers to networks where edges (relationships) have additional nominal, ordinal, or metric information encoded in them. A signed network is a network where the edges carry a positive or negative sign indicating some opposed property of relations in the network. A categorized network is a network where edges are classified according to some nominal category that does not necessarily represent an opposition. A weighted network is one in which the edges carry a non-binary value which indicates the strength of a given relationship.
+* **Two-Mode Networks** - A network where two separate categories of nodes are defined with edges defined only between these categories.
+* **Similarity Networks** - Networks where edges are defined or weighted based on a quantitative metric of similarity or distance based on node attributes or artifact assemblages.
+* **Ego Networks** - A network including a focal node, the set of nodes the ego is connected to by an edge and the edges between nodes in this set.
+* **Multilayer Networks** - A network where a single set of nodes is connected by two or more sets of edges that each represent a different kind of relationship among the nodes.
 
 ### Simple Networks{#SimpleNetworks}
 

@@ -8,7 +8,7 @@ There are already some excellent resources online for learning how to create bea
 
 In order to make it as easy as possible for users to replicate specific visuals from the book and the other examples in this tutorial we have tried to make the examples as modular as possible. This means that we provide calls to initialize the required libraries for each plot within each relevant chunk of code (so that you can more easily tell what package does what) and we also provide links to download the data required to replicate each figure in the description of that figure below. The data sets we use here include both .csv and other format files as well as .Rdata files that contain sets of specific R objects formatted as required for individual chunks of code.
 
-If you plan on working through this entire tutorial and would like to download all of the associated data at once [you can download this zip file](All_data.zip). Simply extract this zip folder into your R working directory and the examples below will then work. Note that all of the examples below are setup such that the data should be contained in a sub-folder of your working directory called "data" (note that directories and file names are case sensitive).
+If you plan on working through this entire tutorial and would like to download all of the associated data at once [you can download this zip file](https:/archnetworks.net/All_data.zip). Simply extract this zip folder into your R working directory and the examples below will then work. Note that all of the examples below are setup such that the data should be contained in a sub-folder of your working directory called "data" (note that directories and file names are case sensitive).
 
 ## Visualizing Networks in R{#ViZInR}
 
@@ -30,6 +30,9 @@ Let's start by reading in our example data and then we describe each package in 
 ```r
 library(igraph)
 library(statnet)
+#>      Installed ReposVer Built  
+#> ergm "4.2.1"   "4.2.2"  "4.2.0"
+#> sna  "2.6"     "2.7"    "4.2.0"
 library(ggraph)
 library(intergraph)
 
@@ -45,9 +48,9 @@ Cibola_attr <- read.csv(file = "data/Cibola_attr.csv", header = TRUE)
 Cibola_i <- igraph::graph_from_adjacency_matrix(as.matrix(Cibola),
                                                 mode = "undirected")
 Cibola_i
-#> IGRAPH 16c72ab UN-- 31 167 -- 
+#> IGRAPH 7758d91 UN-- 31 167 -- 
 #> + attr: name (v/c)
-#> + edges from 16c72ab (vertex names):
+#> + edges from 7758d91 (vertex names):
 #>  [1] Apache.Creek--Casa.Malpais        
 #>  [2] Apache.Creek--Coyote.Creek        
 #>  [3] Apache.Creek--Hooper.Ranch        
@@ -1061,7 +1064,7 @@ for more details.</p>
 
 Now let's look at all of the figures together.
 
-![](images/Figure_6_3.jpg.jpeg){width=100%}
+![](images/Figure_6_3.jpg){width=100%}
 
 ### Figure 6.4: Simple Network with Clusters {- #Figure_6_4}
 

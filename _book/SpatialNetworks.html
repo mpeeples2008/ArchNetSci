@@ -108,18 +108,18 @@ data analysis in R.
 <p>The primary packages include:</p>
 <ul>
 <li>
-<code>sf</code> - This package is designed for plotting and encoding simple spatial features and vector data and converting locations among different map projections. Check <a href="https://r-spatial.github.io/sf/">here</a> for a good brief overview of the package.</li>
+<strong><code>sf</code></strong> - This package is designed for plotting and encoding simple spatial features and vector data and converting locations among different map projections. Check <a href="https://r-spatial.github.io/sf/">here</a> for a good brief overview of the package.</li>
 <li>
-<code>ggmap</code> - This package is a visualization tool that allows you to combine typical R figures in the <code>ggplot2</code> format with static maps available online through services like Google Maps, Stamen Maps, OpenStreet Maps, and others. This package is useful for quickly generating maps with a background layer and that is how we use it here.<br>
+<strong><code>ggmap</code></strong> - This package is a visualization tool that allows you to combine typical R figures in the <code>ggplot2</code> format with static maps available online through services like Google Maps, Stamen Maps, OpenStreet Maps, and others. This package is useful for quickly generating maps with a background layer and that is how we use it here.<br>
 </li>
 <li>
-<code>cccd</code> - This is a package that is designed explicitly for working with spatial data and has a number of functions for defining networks based on relative neighborhoods and other spatial network definitions.</li>
+<strong><code>cccd</code></strong> - This is a package that is designed explicitly for working with spatial data and has a number of functions for defining networks based on relative neighborhoods and other spatial network definitions.</li>
 <li>
-<code>deldir</code> - This package package is designed to create spatial partitions including calculating Delaunay triangulation and Voronoi tessellations of spatial planes.</li>
+<strong><code>deldir</code></strong> - This package package is designed to create spatial partitions including calculating Delaunay triangulation and Voronoi tessellations of spatial planes.</li>
 <li>
-<code>geosphere</code> - This is a package focused on spherical trigonometry and has functions which allow us to calculate distances between points in spherical geographic space across the globe.</li>
+<strong><code>geosphere</code></strong> - This is a package focused on spherical trigonometry and has functions which allow us to calculate distances between points in spherical geographic space across the globe.</li>
 <li>
-<code>RBGL</code> - This is an R implementation of a package called the Boost Graph Library. This package has a number of functions but we use it here as it provides a function to test for graph planarity.</li>
+<strong><code>RBGL</code></strong> - This is an R implementation of a package called the Boost Graph Library. This package has a number of functions but we use it here as it provides a function to test for graph planarity.</li>
 </ul>
 <p>The spatial data we use in this document consists of vector data. This simply means that our mapping data re not images or pixels representing space but instead spatial coordinates that define locations and distances. One key aspect of spatial data in R, especially at large scales, is that we often need to define a projection or coordinate reference system to produce accurate maps.</p>
 <p>A coordinate reference system (CRS) is a formal definition of how spatial points relate to the surface of the globe. CRS typically fall into two categories: geographic coordinate systems and projected coordinate systems. The most common geographic coordinate system is the latitude/longitude system which describes locations on the surface of the Earth in terms of angular coordinates from the Prime Meridian and Equator. A projected data set refers to the process through which map makers take a spherical Earth and create a flat map. Projections distort and move the area, distance, and shape to varying degrees and provide xy location coordinates in linear units. The advantages and disadvantages of these systems are beyond the scope of this document but it is important to note that R often requires us to defined our coordinate reference system when working with spatial data.</p>
@@ -162,11 +162,11 @@ data analysis in R.
 <p>Another feature used throughout this guide that needs further explanation is the <code>ggmap</code> funtion <code>get_stamenmap</code>. This function automatically retrieves a background map for you using a few arguments:</p>
 <ul>
 <li>
-<code>bbox</code> - the bounding box which represents the decimal degrees longitude and latitude coordinates of the lower left and upper right area you wish to map.</li>
+<strong><code>bbox</code></strong> - the bounding box which represents the decimal degrees longitude and latitude coordinates of the lower left and upper right area you wish to map.</li>
 <li>
-<code>maptype</code> - a name that indicates the style of map to use ([check here for options]<a href="https://rdrr.io/cran/ggmap/man/get_stamenmap.html" class="uri">https://rdrr.io/cran/ggmap/man/get_stamenmap.html</a>).</li>
+<strong><code>maptype</code></strong> - a name that indicates the style of map to use ([check here for options]<a href="https://rdrr.io/cran/ggmap/man/get_stamenmap.html" class="uri">https://rdrr.io/cran/ggmap/man/get_stamenmap.html</a>).</li>
 <li>
-<code>zoom</code> - a variable denonting the detail or zoom level to be retrieved. Higher number give more detail but take longer to detail.</li>
+<strong><code>zoom</code></strong> - a variable denoting the detail or zoom level to be retrieved. Higher number give more detail but take longer to detail.</li>
 </ul>
 <p>With the <code>ggmap</code> package, these background maps can easily be incorporated into network graphics.</p>
 <div class="sourceCode" id="cb214"><pre class="downlit sourceCode r">
@@ -337,9 +337,9 @@ to be installed from another archive called Bioconductor.
 <div class="sourceCode" id="cb223"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">tree1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/make_tree.html">make_tree</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">50</span>, children <span class="op">=</span> <span class="fl">5</span>, mode <span class="op">=</span> <span class="st">"undirected"</span><span class="op">)</span>
 <span class="va">tree1</span>
-<span class="co">#&gt; IGRAPH 45f63ea U--- 50 49 -- Tree</span>
+<span class="co">#&gt; IGRAPH a3b5673 U--- 50 49 -- Tree</span>
 <span class="co">#&gt; + attr: name (g/c), children (g/n), mode (g/c)</span>
-<span class="co">#&gt; + edges from 45f63ea:</span>
+<span class="co">#&gt; + edges from a3b5673:</span>
 <span class="co">#&gt;  [1]  1-- 2  1-- 3  1-- 4  1-- 5  1-- 6  2-- 7  2-- 8  2-- 9</span>
 <span class="co">#&gt;  [9]  2--10  2--11  3--12  3--13  3--14  3--15  3--16  4--17</span>
 <span class="co">#&gt; [17]  4--18  4--19  4--20  4--21  5--22  5--23  5--24  5--25</span>
@@ -608,6 +608,9 @@ can simply use the <code>dist</code> function in the place of
 <p>Next, in order to define a minimum distance network we simply binarize this matrix. We can do this using the <code>event2dichot</code> function within the <code>statnet</code> package and easily create an R network objects. Let’s try it out with the Roman Road data for thresholds of 100,000 and 250,000 meters.</p>
 <div class="sourceCode" id="cb235"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://statnet.org">statnet</a></span><span class="op">)</span>
+<span class="co">#&gt;      Installed ReposVer Built  </span>
+<span class="co">#&gt; ergm "4.2.1"   "4.2.2"  "4.2.0"</span>
+<span class="co">#&gt; sna  "2.6"     "2.7"    "4.2.0"</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">geosphere</span><span class="op">)</span>
 <span class="va">d1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/geosphere/man/distm.html">distm</a></span><span class="op">(</span><span class="va">nodes</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">2</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>
 <span class="co"># Note we use the leq=TRUE argument here as we want nodes less than</span>
@@ -1076,7 +1079,7 @@ plot inside another in the <code>ggplot2</code> format.
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-05-31.</p>
+    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-06-01.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
