@@ -279,7 +279,7 @@ Let's consider that our network has 32 nodes and 46 edges with 17 closed triangl
 
 It is possible to generate and explore network simulated using a particular ERGM using the `simulate` function. Let's generate some random networks from model 2 used above and then look at them along with the original network.
 
-In the code below we simply run a single `simulate` function with the model object, the argument `nsim` representing the number of networks we wish to generate, and `seed` which is the random seed for reproduceability. The output is a `list()` object containing multiple `network` format objects.
+In the code below we simply run a single `simulate` function with the model object, the argument `nsim` representing the number of networks we wish to generate, and `seed` which is the random seed for reproducability. The output is a `list()` object containing multiple `network` format objects.
 
 ```{r}
 sim_nets <- simulate(mod2, nsim = 9, seed = 34464)
