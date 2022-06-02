@@ -55,7 +55,7 @@ library(statnet)
 #> sna  "2.6"     "2.7"    "4.2.0"
 
 # Import adjacency matrix and covert to network
-chaco <- read.csv(file = 'data/AD1050net.csv', row.names = 1)
+chaco <- read.csv(file = "data/AD1050net.csv", row.names = 1)
 
 chaco_net <- igraph::graph_from_adjacency_matrix(as.matrix(chaco),
                                                  mode = "undirected")
@@ -87,7 +87,7 @@ output <- matrix(NA, nsim, length(props))
 colnames(output) <- as.character(props)
 
 # Using for loops iterate over every value of props defined above nsim times
-for (j in 1:length(props)) {
+for (j in seq_len(length(props))) {
   for (i in 1:nsim) {
     # define a sub-sample at props[j] by retaining nodes from network
     sub_samp <- sample(seq(1, vcount(chaco_net)), size =
@@ -100,7 +100,7 @@ for (j in 1:length(props)) {
     # and record in the output object at row i and column j.
     output[i, j] <- suppressWarnings(cor(temp_stats,
                                          met_orig[sort(sub_samp)],
-                                         method = 'spearman'))
+                                         method = "spearman"))
   }
 } # repeat for all values of props, nsim times each
 
@@ -150,18 +150,18 @@ sim_missing_nodes <- function(net,
                               missing_probs = NA) {
   # Initialize required library
   require(reshape2)
-  
+
   props <- as.vector(props)
-  
+
   if (FALSE %in% (is.numeric(props) & (props > 0) & (props <= 1))) {
     stop("Variable props must be numeric and be between 0 and 1",
          call. = F)
   }
-  
+
   # Select measure of interest based on variable met and calculate
   if (!(met %in% c("degree", "betweenness", "eigenvector"))) {
     stop(
-      "Argument met must be either degree, betweenness, or eigenvector. 
+      "Argument met must be either degree, betweenness, or eigenvector.
       Check function call.",
       call. = F
     )
@@ -170,8 +170,7 @@ sim_missing_nodes <- function(net,
     if (met == "degree") {
       met_orig <- igraph::degree(net)
     }
-    else
-    {
+    else   {
       if (met == "betweenness") {
         met_orig <- igraph::betweenness(net)
       }
@@ -182,15 +181,15 @@ sim_missing_nodes <- function(net,
       }
     }
   }
-  
-  # Create data frame for out put and name columns
+
+# Create data frame for out put and name columns
   output <- matrix(NA, nsim, length(props))
   colnames(output) <- as.character(props)
-  
-  # Iterate over each value of props and then each value from 1 to nsim
-  for (j in 1:length(props)) {
+
+# Iterate over each value of props and then each value from 1 to nsim
+  for (j in seq_len(length(props))) {
     for (i in 1:nsim) {
-      # Run code in brackets if missing_probs == NA
+      # Run code in brackets if missing_probs is NA
       if (is.na(missing_probs)[1]) {
         sub_samp <- sample(seq(1, vcount(net)),
                            size = round(vcount(net) * props[j], 0))
@@ -206,8 +205,7 @@ sim_missing_nodes <- function(net,
       if (met == "degree") {
         temp_stats <- igraph::degree(sub_net)
       }
-      else
-      {
+      else   {
         if (met == "betweenness") {
           temp_stats <- igraph::betweenness(sub_net)
         }
@@ -221,11 +219,11 @@ sim_missing_nodes <- function(net,
       # met_orig and each temp_stats iteration.
       output[i, j] <- suppressWarnings(cor(temp_stats,
                                            met_orig[sort(sub_samp)],
-                                           method = 'spearman'))
+                                           method = "spearman"))
     }
   }
-  # Return output as data.frame 
-  df_output <- suppressWarnings(melt(as.data.frame(output)))
+  # Return output as data.frame
+  df_output <- suppressWarnings(reshape2::melt(as.data.frame(output)))
   return(df_output)
 }
 ```
@@ -280,7 +278,7 @@ sub_net <- igraph::induced_subgraph(net, sort(sub_samp))
 # Replaced code in sim_missing_edges
 sub_samp <- sample(seq(1, ecount(net), prob = missing_probs),
                            size = round(ecount(net) * props[j], 0))
-sub_net <- igraph::delete_edges(net, which(!(seq(1, ecount(net)) 
+sub_net <- igraph::delete_edges(net, which(!(seq(1, ecount(net))
                                              %in% sub_samp)))
 ```
 
@@ -336,10 +334,10 @@ First we read in the data:
 
 ```r
 # Read in edgelist file as dataframe and create network object
-Cibola_edgelist <-
+cibola_edgelist <-
   read.csv(file = "data/Cibola_edgelist.csv", header = TRUE)
-Cibola_net <-
-  igraph::graph_from_edgelist(as.matrix(Cibola_edgelist),
+cibola_net <-
+  igraph::graph_from_edgelist(as.matrix(cibola_edgelist),
                               directed = FALSE)
 ```
 
@@ -351,8 +349,8 @@ source("scripts/sim_target_node.R")
 
 # Run the function
 set.seed(52793)
-GR <- sim_target_node(
-  net = Cibola_net,
+gr <- sim_target_node(
+  net = cibola_net,
   target = "Garcia Ranch",
   prop = 0.8,
   nsim = 1000,
@@ -360,7 +358,7 @@ GR <- sim_target_node(
 )
 
 # Visualize the results
-df <- as.data.frame(GR)
+df <- as.data.frame(gr)
 colnames(df) <- "RankOrder"
 
 ggplot(df, aes(x = RankOrder)) +
@@ -396,7 +394,7 @@ or you’ll get an error.</p>
 
 ```r
 # Random sampling process
-sub_samp <- sample(seq(1, vcount(net)), 
+sub_samp <- sample(seq(1, vcount(net)),
                    size = round(vcount(net) * props[j], 0))
 
 # Biased sampling process
@@ -409,7 +407,7 @@ Now, let's try a real example using the `chaco_net` data again by creating a ran
 
 
 ```r
-# Create 233 random numbers between 0 and 1 to stand in for 
+# Create 233 random numbers between 0 and 1 to stand in for
 # node probabilities
 set.seed(4463)
 mis <- runif(223, 0, 1)
@@ -447,8 +445,8 @@ First we need to provide two data files. The first is the [bibliographic attribu
 ```r
 
 # Read in publication and author attribute data
-bib <- read.csv('data/biblio_attr.csv')
-bib[1:3,]
+bib <- read.csv("data/biblio_attr.csv")
+bib[1:3, ]
 #>        Key      Item.Type
 #> 1 FUV8A7JK journalArticle
 #> 2 C7MRVHWA    bookSection
@@ -464,8 +462,8 @@ bib[1:3,]
 # Read in incidence matrix of publication and author data
 bib_dat <-
   as.matrix(read.table(
-    'data/biblio_dat2.csv',
-    header = T,
+    "data/biblio_dat2.csv",
+    header = TRUE,
     row.names = 1,
     sep = ","
   ))
@@ -485,7 +483,7 @@ ggraph(bib_net, layout = "fr") +
   geom_edge_link0(width = 0.2) +
   geom_node_point(shape = 21,
                   aes(size = bw_all * 5),
-                  fill = 'gray',
+                  fill = "gray",
                   alpha = 0.75) +
   theme_graph() +
   theme(legend.position = "none")
@@ -526,10 +524,10 @@ lookup_prob <-
   (max(lookup$Publication.Year) - min(lookup$Publication.Year))
 
 # Create data frame with required output. We have added a sort function
-# here to ensure that the order of probabilities in lookup_dat is the 
-# same as the order of rows in the incidence matrix. You will get 
+# here to ensure that the order of probabilities in lookup_dat is the
+# same as the order of rows in the incidence matrix. You will get
 # spurious results if you do not ensure these are the same.
-lookup_dat <- sort(data.frame(Key = lookup$Key, prob = lookup_prob))
+lookup_dat <- sort(data.frame(Key = lookup[,1], prob = lookup_prob))
 head(lookup_dat)
 #>          Key      prob
 #> 117 24QNVV37 0.9583333
@@ -595,8 +593,8 @@ Now we can combine the results into a single data frame and plot them as paired 
 
 ```r
 # Add a variable denoting which sample design it came from
-bib_rand$Treatment <- rep("Random", nrow(bib_rand))
-bib_bias$Treatment <- rep("Biased", nrow(bib_bias))
+bib_rand$treatment <- rep("Random", nrow(bib_rand))
+bib_bias$treatment <- rep("Biased", nrow(bib_bias))
 
 # Bind into a single dataframe, convert sampling faction to factor
 # and change order of levels for plotting
@@ -606,8 +604,8 @@ df$variiable <- factor(df$variable, levels = c("0.9", "0.8", "0.7"))
 
 # Plot the results
 ggplot(data = df) +
-  geom_boxplot(aes(x = variable, y = value, fill = Treatment)) +
-  scale_fill_manual(values = c("white", "gray")) +
+  geom_boxplot(aes(x = variable, y = value, fill = treatment)) +
+  scale_fill_manual(values = c("white", "gray"), name = "Group") +
   xlab("Sub-Sample Size as Proportion of Original") +
   ylab(expression("Spearman's" ~ rho)) +
   theme_bw() +
@@ -644,22 +642,22 @@ E(sim_net)$weight <- sim_edge[order(sim_edge[, 3]), 3]
 V(sim_net)$name <- seq(1:20)
 
 # Create color ramp palette
-edge_cols <- colorRampPalette(c('gray', 'darkblue'))(5)
+edge_cols <- colorRampPalette(c("gray", "darkblue"))(5)
 
 # Plot the resulting network
 set.seed(4364672)
 ggraph(sim_net, layout = "fr") +
   geom_edge_link0(aes(width = E(sim_net)$weight * 5),
                   edge_colour = edge_cols[E(sim_net)$weight * 5],
-                  show.legend = F) +
+                  show.legend = FALSE) +
   geom_node_point(shape = 21,
                   size = igraph::degree(sim_net) + 3,
-                  fill = 'red') +
+                  fill = "red") +
   geom_node_text(
     aes(label = as.character(name)),
-    col = 'white',
+    col = "white",
     size = 3.5,
-    repel = F
+    repel = FALSE
   ) +
   theme_graph()
 ```
@@ -696,13 +694,12 @@ edge_prob <- function(net, nsim = 1000, probs) {
 # Define function for assessing statistic of interest
 compile_stat <- function(net_list, met) {
   out <- matrix(NA, vcount(net_list[[1]]), length(net_list))
-  for (i in 1:length(net_list)) {
+  for (i in seq_len(length(net_list))) {
     # Select measure of interest based on met and calculate(same as above)
     if (met == "degree") {
       out[, i] <- igraph::degree(net_list[[i]])
     }
-    else
-    {
+    else  {
       if (met == "betweenness") {
         out[, i] <- igraph::betweenness(net_list[[i]])
       }
@@ -721,51 +718,51 @@ Now we run the edge_prob function for `nsim = 1000` and display a few candidate 
 
 
 ```r
-EL_test <- edge_prob(sim_net, nsim = 1000, probs = sim_edge[,3])
+el_test <- edge_prob(sim_net, nsim = 1000, probs = sim_edge[, 3])
 
 set.seed(9651)
-comp1 <- ggraph(EL_test[[1]], layout = "fr") +
-  geom_edge_link0(aes(width = E(EL_test[[1]])$weight),
-                  edge_colour = edge_cols[E(EL_test[[1]])$weight * 5],
-                  show.legend = F) +
+comp1 <- ggraph(el_test[[1]], layout = "fr") +
+  geom_edge_link0(aes(width = E(el_test[[1]])$weight),
+                  edge_colour = edge_cols[E(el_test[[1]])$weight * 5],
+                  show.legend = FALSE) +
   geom_node_point(shape = 21,
-                  size = igraph::degree(EL_test[[1]]),
-                  fill = 'red') +
+                  size = igraph::degree(el_test[[1]]),
+                  fill = "red") +
   geom_node_text(
     aes(label = as.character(name)),
-    col = 'white',
+    col = "white",
     size = 2.5,
-    repel = F
+    repel = FALSE
   ) +
   theme_graph()
 
-comp2 <- ggraph(EL_test[[2]], layout = "fr") +
-  geom_edge_link0(aes(width = E(EL_test[[2]])$weight),
-                  edge_colour = edge_cols[E(EL_test[[2]])$weight * 5],
-                  show.legend = F) +
+comp2 <- ggraph(el_test[[2]], layout = "fr") +
+  geom_edge_link0(aes(width = E(el_test[[2]])$weight),
+                  edge_colour = edge_cols[E(el_test[[2]])$weight * 5],
+                  show.legend = FALSE) +
   geom_node_point(shape = 21,
-                  size = igraph::degree(EL_test[[2]]),
-                  fill = 'red') +
+                  size = igraph::degree(el_test[[2]]),
+                  fill = "red") +
   geom_node_text(
     aes(label = as.character(name)),
-    col = 'white',
+    col = "white",
     size = 2.5,
-    repel = F
+    repel = FALSE
   ) +
   theme_graph()
 
-comp3 <- ggraph(EL_test[[3]], layout = "fr") +
-  geom_edge_link0(aes(width = E(EL_test[[3]])$weight),
-                  edge_colour = edge_cols[E(EL_test[[3]])$weight * 5],
-                  show.legend = F) +
+comp3 <- ggraph(el_test[[3]], layout = "fr") +
+  geom_edge_link0(aes(width = E(el_test[[3]])$weight),
+                  edge_colour = edge_cols[E(el_test[[3]])$weight * 5],
+                  show.legend = FALSE) +
   geom_node_point(shape = 21,
-                  size = igraph::degree(EL_test[[3]]),
-                  fill = 'red') +
+                  size = igraph::degree(el_test[[3]]),
+                  fill = "red") +
   geom_node_text(
     aes(label = as.character(name)),
-    col = 'white',
+    col = "white",
     size = 2.5,
-    repel = F
+    repel = FALSE
   ) +
   theme_graph()
 
@@ -778,14 +775,14 @@ We then use the `compile_stat` function to assess degree centrality for one part
 
 
 ```r
-dg_stat <- compile_stat(EL_test, met = "degree")
+dg_stat <- compile_stat(el_test, met = "degree")
 
 dg_20 <- data.frame(val = dg_stat[20, ])
 
 ggplot(dg_20, aes(val)) +
   geom_histogram(binwidth = 1) +
   xlab("Degree Centrality of Node 20") +
-  geom_vline(xintercept = mean(dg_20$val), col = 'red') +
+  geom_vline(xintercept = mean(dg_20$val), col = "red") +
   theme_bw()
 ```
 
@@ -802,12 +799,12 @@ Let's take a look at an example using a weighted similarity network generated us
 load("data/Cibola_wt.RData")
 
 # View first few edge weights in network object
-E(Cibola_wt)$weight[1:10]
+E(cibola_wt)$weight[1:10]
 #>  [1] 0.7050691 0.7757143 0.8348214 0.8656783 0.8028571
 #>  [6] 0.7329193 0.7509158 0.8441558 0.7857143 0.8102919
 
 set.seed(4446347)
-sim_nets <- edge_prob(Cibola_wt, nsim = 1000, probs = E(Cibola_wt)$weight)
+sim_nets <- edge_prob(cibola_wt, nsim = 1000, probs = E(cibola_wt)$weight)
 ```
 
 Now let's plot a couple of the candidate networks:
@@ -816,7 +813,7 @@ Now let's plot a couple of the candidate networks:
 ```r
 # Precompute layout
 set.seed(9631)
-xy <- layout_with_fr(Cibola_wt)
+xy <- layout_with_fr(cibola_wt)
 
 # Example 1
 comp1 <- ggraph(sim_nets[[1]],
@@ -825,8 +822,8 @@ comp1 <- ggraph(sim_nets[[1]],
                 y = xy[, 2]) +
   geom_edge_link() +
   geom_node_point(shape = 21,
-                  size = igraph::degree(sim_nets[[1]])/3,
-                  fill = 'red') +
+                  size = igraph::degree(sim_nets[[1]]) / 3,
+                  fill = "red") +
   theme_graph()
 
 # Example 2
@@ -836,8 +833,8 @@ comp2 <- ggraph(sim_nets[[2]],
                 y = xy[, 2]) +
   geom_edge_link() +
   geom_node_point(shape = 21,
-                  size = igraph::degree(sim_nets[[2]])/3,
-                  fill = 'red') +
+                  size = igraph::degree(sim_nets[[2]]) / 3,
+                  fill = "red") +
   theme_graph()
 
 # Example 3
@@ -847,8 +844,8 @@ comp3 <- ggraph(sim_nets[[3]],
                 y = xy[, 2]) +
   geom_edge_link() +
   geom_node_point(shape = 21,
-                  size = igraph::degree(sim_nets[[3]])/3,
-                  fill = 'red') +
+                  size = igraph::degree(sim_nets[[3]]) / 3,
+                  fill = "red") +
   theme_graph()
 
 ggarrange(comp1, comp2, comp3)
@@ -860,12 +857,12 @@ ggarrange(comp1, comp2, comp3)
 ```r
 bw_test <- compile_stat(sim_nets, met = "betweenness")
 
-bw_10 <- data.frame(val = bw_test[10,])
+bw_10 <- data.frame(val = bw_test[10, ])
 
 ggplot(bw_10, aes(val)) +
   geom_histogram() +
   xlab("Betweenness Centrality of Node 10") +
-  geom_vline(xintercept = mean(bw_10$val), col = 'red') +
+  geom_vline(xintercept = mean(bw_10$val), col = "red") +
   theme_bw()
 #> `stat_bin()` using `bins = 30`. Pick better value with
 #> `binwidth`.
@@ -894,8 +891,8 @@ ceramic <-
 # Convert to proportion
 ceramic_p <- prop.table(as.matrix(ceramic), margin = 1)
 # Convert to Brainerd-Robinson similarity matrix
-ceramic_BR <- (2 - as.matrix(vegan::vegdist(ceramic_p,
-                                            method = 'manhattan'))) / 2
+ceramic_br <- (2 - as.matrix(vegan::vegdist(ceramic_p,
+                                            method = "manhattan")) / 2)
 
 # Create function for assessing impact of sampling error on
 # weighted degree for similarity network
@@ -905,16 +902,16 @@ sim_samp_error <- function(cer, nsim = 1000) {
     data_sim <-  NULL
     # the for-loop below creates a random multinomial replicate
     # of the ceramic data
-    for (j in 1:nrow(cer)) {
+    for (j in seq_len(nrow(cer))) {
       data_sim <-
         rbind(data_sim, t(rmultinom(1, rowSums(cer)[j], prob = cer[j, ])))
     }
     # Convert simulated data to proportion, create similarity matrix,
     # calculate degree, and assess correlation
     temp_p <- prop.table(as.matrix(data_sim), margin = 1)
-    sim_list[[i]] <- (2 - as.matrix(vegan::vegdist(temp_p,
-                                                   method = 'manhattan'))) /
-      2
+    sim_list[[i]] <- (2 - as.matrix(
+                            vegan::vegdist(temp_p,
+                            method = "manhattan")) / 2)
   }
   return(sim_list)
 }
@@ -933,7 +930,7 @@ sim_cor <- function(sim_nets, sim) {
   # change this line to use a different metric
   dg_orig <- rowSums(sim)
   dg_cor <- NULL
-  for (i in 1:length(sim_nets)) {
+  for (i in seq_len(length(sim_nets))) {
     # change this line to use a different metric
     dg_temp <- rowSums(sim_nets[[i]])
     dg_cor[i] <-
@@ -942,14 +939,14 @@ sim_cor <- function(sim_nets, sim) {
   return(dg_cor)
 }
 
-dg_cor <- sim_cor(sim_nets, ceramic_BR)
+dg_cor <- sim_cor(sim_nets, ceramic_br)
 
 df <- as.data.frame(dg_cor)
 
 ggplot(df, aes(x = dg_cor)) +
-  geom_histogram(bins = 100, color = 'white', fill = 'black') +
+  geom_histogram(bins = 100, color = "white", fill = "black") +
   theme_bw() +
-  scale_x_continuous(name = 'Correlation in Degree Centraility',
+  scale_x_continuous(name = "Correlation in Degree Centraility",
                      limits = c(0.9, 1)) +
   theme(
     axis.text.x = element_text(size = rel(1.5)),
@@ -974,7 +971,7 @@ To create this plot, we first iterate through every object in `sim_nets` and cal
 df <- matrix(NA, 1, 2) # define empty matrix
 # calculate degree centrality for each random run and bind in
 # matrix along with id
-for (i in 1:length(sim_nets)) {
+for (i in seq_len(length(sim_nets))) {
   temp <- cbind(seq(1, nrow(sim_nets[[i]])), rowSums(sim_nets[[i]]))
   df <- rbind(df, temp)
 }
@@ -993,11 +990,11 @@ out <- df %>%
     Conf = sd(degree) * 1.96
   )
 out$site <- as.numeric(out$site)
-out <- out[order(rowSums(ceramic_BR)), ]
+out <- out[order(rowSums(ceramic_br)), ]
 
 # Create dataframe of degree centrality for the original ceramic
 # similarity matrix
-dg_wt <- as.data.frame(rowSums(ceramic_BR))
+dg_wt <- as.data.frame(rowSums(ceramic_br))
 colnames(dg_wt) <- "dg.wt"
 
 # Plot the results
@@ -1009,7 +1006,7 @@ ggplot() +
       y = Median,
       group = 1
     ),
-    col = 'red',
+    col = "red",
     lwd = 1.5,
     alpha = 0.5
   ) +
@@ -1021,13 +1018,13 @@ ggplot() +
   geom_path(
     data = sort(dg_wt),
     aes(x = order(dg.wt), y = dg.wt),
-    col = 'blue',
+    col = "blue",
     lwd = 1.5,
     alpha = 0.5
   ) +
   theme_bw() +
-  ylab('Degree') +
-  scale_x_discrete(name = 'Sites in Rank Order of Degree') +
+  ylab("Degree") +
+  scale_x_discrete(name = "Sites in Rank Order of Degree") +
   theme(
     axis.text.x = element_blank(),
     axis.ticks.x = element_blank(),

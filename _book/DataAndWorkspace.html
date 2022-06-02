@@ -119,7 +119,7 @@
 <strong><a href="data/Hispania_roads.csv">Hispania_roads</a></strong> - Edge list of road connections using NodeIDs from Hispania_nodes file. This file contains a “weight” variable defined for each edge which denotes the length of the road segment.</li>
 </ul>
 <p>The <a href="https://orbis.stanford.edu/">Stanford ORBIS project</a> provide additional data from across the Roman World including settlements, roads, and characterizations of travel time. Some of these data have been wrapped into a convenient R compendium by <a href="https://github.com/sfsheath">Sebastian Heath</a> and the data are available on GitHub here:</p>
-<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="st"><a href="https://devtools.r-lib.org/">"devtools"</a></span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span>
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"sfsheath/cawd"</span><span class="op">)</span></code></pre></div>
 <div class="figure">
@@ -228,11 +228,11 @@
 </h2>
 <p>This section briefly describes how the data provided above (or your own data) can be imported in to R for further analyses (see <a href="GettingStarted.html#WorkingWithFiles">Working With Files</a> for more info). Before running the code below, however, you need to ensure that your R session is set to the correct working directory (the location where you placed the .csv files you just downloaded). To do that, go to the menu bar at the top and click Session &gt; Set Working Directory &gt; Choose Directory and navigate to the place on your hard drive where these files reside.</p>
 <p>For this example we will read in the <code>Cibola_edgelist.csv</code> file and define an object called <code>EL1</code> which includes the data in that file using the <code><a href="https://rdrr.io/r/utils/read.table.html">read.csv()</a></code> command. Note that in this case the file we want to read is in a sub-folder of our working directory called “data” so we need to use the <code>data/</code> prefix before the file name to correctly call that file. If you do not chose to use a sub-folder or if you call your folder something else, you will need to modify the <code>data/</code> section of the code.</p>
-<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># read in data with first row representing column names (header=TRUE)</span>
-<span class="va">EL1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"data/Cibola_edgelist.csv"</span>, header <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="va">el1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"data/Cibola_edgelist.csv"</span>, header <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="co"># look at the first few rows</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">EL1</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">el1</span><span class="op">)</span>
 <span class="co">#&gt;           FROM                   TO</span>
 <span class="co">#&gt; 1 Apache Creek         Casa Malpais</span>
 <span class="co">#&gt; 2 Apache Creek         Coyote Creek</span>
@@ -241,7 +241,7 @@
 <span class="co">#&gt; 5 Apache Creek        Hubble Corner</span>
 <span class="co">#&gt; 6 Apache Creek Mineral Creek Pueblo</span></code></pre></div>
 <p>In addition to the .csv files, several examples in this book and several of the data sets above are provide as .RData files which can be read directly in R and can contain multiple R objects. These can be read directly into the R environment using the <code><a href="https://rdrr.io/r/base/load.html">load()</a></code> function. See the example below. Again note that you must specify the specific directory within the working directory where the file is located.</p>
-<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span><span class="op">(</span><span class="st">"data/map.RData"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="PrimaryPackages" class="section level2" number="1.3">
@@ -282,27 +282,27 @@ console by simply typing
 <span class="header-section-number">1.3.1</span> Should I Just Install Everything?<a class="anchor" aria-label="anchor" href="#ShouldIInstall"><i class="fas fa-link"></i></a>
 </h3>
 <p>No matter how you plan on working with these documents, you should install the packages in the following chunk at a minimum by running the code below. These packages will get you through everything in Sections 1 through 4 and much of the Sections 5 and 6.</p>
-<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">packages</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"igraph"</span>, <span class="st">"statnet"</span>, <span class="st">"intergraph"</span>, <span class="st">"ggraph"</span>, 
+<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">packages</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"igraph"</span>, <span class="st">"statnet"</span>, <span class="st">"intergraph"</span>, <span class="st">"ggraph"</span>,
               <span class="st">"reshape2"</span>, <span class="st">"ggmap"</span>, <span class="st">"vegan"</span>, <span class="st">"sf"</span>, <span class="st">"tidyverse"</span><span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sets.html">setdiff</a></span><span class="op">(</span><span class="va">packages</span>, <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/installed.packages.html">installed.packages</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>  </code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sets.html">setdiff</a></span><span class="op">(</span><span class="va">packages</span>, <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/installed.packages.html">installed.packages</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>If you have plenty of disk space and time and don’t wont to worry about installing packages piecemeal, you can install everything at the same time using the code below. Note that there are a large number of packages and dependencies here and many are only used in one or two places in this Online Companion. Most of the packages are used in the <a href="Visualization.html#Visualization">Network Visualization</a> section. We generally recommend that you install packages as you need them while you work through this document but you do you.</p>
 <p>If you choose to install everything, however, you can simply run the chunk of code below. Note that the code below will not reinstall packages already installed in your current version of R. Note if you are familiar with Git and R Environments, it will be much faster to just use the <code><a href="https://rstudio.github.io/renv/reference/restore.html">renv::restore()</a></code> function to build an environment from the repository. See the <a href="index.html#Repro">Reproducibility section</a> in the introduction for more information.</p>
-<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">packages</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span> <span class="st">"ape"</span>, <span class="st">"devtools"</span>, <span class="st">"igraph"</span>, <span class="st">"statnet"</span>, <span class="st">"intergraph"</span>,
-  <span class="st">"tnet"</span>, <span class="st">"ggplot2"</span>, <span class="st">"rjson"</span>, <span class="st">"d3r"</span>,<span class="st">"cccd"</span>, <span class="st">"networkD3"</span>,<span class="st">"visNetwork"</span>,
-  <span class="st">"GISTools"</span>, <span class="st">"rgeos"</span>,<span class="st">"maptools"</span>, <span class="st">"sf"</span>, <span class="st">"igraphdata"</span>, <span class="st">"ggrepel"</span>,
-  <span class="st">"ggsn"</span>, <span class="st">"tidyverse"</span>,<span class="st">"superheat"</span>,<span class="st">"ggplotify"</span>,<span class="st">"ggforce"</span>, <span class="st">"colorspace"</span>,
+<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">packages</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"ape"</span>, <span class="st">"devtools"</span>, <span class="st">"igraph"</span>, <span class="st">"statnet"</span>, <span class="st">"intergraph"</span>,
+  <span class="st">"tnet"</span>, <span class="st">"ggplot2"</span>, <span class="st">"rjson"</span>, <span class="st">"d3r"</span>, <span class="st">"cccd"</span>, <span class="st">"networkD3"</span>, <span class="st">"visNetwork"</span>,
+  <span class="st">"GISTools"</span>, <span class="st">"rgeos"</span>, <span class="st">"maptools"</span>, <span class="st">"sf"</span>, <span class="st">"igraphdata"</span>, <span class="st">"ggrepel"</span>,
+  <span class="st">"ggsn"</span>, <span class="st">"tidyverse"</span>, <span class="st">"superheat"</span>, <span class="st">"ggplotify"</span>, <span class="st">"ggforce"</span>, <span class="st">"colorspace"</span>,
   <span class="st">"ggmap"</span>, <span class="st">"dplyr"</span>, <span class="st">"ggpubr"</span>, <span class="st">"ggraph"</span>, <span class="st">"reshape2"</span>, <span class="st">"multinet"</span>,
   <span class="st">"RColorBrewer"</span>, <span class="st">"Rcpp"</span>, <span class="st">"deldir"</span>, <span class="st">"vegan"</span>, <span class="st">"geosphere"</span>, <span class="st">"networkDynamic"</span>,
   <span class="st">"scatterplot3d"</span>, <span class="st">"patchwork"</span>, <span class="st">"concaveman"</span>, <span class="st">"latticeExtra"</span><span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sets.html">setdiff</a></span><span class="op">(</span><span class="va">packages</span>, <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/installed.packages.html">installed.packages</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>  
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sets.html">setdiff</a></span><span class="op">(</span><span class="va">packages</span>, <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/installed.packages.html">installed.packages</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
 
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"liamgilbey/ggwaffle"</span><span class="op">)</span>
 
-<span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html">requireNamespace</a></span><span class="op">(</span><span class="st">"BiocManager"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>
+<span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html">requireNamespace</a></span><span class="op">(</span><span class="st">"BiocManager"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>
   <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span>
 <span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html">install</a></span><span class="op">(</span><span class="st">"RBGL"</span><span class="op">)</span></code></pre></div>
 <div class="rmdwarning">
@@ -319,7 +319,7 @@ code without this so feel free to sit this one out.
 </p>
 </div>
 <p>To install Python with the required libraries, run the following chunk of code:</p>
-<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"edgebundle"</span>, <span class="st">"reticulate"</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://edgebundle.schochastics.net/">edgebundle</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rstudio.github.io/reticulate/">reticulate</a></span><span class="op">)</span>
@@ -593,7 +593,7 @@ so be sure you’re not double nesting your folders (you want
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-06-01.</p>
+    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-06-02.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

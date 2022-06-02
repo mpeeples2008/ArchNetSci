@@ -99,8 +99,8 @@ library(ggmap)
 library(sf)
 
 # Read in edgelist and node location data and covert to network object
-edges1 <- read.csv("data/Hispania_roads.csv", header = T)
-nodes <- read.csv("data/Hispania_nodes.csv", header = T)
+edges1 <- read.csv("data/Hispania_roads.csv", header = TRUE)
+nodes <- read.csv("data/Hispania_nodes.csv", header = TRUE)
 road_net <-
   graph_from_edgelist(as.matrix(edges1[, 1:2]), directed = FALSE)
 
@@ -119,7 +119,7 @@ edges <- as.data.frame(matrix(NA, nrow(edgelist), 4))
 colnames(edges) <- c("X1", "Y1", "X2", "Y2")
 # Iterate across each edge and assoign lat and long values to
 # X1, Y1, X2, and Y2
-for (i in 1:nrow(edgelist)) {
+for (i in seq_len(nrow(edgelist))) {
   edges[i, ] <- c(nodes[which(nodes$Id == edgelist[i, 1]), 3],
                   nodes[which(nodes$Id == edgelist[i, 1]), 2],
                   nodes[which(nodes$Id == edgelist[i, 2]), 3],
@@ -127,12 +127,12 @@ for (i in 1:nrow(edgelist)) {
 }
 
 # Download stamenmap background data.
-myMap <- get_stamenmap(bbox = c(-9.5, 36, 3, 43.8),
+my_map <- get_stamenmap(bbox = c(-9.5, 36, 3, 43.8),
                        maptype = "watercolor",
                        zoom = 6)
 
 # Produce map starting with background
-ggmap(myMap) +
+ggmap(my_map) +
   # geom_segment plots lines by the beginning and ending
   # coordinates like the edges object we created above
   geom_segment(
@@ -143,7 +143,7 @@ ggmap(myMap) +
       xend = X2,
       yend = Y2
     ),
-    col = 'black',
+    col = "black",
     size = 1
   ) +
   # plot site node locations
@@ -151,11 +151,11 @@ ggmap(myMap) +
     data = xy,
     aes(x, y),
     alpha = 0.8,
-    col = 'black',
+    col = "black",
     fill = "white",
     shape = 21,
     size = 2,
-    show.legend = F
+    show.legend = FALSE
   ) +
   theme_void()
 ```
@@ -181,7 +181,7 @@ In order to install the `RBGL` and `BiocManager` libraries (if required), run th
 
 
 ```r
-if(!requireNamespace("BiocManager", quietly = TRUE))
+if (!requireNamespace("BiocManager", quietly = TRUE))
   install.packages("BiocManager")
 BiocManager::install("RBGL")
 ```
@@ -206,7 +206,7 @@ This results suggests that our Roman Road data is not planar. We can plot the da
 ```r
 library(ggraph)
 set.seed(5364)
-ggraph(road_net, layout = 'kk') +
+ggraph(road_net, layout = "kk") +
   geom_edge_link() +
   geom_node_point(size = 3) +
   ggtitle("Network of Roman Roads") +
@@ -273,9 +273,9 @@ Let's create a simple tree using the `make_tree` function in igraph.
 ```r
 tree1 <- make_tree(n = 50, children = 5, mode = "undirected")
 tree1
-#> IGRAPH a3b5673 U--- 50 49 -- Tree
+#> IGRAPH d19c29f U--- 50 49 -- Tree
 #> + attr: name (g/c), children (g/n), mode (g/c)
-#> + edges from a3b5673:
+#> + edges from d19c29f:
 #>  [1]  1-- 2  1-- 3  1-- 4  1-- 5  1-- 6  2-- 7  2-- 8  2-- 9
 #>  [9]  2--10  2--11  3--12  3--13  3--14  3--15  3--16  4--17
 #> [17]  4--18  4--19  4--20  4--21  5--22  5--23  5--24  5--25
@@ -295,12 +295,12 @@ It is also possible plot trees with a heirarchical network layout where nodes ar
 
 ```r
 ggraph(tree1,
-       layout = 'igraph',
-       algorithm = 'tree',
+       layout = "igraph",
+       algorithm = "tree",
        root = 1) +
   geom_edge_diagonal(edge_width = 0.5, alpha = .4) +
   geom_node_text(aes(label = V(tree1)), size = 3.5) +
-  theme_void() 
+  theme_void()
 ```
 
 <img src="06-spatial-networks_files/figure-html/unnamed-chunk-11-1.png" width="672" />
@@ -426,13 +426,13 @@ edgelist <- get.edgelist(mst_net)
 # Create dataframe of beginning and ending points of edges
 edges <- as.data.frame(matrix(NA, nrow(edgelist), 4))
 colnames(edges) <- c("X1", "Y1", "X2", "Y2")
-for (i in 1:nrow(edgelist)) {
+for (i in seq_len(nrow(edgelist))) {
   edges[i, ] <- c(nodes[which(nodes$Id == edgelist[i, 1]), 3],
                   nodes[which(nodes$Id == edgelist[i, 1]), 2],
                   nodes[which(nodes$Id == edgelist[i, 2]), 3],
                   nodes[which(nodes$Id == edgelist[i, 2]), 2])
 }
-ggmap(myMap) +
+ggmap(my_map) +
   geom_segment(
     data = edges,
     aes(
@@ -441,18 +441,18 @@ ggmap(myMap) +
       xend = X2,
       yend = Y2
     ),
-    col = 'black',
+    col = "black",
     size = 1
   ) +
   geom_point(
     data = nodes[, c(3, 2)],
     aes(long, lat),
     alpha = 0.8,
-    col = 'black',
+    col = "black",
     fill = "white",
     shape = 21,
     size = 1.5,
-    show.legend = F
+    show.legend = FALSE
   ) +
   theme_void()
 #> Warning: Removed 2 rows containing missing values
@@ -494,7 +494,7 @@ plot(dt1)
 mapdat <- as.data.frame(dt1$dirsgs)
 # Extract network for plotting
 mapdat2 <- as.data.frame(dt1$delsgs)
-ggmap(myMap) +
+ggmap(my_map) +
   geom_segment(
     data = mapdat,
     aes(
@@ -503,7 +503,7 @@ ggmap(myMap) +
       xend = x2,
       yend = y2
     ),
-    col = 'black',
+    col = "black",
     size = 1
   ) +
   geom_segment(
@@ -514,18 +514,18 @@ ggmap(myMap) +
       xend = x2,
       yend = y2
     ),
-    col = 'red',
+    col = "red",
     size = 1
   ) +
   geom_point(
     data = nodes,
     aes(long, lat),
     alpha = 0.8,
-    col = 'black',
+    col = "black",
     fill = "white",
     shape = 21,
     size = 3,
-    show.legend = F
+    show.legend = FALSE
   ) +
   theme_void()
 ```
@@ -544,15 +544,15 @@ The `cccd` package has a routine that allows for the calculation of K-nearest ne
 nn1 <- nng(x = nodes[, c(3, 2)], k = 1)
 # Calculate k=6 nearest neighbor graph
 nn6 <- nng(x = nodes[, c(3, 2)], k = 6)
-EL1 <- as.data.frame(
+el1 <- as.data.frame(
   rbind(cbind(get.edgelist(nn6),
          rep("K=6", nrow(get.edgelist(nn1))
              )),
-        cbind(get.edgelist(nn1), 
+        cbind(get.edgelist(nn1),
           rep("K=1", nrow(get.edgelist(nn1))
              ))))
-colnames(EL1) <- c("from", "to", "K")
-g <- graph_from_data_frame(EL1)
+colnames(el1) <- c("from", "to", "K")
+g <- graph_from_data_frame(el1)
 # Plot both graphs
 ggraph(g, layout = "manual",
        x = nodes[, 3], y = nodes[, 2]) +
@@ -592,18 +592,18 @@ d1 <- distm(nodes[, c(3, 2)])
 # the threshold to count.
 net100 <- network(event2dichot(
   d1,
-  method = 'absolute',
+  method = "absolute",
   thresh = 100000,
   leq = TRUE
 ),
-directed = F)
+directed = FALSE)
 net250 <- network(event2dichot(
   d1,
-  method = 'absolute',
+  method = "absolute",
   thresh = 250000,
   leq = TRUE
 ),
-directed = F)
+directed = FALSE)
 # Plot 100 Km network
 ggraph(net100,
        layout = "manual",
@@ -639,7 +639,7 @@ First we read in the data which represents site location information in lat/long
 
 
 ```r
-guad <- read.csv("data/Guadalquivir.csv", header=TRUE)
+guad <- read.csv("data/Guadalquivir.csv", header = TRUE)
 ```
 
 Next we create a distance matrix based on the decimal degrees locations using the "distm" function.
@@ -661,29 +661,30 @@ From here we can create maximum distance networks at both the 10km and 18km dist
 
 ```r
 library(intergraph)
-# Note we use the leq=TRUE argument here as we want nodes less than the threshold to count.
+# Note we use the leq=TRUE argument here as we want nodes
+# less than the threshold to count.
 net10 <- asIgraph(network(
   event2dichot(
     g_dist1,
-    method = 'absolute',
+    method = "absolute",
     thresh = 10000,
     leq = TRUE
   ),
-  directed = F
+  directed = FALSE
 ))
 net18 <- asIgraph(network(
   event2dichot(
     g_dist1,
-    method = 'absolute',
+    method = "absolute",
     thresh = 18000,
     leq = TRUE
   ),
-  directed = F
+  directed = FALSE
 ))
 g10_deg <- as.data.frame(igraph::degree(net10))
-colnames(g10_deg) <- 'degree'
+colnames(g10_deg) <- "degree"
 g18_deg <- as.data.frame(igraph::degree(net18))
-colnames(g18_deg) <- 'degree'
+colnames(g18_deg) <- "degree"
 # Plot histogram of degree for 10km network
 h10 <- ggplot(data = g10_deg) +
   geom_histogram(aes(x = degree), bins = 15)
@@ -760,7 +761,7 @@ g_rng <- ggraph(rng1,
   geom_node_point(size = 2) +
   theme_graph()
 g_rng_deg <- as.data.frame(igraph::degree(rng1))
-colnames(g_rng_deg) <- 'degree'
+colnames(g_rng_deg) <- "degree"
 # Plot histogram of degree for relative neighborhood network
 h_rng <- ggplot(data = g_rng_deg) +
   geom_histogram(aes(x = degree), bins = 3)
@@ -789,7 +790,7 @@ g_gg <- ggraph(gg1,
   geom_node_point(size = 2) +
   theme_graph()
 g_gg_deg <- as.data.frame(igraph::degree(gg1))
-colnames(g_gg_deg) <- 'degree'
+colnames(g_gg_deg) <- "degree"
 # Plot histogram of degree for relative neighborhood network
 h_gg <- ggplot(data = g_gg_deg) +
   geom_histogram(aes(x = degree), bins = 5)
@@ -845,13 +846,13 @@ g_nn6 <- ggraph(nn6,
   theme_graph()
 # Set up dataframes of degree distribution for each network
 nn2_deg <- as.data.frame(igraph::degree(nn2))
-colnames(nn2_deg) <- 'degree'
+colnames(nn2_deg) <- "degree"
 nn3_deg <- as.data.frame(igraph::degree(nn3))
-colnames(nn3_deg) <- 'degree'
+colnames(nn3_deg) <- "degree"
 nn4_deg <- as.data.frame(igraph::degree(nn4))
-colnames(nn4_deg) <- 'degree'
+colnames(nn4_deg) <- "degree"
 nn6_deg <- as.data.frame(igraph::degree(nn6))
-colnames(nn6_deg) <- 'degree'
+colnames(nn6_deg) <- "degree"
 # Initialize histogram plot for each degree distribution
 h_nn2 <- ggplot(data = nn2_deg) +
   geom_histogram(aes(x = degree), bins = 5) +
@@ -926,15 +927,15 @@ The first analysis explores the degree to which similarities in ceramics (in ter
 
 ```r
 library(mgcv)
-load('data/map.RData')
-attr <- read.csv('data/AD1050attr.csv', row.names = 1)
-cer <- read.csv('data/AD1050cer.csv',
+load("data/map.RData")
+attr <- read.csv("data/AD1050attr.csv", row.names = 1)
+cer <- read.csv("data/AD1050cer.csv",
                 header = T,
                 row.names = 1)
 sim <-
   (2 - as.matrix(vegan::vegdist(prop.table(
-    as.matrix(cer), 1), 
-    method = 'manhattan'))) / 2
+    as.matrix(cer), 1),
+    method = "manhattan"))) / 2
 dmat <- as.matrix(dist(attr[, 9:10]))
 fit <- gam(as.vector(sim) ~ as.vector(dmat))
 summary(fit)
@@ -969,19 +970,19 @@ The next analysis presented the book creates a series of minimum distance networ
 kms <- seq(36000, 400000, by = 36000)
 # Define minimum distance networks for each item in "kms" and the
 # calculate variance explained
-temp.out <- NULL
-for (i in 1:length(kms)) {
-  dmat.temp <- dmat
-  dmat.temp[dmat > kms[i]] <- 0
-  dmat.temp[dmat.temp > 0] <- 1
+temp_out <- NULL
+for (i in seq_len(length(kms))) {
+  dmat_temp <- dmat
+  dmat_temp[dmat > kms[i]] <- 0
+  dmat_temp[dmat_temp > 0] <- 1
   # Calculate gam model and output r^2 value
   temp <- gam(as.vector(sim[lower.tri(sim)]) ~
-                as.vector(dmat.temp[lower.tri(dmat.temp)]))
-  temp.out[i] <- summary(temp)$r.sq
+                as.vector(dmat_temp[lower.tri(dmat_temp)]))
+  temp_out[i] <- summary(temp)$r.sq
 }
 # Create data frame of output
-dat <- as.data.frame(cbind(kms / 1000, temp.out))
-colnames(dat) <- c('Dist', 'Cor')
+dat <- as.data.frame(cbind(kms / 1000, temp_out))
+colnames(dat) <- c("Dist", "Cor")
 library(ggplot2)
 # Plot the results
 ggplot(data = dat) +
@@ -1008,15 +1009,16 @@ Finally, let's recreate figure 7.8 from the book to display the 36km minimum dis
 d36 <- as.matrix(dist(attr[, 9:10]))
 d36[d36 < 36001] <- 1
 d36[d36 > 1] <- 0
-g36.net <- graph_from_adjacency_matrix(d36, mode = "undirected")
+g36_net <- graph_from_adjacency_matrix(d36, mode = "undirected")
 locations_sf <- st_as_sf(attr,
                          coords = c("EASTING", "NORTHING"),
                          crs = 26912)
 z <- st_transform(locations_sf, crs = 4326)
 coord1 <- do.call(rbind, st_geometry(z)) %>%
-  tibble::as_tibble() %>% setNames(c("lon", "lat"))
+  tibble::as_tibble() %>%
+  setNames(c("lon", "lat"))
 xy <- as.data.frame(cbind(attr$SWSN_Site, coord1))
-colnames(xy) <- c('site', 'x', 'y')
+colnames(xy) <- c("site", "x", "y")
 base <- get_stamenmap(
   bbox = c(-110.75, 33.5, -107, 38),
   zoom = 8,
@@ -1024,11 +1026,11 @@ base <- get_stamenmap(
   color = "bw"
 )
 # Extract edgelist from network object
-edgelist <- get.edgelist(g36.net)
+edgelist <- get.edgelist(g36_net)
 # Create dataframe of beginning and ending points of edges
 edges <- as.data.frame(matrix(NA, nrow(edgelist), 4))
 colnames(edges) <- c("X1", "Y1", "X2", "Y2")
-for (i in 1:nrow(edgelist)) {
+for (i in seq_len(nrow(edgelist))) {
   edges[i, ] <- c(xy[which(xy$site == edgelist[i, 1]), 2],
                   xy[which(xy$site == edgelist[i, 1]), 3],
                   xy[which(xy$site == edgelist[i, 2]), 2],
@@ -1043,17 +1045,17 @@ figure7_8 <- ggmap(base, darken = 0.15) +
       xend = X2,
       yend = Y2
     ),
-    col = 'white',
+    col = "white",
     size = 0.10,
-    show.legend = F
+    show.legend = FALSE
   ) +
   geom_point(
     data = xy,
     aes(x, y),
     alpha = 0.65,
     size = 1,
-    col = 'red',
-    show.legend = F
+    col = "red",
+    show.legend = FALSE
   ) +
   theme_void()
 figure7_8

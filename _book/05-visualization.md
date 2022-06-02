@@ -24,7 +24,7 @@ objects in both the <code>igraph</code> and <code>statnet</code> format.
 These will be the basis for all examples in this section.</p>
 </div>
 
-Let's start by reading in our example data and then we describe each package in turn:
+Let"s start by reading in our example data and then we describe each package in turn:
 
 
 ```r
@@ -37,20 +37,20 @@ library(ggraph)
 library(intergraph)
 
 
-Cibola <-
+cibola <-
   read.csv(file = "data/Cibola_adj.csv",
            header = TRUE,
            row.names = 1)
 
-Cibola_attr <- read.csv(file = "data/Cibola_attr.csv", header = TRUE)
+cibola_attr <- read.csv(file = "data/Cibola_attr.csv", header = TRUE)
 
 # Create network in igraph format
-Cibola_i <- igraph::graph_from_adjacency_matrix(as.matrix(Cibola),
+cibola_i <- igraph::graph_from_adjacency_matrix(as.matrix(cibola),
                                                 mode = "undirected")
-Cibola_i
-#> IGRAPH 7758d91 UN-- 31 167 -- 
+cibola_i
+#> IGRAPH a4b50bb UN-- 31 167 -- 
 #> + attr: name (v/c)
-#> + edges from 7758d91 (vertex names):
+#> + edges from a4b50bb (vertex names):
 #>  [1] Apache.Creek--Casa.Malpais        
 #>  [2] Apache.Creek--Coyote.Creek        
 #>  [3] Apache.Creek--Hooper.Ranch        
@@ -62,8 +62,8 @@ Cibola_i
 #> + ... omitted several edges
 
 # Create network object in statnet/network format
-Cibola_n <- asNetwork(Cibola_i)
-Cibola_n
+cibola_n <- asNetwork(cibola_i)
+cibola_n
 #>  Network attributes:
 #>   vertices = 31 
 #>   directed = FALSE 
@@ -88,7 +88,7 @@ All you need to do to plot a `network/statnet` network object is to simply type 
 
 ```r
 set.seed(6332)
-plot(Cibola_n)
+plot(cibola_n)
 ```
 
 <img src="05-visualization_files/figure-html/Fig_net_simple-1.png" width="672" />
@@ -99,10 +99,10 @@ In order to change the color of nodes, the layout, symbols, or any other feature
 ```r
 set.seed(436)
 plot(
-  Cibola_n,
-  vertex.cex = sna::degree(Cibola_n) / 10,
+  cibola_n,
+  vertex.cex = sna::degree(cibola_n) / 10,
   mode = "kamadakawai",
-  vertex.col = as.factor(Cibola_attr$Region),
+  vertex.col = as.factor(cibola_attr$Region),
   edge.col = "darkgray",
   displayisolates = FALSE
 )
@@ -117,21 +117,21 @@ The `igraph` package also has a built in plotting function called `plot.igraph`.
 
 ```r
 set.seed(435)
-plot(Cibola_i)
+plot(cibola_i)
 ```
 
 <img src="05-visualization_files/figure-html/Fig_igraph_simple-1.png" width="672" />
 
-Let's take a look at a few of the options we can alter to change this plot. There are again many options to explore here and the help documents for igraph.plotting describe them in detail (type ?igraph.plotting at the console for more). If you want to explore `igraph` further, we suggest you check the [Network Visualization](https://kateto.net/network-visualization) tutorial linked above which provides a discussion of the wide variety of options. 
+Let"s take a look at a few of the options we can alter to change this plot. There are again many options to explore here and the help documents for igraph.plotting describe them in detail (type ?igraph.plotting at the console for more). If you want to explore `igraph` further, we suggest you check the [Network Visualization](https://kateto.net/network-visualization) tutorial linked above which provides a discussion of the wide variety of options. 
 
 
 ```r
 set.seed(3463)
 plot(
-  Cibola_i,
-  vertex.size = igraph::eigen_centrality(Cibola_i)$vector * 20,
+  cibola_i,
+  vertex.size = igraph::eigen_centrality(cibola_i)$vector * 20,
   layout = layout_with_kk,
-  vertex.color = as.factor(Cibola_attr$Great.Kiva),
+  vertex.color = as.factor(cibola_attr$Great.Kiva),
   edge.color = "darkblue",
   vertex.frame.color = "red",
   vertex.label = NA
@@ -146,7 +146,7 @@ The `ggraph` package provides a powerful set of tools for plotting and visualizi
 
 Essentially, the way the `ggraph` call works is you start with a `ggraph` function call which includes the network object and the layout information. You then provide lines specifying the edges `geom_edge_link` and nodes `geom_node_point` features and so on. Conveniently the `ggraph` function call will take either an `igraph` or a `network` object so you do not need to convert.
 
-Here is an example. Here we first the call for the igraph network object `Cibola_i` and specify the Fruchterman-Reingold layout using `layout = "fr"`. Next, we call the `geom_edge_link` and specify edge colors. The `geom_node_point` call then specifies many attributes of the nodes including the fill color, outline color, transparency (alpha), shape, and size using the `igraph::degree` function. The `scale_size` call then tells the plot to scale the node size specified in the previous line to range between 1 and 4. Finally `theme_graph` is a basic call to the `ggraph` theme that tells the plot to make the background white and to remove the margins around the edge of the plot. Let's see how this looks. 
+Here is an example. Here we first the call for the igraph network object `Cibola_i` and specify the Fruchterman-Reingold layout using `layout = "fr"`. Next, we call the `geom_edge_link` and specify edge colors. The `geom_node_point` call then specifies many attributes of the nodes including the fill color, outline color, transparency (alpha), shape, and size using the `igraph::degree` function. The `scale_size` call then tells the plot to scale the node size specified in the previous line to range between 1 and 4. Finally `theme_graph` is a basic call to the `ggraph` theme that tells the plot to make the background white and to remove the margins around the edge of the plot. Let"s see how this looks. 
 
 In the next section we go over the most common options in `ggraph` in detail.
 
@@ -154,7 +154,7 @@ In the next section we go over the most common options in `ggraph` in detail.
 ```r
 set.seed(4368)
 # Specify network to use and layout
-ggraph(Cibola_i, layout = "fr") +
+ggraph(cibola_i, layout = "fr") +
   # Specify edge features
   geom_edge_link(color = "darkgray") +
   # Specify node features
@@ -163,12 +163,12 @@ ggraph(Cibola_i, layout = "fr") +
     color = "red",
     alpha = 0.5,
     shape = 22,
-    size = igraph::degree(Cibola_i)
+    size = igraph::degree(cibola_i)
   ) +
   # Set the upper and lower limit of the "size" variable
   scale_size(range = c(1, 4)) +
   # Set the theme "theme_graph" is the default theme for networks
-  theme_graph() 
+  theme_graph()
 ```
 
 <img src="05-visualization_files/figure-html/Fig_ggraph-1.png" width="672" />
@@ -190,7 +190,7 @@ library(ggraph)
 load("data/Peeples2018.Rdata")
 
 # Create igraph object for plots below
-net <- asIgraph(BRnet)
+net <- asIgraph(brnet)
 ```
 
 ### Graph Layout{#GraphLayouts}
@@ -208,12 +208,12 @@ There are a few options for manually defining node placement and graph layout in
 # Create xy coordinates grouped by region
 xy <-
   matrix(
-    c(1, 1, 3, 3, 2, 1, 2, 1.2, 3, 3.2, 2, 1.4, 1, 1.2, 2, 2.2, 3, 2, 3, 1, 2.2, 1, 
-      2, 3, 2, 3.2, 3, 1.2, 3, 3.4, 1, 2, 3.2, 3.2, 3, 1.4, 3, 2.2, 2, 2, 3.2, 3.4, 
-      2.2, 1.2, 3.4, 3.2, 3.2, 1, 2, 3.4, 3.4, 3.4, 2.2, 3, 2.2, 3.2, 2.2, 3.4, 
-      1, 1.4, 3, 2.4), 
-    nrow = 31, 
-    ncol = 2, 
+    c(1, 1, 3, 3, 2, 1, 2, 1.2, 3, 3.2, 2, 1.4, 1, 1.2, 2, 2.2, 3,
+      2, 3, 1, 2.2, 1, 2, 3, 2, 3.2, 3, 1.2, 3, 3.4, 1, 2, 3.2, 3.2,
+      3, 1.4, 3, 2.2, 2, 2, 3.2, 3.4, 2.2, 1.2, 3.4, 3.2, 3.2, 1, 2,
+      3.4, 3.4, 3.4, 2.2, 3, 2.2, 3.2, 2.2, 3.4, 1, 1.4, 3, 2.4),
+    nrow = 31,
+    ncol = 2,
     byrow = TRUE
 )
 
@@ -242,7 +242,7 @@ ggraph(net,
        y = site_info$y) +
   geom_edge_link(edge_color = "gray") +
   geom_node_point(aes(size = 4, col = site_info$Region),
-                  show.legend = F) +
+                  show.legend = FALSE) +
   theme_graph()
 ```
 
@@ -269,10 +269,11 @@ locations_sf <-
   st_as_sf(site_info, coords = c("x", "y"), crs = 26912)
 loc_trans <- st_transform(locations_sf, crs = 4326)
 coord1 <- do.call(rbind, st_geometry(loc_trans)) %>%
-  tibble::as_tibble() %>% setNames(c("lon", "lat"))
+  tibble::as_tibble() %>%
+  setNames(c("lon", "lat"))
 
 xy <- as.data.frame(coord1)
-colnames(xy) <- c('x', 'y')
+colnames(xy) <- c("x", "y")
 
 # Get basemap "terrain-background" data for map in black and white
 # the bbox argument is used to specify the corners of the box to be
@@ -301,7 +302,7 @@ ggmap(base_cibola, darken = 0.35) +
       xend = X2,
       yend = Y2
     ),
-    col = 'white',
+    col = "white",
     alpha = 0.8,
     size = 1
   ) +
@@ -310,7 +311,7 @@ ggmap(base_cibola, darken = 0.35) +
     aes(x, y, col = site_info$Region),
     alpha = 0.8,
     size = 5,
-    show.legend = F
+    show.legend = FALSE
   ) +
   theme_void()
 ```
@@ -334,7 +335,8 @@ supplying a <code>layout</code> argument directly.</p>
 # circular layout
 circ_net <- ggraph(net, layout = "circle") +
   geom_edge_link(edge_color = "gray") +
-  geom_node_point(aes(size = 4, col = site_info$Region), show.legend = F) +
+  geom_node_point(aes(size = 4, col = site_info$Region),
+                  show.legend = FALSE) +
   ggtitle("Circle") +
   theme_graph() +
   theme(plot.title = element_text(size = rel(1)))
@@ -343,7 +345,8 @@ circ_net <- ggraph(net, layout = "circle") +
 set.seed(4366)
 fr_net <- ggraph(net, layout = "fr") +
   geom_edge_link(edge_color = "gray") +
-  geom_node_point(aes(size = 4, col = site_info$Region), show.legend = F) +
+  geom_node_point(aes(size = 4, col = site_info$Region),
+                  show.legend = FALSE) +
   ggtitle("Fruchterman-Reingold") +
   theme_graph() +
   theme(plot.title = element_text(size = rel(1)))
@@ -353,13 +356,13 @@ set.seed(3467)
 dh_net <- ggraph(net, layout = "dh") +
   geom_edge_link(edge_color = "gray") +
   geom_node_point(aes(size = 4, col = site_info$Region),
-                  show.legend = F) +
+                  show.legend = FALSE) +
   ggtitle("Davidson-Harel") +
   theme_graph() +
   theme(plot.title = element_text(size = rel(1)))
 
 library(ggpubr)
-ggarrange(circ_net, fr_net, dh_net, nrow = 1) 
+ggarrange(circ_net, fr_net, dh_net, nrow = 1)
 ```
 
 <img src="05-visualization_files/figure-html/layouts-1.png" width="672" />
@@ -438,14 +441,14 @@ There are also a number of more advanced methods for displaying nodes including 
 
 #### Edges{#EdgeOptions}
 
-Edges can be modified in terms of color, line type, thickness and many other features just like nodes and this is typically done using the `geom_edge_link` call within `ggraph`. Let's take a look at a couple of additional examples. In this case we're going to use a weighted network object in the original [Peeples2018.Rdata](data/Peeples2018.Rdata) file to show how we can vary edges in relation to edge attributes like weight. 
+Edges can be modified in terms of color, line type, thickness and many other features just like nodes and this is typically done using the `geom_edge_link` call within `ggraph`. Let"s take a look at a couple of additional examples. In this case we"re going to use a weighted network object in the original [Peeples2018.Rdata](data/Peeples2018.Rdata) file to show how we can vary edges in relation to edge attributes like weight. 
 
 In the example here we plot both the line thickness and transparency using the edge weights associated with the network object. We also are using the `scale_edge_color_viridis` to specify a continuous edge color scheme. For more details see `?scale_edge_color`
 
 
 ```r
 library(intergraph)
-net2 <- asIgraph(BRnet_w)
+net2 <- asIgraph(brnet_w)
 
 set.seed(436)
 ggraph(net2, "stress") +
@@ -467,12 +470,12 @@ set.seed(436)
 ggraph(net, "stress") +
   geom_edge_link(
     arrow = arrow(
-      length = unit(2, 'mm'),
+      length = unit(2, "mm"),
       ends = "first",
       type = "closed"
     ),
-    end_cap = circle(0, 'mm'),
-    start_cap = circle(3, 'mm'),
+    end_cap = circle(0, "mm"),
+    start_cap = circle(3, "mm"),
     edge_colour = "black"
   ) +
   geom_node_point(size = 4, col = "blue") +
@@ -521,7 +524,7 @@ In many cases you may want to label either the nodes, edges, or other features o
 
 ```r
 # First set a node attribute called name based on site names
-V(net2)$name <- get.vertex.attribute(BRnet_w, attr = "vertex.names")
+V(net2)$name <- get.vertex.attribute(brnet_w, attr = "vertex.names")
 
 set.seed(436)
 ggraph(net2, "fr") +
@@ -547,9 +550,9 @@ g <- graph(c("A", "B",
 E(g)$weight <- c(3, 1, 6, 8, 4, 2)
 
 set.seed(4351)
-ggraph(g, layout = 'stress') +
+ggraph(g, layout = "stress") +
   geom_edge_fan(aes(label = weight)) +
-  geom_node_point(size = 20, col = 'lightblue') +
+  geom_node_point(size = 20, col = "lightblue") +
   geom_node_text(label = V(g)$name) +
   theme_graph()
 ```
@@ -631,29 +634,29 @@ library(igraph)
 library(ggraph)
 
 # Read in adjacency matrix of Moreno data and covert to network
-Moreno <-
-  as.matrix(read.csv('data/Moreno.csv', header = T, row.names = 1))
-g.Moreno <- graph_from_adjacency_matrix(Moreno)
+moreno <-
+  as.matrix(read.csv("data/Moreno.csv", header = TRUE, row.names = 1))
+g_moreno <- graph_from_adjacency_matrix(moreno)
 
 # Create xy coordinates associated with each node
 xy <- matrix(
   c(4, 7, 1, 5, 6, 5, 2, 4, 3, 4, 5, 4, 1, 2.5, 6, 2.5, 4, 1),
   nrow = 9,
   ncol = 2,
-  byrow = T
+  byrow = TRUE
 )
 
 # Plot the network using layout = "manual" to place nodes using xy coordinates
-ggraph(g.Moreno,
+ggraph(g_moreno,
        layout = "manual",
        x = xy[, 1],
        y = xy[, 2]) +
   geom_edge_link() +
-  geom_node_point(fill = 'white',
+  geom_node_point(fill = "white",
                   shape = 21,
-                  size = igraph::degree(g.Moreno)) +
+                  size = igraph::degree(g_moreno)) +
   scale_size(range = c(2, 3)) +
-  theme_graph() 
+  theme_graph()
 ```
 
 <img src="05-visualization_files/figure-html/Fig6_1-1.png" width="192" />
@@ -678,10 +681,10 @@ library(ggpubr)
 load(file = "data/Peeples2018.Rdata")
 ## contains objects
 # site_info - site locations and attributes
-# ceramicBR - raw Brainerd-Robinson similarity among sites
-# BRnet - binary network with similarity values > 0.65
+# ceramic_br - raw Brainerd-Robinson similarity among sites
+# brnet - binary network with similarity values > 0.65
 #     defined as edges in statnet/network format
-# BRnet_w - weighted network with edges (>0.65) given weight
+# brnet_w - weighted network with edges (>0.65) given weight
 #     values based on BR similarity in statnet/network format
 ##
 ```
@@ -692,11 +695,11 @@ Fig 6.2a - A simple network graph with nodes placed based on the Fruchterman-Rei
 ```r
 ## create simple graph with Fruchterman - Reingold layout
 set.seed(423)
-F6.2a <- ggraph(BRnet, "fr") +
+f6_2a <- ggraph(brnet, "fr") +
   geom_edge_link(edge_colour = "grey66") +
   geom_node_point(aes(size = 5), col = "red", show.legend = FALSE) +
   theme_graph()
-F6.2a
+f6_2a
 ```
 
 <img src="05-visualization_files/figure-html/Fig6_2a-1.png" width="672" />
@@ -705,15 +708,16 @@ Fig 6.2b - Network graph nodes with placed based on the real geographic location
 
 
 ```r
-## create graph with layout determined by site location and nodes color coded by region
-F6.2b <- ggraph(BRnet, "manual",
+## create graph with layout determined by site location and
+## nodes color coded by region
+f6_2b <- ggraph(brnet, "manual",
                 x = site_info$x,
                 y = site_info$y) +
   geom_edge_link(edge_colour = "grey66") +
   geom_node_point(aes(size = 2, col = site_info$Region),
                   show.legend = FALSE) +
   theme_graph()
-F6.2b
+f6_2b
 ```
 
 <img src="05-visualization_files/figure-html/Fig6_2b-1.png" width="672" />
@@ -728,12 +732,12 @@ Fig 6.2c - A graph designed to show how many different kinds of information can 
 # with edges weighted by BR similarity
 col1 <- as.factor((site_info$Great.Kiva))
 col2 <- as.factor((site_info$Region))
-bw <- sna::betweenness(BRnet_w)
+bw <- sna::betweenness(brnet_w)
 
-F6.2c <- ggraph(BRnet_w, "stress") +
+f6_2c <- ggraph(brnet_w, "stress") +
   geom_edge_link(aes(width = weight, alpha = weight),
                  edge_colour = "black",
-                 show.legend = F) +
+                 show.legend = FALSE) +
   scale_edge_width(range = c(1, 2)) +
   geom_node_point(aes(
     size = bw,
@@ -741,11 +745,11 @@ F6.2c <- ggraph(BRnet_w, "stress") +
     fill = col1,
     col = site_info$Region
   ),
-  show.legend = F) +
+  show.legend = FALSE) +
   scale_fill_discrete() +
   scale_size(range = c(4, 12)) +
   theme_graph()
-F6.2c
+f6_2c
 ```
 
 <img src="05-visualization_files/figure-html/Fig6_2c-1.png" width="672" />
@@ -758,10 +762,10 @@ In this plot we use the `as.ggplot` function to convert a traditional `igraph` p
 ```r
 # convert network object to igraph object and calculate Louvain
 # cluster membership plot and convert to grob to combine in ggplot
-g <- asIgraph(BRnet_w)
+g <- asIgraph(brnet_w)
 clst <- cluster_louvain(g)
 
-F6.2d <- as.ggplot(
+f6_2d <- as.ggplot(
   ~ plot(
     clst,
     g,
@@ -771,7 +775,7 @@ F6.2d <- as.ggplot(
     col = rainbow(4)[clst$membership]
   )
 )
-F6.2d
+f6_2d
 ```
 
 <img src="05-visualization_files/figure-html/Fig6_2d-1.png" width="672" />
@@ -782,13 +786,13 @@ Finally, we use the `ggarrange` function from the `ggpubr` package to combine al
 ```r
 # Combine all plots into a single figure using ggarrange
 figure_6_2 <- ggarrange(
-  F6.2a,
-  F6.2b,
-  F6.2c,
-  F6.2d,
+  f6_2a,
+  f6_2b,
+  f6_2c,
+  f6_2d,
   nrow = 2,
   ncol = 2,
-  labels = c('(a)', '(b)', '(c)', '(d)'),
+  labels = c("(a)", "(b)", "(c)", "(d)"),
   font.label = list(size = 22)
 )
 
@@ -823,22 +827,22 @@ library(ggraph)
 library(ggplotify)
 library(superheat)
 
-ceramicBRa <- ceramicBR
-diag(ceramicBRa) <- NA
+ceramic_br_a <- ceramic_br
+diag(ceramic_br_a) <- NA
 
-F6.3a <- as.ggplot(
+f6_3a <- as.ggplot(
   ~ superheat(
-    ceramicBRa,
-    row.dendrogram = T,
-    col.dendrogram = T,
+    ceramic_br_a,
+    row.dendrogram = TRUE,
+    col.dendrogram = TRUE,
     grid.hline.col = "white",
     grid.vline.col = "white",
-    legend = F,
+    legend = FALSE,
     left.label.size = 0,
     bottom.label.size = 0
   )
 )
-F6.3a
+f6_3a
 ```
 
 <img src="05-visualization_files/figure-html/Fig6_3a-1.png" width="672" />
@@ -852,25 +856,26 @@ For this plot, we read in a adjacency matrix that is ordered in the order we wan
 ```r
 
 
-arc_dat <- read.csv('data/Peeples_arcplot.csv',
-                    header = T,
+arc_dat <- read.csv("data/Peeples_arcplot.csv",
+                    header = TRUE,
                     row.names = 1)
 g <- graph_from_adjacency_matrix(as.matrix(t(arc_dat)))
 
 # set groups for color
-grp <- as.factor(c(2,2,2,2,2,2,2,2,2,2,2,2,2,3,3,3,1,1,1,1,1,1,1,1,
-                   1,1,1,1,1,1)) 
+grp <- as.factor(c(2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+                   3, 3, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+                   1, 1, 1, 1))
 
 
 # Make the graph
-F6.3b <- ggraph(g, layout = "linear") +
+f6_3b <- ggraph(g, layout = "linear") +
   geom_edge_arc(
     edge_colour = "black",
     edge_alpha = 0.2,
     edge_width = 0.7,
-    fold = F,
+    fold = FALSE,
     strength = 1,
-    show.legend = F
+    show.legend = FALSE
   ) +
   geom_node_point(
     aes(
@@ -879,11 +884,11 @@ F6.3b <- ggraph(g, layout = "linear") +
       fill = grp
     ),
     alpha = 0.5,
-    show.legend = F
+    show.legend = FALSE
   ) +
   scale_size_continuous(range = c(4, 8)) +
   theme_graph()
-F6.3b
+f6_3b
 ```
 
 <img src="05-visualization_files/figure-html/Fig6_3b-1.png" width="672" />
@@ -909,21 +914,21 @@ library(edgebundle)
 load("data/Peeples2018.Rdata")
 
 # Create attribute file with rquired data
-xy<- as.data.frame(site_info[,1:2])
-xy <- cbind(xy,site_info$Region)
-colnames(xy) <- c('x','y','Region')
+xy <- as.data.frame(site_info[, 1:2])
+xy <- cbind(xy, site_info$Region)
+colnames(xy) <- c("x", "y", "Region")
 
 # Run hammer bundling routine
-g <- asIgraph(BRnet)
+g <- asIgraph(brnet)
 hbundle <- edge_bundle_hammer(g, xy, bw = 5, decay = 0.3)
 
-F6.3c <-   ggplot()+
-  geom_path(data = hbundle,aes(x,y,group=group),
-            col="gray66",size=0.5) +
-  geom_point(data = xy,aes(x,y,col=Region),
-             size=5, alpha=0.75, show.legend=F)+
+f6_3c <-   ggplot() +
+  geom_path(data = hbundle, aes(x, y, group = group),
+            col = "gray66", size = 0.5) +
+  geom_point(data = xy, aes(x, y, col = Region),
+             size = 5, alpha = 0.75, show.legend = FALSE) +
   theme_void()
-F6.3c
+f6_3c
 ```
 
 <img src="05-visualization_files/figure-html/Fig6_3c-1.png" width="672" />
@@ -950,41 +955,41 @@ GitHub, you type supply “username/packagename” inside the
 <code>install_github</code> call.</p>
 </div>
 
-Let's now look at the figure code:
+Let"s now look at the figure code:
 
 
 ```r
 # Initialize libraries
-# devtools::install_github("liamgilbey/ggwaffle") # run this if ggwaffle not installed
+
 library(ggwaffle)
 library(tidyverse)
 
 # Create igraph object from data imported above
-Cibola_adj <-
+cibola_adj <-
   read.csv(file = "data/Cibola_adj.csv",
            header = TRUE,
            row.names = 1)
-g <- graph_from_adjacency_matrix(as.matrix(Cibola_adj),
+g <- graph_from_adjacency_matrix(as.matrix(cibola_adj),
                                  mode = "undirected")
 
 # Import raw ceramic data and convert to proportions
 ceramic_clust <- read.csv(file = "data/Cibola_clust.csv",
-                          header = T,
+                          header = TRUE,
                           row.names = 1)
-ceramic.p <- prop.table(as.matrix(ceramic_clust), margin = 1)
+ceramic_p <- prop.table(as.matrix(ceramic_clust), margin = 1)
 
 # Assign vertex attributes to the network object g which represent
 # columns in the ceramic.p table
-V(g)$C1 <- ceramic.p[, 1]
-V(g)$C2 <- ceramic.p[, 2]
-V(g)$C3 <- ceramic.p[, 3]
-V(g)$C4 <- ceramic.p[, 4]
-V(g)$C5 <- ceramic.p[, 5]
-V(g)$C6 <- ceramic.p[, 6]
-V(g)$C7 <- ceramic.p[, 7]
-V(g)$C8 <- ceramic.p[, 8]
-V(g)$C9 <- ceramic.p[, 9]
-V(g)$C10 <- ceramic.p[, 10]
+V(g)$c1 <- ceramic_p[, 1]
+V(g)$c2 <- ceramic_p[, 2]
+V(g)$c3 <- ceramic_p[, 3]
+V(g)$c4 <- ceramic_p[, 4]
+V(g)$c5 <- ceramic_p[, 5]
+V(g)$c6 <- ceramic_p[, 6]
+V(g)$c7 <- ceramic_p[, 7]
+V(g)$c8 <- ceramic_p[, 8]
+V(g)$c9 <- ceramic_p[, 9]
+V(g)$c10 <- ceramic_p[, 10]
 
 # Precompute the layout and assign coordinates as x and y in network g
 set.seed(345434534)
@@ -996,11 +1001,12 @@ V(g)$y <- xy[, 2]
 # categories in the ceramic table, the node id, and the proportion
 # of that ceramic category at that node
 nodes_wide <- igraph::as_data_frame(g, "vertices")
-nodes_long <- nodes_wide %>% dplyr::select(C1:C4) %>%
-  mutate(id = 1:nrow(nodes_wide)) %>%
-  gather("attr", "value", C1:C4)
+nodes_long <- nodes_wide %>%
+  dplyr::select(c1:c4) %>%
+  mutate(id = seq_len(nrow(nodes_wide))) %>%
+  gather("attr", "value", c1:c4)
 nodes_out <- NULL
-for (j in 1:nrow(nodes_long)) {
+for (j in seq_len(nrow(nodes_long))) {
   temp <- do.call("rbind", replicate(round(nodes_long[j, ]$value * 50, 0),
                                      nodes_long[j, ], simplify = FALSE))
   nodes_out <- rbind(nodes_out, temp)
@@ -1009,7 +1015,7 @@ for (j in 1:nrow(nodes_long)) {
 # Create a list object for the call to each bar chart by node
 bar_list <- lapply(1:vcount(g), function(i) {
   gt_plot <- ggplotGrob(
-    ggplot(waffle_iron(nodes_out[nodes_out$id == i,],
+    ggplot(waffle_iron(nodes_out[nodes_out$id == i, ],
                        aes_d(group = attr))) +
       geom_waffle(aes(x, y, fill = group), size = 0.1) +
       coord_equal() +
@@ -1021,7 +1027,7 @@ bar_list <- lapply(1:vcount(g), function(i) {
         text = element_blank()
       )
   )
-  panel_coords <- gt_plot$layout[gt_plot$layout$name == "panel",]
+  panel_coords <- gt_plot$layout[gt_plot$layout$name == "panel", ]
   gt_plot[panel_coords$t:panel_coords$b, panel_coords$l:panel_coords$r]
 })
 
@@ -1047,8 +1053,8 @@ p <- ggraph(g, "manual", x = V(g)$x, y = V(g)$y) +
   coord_fixed()
 
 # put everything together by combining with the annotation (bar plots + network)
-F6.3d <- Reduce("+", annot_list, p)
-F6.3d
+f6_3d <- Reduce("+", annot_list, p)
+f6_3d
 ```
 
 <img src="05-visualization_files/figure-html/Fig6_3d-1.png" width="576" />
@@ -1062,7 +1068,7 @@ in the place of nodes by defining them as “annotations.” See the post
 for more details.</p>
 </div>
 
-Now let's look at all of the figures together.
+Now let"s look at all of the figures together.
 
 ![](images/Figure_6_3.jpg){width=100%}
 
@@ -1085,10 +1091,11 @@ library(ggraph)
 library(statnet)
 library(igraph)
 
-Clovis <- read.csv("data/Clovis.csv", header = T, row.names = 1)
-colnames(Clovis) <- row.names(Clovis)
-graph <- graph_from_adjacency_matrix(as.matrix(Clovis),
-                                     mode = "undirected", diag = F)
+clovis <- read.csv("data/Clovis.csv", header = TRUE, row.names = 1)
+colnames(clovis) <- row.names(clovis)
+graph <- graph_from_adjacency_matrix(as.matrix(clovis),
+                                     mode = "undirected",
+                                     diag = FALSE)
 
 bw <- igraph::betweenness(graph)
 
@@ -1096,7 +1103,7 @@ grp <- as.factor(cluster_louvain(graph)$membership)
 
 set.seed(43643548)
 ggraph(graph, layout = "fr") +
-  geom_edge_link(edge_width = 1, color = 'gray') +
+  geom_edge_link(edge_width = 1, color = "gray") +
   geom_node_point(aes(fill = grp, size = bw, color = grp),
                   shape = 21,
                   alpha = 0.75) +
@@ -1122,7 +1129,8 @@ ggraph(graph, layout = "fr") +
   # If else statement only labels points that meet the condition
   geom_node_text(aes(label = ifelse(bw > 40,
                                     as.character(name),
-                                    NA_character_)), size = 4) +
+                                    NA_character_)),
+                 size = 4) +
   theme_graph() +
   theme(legend.position = "none")
 ```
@@ -1133,7 +1141,7 @@ ggraph(graph, layout = "fr") +
 
 Figure 6.5. An example of the same network graph with two simple user defined layouts created interactively.
 
-Figure 6.5 was produced in [NetDraw](https://sites.google.com/site/netdrawsoftware/download) by creating a simple network and taking screen shots of two configurations of nodes. There are a few options for creating a similar figures in R. The simplest is to use an igraph network object and the `tkplot` function. This function brings up a window that lets you drag and move nodes (with or without an initial algorithmic layout) and when you're done you can assign the new positions to a variable to use for plotting. [Use these data](data/Peeples2018.Rdata) to follow along.
+Figure 6.5 was produced in [NetDraw](https://sites.google.com/site/netdrawsoftware/download) by creating a simple network and taking screen shots of two configurations of nodes. There are a few options for creating a similar figures in R. The simplest is to use an igraph network object and the `tkplot` function. This function brings up a window that lets you drag and move nodes (with or without an initial algorithmic layout) and when you"re done you can assign the new positions to a variable to use for plotting. [Use these data](data/Peeples2018.Rdata) to follow along.
 
 <div class="rmdwarning">
 <p>Note that if you are running this package in your browser via binder,
@@ -1151,21 +1159,21 @@ library(intergraph)
 
 load("data/Peeples2018.Rdata")
 
-Cibola_i <- asIgraph(BRnet)
+cibola_i <- asIgraph(brnet)
 
-locs <- tkplot(Cibola_i)
-Coords <- tkplot.getcoords(locs)
+locs <- tkplot(cibola_i)
+coords <- tkplot.getcoords(locs)
 
 ```
 
 This will bring up a window like the example below and when you click "Close" it will automatically create the variables with the node location information for plotting. 
 
-![](images/interactive.jpg){width=100%}
+![](images/interactive.jpg){width=60%}
 
 
 
 ```r
-plot(Cibola_i, layout=Coords)
+plot(cibola_i, layout = coords)
 ```
 
 <img src="05-visualization_files/figure-html/Fig6_5c-1.png" width="672" />
@@ -1183,9 +1191,9 @@ library(igraph)
 library(ggmap)
 library(sf)
 
-edges1 <- read.csv("data/Hispania_roads.csv", header = T)
+edges1 <- read.csv("data/Hispania_roads.csv", header = TRUE)
 edges1 <- edges1[which(edges1$Weight > 25), ]
-nodes <- read.csv("data/Hispania_nodes.csv", header = T)
+nodes <- read.csv("data/Hispania_nodes.csv", header = TRUE)
 nodes <- nodes[which(nodes$Id %in% c(edges1$Source, edges1$Target)), ]
 
 road_net <-
@@ -1195,10 +1203,11 @@ road_net <-
 locations_sf <-
   st_as_sf(nodes, coords = c("long", "lat"), crs = 4326)
 coord1 <- do.call(rbind, st_geometry(locations_sf)) %>%
-  tibble::as_tibble() %>% setNames(c("lon", "lat"))
+  tibble::as_tibble() %>%
+  setNames(c("lon", "lat"))
 
 xy <- as.data.frame(coord1)
-colnames(xy) <- c('x', 'y')
+colnames(xy) <- c("x", "y")
 
 # Extract edgelist from network object
 edgelist <- get.edgelist(road_net)
@@ -1206,18 +1215,18 @@ edgelist <- get.edgelist(road_net)
 # Create dataframe of beginning and ending points of edges
 edges <- as.data.frame(matrix(NA, nrow(edgelist), 4))
 colnames(edges) <- c("X1", "Y1", "X2", "Y2")
-for (i in 1:nrow(edgelist)) {
+for (i in seq_len(nrow(edgelist))) {
   edges[i, ] <- c(nodes[which(nodes$Id == edgelist[i, 1]), 3],
                   nodes[which(nodes$Id == edgelist[i, 1]), 2],
                   nodes[which(nodes$Id == edgelist[i, 2]), 3],
                   nodes[which(nodes$Id == edgelist[i, 2]), 2])
 }
 
-myMap <- get_stamenmap(bbox = c(-9.5, 36, 3, 43.8),
+my_map <- get_stamenmap(bbox = c(-9.5, 36, 3, 43.8),
                        maptype = "watercolor",
                        zoom = 6)
 
-ggmap(myMap) +
+ggmap(my_map) +
   geom_segment(
     data = edges,
     aes(
@@ -1226,18 +1235,18 @@ ggmap(myMap) +
       xend = X2,
       yend = Y2
     ),
-    col = 'black',
+    col = "black",
     size = 1
   ) +
   geom_point(
     data = xy,
     aes(x, y),
     alpha = 0.8,
-    col = 'black',
+    col = "black",
     fill = "white",
     shape = 21,
     size = 1.5,
-    show.legend = F
+    show.legend = FALSE
   ) +
   theme_void()
 ```
@@ -1294,16 +1303,16 @@ coord <- c(-110.7985, 32.97888,
 -110.4173, 32.34401,
 -110.7000, 32.73344)
 
-attr <- c("Swingle's Sample","Ash Terrace","Lost Mound",
-          "Dudleyville Mound","Leaverton","High Mesa",
-          "Elliott Site","Bayless Ruin","Flieger",
-          "Big Bell","111 Ranch","Twin Hawks","Artifact Hill",
-          "Jose Solas Ruin","Wright")
+attr <- c("Swingle's Sample", "Ash Terrace", "Lost Mound",
+          "Dudleyville Mound", "Leaverton", "High Mesa",
+          "Elliott Site", "Bayless Ruin", "Flieger",
+          "Big Bell", "111 Ranch", "Twin Hawks", "Artifact Hill",
+          "Jose Solas Ruin", "Wright")
 
 
 # Convert coordinates to data frame
 zz <- as.data.frame(matrix(coord, nrow = 15, byrow = TRUE))
-colnames(zz) <- c('x', 'y')
+colnames(zz) <- c("x", "y")
 
 # Get basemap "terrain-background" data for map in black and white
 base3 <- get_stamenmap(
@@ -1330,16 +1339,16 @@ figure_6_7 <- ggmap(base3, darken = 0.35) +
       xend = X2,
       yend = Y2
     ),
-    col = 'white',
+    col = "white",
     size = 1
   ) +
   geom_point(
     data = zz,
     aes(x, y),
     alpha = 0.8,
-    col = 'red',
+    col = "red",
     size = 5,
-    show.legend = F
+    show.legend = FALSE
   ) +
   geom_text_repel(aes(x = x, y = y, label = attr), data = zz, size = 3) +
   scalebar(
@@ -1379,7 +1388,7 @@ library(sf)
 library(ggmap)
 
 # Load igraph aegean_net data
-#data(aegean_net)
+
 aegean <- read.csv("data/aegean.csv", row.names = 1, header = T)
 aegean_dist <- aegean
 aegean_dist[aegean_dist > 124] <- 0
@@ -1391,7 +1400,7 @@ grp <- as.factor(cluster_optimal(aegean_net)$membership)
 bw <- as.numeric(igraph::betweenness(aegean_net))
 
 # Create geographic network and plot
-nodes <- read.csv('data/aegean_locs.csv')
+nodes <- read.csv("data/aegean_locs.csv")
 
 # Convert attribute location data to sf coordinates
 locations_sf <-
@@ -1399,12 +1408,13 @@ locations_sf <-
            coords = c("Longitude", "Latitude"),
            crs = 4326)
 coord1 <- do.call(rbind, st_geometry(locations_sf)) %>%
-  tibble::as_tibble() %>% setNames(c("lon", "lat"))
+  tibble::as_tibble() %>%
+  setNames(c("lon", "lat"))
 
 xy <- as.data.frame(coord1)
-colnames(xy) <- c('x', 'y')
+colnames(xy) <- c("x", "y")
 
-myMap <- get_stamenmap(bbox = c(22, 34.5, 29, 38.8),
+my_map <- get_stamenmap(bbox = c(22, 34.5, 29, 38.8),
                        zoom = 8,
                        maptype = "terrain-background")
 
@@ -1414,7 +1424,7 @@ edgelist1 <- get.edgelist(aegean_net)
 # Create dataframe of beginning and ending points of edges
 edges1 <- as.data.frame(matrix(NA, nrow(edgelist1), 4))
 colnames(edges1) <- c("X1", "Y1", "X2", "Y2")
-for (i in 1:nrow(edgelist1)) {
+for (i in seq_len(nrow(edgelist1))) {
   edges1[i, ] <-
     c(nodes[which(nodes$Name == edgelist1[i, 1]), ]$Longitude,
       nodes[which(nodes$Name == edgelist1[i, 1]), ]$Latitude,
@@ -1422,7 +1432,7 @@ for (i in 1:nrow(edgelist1)) {
       nodes[which(nodes$Name == edgelist1[i, 2]), ]$Latitude)
 }
 
-geo_net <- ggmap(myMap) +
+geo_net <- ggmap(my_map) +
   geom_segment(
     data = edges1,
     aes(
@@ -1431,7 +1441,7 @@ geo_net <- ggmap(myMap) +
       xend = X2,
       yend = Y2
     ),
-    col = 'black',
+    col = "black",
     size = 1
   ) +
   geom_point(
@@ -1439,7 +1449,7 @@ geo_net <- ggmap(myMap) +
     aes(x, y, size = bw, fill = grp),
     alpha = 0.8,
     shape = 21,
-    show.legend = F
+    show.legend = FALSE
   ) +
   scale_size(range = c(4, 12)) +
   scale_color_brewer(palette = "Set2") +
@@ -1451,11 +1461,11 @@ geo_net <- ggmap(myMap) +
 # Multidimensional Scaling Layout with color by cluster and node
 # size by betweenness
 set.seed(435353)
-g.mds <- ggraph(aegean_net, layout = "mds") +
+g_mds <- ggraph(aegean_net, layout = "mds") +
   geom_edge_link0(width = 0.2) +
   geom_node_point(aes(fill = grp, size = bw),
                   shape = 21,
-                  show.legend = F) +
+                  show.legend = FALSE) +
   scale_size(range = c(4, 12)) +
   scale_color_brewer(palette = "Set2") +
   scale_fill_brewer(palette = "Set2") +
@@ -1469,11 +1479,11 @@ g.mds <- ggraph(aegean_net, layout = "mds") +
 # Fruchterman-Reingold Layout with color by cluster and node size
 # by betweenness
 set.seed(435353)
-g.fr <- ggraph(aegean_net, layout = "fr") +
+g_fr <- ggraph(aegean_net, layout = "fr") +
   geom_edge_link0(width = 0.2) +
   geom_node_point(aes(fill = grp, size = bw),
                   shape = 21,
-                  show.legend = F) +
+                  show.legend = FALSE) +
   scale_size(range = c(4, 12)) +
   scale_color_brewer(palette = "Set2") +
   scale_fill_brewer(palette = "Set2") +
@@ -1486,11 +1496,11 @@ g.fr <- ggraph(aegean_net, layout = "fr") +
 
 # Kamada-Kawai Layout with color by cluster and node size by betweenness
 set.seed(435353)
-g.kk <- ggraph(aegean_net, layout = "kk") +
+g_kk <- ggraph(aegean_net, layout = "kk") +
   geom_edge_link0(width = 0.2) +
   geom_node_point(aes(fill = grp, size = bw),
-                  shape = 21 ,
-                  show.legend = F) +
+                  shape = 21,
+                  show.legend = FALSE) +
   scale_size(range = c(4, 12)) +
   scale_color_brewer(palette = "Set2") +
   scale_fill_brewer(palette = "Set2") +
@@ -1504,13 +1514,13 @@ g.kk <- ggraph(aegean_net, layout = "kk") +
 # Radial Centrality Layout with color by cluster and node size by
 # betweenness
 set.seed(435353)
-g.cent <- ggraph(aegean_net,
+g_cent <- ggraph(aegean_net,
                  layout = "centrality",
                  centrality = igraph::betweenness(aegean_net)) +
   geom_edge_link0(width = 0.2) +
   geom_node_point(aes(fill = grp, size = bw),
                   shape = 21,
-                  show.legend = F) +
+                  show.legend = FALSE) +
   scale_size(range = c(4, 12)) +
   scale_color_brewer(palette = "Set2") +
   scale_fill_brewer(palette = "Set2") +
@@ -1523,20 +1533,20 @@ g.cent <- ggraph(aegean_net,
 
 # Spectral Layout with color by cluster and node size by betweenness
 u1 <- layout_with_eigen(aegean_net)
-g.spec <- ggraph(aegean_net,
+g_spec <- ggraph(aegean_net,
                  layout = "manual",
                  x = u1[, 1],
                  y = u1[, 2]) +
   geom_edge_link0(width = 0.2) +
   geom_node_point(aes(fill = grp, size = bw),
                   shape = 21,
-                  show.legend = F) +
+                  show.legend = FALSE) +
   scale_size(range = c(4, 12)) +
   scale_color_brewer(palette = "Set2") +
   scale_fill_brewer(palette = "Set2") +
   scale_edge_color_manual(values = c(rgb(0, 0, 0, 0.3),
                                      rgb(0, 0, 0, 1))) +
-  
+
   theme_graph() +
   theme(plot.title = element_text(size = rel(1))) +
   ggtitle("Spectral") +
@@ -1545,11 +1555,11 @@ g.spec <- ggraph(aegean_net,
 
 figure_6_8 <-
   ggarrange(geo_net,
-            g.mds,
-            g.fr,
-            g.kk,
-            g.cent,
-            g.spec,
+            g_mds,
+            g_fr,
+            g_kk,
+            g_cent,
+            g_spec,
             ncol = 2,
             nrow = 3)
 figure_6_8
@@ -1575,34 +1585,34 @@ library(ggpubr)
 load(file = "data/Figure6_9.Rdata")
 
 set.seed(4353543)
-h1 <- ggraph(h_graph, 'circlepack') +
+h1 <- ggraph(h_graph, "circlepack") +
   geom_edge_link() +
   geom_node_point(aes(colour = depth, size = (max(depth) - depth) / 2),
-                  show.legend = F) +
+                  show.legend = FALSE) +
   scale_color_viridis() +
   theme_graph() +
   coord_fixed()
 
 set.seed(643346463)
-h2 <- ggraph(h_graph, 'circlepack') +
+h2 <- ggraph(h_graph, "circlepack") +
   geom_node_circle(aes(fill = depth),
                    size = 0.25,
                    n = 50,
-                   show.legend = F) +
+                   show.legend = FALSE) +
   scale_fill_viridis() +
   theme_graph() +
   coord_fixed()
 
-h3 <- ggraph(h_graph, 'dendrogram') +
+h3 <- ggraph(h_graph, "dendrogram") +
   geom_node_point(aes(filter = leaf),
-                  color = 'blue' ,
+                  color = "blue",
                   alpha = 0.7,
                   size = 3) +
   theme_graph() +
   geom_edge_link()
 
 h4 <-
-  ggraph(sub_grp_graph, layout = 'dendrogram', circular = TRUE) +
+  ggraph(sub_grp_graph, layout = "dendrogram", circular = TRUE) +
   geom_conn_bundle(
     data = get_con(from = from, to = to),
     alpha = 0.2,
@@ -1615,9 +1625,9 @@ h4 <-
     filter = leaf,
     x = x * 1.05,
     y = y * 1.05,
-    colour = group
-  ), size = 3) +
-  scale_colour_manual(values = rep(brewer.pal(9, "Paired") , 30)) +
+    colour = group),
+    size = 3) +
+  scale_colour_manual(values = rep(brewer.pal(9, "Paired"), 30)) +
   theme_graph() +
   theme(legend.position = "none")
 
@@ -1628,7 +1638,7 @@ figure_6_9 <- ggarrange(
   h4,
   ncol = 2,
   nrow = 2,
-  labels = c('(a)', '(b)', '(c)', '(d)')
+  labels = c("(a)", "(b)", "(c)", "(d)")
 )
 figure_6_9
 ```
@@ -1655,7 +1665,7 @@ source("scripts/colorblindr.R")
 load("data/Peeples2018.Rdata")
 
 # Create igraph object for plots below
-net <- asIgraph(BRnet)
+net <- asIgraph(brnet)
 
 set.seed(347)
 g1 <- ggraph(net, layout = "kk") +
@@ -1693,26 +1703,26 @@ plot(
   cex = seq(5:10),
   col = "blue",
   ylim = c(0, 4),
-  bty = 'n',
-  xaxt = 'n',
-  yaxt = 'n',
-  xlab = '',
-  ylab = ''
+  bty = "n",
+  xaxt = "n",
+  yaxt = "n",
+  xlab = "",
+  ylab = ""
 )
 points(
   x = 1:5,
   y = rep(1.5, 5),
   pch = 21,
   cex = seq(5:10),
-  bg = heat.colors(5, rev = T)
+  bg = heat.colors(5, rev = TRUE)
 )
 points(
   x = 1:5,
   y = rep(1, 5),
   pch = c(1, 2, 3, 4, 5),
   cex = seq(5:10),
-  bg = 'skyblue',
-  col = 'blue',
+  bg = "skyblue",
+  col = "blue",
   lwd = 2
 )
 ```
@@ -1730,43 +1740,43 @@ xy3 <- cbind(x + 10, y)
 xy4 <- cbind(x + 15, y)
 xy5 <- cbind(x + 20, y)
 
-size <- sample(c(5, 6, 7, 8, 9), size = 15, replace = T)
+size <- sample(c(5, 6, 7, 8, 9), size = 15, replace = TRUE)
 size <- size - 4
 
-h.col <- heat.colors(5, rev = T)
+h_col <- heat.colors(5, rev = TRUE)
 
 plot(
-  xy[order(size, decreasing = T), ],
+  xy[order(size, decreasing = TRUE), ],
   pch = 16,
-  col = 'blue',
-  cex = size[order(size, decreasing = T)],
+  col = "blue",
+  cex = size[order(size, decreasing = TRUE)],
   xlim = c(0, 22),
   ylim = c(-1, 3),
-  bty = 'n',
-  xaxt = 'n',
-  yaxt = 'n',
-  xlab = '',
-  ylab = ''
+  bty = "n",
+  xaxt = "n",
+  yaxt = "n",
+  xlab = "",
+  ylab = ""
 )
-points(xy2[order(size, decreasing = T), ],
+points(xy2[order(size, decreasing = TRUE), ],
        pch = 21,
-       bg = h.col[size[order(size, decreasing = T)]],
-       cex = size[order(size, decreasing = T)])
-points(xy3[order(size, decreasing = T), ],
-       pch = size[order(size, decreasing = T)],
-       col = 'blue',
-       cex = size[order(size, decreasing = T)])
+       bg = h_col[size[order(size, decreasing = TRUE)]],
+       cex = size[order(size, decreasing = TRUE)])
+points(xy3[order(size, decreasing = TRUE), ],
+       pch = size[order(size, decreasing = TRUE)],
+       col = "blue",
+       cex = size[order(size, decreasing = TRUE)])
 points(
-  xy4[order(size, decreasing = T), ],
+  xy4[order(size, decreasing = TRUE), ],
   pch = 21,
-  col = 'gray66',
-  bg = alpha('blue', 0.7),
-  cex = size[order(size, decreasing = T)]
+  col = "gray66",
+  bg = alpha("blue", 0.7),
+  cex = size[order(size, decreasing = TRUE)]
 )
-points(xy5[order(size, decreasing = T), ],
+points(xy5[order(size, decreasing = TRUE), ],
        pch = 21,
-       bg = alpha(h.col[size[order(size, decreasing = T)]], 0.7),
-       cex = size[order(size, decreasing = T)])
+       bg = alpha(h_col[size[order(size, decreasing = TRUE)]], 0.7),
+       cex = size[order(size, decreasing = TRUE)])
 ```
 
 <img src="05-visualization_files/figure-html/Fig6_11-2.png" width="672" />
@@ -1797,8 +1807,6 @@ library(igraph)
 
 load("data/Figure6_13.Rdata")
 # two_mode_net - igraph two mode network object
-# img.1 <- readPNG("images/sites.png")
-#img.2 <- readPNG("images/ceramic.png")
 
 # Set Vector property to images by mode
 # Note that if you want to set a different image
@@ -1827,19 +1835,19 @@ If you want to use images in a one mode network you can follow the sample below 
 library(png)
 library(igraph)
 
-Cibola <-
+cibola <-
   read.csv(file = "data/Cibola_adj.csv",
            header = TRUE,
            row.names = 1)
 
 # Create network in igraph format
-Cibola_i <- igraph::graph_from_adjacency_matrix(as.matrix(Cibola),
+cibola_i <- igraph::graph_from_adjacency_matrix(as.matrix(cibola),
                                                 mode = "undirected")
 # Set Vector property to images using a list with a length
 # determined by the number of nodes in the network.
 # Here we divide the northern and southern portions of the
 # study area.
-V(Cibola_i)$raster <- list(img.2, img.1, img.2, img.2,
+V(cibola_i)$raster <- list(img.2, img.1, img.2, img.2,
                            img.1, img.2, img.2, img.1,
                            img.1, img.1, img.2, img.2,
                            img.2, img.1, img.1, img.2,
@@ -1850,7 +1858,7 @@ V(Cibola_i)$raster <- list(img.2, img.1, img.2, img.2,
 
 set.seed(34673)
 plot(
-  Cibola_i,
+  cibola_i,
   vertex.shape = "raster",
   vertex.label = NA,
   vertex.size = 16,
@@ -1876,17 +1884,17 @@ library(ggraph)
 
 load("data/Figure6_14.Rdata")
 
-edge.cols <- colorRampPalette(c('gray', 'darkblue'))(5)
+edge_cols <- colorRampPalette(c("gray", "darkblue"))(5)
 
 set.seed(43644)
-ggraph(g.net, layout = "fr") +
-  geom_edge_link0(aes(width = E(g.net)$weight),
-                  edge_colour = edge.cols[E(g.net)$weight]) +
+ggraph(g_net, layout = "fr") +
+  geom_edge_link0(aes(width = E(g_net)$weight),
+                  edge_colour = edge_cols[E(g_net)$weight]) +
   geom_node_point(shape = 21,
-                  size = igraph::degree(g.net) + 3,
-                  fill = 'red') +
+                  size = igraph::degree(g_net) + 3,
+                  fill = "red") +
   theme_graph() +
-  theme(legend.title = element_blank()) 
+  theme(legend.title = element_blank())
 ```
 
 <img src="05-visualization_files/figure-html/Fig6_14-1.png" width="672" />
@@ -1904,12 +1912,12 @@ library(igraph)
 library(grid)
 library(gridExtra)
 
-g <- graph( c("A", "B",
+g <- graph(c("A", "B",
               "B", "C",
               "A", "C",
               "A", "A",
-              "C","B",
-              "D","C"))
+              "C", "B",
+              "D", "C"))
 
 layout(matrix(c(1, 1, 2, 3, 3), 1, 5, byrow = TRUE))
 
@@ -1924,7 +1932,7 @@ plot(
   edge.width = 2,
   vertex.label.cex = 2.75,
   vertex.label.dist = 0,
-  vertex.label.family = 'Helvetica'
+  vertex.label.family = "Helvetica"
 )
 
 plot.new()
@@ -1943,8 +1951,8 @@ plot(
   edge.curved = 0.3,
   vertex.label.cex = 2.75,
   vertex.label.dist = 0,
-  vertex.label.family = 'Helvetica'
-) 
+  vertex.label.family = "Helvetica"
+)
 ```
 
 <img src="05-visualization_files/figure-html/Fig6_15-1.png" width="672" />
@@ -1967,47 +1975,47 @@ library(ggpubr)
 load("data/Figure6_16.Rdata")
 # Contains similarity matrix AD1350sim
 
-AD1350sim_cut0_5 <- asIgraph(network(
-  event2dichot(AD1350sim,
+ad1350sim_cut0_5 <- asIgraph(network(
+  event2dichot(ad1350sim,
                method = "absolute",
                thresh = 0.25),
   directed = FALSE
 ))
-AD1350sim_cut0_75 <- asIgraph(network(
-  event2dichot(AD1350sim,
+ad1350sim_cut0_75 <- asIgraph(network(
+  event2dichot(ad1350sim,
                method = "absolute",
                thresh = 0.5),
   directed = FALSE
 ))
-AD1350sim_cut0_9 <- asIgraph(network(
-  event2dichot(AD1350sim,
+ad1350sim_cut0_9 <- asIgraph(network(
+  event2dichot(ad1350sim,
                method = "absolute",
                thresh = 0.75),
   directed = FALSE
 ))
 
 set.seed(4637)
-g0.50 <- ggraph(AD1350sim_cut0_5, layout = "fr") +
+g0_50 <- ggraph(ad1350sim_cut0_5, layout = "fr") +
   geom_edge_link0(edge_colour = "black") +
-  geom_node_point(shape = 21, fill = 'gray') +
+  geom_node_point(shape = 21, fill = "gray") +
   ggtitle("0.25") +
   theme_graph()
 
 set.seed(574578)
-g0.75 <- ggraph(AD1350sim_cut0_75, layout = "fr") +
+g0_75 <- ggraph(ad1350sim_cut0_75, layout = "fr") +
   geom_edge_link0(edge_colour = "black") +
-  geom_node_point(shape = 21, fill = 'gray') +
+  geom_node_point(shape = 21, fill = "gray") +
   ggtitle("0.50") +
   theme_graph()
 
 set.seed(7343)
-g0.90 <- ggraph(AD1350sim_cut0_9, layout = "fr") +
+g0_90 <- ggraph(ad1350sim_cut0_9, layout = "fr") +
   geom_edge_link0(edge_colour = "black") +
-  geom_node_point(shape = 21, fill = 'gray') +
+  geom_node_point(shape = 21, fill = "gray") +
   ggtitle("0.75") +
   theme_graph()
 
-ggarrange(g0.50, g0.75, g0.90, nrow = 1, ncol = 3)
+ggarrange(g0_50, g0_75, g0_90, nrow = 1, ncol = 3)
 ```
 
 <img src="05-visualization_files/figure-html/Fig6_16-1.png" width="672" />
@@ -2046,10 +2054,10 @@ library(edgebundle)
 library(ggmap)
 library(sf)
 
-load('data/Figure6_17.Rdata')
+load("data/Figure6_17.Rdata")
 # attr.dat - site attribute data
 # g.net - igraph network object
-load('data/map.RData')
+load("data/map.RData")
 # map3 - state outlines
 # base2 - terrain basemap in black and white
 
@@ -2057,10 +2065,11 @@ locations_sf <- st_as_sf(attr.dat, coords = c("V3", "V4"),
                          crs = 26912)
 z <- st_transform(locations_sf, crs = 4326)
 coord1 <- do.call(rbind, st_geometry(z)) %>%
-  tibble::as_tibble() %>% setNames(c("lon", "lat"))
+  tibble::as_tibble() %>%
+  setNames(c("lon", "lat"))
 
 xy <- as.data.frame(coord1)
-colnames(xy) <- c('x', 'y')
+colnames(xy) <- c("x", "y")
 
 hbundle <- edge_bundle_hammer(g.net, xy, bw = 0.9, decay = 0.2)
 
@@ -2077,20 +2086,20 @@ ggmap(base2, darken = 0.15) +
     data = hbundle,
     aes(x, y, group = group),
     color = "white",
-    show.legend = F
+    show.legend = FALSE
   ) +
   geom_path(
     data = hbundle,
     aes(x, y, group = group),
     color = "darkorchid4",
-    show.legend = F
+    show.legend = FALSE
   ) +
   geom_point(
     data = xy,
     aes(x, y),
     alpha = 0.4,
     size = 2.5,
-    show.legend = F
+    show.legend = FALSE
   ) +
   theme_graph()
 ```
@@ -2101,7 +2110,7 @@ ggmap(base2, darken = 0.15) +
 
 Fig. 6.18. Example of a group-in-a-box custom graph layout created in NodeXL based on ceramic similarity data from the U.S. Southwest/Mexican Northwest ca. AD 1350-1400. 
 
-The group-in-a-box network format is, as far as we are aware, currently only implemented in the [NodeXL](https://www.smrfoundation.org/nodexl/) platform. This software package is an add-in for Microsoft Excel that allows for the creation and analysis of network graphs using a wide variety of useful visualization tools. To produce a "Group-in-a-box" layout you simply need to paste a set of edge list values into the NodeXL Excel Template, define groups (based on an algorithm or some vertex attribute), and be sure to select "Layout each of the graph's groups in its own box" in the layout options. 
+The group-in-a-box network format is, as far as we are aware, currently only implemented in the [NodeXL](https://www.smrfoundation.org/nodexl/) platform. This software package is an add-in for Microsoft Excel that allows for the creation and analysis of network graphs using a wide variety of useful visualization tools. To produce a "Group-in-a-box" layout you simply need to paste a set of edge list values into the NodeXL Excel Template, define groups (based on an algorithm or some vertex attribute), and be sure to select "Layout each of the graph"s groups in its own box" in the layout options. 
 
 For more details on how to use NodeXL see the extensive documentation online. There are commercial versions of the software available but the group-in-a-box example shown here can be produced in the free version.
 
@@ -2134,20 +2143,20 @@ g1 <- ggraph(graph6.18, "manual",
              x = coords[, 1],
              y = coords[, 2]) +
   geom_edge_link(aes(),
-                 color = 'gray75',
+                 color = "gray75",
                  alpha = 0.5,
-                 show.legend = F) +
+                 show.legend = FALSE) +
   geom_node_point(aes(color = as.factor(V(graph6.18)$comm), size = 5),
-                  show.legend = F) +
-  scale_color_manual(values = c('#8da0cb', '#66c2a5', '#fc8d62'),
-                     guide = F) +
+                  show.legend = FALSE) +
+  scale_color_manual(values = c("#8da0cb", "#66c2a5", "#fc8d62"),
+                     guide = FALSE) +
   theme_graph()
 
 # Set order of nodes to order in which they appear in the y axis in
 # the network graph above
 name_order <- node_list[order(coords[, 2]), ]$name
 
-# Adjust the 'to' and 'from' factor levels so they are equal
+# Adjust the "to" and "from" factor levels so they are equal
 # to this complete list of node names
 plot_data <- edge_list %>% mutate(to = factor(to, levels = name_order),
                                   from = factor(from, levels = rev(name_order)))
@@ -2174,10 +2183,10 @@ g2 <- ggplot(plot_data, aes(
     aspect.ratio = 1,
     legend.position = "none"
   ) +
-  xlab('') +
-  ylab('') +
-  scale_fill_manual(values = c('#8da0cb', '#66c2a5', '#fc8d62', 'black'),
-                    guide = F)
+  xlab("") +
+  ylab("") +
+  scale_fill_manual(values = c("#8da0cb", "#66c2a5", "#fc8d62", "black"),
+                    guide = FALSE)
 
 # Combine into a single figure
 figure6_19 <- ggarrange(g1, g2, nrow = 1)
@@ -2224,9 +2233,7 @@ write(dj, "network.json")
 ```
 
 
-Here is a live demo of the Nodetrix Application in use with the Cibola technological similarity data. To see a full screen version of this tool in action [click here](https://mattpeeples.net/nodetrix/).
-
-<iframe src="https://mattpeeples.net/nodetrix/" width="672" height="600px" data-external="1"></iframe>
+To see a live demo of the Nodetrix Application in use with the Cibola technological similarity data [click here](https://mattpeeples.net/nodetrix/).
 
 ### Figure 6.21: The Filmstrip Approach {- #Figure_6_21}
 
@@ -2244,20 +2251,20 @@ load("data/Figure6_21.Rdata")
 
 set.seed(4543)
 g1 <- ggraph(AD1250net, "kk") +
-  geom_edge_link(aes(), color = 'gray75', show.legend = F) +
+  geom_edge_link(aes(), color = "gray75", show.legend = FALSE) +
   geom_node_point(aes(),
                   size = 1,
-                  show.legend = F,
+                  show.legend = FALSE,
                   color = "blue") +
   ggtitle("AD1250-1300") +
   theme_graph()
 
 set.seed(4543)
 g2 <- ggraph(AD1300net, "kk") +
-  geom_edge_link(aes(), color = 'gray75', show.legend = F) +
+  geom_edge_link(aes(), color = "gray75", show.legend = FALSE) +
   geom_node_point(aes(),
                   size = 1,
-                  show.legend = F,
+                  show.legend = FALSE,
                   color = "blue") +
   ggtitle("AD1300-1350") +
   theme_graph()
@@ -2265,10 +2272,10 @@ g2 <- ggraph(AD1300net, "kk") +
 
 set.seed(4543)
 g3 <- ggraph(AD1350net, "kk") +
-  geom_edge_link(aes(), color = 'gray75', show.legend = F) +
+  geom_edge_link(aes(), color = "gray75", show.legend = FALSE) +
   geom_node_point(aes(),
                   size = 1,
-                  show.legend = F,
+                  show.legend = FALSE,
                   color = "blue") +
   ggtitle("AD1350-1400") +
   theme_graph()
@@ -2296,53 +2303,53 @@ library(ggrepel)
 
 load("data/Figure6_22.Rdata")
 
-graph <- graph_from_data_frame(net.all)
+graph <- graph_from_data_frame(net_all)
 
 xy <- layout_with_kk(graph)
-xy <- cbind(sites,xy)
+xy <- cbind(sites, xy)
 xy <- as.data.frame(xy)
-colnames(xy) <- c('site','x','y')
+colnames(xy) <- c("site", "x", "y")
 xy$x <- as.numeric(xy$x)
 xy$y <- as.numeric(xy$y)
 
 set.seed(6436)
-similt.net <- ggraph(graph,layout="manual",
-                     x=xy$x, y=xy$y) +
-  geom_edge_link(aes(colour = Period), alpha=0.3, width=1) +
-  geom_node_point(size=3) +
+similt_net <- ggraph(graph, layout = "manual",
+                     x = xy$x, y = xy$y) +
+  geom_edge_link(aes(colour = Period), alpha = 0.3, width = 1) +
+  geom_node_point(size = 3) +
   theme_graph() +
-  theme(legend.title = element_text(size=rel(1)),
-        legend.text = element_text(size=rel(1)),
-        legend.key.height= unit(1, 'cm'),
-        legend.key.width= unit(2, 'cm'))
+  theme(legend.title = element_text(size = rel(1)),
+        legend.text = element_text(size = rel(1)),
+        legend.key.height = unit(1, "cm"),
+        legend.key.width = unit(2, "cm"))
 
 # Make the graph
-lin.net <- ggraph(SPgraph, layout="linear") +
-  geom_edge_arc(edge_colour="black", edge_alpha=0.4, edge_width=0.3,
-                fold=F, strength=1) +
-  geom_node_point(aes(size=igraph::degree(SPgraph)), col='red',
-                  alpha=0.5) +
-  scale_size_continuous(range=c(4,8)) +
+lin_net <- ggraph(spgraph, layout = "linear") +
+  geom_edge_arc(edge_colour = "black", edge_alpha = 0.4, edge_width = 0.3,
+                fold = FALSE, strength = 1) +
+  geom_node_point(aes(size = igraph::degree(spgraph)), col = "red",
+                  alpha = 0.5) +
+  scale_size_continuous(range = c(4, 8)) +
   theme_graph() +
-  theme(legend.title=element_blank(),
-        plot.margin=unit(c(0,0,0.4,0), "null"),
-        panel.spacing=unit(c(0,0,3.4,0), "null")) +
+  theme(legend.title = element_blank(),
+        plot.margin = unit(c(0, 0, 0.4, 0), "null"),
+        panel.spacing = unit(c(0, 0, 3.4, 0), "null")) +
   annotate("text", x = 3, y = 3, label = "AD 1250-1300",
-           size=4) +
+           size = 4) +
   annotate("text", x = 3, y = -3, label = "AD 1300-1350",
-           size=4)
+           size = 4)
 
-similt.net
+similt_net
 ```
 
-<img src="05-visualization_files/figure-html/unnamed-chunk-19-1.png" width="672" />
+<img src="05-visualization_files/figure-html/unnamed-chunk-18-1.png" width="672" />
 
 ```r
 
-lin.net
+lin_net
 ```
 
-<img src="05-visualization_files/figure-html/unnamed-chunk-19-2.png" width="672" />
+<img src="05-visualization_files/figure-html/unnamed-chunk-18-2.png" width="672" />
 
 ### Figure 6:23: Timelines and Time Prisms {- #Figure_6_23}
 
@@ -2372,7 +2379,7 @@ load("data/Figure6_23.Rdata")
 
 # create networkDynamic object from list containing multiple
 # sna network objects
-SanPedro <- networkDynamic(network.list = SP_nets)
+sanpedro <- networkDynamic(network.list = sp_nets)
 #> Neither start or onsets specified, assuming start=0
 #> Onsets and termini not specified, assuming each network in network.list should have a discrete spell of length 1
 #> Argument base.net not specified, using first element of network.list instead
@@ -2385,7 +2392,7 @@ SanPedro <- networkDynamic(network.list = SP_nets)
 #>   Suggested time increment: 1
 
 # Compute animation
-compute.animation(SanPedro, default.dist = 7, animation.mode = 'MDSJ')
+compute.animation(sanpedro, default.dist = 7, animation.mode = "MDSJ")
 #> slice parameters:
 #>   start:0
 #>   end:5
@@ -2406,27 +2413,27 @@ compute.animation(SanPedro, default.dist = 7, animation.mode = 'MDSJ')
 
 # Define colors for regions
 mycol <- c(
-  add.alpha('#1b9e77', 0.75),
-  add.alpha('#d95f02', 0.75),
-  add.alpha('#7570b3', 0.75),
-  add.alpha('#e7298a', 0.75),
-  add.alpha('#66a61e', 0.75),
-  add.alpha('#e6ab02', 0.75)
+  add.alpha("#1b9e77", 0.75),
+  add.alpha("#d95f02", 0.75),
+  add.alpha("#7570b3", 0.75),
+  add.alpha("#e7298a", 0.75),
+  add.alpha("#66a61e", 0.75),
+  add.alpha("#e6ab02", 0.75)
 )
 
 # Plot time prism
 set.seed(364467)
 timePrism(
-  SanPedro,
+  sanpedro,
   at = c(1, 2, 3),
-  displaylabels = F,
+  displaylabels = FALSE,
   planes = TRUE,
-  display.isolates = F,
+  display.isolates = FALSE,
   label.cex = 0.5,
-  usearrows = F,
+  usearrows = FALSE,
   vertex.cex = 0.5,
-  edge.col = 'gray50',
-  vertex.col = mycol[factor(SP_attr$SWSN_MacroGroup)]
+  edge.col = "gray50",
+  vertex.col = mycol[factor(sp_attr$SWSN_MacroGroup)]
 )
 ```
 
@@ -2437,15 +2444,15 @@ timePrism(
 # Plot proximity timeline
 set.seed(235254)
 proximity.timeline(
-  SanPedro,
+  sanpedro,
   default.dist = 10,
-  mode = 'sammon',
+  mode = "sammon",
   labels.at = 17,
   vertex.cex = 4,
-  render.edges = F,
-  vertex.col = mycol[factor(SP_attr$SWSN_MacroGroup)],
-  chain.direction = 'reverse',
-  xaxt = 'n'
+  render.edges = FALSE,
+  vertex.col = mycol[factor(sp_attr$SWSN_MacroGroup)],
+  chain.direction = "reverse",
+  xaxt = "n"
 )
 ```
 
@@ -2459,12 +2466,12 @@ Figure 6.24 was created using the `ndtv` package and the same data produced abov
 
 
 ```r
-render.d3movie(SanPedro, vertex.col = mycol[factor(SP_attr$SWSN_MacroGroup)])
+render.d3movie(sanpedro, vertex.col = mycol[factor(sp_attr$SWSN_MacroGroup)])
 ```
 
 
 ```r
-render.d3movie(SanPedro, vertex.col = mycol[factor(SP_attr$SWSN_MacroGroup)],
+render.d3movie(sanpedro, vertex.col = mycol[factor(sp_attr$SWSN_MacroGroup)],
                output.mode = "inline")
 ```
 
@@ -11156,28 +11163,28 @@ graph_d3 <- igraph_to_networkD3(graph, group = members)
 
 # Modify interactive network to allow highlighting by groups, etc.
 links <- graph_d3$links
-colnames(links) <- c('from', 'to')
+colnames(links) <- c("from", "to")
 links[, 1] <- links[, 1] + 1
 links[, 2] <- links[, 2] + 1
 nodes <- graph_d3$nodes
-colnames(nodes)[1] <- 'id'
+colnames(nodes)[1] <- "id"
 
 # Create node and link objects in d3 format
-vis.nodes <- nodes
-vis.links <- links
+vis_nodes <- nodes
+vis_links <- links
 
 # Set visualization options
-vis.nodes$shape  <- "dot"
-vis.nodes$shadow <- TRUE # Nodes will drop shadow
-vis.nodes$borderWidth <- 2 # Node border width
-vis.nodes$color.background <- c("slategrey", "tomato", "gold",
+vis_nodes$shape  <- "dot"
+vis_nodes$shadow <- TRUE # Nodes will drop shadow
+vis_nodes$borderWidth <- 2 # Node border width
+vis_nodes$color.background <- c("slategrey", "tomato", "gold",
                                 "purple")[nodes$group]
-vis.nodes$color.border <- "black"
-vis.nodes$color.highlight.background <- "orange"
-vis.nodes$color.highlight.border <- "darkred"
+vis_nodes$color.border <- "black"
+vis_nodes$color.highlight.background <- "orange"
+vis_nodes$color.highlight.border <- "darkred"
 
 # Create network in d3 format
-visnet <- visNetwork(vis.nodes, vis.links)
+visnet <- visNetwork(vis_nodes, vis_links)
 
 # View network with visualization options active
 visOptions(visnet, highlightNearest = TRUE, selectedBy = "group")
@@ -11206,12 +11213,12 @@ load("data/Figure6_26.Rdata")
 
 # Create sna network object
 net <-
-  network(event2dichot(sim, method = "absolute", thresh = 0.75), 
-          directed = F)
+  network(event2dichot(sim, method = "absolute", thresh = 0.75),
+          directed = FALSE)
 
-# define color scheme. colors listed in order based on the 
+# define color scheme. colors listed in order based on the
 # factor attr$Macro
-myCols <- c("#000738", "#ffa1a1", "#ad71d8", "#016d1b", "#00ff30",
+mycols <- c("#000738", "#ffa1a1", "#ad71d8", "#016d1b", "#00ff30",
             "#92d8ff", "#ffffff", "#adadad", "#846b00", "#ff0000",
             "#5273dd", "#946a43", "#a00000", "#f97c00", "#00ffec",
             "#ffff3e", "#824444", "#00ba89", "#00ba89", "#0303ff")
@@ -11222,13 +11229,13 @@ ggraph(net, layout = "fr") +
   geom_edge_link(alpha = 0.5) +
   geom_node_point(aes(fill = as.factor(attr$Macro), size = evcent(net)),
                   shape = 21,
-                  show.legend = F) +
+                  show.legend = FALSE) +
   scale_size(range = c(1.5, 3)) +
-  scale_fill_manual(values = myCols) +
+  scale_fill_manual(values = mycols) +
   theme_graph()
 ```
 
-<img src="05-visualization_files/figure-html/unnamed-chunk-21-1.png" width="672" />
+<img src="05-visualization_files/figure-html/unnamed-chunk-20-1.png" width="672" />
 
 ### Figure 6.27: SWSN Example 2{- #Figure_6_27}
 
@@ -11262,9 +11269,9 @@ library(tidyverse)
 load("data/Figure6_27.Rdata")
 
 # prepare network object
-net <- network(event2dichot(sim, method = 'absolute', thresh = 0.75),
-               directed = F)
-r.net <- asIgraph(net)
+net <- network(event2dichot(sim, method = "absolute", thresh = 0.75),
+               directed = FALSE)
+r_net <- asIgraph(net)
 
 # convert coordinates to lat/long and covert to sf object
 locations_sf <- st_as_sf(attr,
@@ -11272,37 +11279,39 @@ locations_sf <- st_as_sf(attr,
                          crs = 26912)
 z <- st_transform(locations_sf, crs = 4326)
 coord1 <- do.call(rbind, st_geometry(z)) %>%
-  tibble::as_tibble() %>% setNames(c("lon", "lat"))
+  tibble::as_tibble() %>%
+  setNames(c("lon", "lat"))
 
 # output coordinates in dataframe
 xy <- as.data.frame(coord1)
-colnames(xy) <- c('x', 'y')
+colnames(xy) <- c("x", "y")
 
 # Create edgelist with xy coordinates for each source and target
-edgelist2 <- get.edgelist(r.net)
+edgelist2 <- get.edgelist(r_net)
 edges2 <- data.frame(xy[edgelist2[, 1], ], xy[edgelist2[, 2], ])
 colnames(edges2) <- c("X1", "Y1", "X2", "Y2")
 
 # Determine the geographic distances of edges using the distm
 # function in the geosphere package
-dist.meas <- NULL
-for (i in 1:nrow(edges2)) {
+dist_meas <- NULL
+for (i in seq_len(nrow(edges2))) {
   temp <- as.matrix(edges2[i, ])
-  dist.meas[i] <- distm(temp[1, 1:2],temp[1, 3:4])
+  dist_meas[i] <- distm(temp[1, 1:2], temp[1, 3:4])
 }
 
 # Order edges so shorest will plot last
-net.dat <- as.data.frame(cbind(edges2, dist.meas))
-net.dat <- net.dat[order(net.dat$dist.meas, decreasing = T), ]
+net_dat <- as.data.frame(cbind(edges2, dist_meas))
+net_dat <- net_dat[order(net_dat$dist_meas, decreasing = T), ]
 
 # Create bins in distance measurement
-net.dat <- net.dat %>% mutate(
-    DistBins = cut(dist.meas, breaks = c(-Inf, 25000, 100000, 250000, Inf)))
+net_dat <- net_dat %>%
+  mutate(DistBins = cut(dist_meas,
+                        breaks = c(-Inf, 25000, 100000, 250000, Inf)))
 
 # Plot network map
 ggmap(base2, darken = 0.5) +
   geom_segment(
-    data = net.dat,
+    data = net_dat,
     aes(
       x = X1,
       y = Y1,
@@ -11311,7 +11320,7 @@ ggmap(base2, darken = 0.5) +
       col = DistBins
     ),
     size = 0.15,
-    show.legend = F
+    show.legend = FALSE
   ) +
   scale_color_manual(values = c("white", "skyblue", "dodgerblue",
                                 "darkblue")) +

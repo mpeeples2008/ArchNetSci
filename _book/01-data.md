@@ -111,9 +111,9 @@ For this example we will read in the `Cibola_edgelist.csv` file and define an ob
 
 ```r
 # read in data with first row representing column names (header=TRUE)
-EL1 <- read.csv(file = "data/Cibola_edgelist.csv", header = TRUE)
+el1 <- read.csv(file = "data/Cibola_edgelist.csv", header = TRUE)
 # look at the first few rows
-head(EL1)
+head(el1)
 #>           FROM                   TO
 #> 1 Apache Creek         Casa Malpais
 #> 2 Apache Creek         Coyote Creek
@@ -167,10 +167,10 @@ No matter how you plan on working with these documents, you should install the p
 
 
 ```r
-packages <- c("igraph", "statnet", "intergraph", "ggraph", 
+packages <- c("igraph", "statnet", "intergraph", "ggraph",
               "reshape2", "ggmap", "vegan", "sf", "tidyverse")
 
-install.packages(setdiff(packages, rownames(installed.packages())))  
+install.packages(setdiff(packages, rownames(installed.packages())))
 ```
 
 If you have plenty of disk space and time and don't wont to worry about installing packages piecemeal, you can install everything at the same time using the code below. Note that there are a large number of packages and dependencies here and many are only used in one or two places in this Online Companion. Most of the packages are used in the [Network Visualization](#Visualization) section. We generally recommend that you install packages as you need them while you work through this document but you do you. 
@@ -179,19 +179,19 @@ If you choose to install everything, however, you can simply run the chunk of co
 
 
 ```r
-packages <- c( "ape", "devtools", "igraph", "statnet", "intergraph",
-  "tnet", "ggplot2", "rjson", "d3r","cccd", "networkD3","visNetwork",
-  "GISTools", "rgeos","maptools", "sf", "igraphdata", "ggrepel",
-  "ggsn", "tidyverse","superheat","ggplotify","ggforce", "colorspace",
+packages <- c("ape", "devtools", "igraph", "statnet", "intergraph",
+  "tnet", "ggplot2", "rjson", "d3r", "cccd", "networkD3", "visNetwork",
+  "GISTools", "rgeos", "maptools", "sf", "igraphdata", "ggrepel",
+  "ggsn", "tidyverse", "superheat", "ggplotify", "ggforce", "colorspace",
   "ggmap", "dplyr", "ggpubr", "ggraph", "reshape2", "multinet",
   "RColorBrewer", "Rcpp", "deldir", "vegan", "geosphere", "networkDynamic",
   "scatterplot3d", "patchwork", "concaveman", "latticeExtra")
 
-install.packages(setdiff(packages, rownames(installed.packages())))  
+install.packages(setdiff(packages, rownames(installed.packages())))
 
 devtools::install_github("liamgilbey/ggwaffle")
 
-if(!requireNamespace("BiocManager", quietly = TRUE))
+if (!requireNamespace("BiocManager", quietly = TRUE))
   install.packages("BiocManager")
 BiocManager::install("RBGL")
 ```

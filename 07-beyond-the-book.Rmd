@@ -94,7 +94,7 @@ This network is an undirected, unweighted network object with 32 nodes and 46 ed
 ```{r}
 sna::gden(cranborne) # density
 mean(sna::degree(cranborne)) # mean degree
-sna::centralization(cranborne, g=1, degree) # degree centralization
+sna::centralization(cranborne, g = 1, degree) # degree centralization
 length(sna::isolates(cranborne)) # numbe of isolates
 ```
 
@@ -104,15 +104,15 @@ Let's plot it with nodes scaled by degree:
 
 ```{r}
 set.seed(4367)
-plot(cranborne, vertex.cex = (sna::degree(cranborne)/4)+1)
+plot(cranborne, vertex.cex = (sna::degree(cranborne) / 4) + 1)
 ```
 
 This network has 3 components and a few isolates. In general many of the nodes have similar degree centrality values but there are a few nodes which appear to have higher degree. We can look at a histogram of degree centrality to further assess the distribution.
 
 ```{r}
 hist(sna::degree(cranborne),
-     main="Degree Distribution",
-     xlab="Degree Centrality")
+     main = "Degree Distribution",
+     xlab = "Degree Centrality")
 ```
 
 ### Fitting Models with `ergm`{#FitModels}
@@ -186,7 +186,7 @@ Let's fit the model and look at the summary. Note when you run this on your own 
 ```{r, warning=F, message=F, cache=T}
 mod1 <- ergm(
   cranborne ~ edges + triangle + threetrail +
-    altkstar(lambda = 2, fixed = T),
+    altkstar(lambda = 2, fixed = TRUE),
   control = control.ergm(
     MCMC.burnin = 1000,
     MCMC.interval = 10000,
@@ -206,7 +206,7 @@ Let's run the second model and look at the results:
 ```{r, warning=F, message=F, cache=T}
 mod2 <- ergm(
   cranborne ~ edges + triangle + threetrail +
-    altkstar(2, fixed = T) + isolates,
+    altkstar(2, fixed = TRUE) + isolates,
   control = control.ergm(
     MCMC.burnin = 1000,
     MCMC.interval = 10000,
@@ -239,13 +239,13 @@ The summary output for each model shows the observed feature value for a given t
 It is also instructive to compare the properties of our randomly generated networks under each model to the observed network for properties that weren't directly included in our model. The `gof` function can be plotted directly to provide this information. Let's look at the four plots provided for both models:
 
 ```{r, fig.height=7, fig.width=7}
-par(mfrow=c(2,2))
+par(mfrow = c(2, 2))
 plot(mod1_gof)
 plot(mod2_gof)
 ```
 
 ```{r, echo=F}
-par(mfrow=c(1,1))
+par(mfrow = c(1, 1))
 ```
 
 In each of these plots the solid black line represents the values for a given property in our observed network and the boxplots represent the distribution of values obtained in our randomly generated networks. As both plots show the median model statistics are quite similar to the observed in both models. In general we want to see the observed values to fall within the densest portion of the values for our randomly generated networks (i.e., near the middle of the boxplots and certainly within the range). In our example here, both the observed degree distribution and edge-wise shared partners (the number of nodes with a specific number of partners) are quite similar to the simulated range of values. Importantly, we did not include terms for degree or edge-wise shared partners in our model but it still generated networks that closely match our observed in terms of these properties. This is evidence of a good fit. For minimum geodesic distance (length of shortest paths) however, we see that both models consistently over-estimated the geodesic distance for nodes for middling values. Overall, this suggests a fairly good (but not perfect) match between our simulated and observed network properties despite these properties not be directly included in our models. Importantly, our interpretation of our network doesn't hinge on geodesic distance so this mismatch is not a huge problem. No model is perfect but these results suggest that that model we tested here at least approximates the features of our observed network most relevant to our theoretical model.
@@ -315,12 +315,12 @@ load("data/Cibola_n.RData")
 # Cibola_attr - attribute data frame
 
 # add node attribute based on region
-Cibola_n %v% "region" <- Cibola_attr$Region
+cibola_n %v% "region" <- cibola_attr$Region
 # add node attribute based on public architecture
-Cibola_n %v% "pubarch" <- Cibola_attr$Great.Kiva
+cibola_n %v% "pubarch" <- cibola_attr$Great.Kiva
 
 # matrix of distances among settlements
-d_mat <- as.matrix(dist(Cibola_attr[, 2:3]))
+d_mat <- as.matrix(dist(cibola_attr[, 2:3]))
 ```
 
 In many cases we want to use attributes of nodes or edges as predictors in our ERGMs rather than simply network structures. This can be done a few different ways but in the example below we use the `nodematch` term which calculates a coefficient for nodes that share values for a given attribute. We can also set an additional argument in `nodematch` which specifies coefficient for each unique value in the node attribute (`diff = TRUE`). Finally, we use a matrix of geographic distances of edges as a `edgecov` (edge covariate) term. This term expects a square matrix of `n x n` for where `n` is the number of nodes in the network and helps us assess the degree to which the distance between settlemetns is predictive of the presence or absence of an edge.
@@ -328,10 +328,10 @@ In many cases we want to use attributes of nodes or edges as predictors in our E
 Let's take a look at an example using all three of these terms:
 
 ```{r, warning=F, message=F}
-mod_Cibola <- ergm(Cibola_n ~ edges + nodematch("region") +
-                     nodematch("pubarch", diff = T) +
+mod_cibola <- ergm(cibola_n ~ edges + nodematch("region") +
+                     nodematch("pubarch", diff = TRUE) +
                      edgecov(d_mat))
-summary(mod_Cibola)
+summary(mod_cibola)
 ```
 
 This creates output just like our example above and this gives you a sense of how categorical and covariate ERGM terms work. In this example we have a positive coefficient for `edges` suggesting that there more edges are active than are not. Further, we have a positive coefficient for `nodematch.region` indicating that there are more edges between pairs of sites in the same region than would be expected by chance. If we skip down to `edgecov.d_mat` we can see the impact of distance on edges. We have a negative coefficient (which is very close to zero: `-2.323e-05`)which suggests that there are slight more longer distance connections than shorter ones in this network (because although there is a tendency for connections within regions there are also many connections between regions). Finally, we have the `nodematch.pubarch` variables for each value in `pubarch`. The only term that is statistically significant here is `nodematch.pubarch.none` which is negative suggesting that sites without public architecture have fewer connections than we would expect by chance.
@@ -359,7 +359,7 @@ What then, can we do in the place of including terms that cause model degeneracy
 Let's try our model again substituting the `gwesp` term in the place of `triangle`.
 
 ```{r, message=F, warning=F}
-mod_win <- ergm(cranborne ~ edges + gwesp(0.25, fixed = T),
+mod_win <- ergm(cranborne ~ edges + gwesp(0.25, fixed = TRUE),
                 control = control.ergm(seed = 2362))
 summary(mod_win)
 ```
@@ -369,8 +369,8 @@ So the model converges and we get `gwesp` as a statistically significant predict
 ```{r, warning=F, message=F}
 mod_win2 <-
   ergm(
-    cranborne ~ edges + gwesp(0.25, fixed = T) + threetrail +
-      altkstar(2, fixed = T) + isolates,
+    cranborne ~ edges + gwesp(0.25, fixed = TRUE) + threetrail +
+      altkstar(2, fixed = TRUE) + isolates,
     control = control.ergm(seed = 1346)
   )
 summary(mod_win2)

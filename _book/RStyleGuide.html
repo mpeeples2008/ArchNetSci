@@ -4,18 +4,18 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>References and R Packages | Online Companion to Archaeological Network Science</title>
+<title>R Style Guide | Online Companion to Archaeological Network Science</title>
 <meta name="author" content="Matthew A. Peeples and Tom Brughmans">
-<meta name="description" content="Allaire, J. J., Christopher Gandrud, Kenton Russell, and CJ Yetman. 2017. networkD3: D3 JavaScript Network Graphs from r. https://CRAN.R-project.org/package=networkD3.  Almende B.V., Benoit...">
+<meta name="description" content="In order to make the code in this book as clear, precise, and easy to read as possible, we have created a “Style Guide” for code based in part on the tidyverse R style guide and Google’s R style...">
 <meta name="generator" content="bookdown 0.26 with bs4_book()">
-<meta property="og:title" content="References and R Packages | Online Companion to Archaeological Network Science">
+<meta property="og:title" content="R Style Guide | Online Companion to Archaeological Network Science">
 <meta property="og:type" content="book">
-<meta property="og:url" content="https://book.archnetworks.net/references-and-r-packages-1.html">
+<meta property="og:url" content="https://book.archnetworks.net/RStyleGuide.html">
 <meta property="og:image" content="https://book.archnetworks.net/images/cover.png">
-<meta property="og:description" content="Allaire, J. J., Christopher Gandrud, Kenton Russell, and CJ Yetman. 2017. networkD3: D3 JavaScript Network Graphs from r. https://CRAN.R-project.org/package=networkD3.  Almende B.V., Benoit...">
+<meta property="og:description" content="In order to make the code in this book as clear, precise, and easy to read as possible, we have created a “Style Guide” for code based in part on the tidyverse R style guide and Google’s R style...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="References and R Packages | Online Companion to Archaeological Network Science">
-<meta name="twitter:description" content="Allaire, J. J., Christopher Gandrud, Kenton Russell, and CJ Yetman. 2017. networkD3: D3 JavaScript Network Graphs from r. https://CRAN.R-project.org/package=networkD3.  Almende B.V., Benoit...">
+<meta name="twitter:title" content="R Style Guide | Online Companion to Archaeological Network Science">
+<meta name="twitter:description" content="In order to make the code in this book as clear, precise, and easy to read as possible, we have created a “Style Guide” for code based in part on the tidyverse R style guide and Google’s R style...">
 <meta name="twitter:image" content="https://book.archnetworks.net/images/cover.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
@@ -68,28 +68,199 @@
 </form>
 
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
-        <ul class="book-toc list-unstyled">
-<li><a class="" href="index.html">Welcome</a></li>
-<li><a class="" href="GettingStarted.html">Gettings Started with R</a></li>
-<li><a class="" href="DataAndWorkspace.html"><span class="header-section-number">1</span> Data and Workspace Setup</a></li>
-<li><a class="" href="NetworkData.html"><span class="header-section-number">2</span> Network Data in R</a></li>
-<li><a class="" href="Exploratory.html"><span class="header-section-number">3</span> Exploratory Network Analysis</a></li>
-<li><a class="" href="Uncertainty.html"><span class="header-section-number">4</span> Quantifying Uncertainty</a></li>
-<li><a class="" href="Visualization.html"><span class="header-section-number">5</span> Network Visualization</a></li>
-<li><a class="" href="SpatialNetworks.html"><span class="header-section-number">6</span> Spatial Networks</a></li>
-<li><a class="" href="BeyondTheBook.html"><span class="header-section-number">7</span> Going Beyond the Book</a></li>
-<li><a class="" href="TableOfContents.html">Table of Contents Quick Reference</a></li>
-<li><a class="active" href="references-and-r-packages-1.html">References and R Packages</a></li>
-</ul>
+        <ul class="book-toc list-unstyled"><li><a class="" href="index.html">R Style Guide</a></li></ul>
 
         <div class="book-extra">
           <p><a id="book-repo" href="https://github.com/mpeeples2008/Archaeological_Network_Science">View book source <i class="fab fa-github"></i></a></p>
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="references-and-r-packages-1" class="section level1 unnumbered">
-<h1>References and R Packages<a class="anchor" aria-label="anchor" href="#references-and-r-packages-1"><i class="fas fa-link"></i></a>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="RStyleGuide" class="section level1 unnumbered">
+<h1>R Style Guide<a class="anchor" aria-label="anchor" href="#RStyleGuide"><i class="fas fa-link"></i></a>
 </h1>
+<p>In order to make the code in this book as clear, precise, and easy to read as possible, we have created a “Style Guide” for code based in part on the <a href="https://style.tidyverse.org/">tidyverse R style guide</a> and <a href="https://google.github.io/styleguide/Rguide.html">Google’s R style guide</a> with a few additional clarifications and modifications. We generally follow this style guide as closely as possible throughout the project with the exception of a few areas where we are explicitly demonstrating a feature or call that violates this.</p>
+<hr>
+<div id="naming-conventions" class="section level2 unnumbered">
+<h2>Naming Conventions<a class="anchor" aria-label="anchor" href="#naming-conventions"><i class="fas fa-link"></i></a>
+</h2>
+<div id="file-names" class="section level3 unnumbered">
+<h3>File names<a class="anchor" aria-label="anchor" href="#file-names"><i class="fas fa-link"></i></a>
+</h3>
+<p>Script file names should be concise, meaningful and end in <strong>.R</strong>.</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Good</span>
+ <span class="va">fit_models.R</span>
+ <span class="va">utility_functions.R</span>
+
+<span class="co"># Bad</span>
+ <span class="va">foo.r</span>
+ <span class="va">stuff.r</span></code></pre></div>
+</div>
+<div id="object-names" class="section level3 unnumbered">
+<h3>Object names<a class="anchor" aria-label="anchor" href="#object-names"><i class="fas fa-link"></i></a>
+</h3>
+<p>Object and function names should only include lowercase numbers and use underscore (_) to separate words (snake_case). Where possible, <strong>object</strong> names should be <strong>nouns</strong> and <strong>function</strong> names should be <strong>verbs</strong>. Keep object and function names as concise as possible while still remaining descriptive.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Good</span>
+<span class="va">day_one</span>
+<span class="va">day_1</span>
+
+<span class="co"># Bad</span>
+<span class="va">first_day_of_the_month</span>
+<span class="va">dayone</span></code></pre></div>
+</div>
+</div>
+<div id="syntax" class="section level2 unnumbered">
+<h2>Syntax<a class="anchor" aria-label="anchor" href="#syntax"><i class="fas fa-link"></i></a>
+</h2>
+<div id="spacing" class="section level3 unnumbered">
+<h3>Spacing<a class="anchor" aria-label="anchor" href="#spacing"><i class="fas fa-link"></i></a>
+</h3>
+<p>Place spaces around all infix operators (=, +, -, &lt;-, etc.). The same rule applies when using = in function calls. Always put a space after a comma, and never before (just like in regular English).</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Good</span>
+<span class="va">average</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">feet</span> <span class="op">/</span> <span class="fl">12</span> <span class="op">+</span> <span class="va">inches</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+
+<span class="co"># Bad</span>
+<span class="va">average</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">feet</span><span class="op">/</span><span class="fl">12</span><span class="op">+</span><span class="va">inches</span>,na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<p>There’s a small exception to this rule: :, :: and ::: don’t need spaces around them.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Good</span>
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>
+<span class="fu">base</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/r/base/get.html">get</a></span>
+
+<span class="co"># Bad</span>
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span> <span class="op">:</span> <span class="fl">10</span>
+<span class="fu">base</span> <span class="fu">::</span> <span class="va"><a href="https://rdrr.io/r/base/get.html">get</a></span></code></pre></div>
+<p>Place a space before left parentheses, except in a function call.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Good</span>
+<span class="kw">if</span> <span class="op">(</span><span class="va">debug</span><span class="op">)</span> <span class="fu">do</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>
+
+<span class="co"># Bad</span>
+<span class="kw">if</span><span class="op">(</span><span class="va">debug</span><span class="op">)</span><span class="fu">do</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span> <span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></code></pre></div>
+<p>Extra spacing (i.e., more than one space in a row) is ok if it improves alignment of equal signs or assignments (&lt;-).</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+  total <span class="op">=</span> <span class="va">a</span> <span class="op">+</span> <span class="va">b</span> <span class="op">+</span> <span class="va">c</span>, 
+  mean  <span class="op">=</span> <span class="op">(</span><span class="va">a</span> <span class="op">+</span> <span class="va">b</span> <span class="op">+</span> <span class="va">c</span><span class="op">)</span> <span class="op">/</span> <span class="va">n</span>
+<span class="op">)</span></code></pre></div>
+<p>Do not place spaces around code in parentheses or square brackets (unless there’s a comma, in which case see above).</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Good</span>
+<span class="kw">if</span> <span class="op">(</span><span class="va">debug</span><span class="op">)</span> <span class="fu">do</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+<span class="va">diamonds</span><span class="op">[</span><span class="fl">5</span>, <span class="op">]</span>
+
+<span class="co"># Bad</span>
+<span class="kw">if</span> <span class="op">(</span> <span class="va">debug</span> <span class="op">)</span> <span class="fu">do</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>  <span class="co"># No spaces around debug</span>
+<span class="va">x</span><span class="op">[</span><span class="fl">1</span>,<span class="op">]</span>   <span class="co"># Needs a space after the comma</span>
+<span class="va">x</span><span class="op">[</span><span class="fl">1</span> ,<span class="op">]</span>  <span class="co"># Space goes after comma not before</span></code></pre></div>
+<p>###Curly braces</p>
+<p>An opening curly brace should never go on its own line and should always be followed by a new line. A closing curly brace should always go on its own line, unless it’s followed by else.</p>
+<p>Always indent the code inside curly braces.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="RStyleGuide.html#cb8-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-2"><a href="RStyleGuide.html#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Good</span></span>
+<span id="cb8-3"><a href="RStyleGuide.html#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="RStyleGuide.html#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (y <span class="sc">&lt;</span> <span class="dv">0</span> <span class="sc">&amp;&amp;</span> debug) {</span>
+<span id="cb8-5"><a href="RStyleGuide.html#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">message</span>(<span class="st">"Y is negative"</span>)</span>
+<span id="cb8-6"><a href="RStyleGuide.html#cb8-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb8-7"><a href="RStyleGuide.html#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="RStyleGuide.html#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (y <span class="sc">==</span> <span class="dv">0</span>) {</span>
+<span id="cb8-9"><a href="RStyleGuide.html#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">log</span>(x)</span>
+<span id="cb8-10"><a href="RStyleGuide.html#cb8-10" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb8-11"><a href="RStyleGuide.html#cb8-11" aria-hidden="true" tabindex="-1"></a>  y <span class="sc">^</span> x</span>
+<span id="cb8-12"><a href="RStyleGuide.html#cb8-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb8-13"><a href="RStyleGuide.html#cb8-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-14"><a href="RStyleGuide.html#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Bad</span></span>
+<span id="cb8-15"><a href="RStyleGuide.html#cb8-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-16"><a href="RStyleGuide.html#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (y <span class="sc">&lt;</span> <span class="dv">0</span> <span class="sc">&amp;&amp;</span> debug)</span>
+<span id="cb8-17"><a href="RStyleGuide.html#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="fu">message</span>(<span class="st">"Y is negative"</span>)</span>
+<span id="cb8-18"><a href="RStyleGuide.html#cb8-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-19"><a href="RStyleGuide.html#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (y <span class="sc">==</span> <span class="dv">0</span>) {</span>
+<span id="cb8-20"><a href="RStyleGuide.html#cb8-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">log</span>(x)</span>
+<span id="cb8-21"><a href="RStyleGuide.html#cb8-21" aria-hidden="true" tabindex="-1"></a>} </span>
+<span id="cb8-22"><a href="RStyleGuide.html#cb8-22" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> {</span>
+<span id="cb8-23"><a href="RStyleGuide.html#cb8-23" aria-hidden="true" tabindex="-1"></a>  y <span class="sc">^</span> x</span>
+<span id="cb8-24"><a href="RStyleGuide.html#cb8-24" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>It’s ok to leave very short statements on the same line:</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="va">y</span> <span class="op">&lt;</span> <span class="fl">0</span> <span class="op">&amp;&amp;</span> <span class="va">debug</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/message.html">message</a></span><span class="op">(</span><span class="st">"Y is negative"</span><span class="op">)</span></code></pre></div>
+<p>###Line length</p>
+<p>Strive to limit your code to <strong>80 characters per line</strong>. This fits comfortably on a printed page with a reasonably sized font. If you find yourself running out of room, this is a good indication that you should encapsulate some of the work in a separate function.</p>
+<p>###Indentation</p>
+<p>When indenting your code, use <strong>two spaces</strong>. Never use tabs or mix tabs and spaces.</p>
+<p>The only exception is if a function definition runs over multiple lines. In that case, indent the second line to where the definition starts:</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
+<span class="va">long_function_name</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">a</span> <span class="op">=</span> <span class="st">"a long argument"</span>, 
+                               <span class="va">b</span> <span class="op">=</span> <span class="st">"another argument"</span>,
+                               <span class="va">c</span> <span class="op">=</span> <span class="st">"another long argument"</span><span class="op">)</span> <span class="op">{</span>
+  <span class="co"># As usual code is indented by two spaces.</span>
+<span class="op">}</span></code></pre></div>
+<p>###Assignment</p>
+<p>Use &lt;-, not =, for assignment.</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Good</span>
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">5</span>
+<span class="co"># Bad</span>
+<span class="va">x</span> <span class="op">=</span> <span class="fl">5</span></code></pre></div>
+<hr>
+<p>##Organisation
+***
+###Commenting guidelines</p>
+<p>Comment your code. Each line of a comment should begin with the comment symbol and a single space: #. <strong>Comments should explain the why, not the what</strong>. Short comments can be placed after code preceded by two spaces, #, and then one space.</p>
+<p>Use commented lines of - and = to break up your file into easily readable chunks.</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
+<span class="co"># Load data ---------------------------</span>
+
+<span class="co"># Plot data ---------------------------</span></code></pre></div>
+<p>###Function Definitions and Calls</p>
+<p>Function definitions should first list arguments without default values, followed by those with default values.</p>
+<p>In both function definitions and function calls, multiple arguments per line are allowed; line breaks are only allowed between assignments.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="RStyleGuide.html#cb13-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-2"><a href="RStyleGuide.html#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Good</span></span>
+<span id="cb13-3"><a href="RStyleGuide.html#cb13-3" aria-hidden="true" tabindex="-1"></a>PredictCTR <span class="ot">&lt;-</span> <span class="cf">function</span>(query, property, num.days,</span>
+<span id="cb13-4"><a href="RStyleGuide.html#cb13-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">show.plot =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb13-5"><a href="RStyleGuide.html#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Bad</span></span>
+<span id="cb13-6"><a href="RStyleGuide.html#cb13-6" aria-hidden="true" tabindex="-1"></a>PredictCTR <span class="ot">&lt;-</span> <span class="cf">function</span>(query, property, num.days, <span class="at">show.plot =</span></span>
+<span id="cb13-7"><a href="RStyleGuide.html#cb13-7" aria-hidden="true" tabindex="-1"></a>                       <span class="cn">TRUE</span>)</span></code></pre></div>
+<p>###Function Documentation</p>
+<p>Functions should contain a comments section immediately below the function definition line. These comments should consist of a one-sentence description of the function; a list of the function’s arguments, denoted by Args:, with a description of each (including the data type); and a description of the return value, denoted by Returns:. The comments should be descriptive enough that a caller can use the function without reading any of the function’s code.</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
+
+<span class="va">CalculateSampleCovariance</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">verbose</span> <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">{</span>
+  <span class="co"># Computes the sample covariance between two vectors.</span>
+  <span class="co">#</span>
+  <span class="co"># Args:</span>
+  <span class="co">#   x: One of two vectors whose sample covariance is to be calculated.</span>
+  <span class="co">#   y: The other vector. x and y must have the same length, greater than one,</span>
+  <span class="co">#      with no missing values.</span>
+  <span class="co">#   verbose: If TRUE, prints sample covariance; if not, not. Default is TRUE.</span>
+  <span class="co">#</span>
+  <span class="co"># Returns:</span>
+  <span class="co">#   The sample covariance between x and y.</span>
+  <span class="va">n</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+  <span class="co"># Error handling</span>
+  <span class="kw">if</span> <span class="op">(</span><span class="va">n</span> <span class="op">&lt;=</span> <span class="fl">1</span> <span class="op">||</span> <span class="va">n</span> <span class="op">!=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+    <span class="kw"><a href="https://rdrr.io/r/base/stop.html">stop</a></span><span class="op">(</span><span class="st">"Arguments x and y have different lengths: "</span>,
+         <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,
+         <span class="st">" and "</span>,
+         <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>,
+         <span class="st">"."</span><span class="op">)</span>
+  <span class="op">}</span>
+  <span class="kw">if</span> <span class="op">(</span><span class="cn">TRUE</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">||</span> <span class="cn">TRUE</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+    <span class="kw"><a href="https://rdrr.io/r/base/stop.html">stop</a></span><span class="op">(</span><span class="st">" Arguments x and y must not have missing values."</span><span class="op">)</span>
+  <span class="op">}</span>
+  <span class="va">covariance</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">var</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>
+  <span class="kw">if</span> <span class="op">(</span><span class="va">verbose</span><span class="op">)</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Covariance = "</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">covariance</span>, <span class="fl">4</span><span class="op">)</span>, <span class="st">".\n"</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span>
+  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">covariance</span><span class="op">)</span>
+<span class="op">}</span></code></pre></div>
+<p>Enjoy R!</p>
 
 <div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-R-networkD3" class="csl-entry">
@@ -474,17 +645,18 @@ Zeileis, Achim, Kurt Hornik, and Paul Murrell. 2009. <span>“Escaping <span>RGB
 </div>
 </div>
 </div>
+</div>
+</div>
   <div class="chapter-nav">
-<div class="prev"><a href="TableOfContents.html">Table of Contents Quick Reference</a></div>
+<div class="empty"></div>
 <div class="empty"></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
-      <ul class="nav navbar-nav"><li><a class="nav-link" href="#references-and-r-packages-1">References and R Packages</a></li></ul>
+      <div id="book-on-this-page"></div>
 
       <div class="book-extra">
         <ul class="list-unstyled">
-<li><a id="book-source" href="https://github.com/mpeeples2008/Archaeological_Network_Science/blob/master/09-references.Rmd">View source <i class="fab fa-github"></i></a></li>
-          <li><a id="book-edit" href="https://github.com/mpeeples2008/Archaeological_Network_Science/edit/master/09-references.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+          
         </ul>
 </div>
     </nav>
@@ -496,7 +668,7 @@ Zeileis, Achim, Kurt Hornik, and Paul Murrell. 2009. <span>“Escaping <span>RGB
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-06-02.</p>
+    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-06-01.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

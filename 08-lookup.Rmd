@@ -8,7 +8,7 @@ The purpose of this section is to provide a quick index of topics covered in thi
 
 * [How Should I Use this Online Companion?](#HowTo)
 * [Reproducibility](#Repro)
-* [Discord Community](#Discord)
+* [Computational Archaeology Discord Community](#Discord)
 * [New to R and R Studio?](#NewToR)
 * [Contribute to the Project](#Contributing)
 * [Help Build the Community](#Community)

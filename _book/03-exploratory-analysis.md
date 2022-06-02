@@ -30,53 +30,53 @@ library(intergraph)
 library(vegan)
 
 # read in csv data
-Cibola_edgelist <-
+cibola_edgelist <-
   read.csv(file = "data/Cibola_edgelist.csv", header = TRUE)
-Cibola_adj_mat <- read.csv(file = "data/Cibola_adj.csv",
+cibola_adj_mat <- read.csv(file = "data/Cibola_adj.csv",
                            header = T,
                            row.names = 1)
 
 # Simple network with isolates
 simple_net <-
-  igraph::graph_from_adjacency_matrix(as.matrix(Cibola_adj_mat),
+  igraph::graph_from_adjacency_matrix(as.matrix(cibola_adj_mat),
                                       mode = "undirected")
 
 # Simple network with no isolates
 simple_net_noiso <-
-  igraph::graph_from_edgelist(as.matrix(Cibola_edgelist),
+  igraph::graph_from_edgelist(as.matrix(cibola_edgelist),
                               directed = FALSE)
 
 #Create a directed network by subsampling edgelist
 set.seed(45325)
-EL2 <- Cibola_edgelist[sample(seq(1, nrow(Cibola_edgelist)), 125,
-                              replace = FALSE),]
+el2 <- cibola_edgelist[sample(seq(1, nrow(cibola_edgelist)), 125,
+                              replace = FALSE), ]
 
-directed_net <- igraph::graph_from_edgelist(as.matrix(EL2),
+directed_net <- igraph::graph_from_edgelist(as.matrix(el2),
                                             directed = TRUE)
 
 # Create a weighted undirected network by adding column of random
 # weights to edgelist
-Cibola_edgelist$Weight <- sample(seq(1, 4), nrow(Cibola_edgelist),
+cibola_edgelist$weight <- sample(seq(1, 4), nrow(cibola_edgelist),
                                  replace = TRUE)
 weighted_net <-
-  igraph::graph_from_edgelist(as.matrix(Cibola_edgelist[, 1:2]),
+  igraph::graph_from_edgelist(as.matrix(cibola_edgelist[, 1:2]),
                               directed = FALSE)
 
-E(weighted_net)$weight <- Cibola_edgelist$Weight
+E(weighted_net)$weight <- cibola_edgelist$weight
 
 # Create a similarity network using the Brainerd-Robinson metric
-Cibola_clust <-
+cibola_clust <-
   read.csv(file = "data/Cibola_clust.csv",
            header = TRUE,
            row.names = 1)
-clust_p <- prop.table(as.matrix(Cibola_clust), margin = 1)
+clust_p <- prop.table(as.matrix(cibola_clust), margin = 1)
 sim_mat <-
-  (2 - as.matrix(vegan::vegdist(clust_p, method = 'manhattan'))) / 2
+  (2 - as.matrix(vegan::vegdist(clust_p, method = "manhattan")) / 2)
 sim_net <- network(
   sim_mat,
   directed = FALSE,
   ignore.eval = FALSE,
-  names.eval = 'weight'
+  names.eval = "weight"
 )
 sim_net_i <- asIgraph(sim_net)
 ```
@@ -138,9 +138,9 @@ igraph::degree(directed_net, mode = "out")[1:5] # outdegree
 # not the network object
 (rowSums(sim_mat) - 1)[1:5]
 #> Apache Creek      Atsinna  Baca Pueblo Casa Malpais 
-#>     16.00848     15.87024     14.77997     17.30358 
+#>     47.00848     46.87024     45.77997     48.30358 
 #>      Cienega 
-#>     17.09394
+#>     48.09394
 
 # If you want to normalize your degree centrality metric by the
 # number of nodes present you can do that by adding the normalize=TRUE
@@ -242,7 +242,7 @@ The `igraph::eigen_centrality` function can be calculated for simple networks wi
 
 
 ```r
-eigen_centrality(simple_net, 
+eigen_centrality(simple_net,
    scale = TRUE)$vector[1:5]
 #> Apache.Creek      Atsinna  Baca.Pueblo Casa.Malpais 
 #>   0.46230981   0.54637071   0.07114132   0.53026366 
@@ -267,7 +267,7 @@ The `igraph::page_rank` function can be calculated for simple networks with and 
 
 
 ```r
-page_rank(directed_net, 
+page_rank(directed_net,
   directed = TRUE)$vector[1:5]
 #>    Coyote Creek Techado Springs   Hubble Corner 
 #>      0.01375364      0.03433734      0.02521968 
@@ -381,7 +381,7 @@ xy <-
     c(0.1, 0.1, 0.9, 0.1, 0.5, 0.45),
     nrow = 3,
     ncol = 2,
-    byrow = T
+    byrow = TRUE
   ))
 
 
@@ -401,10 +401,10 @@ for (i in 0:15) {
     ylim(0, 0.5) +
     geom_node_point(size = 6, col = "purple") +
     geom_edge_fan(
-      arrow = arrow(length = unit(4, 'mm'),
+      arrow = arrow(length = unit(4, "mm"),
                     type = "closed"),
-      end_cap = circle(6, 'mm'),
-      start_cap = circle(6, 'mm'),
+      end_cap = circle(6, "mm"),
+      start_cap = circle(6, "mm"),
       edge_colour = "black"
     ) +
     theme_graph(
@@ -481,7 +481,7 @@ If you want to identify particular shortest paths to or from nodes in a network 
 igraph::shortest_paths(simple_net, from = 1, to = 21)
 #> $vpath
 #> $vpath[[1]]
-#> + 5/31 vertices, named, from 69695a5:
+#> + 5/31 vertices, named, from 974413b:
 #> [1] Apache.Creek          Casa.Malpais         
 #> [3] Garcia.Ranch          Heshotauthla         
 #> [5] Pueblo.de.los.Muertos
@@ -510,7 +510,7 @@ igraph::diameter(directed_net, directed = TRUE)
 
 igraph::farthest_vertices(directed_net, directed = TRUE)
 #> $vertices
-#> + 2/30 vertices, named, from 696a638:
+#> + 2/30 vertices, named, from 974520a:
 #> [1] Apache Creek          Pueblo de los Muertos
 #> 
 #> $distance
@@ -548,9 +548,9 @@ components <- igraph::decompose(simple_net, min.vertices = 1)
 
 components
 #> [[1]]
-#> IGRAPH 6bf0afc UN-- 30 167 -- 
+#> IGRAPH 99b3aeb UN-- 30 167 -- 
 #> + attr: name (v/c)
-#> + edges from 6bf0afc (vertex names):
+#> + edges from 99b3aeb (vertex names):
 #>  [1] Apache.Creek--Casa.Malpais        
 #>  [2] Apache.Creek--Coyote.Creek        
 #>  [3] Apache.Creek--Hooper.Ranch        
@@ -562,9 +562,9 @@ components
 #> + ... omitted several edges
 #> 
 #> [[2]]
-#> IGRAPH 6bf0b2b UN-- 1 0 -- 
+#> IGRAPH 99b3b10 UN-- 1 0 -- 
 #> + attr: name (v/c)
-#> + edges from 6bf0b2b (vertex names):
+#> + edges from 99b3b10 (vertex names):
 
 V(components[[2]])$name
 #> [1] "WS.Ranch"
@@ -606,15 +606,15 @@ min_cut(simple_net_noiso, value.only = FALSE)
 #> [1] 1
 #> 
 #> $cut
-#> + 1/167 edge from 6969c49 (vertex names):
+#> + 1/167 edge from 97447d2 (vertex names):
 #> [1] Ojo Bonito--Baca Pueblo
 #> 
 #> $partition1
-#> + 1/30 vertex, named, from 6969c49:
+#> + 1/30 vertex, named, from 97447d2:
 #> [1] Baca Pueblo
 #> 
 #> $partition2
-#> + 29/30 vertices, named, from 6969c49:
+#> + 29/30 vertices, named, from 97447d2:
 #>  [1] Apache Creek          Casa Malpais         
 #>  [3] Coyote Creek          Hooper Ranch         
 #>  [5] Horse Camp Mill       Hubble Corner        
@@ -641,7 +641,7 @@ A clique as a network science concept is arguably the strictest method of defini
 
 ```r
 max_cliques(simple_net, min = 1)[[24]]
-#> + 9/31 vertices, named, from 69695a5:
+#> + 9/31 vertices, named, from 974413b:
 #> [1] Los.Gigantes    Cienega         Tinaja         
 #> [4] Spier.170       Scribe.S        Pescado.Cluster
 #> [7] Mirabal         Heshotauthla    Yellowhouse
@@ -683,9 +683,9 @@ Girvan-Newman clustering is a divisive algorithm based on betweenness that defin
 
 
 ```r
-GN <- igraph::edge.betweenness.community(simple_net)
+gn <- igraph::edge.betweenness.community(simple_net)
 set.seed(4353)
-plot(simple_net, vertex.color = GN$membership)
+plot(simple_net, vertex.color = gn$membership)
 ```
 
 <img src="03-exploratory-analysis_files/figure-html/unnamed-chunk-23-1.png" width="672" />
@@ -696,9 +696,9 @@ The walktrap algorithm is designed to work for either binary or weighted network
 
 
 ```r
-WT <- igraph::cluster_walktrap(simple_net, steps = 4)
+wt <- igraph::cluster_walktrap(simple_net, steps = 4)
 set.seed(4353)
-plot(simple_net, vertex.color = WT$membership)
+plot(simple_net, vertex.color = wt$membership)
 ```
 
 <img src="03-exploratory-analysis_files/figure-html/unnamed-chunk-24-1.png" width="672" />
@@ -709,9 +709,9 @@ Louvain modularity is a cluster detection algorithm based on modularity. The alg
 
 
 ```r
-LV <- igraph::cluster_louvain(simple_net)
+lv <- igraph::cluster_louvain(simple_net)
 set.seed(4353)
-plot(simple_net, vertex.color = LV$membership)
+plot(simple_net, vertex.color = lv$membership)
 ```
 
 <img src="03-exploratory-analysis_files/figure-html/unnamed-chunk-25-1.png" width="672" />
@@ -723,20 +723,20 @@ If you would like to compare modularity scores among partitions of the same grap
 
 ```r
 # Modularity for Girvan-Newman
-modularity(simple_net, membership = membership(GN))
+modularity(simple_net, membership = membership(gn))
 #> [1] 0.4103589
 
 # Modularity for walktrap
-modularity(simple_net, membership = membership(WT))
+modularity(simple_net, membership = membership(wt))
 #> [1] 0.4157195
 
 # Modularity for Louvain clustering
-modularity(simple_net, membership = membership(LV))
+modularity(simple_net, membership = membership(lv))
 #> [1] 0.4157195
 
 # Modularity for subregion
-Cibola_attr <- read.csv("data/Cibola_attr.csv")
-modularity(simple_net, membership = as.factor(Cibola_attr$Region))
+cibola_attr <- read.csv("data/Cibola_attr.csv")
+modularity(simple_net, membership = as.factor(cibola_attr$Region))
 #> [1] 0.1325612
 ```
 
@@ -748,7 +748,7 @@ In many cases you may be interested in identifying edges that remain within or e
 
 
 ```r
-igraph::crossing(LV, simple_net)[1:6]
+igraph::crossing(lv, simple_net)[1:6]
 #>         Apache.Creek|Casa.Malpais 
 #>                             FALSE 
 #>         Apache.Creek|Coyote.Creek 
@@ -768,7 +768,7 @@ Beyond this, if you plot an igraph object and add a cluster definition to the ca
 
 ```r
 set.seed(54)
-plot(LV, simple_net)
+plot(lv, simple_net)
 ```
 
 <img src="03-exploratory-analysis_files/figure-html/unnamed-chunk-28-1.png" width="672" />
@@ -849,8 +849,8 @@ library(igraph)
 
 net_stats <- function(net) {
   out <- matrix(NA, 10, 2)
-  out[,1] <- c("Nodes", "Edges", "Isolates", "Density", "Average Degree",
-               "Average Shortest Path", "Diamater", 
+  out[, 1] <- c("Nodes", "Edges", "Isolates", "Density", "Average Degree",
+               "Average Shortest Path", "Diamater",
                "Clustering Coefficient", "Closed Triad Count",
                "Open Triad Count")
   # number of nodes
@@ -858,7 +858,7 @@ net_stats <- function(net) {
   # number of edges
   out[2, 2] <- ecount(net)
   # number of isolates
-  out[3, 2] <- sum(igraph::degree(net)==0)
+  out[3, 2] <- sum(igraph::degree(net) == 0)
   # network density rounding to the third digit
   out[4, 2] <- round(edge_density(net), 3)
   # mean degree rounding to the third digit
@@ -868,11 +868,11 @@ net_stats <- function(net) {
   # network diameter
   out[7, 2] <- igraph::diameter(net)
   # average global transitivity rounding to the third digit
-  out[8, 2] <- round(igraph::transitivity(net, type = 'average'), 3)
+  out[8, 2] <- round(igraph::transitivity(net, type = "average"), 3)
   # closed triads in triad_census
   out[9, 2] <- igraph::triad_census(net)[16]
   # open triads in triad_census
-  out[10, 2] <- igraph::triad_census(net)[11] 
+  out[10, 2] <- igraph::triad_census(net)[11]
 return(out)
 }
 ```

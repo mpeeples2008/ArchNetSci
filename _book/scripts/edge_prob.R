@@ -24,13 +24,12 @@ edge_prob <- function(net, nsim = 1000, probs) {
 # Define function for assessing statistic of interest
 compile_stat <- function(net_list, met) {
   out <- matrix(NA, vcount(net_list[[1]]), length(net_list))
-  for (i in 1:length(net_list)) {
+  for (i in seq_len(length(net_list))) {
     # Select measure of interest based on met and calculate(same as above)
     if (met == "degree") {
       out[, i] <- igraph::degree(net_list[[i]])
     }
-    else
-    {
+    else  {
       if (met == "betweenness") {
         out[, i] <- igraph::betweenness(net_list[[i]])
       }

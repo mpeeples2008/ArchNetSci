@@ -6,7 +6,7 @@ sim_samp_error <- function(cer, nsim = 1000) {
     data_sim <-  NULL
     # the for-loop below creates a random multinomial replicate
     # of the ceramic data
-    for (j in 1:nrow(cer)) {
+    for (j in seq_len(nrow(cer))) {
       data_sim <-
         rbind(data_sim, t(rmultinom(1, rowSums(cer)[j], prob = cer[j, ])))
     }
@@ -14,8 +14,7 @@ sim_samp_error <- function(cer, nsim = 1000) {
     # calculate degree, and assess correlation
     temp_p <- prop.table(as.matrix(data_sim), margin = 1)
     sim_list[[i]] <- (2 - as.matrix(vegan::vegdist(temp_p,
-                                                   method = 'manhattan'))) /
-      2
+                                                   method = "manhattan")) / 2)
   }
   return(sim_list)
 }
@@ -25,7 +24,7 @@ sim_cor <- function(sim_nets, sim) {
   # change this line to use a different metric
   dg_orig <- rowSums(sim)
   dg_cor <- NULL
-  for (i in 1:length(sim_nets)) {
+  for (i in seq_len(length(sim_nets))) {
     # change this line to use a different metric
     dg_temp <- rowSums(sim_nets[[i]])
     dg_cor[i] <-

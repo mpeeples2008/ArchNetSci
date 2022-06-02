@@ -1,7 +1,7 @@
 ---
 title: "Online Companion to *Archaeological Network Science*"
 author: "Matthew A. Peeples and Tom Brughmans"
-date: "2022-06-01"
+date: "2022-06-02"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: references.bib
@@ -29,7 +29,7 @@ For more information on the book and the authors check the project website here:
 
 **Cite this document as:**
 
-> Peeples, Matthew A. and Tom Brughmans (2022). Online Companion to Archaeological Network Science by Brughmans and Peeples. <https://archnetworks.net>, Accessed 2022-06-01.
+> Peeples, Matthew A. and Tom Brughmans (2022). Online Companion to Archaeological Network Science by Brughmans and Peeples. <https://archnetworks.net>, Accessed 2022-06-02.
 
 **The associated book can be cited as**
 
@@ -92,7 +92,7 @@ The easiest way to reproduce this document is to launch the project directly in 
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/mpeeples2008/ArchNetSci/main)
 
-When you open Binder you will see a window with the logo and a spinning progress wheel. It will typically only take a minute or so to get up and running and then you will see the screen below. Click on the "R-Studio" link under "Notebook" and it will open a new window with an R-Studio instance that you can use just like you would on your own computer. If you click on the Binder link and it is taking a long time, click to "show" the build logs. If you are "lucky" enough to be the first to initialize Binder after a new build of the GitHub project it will take quite a bit longer to get started. Grab a coffee, tea, Dr. Pepper, or other beverage of choice as it will be approximately 20-25 minutes before R-Studio loads.
+When you open Binder you will see a window with the logo and a spinning progress wheel. It will typically only take a minute or so to get up and running and then you will see the screen below. Click on the "R-Studio" link under "Notebook" and it will open a new window with an R-Studio instance that you can use just like you would on your own computer. If you click on the Binder link and it is taking a long time, click to "show" the build logs. If you are "lucky" enough to be the first to initialize Binder after a new build of the GitHub project it will take quite a bit longer to get started. Grab a coffee, tea, Dr. Pepper, or other beverage of choice as it will be approximately 30-35 minutes before R-Studio loads.
 
 ![Binder Notebook Page](images/binder.jpg){width=100%}
 
@@ -132,7 +132,7 @@ If you already have a basic familiarity with R and want to go further, there are
 
 ## Contribute To the Project{- #Contributing}
 
-We welcome contributions to this project from the community and the GitHub platform helps us facilitate that. You will first need to [sign up for a GitHub account](https://github.com/) and log in. If you find something that needs updating or changing (typos or errors) you can simply click the "View source" link at the right sidebar on the relevant page and then click the edit icon found near the top of the code block and make your proposed changes. These changes will be saved in a new "fork" of the document and we will review these and implement them where relevant and happily add your name to our list of contributors.
+We welcome contributions to this project from the community and the GitHub platform helps us facilitate that. You will first need to [sign up for a GitHub account](https://github.com/) and log in. If you find something that needs updating or changing (typos or errors) you can simply click the "View source" link at the right sidebar on the relevant page and then click the edit icon found near the top of the code block and make your proposed changes. These changes will be saved in a new "fork" of the document and we will review these and implement them where relevant and happily add your name to our list of contributors. 
 
 If you detect a larger error such as code not running or if you would like to request a new feature or  update, you can create an issue using the [issue tracker](https://github.com/mpeeples2008/ArchNetSci/issues) page associated with the project repository.
 
@@ -224,10 +224,10 @@ First off, let's take a look at the R-Studio setup. When you first open R-Studio
 
 Organization of R-Studio Windows:
 
-* Workspace - The pane in the top left contains the Workspace tabs which is where you can write code and other documents prior to executing the code. 
-* Console - The pane at the bottom left is the console where you can type and run commands directly.
-* Environment/History - The pane at the upper right includes tabs for Environment (a list of objects and functions currently initialized) and History (a list of previous commands run at the console). 
-* Files/Plots/Packages - The lower right pane has tabs for Files (which shows files in the current directory), Plots (where plots created in the console will be displayed), Packages (a list of additional packages installed and initialized in R), and Help (where you can get information about particular functions and packages). 
+* **Workspace** - The pane in the top left contains the Workspace tabs which is where you can write code and other documents prior to executing the code. 
+* **Console** - The pane at the bottom left is the console where you can type and run commands directly.
+* **Environment/History** - The pane at the upper right includes tabs for Environment (a list of objects and functions currently initialized) and History (a list of previous commands run at the console). 
+* **Files/Plots/Packages** - The lower right pane has tabs for Files (which shows files in the current directory), Plots (where plots created in the console will be displayed), Packages (a list of additional packages installed and initialized in R), and Help (where you can get information about particular functions and packages). 
 
 Note that the locations and visibility of these panes can be changed by going to "View > Panes" and selecting different options. In the set of tutorials that follow we are going to focus on the Console first and will introduce the other panels and what they provide along the way.
 
@@ -237,11 +237,11 @@ Getting started with R is as simple as typing directly into the Console. You can
 
 
 ```r
-3+3
+3 + 3
 #> [1] 6
-4*10
+4 * 10
 #> [1] 40
-50/5
+50 / 5
 #> [1] 10
 ```
 
@@ -249,10 +249,10 @@ R uses `( )` for bracketing groups of operations. These can be nested to do more
 
 
 ```r
-((4*5+3)/2)*12
+((4 * 5 + 3) / 2) * 12
 #> [1] 138
 
-(((4*5))+3/2)*12
+(((4 * 5)) + 3 / 2) * 12
 #> [1] 258
 ```
 
@@ -262,7 +262,7 @@ R uses typical mathematical operators including `+ - * /` for addition, subtract
 ```r
 5^2
 #> [1] 25
-5^(2+1)
+5^ (2 + 1)
 #> [1] 125
 ```
 
@@ -299,13 +299,13 @@ Object names in R are case sensitive and cannot include spaces. Object names can
 
 When formatting object names there are a few common styles such as:
 
-* `snake_case_style` - see the little snakes (underscores) in the place of spaces
-* `CamalCaseStyle` - see the capitalized humps denoting each word
-* `kebab-case-style` - skewered right down the middle
+* **`snake_case_style`** - see the little snakes (underscores) in the place of spaces
+* **`CamalCaseStyle`** - see the capitalized humps denoting each word
+* **`kebab-case-style`** - skewered right down the middle
 
 In general any of these styles is fine, but we suggest you try to remain consistent. Also, avoid using `.` to separate words as that is used by particular R functions and calls in other ways and can cause confusion. 
 
-![Illustration by Allison Horst](images/case.jpg){width=100%}
+![Illustration by Allison Horst `@`allison_horst](images/case.jpg){width=100%}
 
 Many mathematical constants are built right into R so be sure not to overwrite any of these (or any other function) by giving an object the same name.
 
@@ -350,7 +350,7 @@ v > 20
 #> [1] TRUE
 v < 20
 #> [1] FALSE
-v*2 == 100
+v * 2 == 100
 #> [1] TRUE
 ```
 
@@ -371,8 +371,8 @@ R can also assign a vector of numbers or characters to a variable and preform op
 
 
 ```r
-z <- c(2,4,6,8,10,12)
-z/2
+z <- c(2, 4, 6, 8, 10, 12)
+z / 2
 #> [1] 1 2 3 4 5 6
 ```
 
@@ -384,7 +384,7 @@ z[3] # item 3 in object z
 #> [1] 6
 z[4:6] # items 4 through 6 in object z
 #> [1]  8 10 12
-z[c(3,2,1)] # items 3, 2, 1, in that order from object z
+z[c(3, 2, 1)] # items 3, 2, 1, in that order from object z
 #> [1] 6 4 2
 ```
 
@@ -392,7 +392,15 @@ We can also search vectors or other objects for specific values:
 
 
 ```r
-vec_obj <- c("Ohtani", "Wheeler", "Correa", "Semien", "Soto", "Guerrero Jr.", "Correa")
+vec_obj <-
+  c("Ohtani",
+    "Wheeler",
+    "Correa",
+    "Semien",
+    "Soto",
+    "Guerrero Jr.",
+    "Correa")
+
 vec_obj[vec_obj == "Correa"]
 #> [1] "Correa" "Correa"
 ```
@@ -442,7 +450,7 @@ R can be used to work with tabular data as well. Typically it is most convenient
 
 
 ```r
-dat <- c(3,4,2,20)
+dat <- c(3, 4, 2, 20)
 mat1 <- matrix(data = dat, nrow = 2, ncol = 2)
 mat1
 #>      [,1] [,2]
@@ -463,7 +471,7 @@ And let's zoom in to one piece in particular:
 
 ![byrow argument](images/byrow.jpg){width=100%}
 
-As we can see in the help materials for matrix, there is an additional argument we did not use called `byrow` which is set to `FALSE` by default. Let's change that to `TRUE` and check the results. Note that you can use capital `F` and `T` in the place of `FALSE` and `TRUE` in functions. Note also that our function call can span multiple rows and will automatically end when we close the parentheses. This multi-line formatting will be essential for making longer function calls readable.
+As we can see in the help materials for matrix, there is an additional argument we did not use called `byrow` which is set to `FALSE` by default. Let's change that to `TRUE` and check the results. Note that you can use capital `F` and `T` in the place of `FALSE` and `TRUE` in functions but it is generally good form to write it out in context where you are sharing your code. Note also that our function call can span multiple rows and will automatically end when we close the parentheses. This multi-line formatting will be essential for making longer function calls readable.
 
 
 ```r
@@ -471,7 +479,7 @@ mat2 <- matrix(
   data = dat,
   nrow = 2,
   ncol = 2,
-  byrow = T
+  byrow = TRUE
 )
 mat2
 #>      [,1] [,2]
@@ -525,8 +533,8 @@ char <- c("string1", "string2", "This too is a string")
 str(char)
 #>  chr [1:3] "string1" "string2" "This too is a string"
 
-TF <- c(TRUE, FALSE, FALSE, TRUE) # note the lack of " "
-str(TF)
+tf <- c(TRUE, FALSE, FALSE, TRUE) # note the lack of " "
+str(tf)
 #>  logi [1:4] TRUE FALSE FALSE TRUE
 
 fac <- as.factor(c("type1", "type2", "type2", "type3"))
@@ -725,7 +733,7 @@ Now we can use not just the base R functions, but also the functions within the 
 
 
 ```r
-vec1 <- c(1,6,2,7,45,3,6,2,4,6,7,2)
+vec1 <- c(1, 6, 2, 7, 45, 3, 6, 2, 4, 6, 7, 2)
 
 diversity(vec1, index = "shannon")
 #> [1] 1.831803
@@ -776,6 +784,7 @@ To write a csv file we use the `write.csv()` function. First we will create a si
 
 ```r
 vec2 <- c(4, 2, 65, 4, 2, 4, 6, 4, 2)
+
 # Notice in the matrix call below we don't enter 'nrow'
 # and other argument names as R automatically expects
 # them to occur in the order mentioned in the documentation
@@ -800,7 +809,10 @@ If you want to read this file back in, we can simply use the `read.csv()` functi
 
 
 ```r
-read_mat <- read.csv(file = "output_mat.csv", header = T, row.names = 1)
+read_mat <-
+  read.csv(file = "output_mat.csv",
+           header = T,
+           row.names = 1)
 read_mat
 #>        A B C
 #> row 1  4 4 6
@@ -851,14 +863,14 @@ ensure our code is reproducible.</p>
 
 ```r
 set.seed(465)
-# Create a random normal variable with 5000 entries and 
+# Create a random normal variable with 5000 entries and
 # a mean of 40 and standard deviation of 3
 x <- rnorm(5000, mean = 40, sd = 3)
-# Create a random normal variable with 5000 entries and 
+# Create a random normal variable with 5000 entries and
 # a mean of 5 and standard deviation of 0.5
 y <- rnorm(5000, mean = 5, sd = 0.5)
 # plot the results
-plot(x,y)
+plot(x, y)
 ```
 
 <img src="index_files/figure-html/unnamed-chunk-45-1.png" width="672" />
@@ -867,7 +879,7 @@ We can also easily create a histogram of a single variable with additional argum
 
 
 ```r
-hist(x, breaks=20) # breaks defines the number of bars
+hist(x, breaks = 20) # breaks defines the number of bars
 ```
 
 <img src="index_files/figure-html/unnamed-chunk-46-1.png" width="672" />
@@ -921,6 +933,7 @@ We will cover many examples and the [visualization section](#Visualization) of t
 
 
 ```r
+# Histogram example
 ggplot(data = df) +
   geom_histogram(aes(x = y), col = "blue", fill = "darkorchid4") +
   xlab("Numbers!!") +
@@ -932,6 +945,7 @@ ggplot(data = df) +
 
 ```r
 
+# Bined biplot example
 ggplot(data = df) +
   geom_bin2d(aes(x = x, y = y)) +
   scale_fill_continuous(type = "viridis") +
@@ -942,6 +956,7 @@ ggplot(data = df) +
 
 ```r
 
+# Create data frame for bar plot example
 df2 <- data.frame(d1 = rpois(50, lambda = 4),
                   gp = sample(size = 50, letters[1:4], replace = T))
 ggplot(data = df2) +
@@ -985,22 +1000,22 @@ Let's take a look at a worked example that will print output on the screen depen
 x <- 40
 
 if (x > 50) {
-  cat('Greater Than 50')
+  cat("Greater Than 50")
 } else {
-  cat('Less Than 50')
+  cat("Less Than 50")
 }
 #> Less Than 50
 
-if (x*2 > 50) {
-  cat('Greater Than 50')
+if (x * 2 > 50) {
+  cat("Greater Than 50")
 } else {
-  cat('Less Than 50')
+  cat("Less Than 50")
 }
 #> Greater Than 50
 
 if (x > 50) {
-  cat('Greater Than 50')
-} 
+  cat("Greater Than 50")
+}
 ```
 
 In the first example above, the evaluation of `x > 50` was `FALSE` so the statement in brackets after `else` was evaluated. In the second example, the evaluation of `x*2 >50` was `TRUE` so the first statement was evaluated. Finally, in the third example, `x > 50` was `FALSE` and since there is no `else` statement nothing happened. 
@@ -1060,7 +1075,7 @@ What this means is that for every value in a sequence of values, evaluate the ex
 ```r
 for (i in 1:5) { # for every value in the sequence from 1:5
   print(i * 2)
-  }
+}
 #> [1] 2
 #> [1] 4
 #> [1] 6
@@ -1072,7 +1087,7 @@ As this example helps illustrate, the `for (i in 1:5)` statement defines `i = 1`
 
 
 ```r
-val_seq <- c(5,1,8,4,1,5,7)
+val_seq <- c(5, 1, 8, 4, 1, 5, 7)
 
 for (m in val_seq) {
   print(m)
@@ -1091,7 +1106,6 @@ We can also assign the results of any expressions in the curly brackets to a new
 
 ```r
 # Compare these two chunks of code
-
 for (z in 1:10) {
   out <- z
 }
@@ -1129,15 +1143,15 @@ This format is a fairly simple example. Some functions can be quite complex, but
 
 
 ```r
-func1 <- function(x, y) {
+do_something <- function(x, y) {
   result <- (x * y) + (x - y)^2
   return(result)
 }
 
-func1(4, 5)
+do_something(4, 5)
 #> [1] 21
 
-func1(10, 5)
+do_something(10, 5)
 #> [1] 75
 ```
 
@@ -1147,7 +1161,7 @@ As this shows, any named argument in the function call can be used in the expres
 ```r
 myfunct <- function(x) {
   z <- NULL
-  for (i in 1:length(x)) {
+  for (i in seq_len(length(x))) {
     z[i] <- (x[i] * i) / 5
   }
   return(z)
@@ -1158,7 +1172,16 @@ myfunct(val_seq)
 #>  [1]  0.2  0.8  1.8  3.2  5.0  7.2  9.8 12.8 16.2 20.0
 ```
 
-Let's break down what is happening in the chunk of code above. First, we defined a function with one argument `x`. Inside the function expression we then initialized a new variable for the output called `z`. We then enter a for loop that iterates values of `i` for a sequence of numbers from 1 to the length of vector `x`. The value of `z` at position `i` is defined as the value of `x` at position `i` times `i` divided by `5`. Once this loop finishes, the function returns the vector `z` with the results. As this example shows, arguments need not be limited to single values and can include vectors, data.frames, matrices, lists, or any type of R object.
+Let's break down what is happening in the chunk of code above. First, we defined a function with one argument `x`. Inside the function expression we then initialized a new variable for the output called `z`. We then enter a for loop that iterates values of `i` for a sequence of numbers from 1 to the length of vector `x` using the `seq_len()` call.. The value of `z` at position `i` is defined as the value of `x` at position `i` times `i` divided by `5`. Once this loop finishes, the function returns the vector `z` with the results. As this example shows, arguments need not be limited to single values and can include vectors, data.frames, matrices, lists, or any type of R object.
+
+To clarify how the iterator works, the function `seq_len()` creates a sequence of numbers from 1 to the number indicated. When you are setting the number of runs of a loop based on the length of some other object it is good practice to use this function.
+
+
+```r
+seq_len(10)
+#>  [1]  1  2  3  4  5  6  7  8  9 10
+```
+
 
 ## Test Your Skills{- #TestYourSkills}
 
@@ -1168,7 +1191,7 @@ Hints: Remember that you can't use `F` as an object name because that is the des
 
 
 ```r
-F_temp <- c(44, 59, 59, 39, 50, 59, 35)
+f_temp <- c(44, 59, 59, 39, 50, 59, 35)
 ```
 
 Once you have a working function, the use the `round()` function to convert your results to integers (check `?round()` if you need hints on how to do that) and output these results into an object called `res`. Finally run the chunk of code below for a surprise:
@@ -1182,22 +1205,22 @@ We have provided the answer below but give this a try on your own first before p
 
 No peeking until you try!!
 
-![Artwork by Allison Horst](images/monster_support.jpg){width=100%}
+![Artwork by Allison Horst `@`allison_horst](images/monster_support.jpg){width=100%}
 
 Here is our solution below:
 
 
 ```r
-temp_func <- function(f) {
+convert_temp <- function(f) {
   results <- NULL
-  for (i in 1:length(f)) {
+  for (i in seq_len(length(f))) {
     results[i] <- ((f[i] - 32) * 5 / 9)
   }
   return(results)
 }
 
-F_temp <- c(44,59,59,39,50,59,35)
-out <- temp_func(F_temp)
+f_temp <- c(44, 59, 59, 39, 50, 59, 35)
+out <- convert_temp(f_temp)
 out
 #> [1]  6.666667 15.000000 15.000000  3.888889 10.000000
 #> [6] 15.000000  1.666667

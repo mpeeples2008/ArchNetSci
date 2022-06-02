@@ -130,7 +130,7 @@ sna::gden(cranborne) # density
 #> [1] 0.09274194
 mean(sna::degree(cranborne)) # mean degree
 #> [1] 5.75
-sna::centralization(cranborne, g=1, degree) # degree centralization
+sna::centralization(cranborne, g = 1, degree) # degree centralization
 #> [1] 0.1419355
 length(sna::isolates(cranborne)) # numbe of isolates
 #> [1] 3
@@ -143,7 +143,7 @@ Let's plot it with nodes scaled by degree:
 
 ```r
 set.seed(4367)
-plot(cranborne, vertex.cex = (sna::degree(cranborne)/4)+1)
+plot(cranborne, vertex.cex = (sna::degree(cranborne) / 4) + 1)
 ```
 
 <img src="07-beyond-the-book_files/figure-html/unnamed-chunk-6-1.png" width="672" />
@@ -153,8 +153,8 @@ This network has 3 components and a few isolates. In general many of the nodes h
 
 ```r
 hist(sna::degree(cranborne),
-     main="Degree Distribution",
-     xlab="Degree Centrality")
+     main = "Degree Distribution",
+     xlab = "Degree Centrality")
 ```
 
 <img src="07-beyond-the-book_files/figure-html/unnamed-chunk-7-1.png" width="672" />
@@ -268,7 +268,7 @@ Let's fit the model and look at the summary. Note when you run this on your own 
 ```r
 mod1 <- ergm(
   cranborne ~ edges + triangle + threetrail +
-    altkstar(lambda = 2, fixed = T),
+    altkstar(lambda = 2, fixed = TRUE),
   control = control.ergm(
     MCMC.burnin = 1000,
     MCMC.interval = 10000,
@@ -279,8 +279,8 @@ mod1 <- ergm(
 summary(mod1)
 #> Call:
 #> ergm(formula = cranborne ~ edges + triangle + threetrail + altkstar(lambda = 2, 
-#>     fixed = T), control = control.ergm(MCMC.burnin = 1000, MCMC.interval = 10000, 
-#>     MCMC.samplesize = 25000, seed = 34526))
+#>     fixed = TRUE), control = control.ergm(MCMC.burnin = 1000, 
+#>     MCMC.interval = 10000, MCMC.samplesize = 25000, seed = 34526))
 #> 
 #> Monte Carlo Maximum Likelihood Results:
 #> 
@@ -309,7 +309,7 @@ Let's run the second model and look at the results:
 ```r
 mod2 <- ergm(
   cranborne ~ edges + triangle + threetrail +
-    altkstar(2, fixed = T) + isolates,
+    altkstar(2, fixed = TRUE) + isolates,
   control = control.ergm(
     MCMC.burnin = 1000,
     MCMC.interval = 10000,
@@ -320,7 +320,7 @@ mod2 <- ergm(
 summary(mod2)
 #> Call:
 #> ergm(formula = cranborne ~ edges + triangle + threetrail + altkstar(2, 
-#>     fixed = T) + isolates, control = control.ergm(MCMC.burnin = 1000, 
+#>     fixed = TRUE) + isolates, control = control.ergm(MCMC.burnin = 1000, 
 #>     MCMC.interval = 10000, MCMC.samplesize = 25000, seed = 1346))
 #> 
 #> Monte Carlo Maximum Likelihood Results:
@@ -376,7 +376,7 @@ It is also instructive to compare the properties of our randomly generated netwo
 
 
 ```r
-par(mfrow=c(2,2))
+par(mfrow = c(2, 2))
 plot(mod1_gof)
 ```
 
@@ -568,12 +568,12 @@ load("data/Cibola_n.RData")
 # Cibola_attr - attribute data frame
 
 # add node attribute based on region
-Cibola_n %v% "region" <- Cibola_attr$Region
+cibola_n %v% "region" <- cibola_attr$Region
 # add node attribute based on public architecture
-Cibola_n %v% "pubarch" <- Cibola_attr$Great.Kiva
+cibola_n %v% "pubarch" <- cibola_attr$Great.Kiva
 
 # matrix of distances among settlements
-d_mat <- as.matrix(dist(Cibola_attr[, 2:3]))
+d_mat <- as.matrix(dist(cibola_attr[, 2:3]))
 ```
 
 In many cases we want to use attributes of nodes or edges as predictors in our ERGMs rather than simply network structures. This can be done a few different ways but in the example below we use the `nodematch` term which calculates a coefficient for nodes that share values for a given attribute. We can also set an additional argument in `nodematch` which specifies coefficient for each unique value in the node attribute (`diff = TRUE`). Finally, we use a matrix of geographic distances of edges as a `edgecov` (edge covariate) term. This term expects a square matrix of `n x n` for where `n` is the number of nodes in the network and helps us assess the degree to which the distance between settlemetns is predictive of the presence or absence of an edge.
@@ -582,13 +582,13 @@ Let's take a look at an example using all three of these terms:
 
 
 ```r
-mod_Cibola <- ergm(Cibola_n ~ edges + nodematch("region") +
-                     nodematch("pubarch", diff = T) +
+mod_cibola <- ergm(cibola_n ~ edges + nodematch("region") +
+                     nodematch("pubarch", diff = TRUE) +
                      edgecov(d_mat))
-summary(mod_Cibola)
+summary(mod_cibola)
 #> Call:
-#> ergm(formula = Cibola_n ~ edges + nodematch("region") + nodematch("pubarch", 
-#>     diff = T) + edgecov(d_mat))
+#> ergm(formula = cibola_n ~ edges + nodematch("region") + nodematch("pubarch", 
+#>     diff = TRUE) + edgecov(d_mat))
 #> 
 #> Maximum Likelihood Results:
 #> 
@@ -658,11 +658,12 @@ Let's try our model again substituting the `gwesp` term in the place of `triangl
 
 
 ```r
-mod_win <- ergm(cranborne ~ edges + gwesp(0.25, fixed = T),
+mod_win <- ergm(cranborne ~ edges + gwesp(0.25, fixed = TRUE),
                 control = control.ergm(seed = 2362))
 summary(mod_win)
 #> Call:
-#> ergm(formula = cranborne ~ edges + gwesp(0.25, fixed = T), control = control.ergm(seed = 2362))
+#> ergm(formula = cranborne ~ edges + gwesp(0.25, fixed = TRUE), 
+#>     control = control.ergm(seed = 2362))
 #> 
 #> Monte Carlo Maximum Likelihood Results:
 #> 
@@ -688,14 +689,14 @@ So the model converges and we get `gwesp` as a statistically significant predict
 ```r
 mod_win2 <-
   ergm(
-    cranborne ~ edges + gwesp(0.25, fixed = T) + threetrail +
-      altkstar(2, fixed = T) + isolates,
+    cranborne ~ edges + gwesp(0.25, fixed = TRUE) + threetrail +
+      altkstar(2, fixed = TRUE) + isolates,
     control = control.ergm(seed = 1346)
   )
 summary(mod_win2)
 #> Call:
-#> ergm(formula = cranborne ~ edges + gwesp(0.25, fixed = T) + threetrail + 
-#>     altkstar(2, fixed = T) + isolates, control = control.ergm(seed = 1346))
+#> ergm(formula = cranborne ~ edges + gwesp(0.25, fixed = TRUE) + 
+#>     threetrail + altkstar(2, fixed = TRUE) + isolates, control = control.ergm(seed = 1346))
 #> 
 #> Monte Carlo Maximum Likelihood Results:
 #> 

@@ -181,7 +181,7 @@ in the <code>network</code> format to be analysed using the
 </p>
 </div>
 <p>Let’s initialize our <code>statnet</code> suite to get started:</p>
-<div class="sourceCode" id="cb251"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb253"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://statnet.org">statnet</a></span><span class="op">)</span> <span class="co"># initialize statnet library</span>
 <span class="co">#&gt;      Installed ReposVer Built  </span>
 <span class="co">#&gt; ergm "4.2.1"   "4.2.2"  "4.2.0"</span>
@@ -201,7 +201,7 @@ in the <code>network</code> format to be analysed using the
 <span class="header-section-number">7.1.3</span> Assessments of Network Properties<a class="anchor" aria-label="anchor" href="#NetProperties"><i class="fas fa-link"></i></a>
 </h3>
 <p>Let’s start by bringing in our Cranborne Chase network data (as a <code>network</code> object) and looking at the general properties of the network object.</p>
-<div class="sourceCode" id="cb252"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb254"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span><span class="op">(</span><span class="st">"data/cranborne.Rdata"</span><span class="op">)</span>
 <span class="va">cranborne</span>
 <span class="co">#&gt;  Network attributes:</span>
@@ -220,26 +220,26 @@ in the <code>network</code> format to be analysed using the
 <span class="co">#&gt; </span>
 <span class="co">#&gt; No edge attributes</span></code></pre></div>
 <p>This network is an undirected, unweighted network object with 32 nodes and 46 edges. Let’s look at a few properties of the network including density, mean degree, degree centralization, and number of isolates.</p>
-<div class="sourceCode" id="cb253"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb255"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">sna</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sna/man/gden.html">gden</a></span><span class="op">(</span><span class="va">cranborne</span><span class="op">)</span> <span class="co"># density</span>
 <span class="co">#&gt; [1] 0.09274194</span>
 <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="fu">sna</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sna/man/degree.html">degree</a></span><span class="op">(</span><span class="va">cranborne</span><span class="op">)</span><span class="op">)</span> <span class="co"># mean degree</span>
 <span class="co">#&gt; [1] 5.75</span>
-<span class="fu">sna</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sna/man/centralization.html">centralization</a></span><span class="op">(</span><span class="va">cranborne</span>, g<span class="op">=</span><span class="fl">1</span>, <span class="va">degree</span><span class="op">)</span> <span class="co"># degree centralization</span>
+<span class="fu">sna</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sna/man/centralization.html">centralization</a></span><span class="op">(</span><span class="va">cranborne</span>, g <span class="op">=</span> <span class="fl">1</span>, <span class="va">degree</span><span class="op">)</span> <span class="co"># degree centralization</span>
 <span class="co">#&gt; [1] 0.1419355</span>
 <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu">sna</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sna/man/isolates.html">isolates</a></span><span class="op">(</span><span class="va">cranborne</span><span class="op">)</span><span class="op">)</span> <span class="co"># numbe of isolates</span>
 <span class="co">#&gt; [1] 3</span></code></pre></div>
 <p>This is a fairly sparse network with few isolates and a low degree centralization.</p>
 <p>Let’s plot it with nodes scaled by degree:</p>
-<div class="sourceCode" id="cb254"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb256"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">4367</span><span class="op">)</span>
-<span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">cranborne</span>, vertex.cex <span class="op">=</span> <span class="op">(</span><span class="fu">sna</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sna/man/degree.html">degree</a></span><span class="op">(</span><span class="va">cranborne</span><span class="op">)</span><span class="op">/</span><span class="fl">4</span><span class="op">)</span><span class="op">+</span><span class="fl">1</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">cranborne</span>, vertex.cex <span class="op">=</span> <span class="op">(</span><span class="fu">sna</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sna/man/degree.html">degree</a></span><span class="op">(</span><span class="va">cranborne</span><span class="op">)</span> <span class="op">/</span> <span class="fl">4</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="07-beyond-the-book_files/figure-html/unnamed-chunk-6-1.png" width="672"></div>
 <p>This network has 3 components and a few isolates. In general many of the nodes have similar degree centrality values but there are a few nodes which appear to have higher degree. We can look at a histogram of degree centrality to further assess the distribution.</p>
-<div class="sourceCode" id="cb255"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb257"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="fu">sna</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sna/man/degree.html">degree</a></span><span class="op">(</span><span class="va">cranborne</span><span class="op">)</span>,
-     main<span class="op">=</span><span class="st">"Degree Distribution"</span>,
-     xlab<span class="op">=</span><span class="st">"Degree Centrality"</span><span class="op">)</span></code></pre></div>
+     main <span class="op">=</span> <span class="st">"Degree Distribution"</span>,
+     xlab <span class="op">=</span> <span class="st">"Degree Centrality"</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="07-beyond-the-book_files/figure-html/unnamed-chunk-7-1.png" width="672"></div>
 </div>
 <div id="fitting-models-with-ergm" class="section level3" number="7.1.4">
@@ -248,7 +248,7 @@ in the <code>network</code> format to be analysed using the
 </h3>
 <p>Now that we’ve explored some of the basic properties of our network, the next step is to begin to fit ERGMs to our observed network. The first thing we are going to do is fit a very simple model with only one term. In the <code>ergm</code> package “terms” refer to the specific constraints placed on our randomly generated networks (see <code><a href="https://rdrr.io/pkg/tergm/man/ergm-terms.html">?ergm.terms</a></code> for a list of the many built-in terms). The most basic term that is included in many models is <code>edges</code> which simply refers to the number of edges in a network. An ERGM with a single <code>edges</code> term is conceptually equivalent to a typical GLM regression model where the only predictor is the intercept.</p>
 <p>In the chunk of code below we see the form that <code>ergm</code> model objects take in R. Inside the <code>ergm</code> call we have our network on the left hand size <code>cranborne</code> followed by <code>~</code> and then followed by <code>edges</code> which is a built-in “term” in the <code>ergm</code> package. As we will see below, when we use multiple terms we separate them by a <code>+</code>. Once we have crated our <code>ergm</code> model object we then explore the output using the <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> function.</p>
-<div class="sourceCode" id="cb256"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb258"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mod_null</span> <span class="op">&lt;-</span> <span class="fu">ergm</span><span class="op">(</span><span class="va">cranborne</span> <span class="op">~</span> <span class="va">edges</span><span class="op">)</span>
 <span class="co">#&gt; Starting maximum pseudolikelihood estimation (MPLE):</span>
 <span class="co">#&gt; Evaluating the predictor and response matrix.</span>
@@ -287,11 +287,11 @@ in the <code>network</code> format to be analysed using the
 &amp; = -2.2806
 \end{aligned}\]</span></p>
 <p>So in this example, the likelihood of an edge between two particular nodes is <code>2.2806</code> times <em>less</em> likely for every additional increase in the number of network by 1 edge in the network as a whole. So for every edge added the probability that a particular edge is present decreases. What this negative coefficient means is that an edge is more likely absent than present (and a positive coefficient would suggest the opposite) and thus, if we add an edge elsewhere in the network it is even less likely that our target edge will be active. We can calculate the probability of that an edge is present by taking the inverse logit of <span class="math inline">\(\theta\)</span>:</p>
-<div class="sourceCode" id="cb257"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb259"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="op">-</span><span class="fl">2.2806</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="op">-</span><span class="fl">2.2806</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; [1] 0.09274246</span></code></pre></div>
 <p>As we would expect, this number is very close to the density of the network which is what the <code>edges</code> term uses as a constraint (number of edges is a function of density):</p>
-<div class="sourceCode" id="cb258"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb260"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">sna</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sna/man/gden.html">gden</a></span><span class="op">(</span><span class="va">cranborne</span><span class="op">)</span>
 <span class="co">#&gt; [1] 0.09274194</span></code></pre></div>
 <p>What this indicates is that if we are trying to predict a given network state (a given set of present an absent edges) and the only information we know is the network density, the probability that a particular edge is present is roughly equal to the network density. As the coefficient is statistically significant, this means that there is a low probability (p-value) of obtaining a model with no terms at random that provides as good or better predictions of the observed than the model including the <code>edges</code> term.</p>
@@ -337,10 +337,10 @@ arguements within the <code>control.ergm</code> function call:
 </p>
 </div>
 <p>Let’s fit the model and look at the summary. Note when you run this on your own computer you will see additional verbose output on the console as the sampling process proceeds. We have eliminated that here to avoid visual clutter:</p>
-<div class="sourceCode" id="cb259"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb261"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mod1</span> <span class="op">&lt;-</span> <span class="fu">ergm</span><span class="op">(</span>
   <span class="va">cranborne</span> <span class="op">~</span> <span class="va">edges</span> <span class="op">+</span> <span class="va">triangle</span> <span class="op">+</span> <span class="va">threetrail</span> <span class="op">+</span>
-    <span class="fu">altkstar</span><span class="op">(</span>lambda <span class="op">=</span> <span class="fl">2</span>, fixed <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>,
+    <span class="fu">altkstar</span><span class="op">(</span>lambda <span class="op">=</span> <span class="fl">2</span>, fixed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
   control <span class="op">=</span> <span class="fu">control.ergm</span><span class="op">(</span>
     MCMC.burnin <span class="op">=</span> <span class="fl">1000</span>,
     MCMC.interval <span class="op">=</span> <span class="fl">10000</span>,
@@ -351,8 +351,8 @@ arguements within the <code>control.ergm</code> function call:
 <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">mod1</span><span class="op">)</span>
 <span class="co">#&gt; Call:</span>
 <span class="co">#&gt; ergm(formula = cranborne ~ edges + triangle + threetrail + altkstar(lambda = 2, </span>
-<span class="co">#&gt;     fixed = T), control = control.ergm(MCMC.burnin = 1000, MCMC.interval = 10000, </span>
-<span class="co">#&gt;     MCMC.samplesize = 25000, seed = 34526))</span>
+<span class="co">#&gt;     fixed = TRUE), control = control.ergm(MCMC.burnin = 1000, </span>
+<span class="co">#&gt;     MCMC.interval = 10000, MCMC.samplesize = 25000, seed = 34526))</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Monte Carlo Maximum Likelihood Results:</span>
 <span class="co">#&gt; </span>
@@ -372,10 +372,10 @@ arguements within the <code>control.ergm</code> function call:
 <p>As our results show, we have three significant predictors: <code>edges</code>, <code>triangle</code>, and <code>threetrail</code> and <code>altkstar</code> is not significant just as Brughmans and Brandes (2017) found. Looking at our coefficients, our negative <code>edges</code> term suggests that edges are more likely absent than present in our model as we would expect given the density. For <code>triangle</code> we have a positive coefficient suggesting that <code>triangles</code> are more likely than we would expect by chance. Finally, <code>threetrails</code> are slightly less common than we would expect in a random network. The difference is small but statistically significant.</p>
 <p>Brughmans and Brandes (2017) generated similar results but their assessments of the goodness of fit of their model (see discussion below) caused them to create a second model with an additional term to capture the tendency for nodes to be connected to other nodes (and thus not be <code>isolates</code>).</p>
 <p>Let’s run the second model and look at the results:</p>
-<div class="sourceCode" id="cb260"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb262"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mod2</span> <span class="op">&lt;-</span> <span class="fu">ergm</span><span class="op">(</span>
   <span class="va">cranborne</span> <span class="op">~</span> <span class="va">edges</span> <span class="op">+</span> <span class="va">triangle</span> <span class="op">+</span> <span class="va">threetrail</span> <span class="op">+</span>
-    <span class="fu">altkstar</span><span class="op">(</span><span class="fl">2</span>, fixed <span class="op">=</span> <span class="cn">T</span><span class="op">)</span> <span class="op">+</span> <span class="va">isolates</span>,
+    <span class="fu">altkstar</span><span class="op">(</span><span class="fl">2</span>, fixed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span> <span class="va">isolates</span>,
   control <span class="op">=</span> <span class="fu">control.ergm</span><span class="op">(</span>
     MCMC.burnin <span class="op">=</span> <span class="fl">1000</span>,
     MCMC.interval <span class="op">=</span> <span class="fl">10000</span>,
@@ -386,7 +386,7 @@ arguements within the <code>control.ergm</code> function call:
 <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">mod2</span><span class="op">)</span>
 <span class="co">#&gt; Call:</span>
 <span class="co">#&gt; ergm(formula = cranborne ~ edges + triangle + threetrail + altkstar(2, </span>
-<span class="co">#&gt;     fixed = T) + isolates, control = control.ergm(MCMC.burnin = 1000, </span>
+<span class="co">#&gt;     fixed = TRUE) + isolates, control = control.ergm(MCMC.burnin = 1000, </span>
 <span class="co">#&gt;     MCMC.interval = 10000, MCMC.samplesize = 25000, seed = 1346))</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Monte Carlo Maximum Likelihood Results:</span>
@@ -413,7 +413,7 @@ arguements within the <code>control.ergm</code> function call:
 </h3>
 <p>If we compare model fit statistics we can see that the AIC for model 2 is slightly lower than for model 1. Further, the difference between the Null and residual deviance is slightly greater for model 2. At the same time, the BIC for model 2 is slightly higher than for model 1. Overall this suggests that the two models are quite similar in terms of their improvement over a model with no predictors but we don’t have strong statistical argument from these terms alone for picking one over the other (and thus it probably makes sense to evaluate fit statistics as we show here or theoretical arguments for preferring one model or the other).</p>
 <p>To take this further we can use the <code>gof</code> or goodness-of-fit function in <code>ergm</code> to assess the degree to which our models provide reasonable descriptions of our observations. We can start by running the <code>gof</code> function for both models. This function provides visualizations and other statistics to help assess the degree to which model statistics, node degree, edge-wise shared partners, and geodesic distance between nodes are preserved in the networks simulated in the ERGM. If you run this function on a directed network, you additionally get assessmess of indegree and outdegree.</p>
-<div class="sourceCode" id="cb261"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb263"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mod1_gof</span> <span class="op">&lt;-</span> <span class="fu">gof</span><span class="op">(</span><span class="va">mod1</span><span class="op">)</span>
 <span class="va">mod2_gof</span> <span class="op">&lt;-</span> <span class="fu">gof</span><span class="op">(</span><span class="va">mod2</span><span class="op">)</span>
 
@@ -433,11 +433,11 @@ arguements within the <code>control.ergm</code> function call:
 <span class="co">#&gt; isolates     3.00000   0.00   3.24000   9.0000       1.00</span></code></pre></div>
 <p>The summary output for each model shows the observed feature value for a given term and then the min, max, and mean value in the simulated networks. In general, we want the mean values to match closely with relatively small ranges around them. The MC p-value (Markov Chain p-value) provides and indication of fit here where higher numbers generally indicate a better fit. This is essentially the proportion of the steps in the chain where a given term met certain criteria. In general the results here suggest that the model terms generally provide a better fit for model 2 than model 1 (as Brughmans and Brandes also suggested using somewhat different goodness-of-fit statistics not directly calculated in <code>ergm</code>).</p>
 <p>It is also instructive to compare the properties of our randomly generated networks under each model to the observed network for properties that weren’t directly included in our model. The <code>gof</code> function can be plotted directly to provide this information. Let’s look at the four plots provided for both models:</p>
-<div class="sourceCode" id="cb262"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span>
+<div class="sourceCode" id="cb264"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">mod1_gof</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="07-beyond-the-book_files/figure-html/unnamed-chunk-15-1.png" width="672"></div>
-<div class="sourceCode" id="cb263"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb265"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">mod2_gof</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="07-beyond-the-book_files/figure-html/unnamed-chunk-15-2.png" width="672"></div>
 <p>In each of these plots the solid black line represents the values for a given property in our observed network and the boxplots represent the distribution of values obtained in our randomly generated networks. As both plots show the median model statistics are quite similar to the observed in both models. In general we want to see the observed values to fall within the densest portion of the values for our randomly generated networks (i.e., near the middle of the boxplots and certainly within the range). In our example here, both the observed degree distribution and edge-wise shared partners (the number of nodes with a specific number of partners) are quite similar to the simulated range of values. Importantly, we did not include terms for degree or edge-wise shared partners in our model but it still generated networks that closely match our observed in terms of these properties. This is evidence of a good fit. For minimum geodesic distance (length of shortest paths) however, we see that both models consistently over-estimated the geodesic distance for nodes for middling values. Overall, this suggests a fairly good (but not perfect) match between our simulated and observed network properties despite these properties not be directly included in our models. Importantly, our interpretation of our network doesn’t hinge on geodesic distance so this mismatch is not a huge problem. No model is perfect but these results suggest that that model we tested here at least approximates the features of our observed network most relevant to our theoretical model.</p>
@@ -448,7 +448,7 @@ arguements within the <code>control.ergm</code> function call:
 </h3>
 <p>Another important consideration we have not yet discussed is the need to assess the diagnostics of our model generating process to evalute if it operated as expected. The <code>ergm</code> package generates our random networks using a <a href="https://en.wikipedia.org/wiki/Markov_chain_Monte_Carlo">Markov Chain Monte Carlo (MCMC)</a> process. MCMC is a means for efficiently randomly sampling from a high-dimensional probability distribution. We want to ensure that as our MCMC process explores the parameter space fully and that it does not generate problematic data such as temporally correlated estimates or highly skewed distributions of coefficient estimates. Problems like these would be an indication of poor model specification (the inappropriate inclusion or exclusion of relevant terms for predicting our network).</p>
 <p>In order to assess our models, we can use the <code>mcmc.diagnostics</code> function. Here we run it for model 2 and look at the results. We also call the <code>latticeExtra</code> package here as that helps make the visual output look a bit better.</p>
-<div class="sourceCode" id="cb264"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb266"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://latticeextra.r-forge.r-project.org/">latticeExtra</a></span><span class="op">)</span>
 <span class="fu">mcmc.diagnostics</span><span class="op">(</span><span class="va">mod2</span><span class="op">)</span>
 <span class="co">#&gt; Sample statistics summary:</span>
@@ -573,7 +573,7 @@ can be done about it, including alternatives to the
 </h3>
 <p>It is possible to generate and explore network simulated using a particular ERGM using the <code>simulate</code> function. Let’s generate some random networks from model 2 used above and then look at them along with the original network.</p>
 <p>In the code below we simply run a single <code>simulate</code> function with the model object, the argument <code>nsim</code> representing the number of networks we wish to generate, and <code>seed</code> which is the random seed for reproducability. The output is a <code><a href="https://rdrr.io/r/base/list.html">list()</a></code> object containing multiple <code>network</code> format objects.</p>
-<div class="sourceCode" id="cb266"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb268"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">sim_nets</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/simulate.html">simulate</a></span><span class="op">(</span><span class="va">mod2</span>, nsim <span class="op">=</span> <span class="fl">9</span>, seed <span class="op">=</span> <span class="fl">34464</span><span class="op">)</span>
 
 <span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span> <span class="co"># set up for multipanel plotting</span>
@@ -582,7 +582,7 @@ can be done about it, including alternatives to the
        vertex.cex <span class="op">=</span> <span class="op">(</span><span class="fu">sna</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sna/man/degree.html">degree</a></span><span class="op">(</span><span class="va">sim_nets</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">)</span> <span class="op">/</span> <span class="fl">4</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
 <div class="inline-figure"><img src="07-beyond-the-book_files/figure-html/unnamed-chunk-19-1.png" width="672"></div>
-<div class="sourceCode" id="cb267"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb269"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="co"># return to single panel</span>
 <span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">cranborne</span>,
@@ -605,28 +605,28 @@ can be done about it, including alternatives to the
 <li>
 <strong>d_mat</strong> - An edge attribute which is defined by a distance matrix among all settlements in meters.</li>
 </ul>
-<div class="sourceCode" id="cb268"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb270"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span><span class="op">(</span><span class="st">"data/Cibola_n.RData"</span><span class="op">)</span>
 <span class="co"># Cibola_n network object</span>
 <span class="co"># Cibola_attr - attribute data frame</span>
 
 <span class="co"># add node attribute based on region</span>
-<span class="va">Cibola_n</span> <span class="op"><a href="https://rdrr.io/pkg/network/man/network.extraction.html">%v%</a></span> <span class="st">"region"</span> <span class="op">&lt;-</span> <span class="va">Cibola_attr</span><span class="op">$</span><span class="va">Region</span>
+<span class="va">cibola_n</span> <span class="op"><a href="https://rdrr.io/pkg/network/man/network.extraction.html">%v%</a></span> <span class="st">"region"</span> <span class="op">&lt;-</span> <span class="va">cibola_attr</span><span class="op">$</span><span class="va">Region</span>
 <span class="co"># add node attribute based on public architecture</span>
-<span class="va">Cibola_n</span> <span class="op"><a href="https://rdrr.io/pkg/network/man/network.extraction.html">%v%</a></span> <span class="st">"pubarch"</span> <span class="op">&lt;-</span> <span class="va">Cibola_attr</span><span class="op">$</span><span class="va">Great.Kiva</span>
+<span class="va">cibola_n</span> <span class="op"><a href="https://rdrr.io/pkg/network/man/network.extraction.html">%v%</a></span> <span class="st">"pubarch"</span> <span class="op">&lt;-</span> <span class="va">cibola_attr</span><span class="op">$</span><span class="va">Great.Kiva</span>
 
 <span class="co"># matrix of distances among settlements</span>
-<span class="va">d_mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/dist.html">dist</a></span><span class="op">(</span><span class="va">Cibola_attr</span><span class="op">[</span>, <span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<span class="va">d_mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/dist.html">dist</a></span><span class="op">(</span><span class="va">cibola_attr</span><span class="op">[</span>, <span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>In many cases we want to use attributes of nodes or edges as predictors in our ERGMs rather than simply network structures. This can be done a few different ways but in the example below we use the <code>nodematch</code> term which calculates a coefficient for nodes that share values for a given attribute. We can also set an additional argument in <code>nodematch</code> which specifies coefficient for each unique value in the node attribute (<code>diff = TRUE</code>). Finally, we use a matrix of geographic distances of edges as a <code>edgecov</code> (edge covariate) term. This term expects a square matrix of <code>n x n</code> for where <code>n</code> is the number of nodes in the network and helps us assess the degree to which the distance between settlemetns is predictive of the presence or absence of an edge.</p>
 <p>Let’s take a look at an example using all three of these terms:</p>
-<div class="sourceCode" id="cb269"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">mod_Cibola</span> <span class="op">&lt;-</span> <span class="fu">ergm</span><span class="op">(</span><span class="va">Cibola_n</span> <span class="op">~</span> <span class="va">edges</span> <span class="op">+</span> <span class="fu">nodematch</span><span class="op">(</span><span class="st">"region"</span><span class="op">)</span> <span class="op">+</span>
-                     <span class="fu">nodematch</span><span class="op">(</span><span class="st">"pubarch"</span>, diff <span class="op">=</span> <span class="cn">T</span><span class="op">)</span> <span class="op">+</span>
+<div class="sourceCode" id="cb271"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mod_cibola</span> <span class="op">&lt;-</span> <span class="fu">ergm</span><span class="op">(</span><span class="va">cibola_n</span> <span class="op">~</span> <span class="va">edges</span> <span class="op">+</span> <span class="fu">nodematch</span><span class="op">(</span><span class="st">"region"</span><span class="op">)</span> <span class="op">+</span>
+                     <span class="fu">nodematch</span><span class="op">(</span><span class="st">"pubarch"</span>, diff <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span>
                      <span class="fu">edgecov</span><span class="op">(</span><span class="va">d_mat</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">mod_Cibola</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">mod_cibola</span><span class="op">)</span>
 <span class="co">#&gt; Call:</span>
-<span class="co">#&gt; ergm(formula = Cibola_n ~ edges + nodematch("region") + nodematch("pubarch", </span>
-<span class="co">#&gt;     diff = T) + edgecov(d_mat))</span>
+<span class="co">#&gt; ergm(formula = cibola_n ~ edges + nodematch("region") + nodematch("pubarch", </span>
+<span class="co">#&gt;     diff = TRUE) + edgecov(d_mat))</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Maximum Likelihood Results:</span>
 <span class="co">#&gt; </span>
@@ -681,16 +681,17 @@ Do not run the chunk of code below. We promise, it doesn’t go
 anywhere and will just waste your time.
 </p>
 </div>
-<div class="sourceCode" id="cb270"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb272"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mod_fail</span> <span class="op">&lt;-</span> <span class="fu">ergm</span><span class="op">(</span><span class="va">cranborne</span> <span class="op">~</span> <span class="va">edges</span> <span class="op">+</span> <span class="va">triangle</span><span class="op">)</span></code></pre></div>
 <p>What then, can we do in the place of including terms that cause model degeneracy? Luckily there are a number of additional terms that have been designed to deal with exactly this issue. These include the “geometrically weighted” terms that are already built right into the <code>ergm</code> package. For example, the term <code>gwesp</code> or geometrically weighted shared partners is a measure of triadic closure that doesn’t rely on the specific count of triangles, but instead on the tendency towards closing individual triads in the network.</p>
 <p>Let’s try our model again substituting the <code>gwesp</code> term in the place of <code>triangle</code>.</p>
-<div class="sourceCode" id="cb271"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">mod_win</span> <span class="op">&lt;-</span> <span class="fu">ergm</span><span class="op">(</span><span class="va">cranborne</span> <span class="op">~</span> <span class="va">edges</span> <span class="op">+</span> <span class="fu">gwesp</span><span class="op">(</span><span class="fl">0.25</span>, fixed <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>,
+<div class="sourceCode" id="cb273"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mod_win</span> <span class="op">&lt;-</span> <span class="fu">ergm</span><span class="op">(</span><span class="va">cranborne</span> <span class="op">~</span> <span class="va">edges</span> <span class="op">+</span> <span class="fu">gwesp</span><span class="op">(</span><span class="fl">0.25</span>, fixed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
                 control <span class="op">=</span> <span class="fu">control.ergm</span><span class="op">(</span>seed <span class="op">=</span> <span class="fl">2362</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">mod_win</span><span class="op">)</span>
 <span class="co">#&gt; Call:</span>
-<span class="co">#&gt; ergm(formula = cranborne ~ edges + gwesp(0.25, fixed = T), control = control.ergm(seed = 2362))</span>
+<span class="co">#&gt; ergm(formula = cranborne ~ edges + gwesp(0.25, fixed = TRUE), </span>
+<span class="co">#&gt;     control = control.ergm(seed = 2362))</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Monte Carlo Maximum Likelihood Results:</span>
 <span class="co">#&gt; </span>
@@ -709,17 +710,17 @@ anywhere and will just waste your time.
 <span class="co">#&gt;  </span>
 <span class="co">#&gt; AIC: 283.4  BIC: 291.9  (Smaller is better. MC Std. Err. = 0.3086)</span></code></pre></div>
 <p>So the model converges and we get <code>gwesp</code> as a statistically significant predictor with a positive coefficient estimate just as we saw with <code>triangle</code> in the complete model. Indeed if we include <code>gwesp</code> in the complete model we get results that largely mirror those above suggesting that this term is playing a similar role.</p>
-<div class="sourceCode" id="cb272"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb274"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mod_win2</span> <span class="op">&lt;-</span>
   <span class="fu">ergm</span><span class="op">(</span>
-    <span class="va">cranborne</span> <span class="op">~</span> <span class="va">edges</span> <span class="op">+</span> <span class="fu">gwesp</span><span class="op">(</span><span class="fl">0.25</span>, fixed <span class="op">=</span> <span class="cn">T</span><span class="op">)</span> <span class="op">+</span> <span class="va">threetrail</span> <span class="op">+</span>
-      <span class="fu">altkstar</span><span class="op">(</span><span class="fl">2</span>, fixed <span class="op">=</span> <span class="cn">T</span><span class="op">)</span> <span class="op">+</span> <span class="va">isolates</span>,
+    <span class="va">cranborne</span> <span class="op">~</span> <span class="va">edges</span> <span class="op">+</span> <span class="fu">gwesp</span><span class="op">(</span><span class="fl">0.25</span>, fixed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span> <span class="va">threetrail</span> <span class="op">+</span>
+      <span class="fu">altkstar</span><span class="op">(</span><span class="fl">2</span>, fixed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span> <span class="va">isolates</span>,
     control <span class="op">=</span> <span class="fu">control.ergm</span><span class="op">(</span>seed <span class="op">=</span> <span class="fl">1346</span><span class="op">)</span>
   <span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">mod_win2</span><span class="op">)</span>
 <span class="co">#&gt; Call:</span>
-<span class="co">#&gt; ergm(formula = cranborne ~ edges + gwesp(0.25, fixed = T) + threetrail + </span>
-<span class="co">#&gt;     altkstar(2, fixed = T) + isolates, control = control.ergm(seed = 1346))</span>
+<span class="co">#&gt; ergm(formula = cranborne ~ edges + gwesp(0.25, fixed = TRUE) + </span>
+<span class="co">#&gt;     threetrail + altkstar(2, fixed = TRUE) + isolates, control = control.ergm(seed = 1346))</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Monte Carlo Maximum Likelihood Results:</span>
 <span class="co">#&gt; </span>
@@ -745,7 +746,7 @@ anywhere and will just waste your time.
 <span class="co">#&gt; AIC: 282.3  BIC: 303.3  (Smaller is better. MC Std. Err. = 0.5114)</span></code></pre></div>
 <p>What about the numbers we’re providing to the <code>gwesp</code> term argument <code>(0.25, fixed = T)</code>. These number specify the so-called decay parameter in the model and whether or not that parameter should be fixed or allowed to vary across steps in the MCMC process. The details of this are well beyond the scope of this tutorial but suffice it to say that the general advice is to select the decay value that produces the best fit model in your given analysis. If you run your model without <code>fixed = T</code> the model will attempt to estimate the decay parameter and you will get an additional result in our output the specifies the coefficient for that decay term as well. Keep in mind that this is essentially adding a term to the model so it may then be harder or take longer to fit your models.</p>
 <p>Here is an example:</p>
-<div class="sourceCode" id="cb273"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb275"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mod_nofix</span> <span class="op">&lt;-</span> <span class="fu">ergm</span><span class="op">(</span><span class="va">cranborne</span> <span class="op">~</span> <span class="va">edges</span> <span class="op">+</span> <span class="va">gwesp</span>,
                   control <span class="op">=</span> <span class="fu">control.ergm</span><span class="op">(</span>seed <span class="op">=</span> <span class="fl">2362</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">mod_nofix</span><span class="op">)</span>
@@ -809,7 +810,7 @@ anywhere and will just waste your time.
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-06-01.</p>
+    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-06-02.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
