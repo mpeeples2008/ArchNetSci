@@ -230,6 +230,13 @@ The purpose of this section is to provide a quick index of topics covered in thi
   + [Simulating Networks from ERGMs](#SimERGMs)
   + [Additinoal Info on ERGM Terms](#ERGMterms)
     - [Avoiding Model Degeneracy](#Degeneracy)
+* [Spatial Interaction Models](#SpatialInteraction)
+  + [Simple Gravity Models](#GravityModel)
+    - [Parameterizing the Gravity Model](#ParameterizingGravity)
+  + [The Rihll and Wilson "Retail" Model](#RihllWilson)
+    - [Parameterizing the Retail Model](#ParameterizingRetail)
+  + [Truncated Power Functions](#TruncatedPower)
+  + [Other Spatial Interaction Models](#OtherModels)
 
 ## References and R Packages{-}
 

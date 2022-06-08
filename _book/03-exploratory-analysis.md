@@ -2,6 +2,8 @@
 
 Exploratory network analysis is simply exploratory data analysis applied to network data. This covers a range of statistical and visual techniques designed to explore the structure of networks as well as the relative positions of nodes and edges. These methods can be used to look for particular structures or patterning of interest, such as the most central nodes, or to summarize and describe the structure of the network to paint a general picture of it before further analysis. This section serves as a companion to Chapter 4 in the Brughmans and Peeples book (2022) and provides basic examples of the exploratory network analysis methods outlined in the book as well as a few others.
 
+Note that we have created a distinct section on [exponential random graph models (ERGM)](#BeyondTheBook) in the "Beyond the Book" section of this document as that approach necessitates extended discussion. We replicate the boxed example from Chapter 4 of the book in that section.
+
 ## Example Network Objects{#ExampleNetworkObjects}
 
 In order to facilitate the exploratory analysis examples in this section, we want to first create a set of `igraph` and `statnet` network objects that will serve our purposes across all of the analyses below. Specifically, we will generate and define:
@@ -23,9 +25,6 @@ In the following chunk of code we initialize all of the packages that we will us
 # initialize packages
 library(igraph)
 library(statnet)
-#>      Installed ReposVer Built  
-#> ergm "4.2.1"   "4.2.2"  "4.2.0"
-#> sna  "2.6"     "2.7"    "4.2.0"
 library(intergraph)
 library(vegan)
 
@@ -481,7 +480,7 @@ If you want to identify particular shortest paths to or from nodes in a network 
 igraph::shortest_paths(simple_net, from = 1, to = 21)
 #> $vpath
 #> $vpath[[1]]
-#> + 5/31 vertices, named, from 974413b:
+#> + 5/31 vertices, named, from 621020e:
 #> [1] Apache.Creek          Casa.Malpais         
 #> [3] Garcia.Ranch          Heshotauthla         
 #> [5] Pueblo.de.los.Muertos
@@ -510,7 +509,7 @@ igraph::diameter(directed_net, directed = TRUE)
 
 igraph::farthest_vertices(directed_net, directed = TRUE)
 #> $vertices
-#> + 2/30 vertices, named, from 974520a:
+#> + 2/30 vertices, named, from 6211083:
 #> [1] Apache Creek          Pueblo de los Muertos
 #> 
 #> $distance
@@ -548,9 +547,9 @@ components <- igraph::decompose(simple_net, min.vertices = 1)
 
 components
 #> [[1]]
-#> IGRAPH 99b3aeb UN-- 30 167 -- 
+#> IGRAPH 6470be5 UN-- 30 167 -- 
 #> + attr: name (v/c)
-#> + edges from 99b3aeb (vertex names):
+#> + edges from 6470be5 (vertex names):
 #>  [1] Apache.Creek--Casa.Malpais        
 #>  [2] Apache.Creek--Coyote.Creek        
 #>  [3] Apache.Creek--Hooper.Ranch        
@@ -562,9 +561,9 @@ components
 #> + ... omitted several edges
 #> 
 #> [[2]]
-#> IGRAPH 99b3b10 UN-- 1 0 -- 
+#> IGRAPH 6470c09 UN-- 1 0 -- 
 #> + attr: name (v/c)
-#> + edges from 99b3b10 (vertex names):
+#> + edges from 6470c09 (vertex names):
 
 V(components[[2]])$name
 #> [1] "WS.Ranch"
@@ -606,15 +605,15 @@ min_cut(simple_net_noiso, value.only = FALSE)
 #> [1] 1
 #> 
 #> $cut
-#> + 1/167 edge from 97447d2 (vertex names):
+#> + 1/167 edge from 62107b0 (vertex names):
 #> [1] Ojo Bonito--Baca Pueblo
 #> 
 #> $partition1
-#> + 1/30 vertex, named, from 97447d2:
+#> + 1/30 vertex, named, from 62107b0:
 #> [1] Baca Pueblo
 #> 
 #> $partition2
-#> + 29/30 vertices, named, from 97447d2:
+#> + 29/30 vertices, named, from 62107b0:
 #>  [1] Apache Creek          Casa Malpais         
 #>  [3] Coyote Creek          Hooper Ranch         
 #>  [5] Horse Camp Mill       Hubble Corner        
@@ -641,7 +640,7 @@ A clique as a network science concept is arguably the strictest method of defini
 
 ```r
 max_cliques(simple_net, min = 1)[[24]]
-#> + 9/31 vertices, named, from 974413b:
+#> + 9/31 vertices, named, from 621020e:
 #> [1] Los.Gigantes    Cienega         Tinaja         
 #> [4] Spier.170       Scribe.S        Pescado.Cluster
 #> [7] Mirabal         Heshotauthla    Yellowhouse

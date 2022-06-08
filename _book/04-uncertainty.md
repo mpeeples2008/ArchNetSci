@@ -50,9 +50,6 @@ library(reshape2)
 library(ggraph)
 library(ggpubr)
 library(statnet)
-#>      Installed ReposVer Built  
-#> ergm "4.2.1"   "4.2.2"  "4.2.0"
-#> sna  "2.6"     "2.7"    "4.2.0"
 
 # Import adjacency matrix and covert to network
 chaco <- read.csv(file = "data/AD1050net.csv", row.names = 1)

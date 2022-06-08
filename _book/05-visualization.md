@@ -30,9 +30,6 @@ Let"s start by reading in our example data and then we describe each package in 
 ```r
 library(igraph)
 library(statnet)
-#>      Installed ReposVer Built  
-#> ergm "4.2.1"   "4.2.2"  "4.2.0"
-#> sna  "2.6"     "2.7"    "4.2.0"
 library(ggraph)
 library(intergraph)
 
@@ -48,9 +45,9 @@ cibola_attr <- read.csv(file = "data/Cibola_attr.csv", header = TRUE)
 cibola_i <- igraph::graph_from_adjacency_matrix(as.matrix(cibola),
                                                 mode = "undirected")
 cibola_i
-#> IGRAPH a4b50bb UN-- 31 167 -- 
+#> IGRAPH 6f6b278 UN-- 31 167 -- 
 #> + attr: name (v/c)
-#> + edges from a4b50bb (vertex names):
+#> + edges from 6f6b278 (vertex names):
 #>  [1] Apache.Creek--Casa.Malpais        
 #>  [2] Apache.Creek--Coyote.Creek        
 #>  [3] Apache.Creek--Hooper.Ranch        

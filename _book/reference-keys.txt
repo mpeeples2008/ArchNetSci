@@ -119,3 +119,10 @@ Diagnostics
 SimERGMs
 ERGMterms
 Degeneracy
+SpatialInteraction
+GravityModel
+ParameterizeGravity
+RihllWilson
+ParameterizingRetail
+TruncatedPower
+OtherModels
