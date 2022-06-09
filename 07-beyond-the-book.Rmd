@@ -946,14 +946,14 @@ where
 * $\beta$ is the physical distance across which distance decay should be considered (defined in units of $d$).
 * $\gamma$ is used to define the importance of $V$ on interaction where values above 1 suggest incresing returns on scale.
 
-The model output $E_{ij}$ is, according to Menze and Ur, meant to approximate the movement of people among nodes across the landscape. In order to evaluate this function, we replicate the results of the Menze and Ur paper with one small change. We drop the bottom 5% smallest sites from consideration due to the large sample size to keep run times managable (but this could certainly be changed in the code below). We use the replication data set provided by Menze and Ur online [here](https://dataverse.harvard.edu/dataset.xhtml;jsessionid=adeb8ff43c833f1efe447dc9e8ba?persistentId=hdl%3A1902.1%2F17731&version=&q=&fileTypeGroupFacet=%22Text%22&fileAccess=&fileTag=&fileSortField=type&fileSortOrder=). 
+The model output $E_{ij}$ is, according to Menze and Ur, meant to approximate the movement of people among nodes across the landscape. In order to evaluate this function, we replicate the results of the Menze and Ur paper with one small change. We drop the bottom 50% smallest sites from consideration due to the large sample size to keep run times manageable (but this could certainly be changed in the code below). We use the replication data set provided by Menze and Ur online [here](https://dataverse.harvard.edu/dataset.xhtml;jsessionid=adeb8ff43c833f1efe447dc9e8ba?persistentId=hdl%3A1902.1%2F17731&version=&q=&fileTypeGroupFacet=%22Text%22&fileAccess=&fileTag=&fileSortField=type&fileSortOrder=). 
 
-Let's read in the data, omit the rows without site volume estimates, and then remove the lowest 25% of sites in terms of volume values. We then plot the sites with points scaled by site volume.
+Let's read in the data, omit the rows without site volume estimates, and then remove the lowest 50% of sites in terms of volume values. We then plot the sites with points scaled by site volume.
 
 ```{r, fig.width = 7, fig.height = 5}
 mesop <- read.csv("data/menze_ur_sites.csv")
 mesop <- mesop[-which(is.na(mesop$volume)),]
-mesop <- mesop[which(mesop$volume > quantile(mesop$volume, 0.25)),]
+mesop <- mesop[which(mesop$volume > quantile(mesop$volume, 0.5)),]
 
 ggplot(mesop) +
   geom_point(aes(x = x, y = y, size = volume),
@@ -1008,7 +1008,7 @@ ggplot(mesop) +
 
 ```
 
-If we compare the plot above to figure 8 in Menze and Ur (2012) we see highly central sites in the same locations suggesting that we've reasonably approximated their results even though we are using a slightly different sample. Further, as the next plot shows, if we remove the few sites that are isolated in our sample (due to us removing the bottom 25% of sites) we also see the same strong linear correlation between the log of site volume and the log of our measure of interaction.
+If we compare the plot above to figure 8 in Menze and Ur (2012) we see highly central sites in the same locations suggesting that we've reasonably approximated their results even though we are using a slightly different sample. Further, as the next plot shows, if we remove the few sites that are isolated in our sample (due to us removing the bottom 50% of sites) we also see the same strong linear correlation between the log of site volume and the log of our measure of interaction.
 
 ```{r, fig.width = 5, fig.height =5}
 rem_low <- which(edge_flow > quantile(edge_flow, 0.01))
