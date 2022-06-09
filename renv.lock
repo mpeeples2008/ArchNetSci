@@ -39,17 +39,6 @@
       "Hash": "b1a93bed5debda5775636086fdca017b",
       "Requirements": []
     },
-    "BiocVersion": {
-      "Package": "BiocVersion",
-      "Version": "3.15.2",
-      "Source": "Bioconductor",
-      "git_url": "https://git.bioconductor.org/packages/BiocVersion",
-      "git_branch": "master",
-      "git_last_commit": "818ab03",
-      "git_last_commit_date": "2022-03-29",
-      "Hash": "48e545a2fa24a967de72b1114bfe96ac",
-      "Requirements": []
-    },
     "DBI": {
       "Package": "DBI",
       "Version": "1.1.2",
@@ -628,19 +617,6 @@
       "Repository": "CRAN",
       "Hash": "022c42d49c28e95d69ca60446dbabf88",
       "Requirements": []
-    },
-    "d3r": {
-      "Package": "d3r",
-      "Version": "1.0.0",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "698063d4059b94eae4f053498d3c7e58",
-      "Requirements": [
-        "dplyr",
-        "htmltools",
-        "rlang",
-        "tidyr"
-      ]
     },
     "data.table": {
       "Package": "data.table",
@@ -2373,14 +2349,6 @@
         "rlang",
         "viridisLite"
       ]
-    },
-    "scatterplot3d": {
-      "Package": "scatterplot3d",
-      "Version": "0.3-41",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "0d3e8c286b735517c2df4ed48848e732",
-      "Requirements": []
     },
     "selectr": {
       "Package": "selectr",

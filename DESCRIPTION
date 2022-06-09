@@ -23,16 +23,8 @@ Imports:
   statnet,
   intergraph,
   ggplot2,
-  rjson,
-  d3r,
   cccd,
-  networkD3,
-  visNetwork,
-  GISTools,
-  rgeos,
-  maptools,
   sf,
-  igraphdata,
   ggrepel,
   ggsn,
   tidyverse,
@@ -50,14 +42,21 @@ Imports:
   Rcpp,
   deldir,
   vegan,
-  geosphere,
+  geosphere
+Remotes:
+  liamgilbey/ggwaffle
+Suggests:
+  networkD3,
+  visNetwork,
+  GISTools,
+  rgeos,
+  maptools,
   networkDynamic,
   scatterplot3d,
   patchwork,
   concaveman
-Remotes:
-  liamgilbey/ggwaffle
-Suggests:
+  rjson,
+  d3r,
   edgebundle,
   reticulate,
   latticeExtra,
