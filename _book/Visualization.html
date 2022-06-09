@@ -136,9 +136,9 @@ These will be the basis for all examples in this section.
 <span class="va">cibola_i</span> <span class="op">&lt;-</span> <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/graph_from_adjacency_matrix.html">graph_from_adjacency_matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">cibola</span><span class="op">)</span>,
                                                 mode <span class="op">=</span> <span class="st">"undirected"</span><span class="op">)</span>
 <span class="va">cibola_i</span>
-<span class="co">#&gt; IGRAPH 6f6b278 UN-- 31 167 -- </span>
+<span class="co">#&gt; IGRAPH 87a56e5 UN-- 31 167 -- </span>
 <span class="co">#&gt; + attr: name (v/c)</span>
-<span class="co">#&gt; + edges from 6f6b278 (vertex names):</span>
+<span class="co">#&gt; + edges from 87a56e5 (vertex names):</span>
 <span class="co">#&gt;  [1] Apache.Creek--Casa.Malpais        </span>
 <span class="co">#&gt;  [2] Apache.Creek--Coyote.Creek        </span>
 <span class="co">#&gt;  [3] Apache.Creek--Hooper.Ranch        </span>
@@ -2098,7 +2098,7 @@ before you run the code below.
 
 <span class="co"># net &lt;- igraph network object</span>
 
-<span class="va">data_json</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/d3r/man/d3_igraph.html">d3_igraph</a></span><span class="op">(</span><span class="va">net</span><span class="op">)</span>
+<span class="va">data_json</span> <span class="op">&lt;-</span> <span class="fu">d3_igraph</span><span class="op">(</span><span class="va">net</span><span class="op">)</span>
 
 
 <span class="va">dj</span> <span class="op">&lt;-</span> <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html">fromJSON</a></span><span class="op">(</span><span class="va">data_json</span><span class="op">)</span>
@@ -2576,7 +2576,7 @@ list is the order that edges will be plotted.
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-06-08.</p>
+    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-06-09.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

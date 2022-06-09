@@ -752,7 +752,7 @@ In addition to the `gwesp` term, there are many additional terms [listed here](h
 
 ## Spatial Interaction Models{#SpatialInteraction}
 
-In the [Spatial Networks](#SpatialNetworks) section of this document we cover most of the simple network models for generating spatial networks based on absolute distance, configurations of locations, and territories/tessellation. There is one general class of spatial network model that we described briefly in the Brughmans and Peeples (2022) book but did not cover in detail as the specifics require considerably more discussion. These include a wide variety of spatial interaction models such as gravity models, truncated power functions, radiation models, and similar custom derivations of these approaches. In general, a spatial interaction model is a formal mathematical model that is used to predict the movement of people (or other sorts of entities) between origins and destinations. These models typically use information on the relative sizes or "attractiveness" of origins and destinations or other additional information on volumes of flows in and out. Such models have long been popular in geography, economics, and other fields for doing things like predicting the amount of trade between cities or nations or predicting or improving the location of services in a given geographic extent. Statistical spatial interaction models have been used in archaeology as well for both empirical and simulation studies (e.g., Bevan and Wilson 2013; Evans et al. 2011; Gauthier 2020; Paliou and Bevan 2016; Rihll and Wilson 1987) though they have not had nearly the impact they have had in other fields. We suggest that there is considerable potential for these models, in particular in contexts where we have other independent information on network flows across a study area.
+In the [Spatial Networks](#SpatialNetworks) section of this document we cover most of the simple network models for generating spatial networks based on absolute distance, configurations of locations, and territories. There is one general class of spatial network model that we described briefly in the Brughmans and Peeples (2022) book but did not cover in detail as the specifics require considerably more discussion. This includes a wide variety of spatial interaction models such as gravity models, truncated power functions, radiation models, and similar custom derivations of these approaches. In general, a spatial interaction model is a formal mathematical model that is used to predict the movement of people (or other sorts of entities) between origins and destinations. These models typically use information on the relative sizes or "attractiveness" of origins and destinations or other additional information on volumes of flows in and out. Such models have long been popular in geography, economics, and other fields for doing things like predicting the amount of trade between cities or nations or predicting or improving the location of services in a given geographic extent. Statistical spatial interaction models have been used in archaeology as well for both empirical and simulation studies (e.g., Bevan and Wilson 2013; Evans et al. 2011; Gauthier 2020; Paliou and Bevan 2016; Rihll and Wilson 1987) though they have not had nearly the impact they have had in other fields. We suggest that there is considerable potential for these models, in particular in contexts where we have other independent information for evaluating network flows across a study area.
 
 In this section, we briefly outline a few common spatial interaction models and provide examples. For additional detailed overview and examples of these models there are several useful publications (see [Evans et al. 2011](https://www.researchgate.net/publication/277221754_Interactions_In_Space_For_Archaeological_Models); [Rivers et al. 2011](https://plato.tp.ph.ic.ac.uk/~time/networks/arch/BevanRewriteFigTableInText110727.pdf); and [Amati et al. 2018](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5797198/)). 
 
@@ -767,29 +767,26 @@ where
 * $x_{ij}$ is the number or strength of connection between nodes $i$ and $j$
 * $c$ is a proportionality constant (gravitational constant) which balances the units of the formula. For our purposes we can largely ignore this value as it changes all absolute values but not relative values between nodes.
 * $v_i$ and $v_j$ are attributes of nodes $i$ and $j$ contributing to their "mass" (attractiveness). This could be population or resource catchment or area or anything other factor that likely influences the attractiveness of the node in terms of the interaction that is the focus of the network.
-* $f(d_{ij})$ is the cost or "deterrence" function defining the travel costs between $i$ and $j$. This cost function is further specified in a few ways using inverse power law or exponential decay functions defined respectively by the equations below:
+* $f(d_{ij})$ is the cost or "deterrence" function defining the travel costs between $i$ and $j$. Frequently, this cost function is further specified using inverse power law or exponential decay functions defined respectively by the equations below:
 
 $$f(d_{ij}) = \frac{1}{(1+\beta d{ij})^\gamma} \text{  and  } f(d_{ij}) = \frac{1}{e^{\beta d{ij}}}$$
 
-where $\beta$ is a scaling factor for both models sand $\gamma$ determines the weight of the tail in the power law distribution.
+where $\beta$ is a scaling factor for both models sand $\gamma$ determines the weight of the tail in the power law distribution. 
 
-The models above, basically have 3 (or 4) parameters that, when varied, will return different assessments of the volume of flow (estimated interaction) between nodes with the same $v_i$ and $v_j$. There are numerous different configurations of the gravity model that take related forms. Calculating these is easy but determining how to parameterize the model with independent evidence is typically the hard part as we discuss further below. 
+There are numerous different configurations of the simple gravity model in the literature. Some versions add exponents to $V_i$ or $V_j$ to vary the importance of inflow and outflow independently, other versions use different derivations of deterrence, and many define inflows and outflows using different sources of empirical information with additional terms to scale the units. Calculating models like these is relatively easy but determining how to parameterize such models is typically the hard part as we discuss further below. 
 
-By way of example, we're going to use a regional data set of Late Intermediate periods Wankanari sites in the Bolivian Altiplano provided online on the [Comparative Archaeology Database at the University of Pittsburgh](http://www.cadb.pitt.edu/mcandrews/index.html) (McAndrews 2005). The details of this database and all of the variables are described at the link provided. This data set has more variables than we will use here but this provides a good example to explore because it includes location and size information for sites. 
+In order to demonstrate simple gravity models, we're going to use a regional data set of Late Intermediate periods Wankarani sites in the Bolivian Altiplano provided online on the [Comparative Archaeology Database at the University of Pittsburgh](http://www.cadb.pitt.edu/mcandrews/index.html) (McAndrews 2005). The details of this database and all of the variables are described at the link provided. This data set has more variables than we will use here but this provides a good example to explore because it includes location and size information for all sites. 
 
-First, let's read in the data and create a quick plot showing site locations with points scaled by site area. We will then select sites dating to the Late Intermediate period for analysis.
+First, let's read in the data and create a quick plot showing site locations with points scaled by site area (as a measure of potential attractiveness and outflow potential). We will then select sites dating to the Late Intermediate period for analysis. We further limit consideration to habitation sites.
 
 
 ```r
 wankarani <- read.csv("data/Wankarani_siteinfo.csv")
 wankarani <- wankarani[which(wankarani$Period == "Late Intermediate"), ]
+wankarani <- wankarani[which(wankarani$Type == "habitation"), ]
 
 library(ggmap)
-#> Loading required package: ggplot2
-#> Google's Terms of Service: https://cloud.google.com/maps-platform/terms/.
-#> Please cite ggmap if you use it! See citation("ggmap") for details.
 library(sf)
-#> Linking to GEOS 3.9.1, GDAL 3.3.2, PROJ 7.2.1; sf_use_s2() is TRUE
 
 # Convert attribute location data to sf coordinates and change
 # map projection
@@ -799,10 +796,6 @@ loc_trans <- st_transform(locations_sf, crs = 4326)
 coord1 <- do.call(rbind, st_geometry(loc_trans)) %>%
   tibble::as_tibble() %>%
   setNames(c("lon", "lat"))
-#> Warning: The `x` argument of `as_tibble.matrix()` must have unique column names if `.name_repair` is omitted as of tibble 2.0.0.
-#> Using compatibility `.name_repair`.
-#> This warning is displayed once every 8 hours.
-#> Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.
 
 xy <- as.data.frame(coord1)
 colnames(xy) <- c("x", "y")
@@ -816,9 +809,6 @@ base_bolivia <- get_stamenmap(
   maptype = "terrain-background",
   color = "bw"
 )
-#> Source : http://tile.stamen.com/terrain-background/10/352/563.png
-#> Source : http://tile.stamen.com/terrain-background/10/353/563.png
-#> Source : http://tile.stamen.com/terrain-background/10/354/563.png
 
 # Plot original data on map
 ggmap(base_bolivia, darken = 0.35) +
@@ -838,7 +828,7 @@ As this plot shows, there is one site that is considerably larger than the other
 
 Now we're going to build a small function called `grav_mod` that includes 3 arguments:
 
-* **`attract`** which is the measure of settlement attractiveness in the network. In our example here we will use area as a measure of site size and attractiveness for both the sending and receiving site, though this can be varried.
+* **`attract`** which is the measure of settlement attractiveness in the network. In our example here we will use area as a measure of attractiveness for both the sending and receiving site, though this can be varied.
 * **`B`** which is our $\beta$ parameter for the exponential decay cost function outlined above.
 * **`d`** which is a matrix of distances among our nodes. Note that this could be something other than physical distance like travel time as well. It helps to have this in units that don't result in very large numbers to keep the output manageable (though the actual absolute numbers don't matter)
 
@@ -858,7 +848,7 @@ grav_mod <- function(attract, B, d) {
 }
 ```
 
-Now let's try an example using the Wankanari data. For this first example we will set `a` to `1`. We'll take a look at the results by first, creating a heatmap of the gravity model for every pair of nodes using the `superheat` package. We will then plot the site size against the estimated flow from our model with both axes transformed to base-10 logarithms to see how those variables relate. We use the packages `scales` to provide exponential notation for the axis labels.
+Now let's try an example using the Wankarani data. For this first example we will set `B` to `1`. We'll take a look at the results by first, creating a heatmap of the gravity model for every pair of nodes using the `superheat` package. We will then plot the site size against the estimated flow from our model with both axes transformed to base-10 logarithms to see how those variables relate. We use the packages `scales` to provide exponential notation for the axis labels.
 
 
 ```r
@@ -899,7 +889,7 @@ ggplot(data = df) +
 
 <img src="07-beyond-the-book_files/figure-html/unnamed-chunk-29-2.png" width="672" />
 
-As these plots illustrate, there are clusters in the estimated flows among nodes, which is not surprising given that the sites themselves form a few clusters. Further, the plot comparing log10 area to log10 flow shows that there is a roughly positive linear relationship between the two but there is also variation with nodes with more or less flow than would be expected based on distance alone.
+As these plots illustrate, there are clusters in the estimated flows among nodes, which is not surprising given that the sites themselves form a few clusters. Further, the plot comparing area to flow shows that there is a roughly positive linear relationship between the two but there is also variation with nodes with more or less flow than would be expected based on distance alone.
 
 Next, let's plot a network showing all connections scaled and colored based on their strength in terms of estimated flow and with nodes scaled based on weighted degree (the total volume of flow incident on that node). The blue colored ties are weaker and the yellow colored ties are stronger. For the sake of visual clarity we omit the 25% weakest edges.
 
@@ -924,7 +914,7 @@ edges <- data.frame(xy[edgelist[, 1], ], xy[edgelist[, 2], ])
 colnames(edges) <- c("X1", "Y1", "X2", "Y2")
 
 # Calculate weighted degree
-dg <- rowSums(test1) / 10000
+dg_grav <- rowSums(test1) / 10000
 
 # Plot data on map
 ggmap(base_bolivia, darken = 0.35) +
@@ -943,7 +933,7 @@ ggmap(base_bolivia, darken = 0.35) +
   scale_color_viridis() +
   geom_point(
     data = xy,
-    aes(x, y, size = dg),
+    aes(x, y, size = dg_grav),
     alpha = 0.8,
     color = "red",
     show.legend = FALSE
@@ -953,7 +943,7 @@ ggmap(base_bolivia, darken = 0.35) +
 
 <img src="07-beyond-the-book_files/figure-html/unnamed-chunk-30-1.png" width="672" />
 
-As this plot shows, there are areas characterized by higher and lower flow throughout this study area. The largest site in the study area (shown in the first map above) is characterized by a high weighted degree but there are other smaller sites that also have high weighted degree.
+As this plot shows, there are areas characterized by higher and lower flow throughout this study area. The largest site in the study area (shown in the first map above) is characterized by a high weighted degree but there are other smaller sites that also have high weighted degree, especialy in the eastern half of the study area.
 
 Let's now take a look at the same data again, this time we set `B` or $\beta$ to `0.1`.
 
@@ -1042,7 +1032,7 @@ ggmap(base_bolivia, darken = 0.35) +
 
 <img src="07-beyond-the-book_files/figure-html/unnamed-chunk-32-1.png" width="672" />
 
-When we lower the `B` $\beta$ constraint we get a tighter linear relationship between site area and flow. Further, when we look at the network, we see a more even degree distribution (though there are still nodes with higher degree) and more distributed edge weights across the network, though the high values are still. concentrated in the eastern cluster. 
+When we lower the `B` $\beta$ parameter we get a stronger linear relationship between site area and flow. Further, when we look at the network, we see a more even degree distribution (though there are still nodes with higher degree) and more distributed edge weights across the network, though the high values are still. concentrated in the eastern cluster. 
 
 #### Parameterizing the Gravity Model{#ParameterizeGravity}
 
@@ -1077,21 +1067,21 @@ ggplot(data = df) +
 
 <img src="07-beyond-the-book_files/figure-html/unnamed-chunk-33-1.png" width="672" />
 
-How then, do we select the appropriate $\beta$ in a model like this? There are a few ways to address this question depending on data availability and the nature of the issue such networks are being used to address. First, do we have some independent measure of network flow among our sites? For example, perhaps we could take information on the number or diversity of trade wares recovered at each site. We might expect sites with greater flow to have higher numbers or more diverse trade ware assemblages. We could evaluate this proposition using regression models and determine which $\beta$ provides the best fit for the data and theory. Often, however, when we are working with simple gravity models we have somewhat limited data and cannot make such direct comparisons. It is possible that we have a theoretical expectation for the shape of the decay curve as shown above (note that distances could also be things like cost-distance here so perhaps we have a notion of maximal travel times) and we can certainly factor that into our model. As we will see below, however, there are alternatives to the simple gravity model that provide additional avenues for evaluating model fit.
+As we see in the plot above, the decay rate varies at different values of $\beta$ and also in relation to the distance between points. How then, do we select the appropriate $\beta$ in a model like this? There are a few ways to address this question depending on data availability and the nature of the issue such networks are being used to address. First, do we have some independent measure of network flow among our sites? For example, perhaps we could take information on the number or diversity of trade wares recovered at each site. We might expect sites with greater flow to have higher numbers or more diverse trade ware assemblages. We could evaluate this proposition using regression models and determine which $\beta$ provides the best fit for the data and theory. Often, however, when we are working with simple gravity models we have somewhat limited data and cannot make such direct comparisons. It is possible that we have a theoretical expectation for the shape of the decay curve as shown above (note that distances could also be things like cost-distance here so perhaps we have a notion of maximal travel times or a caloric budget for movement) and we can certainly factor that into our model. As we will see below, however, there are alternatives to the simple gravity model that provide additional avenues for evaluating model fit.
 
 ### The Rihll and Wilson "Retail" Model{#RihllWilson}
 
-One of the most popular extensions of the gravity model in archaeology was published by Rihll and Wilson in 1987 for their study of the emergence of Greek city states in the 9th through 8th centuries B.C. They used a spatial interaction model that is sometimes called the "retail" model. This approach was originally designed for assessing the likely flows of resources into retail shops and how that can lead to shop growth/increased income and the establishment of a small number of super-centers that receive a large share of the overall available flow (often at the expense of smaller shops). When thinking about this model in a settlement context, the "flows" are people and resources and the growth of highly central nodes in the network is used to approximate the development of settlement hierarchy and the growth of large settlement centers. 
+One of the most popular extensions of the gravity model in archaeology was published by Rihll and Wilson in 1987 for their study of Greek city states in the 9th through 8th centuries B.C. They used a spatial interaction model that is sometimes called the "retail" model. This approach was originally designed for assessing the likely flows of resources into retail shops and how that can lead to shop growth/increased income and the establishment of a small number of super-centers that receive a large share of the overall available flow (often at the expense of smaller shops). When thinking about this model in a settlement context, the "flows" are people and resources and the growth of highly central nodes in the network is used to approximate the development of settlement hierarchy and the growth of large settlement centers. 
 
-One of the big advantages of this model is that it only requires the locations of origins and destinations and some measure of the cost of movement among sites. From that, an iterative approach is used to model the growth or decline of nodes based on their configurations in movement space and a couple of user provided parameters. Versions of this model have been used in a number of archaeological studies (e.g., [Bevan and Wilson 2013](https://www.researchgate.net/publication/257154745_Models_of_settlement_hierarchy_based_on_partial_evidence); [Evans and Rivers 2016](https://arxiv.org/abs/1611.07839); [Filet 2017](https://www.frontiersin.org/articles/10.3389/fdigh.2016.00010/full); [Rihll and Wilson 1987](https://www.persee.fr/doc/hism_0982-1783_1987_num_2_1_1300)). Here we present a version of the model based on the recent work by these scholars. The code below was based in part on an [R function](https://rdrr.io/github/CRC1266-A2/moin/src/R/Rhill_Wilson_algebraic.R) created as part of an [ISAAKiel](https://isaakiel.github.io/) Summer School program.
+One of the big advantages of this model is that it only requires the locations of origins and destinations and some measure of the cost of movement among sites. From that, an iterative approach is used to model the growth or decline of nodes based on their configurations in cost space and a couple of user provided parameters. Versions of this model have been used in a number of archaeological studies (e.g., [Bevan and Wilson 2013](https://www.researchgate.net/publication/257154745_Models_of_settlement_hierarchy_based_on_partial_evidence); [Evans and Rivers 2016](https://arxiv.org/abs/1611.07839); [Filet 2017](https://www.frontiersin.org/articles/10.3389/fdigh.2016.00010/full); [Rihll and Wilson 1987](https://www.persee.fr/doc/hism_0982-1783_1987_num_2_1_1300)). Here we present a version of the model inspired by the recent work by these scholars. The code below was based in part on an [R function](https://rdrr.io/github/CRC1266-A2/moin/src/R/Rhill_Wilson_algebraic.R) created as part of an [ISAAKiel](https://isaakiel.github.io/) Summer School program.
 
-Let's first formally describe the Rihll and Wilson model. The model of flow $T_{ij}$ among a set of sites $k$ can be represented as:
+Let's first formally describe the Rihll and Wilson model. The model of interaction $T_{ij}$ among a set of sites $k$ can be represented as:
 
 $$T_{ij} = \frac{O_iW_j^\alpha e^{-\beta c_{ij}}}{\Sigma_k W_k^\alpha e^{-\beta c_{jk}}}$$
 
 where
 
-* $T_{ij}$ is the matrix of flows between nodes $i$ and $j$ (which may or may not be the same set)
+* $T_{ij}$ is the matrix of flows or interaction between nodes $i$ and $j$ (which may or may not be the same set)
 * $O_i$ is the estimated weight of flow or interaction out of the origins $i$
 * $W_j$ is the estimated weight of flow or interaction into the destinations $j$. In most archaeological applications, this is used to represent some measurement of settlement size.
 * $\alpha$ is a parameter which defines the importance of resource flow into destinations. Numbers greater than 1 essentially model increasing returns to scale for every unit of flow.
@@ -1113,7 +1103,7 @@ where
 
 For the purposes of our examples here, we set $K$ to 1 to assume that sum of flows and size are in equal units and we set $\epsilon$ to 0.01 so that the model does not converge too rapidly. 
 
-By way of example, we will use the original Greek city states data used by Rihll and Wilson (1987) and [put online](https://figshare.com/articles/dataset/Locations_of_108_Archaeic_Greek_settlements_used_in_Rihll_and_Wilson_1987_/868961) by Tim Evans. 
+By way of example, we will use the original Greek city states data used by Rihll and Wilson (1987) and [put online](https://figshare.com/articles/dataset/Locations_of_108_Archaeic_Greek_settlements_used_in_Rihll_and_Wilson_1987_/868961) by Tim Evans based on his own work using these data and related spatial interaction models. 
 
 Let's first map the Greek city states data.
 
@@ -1142,7 +1132,7 @@ ggmap(map) +
 
 <img src="07-beyond-the-book_files/figure-html/unnamed-chunk-34-1.png" width="672" />
 
-In the code below, we define a vector for the initial values of $O_i$ and $W_j$ setting the value to 1 for every site. We then define an initial $\alpha = 1.05$ (to suggest that flows in provide slight increasing returns) and $\beta = 0.1$ (which is a low decay rate such that long distance connections will retain some importance). The code iteratively calculates values of $T_{ij}$ until the sum of weights stops changing by more than some very low threshold. In the chunk of code below we calculate $T_{ij}$ and then plot histogram of $W_j$ in final state of model.
+In the code below, we define a vector for the initial values of $O_i$ and $W_j$ setting the value to 1 for every site. We then define an initial $\alpha = 1.05$ (to suggest that flows in provide slight increasing returns) and $\beta = 0.1$ (which is a low decay rate such that long distance connections will retain some importance). The code then iteratively calculates values of $T_{ij}$ until the sum of weights stops changing by more than some very low threshold for a number of time steps. In the chunk of code below we calculate $T_{ij}$ and then plot histogram of $W_j$ in final state of model.
 
 
 ```r
@@ -1251,7 +1241,7 @@ ggmap(map) +
 
 <img src="07-beyond-the-book_files/figure-html/unnamed-chunk-37-1.png" width="672" />
 
-As this map illustrates, the terminal sites are roughly distributed across the study area rather than clustered together. Now, let's see what happens when we vary our parameters $\alpha$ and $\beta$.
+As this map illustrates, the terminal sites are roughly evenly distributed across the study area rather than clustered together. Now, let's see what happens when we vary our parameters $\alpha$ and $\beta$.
 
 For the next map, we will set $alpha = 1.15$ and leave $\beta$ as is. To make it easier to calculate everything, we're going to call an R script using `source()` that includes the full function and outputs $W_j$, $T_{ij}$, the number of iterations, and a logical vector indicating which nodes are terminals.
 
@@ -1350,7 +1340,7 @@ As this map illustrates, increasing $\beta$ increases the distance decay meaning
 
 #### Parameterizing the Retail Model{#ParameterizingRetail}
 
-How might we select appropriate values for $\alpha$ and $\beta$ in our model? The approach Rihll and Wilson (and many subsequent researchers: Bevan and Wilson 2013; Filet 2017) have taken is to use our knowledge of the archaeological record and regional settlement patterns and to select a model that is most consistent with that knowledge. Our model creates more or fewer highly central nodes depending on how we set our parameters. As we noted above, the terminal nodes we defined consistently include historically important and large sites like Athens suggesting that our model is likely doing something reasonable. One potential approach would be to run comparisons for a plausible range of values for $\alpha$ and $\beta$ and to evaluate relationships with our own archaeological knowledge of settlement hierarchy and which sites/places are defined as terminal sites or highly central places in our model. 
+How might we select appropriate values for $\alpha$ and $\beta$ in our model? The approach Rihll and Wilson and many subsequent researchers have taken (see Bevan and Wilson 2013; Filet 2017) is to use our knowledge of the archaeological record and regional settlement patterns and to select a model that is most consistent with that knowledge. Our model creates more or fewer highly central nodes depending on how we set our parameters. As we noted above, the terminal nodes we defined consistently include historically important and large sites like Athens suggesting that our model is likely doing something reasonable. One potential approach would be to run comparisons for a plausible range of values for $\alpha$ and $\beta$ and to evaluate relationships with our own archaeological knowledge of settlement hierarchy and which sites/places are defined as terminal sites or highly central places in our model. 
 
 In order to test a broader range of parameter values and their impact on the number of terminal sites, we have created a function that takes the parameters, data, and distance matrix and outputs just the number of terminals. 
 
@@ -1412,19 +1402,19 @@ As this plot shows low values for both $\alpha$ and $\beta$ tend to generate net
 
 ### Truncated Power Functions{#TruncatedPower}
 
-Another similar model was used in a study by [Menze and Ur (2012)](https://dash.harvard.edu/handle/1/8523994) in their study of networks in northern Mesopotamia. Their model is quite similar to the simple gravity model we saw above but with a couple of additional parameters and constraints. We leave the details of the approach to the published article but briefly describe their model here. This truncated power function requires information on settlement location, some measure of size or "attraction," and three parameter values. Edge interaction in this model can be formally defined as:
+Another similar spatial interaction model was used in a study by [Menze and Ur (2012)](https://dash.harvard.edu/handle/1/8523994) in their exploration of networks in northern Mesopotamia. Their model is quite similar to the simple gravity model we saw above but with a couple of additional parameters and constraints. We leave the details of the approach to the published article but briefly describe their model here. This truncated power function requires information on settlement location, some measure of size or "attraction," and three parameter values. Edge interaction $E_{ij}$ in this model can be formally defined as:
 
 $$E_{ij}(\alpha,\beta,\gamma) = V_i^\gamma V_j^\gamma d_{ij}^{-\alpha} e^{(-d_{ij}/\beta)}$$
 
 where 
 
-* $V$ is some measure of the attractiveness of node $i$ or $j$
-* $d_{ij}$ is the distance between nodes $i$ and $j$
-* $\alpha$ is a constraint on the distance between nodes
-* $\beta$ is the physical distance across which distance decay should be considered.
-* $\gamma$ is used to define the importance of $V$ on exchange
+* $V$ is some measure of the attractiveness of node $i$ or $j$, typically defined in terms of settlement size.
+* $d_{ij}$ is the distance between nodes $i$ and $j$. Again, this can use measures of distance other than simple Euclidean distances.
+* $\alpha$ is a constraint on the distance between nodes.
+* $\beta$ is the physical distance across which distance decay should be considered (defined in units of $d$).
+* $\gamma$ is used to define the importance of $V$ on interaction where values above 1 suggest incresing returns on scale.
 
-The model output $E_{ij}$ is, according to Menze and Ur, meant to approximate the movement of people among nodes across the landscape. In order to evaluate this function, we replicate the results of the Menze and Ur paper with one small change. We drop the bottom 25% of sites with the smallest volume from consideration due to the sample size. We use the replication data set provided by Menze and Ur online [here](https://dataverse.harvard.edu/dataset.xhtml;jsessionid=adeb8ff43c833f1efe447dc9e8ba?persistentId=hdl%3A1902.1%2F17731&version=&q=&fileTypeGroupFacet=%22Text%22&fileAccess=&fileTag=&fileSortField=type&fileSortOrder=). 
+The model output $E_{ij}$ is, according to Menze and Ur, meant to approximate the movement of people among nodes across the landscape. In order to evaluate this function, we replicate the results of the Menze and Ur paper with one small change. We drop the bottom 5% smallest sites from consideration due to the large sample size to keep run times managable (but this could certainly be changed in the code below). We use the replication data set provided by Menze and Ur online [here](https://dataverse.harvard.edu/dataset.xhtml;jsessionid=adeb8ff43c833f1efe447dc9e8ba?persistentId=hdl%3A1902.1%2F17731&version=&q=&fileTypeGroupFacet=%22Text%22&fileAccess=&fileTag=&fileSortField=type&fileSortOrder=). 
 
 Let's read in the data, omit the rows without site volume estimates, and then remove the lowest 25% of sites in terms of volume values. We then plot the sites with points scaled by site volume.
 
@@ -1444,6 +1434,11 @@ ggplot(mesop) +
 <img src="07-beyond-the-book_files/figure-html/unnamed-chunk-43-1.png" width="672" />
 
 And here we implement the truncated power approach rolled into a function called `truncated_power`. We use the values selected as optimal for the Menze and Ur (2012) paper.
+
+<div class="rmdwarning">
+<p>Note that the block below takes several minutes to run.</p>
+</div>
+
 
 
 ```r
@@ -1469,6 +1464,7 @@ We can now plot the sites again, this time with points scaled based on the total
 
 
 ```r
+
 edge_flow <- rowSums(res_mat)
 
 ggplot(mesop) +
@@ -1483,23 +1479,230 @@ ggplot(mesop) +
   theme_void()
 ```
 
-<img src="07-beyond-the-book_files/figure-html/unnamed-chunk-45-1.png" width="672" />
+<img src="07-beyond-the-book_files/figure-html/unnamed-chunk-46-1.png" width="672" />
 
-If we compare this to figure 8 in Menze and Ur (2012) we see highly central sites in the same locations suggesting that we've reasonably approximated their results even though we are using a slightly different sample. Further, as the next plot shows, if we remove the few sites that are isolated in our sample (due to us removing the bottom 25% of sites) we also see the same strong linear correlation between the log of site volume and the log of our measure of interaction.
+If we compare the plot above to figure 8 in Menze and Ur (2012) we see highly central sites in the same locations suggesting that we've reasonably approximated their results even though we are using a slightly different sample. Further, as the next plot shows, if we remove the few sites that are isolated in our sample (due to us removing the bottom 25% of sites) we also see the same strong linear correlation between the log of site volume and the log of our measure of interaction.
 
 
 ```r
 rem_low <- which(edge_flow > quantile(edge_flow, 0.01))
 
-plot(mesop$volume[rem_low], edge_flow[rem_low],
-     log = "xy", xlab = "Log Site Volume",
-     ylab = "Log Interaction")
+library(ggplot2)
+library(scales)
+df <- data.frame(Volume = mesop$volume[rem_low], Interaction = edge_flow[rem_low])
+
+ggplot(data = df) +
+  geom_point(aes(x = Volume, y = Interaction)) +
+  scale_x_log10(
+    breaks = trans_breaks("log10", function(x)
+      10 ^ x),
+    labels = trans_format("log10", math_format(10 ^ .x))
+  ) +
+  scale_y_log10(
+    breaks = trans_breaks("log10", function(x)
+      10 ^ x),
+    labels = trans_format("log10", math_format(10 ^ .x))
+  ) +
+  theme_bw()
 ```
 
-<img src="07-beyond-the-book_files/figure-html/unnamed-chunk-46-1.png" width="480" />
+<img src="07-beyond-the-book_files/figure-html/unnamed-chunk-47-1.png" width="480" />
 
-We could go about parameterizing this truncated power function in much the same way that we saw with the models above (i.e., testing values and evaluating results against the archaeological pattern). Indeed that is what Menze and Ur do but with a slight twist on what we've seen so far. In their case, they are lucky enough to have remotely sensed data on actual trails among sites for some portion of their study area. How they selected model parameters is by defining the closest match between site to site network edges and the actual observed trails (there are some methodological details I'm glossing over here so refer to the article for more). As this illustrates, there are many potential ways to select model parameters based on empirical information.
+We could go about parameterizing this truncated power function in much the same way that we saw with the models above (i.e., testing values and evaluating results against the archaeological pattern). Indeed that is what Menze and Ur do but with a slight twist on what we've seen so far. In their case, they are lucky enough to have remotely sensed data on actual trails among sites for some portion of their study area. How they selected model parameters is by testing a range of values for all parameters and selecting the set that produced the closest match between site to site network edges and the orientations of actual observed trails (there are some methodological details I'm glossing over here so refer to the article for more). As this illustrates, there are many potential ways to select model parameters based on empirical information.
+
+### Radiation Models{#RadiationModels}
+
+In 2012 Filippo Simini and colleagues ([Simini et al. 2012](https://dspace.mit.edu/handle/1721.1/77896)) presented a new model, designed specifically to model human geographic mobility called the radiation model. This model was created explicitly as an alternative to various gravity models and, in certain cases, was demonstrated to generate improved empirical predictions of human population movement between origins and destinations. This model shares some basic features with gravity models but importantly, the approach includes no parameters at all. Instead, this model uses simply measures of population at a set of sites and the distances between them. That is all that is required so this model is relatively simple and could likely be applied in many archaeological cases. Let's take a look at how it is formally defined: 
+
+$$T_{ij} = T_i \frac{m_in_j}{(m_i + s_{ij})(m_i + n_j + s_{ij})}$$
+
+where
+
+* $T_i$ is the total number of "commuters" or migrating individuals from node $i$.
+* $m_i$ and $n_j$ are the population estimates of nodes $i$ and $j$ respectively.
+* $s_{ij}$ is the total population in a circle centered at node $i$ and touching node $j$ excluding the populations of both $i$ and $j$.
+
+We have defined a function for calculating radiation among a set of sites using just two inputs:
+
+* **`pop`** is a vector of population values.
+* **`d_mat`** is a distance matrix among all nodes.
+
+A script containing this function can also be downloaded [here](scripts/radiation.R)
+
+
+```r
+radiation <- function(pop, d_mat) {
+  ## create square matrix with rows and columns for every site
+  out <-
+    matrix(0, length(pop), length(pop))
+  for (i in seq_len(length(pop))) {
+    # start loop on rows
+    for (j in seq_len(length(pop))) {
+      # start loop on columns
+      if (i == j)
+        next()
+      # skip diagonal of matrix
+      m <- pop[i] # set population value for site i
+      n <- pop[j] # set population value for site j
+      # find radius as distance between sites i and j
+      r_ij <-
+        d_mat[i, j]
+      # find all sites within the distance from i to j centered on i
+      sel_circle <-
+        which(d_mat[i, ] <= r_ij)
+      # remove the site i and j from list
+      sel_circle <-
+        sel_circle[-which(sel_circle %in% c(i, j))]
+      s <- sum(pop[sel_circle]) # sum population within radius
+      # calculate T_i and output to matrix
+      temp <-
+        pop[i] * ((m * n) / ((m + s) * (m + n + s)))
+      if (is.na(temp)) temp <- 0
+      out[i, j] <- temp
+    }
+  }
+  return(out)
+}
+```
+
+In order to test this model, we will use the same Wankarani settlement data we used above for the simple gravity model. We will use site area divided by 500 as our proxy for population here. Again we limit our sample to Late Intermediate period sites and habitations.
+
+
+
+```r
+wankarani <- read.csv("data/Wankarani_siteinfo.csv")
+wankarani <- wankarani[which(wankarani$Period == "Late Intermediate"), ]
+wankarani <- wankarani[which(wankarani$Type == "habitation"), ]
+
+d <- as.matrix(dist(wankarani[, 5:6]))
+
+rad_test <- radiation(pop = wankarani$Area / 500, d_mat = d)
+```
+
+Now let's plot the resulting network with each node scaled by the total incident flow (row sums of the output of the function above). We plot network edges with weights indicated by color (blue indicates low weight and yellow indicates high weight).
+
+
+```r
+library(igraph)
+#> 
+#> Attaching package: 'igraph'
+#> The following objects are masked from 'package:sna':
+#> 
+#>     betweenness, bonpow, closeness, components,
+#>     degree, dyad.census, evcent, hierarchy,
+#>     is.connected, neighborhood, triad.census
+#> The following objects are masked from 'package:network':
+#> 
+#>     %c%, %s%, add.edges, add.vertices, delete.edges,
+#>     delete.vertices, get.edge.attribute, get.edges,
+#>     get.vertex.attribute, is.bipartite, is.directed,
+#>     list.edge.attributes, list.vertex.attributes,
+#>     set.edge.attribute, set.vertex.attribute
+#> The following objects are masked from 'package:stats':
+#> 
+#>     decompose, spectrum
+#> The following object is masked from 'package:base':
+#> 
+#>     union
+library(ggraph)
+
+locations_sf <-
+  st_as_sf(wankarani, coords = c("Easting", "Northing"), crs = 32721)
+loc_trans <- st_transform(locations_sf, crs = 4326)
+coord1 <- do.call(rbind, st_geometry(loc_trans)) %>%
+  tibble::as_tibble() %>%
+  setNames(c("lon", "lat"))
+
+xy <- as.data.frame(coord1)
+colnames(xy) <- c("x", "y")
+
+base_bolivia <- get_stamenmap(
+  bbox = c(-55.97, -17.92, -55.40, -17.70),
+  zoom = 10,
+  maptype = "terrain-background",
+  color = "bw"
+)
+
+net <-
+  graph_from_adjacency_matrix(rad_test, mode = "undirected",
+                              weighted = TRUE)
+
+# Extract edgelist from network object
+edgelist <- get.edgelist(net)
+
+# Create dataframe of beginning and ending points of edges
+edges <-
+  data.frame(xy[edgelist[, 1], ],
+             xy[edgelist[, 2], ])
+colnames(edges) <- c("X1", "Y1", "X2", "Y2")
+
+# Calculate weighted degree
+dg <- rowSums(rad_test)
+
+# Plot data on map
+ggmap(base_bolivia, darken = 0.35) +
+  geom_segment(
+    data = edges,
+    aes(
+      x = X1,
+      y = Y1,
+      xend = X2,
+      yend = Y2,
+      col = log(E(net)$weight),
+      alpha = log(E(net)$weight)
+    ),
+    show.legend = FALSE
+  ) +
+  scale_alpha_continuous(range = c(0, 0.5)) +
+  scale_color_viridis() +
+  geom_point(
+    data = xy,
+    aes(x, y, size = dg),
+    alpha = 0.8,
+    color = "red",
+    show.legend = FALSE
+  ) +
+  theme_void() 
+```
+
+<img src="07-beyond-the-book_files/figure-html/unnamed-chunk-50-1.png" width="672" />
+
+This map shows clusters of higher and lower edge weights and again variation in total weighted degree (with higher values in the east). The results are similar, but not identical to the output of the simple gravity model.
+
+
+```r
+dg_grav <-  rowSums(grav_mod(
+  attract = wankarani$Area / 1000,
+  B = 1,
+  d = d_mat
+))
+
+dg_rad <- rowSums(rad_test)
+
+library(ggplot2)
+library(scales)
+df <-
+  data.frame(Radiation = dg_rad, Gravity = dg_grav)
+
+ggplot(data = df) +
+  geom_point(aes(x = Radiation, y = Gravity)) +
+  scale_x_log10(
+    breaks = trans_breaks("log10", function(x)
+      10 ^ x),
+    labels = trans_format("log10", math_format(10 ^ .x))
+  ) +
+  scale_y_log10(
+    breaks = trans_breaks("log10", function(x)
+      10 ^ x),
+    labels = trans_format("log10", math_format(10 ^ .x))
+  ) +
+  theme_bw()
+```
+
+<img src="07-beyond-the-book_files/figure-html/unnamed-chunk-51-1.png" width="672" />
+
+We are not aware of published examples of the use of radition models for archaeological cases but there is certainly potential.
 
 ### Other Spatial Interaction Models{#OtherModels}
 
-There are many other spatial interaction models we haven't covered here. Most are generally similar in that they take information on site size, perhaps other relevant archaeological information, and a few user selected parameters to model flows across edges and sometimes to iteratively predict sizes of nodes. Other common models we haven't covered here include the XTENT model (Renfrew and Level 1979; see Ducke and Suchowska 2021 for an example with code for GRASS GIS), the population radiation model (Simini et al. 2012). We are not aware of current implementations of either of these in R but it wouldn't be hard to do (and we may add them here if there is demand). Both of these are based on simple information on site location and size. Another approach that merits mention here is the [ariadne model](https://figshare.com/articles/dataset/ariadne/97746) designed by Tim Evans and used in collaboration with Ray Rivers, Carl Knappett, and others. This model provides a means for predicting site features and estimating optimal networks based on location and very general size information (or other archaeological features). This model has features that make it particularly useful for generating directed spatial networks (see [Evans et al. 2011](https://plato.tp.ph.ic.ac.uk/~time/networks/arch/interactionsArxivSubmissionV2.pdf)). Although there is a basic R implementation for the ariadne model developed by the ISAAKiel team [available here](https://rdrr.io/github/CRC1266-A2/moin/src/R/hamiltonian.R) the computational constraints make this function unfeasible in R for all but very small networks. Instead, if you are interested in applying the ariadne model, we wuggest you use the original Java program created by Tim Evans and [available here](https://figshare.com/articles/dataset/ariadne/97746).
+There are many other spatial interaction models we haven't covered here. Most are generally similar in that they take information on site size, perhaps other relevant archaeological information, and a few user selected parameters to model flows across edges and sometimes to iteratively predict sizes of nodes. Other common models we haven't covered here include the XTENT model (Renfrew and Level 1979; see Ducke and Suchowska 2021 for an example with code for GRASS GIS) and various derviations of maxent (or maximum entropy) models. Another approach that merits mention here is the [ariadne model](https://figshare.com/articles/dataset/ariadne/97746) designed by Tim Evans and used in collaboration with Ray Rivers, Carl Knappett, and others. This model provides a means for predicting site features and estimating optimal networks based on location and very general size information (or other archaeological features). This model has features that make it particularly useful for generating directed spatial networks (see [Evans et al. 2011](https://plato.tp.ph.ic.ac.uk/~time/networks/arch/interactionsArxivSubmissionV2.pdf)). Although there is a basic R implementation for the ariadne model developed by the ISAAKiel team [available here](https://rdrr.io/github/CRC1266-A2/moin/src/R/hamiltonian.R) the computational constraints make this function unfeasible in R for all but very small networks. Instead, if you are interested in applying the ariadne model, we suggest you use the original Java program created by Tim Evans and [available here](https://figshare.com/articles/dataset/ariadne/97746).
