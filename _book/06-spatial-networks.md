@@ -164,7 +164,7 @@ ggmap(my_map) +
 
 ## Planar Networks and Trees{#PlanarTrees}
 
-### Evaluating Planarity{#Evaluating Planarity}
+### Evaluating Planarity{#EvaluatingPlanarity}
 
 A planar network is a network that can be drawn on a plane where the edges do not cross but instead always end in nodes. In many small networks it is relatively easy to determine whether or not a network is planar by simply viewing a network graph. In larger graphs, this can sometimes be difficult. 
 
@@ -273,9 +273,9 @@ Let's create a simple tree using the `make_tree` function in igraph.
 ```r
 tree1 <- make_tree(n = 50, children = 5, mode = "undirected")
 tree1
-#> IGRAPH 8e7281c U--- 50 49 -- Tree
+#> IGRAPH a942367 U--- 50 49 -- Tree
 #> + attr: name (g/c), children (g/n), mode (g/c)
-#> + edges from 8e7281c:
+#> + edges from a942367:
 #>  [1]  1-- 2  1-- 3  1-- 4  1-- 5  1-- 6  2-- 7  2-- 8  2-- 9
 #>  [9]  2--10  2--11  3--12  3--13  3--14  3--15  3--16  4--17
 #> [17]  4--18  4--19  4--20  4--21  5--22  5--23  5--24  5--25

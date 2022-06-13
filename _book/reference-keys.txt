@@ -94,7 +94,7 @@ SpatialNetworks
 GeoData
 ExampleData
 PlanarTrees
-evaluating-planarityevaluating-planarity
+EvaluatingPlanarity
 DefiningTrees
 SpatialNetworkModels
 RelativeNeighborhoods

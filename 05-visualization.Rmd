@@ -2129,7 +2129,7 @@ load("data/Figure6_23.Rdata")
 sanpedro <- networkDynamic(network.list = sp_nets)
 
 # Compute animation
-compute.animation(sanpedro, default.dist = 7, animation.mode = "MDSJ")
+compute.animation(sanpedro, default.dist = 7, animation.mode = "kamadakawai")
 
 # Define colors for regions
 mycol <- c(
@@ -2295,6 +2295,7 @@ library(geosphere)
 library(ggmap)
 library(sf)
 library(tidyverse)
+library(ggraph)
 
 # Load in network and map data
 load("data/Figure6_27.Rdata")

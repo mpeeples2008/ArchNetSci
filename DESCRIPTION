@@ -54,7 +54,7 @@ Suggests:
   networkDynamic,
   scatterplot3d,
   patchwork,
-  concaveman
+  concaveman,
   rjson,
   d3r,
   edgebundle,

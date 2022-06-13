@@ -126,7 +126,7 @@ ggmap(my_map) +
 
 ## Planar Networks and Trees{#PlanarTrees}
 
-### Evaluating Planarity{#Evaluating Planarity}
+### Evaluating Planarity{#EvaluatingPlanarity}
 
 A planar network is a network that can be drawn on a plane where the edges do not cross but instead always end in nodes. In many small networks it is relatively easy to determine whether or not a network is planar by simply viewing a network graph. In larger graphs, this can sometimes be difficult. 
 
