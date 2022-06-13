@@ -1,6 +1,6 @@
 # Data and Workspace Setup{#DataAndWorkspace}
 
-This section provides downloadable files for the network data sets used in this online companion and in the book as well as information on the primary R packages used for analysis and visualization throughout this tutorial. We also provide very brief instructions for importing these data into R using R-studio and some guidance on setting up your R-studio working environment. For additional guidance see [Getting Started in R](#GettingStarted). 
+This section provides downloadable files for the network data sets used in this online companion and in the book as well as information on the primary R packages used for analysis and visualization throughout the tutorials in this document. We provide very brief instructions for importing these data into R using R-studio and some guidance on setting up your R-studio working environment. For additional guidance see [Getting Started in R](#GettingStarted). 
 
 ## Data Sets{#DataSets}
 
@@ -14,7 +14,7 @@ For the files below you can right click and "save as" to save them for use local
 
 Hey, we get it. You're busy and just want all of the data in one convenient package. We provide all of the data used in the appendix here in a single .zip file for you to download. To follow along with the examples in this appendix you need to choose an R working directory and place the contents of the *.zip folder within it such that all of the individual files are contained within a folder called "data". Note that this includes all of the additional files that are required for reproducing particular figures as well.
 
-**[All_data.zip](https://archnetworks.net/All_data.zip)** - A single compressed file containing all of the data files used in this appendix.
+**[All_data.zip](All_data.zip)** - A single compressed file containing all of the data files used in this appendix.
 
 ### Roman Road Networks{#RomanRoad}
 
@@ -25,7 +25,7 @@ Our primary source for roads of the entire Roman world is the Barrington Atlas o
 * **[Hispania_nodes](data/Hispania_nodes.csv)** - NodeIDs and names for Roman era settlements in the Iberian Peninsula along with names and latitude and longitude locations in decimal degrees.
 * **[Hispania_roads](data/Hispania_roads.csv)** - Edge list of road connections using NodeIDs from Hispania_nodes file. This file contains a "weight" variable defined for each edge which denotes the length of the road segment.
 
-The [Stanford ORBIS project](https://orbis.stanford.edu/) provide additional data from across the Roman World including settlements, roads, and characterizations of travel time. Some of these data have been wrapped into a convenient R compendium by [Sebastian Heath](https://github.com/sfsheath) and the data are available on GitHub here:
+The [Stanford ORBIS project](https://orbis.stanford.edu/) provides additional data from across the Roman World including settlements, roads, and characterizations of travel time. Some of these data have been wrapped into a convenient R compendium by [Sebastian Heath](https://github.com/sfsheath) and the data are available on GitHub here:
 
 
 ```r
@@ -45,9 +45,9 @@ In several sections of this book we also use subsets of this larger data set: th
 
 In these networks, individual settlements are treated as nodes and edges are defined and weighted based on similarities in the ceramic wares recovered at those settlements. Ceramic data used to generate networks are apportioned into a sequence of 50-year chronological intervals using methods described in detail by Roberts and colleagues (2012) and Ortman (2016; see discussion in Mills et al. 2018) so that we are able to explore change through time. Site locations and other site attribute data are also considered in some examples. R implementations of these chronological apportioning methods are available on GitHub as well ([R implementation of Roberts et al. 2012](https://github.com/mpeeples2008/CeramicApportioning), [R implementation of Ortman 2016](https://github.com/mpeeples2008/UniformProbabilityDensityAnalysis)).
 
-* **[SWSN Attribute Data AD 1300-1350](data/AD1300attr.csv)** - Attribute data for SWSN sites dating between AD 1300 and 1350 including site name, site sub-region (Macro), and jittered easting and northing UTM coordinates. 
+* **[SWSN Attribute Data AD 1300-1350](data/AD1300attr.csv)** - Attribute data for SWSN sites dating between AD 1300 and 1350 including site name, site sub-region (Macro), and jittered easting and northing UTM coordinates (Zone 12N). 
 * **[SWSN Similarity Data AD 1300-1350](data/AD1300sim.csv)** - Symmetric similarity matrix based on Brainerd-Robinson similarities for all SWSN sites dating between AD 1300 and 1350.
-* **[The Chaco World Attribute Data AD 1050-1100](data/AD1050attr.csv)** - Attribute data for sites with Chacoan architectural features dating between AD 1050 and 1100 including site IDs, site names, site sub-regions, counts of different kinds of public architectural features, and jittered easting and northing site locations. 
+* **[The Chaco World Attribute Data AD 1050-1100](data/AD1050attr.csv)** - Attribute data for sites with Chacoan architectural features dating between AD 1050 and 1100 including site IDs, site names, site sub-regions, counts of different kinds of public architectural features, and jittered easting and northing UTM site locations (Zone 12N). 
 * **[The Chaco World Ceramic Data AD 1050-1100](data/AD1050cer.csv)** - Ceramic count data by ware for sites with Chacoan architectural features dating between AD 1050 and 1100.
 * **[The Chaco World Network AD 1050-1100](data/AD1050net.csv)** - Adjacency matrix of binarized network of ceramic similarity for sites with Chacoan architectural features dating between AD 1050 and 1100.
 * **[San Pedro Networks throgh Time](data/Figure6_20.Rdata)** - An .RData file that contains `igraph` network objects for the San Pedro region ceramic similarity networks for AD1250-1300, AD1300-1350, and AD1350-1400.
@@ -66,7 +66,7 @@ Ceramic technological data from Peeples (2018): Additional data and documentatio
 * **[Cibola Site Attributes](data/Cibola_attr.csv)** - Site location, public architectural feature types, and sub-region designations for sites in the Cibola region sample.
 * **[Cibola Binary Network Edge List](data/Cibola_edgelist.csv)** - Binary edge list of Cibola technological similarity network.
 * **[Cibola Binary Network Adjacency Matrix](data/Cibola_adj.csv)** - Binary adjacency matrix of Cibola technological similarity network.
-* **[Peeples2018.Rdata](data/Peeples2018.Rdata)** - This file contains a number of objects in R format including the site attributes (`site_info`), a symmetric Brainerd-Robinson similarity matrix (`ceramicBR`), a binary network object in the `statnet/network` format (BRnet), and a weighted network object in the `network` format (`BRnet_w`) 
+* **[Peeples2018.Rdata](data/Peeples2018.Rdata)** - This file contains a number of objects in R format including the site attributes (`site_info`), a symmetric Brainerd-Robinson similarity matrix (`ceramic_br`), a binary network object in the `statnet/network` format (`brnet`), and a weighted network object in the `network` format (`brnet_w`) 
 
 ![Network graph showing connections among Cibola region settlements based on strong similarities in the technological attributes of corrugated cooking pots recovered at each site. Sites are colour coded by region where sites in the northern half of the study area are shown in black and sites in the southern half are shown in white.](images/Fig.2.6.png){width=100%}
 
@@ -94,7 +94,7 @@ In previous work, we have turned the tools of archaeological network science on 
 
 ### Iron Age Sites in Southern Spain{#Guadalquivir}
 
-The Guadalquivir river valley in the south of Spain between present-day Seville and Córdoba was densely urbanized in the late Iron Age (early 5th c. BC to late 3rd c. BC). Many settlements were dotted along the rivers and the southern part of the valley (Fig. 2.6), and this settlement pattern was focused on nuclear settlements sometimes referred to as oppida. Some of these reveal defensive architecture and many are located on elevations. Previous studies of Iron Age settlements in the region have explored possible explanations for their locations (Keay and Earl 2011; Brughmans et al. 2014, 2015). Given their elevated locations, one theory that has received considerable attention was intervisibility. Could small settlements surrounding oppida be seen from them, and could oppida be located partly to allow for visual control over surrounding settlements? Did groups of Iron Age settlements tend to be intervisible, forming communities that were visible on a daily basis? Were there chains of intervisibility that allowed for passing on information from one site to another via visual smoke or fire signals, and did these chains follow the other key communication medium in the area: the navigable rivers? 
+The Guadalquivir river valley in the south of Spain between present-day Seville and Córdoba was densely urbanized in the late Iron Age (early 5th c. B.C. to late 3rd c. B.C.). Many settlements were dotted along the rivers and the southern part of the valley (Fig. 2.6), and this settlement pattern was focused on nuclear settlements sometimes referred to as oppida. Some of these reveal defensive architecture and many are located on elevations. Previous studies of Iron Age settlements in the region have explored possible explanations for their locations (Keay and Earl 2011; Brughmans et al. 2014, 2015). Given their elevated locations, one theory that has received considerable attention was intervisibility. Could small settlements surrounding oppida be seen from them, and could oppida be located partly to allow for visual control over surrounding settlements? Did groups of Iron Age settlements tend to be intervisible, forming communities that were visible on a daily basis? Were there chains of intervisibility that allowed for passing on information from one site to another via visual smoke or fire signals, and did these chains follow the other key communication medium in the area: the navigable rivers? 
 
 These questions have been explored in previous research using GIS and network methods, using a data set of 86 sites and lines-of-sight connecting pairs of Iron Age settlements at distances up to 20km at which large fire and smoke signals would be visible (more about this data set and research topic: Keay and Earl 2011; Brughmans et al. 2014, 2015). To account for errors in the Digital Elevation Model (DEM), a probabilistic line-of-sight analysis was performed that introduces random errors into the DEM which can have a blocking or enhancing effect on the lines-of-sight. The locations of these 86 sites and the network displayed in figure 2.9 are also available as Appendix A in Brughmans et al. 2014. These locations are used in Chapter 7 of the book to illustrate spatial network models that explore different geographical structures that might underlie the settlement pattern.
 
@@ -106,7 +106,7 @@ These questions have been explored in previous research using GIS and network me
 
 This section briefly describes how the data provided above (or your own data) can be imported in to R for further analyses (see [Working With Files](#WorkingWithFiles) for more info). Before running the code below, however, you need to ensure that your R session is set to the correct working directory (the location where you placed the .csv files you just downloaded). To do that, go to the menu bar at the top and click Session > Set Working Directory > Choose Directory and navigate to the place on your hard drive where these files reside. 
 
-For this example we will read in the `Cibola_edgelist.csv` file and define an object called `EL1` which includes the data in that file using the `read.csv()` command. Note that in this case the file we want to read is in a sub-folder of our working directory called "data" so we need to use the `data/` prefix before the file name to correctly call that file. If you do not chose to use a sub-folder or if you call your folder something else, you will need to modify the `data/` section of the code.
+For this example we will read in the `Cibola_edgelist.csv` file and define an object called `el1` which includes the data in that file using the `read.csv()` command. Note that in this case the file we want to read is in a sub-folder of our working directory called "data" so we need to use the `data/` prefix before the file name to correctly call that file. If you do not chose to use a sub-folder or if you call your folder something else, you will need to modify the `data/` section of the code.
 
 
 ```r
@@ -157,9 +157,9 @@ Throughout this Online Companion, we will consistently rely on `igraph` and `sta
 
 Although `igraph` and the `statnet` suite of packages have many of the same features, they are not directly compatible and use different network formats to store data in R. Adding to the potential confusion, function call names are often the same between the two packages. For example degree centrality is calculated using a `degree()` function in both. If you simply use the `degree()` call R will use the function from whichever package was initialized most recently. If this is the wrong package for your data format, you will get an error. In order to avoid such errors and to clear up ambiguity we use the package name followed by `::` in the function call (i.e., `igraph::function_name` or `sna::function_name`) so that R knows which package we intend to use. You can do this with any R function where you want to specify the package (`package::function_name`).
 
-In general in this Online Companion we use the `igraph` package wherever possible as we find the data format and especially the functions for converting between network data types to be the most useful and intuitive for most kinds of analyses. We use `statnet` and affiliated packages in specific cases where `igraph` lacks specific functionality or important features. Luckily the package called `intergraph` lets us convert network objects from one format to another as we will see in the examples ahead. 
+In general in this Online Companion we use the `igraph` package wherever possible as we find the data format and especially the functions for converting between network data types to be the most useful and intuitive for most kinds of analyses. We use `statnet` and affiliated packages in specific cases where `igraph` lacks specific functionality or important features. Luckily the package called `intergraph` lets us easily convert network objects from one format to another as we will see in the examples ahead. 
 
-Finally, we recommend installing `ggraph` as this is a very useful and intuitive package that allows for diverse network visualizations and customization. These four packages account for the bulk of the examples in this book.
+Finally, we recommend installing `ggraph` as this is a very useful and intuitive package that allows for diverse network visualizations and customization. These four packages account for the bulk of the examples in this book. We discuss the use of this package in detail in the [visualization section](#Visualization) of this guide.
 
 ### Should I Just Install Everything?{#ShouldIInstall}
 
@@ -173,7 +173,7 @@ packages <- c("igraph", "statnet", "intergraph", "ggraph",
 install.packages(setdiff(packages, rownames(installed.packages())))
 ```
 
-If you have plenty of disk space and time and don't wont to worry about installing packages piecemeal, you can install everything at the same time using the code below. Note that there are a large number of packages and dependencies here and many are only used in one or two places in this Online Companion. Most of the packages are used in the [Network Visualization](#Visualization) section. We generally recommend that you install packages as you need them while you work through this document but you do you. 
+If you have plenty of disk space and time and don't wont to worry about installing packages piecemeal, you can install everything at the same time using the code below. Note that there are a large number of packages and dependencies here and many are only used in one or two places in this Online Companion. Most of the packages are used in the [network visualization](#Visualization) section for making plots with very specific features. We generally recommend that you install packages as you need them while you work through this document but you do you. 
 
 If you choose to install everything, however, you can simply run the chunk of code below. Note that the code below will not reinstall packages already installed in your current version of R. Note if you are familiar with Git and R Environments, it will be much faster to just use the `renv::restore()` function to build an environment from the repository. See the [Reproducibility section](#Repro) in the introduction for more information.
 
@@ -200,8 +200,8 @@ BiocManager::install("RBGL")
 <div class="rmdwarning">
 <p>In addition to the R packages listed above, there is one procedure
 used in this Online Companion that requires you to have an installation
-of Python 3.7 with particular packages associated with it. In order to
-implement these sections of code, you will need to also run the
+of Python 3.7 or 3.8 with particular packages associated with it. In
+order to implement these sections of code, you will need to also run the
 following lines of code. Note that this is a large install that takes
 about about 1.4 GB of hard drive space so only do this if you have the
 space and REALLY want to explore edge bundling (<a
@@ -210,7 +210,7 @@ able to reproduce everything in this document except for two chunks of
 code without this so feel free to sit this one out.</p>
 </div>
 
-To install Python with the required libraries, run the following chunk of code:
+To install Python with the required libraries, run the following chunk of code. Keep in mind this will take seeral minutes and about 1.4 GB of disk space:
 
 
 ```r
@@ -225,34 +225,54 @@ install_bundle_py(method = "auto", conda = "auto")
 This version of the book was built with R version 4.2.0 (2022-04-22 ucrt) and the following packages:
 
 
-|package      |version |source         |
-|:------------|:-------|:--------------|
-|ape          |5.6-2   |CRAN (R 4.2.0) |
-|cccd         |1.6     |CRAN (R 4.2.0) |
-|colorspace   |2.0-3   |CRAN (R 4.2.0) |
-|deldir       |1.0-6   |CRAN (R 4.2.0) |
-|devtools     |2.4.3   |CRAN (R 4.2.0) |
-|dplyr        |1.0.9   |CRAN (R 4.2.0) |
-|geosphere    |1.5-14  |CRAN (R 4.2.0) |
-|ggforce      |0.3.3   |CRAN (R 4.2.0) |
-|ggmap        |3.0.0   |CRAN (R 4.2.0) |
-|ggplot2      |3.3.6   |CRAN (R 4.2.0) |
-|ggplotify    |0.1.0   |CRAN (R 4.2.0) |
-|ggpubr       |0.4.0   |CRAN (R 4.2.0) |
-|ggraph       |2.0.5   |CRAN (R 4.2.0) |
-|ggrepel      |0.9.1   |CRAN (R 4.2.0) |
-|ggsn         |0.5.0   |CRAN (R 4.2.0) |
-|igraph       |1.3.1   |CRAN (R 4.2.0) |
-|intergraph   |2.0-2   |CRAN (R 4.2.0) |
-|multinet     |4.0.1   |CRAN (R 4.2.0) |
-|RColorBrewer |1.1-3   |CRAN (R 4.2.0) |
-|Rcpp         |1.0.8.3 |CRAN (R 4.2.0) |
-|reshape2     |1.4.4   |CRAN (R 4.2.0) |
-|sf           |1.0-7   |CRAN (R 4.2.0) |
-|statnet      |2019.6  |CRAN (R 4.2.0) |
-|superheat    |0.1.0   |CRAN (R 4.2.0) |
-|tidyverse    |1.3.1   |CRAN (R 4.2.0) |
-|vegan        |2.6-2   |CRAN (R 4.2.0) |
+|package           |version |source         |
+|:-----------------|:-------|:--------------|
+|ape               |5.6-2   |CRAN (R 4.2.0) |
+|bookdown          |0.26    |CRAN (R 4.2.0) |
+|bslib             |0.3.1   |CRAN (R 4.2.0) |
+|cccd              |1.6     |CRAN (R 4.2.0) |
+|colorspace        |2.0-3   |CRAN (R 4.2.0) |
+|concaveman
+  rjson |NA      |NA             |
+|d3r               |NA      |NA             |
+|deldir            |1.0-6   |CRAN (R 4.2.0) |
+|devtools          |2.4.3   |CRAN (R 4.2.0) |
+|downlit           |0.4.0   |CRAN (R 4.2.0) |
+|dplyr             |1.0.9   |CRAN (R 4.2.0) |
+|edgebundle        |0.3.1   |CRAN (R 4.2.0) |
+|geosphere         |1.5-14  |CRAN (R 4.2.0) |
+|ggforce           |0.3.3   |CRAN (R 4.2.0) |
+|ggmap             |3.0.0   |CRAN (R 4.2.0) |
+|ggplot2           |3.3.6   |CRAN (R 4.2.0) |
+|ggplotify         |0.1.0   |CRAN (R 4.2.0) |
+|ggpubr            |0.4.0   |CRAN (R 4.2.0) |
+|ggraph            |2.0.5   |CRAN (R 4.2.0) |
+|ggrepel           |0.9.1   |CRAN (R 4.2.0) |
+|ggsn              |0.5.0   |CRAN (R 4.2.0) |
+|GISTools          |0.7-4   |CRAN (R 4.2.0) |
+|igraph            |1.3.1   |CRAN (R 4.2.0) |
+|intergraph        |2.0-2   |CRAN (R 4.2.0) |
+|knitr             |1.39    |CRAN (R 4.2.0) |
+|latticeExtra      |0.6-29  |CRAN (R 4.2.0) |
+|maptools          |1.1-4   |CRAN (R 4.2.0) |
+|multinet          |4.0.1   |CRAN (R 4.2.0) |
+|networkD3         |0.4     |CRAN (R 4.2.0) |
+|networkDynamic    |0.11.2  |CRAN (R 4.2.0) |
+|patchwork         |1.1.1   |CRAN (R 4.2.0) |
+|RColorBrewer      |1.1-3   |CRAN (R 4.2.0) |
+|Rcpp              |1.0.8.3 |CRAN (R 4.2.0) |
+|reshape2          |1.4.4   |CRAN (R 4.2.0) |
+|reticulate        |1.25    |CRAN (R 4.2.0) |
+|rgeos             |0.5-9   |CRAN (R 4.2.0) |
+|rmarkdown         |2.14    |CRAN (R 4.2.0) |
+|scatterplot3d     |0.3-41  |CRAN (R 4.2.0) |
+|sf                |1.0-7   |CRAN (R 4.2.0) |
+|statnet           |2019.6  |CRAN (R 4.2.0) |
+|superheat         |0.1.0   |CRAN (R 4.2.0) |
+|tidyverse         |1.3.1   |CRAN (R 4.2.0) |
+|vegan             |2.6-2   |CRAN (R 4.2.0) |
+|visNetwork        |2.1.0   |CRAN (R 4.2.0) |
+|xml2              |1.3.3   |CRAN (R 4.2.0) |
 
 ## Suggested Workspace Setup{#WorkspaceSetup}
 

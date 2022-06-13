@@ -4,7 +4,9 @@ To visit the rendered bookdown version of this project [click here](https://book
 
 [![Docker Image CI](https://github.com/mpeeples2008/ArchNetSci/actions/workflows/docker-image.yml/badge.svg)](https://github.com/mpeeples2008/ArchNetSci/actions/workflows/docker-image.yml)   [![HitCount](https://hits.dwyl.com/mpeeples2008/ArchNetSci.svg)](http://hits.dwyl.com/mpeeples2008/ArchNetSci)
 
-This project serves as a companion to the Cambridge Manuals in Archaeology book *Archaeological Network Science* by Tom Brughmans and Matthew A. Peeples (2022). This document contains a series of tutorials that outline methods for managing, analyzing, and visualizing network data, primarily using the R programming language. We provide code and examples to replicate the analyses presented in the book as well as many other additional useful code snippets, examples, and tools. This Online Companion is designed to expand upon topics covered in the book and you may find it useful to follow along with these examples as you read the text. Sections 1 through 6 in this document correspond to the topics and information covered in Chapters 2 through 7 of the Brughmans and Peeples book. You can use the table of contents on the left-hand side of your screen to jump directly to a particular section and the table and contents on the right to navigate within each section. 
+This project serves as a companion to the Cambridge Manuals in Archaeology book *Archaeological Network Science* by Tom Brughmans and Matthew A. Peeples (2022). This document contains a series of tutorials that outline methods for managing, analyzing, and visualizing network data, primarily using the R programming language. We provide code and examples to replicate the analyses presented in the book as well as many other additional useful tools. This Online Companion is designed to expand upon topics covered in the book and you may find it useful to follow along with these examples as you read the text. Sections 1 through 6 in this document correspond to the topics and information covered in Chapters 2 through 7 of the Brughmans and Peeples book. Section 7 of this document includes topics beyond the scope of the book (exponential random graph models and spatial interaction models) and topics we hope to expand in the future. You can use the table of contents on the left-hand side of your screen to jump directly to a particular section and the table and contents on the right to navigate within each section. We have also created a quick TOC reference if you are seeking something in particular. 
+
+For more information on the book and the authors check out the project website here: [archnetworks.net](https://archnetworks.net).
 
 **Cite this document as:**
 
@@ -51,7 +53,7 @@ This online bookdown document has been deployed using the Netlify platform and t
 
 We have created an [Archaeological Network Science Channel on the Computational Archaeology Discord Server](https://discord.gg/Z9UXwjASM5), which we hope will provide an additional venue for archaeological network practitioners to collaborate, interact, and ask for help with this document or with archaeological networks (and other computational methods). We invite you to use this as a place to ask questions of the authors and the community at large. Note that this Discord is subject to the same [code of conduct](https://github.com/mpeeples2008/ArchNetSci/blob/main/CODE_OF_CONDUCT.md) we use for the GitHub repository and you must abide by that agreement to participate. We require that you have a Discord account with a verified email address.
 
-[Join the Computational Archaeology Discord](https://discord.gg/Z9UXwjASM5)
+[Join the Computational Archaeology Discord](https://discord.gg/Z9UXwjASM5)&nbsp; &nbsp;&nbsp; &nbsp;  ![](https://discordapp.com/api/guilds/975267909012189184/widget.png?style=shield)
 
 ## New to R and R Studio?
 
@@ -67,7 +69,6 @@ If you detect a larger error such as code not running or if you would like to re
 
 All contributors must agree to adhere to our [code of conduct](https://github.com/mpeeples2008/ArchNetSci/blob/main/CODE_OF_CONDUCT.md).
 
-
 ## Help Support this Project and Build the Community
 
 We are devoted to seeing the community of archaeological network practitioners grow and we hope our book and these online resources will help to make this happen. You can support the growth of our community too!
@@ -76,7 +77,7 @@ We are devoted to seeing the community of archaeological network practitioners g
 * Share links to these online resources on social media using the #archnetworks hashtag
 * Please cite the book *and* the Online Companion if you use methods or code from this document
 * Star the GitHub project repository and contribute to the project
-* Join our Discord and invite other interested people
+* Join the Computational Archaeology Discord and invite other interested people
 * Share articles, teaching resources, data, or other archaeological network materials for posting on our associated website [archnetworks.net](https://archnetworks.net)
 * Buy the book 
 * Review the book on online book sellers

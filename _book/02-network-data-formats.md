@@ -84,9 +84,9 @@ cibola_net <-
 
 # Display igraph network object and then plot a simple node-link diagram
 cibola_net
-#> IGRAPH d8bc11c UN-- 30 167 -- 
+#> IGRAPH 1df80c2 UN-- 30 167 -- 
 #> + attr: name (v/c)
-#> + edges from d8bc11c (vertex names):
+#> + edges from 1df80c2 (vertex names):
 #>  [1] Apache Creek--Casa Malpais        
 #>  [2] Apache Creek--Coyote Creek        
 #>  [3] Apache Creek--Hooper Ranch        
@@ -116,7 +116,7 @@ adj_list <- igraph::as_adj_edge_list(cibola_net)
 
 # examine adjacency list for the site Apache Creek
 adj_list$`Apache Creek`
-#> + 11/167 edges from d8bc11c (vertex names):
+#> + 11/167 edges from 1df80c2 (vertex names):
 #>  [1] Apache Creek--Casa Malpais        
 #>  [2] Apache Creek--Coyote Creek        
 #>  [3] Apache Creek--Hooper Ranch        
@@ -132,7 +132,7 @@ adj_list$`Apache Creek`
 # It is also possible to call specific nodes by number. In this case,
 # site 2 is Casa Malpais
 adj_list[[2]]
-#> + 11/167 edges from d8bc11c (vertex names):
+#> + 11/167 edges from 1df80c2 (vertex names):
 #>  [1] Apache Creek--Casa Malpais   
 #>  [2] Casa Malpais--Coyote Creek   
 #>  [3] Casa Malpais--Hooper Ranch   
@@ -260,7 +260,7 @@ plot(cibola_inc, vertex.color = as.numeric(V(cibola_inc)$type) + 1)
 
 ### Node and Edge Information{#NodeAttributes}
 
-Frequently we want to use other information about nodes and edges (node location, site type, edge weight, etc.) in our analyses and need to track these data in a separate attribute object or data column. One common way to do this is to simply create a data frame that contains the required attribute information and call specific data from this data frame when needed. As the following example shows, it is also possible to directly assign attributes to nodes or edges in an `igraph` network object and use those for subsequent analyses using the `V()` for nodes (V for vertices) and `E()` for edges calls within `igraph`.
+Frequently we want to use other information about nodes and edges (node location, site type, edge weight, etc.) in our analyses and need to track these data in a separate attribute object or data column. One common way to do this is to simply create a data frame that contains the required attribute information and call specific data from this data frame when needed. As the following example shows, it is also possible to directly assign attributes to nodes or edges in an `igraph` network object and use those for subsequent analyses using the `V()` for nodes (V standing for vertices) and `E()` for edges calls within `igraph`.
 
 In the following example we use [this file](data/Cibola_attr.csv) which includes basic attribute data by site (node) for all sites in the network we've been working with here. This file includes x and y coordinates for the sites, information on the presence/absence and shape of Great Kiva public architectural features at those sites, and the Region to which they have been assigned. First we read in the data.
 
@@ -315,9 +315,9 @@ V(cibola_net2)$region
 # Note that "region" is now listed as an attribute when we view
 # the network object
 cibola_net2
-#> IGRAPH d8ed573 UN-- 31 167 -- 
+#> IGRAPH 1e28095 UN-- 31 167 -- 
 #> + attr: name (v/c), region (v/c)
-#> + edges from d8ed573 (vertex names):
+#> + edges from 1e28095 (vertex names):
 #>  [1] Apache.Creek--Casa.Malpais        
 #>  [2] Apache.Creek--Coyote.Creek        
 #>  [3] Apache.Creek--Hooper.Ranch        
@@ -370,9 +370,9 @@ simple_net_i <-
   igraph::graph_from_adjacency_matrix(as.matrix(adj_mat2),
                                       mode = "undirected")
 simple_net_i
-#> IGRAPH d9e5309 UN-- 31 167 -- 
+#> IGRAPH 1f172f6 UN-- 31 167 -- 
 #> + attr: name (v/c)
-#> + edges from d9e5309 (vertex names):
+#> + edges from 1f172f6 (vertex names):
 #>  [1] Apache.Creek--Casa.Malpais        
 #>  [2] Apache.Creek--Coyote.Creek        
 #>  [3] Apache.Creek--Hooper.Ranch        
@@ -429,9 +429,9 @@ el2 <- cibola_edgelist[sample(seq(1, nrow(cibola_edgelist)), 125,
 directed_net <-
   igraph::graph_from_edgelist(as.matrix(el2), directed = TRUE)
 directed_net
-#> IGRAPH d9ed727 DN-- 30 125 -- 
+#> IGRAPH 1f1f180 DN-- 30 125 -- 
 #> + attr: name (v/c)
-#> + edges from d9ed727 (vertex names):
+#> + edges from 1f1f180 (vertex names):
 #>  [1] Coyote Creek   ->Techado Springs      
 #>  [2] Hubble Corner  ->Tri-R Pueblo         
 #>  [3] Hubble Corner  ->Techado Springs      
@@ -465,13 +465,13 @@ plot(directed_net)
 
 <img src="02-network-data-formats_files/figure-html/unnamed-chunk-11-1.png" width="672" />
 
-Notice that when we look at the igraph network plot it has arrows indicating the direction of connection in the edge list. If you are making your own directed edge list, the sending node by default will be in the left column and the receiving node in the right column. In the adjacency matrix the upper and lower triangles are no longer identical. Again, if you are generating your own adjacency matrix, you can simply mark edges sent from nodes denoted as rows and edges received from the same nodes as columns. Finally, in the plot, since R recognizes this as a directed igraph object when we plot the network, it automatically shows arrows indicating the direction of the edge.
+Notice that when we look at the igraph network plot it has arrows indicating the direction of connection in the edge list. If you are making your own directed edge list, the sending node by default will be in the first column and the receiving node in the second column. In the adjacency matrix the upper and lower triangles are no longer identical. Again, if you are generating your own adjacency matrix, you can simply mark edges sent from nodes denoted as rows and edges received from the same nodes as columns. Finally, in the plot, since R recognizes this as a directed igraph object when we plot the network, it automatically shows arrows indicating the direction of the edge.
 
 ### Signed, Categorized, and Weighted Networks{#WeightedNetworks}
 
 In many situations we want to add values to specific edges such as signs (sometimes called valences), nominal categories, or weights defining the strength or nature of relationships. There are a variety of ways that we can record and assign such weights or values to edges in R. The simplest way is to directly include that information in one of the formats described above such as an edge list or adjacency matrix. For example, we can add a third column to an edge list that denotes the weight, category, or sign of each edge or can fill the cells in an adjacency matrix with specific values rather than simply 1s or 0s.
 
-In this example, we will randomly generate edge weights for the Cibola network edge list and adjacency matrix to illustrate how R handles these formats. We use the `sample` function again to create a random vector of values between 1 and 4 for every edge in the network and then add it to the edgelist as a new variable called `$Weight`. We then convert this data frame into a network object.
+In this example, we will randomly generate edge weights for the Cibola network edge list and adjacency matrix to illustrate how R handles these formats. We use the `sample` function again to create a random vector of values between 1 and 4 for every edge in the network and then add it to the edge list as a new variable called `$Weight`. We then convert this data frame into a network object.
 
 
 ```r
@@ -544,9 +544,9 @@ cibola_inc <- igraph::graph_from_incidence_matrix(cibola_clust,
                                                   directed = FALSE,
                                                   multiple = TRUE)
 cibola_inc
-#> IGRAPH da361b8 UN-B 41 2214 -- 
+#> IGRAPH 1f67012 UN-B 41 2214 -- 
 #> + attr: type (v/l), name (v/c)
-#> + edges from da361b8 (vertex names):
+#> + edges from 1f67012 (vertex names):
 #>  [1] Apache Creek--Clust1 Apache Creek--Clust1
 #>  [3] Apache Creek--Clust1 Apache Creek--Clust1
 #>  [5] Apache Creek--Clust1 Apache Creek--Clust1
@@ -613,9 +613,9 @@ plot(two_mode_net,
 
 <img src="02-network-data-formats_files/figure-html/unnamed-chunk-14-1.png" width="672" />
 
-Notice how there are now far fewer ties and if you are familiar with the sites in question you might notice some clear regional patterning. 
+Notice how there are now far fewer edges and if you are familiar with the sites in question you might notice some clear regional patterning. 
 
-It is also possible to create one-mode projections of the two-mode data here using simple matrix algebra. All you need to do is multiply a matrix by the transpose of that matrix. The results will be a adjacency matrix for whichever set of nodes represented the rows in the first matrix in the matrix multiplication. Here is an example using the `mod_clust` incidence matrix with threshold created above. In the resulting incidence matrix individual cells will represent the number of different edges in common between the nodes in question and can be treated like an edge weight. The diagonal of the matrix will be the total number of clusters that were present in a site assemblage. In R the operator `%*%` indicates matrix mulitplication and the function `t()` will transpose a given matrix.
+It is also possible to create one-mode projections of the two-mode data here using simple matrix algebra. All you need to do is multiply a matrix by the transpose of that matrix. The results will be a adjacency matrix for whichever set of nodes represented the rows in the first matrix in the matrix multiplication. Here is an example using the `mod_clust` incidence matrix with threshold created above. In the resulting incidence matrix individual cells will represent the number of different edges in common between the nodes in question and can be treated like an edge weight. The diagonal of the matrix will be the total number of clusters that were present in a site assemblage. In R the operator `%*%` indicates matrix multiplication and the function `t()` will transpose a given matrix.
 
 
 ```r
@@ -676,7 +676,7 @@ The first metric we will explore here is a rescaled version of the Brainerd-Robi
 
 $$S = {\frac{2-\sum_{k} \left|x_{k} - y_{k}\right|} {2}}$$
 
-where, for all categories $k$, $x$ is the proportion of $k$ in the first assemblage and $y$ is the proportion of $k$ in the second. We subtract the sum from 2 as 2 is the maximum proportional difference possible between two samples. We further divide the result by 2. This provides a scale of similarity from 0-1 where 1 is perfect similarity and 0 indicates no similarity. The chunk below defines the code for calculating this modified BR similarity measure. Note here we use a distance metric called "Manhattan Distance" built into the `vegan` package in R. This metric is identical to the Brainerd-Robinson metric. We rescale our results to range from 0 to 1 after calculation.
+where, for all categories $k$, $x$ is the proportion of $k$ in the first assemblage and $y$ is the proportion of $k$ in the second. We subtract the sum from 2 as 2 is the maximum proportional difference possible between two samples. We further divide the result by 2. This provides a scale of similarity from 0 to 1 where 1 is perfect similarity and 0 indicates no similarity. The chunk below defines the code for calculating this modified BR similarity measure. Note here we use a distance metric called "Manhattan Distance" built into the `vegan` package in R. This metric is identical to the Brainerd-Robinson metric. We rescale our results to range from 0 to 1 after calculation.
 
 
 ```r
@@ -693,16 +693,21 @@ clust_p <- prop.table(as.matrix(cibola_clust), margin = 1)
 # to calculate the Brainard-Robinson similarity score. Since vegdist
 # by default defines an unscaled distance we must subtract the results
 # from 2 and then divide by 2 to get a similarity scaled from 0 to 1.
-cibola_br <- (2 - as.matrix(vegan::vegdist(clust_p,
-                                           method = "manhattan")) / 2)
+cibola_br <- ((2 - as.matrix(vegan::vegdist(clust_p,
+                                           method = "manhattan"))) / 2)
 
 # Lets look at the first few rows.
 cibola_br[1:4, 1:4]
-#>              Apache Creek  Atsinna Baca Pueblo Casa Malpais
-#> Apache Creek     2.000000 1.343358    1.445578     1.705069
-#> Atsinna          1.343358 2.000000    1.575009     1.374080
-#> Baca Pueblo      1.445578 1.575009    2.000000     1.560895
-#> Casa Malpais     1.705069 1.374080    1.560895     2.000000
+#>              Apache Creek   Atsinna Baca Pueblo
+#> Apache Creek    1.0000000 0.3433584   0.4455782
+#> Atsinna         0.3433584 1.0000000   0.5750090
+#> Baca Pueblo     0.4455782 0.5750090   1.0000000
+#> Casa Malpais    0.7050691 0.3740804   0.5608953
+#>              Casa Malpais
+#> Apache Creek    0.7050691
+#> Atsinna         0.3740804
+#> Baca Pueblo     0.5608953
+#> Casa Malpais    1.0000000
 ```
 
 At this point we could simply define this as a weighted network object where weights are equal to the similarity scores, or we could define a threshold for defining edges as present or absent. We will discuss these options in detail after presenting other similarity/distance metrics.
@@ -715,13 +720,14 @@ Morisita's index is calculated as:
 
 $$C_D=\frac{2 \Sigma^Sx_iy_i}{(D_x + D_y)XY}$$
 
-Where:
-$x_i$ is the number of rows where category $i$ is represented in the total $X$ from the population.
-$y_i$ is the number of rows where category $i$ is presented in the total $Y$ from the population.
-$D_x$ and $D_y$ are the Simpson's diversity index values for $x$ and $y$ respectively.
-$S$ is the total number of columns.
+where
 
-This metric ranges from 0 (where no categories overlap at all) to 1 where the categories occur in the same proportions in both samples. Because this metric works on absolute counts we can run the vegdist function directly on the "Cibola_clust" object. Because we want a similarity rather than a distance (which is the default for this function in R) we subtract the results from 1. 
+* $x_i$ is the number of rows where category $i$ is represented in the total $X$ from the population.
+* $y_i$ is the number of rows where category $i$ is presented in the total $Y$ from the population.
+* $D_x$ and $D_y$ are the Simpson's diversity index values for $x$ and $y$ respectively.
+* $S$ is the total number of columns.
+
+This metric ranges from 0 (where no categories overlap at all) to 1 where the categories occur in the same proportions in both samples. Because this metric works on absolute counts we can run the `vegdist` function directly on the `Cibola_clust` object. Because we want a similarity rather than a distance (which is the default for this function in R) we subtract the results from 1. 
 
 
 ```r
@@ -752,7 +758,7 @@ $$\chi_{jk} = \sqrt{\sum \frac 1{c_{j}}
 
 where $c_j$ denotes the $j_{th}$ element of the average row profile (the proportional abundance of $j$ across all rows) and $x$ and $y$ represent row profiles for the two sites under comparison. This metric therefore takes raw abundance (rather than simply proportional representation) into account when defining distance between sites. The definition of this metric is such that rare categories play a greater role in defining distances among sites than common categories (as in correspondence analysis). This measure has a minimum value of 0 and no theoretical upper limit. 
 
-The code for calculating $\chi^{2}$ distances is defined in the chunk below and a new object called "Cibola_X" is created using this measure. It is sometimes preferable to rescale this measure so that it is bounded between 0 and 1. We create a second object called "Cibola_X01" which represents rescaled distances by simply dividing the matrix by the maximum observed value (there are many other ways to do this but this will be fine for our demonstration purposes). Again, we subtract these results from 1 to convert a distance to a similarity.
+The code for calculating $\chi^{2}$ distances is defined in the chunk below and a new object called `Cibola_X` is created using this measure. It is sometimes preferable to rescale this measure so that it is bounded between 0 and 1. We create a second object called `Cibola_X01` which represents rescaled distances by simply dividing the matrix by the maximum observed value (there are many other ways to do this but this will be fine for our demonstration purposes). Again, we subtract these results from 1 to convert a distance to a similarity.
 
 
 ```r
@@ -785,9 +791,82 @@ cibola_x01[1:4, 1:4]
 #> Casa Malpais    1.0000000
 ```
 
+#### Jaccard Similarity{- #Jaccard}
+
+In many situations we may have either only presence/absence data or data where a one or a few categories dominate the assemblages of most sites. In the former case, the measures of similarity above will not work. In the latter case, although the measures above may work, the results may largely be a product of similarities or differences in those few common categories. In such cases, it may be preferable to use a similarity metric based on presence/absence data. The Jaccard similarity coefficient for two sets of presence/absence values is simply the intersection of values in those two cases divided by the union of those two cases. Formally this can be written as:
+
+$$J(A,B) = \frac{|A \cap B|}{|A \cup B|} = \frac{|A \cap B|}{|A| + |B| - |A \cap B|}$$
+
+where
+
+* $|A \cap B|$ is the intersection of vectors A and B or the number of categories where both vectors = present.
+* $|A \cup B|$ is the union of vectors A and B or the total number of categories where *either* A or B is present.
+
+We can define a simple function in R to calculate Jaccard similarity coefficients. These values will always range from 0 (no categories in common) to 1 (all categories in common).
+
+
+```r
+jaccard <- function(a, b) {
+  intersection <- length(which((a-b) == 0))
+  union <- length(a) + length(b) - intersection
+  return(intersection / union)
+}
+```
+
+In order to try this function out, we will create three simple vectors of values and then compare them. Note that this function compares matches for the position of each item in the vector. So if `vec1[1] = 1` and `vec2[1] = 1` that is condisered a match:
+
+
+```r
+vec1 <- c(0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 0)
+vec2 <- c(0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1)
+vec3 <- c(0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 1)
+
+jaccard(vec1, vec2)
+#> [1] 0.4666667
+
+jaccard(vec2, vec3)
+#> [1] 0.5714286
+
+jaccard(vec1, vec3)
+#> [1] 0.375
+```
+
+If we want to run this for an entire incidence matrix we could roll it into another function. Note that this function automatically takes an incidence matrix, converts it into presence/absence data and then calculates Jaccard coefficients for every pair of nodes. The output is a square matrix of similarities from row to row. Let's try it out in our `cibola_clust` data we used above:
+
+
+```r
+jaccard_inc <- function(dat) {
+  dat[dat > 0] <- 1
+  out <- matrix(NA, nrow(dat), nrow(dat))
+  for (i in seq_len(nrow(dat))) {
+    for (j in seq_len(nrow(dat))) {
+      out[i, j] <- jaccard(dat[i, ], dat[j, ])
+    }
+  }
+  return(out)
+}
+
+cibola_j <- jaccard_inc(dat = cibola_clust)
+
+cibola_j[1:4, 1:4]
+#>           [,1]      [,2]      [,3]      [,4]
+#> [1,] 1.0000000 0.4285714 0.4285714 0.8181818
+#> [2,] 0.4285714 1.0000000 0.6666667 0.5384615
+#> [3,] 0.4285714 0.6666667 1.0000000 0.5384615
+#> [4,] 0.8181818 0.5384615 0.5384615 1.0000000
+```
+
+Note that we have created R scripts with the two functions above as separate files. If you would like to initialize those functions without copying and pasting the code above, you can use the `source()` function to call a function straight from a file. These are both located in the "scripts" folder so we add that sub-folder to the file name in the argument.
+
+
+```r
+source("scripts/jaccard.R")
+source("scripts/jaccard_inc.R")
+```
+
 #### Creating Network Objects from Similarity Matrices {- #NetFromSim}
 
-Now that we have defined our three measures of similarity, the next step is to convert these into network objects that our R packages will be able to work with. We can do this by either creating binary networks (where ties are either present or absent) or weighted networks (which in many cases are simply the raw similarity/distance matrices we calculated above). We will provide examples of both approaches, starting with simple binary networks. There are many ways to define networks from matrices like those we generated above and our examples below should not been seen as an exhaustive set of procedures.
+Now that we have defined our measures of similarity, the next step is to convert these into network objects that our R packages will be able to work with. We can do this by either creating binary networks (where ties are either present or absent) or weighted networks (which in many cases are simply the raw similarity/distance matrices we calculated above). We will provide examples of both approaches, starting with simple binary networks. There are many ways to define networks from matrices like those we generated above and our examples below should not been seen as an exhaustive set of procedures.
 
 ##### Creating binary network objects {-}
 
@@ -815,9 +894,9 @@ brnet
 #>   loops = FALSE 
 #>   multiple = FALSE 
 #>   bipartite = FALSE 
-#>   total edges= 465 
+#>   total edges= 167 
 #>     missing edges= 0 
-#>     non-missing edges= 465 
+#>     non-missing edges= 167 
 #> 
 #>  Vertex attribute names: 
 #>     vertex.names 
@@ -829,7 +908,7 @@ set.seed(7564)
 plot(brnet)
 ```
 
-<img src="02-network-data-formats_files/figure-html/unnamed-chunk-19-1.png" width="672" />
+<img src="02-network-data-formats_files/figure-html/unnamed-chunk-23-1.png" width="672" />
 
 In the next chunk of code we will use the $\chi^2$ distances to create binary networks. This time, we will not use an absolute value to define ties as present, but instead will define those similarities greater than 80 percent of all similarities as present. We will then once again plot just as above.
 
@@ -867,13 +946,48 @@ set.seed(346)
 plot(xnet)
 ```
 
-<img src="02-network-data-formats_files/figure-html/unnamed-chunk-20-1.png" width="672" />
+<img src="02-network-data-formats_files/figure-html/unnamed-chunk-24-1.png" width="672" />
+
+Finally, we'll use our Jaccard coefficients and we will define our threshold for defining edges as present or absent as the grand mean of the entire similarity matrix using `method = "mean"`. There are more options in the `event2dichot` function. See the help material for more.
+
+
+```r
+jnet <-
+  network(event2dichot(cibola_j,
+                       method = "mean"),
+                       directed = FALSE)
+
+jnet %v% "vertex.names" <- row.names(cibola_clust)
+
+jnet
+#>  Network attributes:
+#>   vertices = 31 
+#>   directed = FALSE 
+#>   hyper = FALSE 
+#>   loops = FALSE 
+#>   multiple = FALSE 
+#>   bipartite = FALSE 
+#>   total edges= 207 
+#>     missing edges= 0 
+#>     non-missing edges= 207 
+#> 
+#>  Vertex attribute names: 
+#>     vertex.names 
+#> 
+#> No edge attributes
+
+# plot network using default layout
+set.seed(343546)
+plot(jnet)
+```
+
+<img src="02-network-data-formats_files/figure-html/unnamed-chunk-25-1.png" width="672" />
 
 ##### Creating Weighted Network Objects {-}
 
 It is also possible to use R to create weighted networks where individual edges are valued. We have found that this works reasonably well with networks of co-presence or something similar (counts of mentions in texts or monuments for example) but this does not perform well when applied to large similarity or distance matrices (because every possible link has a value, the network gets unwieldy very fast). In the latter case, we have found it is often better to just work directly with the underlying similarity/distance matrix.
 
-If you do, however, chose do create a weighted network object from a similarity matrix it only requires a slight modification from the procedure above. In the chunk of code below, we will simply add the arguments `ignore.eval = F` and `names.eval = "weight"` to let the network function know we would like weights to be retained and we would like that attribute called 'weight'. We will apply this to the matrix of Morisita similarities defined above and then plot the result. 
+If you do, however, chose do create a weighted network object from a similarity matrix it only requires a slight modification from the procedure above. In the chunk of code below, we will simply add the arguments `ignore.eval = FALSE` and `names.eval = "weight"` to let the network function know we would like weights to be retained and we would like that attribute called 'weight'. We will apply this to the matrix of Morisita similarities defined above and then plot the result. 
 
 
 ```r
@@ -910,7 +1024,7 @@ set.seed(4634)
 plot(mor_wt)
 ```
 
-<img src="02-network-data-formats_files/figure-html/unnamed-chunk-21-1.png" width="672" />
+<img src="02-network-data-formats_files/figure-html/unnamed-chunk-26-1.png" width="672" />
 
 The resulting network is nearly complete so it is a bit unwieldy for plotting but calculating network statistics on this weighted network can often still be useful as we will see in the exploratory analysis section.
 
@@ -938,9 +1052,9 @@ ego_nets <- make_ego_graph(cibola_net)
 
 # Examine the first ego-network
 ego_nets[[1]]
-#> IGRAPH dba7cf8 UN-- 12 59 -- 
+#> IGRAPH 21b8b5c UN-- 12 59 -- 
 #> + attr: name (v/c)
-#> + edges from dba7cf8 (vertex names):
+#> + edges from 21b8b5c (vertex names):
 #>  [1] Apache Creek--Casa Malpais   
 #>  [2] Apache Creek--Coyote Creek   
 #>  [3] Casa Malpais--Coyote Creek   
@@ -956,7 +1070,7 @@ set.seed(754)
 plot(ego_nets[[1]])
 ```
 
-<img src="02-network-data-formats_files/figure-html/unnamed-chunk-22-1.png" width="672" />
+<img src="02-network-data-formats_files/figure-html/unnamed-chunk-27-1.png" width="672" />
 
 ```r
 
@@ -965,7 +1079,7 @@ set.seed(45367)
 plot(ego_nets[[30]])
 ```
 
-<img src="02-network-data-formats_files/figure-html/unnamed-chunk-22-2.png" width="672" />
+<img src="02-network-data-formats_files/figure-html/unnamed-chunk-27-2.png" width="672" />
 
 In these ego-networks, only nodes connected to the target nodes (Apache Creek in the first example and then Platt Ranch in the second) are shown and only edges among those included nodes are shown.
 
@@ -1002,7 +1116,7 @@ summary(florentine)
 plot(florentine)
 ```
 
-<img src="02-network-data-formats_files/figure-html/unnamed-chunk-24-1.png" width="672" />
+<img src="02-network-data-formats_files/figure-html/unnamed-chunk-29-1.png" width="672" />
 
 The `multinet` network objects are compatible with `igraph` and individual layers can be analyzed just like other `igraph` network objects. Where this `multinet` approach likely has greater utility is in conducting comparisons among layers or conducting analyses that take several layers into account simultaneously. A detailed exploration of this approach is beyond the scope of this document (but we provide a simple example below) and we suggest interested readers read the package information and tutorials associated with this package for more. In the example here we calculate degree across multiple layers using the `degree_ml` function and then run a Louvain cluster detection algorithm across all graph layers using `glouvain_ml`. Multilayer networks have considerable potential for archaeological data and we hope to see more research in this area in the future.
 
@@ -1012,38 +1126,38 @@ The `multinet` network objects are compatible with `igraph` and individual layer
 # multilayer network, the multinet package can help us do that directly
 # and quite simply.
 multinet::degree_ml(florentine)
-#>  [1]  4  3  1  4  5  6  3  6  3  6  6 11  7  2  3
+#>  [1] 11  5  7  4  3  4  2  3  6  6  6  3  6  3  1
 
 # Similarly, we could apply cluster detection algorithms to all layers
 # of a multilayer network simultaneously.
 multinet::glouvain_ml(florentine)
 #>           actor    layer cid
-#> 1       Strozzi marriage   0
-#> 2     Barbadori marriage   0
-#> 3     Barbadori business   0
-#> 4    Castellani marriage   0
-#> 5    Castellani business   0
-#> 6       Peruzzi marriage   0
-#> 7       Peruzzi business   0
-#> 8    Tornabuoni marriage   1
-#> 9    Tornabuoni business   1
-#> 10      Ridolfi marriage   1
-#> 11   Acciaiuoli marriage   1
-#> 12      Albizzi marriage   1
-#> 13       Ginori marriage   1
-#> 14       Ginori business   1
-#> 15       Medici marriage   1
-#> 16       Medici business   1
+#> 1  Lamberteschi marriage   0
+#> 2  Lamberteschi business   0
+#> 3       Peruzzi marriage   0
+#> 4       Peruzzi business   0
+#> 5       Strozzi marriage   0
+#> 6      Guadagni marriage   0
+#> 7      Guadagni business   0
+#> 8    Castellani marriage   0
+#> 9    Castellani business   0
+#> 10     Bischeri marriage   0
+#> 11     Bischeri business   0
+#> 12       Medici marriage   1
+#> 13       Medici business   1
+#> 14      Ridolfi marriage   1
+#> 15   Tornabuoni marriage   1
+#> 16   Tornabuoni business   1
 #> 17        Pazzi marriage   1
 #> 18        Pazzi business   1
 #> 19     Salviati marriage   1
 #> 20     Salviati business   1
-#> 21 Lamberteschi marriage   2
-#> 22 Lamberteschi business   2
-#> 23     Guadagni marriage   2
-#> 24     Guadagni business   2
-#> 25     Bischeri marriage   2
-#> 26     Bischeri business   2
+#> 21    Barbadori marriage   1
+#> 22    Barbadori business   1
+#> 23       Ginori marriage   1
+#> 24       Ginori business   1
+#> 25      Albizzi marriage   1
+#> 26   Acciaiuoli marriage   1
 ```
 
 For an archaeological example of multilevel network analysis [this GitHub project](https://github.com/ajupton/archy-multilayer-nets) by Andy Upton.
@@ -1071,10 +1185,10 @@ Here is a simple example:
 ```r
 mor_wt_i <- asIgraph(mor_wt)
 mor_wt_i
-#> IGRAPH dc1cd00 U-W- 31 465 -- 
+#> IGRAPH 223449f U-W- 31 465 -- 
 #> + attr: na (v/l), vertex.names (v/c), na (e/l),
 #> | weight (e/n)
-#> + edges from dc1cd00:
+#> + edges from 223449f:
 #>  [1] 1-- 2 1-- 3 1-- 4 1-- 5 1-- 6 1-- 7 1-- 8 1-- 9 1--10
 #> [10] 1--11 1--12 1--13 1--14 1--15 1--16 1--17 1--18 1--19
 #> [19] 1--20 1--21 1--22 1--23 1--24 1--25 1--26 1--27 1--28

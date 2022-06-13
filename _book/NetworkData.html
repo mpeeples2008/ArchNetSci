@@ -173,9 +173,9 @@ Finally, we provide a brief example at the end of this section using
 
 <span class="co"># Display igraph network object and then plot a simple node-link diagram</span>
 <span class="va">cibola_net</span>
-<span class="co">#&gt; IGRAPH d8bc11c UN-- 30 167 -- </span>
+<span class="co">#&gt; IGRAPH 1df80c2 UN-- 30 167 -- </span>
 <span class="co">#&gt; + attr: name (v/c)</span>
-<span class="co">#&gt; + edges from d8bc11c (vertex names):</span>
+<span class="co">#&gt; + edges from 1df80c2 (vertex names):</span>
 <span class="co">#&gt;  [1] Apache Creek--Casa Malpais        </span>
 <span class="co">#&gt;  [2] Apache Creek--Coyote Creek        </span>
 <span class="co">#&gt;  [3] Apache Creek--Hooper Ranch        </span>
@@ -202,7 +202,7 @@ Finally, we provide a brief example at the end of this section using
 
 <span class="co"># examine adjacency list for the site Apache Creek</span>
 <span class="va">adj_list</span><span class="op">$</span><span class="va">`Apache Creek`</span>
-<span class="co">#&gt; + 11/167 edges from d8bc11c (vertex names):</span>
+<span class="co">#&gt; + 11/167 edges from 1df80c2 (vertex names):</span>
 <span class="co">#&gt;  [1] Apache Creek--Casa Malpais        </span>
 <span class="co">#&gt;  [2] Apache Creek--Coyote Creek        </span>
 <span class="co">#&gt;  [3] Apache Creek--Hooper Ranch        </span>
@@ -218,7 +218,7 @@ Finally, we provide a brief example at the end of this section using
 <span class="co"># It is also possible to call specific nodes by number. In this case,</span>
 <span class="co"># site 2 is Casa Malpais</span>
 <span class="va">adj_list</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>
-<span class="co">#&gt; + 11/167 edges from d8bc11c (vertex names):</span>
+<span class="co">#&gt; + 11/167 edges from 1df80c2 (vertex names):</span>
 <span class="co">#&gt;  [1] Apache Creek--Casa Malpais   </span>
 <span class="co">#&gt;  [2] Casa Malpais--Coyote Creek   </span>
 <span class="co">#&gt;  [3] Casa Malpais--Hooper Ranch   </span>
@@ -338,7 +338,7 @@ Finally, we provide a brief example at the end of this section using
 <h3>
 <span class="header-section-number">2.1.6</span> Node and Edge Information<a class="anchor" aria-label="anchor" href="#NodeAttributes"><i class="fas fa-link"></i></a>
 </h3>
-<p>Frequently we want to use other information about nodes and edges (node location, site type, edge weight, etc.) in our analyses and need to track these data in a separate attribute object or data column. One common way to do this is to simply create a data frame that contains the required attribute information and call specific data from this data frame when needed. As the following example shows, it is also possible to directly assign attributes to nodes or edges in an <code>igraph</code> network object and use those for subsequent analyses using the <code><a href="https://rdrr.io/pkg/igraph/man/V.html">V()</a></code> for nodes (V for vertices) and <code><a href="https://rdrr.io/pkg/igraph/man/E.html">E()</a></code> for edges calls within <code>igraph</code>.</p>
+<p>Frequently we want to use other information about nodes and edges (node location, site type, edge weight, etc.) in our analyses and need to track these data in a separate attribute object or data column. One common way to do this is to simply create a data frame that contains the required attribute information and call specific data from this data frame when needed. As the following example shows, it is also possible to directly assign attributes to nodes or edges in an <code>igraph</code> network object and use those for subsequent analyses using the <code><a href="https://rdrr.io/pkg/igraph/man/V.html">V()</a></code> for nodes (V standing for vertices) and <code><a href="https://rdrr.io/pkg/igraph/man/E.html">E()</a></code> for edges calls within <code>igraph</code>.</p>
 <p>In the following example we use <a href="data/Cibola_attr.csv">this file</a> which includes basic attribute data by site (node) for all sites in the network we’ve been working with here. This file includes x and y coordinates for the sites, information on the presence/absence and shape of Great Kiva public architectural features at those sites, and the Region to which they have been assigned. First we read in the data.</p>
 <div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Read in attribute data and look at the first few rows.</span>
@@ -386,9 +386,9 @@ Finally, we provide a brief example at the end of this section using
 <span class="co"># Note that "region" is now listed as an attribute when we view</span>
 <span class="co"># the network object</span>
 <span class="va">cibola_net2</span>
-<span class="co">#&gt; IGRAPH d8ed573 UN-- 31 167 -- </span>
+<span class="co">#&gt; IGRAPH 1e28095 UN-- 31 167 -- </span>
 <span class="co">#&gt; + attr: name (v/c), region (v/c)</span>
-<span class="co">#&gt; + edges from d8ed573 (vertex names):</span>
+<span class="co">#&gt; + edges from 1e28095 (vertex names):</span>
 <span class="co">#&gt;  [1] Apache.Creek--Casa.Malpais        </span>
 <span class="co">#&gt;  [2] Apache.Creek--Coyote.Creek        </span>
 <span class="co">#&gt;  [3] Apache.Creek--Hooper.Ranch        </span>
@@ -444,9 +444,9 @@ Finally, we provide a brief example at the end of this section using
   <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/graph_from_adjacency_matrix.html">graph_from_adjacency_matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">adj_mat2</span><span class="op">)</span>,
                                       mode <span class="op">=</span> <span class="st">"undirected"</span><span class="op">)</span>
 <span class="va">simple_net_i</span>
-<span class="co">#&gt; IGRAPH d9e5309 UN-- 31 167 -- </span>
+<span class="co">#&gt; IGRAPH 1f172f6 UN-- 31 167 -- </span>
 <span class="co">#&gt; + attr: name (v/c)</span>
-<span class="co">#&gt; + edges from d9e5309 (vertex names):</span>
+<span class="co">#&gt; + edges from 1f172f6 (vertex names):</span>
 <span class="co">#&gt;  [1] Apache.Creek--Casa.Malpais        </span>
 <span class="co">#&gt;  [2] Apache.Creek--Coyote.Creek        </span>
 <span class="co">#&gt;  [3] Apache.Creek--Hooper.Ranch        </span>
@@ -500,9 +500,9 @@ Finally, we provide a brief example at the end of this section using
 <span class="va">directed_net</span> <span class="op">&lt;-</span>
   <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/graph_from_edgelist.html">graph_from_edgelist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">el2</span><span class="op">)</span>, directed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="va">directed_net</span>
-<span class="co">#&gt; IGRAPH d9ed727 DN-- 30 125 -- </span>
+<span class="co">#&gt; IGRAPH 1f1f180 DN-- 30 125 -- </span>
 <span class="co">#&gt; + attr: name (v/c)</span>
-<span class="co">#&gt; + edges from d9ed727 (vertex names):</span>
+<span class="co">#&gt; + edges from 1f1f180 (vertex names):</span>
 <span class="co">#&gt;  [1] Coyote Creek   -&gt;Techado Springs      </span>
 <span class="co">#&gt;  [2] Hubble Corner  -&gt;Tri-R Pueblo         </span>
 <span class="co">#&gt;  [3] Hubble Corner  -&gt;Techado Springs      </span>
@@ -533,14 +533,14 @@ Finally, we provide a brief example at the end of this section using
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">4353</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">directed_net</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="02-network-data-formats_files/figure-html/unnamed-chunk-11-1.png" width="672"></div>
-<p>Notice that when we look at the igraph network plot it has arrows indicating the direction of connection in the edge list. If you are making your own directed edge list, the sending node by default will be in the left column and the receiving node in the right column. In the adjacency matrix the upper and lower triangles are no longer identical. Again, if you are generating your own adjacency matrix, you can simply mark edges sent from nodes denoted as rows and edges received from the same nodes as columns. Finally, in the plot, since R recognizes this as a directed igraph object when we plot the network, it automatically shows arrows indicating the direction of the edge.</p>
+<p>Notice that when we look at the igraph network plot it has arrows indicating the direction of connection in the edge list. If you are making your own directed edge list, the sending node by default will be in the first column and the receiving node in the second column. In the adjacency matrix the upper and lower triangles are no longer identical. Again, if you are generating your own adjacency matrix, you can simply mark edges sent from nodes denoted as rows and edges received from the same nodes as columns. Finally, in the plot, since R recognizes this as a directed igraph object when we plot the network, it automatically shows arrows indicating the direction of the edge.</p>
 </div>
 <div id="WeightedNetworks" class="section level3" number="2.2.3">
 <h3>
 <span class="header-section-number">2.2.3</span> Signed, Categorized, and Weighted Networks<a class="anchor" aria-label="anchor" href="#WeightedNetworks"><i class="fas fa-link"></i></a>
 </h3>
 <p>In many situations we want to add values to specific edges such as signs (sometimes called valences), nominal categories, or weights defining the strength or nature of relationships. There are a variety of ways that we can record and assign such weights or values to edges in R. The simplest way is to directly include that information in one of the formats described above such as an edge list or adjacency matrix. For example, we can add a third column to an edge list that denotes the weight, category, or sign of each edge or can fill the cells in an adjacency matrix with specific values rather than simply 1s or 0s.</p>
-<p>In this example, we will randomly generate edge weights for the Cibola network edge list and adjacency matrix to illustrate how R handles these formats. We use the <code>sample</code> function again to create a random vector of values between 1 and 4 for every edge in the network and then add it to the edgelist as a new variable called <code>$Weight</code>. We then convert this data frame into a network object.</p>
+<p>In this example, we will randomly generate edge weights for the Cibola network edge list and adjacency matrix to illustrate how R handles these formats. We use the <code>sample</code> function again to create a random vector of values between 1 and 4 for every edge in the network and then add it to the edge list as a new variable called <code>$Weight</code>. We then convert this data frame into a network object.</p>
 <div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Read in edge list file as data frame</span>
 <span class="va">cibola_edgelist</span> <span class="op">&lt;-</span>
@@ -607,9 +607,9 @@ Finally, we provide a brief example at the end of this section using
                                                   directed <span class="op">=</span> <span class="cn">FALSE</span>,
                                                   multiple <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="va">cibola_inc</span>
-<span class="co">#&gt; IGRAPH da361b8 UN-B 41 2214 -- </span>
+<span class="co">#&gt; IGRAPH 1f67012 UN-B 41 2214 -- </span>
 <span class="co">#&gt; + attr: type (v/l), name (v/c)</span>
-<span class="co">#&gt; + edges from da361b8 (vertex names):</span>
+<span class="co">#&gt; + edges from 1f67012 (vertex names):</span>
 <span class="co">#&gt;  [1] Apache Creek--Clust1 Apache Creek--Clust1</span>
 <span class="co">#&gt;  [3] Apache Creek--Clust1 Apache Creek--Clust1</span>
 <span class="co">#&gt;  [5] Apache Creek--Clust1 Apache Creek--Clust1</span>
@@ -668,8 +668,8 @@ Finally, we provide a brief example at the end of this section using
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">two_mode_net</span>,
      vertex.color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html">V</a></span><span class="op">(</span><span class="va">cibola_inc</span><span class="op">)</span><span class="op">$</span><span class="va">type</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="02-network-data-formats_files/figure-html/unnamed-chunk-14-1.png" width="672"></div>
-<p>Notice how there are now far fewer ties and if you are familiar with the sites in question you might notice some clear regional patterning.</p>
-<p>It is also possible to create one-mode projections of the two-mode data here using simple matrix algebra. All you need to do is multiply a matrix by the transpose of that matrix. The results will be a adjacency matrix for whichever set of nodes represented the rows in the first matrix in the matrix multiplication. Here is an example using the <code>mod_clust</code> incidence matrix with threshold created above. In the resulting incidence matrix individual cells will represent the number of different edges in common between the nodes in question and can be treated like an edge weight. The diagonal of the matrix will be the total number of clusters that were present in a site assemblage. In R the operator <code>%*%</code> indicates matrix mulitplication and the function <code><a href="https://rdrr.io/r/base/t.html">t()</a></code> will transpose a given matrix.</p>
+<p>Notice how there are now far fewer edges and if you are familiar with the sites in question you might notice some clear regional patterning.</p>
+<p>It is also possible to create one-mode projections of the two-mode data here using simple matrix algebra. All you need to do is multiply a matrix by the transpose of that matrix. The results will be a adjacency matrix for whichever set of nodes represented the rows in the first matrix in the matrix multiplication. Here is an example using the <code>mod_clust</code> incidence matrix with threshold created above. In the resulting incidence matrix individual cells will represent the number of different edges in common between the nodes in question and can be treated like an edge weight. The diagonal of the matrix will be the total number of clusters that were present in a site assemblage. In R the operator <code>%*%</code> indicates matrix multiplication and the function <code><a href="https://rdrr.io/r/base/t.html">t()</a></code> will transpose a given matrix.</p>
 <div class="sourceCode" id="cb79"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># In R the command "%*%" indicates matrix multiplication and "t()"</span>
 <span class="co"># gives the transpose of the matrix within the parentheses.</span>
@@ -721,7 +721,7 @@ Finally, we provide a brief example at the end of this section using
 </h4>
 <p>The first metric we will explore here is a rescaled version of the Brainerd-Robinson (BR) similarity metric. This BR measure is commonly used in archaeology including in a number of recent (and not so recent) network studies. This measure represents the total similarity in proportional representation of categories and is defined as:</p>
 <p><span class="math display">\[S = {\frac{2-\sum_{k} \left|x_{k} - y_{k}\right|} {2}}\]</span></p>
-<p>where, for all categories <span class="math inline">\(k\)</span>, <span class="math inline">\(x\)</span> is the proportion of <span class="math inline">\(k\)</span> in the first assemblage and <span class="math inline">\(y\)</span> is the proportion of <span class="math inline">\(k\)</span> in the second. We subtract the sum from 2 as 2 is the maximum proportional difference possible between two samples. We further divide the result by 2. This provides a scale of similarity from 0-1 where 1 is perfect similarity and 0 indicates no similarity. The chunk below defines the code for calculating this modified BR similarity measure. Note here we use a distance metric called “Manhattan Distance” built into the <code>vegan</code> package in R. This metric is identical to the Brainerd-Robinson metric. We rescale our results to range from 0 to 1 after calculation.</p>
+<p>where, for all categories <span class="math inline">\(k\)</span>, <span class="math inline">\(x\)</span> is the proportion of <span class="math inline">\(k\)</span> in the first assemblage and <span class="math inline">\(y\)</span> is the proportion of <span class="math inline">\(k\)</span> in the second. We subtract the sum from 2 as 2 is the maximum proportional difference possible between two samples. We further divide the result by 2. This provides a scale of similarity from 0 to 1 where 1 is perfect similarity and 0 indicates no similarity. The chunk below defines the code for calculating this modified BR similarity measure. Note here we use a distance metric called “Manhattan Distance” built into the <code>vegan</code> package in R. This metric is identical to the Brainerd-Robinson metric. We rescale our results to range from 0 to 1 after calculation.</p>
 <div class="sourceCode" id="cb81"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Read in raw data</span>
 <span class="va">cibola_clust</span> <span class="op">&lt;-</span>
@@ -736,16 +736,21 @@ Finally, we provide a brief example at the end of this section using
 <span class="co"># to calculate the Brainard-Robinson similarity score. Since vegdist</span>
 <span class="co"># by default defines an unscaled distance we must subtract the results</span>
 <span class="co"># from 2 and then divide by 2 to get a similarity scaled from 0 to 1.</span>
-<span class="va">cibola_br</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="fl">2</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="fu">vegan</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/vegan/man/vegdist.html">vegdist</a></span><span class="op">(</span><span class="va">clust_p</span>,
-                                           method <span class="op">=</span> <span class="st">"manhattan"</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span> <span class="fl">2</span><span class="op">)</span>
+<span class="va">cibola_br</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="op">(</span><span class="fl">2</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="fu">vegan</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/vegan/man/vegdist.html">vegdist</a></span><span class="op">(</span><span class="va">clust_p</span>,
+                                           method <span class="op">=</span> <span class="st">"manhattan"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span> <span class="fl">2</span><span class="op">)</span>
 
 <span class="co"># Lets look at the first few rows.</span>
 <span class="va">cibola_br</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>
-<span class="co">#&gt;              Apache Creek  Atsinna Baca Pueblo Casa Malpais</span>
-<span class="co">#&gt; Apache Creek     2.000000 1.343358    1.445578     1.705069</span>
-<span class="co">#&gt; Atsinna          1.343358 2.000000    1.575009     1.374080</span>
-<span class="co">#&gt; Baca Pueblo      1.445578 1.575009    2.000000     1.560895</span>
-<span class="co">#&gt; Casa Malpais     1.705069 1.374080    1.560895     2.000000</span></code></pre></div>
+<span class="co">#&gt;              Apache Creek   Atsinna Baca Pueblo</span>
+<span class="co">#&gt; Apache Creek    1.0000000 0.3433584   0.4455782</span>
+<span class="co">#&gt; Atsinna         0.3433584 1.0000000   0.5750090</span>
+<span class="co">#&gt; Baca Pueblo     0.4455782 0.5750090   1.0000000</span>
+<span class="co">#&gt; Casa Malpais    0.7050691 0.3740804   0.5608953</span>
+<span class="co">#&gt;              Casa Malpais</span>
+<span class="co">#&gt; Apache Creek    0.7050691</span>
+<span class="co">#&gt; Atsinna         0.3740804</span>
+<span class="co">#&gt; Baca Pueblo     0.5608953</span>
+<span class="co">#&gt; Casa Malpais    1.0000000</span></code></pre></div>
 <p>At this point we could simply define this as a weighted network object where weights are equal to the similarity scores, or we could define a threshold for defining edges as present or absent. We will discuss these options in detail after presenting other similarity/distance metrics.</p>
 </div>
 <div id="morisitas-overlap-index---morisita" class="section level4" number="2.2.5.1">
@@ -755,12 +760,18 @@ Finally, we provide a brief example at the end of this section using
 <p>Another measure that has been used for defining similarities among assemblages for archaeological similarity networks is Morisita’s overlap index. This measure is a measure of the overlap of individual assemblages within a larger population that takes the size of samples into account. Specifically, the approach assumes that as sample size increases diversity will likely increase. This measure produces results that are very similar to the Brainerd-Robinson metric in practice in most cases but this measure may be preferred where there are dramatic differences in assemblage sizes among observations.</p>
 <p>Morisita’s index is calculated as:</p>
 <p><span class="math display">\[C_D=\frac{2 \Sigma^Sx_iy_i}{(D_x + D_y)XY}\]</span></p>
-<p>Where:
-<span class="math inline">\(x_i\)</span> is the number of rows where category <span class="math inline">\(i\)</span> is represented in the total <span class="math inline">\(X\)</span> from the population.
-<span class="math inline">\(y_i\)</span> is the number of rows where category <span class="math inline">\(i\)</span> is presented in the total <span class="math inline">\(Y\)</span> from the population.
-<span class="math inline">\(D_x\)</span> and <span class="math inline">\(D_y\)</span> are the Simpson’s diversity index values for <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> respectively.
-<span class="math inline">\(S\)</span> is the total number of columns.</p>
-<p>This metric ranges from 0 (where no categories overlap at all) to 1 where the categories occur in the same proportions in both samples. Because this metric works on absolute counts we can run the vegdist function directly on the “Cibola_clust” object. Because we want a similarity rather than a distance (which is the default for this function in R) we subtract the results from 1.</p>
+<p>where</p>
+<ul>
+<li>
+<span class="math inline">\(x_i\)</span> is the number of rows where category <span class="math inline">\(i\)</span> is represented in the total <span class="math inline">\(X\)</span> from the population.</li>
+<li>
+<span class="math inline">\(y_i\)</span> is the number of rows where category <span class="math inline">\(i\)</span> is presented in the total <span class="math inline">\(Y\)</span> from the population.</li>
+<li>
+<span class="math inline">\(D_x\)</span> and <span class="math inline">\(D_y\)</span> are the Simpson’s diversity index values for <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> respectively.</li>
+<li>
+<span class="math inline">\(S\)</span> is the total number of columns.</li>
+</ul>
+<p>This metric ranges from 0 (where no categories overlap at all) to 1 where the categories occur in the same proportions in both samples. Because this metric works on absolute counts we can run the <code>vegdist</code> function directly on the <code>Cibola_clust</code> object. Because we want a similarity rather than a distance (which is the default for this function in R) we subtract the results from 1.</p>
 <div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Calculate matrix of Morisita similarities based on the</span>
 <span class="co"># Cibola_clust two-way table.</span>
@@ -786,7 +797,7 @@ Finally, we provide a brief example at the end of this section using
 <p><span class="math display">\[\chi_{jk} = \sqrt{\sum \frac 1{c_{j}}
 ({x_{j}-y_{j})^{2}}}\]</span></p>
 <p>where <span class="math inline">\(c_j\)</span> denotes the <span class="math inline">\(j_{th}\)</span> element of the average row profile (the proportional abundance of <span class="math inline">\(j\)</span> across all rows) and <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> represent row profiles for the two sites under comparison. This metric therefore takes raw abundance (rather than simply proportional representation) into account when defining distance between sites. The definition of this metric is such that rare categories play a greater role in defining distances among sites than common categories (as in correspondence analysis). This measure has a minimum value of 0 and no theoretical upper limit.</p>
-<p>The code for calculating <span class="math inline">\(\chi^{2}\)</span> distances is defined in the chunk below and a new object called “Cibola_X” is created using this measure. It is sometimes preferable to rescale this measure so that it is bounded between 0 and 1. We create a second object called “Cibola_X01” which represents rescaled distances by simply dividing the matrix by the maximum observed value (there are many other ways to do this but this will be fine for our demonstration purposes). Again, we subtract these results from 1 to convert a distance to a similarity.</p>
+<p>The code for calculating <span class="math inline">\(\chi^{2}\)</span> distances is defined in the chunk below and a new object called <code>Cibola_X</code> is created using this measure. It is sometimes preferable to rescale this measure so that it is bounded between 0 and 1. We create a second object called <code>Cibola_X01</code> which represents rescaled distances by simply dividing the matrix by the maximum observed value (there are many other ways to do this but this will be fine for our demonstration purposes). Again, we subtract these results from 1 to convert a distance to a similarity.</p>
 <div class="sourceCode" id="cb83"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Define function for calculating chi-squared distance</span>
 <span class="va">chi_dist</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
@@ -816,16 +827,75 @@ Finally, we provide a brief example at the end of this section using
 <span class="co">#&gt; Baca Pueblo     0.1469591</span>
 <span class="co">#&gt; Casa Malpais    1.0000000</span></code></pre></div>
 </div>
+<div id="Jaccard" class="section level4 unnumbered">
+<h4>Jaccard Similarity<a class="anchor" aria-label="anchor" href="#Jaccard"><i class="fas fa-link"></i></a>
+</h4>
+<p>In many situations we may have either only presence/absence data or data where a one or a few categories dominate the assemblages of most sites. In the former case, the measures of similarity above will not work. In the latter case, although the measures above may work, the results may largely be a product of similarities or differences in those few common categories. In such cases, it may be preferable to use a similarity metric based on presence/absence data. The Jaccard similarity coefficient for two sets of presence/absence values is simply the intersection of values in those two cases divided by the union of those two cases. Formally this can be written as:</p>
+<p><span class="math display">\[J(A,B) = \frac{|A \cap B|}{|A \cup B|} = \frac{|A \cap B|}{|A| + |B| - |A \cap B|}\]</span></p>
+<p>where</p>
+<ul>
+<li>
+<span class="math inline">\(|A \cap B|\)</span> is the intersection of vectors A and B or the number of categories where both vectors = present.</li>
+<li>
+<span class="math inline">\(|A \cup B|\)</span> is the union of vectors A and B or the total number of categories where <em>either</em> A or B is present.</li>
+</ul>
+<p>We can define a simple function in R to calculate Jaccard similarity coefficients. These values will always range from 0 (no categories in common) to 1 (all categories in common).</p>
+<div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">jaccard</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">a</span>, <span class="va">b</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">intersection</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="op">(</span><span class="va">a</span><span class="op">-</span><span class="va">b</span><span class="op">)</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span>
+  <span class="va">union</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">a</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">b</span><span class="op">)</span> <span class="op">-</span> <span class="va">intersection</span>
+  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">intersection</span> <span class="op">/</span> <span class="va">union</span><span class="op">)</span>
+<span class="op">}</span></code></pre></div>
+<p>In order to try this function out, we will create three simple vectors of values and then compare them. Note that this function compares matches for the position of each item in the vector. So if <code>vec1[1] = 1</code> and <code>vec2[1] = 1</code> that is condisered a match:</p>
+<div class="sourceCode" id="cb85"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">vec1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span>
+<span class="va">vec2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>
+<span class="va">vec3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>
+
+<span class="fu">jaccard</span><span class="op">(</span><span class="va">vec1</span>, <span class="va">vec2</span><span class="op">)</span>
+<span class="co">#&gt; [1] 0.4666667</span>
+
+<span class="fu">jaccard</span><span class="op">(</span><span class="va">vec2</span>, <span class="va">vec3</span><span class="op">)</span>
+<span class="co">#&gt; [1] 0.5714286</span>
+
+<span class="fu">jaccard</span><span class="op">(</span><span class="va">vec1</span>, <span class="va">vec3</span><span class="op">)</span>
+<span class="co">#&gt; [1] 0.375</span></code></pre></div>
+<p>If we want to run this for an entire incidence matrix we could roll it into another function. Note that this function automatically takes an incidence matrix, converts it into presence/absence data and then calculates Jaccard coefficients for every pair of nodes. The output is a square matrix of similarities from row to row. Let’s try it out in our <code>cibola_clust</code> data we used above:</p>
+<div class="sourceCode" id="cb86"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">jaccard_inc</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">dat</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">dat</span><span class="op">[</span><span class="va">dat</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">1</span>
+  <span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span><span class="op">)</span>
+  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+    <span class="kw">for</span> <span class="op">(</span><span class="va">j</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+      <span class="va">out</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">jaccard</span><span class="op">(</span><span class="va">dat</span><span class="op">[</span><span class="va">i</span>, <span class="op">]</span>, <span class="va">dat</span><span class="op">[</span><span class="va">j</span>, <span class="op">]</span><span class="op">)</span>
+    <span class="op">}</span>
+  <span class="op">}</span>
+  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span>
+<span class="op">}</span>
+
+<span class="va">cibola_j</span> <span class="op">&lt;-</span> <span class="fu">jaccard_inc</span><span class="op">(</span>dat <span class="op">=</span> <span class="va">cibola_clust</span><span class="op">)</span>
+
+<span class="va">cibola_j</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>
+<span class="co">#&gt;           [,1]      [,2]      [,3]      [,4]</span>
+<span class="co">#&gt; [1,] 1.0000000 0.4285714 0.4285714 0.8181818</span>
+<span class="co">#&gt; [2,] 0.4285714 1.0000000 0.6666667 0.5384615</span>
+<span class="co">#&gt; [3,] 0.4285714 0.6666667 1.0000000 0.5384615</span>
+<span class="co">#&gt; [4,] 0.8181818 0.5384615 0.5384615 1.0000000</span></code></pre></div>
+<p>Note that we have created R scripts with the two functions above as separate files. If you would like to initialize those functions without copying and pasting the code above, you can use the <code><a href="https://rdrr.io/r/base/source.html">source()</a></code> function to call a function straight from a file. These are both located in the “scripts” folder so we add that sub-folder to the file name in the argument.</p>
+<div class="sourceCode" id="cb87"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"scripts/jaccard.R"</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"scripts/jaccard_inc.R"</span><span class="op">)</span></code></pre></div>
+</div>
 <div id="NetFromSim" class="section level4 unnumbered">
 <h4>Creating Network Objects from Similarity Matrices<a class="anchor" aria-label="anchor" href="#NetFromSim"><i class="fas fa-link"></i></a>
 </h4>
-<p>Now that we have defined our three measures of similarity, the next step is to convert these into network objects that our R packages will be able to work with. We can do this by either creating binary networks (where ties are either present or absent) or weighted networks (which in many cases are simply the raw similarity/distance matrices we calculated above). We will provide examples of both approaches, starting with simple binary networks. There are many ways to define networks from matrices like those we generated above and our examples below should not been seen as an exhaustive set of procedures.</p>
+<p>Now that we have defined our measures of similarity, the next step is to convert these into network objects that our R packages will be able to work with. We can do this by either creating binary networks (where ties are either present or absent) or weighted networks (which in many cases are simply the raw similarity/distance matrices we calculated above). We will provide examples of both approaches, starting with simple binary networks. There are many ways to define networks from matrices like those we generated above and our examples below should not been seen as an exhaustive set of procedures.</p>
 <div id="creating-binary-network-objects" class="section level5 unnumbered">
 <h5>Creating binary network objects<a class="anchor" aria-label="anchor" href="#creating-binary-network-objects"><i class="fas fa-link"></i></a>
 </h5>
 <p>First, we will produce a network object based on our BR similarity matrix created above. In this example, we define ties as present between pairs of sites when they share more than 65% commonality (BR &gt; 0.65) in terms of the proportions of ceramics recovered from pairs of sites.</p>
 <p>In the code below, the <code>event2dichot</code> function (from the <code>statnet</code> package) takes our matrix and divides it into 1s and 0s based on the cut off we choose. Here we’re using and <code>absolute</code> cut off meaning we’re assigning a specific value to use as the cut off (0.65). We then send the output of this function to the network function just as before.</p>
-<div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb88"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Define our binary network object from BR similarity</span>
 <span class="va">brnet</span> <span class="op">&lt;-</span>
   <span class="fu">network</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/sna/man/event2dichot.html">event2dichot</a></span><span class="op">(</span><span class="va">cibola_br</span>,
@@ -844,9 +914,9 @@ Finally, we provide a brief example at the end of this section using
 <span class="co">#&gt;   loops = FALSE </span>
 <span class="co">#&gt;   multiple = FALSE </span>
 <span class="co">#&gt;   bipartite = FALSE </span>
-<span class="co">#&gt;   total edges= 465 </span>
+<span class="co">#&gt;   total edges= 167 </span>
 <span class="co">#&gt;     missing edges= 0 </span>
-<span class="co">#&gt;     non-missing edges= 465 </span>
+<span class="co">#&gt;     non-missing edges= 167 </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;  Vertex attribute names: </span>
 <span class="co">#&gt;     vertex.names </span>
@@ -856,9 +926,9 @@ Finally, we provide a brief example at the end of this section using
 <span class="co"># plot network using default layout</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">7564</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">brnet</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="02-network-data-formats_files/figure-html/unnamed-chunk-19-1.png" width="672"></div>
+<div class="inline-figure"><img src="02-network-data-formats_files/figure-html/unnamed-chunk-23-1.png" width="672"></div>
 <p>In the next chunk of code we will use the <span class="math inline">\(\chi^2\)</span> distances to create binary networks. This time, we will not use an absolute value to define ties as present, but instead will define those similarities greater than 80 percent of all similarities as present. We will then once again plot just as above.</p>
-<div class="sourceCode" id="cb85"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb89"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Note we use 1 minus chacoX01 here so to convert a distance</span>
 <span class="co"># to a similarity</span>
 <span class="va">xnet</span> <span class="op">&lt;-</span>
@@ -889,14 +959,44 @@ Finally, we provide a brief example at the end of this section using
 <span class="co"># plot network using default layout</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">346</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">xnet</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="02-network-data-formats_files/figure-html/unnamed-chunk-20-1.png" width="672"></div>
+<div class="inline-figure"><img src="02-network-data-formats_files/figure-html/unnamed-chunk-24-1.png" width="672"></div>
+<p>Finally, we’ll use our Jaccard coefficients and we will define our threshold for defining edges as present or absent as the grand mean of the entire similarity matrix using <code>method = "mean"</code>. There are more options in the <code>event2dichot</code> function. See the help material for more.</p>
+<div class="sourceCode" id="cb90"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">jnet</span> <span class="op">&lt;-</span>
+  <span class="fu">network</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/sna/man/event2dichot.html">event2dichot</a></span><span class="op">(</span><span class="va">cibola_j</span>,
+                       method <span class="op">=</span> <span class="st">"mean"</span><span class="op">)</span>,
+                       directed <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+
+<span class="va">jnet</span> <span class="op">%v%</span> <span class="st">"vertex.names"</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/row.names.html">row.names</a></span><span class="op">(</span><span class="va">cibola_clust</span><span class="op">)</span>
+
+<span class="va">jnet</span>
+<span class="co">#&gt;  Network attributes:</span>
+<span class="co">#&gt;   vertices = 31 </span>
+<span class="co">#&gt;   directed = FALSE </span>
+<span class="co">#&gt;   hyper = FALSE </span>
+<span class="co">#&gt;   loops = FALSE </span>
+<span class="co">#&gt;   multiple = FALSE </span>
+<span class="co">#&gt;   bipartite = FALSE </span>
+<span class="co">#&gt;   total edges= 207 </span>
+<span class="co">#&gt;     missing edges= 0 </span>
+<span class="co">#&gt;     non-missing edges= 207 </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;  Vertex attribute names: </span>
+<span class="co">#&gt;     vertex.names </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; No edge attributes</span>
+
+<span class="co"># plot network using default layout</span>
+<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">343546</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">jnet</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="02-network-data-formats_files/figure-html/unnamed-chunk-25-1.png" width="672"></div>
 </div>
 <div id="creating-weighted-network-objects" class="section level5 unnumbered">
 <h5>Creating Weighted Network Objects<a class="anchor" aria-label="anchor" href="#creating-weighted-network-objects"><i class="fas fa-link"></i></a>
 </h5>
 <p>It is also possible to use R to create weighted networks where individual edges are valued. We have found that this works reasonably well with networks of co-presence or something similar (counts of mentions in texts or monuments for example) but this does not perform well when applied to large similarity or distance matrices (because every possible link has a value, the network gets unwieldy very fast). In the latter case, we have found it is often better to just work directly with the underlying similarity/distance matrix.</p>
-<p>If you do, however, chose do create a weighted network object from a similarity matrix it only requires a slight modification from the procedure above. In the chunk of code below, we will simply add the arguments <code>ignore.eval = F</code> and <code>names.eval = "weight"</code> to let the network function know we would like weights to be retained and we would like that attribute called ‘weight’. We will apply this to the matrix of Morisita similarities defined above and then plot the result.</p>
-<div class="sourceCode" id="cb86"><pre class="downlit sourceCode r">
+<p>If you do, however, chose do create a weighted network object from a similarity matrix it only requires a slight modification from the procedure above. In the chunk of code below, we will simply add the arguments <code>ignore.eval = FALSE</code> and <code>names.eval = "weight"</code> to let the network function know we would like weights to be retained and we would like that attribute called ‘weight’. We will apply this to the matrix of Morisita similarities defined above and then plot the result.</p>
+<div class="sourceCode" id="cb91"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># create weighted network object from co-occurrence matrix by</span>
 <span class="co"># adding the ignore.eval=F argument</span>
 <span class="va">mor_wt</span> <span class="op">&lt;-</span> <span class="fu">network</span><span class="op">(</span>
@@ -928,7 +1028,7 @@ Finally, we provide a brief example at the end of this section using
 <span class="co"># plot weighted network using default layout</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">4634</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">mor_wt</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="02-network-data-formats_files/figure-html/unnamed-chunk-21-1.png" width="672"></div>
+<div class="inline-figure"><img src="02-network-data-formats_files/figure-html/unnamed-chunk-26-1.png" width="672"></div>
 <p>The resulting network is nearly complete so it is a bit unwieldy for plotting but calculating network statistics on this weighted network can often still be useful as we will see in the exploratory analysis section.</p>
 </div>
 </div>
@@ -939,7 +1039,7 @@ Finally, we provide a brief example at the end of this section using
 </h3>
 <p>When we aim to understand the relational environment within which an entity is embedded, because it is relevant for our research questions or because data collection challenges dictate this focus, archaeological network research can make use of so-called ego-networks: a type of network that includes a focal node (the so-called ego), the set of nodes the ego is connected to by an edge (the so-called alters) and the edges between this set of nodes.</p>
 <p>Extracting an ego-network from an existing igraph network object in R is very easy. Here we will extract and plot the ego-network for Apache Creek, the first site in the network files we created above. First we read in data and create a network object and then we apply the <code><a href="https://rdrr.io/pkg/igraph/man/ego.html">igraph::make_ego_graph</a></code> function to the network object we created.</p>
-<div class="sourceCode" id="cb87"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb92"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Read in edgelist file as dataframe</span>
 <span class="va">cibola_edgelist</span> <span class="op">&lt;-</span>
   <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"data/Cibola_edgelist.csv"</span>, header <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
@@ -956,9 +1056,9 @@ Finally, we provide a brief example at the end of this section using
 
 <span class="co"># Examine the first ego-network</span>
 <span class="va">ego_nets</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>
-<span class="co">#&gt; IGRAPH dba7cf8 UN-- 12 59 -- </span>
+<span class="co">#&gt; IGRAPH 21b8b5c UN-- 12 59 -- </span>
 <span class="co">#&gt; + attr: name (v/c)</span>
-<span class="co">#&gt; + edges from dba7cf8 (vertex names):</span>
+<span class="co">#&gt; + edges from 21b8b5c (vertex names):</span>
 <span class="co">#&gt;  [1] Apache Creek--Casa Malpais   </span>
 <span class="co">#&gt;  [2] Apache Creek--Coyote Creek   </span>
 <span class="co">#&gt;  [3] Casa Malpais--Coyote Creek   </span>
@@ -972,16 +1072,16 @@ Finally, we provide a brief example at the end of this section using
 <span class="co"># Plot Apache Creek ego-network</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">754</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">ego_nets</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="02-network-data-formats_files/figure-html/unnamed-chunk-22-1.png" width="672"></div>
-<div class="sourceCode" id="cb88"><pre class="downlit sourceCode r">
+<div class="inline-figure"><img src="02-network-data-formats_files/figure-html/unnamed-chunk-27-1.png" width="672"></div>
+<div class="sourceCode" id="cb93"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="co"># Plot Platt Ranch ego-network for comparison</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">45367</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">ego_nets</span><span class="op">[[</span><span class="fl">30</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="02-network-data-formats_files/figure-html/unnamed-chunk-22-2.png" width="672"></div>
+<div class="inline-figure"><img src="02-network-data-formats_files/figure-html/unnamed-chunk-27-2.png" width="672"></div>
 <p>In these ego-networks, only nodes connected to the target nodes (Apache Creek in the first example and then Platt Ranch in the second) are shown and only edges among those included nodes are shown.</p>
 <p>It is also possible to determine the size of ego-networks for an entire one-mode network using the <code>ego_size</code> function. The output of this function is a vector that can be further assigned as a network node attribute.</p>
-<div class="sourceCode" id="cb89"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb94"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/ego.html">ego_size</a></span><span class="op">(</span><span class="va">cibola_net</span><span class="op">)</span>
 <span class="co">#&gt;  [1] 12 12 12 12 13 14 13 13 10 14 15  7  9 14 13 14 15 11</span>
 <span class="co">#&gt; [19] 14 14 15  2 14 19 15 12 12 11  7  6</span></code></pre></div>
@@ -992,7 +1092,7 @@ Finally, we provide a brief example at the end of this section using
 </h3>
 <p>In the simplest terms, multilayer networks are networks where a single set of nodes are connected by two or more sets of edges that each represent a different kind of relationship among the nodes. This is a relatively new area of network science in archaeological network research but we expect this will likely change in the coming years. There are now new R packages which help manage and analyze multilayer network data.</p>
 <p>The <code>multinet</code> package (Rossi and Vega 2021) is designed to facilitate the analysis of multilayer networks. In order to explore some of the possibilities here we use example data and analyses included in this package. Specifically, we will look at the famous network data on Florentine families in the 14th century where connections were defined in terms of both business and marriage.</p>
-<div class="sourceCode" id="cb90"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb95"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># create object with Florentine multilayer network data</span>
 <span class="va">florentine</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/multinet/man/Predefined.html">ml_florentine</a></span><span class="op">(</span><span class="op">)</span>
 
@@ -1007,45 +1107,45 @@ Finally, we provide a brief example at the end of this section using
 
 <span class="co"># plot the data</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">florentine</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="02-network-data-formats_files/figure-html/unnamed-chunk-24-1.png" width="672"></div>
+<div class="inline-figure"><img src="02-network-data-formats_files/figure-html/unnamed-chunk-29-1.png" width="672"></div>
 <p>The <code>multinet</code> network objects are compatible with <code>igraph</code> and individual layers can be analyzed just like other <code>igraph</code> network objects. Where this <code>multinet</code> approach likely has greater utility is in conducting comparisons among layers or conducting analyses that take several layers into account simultaneously. A detailed exploration of this approach is beyond the scope of this document (but we provide a simple example below) and we suggest interested readers read the package information and tutorials associated with this package for more. In the example here we calculate degree across multiple layers using the <code>degree_ml</code> function and then run a Louvain cluster detection algorithm across all graph layers using <code>glouvain_ml</code>. Multilayer networks have considerable potential for archaeological data and we hope to see more research in this area in the future.</p>
-<div class="sourceCode" id="cb91"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb96"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># If we want to calculate degree centrality across multiple layers of a</span>
 <span class="co"># multilayer network, the multinet package can help us do that directly</span>
 <span class="co"># and quite simply.</span>
 <span class="fu">multinet</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/multinet/man/ActorMeasures.html">degree_ml</a></span><span class="op">(</span><span class="va">florentine</span><span class="op">)</span>
-<span class="co">#&gt;  [1]  4  3  1  4  5  6  3  6  3  6  6 11  7  2  3</span>
+<span class="co">#&gt;  [1] 11  5  7  4  3  4  2  3  6  6  6  3  6  3  1</span>
 
 <span class="co"># Similarly, we could apply cluster detection algorithms to all layers</span>
 <span class="co"># of a multilayer network simultaneously.</span>
 <span class="fu">multinet</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/multinet/man/Communities.html">glouvain_ml</a></span><span class="op">(</span><span class="va">florentine</span><span class="op">)</span>
 <span class="co">#&gt;           actor    layer cid</span>
-<span class="co">#&gt; 1       Strozzi marriage   0</span>
-<span class="co">#&gt; 2     Barbadori marriage   0</span>
-<span class="co">#&gt; 3     Barbadori business   0</span>
-<span class="co">#&gt; 4    Castellani marriage   0</span>
-<span class="co">#&gt; 5    Castellani business   0</span>
-<span class="co">#&gt; 6       Peruzzi marriage   0</span>
-<span class="co">#&gt; 7       Peruzzi business   0</span>
-<span class="co">#&gt; 8    Tornabuoni marriage   1</span>
-<span class="co">#&gt; 9    Tornabuoni business   1</span>
-<span class="co">#&gt; 10      Ridolfi marriage   1</span>
-<span class="co">#&gt; 11   Acciaiuoli marriage   1</span>
-<span class="co">#&gt; 12      Albizzi marriage   1</span>
-<span class="co">#&gt; 13       Ginori marriage   1</span>
-<span class="co">#&gt; 14       Ginori business   1</span>
-<span class="co">#&gt; 15       Medici marriage   1</span>
-<span class="co">#&gt; 16       Medici business   1</span>
+<span class="co">#&gt; 1  Lamberteschi marriage   0</span>
+<span class="co">#&gt; 2  Lamberteschi business   0</span>
+<span class="co">#&gt; 3       Peruzzi marriage   0</span>
+<span class="co">#&gt; 4       Peruzzi business   0</span>
+<span class="co">#&gt; 5       Strozzi marriage   0</span>
+<span class="co">#&gt; 6      Guadagni marriage   0</span>
+<span class="co">#&gt; 7      Guadagni business   0</span>
+<span class="co">#&gt; 8    Castellani marriage   0</span>
+<span class="co">#&gt; 9    Castellani business   0</span>
+<span class="co">#&gt; 10     Bischeri marriage   0</span>
+<span class="co">#&gt; 11     Bischeri business   0</span>
+<span class="co">#&gt; 12       Medici marriage   1</span>
+<span class="co">#&gt; 13       Medici business   1</span>
+<span class="co">#&gt; 14      Ridolfi marriage   1</span>
+<span class="co">#&gt; 15   Tornabuoni marriage   1</span>
+<span class="co">#&gt; 16   Tornabuoni business   1</span>
 <span class="co">#&gt; 17        Pazzi marriage   1</span>
 <span class="co">#&gt; 18        Pazzi business   1</span>
 <span class="co">#&gt; 19     Salviati marriage   1</span>
 <span class="co">#&gt; 20     Salviati business   1</span>
-<span class="co">#&gt; 21 Lamberteschi marriage   2</span>
-<span class="co">#&gt; 22 Lamberteschi business   2</span>
-<span class="co">#&gt; 23     Guadagni marriage   2</span>
-<span class="co">#&gt; 24     Guadagni business   2</span>
-<span class="co">#&gt; 25     Bischeri marriage   2</span>
-<span class="co">#&gt; 26     Bischeri business   2</span></code></pre></div>
+<span class="co">#&gt; 21    Barbadori marriage   1</span>
+<span class="co">#&gt; 22    Barbadori business   1</span>
+<span class="co">#&gt; 23       Ginori marriage   1</span>
+<span class="co">#&gt; 24       Ginori business   1</span>
+<span class="co">#&gt; 25      Albizzi marriage   1</span>
+<span class="co">#&gt; 26   Acciaiuoli marriage   1</span></code></pre></div>
 <p>For an archaeological example of multilevel network analysis <a href="https://github.com/ajupton/archy-multilayer-nets">this GitHub project</a> by Andy Upton.</p>
 </div>
 </div>
@@ -1070,13 +1170,13 @@ would instead use <code>asNetwrok</code>.
 </p>
 </div>
 <p>Here is a simple example:</p>
-<div class="sourceCode" id="cb92"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb97"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mor_wt_i</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/intergraph/man/asIgraph.html">asIgraph</a></span><span class="op">(</span><span class="va">mor_wt</span><span class="op">)</span>
 <span class="va">mor_wt_i</span>
-<span class="co">#&gt; IGRAPH dc1cd00 U-W- 31 465 -- </span>
+<span class="co">#&gt; IGRAPH 223449f U-W- 31 465 -- </span>
 <span class="co">#&gt; + attr: na (v/l), vertex.names (v/c), na (e/l),</span>
 <span class="co">#&gt; | weight (e/n)</span>
-<span class="co">#&gt; + edges from dc1cd00:</span>
+<span class="co">#&gt; + edges from 223449f:</span>
 <span class="co">#&gt;  [1] 1-- 2 1-- 3 1-- 4 1-- 5 1-- 6 1-- 7 1-- 8 1-- 9 1--10</span>
 <span class="co">#&gt; [10] 1--11 1--12 1--13 1--14 1--15 1--16 1--17 1--18 1--19</span>
 <span class="co">#&gt; [19] 1--20 1--21 1--22 1--23 1--24 1--25 1--26 1--27 1--28</span>
@@ -1091,7 +1191,7 @@ would instead use <code>asNetwrok</code>.
 <span class="co">#&gt;  [1] 0.4885799 0.6014729 0.9060751 0.4049019 1.0000000</span>
 <span class="co">#&gt;  [6] 0.7087214 0.7724938 0.4521581 0.7996468 1.0000000</span></code></pre></div>
 <p>And back in the other direction:</p>
-<div class="sourceCode" id="cb93"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb98"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mor_new</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/intergraph/man/asNetwork.html">asNetwork</a></span><span class="op">(</span><span class="va">mor_wt_i</span><span class="op">)</span>
 <span class="va">mor_new</span>
 <span class="co">#&gt;  Network attributes:</span>
@@ -1163,7 +1263,7 @@ would instead use <code>asNetwrok</code>.
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-06-09.</p>
+    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-06-12.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

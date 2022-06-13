@@ -2,7 +2,7 @@
 
 Exploratory network analysis is simply exploratory data analysis applied to network data. This covers a range of statistical and visual techniques designed to explore the structure of networks as well as the relative positions of nodes and edges. These methods can be used to look for particular structures or patterning of interest, such as the most central nodes, or to summarize and describe the structure of the network to paint a general picture of it before further analysis. This section serves as a companion to Chapter 4 in the Brughmans and Peeples book (2022) and provides basic examples of the exploratory network analysis methods outlined in the book as well as a few others.
 
-Note that we have created a distinct section on [exponential random graph models (ERGM)](#BeyondTheBook) in the "Going Beyond the Book" section of this document as that approach necessitates extended discussion. We replicate the boxed example from Chapter 4 of the book in that section.
+Note that we have created a distinct section on [exponential random graph models (ERGM)](#ERGM) in the "Going Beyond the Book" section of this document as that approach necessitates extended discussion. We replicate the boxed example from Chapter 4 of the book in that section.
 
 ## Example Network Objects{#ExampleNetworkObjects}
 
@@ -480,7 +480,7 @@ If you want to identify particular shortest paths to or from nodes in a network 
 igraph::shortest_paths(simple_net, from = 1, to = 21)
 #> $vpath
 #> $vpath[[1]]
-#> + 5/31 vertices, named, from dfc91ba:
+#> + 5/31 vertices, named, from 25ae6bc:
 #> [1] Apache.Creek          Casa.Malpais         
 #> [3] Garcia.Ranch          Heshotauthla         
 #> [5] Pueblo.de.los.Muertos
@@ -509,7 +509,7 @@ igraph::diameter(directed_net, directed = TRUE)
 
 igraph::farthest_vertices(directed_net, directed = TRUE)
 #> $vertices
-#> + 2/30 vertices, named, from dfca24f:
+#> + 2/30 vertices, named, from 25af984:
 #> [1] Apache Creek          Pueblo de los Muertos
 #> 
 #> $distance
@@ -547,9 +547,9 @@ components <- igraph::decompose(simple_net, min.vertices = 1)
 
 components
 #> [[1]]
-#> IGRAPH e242a10 UN-- 30 167 -- 
+#> IGRAPH 281c5d3 UN-- 30 167 -- 
 #> + attr: name (v/c)
-#> + edges from e242a10 (vertex names):
+#> + edges from 281c5d3 (vertex names):
 #>  [1] Apache.Creek--Casa.Malpais        
 #>  [2] Apache.Creek--Coyote.Creek        
 #>  [3] Apache.Creek--Hooper.Ranch        
@@ -561,9 +561,9 @@ components
 #> + ... omitted several edges
 #> 
 #> [[2]]
-#> IGRAPH e242a39 UN-- 1 0 -- 
+#> IGRAPH 281c5fe UN-- 1 0 -- 
 #> + attr: name (v/c)
-#> + edges from e242a39 (vertex names):
+#> + edges from 281c5fe (vertex names):
 
 V(components[[2]])$name
 #> [1] "WS.Ranch"
@@ -605,15 +605,15 @@ min_cut(simple_net_noiso, value.only = FALSE)
 #> [1] 1
 #> 
 #> $cut
-#> + 1/167 edge from dfc9858 (vertex names):
+#> + 1/167 edge from 25aef4a (vertex names):
 #> [1] Ojo Bonito--Baca Pueblo
 #> 
 #> $partition1
-#> + 1/30 vertex, named, from dfc9858:
+#> + 1/30 vertex, named, from 25aef4a:
 #> [1] Baca Pueblo
 #> 
 #> $partition2
-#> + 29/30 vertices, named, from dfc9858:
+#> + 29/30 vertices, named, from 25aef4a:
 #>  [1] Apache Creek          Casa Malpais         
 #>  [3] Coyote Creek          Hooper Ranch         
 #>  [5] Horse Camp Mill       Hubble Corner        
@@ -640,7 +640,7 @@ A clique as a network science concept is arguably the strictest method of defini
 
 ```r
 max_cliques(simple_net, min = 1)[[24]]
-#> + 9/31 vertices, named, from dfc91ba:
+#> + 9/31 vertices, named, from 25ae6bc:
 #> [1] Los.Gigantes    Cienega         Tinaja         
 #> [4] Spier.170       Scribe.S        Pescado.Cluster
 #> [7] Mirabal         Heshotauthla    Yellowhouse
@@ -967,4 +967,4 @@ knitr::kable(ns_res, format = "html")
 </tbody>
 </table>
 
-For an extended discussion of the Cranborne Chase case study and exponential random graph models (ERGM) see the [Beyond the Book](#BeyondTheBook) section.
+For an extended discussion of the Cranborne Chase case study and exponential random graph models (ERGM) see the [Going Beyond the Book](#BeyondTheBook) section.

@@ -35,7 +35,7 @@ As outlined in the book, our basic approach to quantifying and dealing with unce
 * Calculate the metrics and characterize the properties of the features of interest in every one of the random samples created in step 2 and assess central tendency (mean, median) and distributional properties (range, standard deviation, distribution shape, etc.) or other features of the output as appropriate. 
 * Compare the distributions of metrics and properties (at the graph, node, or edge level) from the random samples to the “original” network created in step 1 to assess the potential impacts of the perturbation or data treatment. This comparison between the properties of the network created in step 1 and the distribution of properties created in step 3 will provide information directly relevant to assessing the impact of the kind of perturbation created in step 2 on the original network sample and, by extension, the complete network from which it was drawn.
 
-The underlying assumption of the approach outlined here is that the robustness or vulnerability to a particular perturbation of the observed network data, drawn from a total network that is unattainable, provides information about the robustness or vulnerability of that unattainable complete network to the same kinds of perturbations. For example, if we are interested in exploring the degree distribution of a network and our sampling experiments show massive fluctuations in degree in sub-samples with only small numbers of nodes removed at random, this would suggest that the particular properties of this network are not robust to nodes missing at random for degree calculations. From this, we should not place much confidence in any results obtained from the original sample as indicative of the total network from which it was drawn. On the other hand, say we instead find that in the resampling experiments the degree distributions in our sub-samples are substantially similar to that of the original network sample even when moderate or large numbers of nodes are removed. In that case, we might conclude that our network structure is such that assessments of degree distribution are robust to node missigness within the range of what we might expect for our original sample. It is important to note, however, that this finding should not be transferred to any other metrics as any given network is likely to be robust to certain kinds of perturbations for certain network metrics, but not to others.
+The underlying assumption of the approach outlined here is that the robustness or vulnerability to a particular perturbation of the observed network data, drawn from a total network that is unattainable, provides information about the robustness or vulnerability of that unattainable total network to the same kinds of perturbations. For example, if we are interested in exploring the degree distribution of a network and our sampling experiments show massive fluctuations in degree in sub-samples with only small numbers of nodes removed at random, this would suggest that the particular properties of this network are not robust to nodes missing at random for degree calculations. From this, we should not place much confidence in any results obtained from the original sample as indicative of the total network from which it was drawn. On the other hand, say we instead find that in the resampling experiments the degree distributions in our sub-samples are substantially similar to that of the original network sample even when moderate or large numbers of nodes are removed. In that case, we might conclude that our network structure is such that assessments of degree distribution are robust to node missigness within the range of what we might expect for our original sample. It is important to note, however, that this finding should not be transferred to any other metrics as any given network is likely to be robust to certain kinds of perturbations for certain network metrics, but not to others.
 
 ## Nodes Missing at Random{#NodesAtRandom}
 
@@ -861,8 +861,6 @@ ggplot(bw_10, aes(val)) +
   xlab("Betweenness Centrality of Node 10") +
   geom_vline(xintercept = mean(bw_10$val), col = "red") +
   theme_bw()
-#> `stat_bin()` using `bins = 30`. Pick better value with
-#> `binwidth`.
 ```
 
 <img src="04-uncertainty_files/figure-html/unnamed-chunk-26-1.png" width="672" />
@@ -888,8 +886,8 @@ ceramic <-
 # Convert to proportion
 ceramic_p <- prop.table(as.matrix(ceramic), margin = 1)
 # Convert to Brainerd-Robinson similarity matrix
-ceramic_br <- (2 - as.matrix(vegan::vegdist(ceramic_p,
-                                            method = "manhattan")) / 2)
+ceramic_br <- ((2 - as.matrix(vegan::vegdist(ceramic_p,
+                                           method = "manhattan"))) / 2)
 
 # Create function for assessing impact of sampling error on
 # weighted degree for similarity network
@@ -906,9 +904,8 @@ sim_samp_error <- function(cer, nsim = 1000) {
     # Convert simulated data to proportion, create similarity matrix,
     # calculate degree, and assess correlation
     temp_p <- prop.table(as.matrix(data_sim), margin = 1)
-    sim_list[[i]] <- (2 - as.matrix(
-                            vegan::vegdist(temp_p,
-                            method = "manhattan")) / 2)
+    sim_list[[i]] <- ((2 - as.matrix(vegan::vegdist(temp_p,
+                                           method = "manhattan"))) / 2)
   }
   return(sim_list)
 }
@@ -958,7 +955,7 @@ ggplot(df, aes(x = dg_cor)) +
 
 As described in Chapter 5.3.5, in some cases we want to observe patterns of variation due to sampling error for individual sites or sets of sites. In the next chunk of code we illustrate how to produce figure 5.14 from the Brughmans and Peeples (2022) book. Specifically, this plot consists of a series of line plots where the x axis represents each node in the network ordered by degree centrality in the original observed network. For each node there is a vertical line which represents the 95% confidence interval around degree across the `nsim` random replicates produced to evaluate sampling error. The blue line represents degree in the original network and the red line represents median degree in the resampled networks.
 
-To create this plot, we first iterate through every object in `sim_nets` and calculate weighted degree centrality and then add that to a two-column matrix along with a node id. Once we have done this for all simulations, we use the `summarise` function to calculate the Mean and 
+To create this plot, we first iterate through every object in `sim_nets` and calculate weighted degree centrality and then add that to a two-column matrix along with a node id. Once we have done this for all simulations, we use the `summarise` function to calculate the mean, median, max, min, and confidence interval (95%). We then plot the observed values of degree in blue, the mean values in red, and the confidence intervals as black vertical bars for each node. The nodes are sorted from low to high degree centrality in the original network.
 
 
 

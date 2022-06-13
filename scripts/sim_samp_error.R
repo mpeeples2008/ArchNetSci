@@ -13,8 +13,8 @@ sim_samp_error <- function(cer, nsim = 1000) {
     # Convert simulated data to proportion, create similarity matrix,
     # calculate degree, and assess correlation
     temp_p <- prop.table(as.matrix(data_sim), margin = 1)
-    sim_list[[i]] <- (2 - as.matrix(vegan::vegdist(temp_p,
-                                                   method = "manhattan")) / 2)
+    sim_list[[i]] <- ((2 - as.matrix(vegan::vegdist(temp_p,
+                                                    method = "manhattan"))) / 2)
   }
   return(sim_list)
 }

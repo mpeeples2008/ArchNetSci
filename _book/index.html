@@ -95,11 +95,11 @@
 </h1>
 <p>This project serves as a companion to the Cambridge Manuals in Archaeology book <em>Archaeological Network Science</em> by Tom Brughmans and Matthew A. Peeples (2022).</p>
 <p><a href="https://book.archnetworks.net"><img src="images/cover.png" width="250" height="375" alt="Brughmans and Peeples Book Cover" align="right" style="margin: 0 1em 0 1em"></a></p>
-<p>This document contains a series of tutorials that outline methods for managing, analyzing, and visualizing network data, primarily using the R programming language. We provide code and examples to replicate the analyses presented in the book as well as many other additional useful examples and tools. This Online Companion is designed to expand upon topics covered in the book and you may find it useful to follow along with these examples as you read the text. Sections 1 through 6 in this document correspond to the topics and information covered in Chapters 2 through 7 of the Brughmans and Peeples book. Section 7 of this document includes topics beyond the scope of the book and topics we hope to expand in the future. You can use the table of contents on the left-hand side of your screen to jump directly to a particular section and the table and contents on the right to navigate within each section.</p>
-<p>For more information on the book and the authors check the project website here: <a href="https://archnetworks.net">archnetworks.net</a>.</p>
+<p>This document contains a series of tutorials that outline methods for managing, analyzing, and visualizing network data, primarily using the R programming language. We provide code and examples to replicate the analyses presented in the book as well as many other additional useful tools. This Online Companion is designed to expand upon topics covered in the book and you may find it useful to follow along with these examples as you read the text. Sections 1 through 6 in this document correspond to the topics and information covered in Chapters 2 through 7 of the Brughmans and Peeples book. Section 7 of this document includes topics beyond the scope of the book (exponential random graph models and spatial interaction models) and topics we hope to expand in the future. You can use the table of contents on the left-hand side of your screen to jump directly to a particular section and the table and contents on the right to navigate within each section. We have also created a <a href="TableOfContents.html#TableOfContents">quick TOC reference</a> if you are seeking something in particular.</p>
+<p>For more information on the book and the authors check out the project website here: <a href="https://archnetworks.net">archnetworks.net</a>.</p>
 <p><strong>Cite this document as:</strong></p>
 <blockquote>
-<p>Peeples, Matthew A. and Tom Brughmans (2022). Online Companion to Archaeological Network Science by Brughmans and Peeples. <a href="https://archnetworks.net" class="uri">https://archnetworks.net</a>, Accessed 2022-06-09.</p>
+<p>Peeples, Matthew A. and Tom Brughmans (2022). Online Companion to Archaeological Network Science by Brughmans and Peeples. <a href="https://archnetworks.net" class="uri">https://archnetworks.net</a>, Accessed 2022-06-12.</p>
 </blockquote>
 <p><strong>The associated book can be cited as</strong></p>
 <blockquote>
@@ -112,7 +112,7 @@
 <b>NOTICE</b>
 </p>
 <p style="margin-left:1em;">
-Note that this is a pre-release version of this document. Be aware that this document is still being updated and edited. Please check back here for updates in the coming months for the final version of this document.
+Note that this is a pre-release version of this document. Be aware that this document is still being updated and edited. Please check back here for updates in the coming months for the 1.0 release version of this document.
 </p>
 <p></p></span>
 </div>
@@ -124,8 +124,8 @@ Note that this is a pre-release version of this document. Be aware that this doc
 <p>A few suggestions on where to start:</p>
 <ul>
 <li>If you are new to network analysis and R, we would suggest going through each section of this document, starting with “Getting Started with R” and then going through the numbered sections in order as you following along in the book.</li>
-<li>If you are already familiar with R but new to network analysis, we suggest you read Section 1 to set up your data and workspace, and then follow along with the remaining numbered sections and associated book chapters as you read.</li>
-<li>If you are already an avid network analyst and R user and are just looking for code chunks to implement something in particular, feel free to skip around. We have tried to make each section as independent as possible so that you can pick and choose what you want to work on. Use the <a href="TableOfContents.html#TableOfContents">Table of Contents</a> to find topics quickly.</li>
+<li>If you are already familiar with R but new to network analysis, we suggest you read Section 1 to set up your data and work space, and then follow along with the remaining numbered sections and associated book chapters as you read.</li>
+<li>If you are already a network analyst and confident R user and are just looking for code chunks to implement something in particular, feel free to skip around. We have tried to make each section as independent as possible so that you can pick and choose what you want to work on. Use the <a href="TableOfContents.html#TableOfContents">Table of Contents</a> to find topics quickly.</li>
 <li>If you’re a real pro and are designing your own network analyses or visualizations, we would love it if you contributed to the project to help this document grow.</li>
 </ul>
 <p>Throughout this document we use a few icons to call-out special information or concerns. Keep an eye out for the symbols below:</p>
@@ -140,14 +140,14 @@ use and configure these packages.
 <p>
 We use this icon to highlight particular areas of concern in our
 discussion of network methods and R code. In particular, we use this
-icon to warn you of common errors or pitfalls for particular
-functions.
+icon to warn you of common errors or pitfalls for particular functions
+or network methods.
 </p>
 </div>
 <div class="rmdtip">
 <p>
 We use this icon to highlight helpful tips for using particular R
-functions or R studio procedures.
+functions or R-Studio procedures.
 </p>
 </div>
 </div>
@@ -155,7 +155,7 @@ functions or R studio procedures.
 <h2>Reproducibility<a class="anchor" aria-label="anchor" href="#Repro"><i class="fas fa-link"></i></a>
 </h2>
 <p>The most recent version of this document was built with R version 4.2.0 (2022-04-22 ucrt). We suggest you use a recent version of R when attempting to use the code in this document.</p>
-<p><img src="https://img.shields.io/github/last-commit/mpeeples2008/ArchNetSci" alt="Github last-commit">    <img src="https://img.shields.io/github/repo-size/mpeeples2008/ArchNetSci" alt="GitHub repo size">    
+<p><img src="https://img.shields.io/github/last-commit/mpeeples2008/ArchNetSci" alt="Github last-commit">   
 <a href="https://github.com/mpeeples2008/ArchNetSci/actions/workflows/docker-image.yml"><img src="https://github.com/mpeeples2008/ArchNetSci/actions/workflows/docker-image.yml/badge.svg" alt="Docker Image CI"></a></p>
 <p>The content of this document is designed to be as accessible and reproducible as possible. The source code used to produce this document along with all of the data used in analyses are available on <a href="https://github.com/mpeeples2008/ArchNetSci">GitHub</a>. This GitHub repository allows users to open issues, contribute to the document, or help fix typos or other errors (see information about <a href="index.html#Contributing">contributing</a> below). We have also opened a GitHub discussion board with this repository where users can ask questions about any data or code in the repository without making edits or issue requests directly.</p>
 <p>The easiest way to reproduce this document is to launch the project directly in your browser using <a href="https://mybinder.org/">Binder</a>. When you click on the link below it will open a browser based instance of R studio with all of the required packages and files. From there you can test and evaluate the code directly.</p>
@@ -181,9 +181,9 @@ functions or R studio procedures.
 <div id="Discord" class="section level2 unnumbered">
 <h2>Computational Archaeology Discord Community<a class="anchor" aria-label="anchor" href="#Discord"><i class="fas fa-link"></i></a>
 </h2>
-<p>We have created an <a href="https://discord.gg/Z9UXwjASM5">Archaeological Network Science Channel on the Computational Archaeology Discord Server</a>, which we hope will provide an additional venue for archaeological network practitioners to collaborate, interact, and ask for help with this document or with archaeological networks (and other computational methods). We invite you to use this as a place to ask questions of the authors and the community at large. Note that this Discord is subject to the same <a href="https://github.com/mpeeples2008/ArchNetSci/blob/main/CODE_OF_CONDUCT.md">code of conduct</a> we use for the GitHub repository and you must abide by that agreement to participate. We require that you have a Discord account with a verified email address.</p>
+<p>We have created an <a href="https://discord.gg/Z9UXwjASM5">Archaeological Network Science Channel on the Computational Archaeology Discord Server</a>, which we hope will provide an additional venue for archaeological network practitioners to collaborate, interact, and ask for help with this document or with archaeological networks (and other computational methods) in general. We invite you to use this as a place to ask questions of the authors and the community at large. Note that this Discord is subject to the same <a href="https://github.com/mpeeples2008/ArchNetSci/blob/main/CODE_OF_CONDUCT.md">code of conduct</a> we use for the GitHub repository and you must abide by that agreement to participate. We require that you have a Discord account with a verified email address.</p>
 <p><a href="https://discord.gg/Z9UXwjASM5"><img src="images/Discord_Logo.png" width="300" alt="Discord Logo" style="margin: 0 1em 0 1em"></a></p>
-<p><a href="https://discord.gg/Z9UXwjASM5">Join the Computational Archaeology Discord</a></p>
+<p><a href="https://discord.gg/Z9UXwjASM5">Join the Computational Archaeology Discord</a>       <img src="https://discordapp.com/api/guilds/975267909012189184/widget.png?style=shield"></p>
 </div>
 <div id="NewToR" class="section level2 unnumbered">
 <h2>New to R and R Studio?<a class="anchor" aria-label="anchor" href="#NewToR"><i class="fas fa-link"></i></a>
@@ -208,7 +208,7 @@ functions or R studio procedures.
 <li>Please cite the book <em>and</em> the Online Companion if you use methods or code from this document</li>
 <li>Star the <a href="https://github.com/mpeeples2008/ArchNetSci">GitHub project repository</a> and contribute to the project</li>
 <li>
-<a href="https://discord.gg/Z9UXwjASM5">Join our Discord</a> and invite other interested people</li>
+<a href="https://discord.gg/Z9UXwjASM5">Join the Computational Archaeology Discord</a> and invite other interested people</li>
 <li>Share articles, teaching resources, data, or other archaeological network materials for posting on our associated website <a href="https://archnetworks.net">(archnetworks.net)</a>
 </li>
 </ul>
@@ -222,7 +222,7 @@ functions or R studio procedures.
 <div id="Acknowledgements" class="section level2 unnumbered">
 <h2>Acknowledgements<a class="anchor" aria-label="anchor" href="#Acknowledgements"><i class="fas fa-link"></i></a>
 </h2>
-<p>This online bookdown project and the associated book were made possible thanks to the support of several generous funding sources including: The Carlsberg Foundation, in the context of the Past Social Networks Project (CF21-0382); the National Science Foundation through both the Archaeology and the Measurement, Methodology, and Statistics programs (grant #1758690 and #1758606); and the School of Human Evolution and Social Change at Arizona State University. Thank you to Jens Emil Bødstrup Christoffersen for providing detailed comments on and for testing the initial version of this document. Any errors that remain are our own.</p>
+<p>This online bookdown project and the associated book were made possible thanks to the support of several generous funding sources including: The Carlsberg Foundation, in the context of the Past Social Networks Project (CF21-0382); the National Science Foundation through both the Archaeology and the Measurement, Methodology, and Statistics programs (grant #1758690 and #1758606); and the School of Human Evolution and Social Change at Arizona State University. Thank you to Jens Emil Bødstrup Christoffersen for providing detailed comments on and for testing the initial version of this online bookdown document. Any errors that remain are our own.</p>
 <p><img src="images/NSF_Logo.png" width="150"><img src="images/ASU_SHESC_Logo.png" width="300"></p>
 </div>
 </div>
@@ -258,7 +258,7 @@ functions or R studio procedures.
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-06-09.</p>
+    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-06-12.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

@@ -113,7 +113,7 @@
 </h3>
 <p>To install R on MacOS, you first need to know which chip manufacturer your Mac has. In order to determine which chip you have go to the Apple menu and select “About This Mac” and look for information under “Processor” or “Chip” in the window that pops up. It will either be Intel or M1.</p>
 <ul>
-<li>Next, click the on the link under “Latest release” for the *.pkg file for the appropriate Mac processor in your computer. There is a separate notarized and signed .pkg file Macs with Intel processors and Macs with Apple M1 processors (mostly produced 2020 and later). Note, these .pkg files are not interchangeable so confirm which one you need.</li>
+<li>Next, click the on the link under “Latest release” for the *.pkg file for the appropriate Mac processor in your computer. There is a separate notarized and signed .pkg file Macs with Intel processors and Macs with Apple M1 processors (mostly produced 2020 and later). Note, these .pkg files are not interchangeable so confirm which one you need before attempting to install.</li>
 <li>Once you have downloaded the appropriate .pkg, run it and answer the questions during the install as required.</li>
 </ul>
 </div>
@@ -152,11 +152,20 @@
 <h2>R and R-Studio Basics<a class="anchor" aria-label="anchor" href="#RBasics"><i class="fas fa-link"></i></a>
 </h2>
 <p>R is a powerful statistical analysis platform that can be used to conduct some quite complex analyses. The learning curve is a bit steep when first getting started but the payoff is HUGE because the ecosystem of existing R scripts and packages is so large and diverse. We cannot hope to cover everything R and R-Studio can do in this very short intro here. Our tutorial here is a version of the “Introduction to R programming” that Peeples has used in the first week of his Quantitative and Formal Methods in Archaeology class for a number of years. Hopefully this will get you started.</p>
-<p>Although R seems complicated at first, many quite complex statistical analyses are run with just a few lines of code. Once you learn the basics, more complex features of R are really just combinations of these basic procedures. You won’t become an R expert overnight, but we’ve seen many students pick up the basics quite quickly and begin to take on their first analyses in R in a matter of hours.</p>
+<p>Although R seems complicated at first, many quite complex statistical analyses are run with just a few lines of code. Once you learn the basics, more complex features of R are really just combinations of these basic procedures. You won’t become an R expert overnight, but we’ve seen many students pick up the basics quite quickly and begin to take on their first independent analyses in R in a matter of hours.</p>
 <div id="Org" class="section level3 unnumbered">
 <h3>Organization of R-Studio<a class="anchor" aria-label="anchor" href="#Org"><i class="fas fa-link"></i></a>
 </h3>
-<p>First off, let’s take a look at the R-Studio setup. When you first open R-Studio for the first time, you will see a screen divided into 3 panes. Before getting started click on “File” at the top of the screen and go to “New File &gt; R Script” to open a 4th pane. You should see something like the screen below (Note that the color of your screen may be different as I am using a particular color setting that I find easier on my eyes).</p>
+<p>First off, let’s take a look at the R-Studio setup. When you first open R-Studio for the first time, you will see a screen divided into 3 panes. Before getting started click on “File” at the top of the screen and go to “New File &gt; R Script” to open a 4th pane. You should see something like the screen below.</p>
+<div class="rmdtip">
+<p>
+Note that the color of your screen may be different as I am using a
+particular “dark mode” color setting that I find easier on my eyes. To
+change your color scheme, go to the top of the R-Studio window and click
+on “Tools &gt; Global Options &gt; Appearance” and then select a color
+mode that works for you.
+</p>
+</div>
 <div class="figure">
 <img src="images/r-studio.jpg" style="width:100.0%" alt=""><p class="caption">R-Studio</p>
 </div>
@@ -165,7 +174,7 @@
 <li>
 <strong>Workspace</strong> - The pane in the top left contains the Workspace tabs which is where you can write code and other documents prior to executing the code.</li>
 <li>
-<strong>Console</strong> - The pane at the bottom left is the console where you can type and run commands directly.</li>
+<strong>Console</strong> - The pane at the bottom left is the console where you can type and run commands directly. When you execute code from the workspace, it will also appear here.</li>
 <li>
 <strong>Environment/History</strong> - The pane at the upper right includes tabs for Environment (a list of objects and functions currently initialized) and History (a list of previous commands run at the console).</li>
 <li>
@@ -195,7 +204,7 @@
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fl">5</span><span class="op">^</span><span class="fl">2</span>
 <span class="co">#&gt; [1] 25</span>
-<span class="fl">5</span><span class="op">^</span> <span class="op">(</span><span class="fl">2</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span>
+<span class="fl">5</span><span class="op">^</span><span class="op">(</span><span class="fl">2</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span>
 <span class="co">#&gt; [1] 125</span></code></pre></div>
 <p>Anything placed after a <code>#</code> in a block of code will be treated as a comment and not evaluated:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
@@ -232,7 +241,7 @@
 </ul>
 <p>In general any of these styles is fine, but we suggest you try to remain consistent. Also, avoid using <code>.</code> to separate words as that is used by particular R functions and calls in other ways and can cause confusion.</p>
 <div class="figure">
-<img src="images/case.jpg" style="width:100.0%" alt=""><p class="caption">Illustration by Allison Horst <code>@</code>allison_horst</p>
+<img src="images/case.jpg" style="width:100.0%" alt=""><p class="caption">Illustration by Allison Horst <code>@allison_horst</code></p>
 </div>
 <p>Many mathematical constants are built right into R so be sure not to overwrite any of these (or any other function) by giving an object the same name.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
@@ -338,7 +347,7 @@
 
 <span class="va">vec_obj</span><span class="op">[</span><span class="va">vec_obj</span> <span class="op">==</span> <span class="st">"Correa"</span><span class="op">]</span>
 <span class="co">#&gt; [1] "Correa" "Correa"</span></code></pre></div>
-<p>To see if a particular value is in a given object we can use the <code>%in%</code> operator.</p>
+<p>To see if a particular value is in a given object we can use the <code>%in%</code> operator and get a logical value in return.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="st">"Ohtani"</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va">vec_obj</span>
 <span class="co">#&gt; [1] TRUE</span>
@@ -349,7 +358,7 @@
 <div id="Functions" class="section level3 unnumbered">
 <h3>Using Basic R Functions<a class="anchor" aria-label="anchor" href="#Functions"><i class="fas fa-link"></i></a>
 </h3>
-<p>R has a number of built-in functions that perform many common operations and assessments. We have already used one of these above <code><a href="https://rdrr.io/r/base/c.html">c()</a></code> and it was so fast and easy you might have missed it. Functions are typically used by typing the name of the function followed by a set of parenthesis that contain all of the arguments that the function expects. For example:</p>
+<p>R has a number of built-in functions that perform many common operations and statistical analyses. We have already used one of these above <code><a href="https://rdrr.io/r/base/c.html">c()</a></code> and it was so fast and easy you might have missed it. Functions are typically used by typing the name of the function followed by a set of parenthesis that contain all of the arguments that the function expects. For example:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">v</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">10</span>, <span class="fl">15</span>, <span class="fl">20</span>, <span class="fl">25</span>, <span class="fl">30</span>, <span class="fl">2000</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">v</span><span class="op">)</span>
@@ -381,7 +390,7 @@
 <span class="co">#&gt;      [,1] [,2]</span>
 <span class="co">#&gt; [1,]    3    2</span>
 <span class="co">#&gt; [2,]    4   20</span></code></pre></div>
-<p>Note that the <code><a href="https://rdrr.io/r/base/matrix.html">matrix()</a></code> function read the numbers in first by column and then by row. If we want want to change that we can first investigate the options for this function using the <code>help()</code> function. In order to see the documentation for a given function simply type <code>help("NameOfFunction")</code> at the console or <code>?NameOfFunction</code>.</p>
+<p>Note that the <code><a href="https://rdrr.io/r/base/matrix.html">matrix()</a></code> function reads the numbers in first by column and then by row. If we want want to change that we can first investigate the options for this function using the <code>help()</code> function. In order to see the documentation for a given function simply type <code>help("NameOfFunction")</code> at the console or <code>?NameOfFunction</code>.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="op">?</span><span class="va">matrix</span></code></pre></div>
 <div class="figure">
@@ -391,7 +400,19 @@
 <div class="figure">
 <img src="images/byrow.jpg" style="width:100.0%" alt=""><p class="caption">byrow argument</p>
 </div>
-<p>As we can see in the help materials for matrix, there is an additional argument we did not use called <code>byrow</code> which is set to <code>FALSE</code> by default. Let’s change that to <code>TRUE</code> and check the results. Note that you can use capital <code>F</code> and <code>T</code> in the place of <code>FALSE</code> and <code>TRUE</code> in functions but it is generally good form to write it out in context where you are sharing your code. Note also that our function call can span multiple rows and will automatically end when we close the parentheses. This multi-line formatting will be essential for making longer function calls readable.</p>
+<p>As we can see in the help materials for matrix, there is an additional argument we did not use called <code>byrow</code> which is set to <code>FALSE</code> by default. Let’s change that to <code>TRUE</code> and check the results. Note that you can use capital <code>F</code> and <code>T</code> in the place of <code>FALSE</code> and <code>TRUE</code> in functions but it is generally good form to write it out in context where you are sharing your code publicaly. Note also that our function call can span multiple rows and will automatically end when we close the parentheses. This multi-line formatting will be essential for making longer function calls readable.</p>
+<div class="rmdtip">
+<p>
+R-Studio has a nice built-in command for formatting code, especially
+very long lines of code, into multiple lines that are easier to read.
+This command also creates proper spacing between operators and objects.
+To give it a try, simply highlight a chunk of code in the workspace area
+and hit “Ctrl+Shift+A” (or “Cmd+Shift+A” for a Mac) to reformat the code
+within the selection. There are many other nifty R-Studio keyboard
+shortcuts. <a href="https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts-in-the-RStudio-IDE">Check
+here</a> for more info.
+</p>
+</div>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mat2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span>
   data <span class="op">=</span> <span class="va">dat</span>,
@@ -422,13 +443,18 @@
 <div id="DataTypes" class="section level3 unnumbered">
 <h3>Data Types in R<a class="anchor" aria-label="anchor" href="#DataTypes"><i class="fas fa-link"></i></a>
 </h3>
-<p>There are many different types of data that R understands but we focus here on the most common. This includes numeric data, integer data, character data, logical data, and factors.</p>
+<p>There are many different types of data that R understands but we focus here on the most common categories. This includes numeric data, integer data, character data, logical data, and factors.</p>
 <ul>
-<li>numeric data - This is the designation used for real numbers which can include a decimal point.</li>
-<li>integer data - This is the designation for numbers without a decimal. To designate a number as an integer type, you can add <code>L</code> after the number (see example below). Note that R automatically converts between numeric and integer data as necessary in mathematical operations.</li>
-<li>character data - This is the designation for any string of characters that does not exclusively consist of numbers. Character data can be a single character such as “a” or a long string <code>"this string is character data"</code>. In general R displays character data inside <code>" "</code>.</li>
-<li>logical data - This is the designation for evaluations of logical statements and takes the form of <code>TRUE</code> or <code>FALSE</code>.</li>
-<li>factors - Factors are nominal variables stored as vectors as R objects which have distinct “levels” which each value must be. Factors are useful in both many statistical procedures and visualizations in that unique values can be treated as “groups” rather than simply unique character data. To designate data as a factor, use the <code><a href="https://rdrr.io/r/base/factor.html">as.factor()</a></code> function. Note that factors can be numbers but they will be treated as nominal characters when evaluated.</li>
+<li>
+<strong>numeric data</strong> - This is the designation used for real numbers which can include a decimal point.</li>
+<li>
+<strong>integer data</strong> - This is the designation for whole numbers without a decimal. To designate a number as an integer type, you can add <code>L</code> after the number (see example below). Note that R automatically converts between numeric and integer data as necessary in mathematical operations.</li>
+<li>
+<strong>character data</strong> - This is the designation for any string of characters that does not exclusively consist of numbers. Character data can be a single character such as <code>"a"</code> or a long string <code>"this string is character data"</code>. In general R displays character data inside <code>" "</code>.</li>
+<li>
+<strong>logical data</strong> - This is the designation for evaluations of logical statements and takes the form of <code>TRUE</code> or <code>FALSE</code>.</li>
+<li>
+<strong>factors</strong> - Factors are nominal variables stored as vectors as R objects which have distinct “levels” which each value must be. Factors are useful in both many statistical procedures and visualizations in that unique values can be treated as “groups” rather than simply unique character data. To designate data as a factor, use the <code><a href="https://rdrr.io/r/base/factor.html">as.factor()</a></code> function. Note that factors can be numbers but they will be treated as nominal characters when evaluated.</li>
 </ul>
 <p>It is possible to determine what type of data an R object contains using the <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> function. Let’s look at examples for each type below:</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
@@ -457,10 +483,14 @@
 </h3>
 <p>The four most common object types in R are vectors, matrices, lists, and data frames. We have already explored vectors and matrices but we can define these and the other classes in more detail here.</p>
 <ul>
-<li>vector - a combined set of values all of the same type (character, numeric, etc.)</li>
-<li>matrix - a set of values in a rectangular two-way table all of the same type (character, numeric, etc.)</li>
-<li>data frame - a set of values in a rectangular two-way table where different columns can be different data types</li>
-<li>list - a list is a collection of other R objects that can be vectors, matrices, data frames or others in any format that are combined into a single object.</li>
+<li>
+<strong>vector</strong> - a combined set of values all of the same type (character, numeric, etc.). Note that if you mix numbers and character data, R will assume every entry represents character data.</li>
+<li>
+<strong>matrix</strong> - a set of values in a rectangular two-way table all of the same type (character, numeric, etc.)</li>
+<li>
+<strong>data frame</strong> - a set of values in a rectangular two-way table where different columns can be different data types</li>
+<li>
+<strong>list</strong> - a list is a collection of other R objects that can be vectors, matrices, data frames or others in any format that are combined into a single object.</li>
 </ul>
 <div id="Vec" class="section level4 unnumbered">
 <h4>Vectors<a class="anchor" aria-label="anchor" href="#Vec"><i class="fas fa-link"></i></a>
@@ -474,7 +504,7 @@
 <div id="Mat" class="section level4 unnumbered">
 <h4>Matrices<a class="anchor" aria-label="anchor" href="#Mat"><i class="fas fa-link"></i></a>
 </h4>
-<p>Once again, we have already introduced matrices above but there are a few more details that are worth addressing here. Again, if you want to call a specific value in a matrix you can use the <code>[,]</code> square brackets with the row number listed followed by a comma and the column number. For example:</p>
+<p>Once again, we have already introduced matrices above but there are a few more details that are worth addressing here. Again, if you want to call a specific value in a matrix you can use the <code>[ , ]</code> square brackets with the row number listed followed by a comma and the column number. For example:</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mat1</span>
 <span class="co">#&gt;      [,1] [,2]</span>
@@ -595,7 +625,7 @@
 <p>In order to install external packages, you need to know the name of the package you want and you simply type <code>install.packages("NameOfPackage")</code> at the console. Let’s try installing the <code>vegan</code> package first which includes lots of useful functions for community ecology research.</p>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"vegan"</span><span class="op">)</span></code></pre></div>
-<p>Once our package installs, we can “call” it or initialize it using the <code>libaray()</code> function. Notice that when we load this package it also loads “permute” and “lattice” which are two additional packages used within <code>vegan</code>. These dependencies were automatically installed when you installed the <code>vegan</code> package.</p>
+<p>Once our package installs, we can “call” it or initialize it using the <code>libaray()</code> function. Notice that when we load this package it also loads <code>permute</code> and <code>lattice</code> which are two additional packages used within <code>vegan</code>. These dependencies were automatically installed when you installed the <code>vegan</code> package.</p>
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/vegandevs/vegan">vegan</a></span><span class="op">)</span>
 <span class="co">#&gt; Loading required package: permute</span>
@@ -645,7 +675,7 @@ established packages for R.
 <h2>Working with External Files<a class="anchor" aria-label="anchor" href="#WorkingWithFiles"><i class="fas fa-link"></i></a>
 </h2>
 <p>In many cases we may wish to either write or read an external files with R. Frequently these files take the shape of spreadsheets such as Excel documents or csv (comma separated value) documents. R has many functions for reading in such data and most are built-in to base R. Let’s try this out by first writing a .csv (comma separated value) file from a matrix we generate and then reading it back in. Note that any files you write from the console will go directly to the R working directory unless you otherwise specify.</p>
-<p>To write a csv file we use the <code><a href="https://rdrr.io/r/utils/write.table.html">write.csv()</a></code> function. First we will create a simple matrix, add row names and column names, and then export it.</p>
+<p>To write a csv file we use the <code><a href="https://rdrr.io/r/utils/write.table.html">write.csv()</a></code> function. First we will create a simple matrix, add row names and column names, and then export it. Note that we write this file to a sub-folder of the working directory called “data” here. You could change that to something else but R will return an error if you attempt to read or write from folders that you haven’t first created outside of R-Studio.</p>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">vec2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">2</span>, <span class="fl">65</span>, <span class="fl">4</span>, <span class="fl">2</span>, <span class="fl">4</span>, <span class="fl">6</span>, <span class="fl">4</span>, <span class="fl">2</span><span class="op">)</span>
 
@@ -662,7 +692,7 @@ established packages for R.
 <span class="co">#&gt; row 3 65 4 2</span>
 
 <span class="co"># Export the matrix as a csv file</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/write.table.html">write.csv</a></span><span class="op">(</span><span class="va">mat4</span>, file <span class="op">=</span> <span class="st">"output_mat.csv"</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/write.table.html">write.csv</a></span><span class="op">(</span><span class="va">mat4</span>, file <span class="op">=</span> <span class="st">"data/output_mat.csv"</span><span class="op">)</span></code></pre></div>
 <p>Once you export this file, you should see it appear in the File pane in the bottom right of R-Studio within the working directory.</p>
 <div class="figure">
 <img src="images/files.jpg" alt=""><p class="caption">File pane</p>
@@ -670,7 +700,7 @@ established packages for R.
 <p>If you want to read this file back in, we can simply use the <code><a href="https://rdrr.io/r/utils/read.table.html">read.csv()</a></code> function. Let’s give it a try and create a new object called, <code>read_mat</code> from the results of the function. We use the argument <code>header = T</code> to indicate that the first row represents column names and <code>row.names = 1</code> to indicate that the first column includes the row names.</p>
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">read_mat</span> <span class="op">&lt;-</span>
-  <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"output_mat.csv"</span>,
+  <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"data/output_mat.csv"</span>,
            header <span class="op">=</span> <span class="cn">T</span>,
            row.names <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
 <span class="va">read_mat</span>
@@ -725,16 +755,16 @@ ensure our code is reproducible.
 <span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">5000</span>, mean <span class="op">=</span> <span class="fl">5</span>, sd <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span>
 <span class="co"># plot the results</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="index_files/figure-html/unnamed-chunk-45-1.png" width="672"></div>
-<p>We can also easily create a histogram of a single variable with additional arguments:</p>
+<div class="inline-figure"><img src="index_files/figure-html/unnamed-chunk-47-1.png" width="672"></div>
+<p>We can also easily create a histogram of a single variable with the additional argument <code>breaks</code> which determines how many bars the histogram will have:</p>
 <div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="va">x</span>, breaks <span class="op">=</span> <span class="fl">20</span><span class="op">)</span> <span class="co"># breaks defines the number of bars</span></code></pre></div>
-<div class="inline-figure"><img src="index_files/figure-html/unnamed-chunk-46-1.png" width="672"></div>
+<div class="inline-figure"><img src="index_files/figure-html/unnamed-chunk-48-1.png" width="672"></div>
 <p>And boxplots:</p>
 <div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html">boxplot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="index_files/figure-html/unnamed-chunk-47-1.png" width="672"></div>
-<p>There are lots of figures built right into base R and we suggest exploring the <a href="https://bookdown.org/content/b298e479-b1ab-49fa-b83d-a57c2b034d49/">R Gallery Book</a> which outlines many options.</p>
+<div class="inline-figure"><img src="index_files/figure-html/unnamed-chunk-49-1.png" width="672"></div>
+<p>There are lots of data visualizations built into base R and we suggest exploring the <a href="https://bookdown.org/content/b298e479-b1ab-49fa-b83d-a57c2b034d49/">R Gallery Book</a> which outlines many options.</p>
 <div class="rmdnote">
 <p>
 In the remainder of the Online Companion we will go into detail in
@@ -745,7 +775,7 @@ can be used for all sorts of visualizations and it uses a format that is
 somewhat different from that of base R.
 </p>
 </div>
-<p>Let’s take a look at an example:</p>
+<p>Let’s take a look at an example of a plot using the <code>ggplot2</code> format:</p>
 <div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"ggplot2"</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
@@ -755,7 +785,7 @@ somewhat different from that of base R.
 
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">df</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="index_files/figure-html/unnamed-chunk-50-1.png" width="672"></div>
+<div class="inline-figure"><img src="index_files/figure-html/unnamed-chunk-52-1.png" width="672"></div>
 <p>In the code chunk above, we created a data frame (which <code>ggplot2</code> requires) combining our random x and y variables. Next, we made a generic call to ggplot2 using the <code>ggplot(data = df)</code> line. This creates a ggplot object set up with <code>df</code> as the data considered. Notice this line is followed by a <code>+</code>. This package will continue to read lines until a line does not end with this symbol and <code>ggplot</code> calls can often be quite long.</p>
 <p>The next line was the <code><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point()</a></code> function. This package designates different kinds of visualizations as <code>geom_</code> and there are many options (<code>geom_histogram</code>, <code>geom_bar</code>, <code>geom_polygon</code>, etc.). The <code>geom_point</code> function refers to a simple point plot. The argument inside the function is defined as <code>aes(x = x, y = y)</code>. In this package <code>aes</code> stands for aesthetics. In this case, we are using this aesthetics call to designate which variable will be on the x and which on the y axis, which is easy here as we named our variable appropriately.</p>
 <p>From here <code>ggplot2</code> includes seemingly endless customization options. There are way too many options out there for us to cover here but a good place to start is the <a href="https://r-graph-gallery.com/">R Graph Gallery</a> website.</p>
@@ -767,7 +797,7 @@ somewhat different from that of base R.
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span><span class="op">(</span><span class="st">"Numbers!!"</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span><span class="op">(</span><span class="st">"REALLY BIG NUMBERS"</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="index_files/figure-html/unnamed-chunk-51-1.png" width="672"></div>
+<div class="inline-figure"><img src="index_files/figure-html/unnamed-chunk-53-1.png" width="672"></div>
 <div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="co"># Bined biplot example</span>
@@ -775,7 +805,7 @@ somewhat different from that of base R.
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bin_2d.html">geom_bin2d</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_colour_continuous.html">scale_fill_continuous</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"viridis"</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="index_files/figure-html/unnamed-chunk-51-2.png" width="672"></div>
+<div class="inline-figure"><img src="index_files/figure-html/unnamed-chunk-53-2.png" width="672"></div>
 <div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="co"># Create data frame for bar plot example</span>
@@ -783,8 +813,16 @@ somewhat different from that of base R.
                   gp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">50</span>, <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>, replace <span class="op">=</span> <span class="cn">T</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">df2</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">d1</span>, fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">gp</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="index_files/figure-html/unnamed-chunk-51-3.png" width="672"></div>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_dark</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="index_files/figure-html/unnamed-chunk-53-3.png" width="672"></div>
+</div>
+<div id="Warnings" class="section level2 unnumbered">
+<h2>Warnings and Messages in R<a class="anchor" aria-label="anchor" href="#Warnings"><i class="fas fa-link"></i></a>
+</h2>
+<p>As you have run the code above or in other sections of this documents, you may have seen additional “warnings” or “messages” appear on the screen. For example something like:</p>
+<p><code>stat_bin()` using `bins = 30`. Pick better value with `binwidth</code></p>
+<p>This output in the console is simply letting us know that we might want to select a different <code>binwidth</code> that better suits our data. Warnings and messages like this are often relatively benign like this, but may also indicate a bigger problem. For example, you may get a warning that a particular method is not appropriate for the data you have (perhaps because of missing data) even though results are provided. Keep a careful eye on these warnings and heed them when necessary. Often looking in the <code>help()</code> documentation for a given function will help you interpret these messages.</p>
+<p>For the purposes of this online companion, however, we have “muted” these warnings and messages in the output except in a couple of places where we are pointing out something specific. Any messages you generate should be innocuous but feel free to ask if you have questions or concerns.</p>
 </div>
 <div id="AdvancedR" class="section level2 unnumbered">
 <h2>More Advanced R Features<a class="anchor" aria-label="anchor" href="#AdvancedR"><i class="fas fa-link"></i></a>
@@ -829,7 +867,7 @@ somewhat different from that of base R.
 <span class="kw">if</span> <span class="op">(</span><span class="va">x</span> <span class="op">&gt;</span> <span class="fl">50</span><span class="op">)</span> <span class="op">{</span>
   <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Greater Than 50"</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
-<p>In the first example above, the evaluation of <code>x &gt; 50</code> was <code>FALSE</code> so the statement in brackets after <code>else</code> was evaluated. In the second example, the evaluation of <code>x*2 &gt;50</code> was <code>TRUE</code> so the first statement was evaluated. Finally, in the third example, <code>x &gt; 50</code> was <code>FALSE</code> and since there is no <code>else</code> statement nothing happened.</p>
+<p>In the first example above, the evaluation of <code>x &gt; 50</code> was <code>FALSE</code> so the statement in brackets after <code>else</code> was evaluated. In the second example, the evaluation of <code>x*2 &gt; 50</code> was <code>TRUE</code> so the first statement was evaluated. Finally, in the third example, <code>x &gt; 50</code> was <code>FALSE</code> and since there is no <code>else</code> statement nothing happened.</p>
 <p>If you want to apply an <code>if...else</code> statement to a vector of values rather than one at a time, you can use a useful function <code><a href="https://rdrr.io/r/base/ifelse.html">ifelse()</a></code>. The <code><a href="https://rdrr.io/r/base/ifelse.html">ifelse()</a></code> function expects the first item in the parenthesis to be the test expression, followed by the event to execute if the statement is true and then the event to execute if the expression is false.</p>
 <div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">100</span>, by <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>
@@ -947,7 +985,7 @@ somewhat different from that of base R.
 <span class="va">val_seq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span>
 <span class="fu">myfunct</span><span class="op">(</span><span class="va">val_seq</span><span class="op">)</span>
 <span class="co">#&gt;  [1]  0.2  0.8  1.8  3.2  5.0  7.2  9.8 12.8 16.2 20.0</span></code></pre></div>
-<p>Let’s break down what is happening in the chunk of code above. First, we defined a function with one argument <code>x</code>. Inside the function expression we then initialized a new variable for the output called <code>z</code>. We then enter a for loop that iterates values of <code>i</code> for a sequence of numbers from 1 to the length of vector <code>x</code> using the <code><a href="https://rdrr.io/r/base/seq.html">seq_len()</a></code> call.. The value of <code>z</code> at position <code>i</code> is defined as the value of <code>x</code> at position <code>i</code> times <code>i</code> divided by <code>5</code>. Once this loop finishes, the function returns the vector <code>z</code> with the results. As this example shows, arguments need not be limited to single values and can include vectors, data.frames, matrices, lists, or any type of R object.</p>
+<p>Let’s break down what is happening in the chunk of code above. First, we defined a function with one argument <code>x</code>. Inside the function expression we then initialized a new variable for the output called <code>z</code> by simply setting it to <code>NULL</code> or empty. We then enter a for loop that iterates values of <code>i</code> for a sequence of numbers from 1 to the length of vector <code>x</code> using the <code><a href="https://rdrr.io/r/base/seq.html">seq_len()</a></code> call.. The value of <code>z</code> at position <code>i</code> is defined as the value of <code>x</code> at position <code>i</code> times <code>i</code> divided by <code>5</code>. Once this loop finishes, the function returns the vector <code>z</code> with the results. As this example shows, arguments need not be limited to single values and can include vectors, data.frames, matrices, lists, or any type of R object.</p>
 <p>To clarify how the iterator works, the function <code><a href="https://rdrr.io/r/base/seq.html">seq_len()</a></code> creates a sequence of numbers from 1 to the number indicated. When you are setting the number of runs of a loop based on the length of some other object it is good practice to use this function.</p>
 <div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>
@@ -967,7 +1005,7 @@ somewhat different from that of base R.
 <p>We have provided the answer below but give this a try on your own first before peeking at the answer.</p>
 <p>No peeking until you try!!</p>
 <div class="figure">
-<img src="images/monster_support.jpg" style="width:100.0%" alt=""><p class="caption">Artwork by Allison Horst <code>@</code>allison_horst</p>
+<img src="images/monster_support.jpg" style="width:100.0%" alt=""><p class="caption">Artwork by Allison Horst <code>@allison_horst</code></p>
 </div>
 <p>Here is our solution below:</p>
 <div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
@@ -1032,6 +1070,7 @@ somewhat different from that of base R.
 <li><a class="nav-link" href="#InstallPackages">Installing and Using Packages</a></li>
 <li><a class="nav-link" href="#WorkingWithFiles">Working with External Files</a></li>
 <li><a class="nav-link" href="#Plotting">Plotting Data</a></li>
+<li><a class="nav-link" href="#Warnings">Warnings and Messages in R</a></li>
 <li>
 <a class="nav-link" href="#AdvancedR">More Advanced R Features</a><ul class="nav navbar-nav">
 <li><a class="nav-link" href="#Conditionals">Conditional Statements</a></li>
@@ -1057,7 +1096,7 @@ somewhat different from that of base R.
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-06-09.</p>
+    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-06-12.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

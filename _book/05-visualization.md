@@ -2,13 +2,13 @@
 
 This section follows along with Brughmans and Peeples (2022) chapter 6 to illustrate the wide variety of techniques which can be used for network visualization. We begin with some general examples of network plotting and then demonstrate how to replicate all of the specific examples that appear in the book. For most of the examples below we rely on R but in a few cases we use other software and provide additional details and data formats. 
 
-There are already some excellent resources online for learning how to create beautiful and informative network visuals. We recommend the excellent online materials produced by Dr. Katherine Ognyanova [available on her website](https://kateto.net/) and her [Static and dynamic network visualization with R](https://kateto.net/network-visualization) workshop materials in particular. Many of the examples here and in the book take inspiration from her work. In addition to this, the [R Graph Gallery](https://www.r-graph-gallery.com/) website created by [Holtz Yan](https://github.com/holtzy) provides numerous excellent examples of plots in R using the ggplot2 and ggraph packages among many others. If you are new to R, it will probably be helpful for you to read a bit about basic graphic functions (including in the tutorials listed here) before getting started.
+There are already some excellent resources online for learning how to create beautiful and informative network visuals. We recommend the excellent online materials produced by Dr. Katherine Ognyanova [available on her website](https://kateto.net/) and her [Static and dynamic network visualization with R](https://kateto.net/network-visualization) workshop materials in particular. Many of the examples here and in the book take inspiration from her work. In addition to this, the [R Graph Gallery](https://www.r-graph-gallery.com/) website created by [Holtz Yan](https://github.com/holtzy) provides numerous excellent examples of plots in R using the `ggplot2` and `ggraph` packages among many others. If you are new to R, it will probably be helpful for you to read a bit about basic graphic functions (including in the tutorials listed here) before getting started.
 
 ## Data and R Setup{#VizDatasets}
 
 In order to make it as easy as possible for users to replicate specific visuals from the book and the other examples in this tutorial we have tried to make the examples as modular as possible. This means that we provide calls to initialize the required libraries for each plot within each relevant chunk of code (so that you can more easily tell what package does what) and we also provide links to download the data required to replicate each figure in the description of that figure below. The data sets we use here include both .csv and other format files as well as .Rdata files that contain sets of specific R objects formatted as required for individual chunks of code.
 
-If you plan on working through this entire tutorial and would like to download all of the associated data at once [you can download this zip file](https:/archnetworks.net/All_data.zip). Simply extract this zip folder into your R working directory and the examples below will then work. Note that all of the examples below are setup such that the data should be contained in a sub-folder of your working directory called "data" (note that directories and file names are case sensitive).
+If you plan on working through this entire tutorial and would like to download all of the associated data at once [you can download this zip file](All_data.zip). Simply extract this zip folder into your R working directory and the examples below will then work. Note that all of the examples below are setup such that the data should be contained in a sub-folder of your working directory called "data" (note that directories and file names are case sensitive).
 
 ## Visualizing Networks in R{#ViZInR}
 
@@ -24,7 +24,7 @@ objects in both the <code>igraph</code> and <code>statnet</code> format.
 These will be the basis for all examples in this section.</p>
 </div>
 
-Let"s start by reading in our example data and then we describe each package in turn:
+Let's start by reading in our example data and then we describe each package in turn:
 
 
 ```r
@@ -45,9 +45,9 @@ cibola_attr <- read.csv(file = "data/Cibola_attr.csv", header = TRUE)
 cibola_i <- igraph::graph_from_adjacency_matrix(as.matrix(cibola),
                                                 mode = "undirected")
 cibola_i
-#> IGRAPH ed47102 UN-- 31 167 -- 
+#> IGRAPH 6112929 UN-- 31 167 -- 
 #> + attr: name (v/c)
-#> + edges from ed47102 (vertex names):
+#> + edges from 6112929 (vertex names):
 #>  [1] Apache.Creek--Casa.Malpais        
 #>  [2] Apache.Creek--Coyote.Creek        
 #>  [3] Apache.Creek--Hooper.Ranch        
@@ -143,7 +143,7 @@ The `ggraph` package provides a powerful set of tools for plotting and visualizi
 
 Essentially, the way the `ggraph` call works is you start with a `ggraph` function call which includes the network object and the layout information. You then provide lines specifying the edges `geom_edge_link` and nodes `geom_node_point` features and so on. Conveniently the `ggraph` function call will take either an `igraph` or a `network` object so you do not need to convert.
 
-Here is an example. Here we first the call for the igraph network object `Cibola_i` and specify the Fruchterman-Reingold layout using `layout = "fr"`. Next, we call the `geom_edge_link` and specify edge colors. The `geom_node_point` call then specifies many attributes of the nodes including the fill color, outline color, transparency (alpha), shape, and size using the `igraph::degree` function. The `scale_size` call then tells the plot to scale the node size specified in the previous line to range between 1 and 4. Finally `theme_graph` is a basic call to the `ggraph` theme that tells the plot to make the background white and to remove the margins around the edge of the plot. Let"s see how this looks. 
+Here is an example. Here we first the call for the igraph network object `Cibola_i` and specify the Fruchterman-Reingold layout using `layout = "fr"`. Next, we call the `geom_edge_link` and specify edge colors. The `geom_node_point` call then specifies many attributes of the nodes including the fill color, outline color, transparency (alpha), shape, and size using the `igraph::degree` function. The `scale_size` call then tells the plot to scale the node size specified in the previous line to range between 1 and 4. Finally `theme_graph` is a basic call to the `ggraph` theme that tells the plot to make the background white and to remove the margins around the edge of the plot. Let's see how this looks. 
 
 In the next section we go over the most common options in `ggraph` in detail.
 
@@ -170,7 +170,7 @@ ggraph(cibola_i, layout = "fr") +
 
 <img src="05-visualization_files/figure-html/Fig_ggraph-1.png" width="672" />
 
-There are many options for the ggraph package and we recommend exploring the help document (?ggraph) as well as the [Data Imaginist](https://www.data-imaginist.com/tags/visualization) ggraph tutorial online for more. Most of the examples below will use the ggraph format.
+There are many options for the `ggraph` package and we recommend exploring the help document (`?ggraph`) as well as the [Data Imaginist](https://www.data-imaginist.com/tags/visualization) `ggraph` tutorial online for more. Most of the examples below will use the `ggraph` format.
 
 ## Network Visualization Options{#NetVizOptions}
 
@@ -481,7 +481,7 @@ ggraph(net, "stress") +
 
 <img src="05-visualization_files/figure-html/edge_options2-1.png" width="672" />
 
-Another common consideration with edges is the shape of the edges themselves. So far we have used examples where the edges are all straight lines, but it is also possible to draw them as arcs or so that they fan out from nodes so that multiple connections are visible. In general, all you need to do to change this option is to use another command in the `geom_edge_` family of commands. For example, in the following chunk of code we produce a network with arcs rather than straight lines. In this case the argument "strength" controls the amount of bend in the lines.
+Another common consideration with edges is the shape of the edges themselves. So far we have used examples where the edges are all straight lines, but it is also possible to draw them as arcs or so that they fan out from nodes so that multiple connections are visible. In general, all you need to do to change this option is to use another command in the `geom_edge_` family of commands. For example, in the following chunk of code we produce a network with arcs rather than straight lines. In this case the argument `strength` controls the amount of bend in the lines.
 
 
 ```r
@@ -815,8 +815,6 @@ and <code>colorblindr</code>.</p>
 
 
 ```r
-
-
 library(igraph)
 library(statnet)
 library(intergraph)
@@ -851,8 +849,6 @@ For this plot, we read in a adjacency matrix that is ordered in the order we wan
 
 
 ```r
-
-
 arc_dat <- read.csv("data/Peeples_arcplot.csv",
                     header = TRUE,
                     row.names = 1)
@@ -952,7 +948,7 @@ GitHub, you type supply “username/packagename” inside the
 <code>install_github</code> call.</p>
 </div>
 
-Let"s now look at the figure code:
+Let's now look at the figure code:
 
 
 ```r
@@ -1065,7 +1061,7 @@ in the place of nodes by defining them as “annotations.” See the post
 for more details.</p>
 </div>
 
-Now let"s look at all of the figures together.
+Now let's look at all of the figures together.
 
 ![](images/Figure_6_3.jpg){width=100%}
 
@@ -2107,7 +2103,7 @@ ggmap(base2, darken = 0.15) +
 
 Fig. 6.18. Example of a group-in-a-box custom graph layout created in NodeXL based on ceramic similarity data from the U.S. Southwest/Mexican Northwest ca. AD 1350-1400. 
 
-The group-in-a-box network format is, as far as we are aware, currently only implemented in the [NodeXL](https://www.smrfoundation.org/nodexl/) platform. This software package is an add-in for Microsoft Excel that allows for the creation and analysis of network graphs using a wide variety of useful visualization tools. To produce a "Group-in-a-box" layout you simply need to paste a set of edge list values into the NodeXL Excel Template, define groups (based on an algorithm or some vertex attribute), and be sure to select "Layout each of the graph"s groups in its own box" in the layout options. 
+The group-in-a-box network format is, as far as we are aware, currently only implemented in the [NodeXL](https://www.smrfoundation.org/nodexl/) platform. This software package is an add-in for Microsoft Excel that allows for the creation and analysis of network graphs using a wide variety of useful visualization tools. To produce a "Group-in-a-box" layout you simply need to paste a set of edge list values into the NodeXL Excel Template, define groups (based on an algorithm or some vertex attribute), and be sure to select "Layout each of the graph's groups in its own box" in the layout options. 
 
 For more details on how to use NodeXL see the extensive documentation online. There are commercial versions of the software available but the group-in-a-box example shown here can be produced in the free version.
 

@@ -1,7 +1,7 @@
 ---
 title: "Online Companion to *Archaeological Network Science*"
 author: "Matthew A. Peeples and Tom Brughmans"
-date: "2022-06-09"
+date: "2022-06-12"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: references.bib
@@ -23,13 +23,13 @@ This project serves as a companion to the Cambridge Manuals in Archaeology book 
 
 <a href="https://book.archnetworks.net"><img src="images/cover.png" width="250" height="375" alt="Brughmans and Peeples Book Cover" align="right" style="margin: 0 1em 0 1em" /></a>
 
-This document contains a series of tutorials that outline methods for managing, analyzing, and visualizing network data, primarily using the R programming language. We provide code and examples to replicate the analyses presented in the book as well as many other additional useful examples and tools. This Online Companion is designed to expand upon topics covered in the book and you may find it useful to follow along with these examples as you read the text. Sections 1 through 6 in this document correspond to the topics and information covered in Chapters 2 through 7 of the Brughmans and Peeples book. Section 7 of this document includes topics beyond the scope of the book and topics we hope to expand in the future. You can use the table of contents on the left-hand side of your screen to jump directly to a particular section and the table and contents on the right to navigate within each section. 
+This document contains a series of tutorials that outline methods for managing, analyzing, and visualizing network data, primarily using the R programming language. We provide code and examples to replicate the analyses presented in the book as well as many other additional useful tools. This Online Companion is designed to expand upon topics covered in the book and you may find it useful to follow along with these examples as you read the text. Sections 1 through 6 in this document correspond to the topics and information covered in Chapters 2 through 7 of the Brughmans and Peeples book. Section 7 of this document includes topics beyond the scope of the book (exponential random graph models and spatial interaction models) and topics we hope to expand in the future. You can use the table of contents on the left-hand side of your screen to jump directly to a particular section and the table and contents on the right to navigate within each section. We have also created a [quick TOC reference](#TableOfContents) if you are seeking something in particular. 
 
-For more information on the book and the authors check the project website here: [archnetworks.net](https://archnetworks.net).
+For more information on the book and the authors check out the project website here: [archnetworks.net](https://archnetworks.net).
 
 **Cite this document as:**
 
-> Peeples, Matthew A. and Tom Brughmans (2022). Online Companion to Archaeological Network Science by Brughmans and Peeples. <https://archnetworks.net>, Accessed 2022-06-09.
+> Peeples, Matthew A. and Tom Brughmans (2022). Online Companion to Archaeological Network Science by Brughmans and Peeples. <https://archnetworks.net>, Accessed 2022-06-12.
 
 **The associated book can be cited as**
 
@@ -41,7 +41,7 @@ For more information on the book and the authors check the project website here:
 <p style='margin-top:1em; text-align:center'>
 <b>NOTICE</b></p>
 <p style='margin-left:1em;'>
-Note that this is a pre-release version of this document. Be aware that this document is still being updated and edited. Please check back here for updates in the coming months for the final version of this document.
+Note that this is a pre-release version of this document. Be aware that this document is still being updated and edited. Please check back here for updates in the coming months for the 1.0 release version of this document.
 </p>
 </span>
 </div>
@@ -54,8 +54,8 @@ The tutorials here are designed to complement the text of the associated book (B
 A few suggestions on where to start:
 
 * If you are new to network analysis and R, we would suggest going through each section of this document, starting with "Getting Started with R" and then going through the numbered sections in order as you following along in the book.
-* If you are already familiar with R but new to network analysis, we suggest you read Section 1 to set up your data and workspace, and then follow along with the remaining numbered sections and associated book chapters as you read.
-* If you are already an avid network analyst and R user and are just looking for code chunks to implement something in particular, feel free to skip around. We have tried to make each section as independent as possible so that you can pick and choose what you want to work on. Use the [Table of Contents](#TableOfContents) to find topics quickly.
+* If you are already familiar with R but new to network analysis, we suggest you read Section 1 to set up your data and work space, and then follow along with the remaining numbered sections and associated book chapters as you read.
+* If you are already a network analyst and confident R user and are just looking for code chunks to implement something in particular, feel free to skip around. We have tried to make each section as independent as possible so that you can pick and choose what you want to work on. Use the [Table of Contents](#TableOfContents) to find topics quickly.
 * If you're a real pro and are designing your own network analyses or visualizations, we would love it if you contributed to the project to help this document grow.
 
 Throughout this document we use a few icons to call-out special information or concerns. Keep an eye out for the symbols below:
@@ -69,13 +69,13 @@ use and configure these packages.</p>
 <div class="rmdwarning">
 <p>We use this icon to highlight particular areas of concern in our
 discussion of network methods and R code. In particular, we use this
-icon to warn you of common errors or pitfalls for particular
-functions.</p>
+icon to warn you of common errors or pitfalls for particular functions
+or network methods.</p>
 </div>
 
 <div class="rmdtip">
 <p>We use this icon to highlight helpful tips for using particular R
-functions or R studio procedures.</p>
+functions or R-Studio procedures.</p>
 </div>
 
 
@@ -83,7 +83,7 @@ functions or R studio procedures.</p>
 
 The most recent version of this document was built with R version 4.2.0 (2022-04-22 ucrt). We suggest you use a recent version of R when attempting to use the code in this document. 
 
-![Github last-commit](https://img.shields.io/github/last-commit/mpeeples2008/ArchNetSci)&nbsp; &nbsp;  ![GitHub repo size](https://img.shields.io/github/repo-size/mpeeples2008/ArchNetSci) &nbsp; &nbsp;
+![Github last-commit](https://img.shields.io/github/last-commit/mpeeples2008/ArchNetSci)&nbsp; &nbsp;
 [![Docker Image CI](https://github.com/mpeeples2008/ArchNetSci/actions/workflows/docker-image.yml/badge.svg)](https://github.com/mpeeples2008/ArchNetSci/actions/workflows/docker-image.yml) 
 
 The content of this document is designed to be as accessible and reproducible as possible. The source code used to produce this document along with all of the data used in analyses are available on [GitHub](https://github.com/mpeeples2008/ArchNetSci). This GitHub repository allows users to open issues, contribute to the document, or help fix typos or other errors (see information about [contributing](#Contributing) below). We have also opened a GitHub discussion board with this repository where users can ask questions about any data or code in the repository without making edits or issue requests directly. 
@@ -118,11 +118,11 @@ This online bookdown document has been deployed using the Netlify platform and t
 
 ## Computational Archaeology Discord Community{- #Discord}
 
-We have created an [Archaeological Network Science Channel on the Computational Archaeology Discord Server](https://discord.gg/Z9UXwjASM5), which we hope will provide an additional venue for archaeological network practitioners to collaborate, interact, and ask for help with this document or with archaeological networks (and other computational methods). We invite you to use this as a place to ask questions of the authors and the community at large. Note that this Discord is subject to the same [code of conduct](https://github.com/mpeeples2008/ArchNetSci/blob/main/CODE_OF_CONDUCT.md) we use for the GitHub repository and you must abide by that agreement to participate. We require that you have a Discord account with a verified email address.
+We have created an [Archaeological Network Science Channel on the Computational Archaeology Discord Server](https://discord.gg/Z9UXwjASM5), which we hope will provide an additional venue for archaeological network practitioners to collaborate, interact, and ask for help with this document or with archaeological networks (and other computational methods) in general. We invite you to use this as a place to ask questions of the authors and the community at large. Note that this Discord is subject to the same [code of conduct](https://github.com/mpeeples2008/ArchNetSci/blob/main/CODE_OF_CONDUCT.md) we use for the GitHub repository and you must abide by that agreement to participate. We require that you have a Discord account with a verified email address.
 
 <a href="https://discord.gg/Z9UXwjASM5"><img src="images/Discord_Logo.png" width="300" alt="Discord Logo" style="margin: 0 1em 0 1em" /></a>
 
-[Join the Computational Archaeology Discord](https://discord.gg/Z9UXwjASM5)
+[Join the Computational Archaeology Discord](https://discord.gg/Z9UXwjASM5)&nbsp; &nbsp;&nbsp; &nbsp;  ![](https://discordapp.com/api/guilds/975267909012189184/widget.png?style=shield)
 
 ## New to R and R Studio?{- #NewToR}
 
@@ -146,7 +146,7 @@ We are devoted to seeing the community of archaeological network practitioners g
 * Share links to these online resources on social media using the [#archnetworks](https://twitter.com/search?q=%23archnetworks&src=typed_query) hashtag
 * Please cite the book *and* the Online Companion if you use methods or code from this document
 * Star the [GitHub project repository](https://github.com/mpeeples2008/ArchNetSci) and contribute to the project
-* [Join our Discord](https://discord.gg/Z9UXwjASM5) and invite other interested people
+* [Join the Computational Archaeology Discord](https://discord.gg/Z9UXwjASM5) and invite other interested people
 * Share articles, teaching resources, data, or other archaeological network materials for posting on our associated website [(archnetworks.net)](https://archnetworks.net)
 
 ## Project License{-}
@@ -157,7 +157,7 @@ This Online Companion to Archaeological Network Science is licensed under a [Cre
 
 ## Acknowledgements{- #Acknowledgements}
 
-This online bookdown project and the associated book were made possible thanks to the support of several generous funding sources including: The Carlsberg Foundation, in the context of the Past Social Networks Project (CF21-0382); the National Science Foundation through both the Archaeology and the Measurement, Methodology, and Statistics programs (grant #1758690 and #1758606); and the School of Human Evolution and Social Change at Arizona State University. Thank you to Jens Emil Bødstrup Christoffersen for providing detailed comments on and for testing the initial version of this document. Any errors that remain are our own.
+This online bookdown project and the associated book were made possible thanks to the support of several generous funding sources including: The Carlsberg Foundation, in the context of the Past Social Networks Project (CF21-0382); the National Science Foundation through both the Archaeology and the Measurement, Methodology, and Statistics programs (grant #1758690 and #1758606); and the School of Human Evolution and Social Change at Arizona State University. Thank you to Jens Emil Bødstrup Christoffersen for providing detailed comments on and for testing the initial version of this online bookdown document. Any errors that remain are our own.
 
 ![](images/NSF_Logo.png){width=150px} ![](images/ASU_SHESC_Logo.png){width=300px}
 
@@ -182,7 +182,7 @@ The first step is to install a recent version of R (we recommend 4.2 or later as
 
 To install R on MacOS, you first need to know which chip manufacturer your Mac has. In order to determine which chip you have go to the Apple menu and select "About This Mac" and look for information under "Processor" or "Chip" in the window that pops up. It will either be Intel or M1.
 
-* Next, click the on the link under "Latest release" for the *.pkg file for the appropriate Mac processor in your computer. There is a separate notarized and signed .pkg file Macs with Intel processors and Macs with Apple M1 processors (mostly produced 2020 and later). Note, these .pkg files are not interchangeable so confirm which one you need.
+* Next, click the on the link under "Latest release" for the *.pkg file for the appropriate Mac processor in your computer. There is a separate notarized and signed .pkg file Macs with Intel processors and Macs with Apple M1 processors (mostly produced 2020 and later). Note, these .pkg files are not interchangeable so confirm which one you need before attempting to install.
 * Once you have downloaded the appropriate .pkg, run it and answer the questions during the install as required.
 
 ### Linux{- #Linux}
@@ -214,18 +214,26 @@ Once you've installed both R and R-Studio, open R-studio and look for the Consol
 
 R is a powerful statistical analysis platform that can be used to conduct some quite complex analyses. The learning curve is a bit steep when first getting started but the payoff is HUGE because the ecosystem of existing R scripts and packages is so large and diverse. We cannot hope to cover everything R and R-Studio can do in this very short intro here. Our tutorial here is a version of the "Introduction to R programming" that Peeples has used in the first week of his Quantitative and Formal Methods in Archaeology class for a number of years. Hopefully this will get you started. 
 
-Although R seems complicated at first, many quite complex statistical analyses are run with just a few lines of code. Once you learn the basics, more complex features of R are really just combinations of these basic procedures. You won't become an R expert overnight, but we've seen many students pick up the basics quite quickly and begin to take on their first analyses in R in a matter of hours. 
+Although R seems complicated at first, many quite complex statistical analyses are run with just a few lines of code. Once you learn the basics, more complex features of R are really just combinations of these basic procedures. You won't become an R expert overnight, but we've seen many students pick up the basics quite quickly and begin to take on their first independent analyses in R in a matter of hours. 
 
 ### Organization of R-Studio{- #Org}
 
-First off, let's take a look at the R-Studio setup. When you first open R-Studio for the first time, you will see a screen divided into 3 panes. Before getting started click on "File" at the top of the screen and go to "New File > R Script" to open a 4th pane. You should see something like the screen below (Note that the color of your screen may be different as I am using a particular color setting that I find easier on my eyes).
+First off, let's take a look at the R-Studio setup. When you first open R-Studio for the first time, you will see a screen divided into 3 panes. Before getting started click on "File" at the top of the screen and go to "New File > R Script" to open a 4th pane. You should see something like the screen below. 
+
+<div class="rmdtip">
+<p>Note that the color of your screen may be different as I am using a
+particular “dark mode” color setting that I find easier on my eyes. To
+change your color scheme, go to the top of the R-Studio window and click
+on “Tools &gt; Global Options &gt; Appearance” and then select a color
+mode that works for you.</p>
+</div>
 
 ![R-Studio](images/r-studio.jpg){width=100%}
 
 Organization of R-Studio Windows:
 
 * **Workspace** - The pane in the top left contains the Workspace tabs which is where you can write code and other documents prior to executing the code. 
-* **Console** - The pane at the bottom left is the console where you can type and run commands directly.
+* **Console** - The pane at the bottom left is the console where you can type and run commands directly. When you execute code from the workspace, it will also appear here.
 * **Environment/History** - The pane at the upper right includes tabs for Environment (a list of objects and functions currently initialized) and History (a list of previous commands run at the console). 
 * **Files/Plots/Packages** - The lower right pane has tabs for Files (which shows files in the current directory), Plots (where plots created in the console will be displayed), Packages (a list of additional packages installed and initialized in R), and Help (where you can get information about particular functions and packages). 
 
@@ -262,7 +270,7 @@ R uses typical mathematical operators including `+ - * /` for addition, subtract
 ```r
 5^2
 #> [1] 25
-5^ (2 + 1)
+5^(2 + 1)
 #> [1] 125
 ```
 
@@ -305,7 +313,7 @@ When formatting object names there are a few common styles such as:
 
 In general any of these styles is fine, but we suggest you try to remain consistent. Also, avoid using `.` to separate words as that is used by particular R functions and calls in other ways and can cause confusion. 
 
-![Illustration by Allison Horst `@`allison_horst](images/case.jpg){width=100%}
+![Illustration by Allison Horst `@allison_horst`](images/case.jpg){width=100%}
 
 Many mathematical constants are built right into R so be sure not to overwrite any of these (or any other function) by giving an object the same name.
 
@@ -405,7 +413,7 @@ vec_obj[vec_obj == "Correa"]
 #> [1] "Correa" "Correa"
 ```
 
-To see if a particular value is in a given object we can use the `%in%` operator.
+To see if a particular value is in a given object we can use the `%in%` operator and get a logical value in return.
 
 
 ```r
@@ -419,7 +427,7 @@ To see if a particular value is in a given object we can use the `%in%` operator
 
 ### Using Basic R Functions{- #Functions}
 
-R has a number of built-in functions that perform many common operations and assessments. We have already used one of these above `c()` and it was so fast and easy you might have missed it. Functions are typically used by typing the name of the function followed by a set of parenthesis that contain all of the arguments that the function expects. For example:
+R has a number of built-in functions that perform many common operations and statistical analyses. We have already used one of these above `c()` and it was so fast and easy you might have missed it. Functions are typically used by typing the name of the function followed by a set of parenthesis that contain all of the arguments that the function expects. For example:
 
 
 ```r
@@ -458,7 +466,7 @@ mat1
 #> [2,]    4   20
 ```
 
-Note that the `matrix()` function read the numbers in first by column and then by row. If we want want to change that we can first investigate the options for this function using the `help()` function. In order to see the documentation for a given function simply type `help("NameOfFunction")` at the console or `?NameOfFunction`. 
+Note that the `matrix()` function reads the numbers in first by column and then by row. If we want want to change that we can first investigate the options for this function using the `help()` function. In order to see the documentation for a given function simply type `help("NameOfFunction")` at the console or `?NameOfFunction`. 
 
 
 ```r
@@ -471,7 +479,20 @@ And let's zoom in to one piece in particular:
 
 ![byrow argument](images/byrow.jpg){width=100%}
 
-As we can see in the help materials for matrix, there is an additional argument we did not use called `byrow` which is set to `FALSE` by default. Let's change that to `TRUE` and check the results. Note that you can use capital `F` and `T` in the place of `FALSE` and `TRUE` in functions but it is generally good form to write it out in context where you are sharing your code. Note also that our function call can span multiple rows and will automatically end when we close the parentheses. This multi-line formatting will be essential for making longer function calls readable.
+As we can see in the help materials for matrix, there is an additional argument we did not use called `byrow` which is set to `FALSE` by default. Let's change that to `TRUE` and check the results. Note that you can use capital `F` and `T` in the place of `FALSE` and `TRUE` in functions but it is generally good form to write it out in context where you are sharing your code publicaly. Note also that our function call can span multiple rows and will automatically end when we close the parentheses. This multi-line formatting will be essential for making longer function calls readable.
+
+<div class="rmdtip">
+<p>R-Studio has a nice built-in command for formatting code, especially
+very long lines of code, into multiple lines that are easier to read.
+This command also creates proper spacing between operators and objects.
+To give it a try, simply highlight a chunk of code in the workspace area
+and hit “Ctrl+Shift+A” (or “Cmd+Shift+A” for a Mac) to reformat the code
+within the selection. There are many other nifty R-Studio keyboard
+shortcuts. <a
+href="https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts-in-the-RStudio-IDE">Check
+here</a> for more info.</p>
+</div>
+
 
 
 ```r
@@ -509,13 +530,13 @@ The output includes information about the data we used to run the test, a p-valu
 
 ### Data Types in R{- #DataTypes}
 
-There are many different types of data that R understands but we focus here on the most common. This includes numeric data, integer data, character data, logical data, and factors.
+There are many different types of data that R understands but we focus here on the most common categories. This includes numeric data, integer data, character data, logical data, and factors.
 
-* numeric data - This is the designation used for real numbers which can include a decimal point.
-* integer data - This is the designation for numbers without a decimal. To designate a number as an integer type, you can add `L` after the number (see example below). Note that R automatically converts between numeric and integer data as necessary in mathematical operations.
-* character data - This is the designation for any string of characters that does not exclusively consist of numbers. Character data can be a single character such as "a" or a long string `"this string is character data"`. In general R displays character data inside `" "`.
-* logical data - This is the designation for evaluations of logical statements and takes the form of `TRUE` or `FALSE`.
-* factors - Factors are nominal variables stored as vectors as R objects which have distinct "levels" which each value must be. Factors are useful in both many statistical procedures and visualizations in that unique values can be treated as "groups" rather than simply unique character data. To designate data as a factor, use the `as.factor()` function. Note that factors can be numbers but they will be treated as nominal characters when evaluated.
+* **numeric data** - This is the designation used for real numbers which can include a decimal point.
+* **integer data** - This is the designation for whole numbers without a decimal. To designate a number as an integer type, you can add `L` after the number (see example below). Note that R automatically converts between numeric and integer data as necessary in mathematical operations.
+* **character data** - This is the designation for any string of characters that does not exclusively consist of numbers. Character data can be a single character such as `"a"` or a long string `"this string is character data"`. In general R displays character data inside `" "`.
+* **logical data** - This is the designation for evaluations of logical statements and takes the form of `TRUE` or `FALSE`.
+* **factors** - Factors are nominal variables stored as vectors as R objects which have distinct "levels" which each value must be. Factors are useful in both many statistical procedures and visualizations in that unique values can be treated as "groups" rather than simply unique character data. To designate data as a factor, use the `as.factor()` function. Note that factors can be numbers but they will be treated as nominal characters when evaluated.
 
 It is possible to determine what type of data an R object contains using the `str()` function. Let's look at examples for each type below:
 
@@ -546,10 +567,10 @@ str(fac)
 
 The four most common object types in R are vectors, matrices, lists, and data frames. We have already explored vectors and matrices but we can define these and the other classes in more detail here.
 
-* vector - a combined set of values all of the same type (character, numeric, etc.)
-* matrix - a set of values in a rectangular two-way table all of the same type (character, numeric, etc.)
-* data frame - a set of values in a rectangular two-way table where different columns can be different data types
-* list - a list is a collection of other R objects that can be vectors, matrices, data frames or others in any format that are combined into a single object.
+* **vector** - a combined set of values all of the same type (character, numeric, etc.). Note that if you mix numbers and character data, R will assume every entry represents character data.
+* **matrix** - a set of values in a rectangular two-way table all of the same type (character, numeric, etc.)
+* **data frame** - a set of values in a rectangular two-way table where different columns can be different data types
+* **list** - a list is a collection of other R objects that can be vectors, matrices, data frames or others in any format that are combined into a single object.
 
 #### Vectors{- #Vec}
 
@@ -564,7 +585,7 @@ length(v)
 
 #### Matrices{- #Mat}
 
-Once again, we have already introduced matrices above but there are a few more details that are worth addressing here. Again, if you want to call a specific value in a matrix you can use the `[,]` square brackets with the row number listed followed by a comma and the column number. For example:
+Once again, we have already introduced matrices above but there are a few more details that are worth addressing here. Again, if you want to call a specific value in a matrix you can use the `[ , ]` square brackets with the row number listed followed by a comma and the column number. For example:
 
 
 ```r
@@ -719,7 +740,7 @@ In order to install external packages, you need to know the name of the package 
 install.packages("vegan")
 ```
 
-Once our package installs, we can "call" it or initialize it using the `libaray()` function. Notice that when we load this package it also loads "permute" and "lattice" which are two additional packages used within `vegan`. These dependencies were automatically installed when you installed the `vegan` package.
+Once our package installs, we can "call" it or initialize it using the `libaray()` function. Notice that when we load this package it also loads `permute` and `lattice` which are two additional packages used within `vegan`. These dependencies were automatically installed when you installed the `vegan` package.
 
 
 ```r
@@ -779,7 +800,7 @@ established packages for R.</p>
 
 In many cases we may wish to either write or read an external files with R. Frequently these files take the shape of spreadsheets such as Excel documents or csv (comma separated value) documents. R has many functions for reading in such data and most are built-in to base R. Let's try this out by first writing a .csv (comma separated value) file from a matrix we generate and then reading it back in. Note that any files you write from the console will go directly to the R working directory unless you otherwise specify.
 
-To write a csv file we use the `write.csv()` function. First we will create a simple matrix, add row names and column names, and then export it.
+To write a csv file we use the `write.csv()` function. First we will create a simple matrix, add row names and column names, and then export it. Note that we write this file to a sub-folder of the working directory called "data" here. You could change that to something else but R will return an error if you attempt to read or write from folders that you haven't first created outside of R-Studio.
 
 
 ```r
@@ -798,7 +819,7 @@ mat4 # view matrix
 #> row 3 65 4 2
 
 # Export the matrix as a csv file
-write.csv(mat4, file = "output_mat.csv")
+write.csv(mat4, file = "data/output_mat.csv")
 ```
 
 Once you export this file, you should see it appear in the File pane in the bottom right of R-Studio within the working directory.
@@ -810,7 +831,7 @@ If you want to read this file back in, we can simply use the `read.csv()` functi
 
 ```r
 read_mat <-
-  read.csv(file = "output_mat.csv",
+  read.csv(file = "data/output_mat.csv",
            header = T,
            row.names = 1)
 read_mat
@@ -873,16 +894,16 @@ y <- rnorm(5000, mean = 5, sd = 0.5)
 plot(x, y)
 ```
 
-<img src="index_files/figure-html/unnamed-chunk-45-1.png" width="672" />
+<img src="index_files/figure-html/unnamed-chunk-47-1.png" width="672" />
 
-We can also easily create a histogram of a single variable with additional arguments:
+We can also easily create a histogram of a single variable with the additional argument `breaks` which determines how many bars the histogram will have:
 
 
 ```r
 hist(x, breaks = 20) # breaks defines the number of bars
 ```
 
-<img src="index_files/figure-html/unnamed-chunk-46-1.png" width="672" />
+<img src="index_files/figure-html/unnamed-chunk-48-1.png" width="672" />
 
 And boxplots:
 
@@ -891,9 +912,9 @@ And boxplots:
 boxplot(x, y)
 ```
 
-<img src="index_files/figure-html/unnamed-chunk-47-1.png" width="672" />
+<img src="index_files/figure-html/unnamed-chunk-49-1.png" width="672" />
 
-There are lots of figures built right into base R and we suggest exploring the [R Gallery Book](https://bookdown.org/content/b298e479-b1ab-49fa-b83d-a57c2b034d49/) which outlines many options.
+There are lots of data visualizations built into base R and we suggest exploring the [R Gallery Book](https://bookdown.org/content/b298e479-b1ab-49fa-b83d-a57c2b034d49/) which outlines many options.
 
 <div class="rmdnote">
 <p>In the remainder of the Online Companion we will go into detail in
@@ -904,7 +925,7 @@ can be used for all sorts of visualizations and it uses a format that is
 somewhat different from that of base R.</p>
 </div>
 
-Let's take a look at an example:
+Let's take a look at an example of a plot using the `ggplot2` format:
 
 
 ```r
@@ -921,7 +942,7 @@ ggplot(data = df) +
   geom_point(aes(x = x, y = y))
 ```
 
-<img src="index_files/figure-html/unnamed-chunk-50-1.png" width="672" />
+<img src="index_files/figure-html/unnamed-chunk-52-1.png" width="672" />
 
 In the code chunk above, we created a data frame (which `ggplot2` requires) combining our random x and y variables. Next, we made a generic call to ggplot2 using the `ggplot(data = df)` line. This creates a ggplot object set up with `df` as the data considered. Notice this line is followed by a `+`. This package will continue to read lines until a line does not end with this symbol and `ggplot` calls can often be quite long. 
 
@@ -941,7 +962,7 @@ ggplot(data = df) +
   theme_minimal()
 ```
 
-<img src="index_files/figure-html/unnamed-chunk-51-1.png" width="672" />
+<img src="index_files/figure-html/unnamed-chunk-53-1.png" width="672" />
 
 ```r
 
@@ -952,7 +973,7 @@ ggplot(data = df) +
   theme_bw()
 ```
 
-<img src="index_files/figure-html/unnamed-chunk-51-2.png" width="672" />
+<img src="index_files/figure-html/unnamed-chunk-53-2.png" width="672" />
 
 ```r
 
@@ -961,10 +982,20 @@ df2 <- data.frame(d1 = rpois(50, lambda = 4),
                   gp = sample(size = 50, letters[1:4], replace = T))
 ggplot(data = df2) +
   geom_bar(aes(x = d1, fill = factor(gp))) +
-  theme_bw()
+  theme_dark()
 ```
 
-<img src="index_files/figure-html/unnamed-chunk-51-3.png" width="672" />
+<img src="index_files/figure-html/unnamed-chunk-53-3.png" width="672" />
+
+## Warnings and Messages in R{- #Warnings}
+
+As you have run the code above or in other sections of this documents, you may have seen additional "warnings" or "messages" appear on the screen. For example something like: 
+
+``stat_bin()` using `bins = 30`. Pick better value with `binwidth``
+
+This output in the console is simply letting us know that we might want to select a different `binwidth` that better suits our data. Warnings and messages like this are often relatively benign like this, but may also indicate a bigger problem. For example, you may get a warning that a particular method is not appropriate for the data you have (perhaps because of missing data) even though results are provided. Keep a careful eye on these warnings and heed them when necessary. Often looking in the `help()` documentation for a given function will help you interpret these messages.
+
+For the purposes of this online companion, however, we have "muted" these warnings and messages in the output except in a couple of places where we are pointing out something specific. Any messages you generate should be innocuous but feel free to ask if you have questions or concerns.
 
 ## More Advanced R Features{- #AdvancedR}
 
@@ -1018,7 +1049,7 @@ if (x > 50) {
 }
 ```
 
-In the first example above, the evaluation of `x > 50` was `FALSE` so the statement in brackets after `else` was evaluated. In the second example, the evaluation of `x*2 >50` was `TRUE` so the first statement was evaluated. Finally, in the third example, `x > 50` was `FALSE` and since there is no `else` statement nothing happened. 
+In the first example above, the evaluation of `x > 50` was `FALSE` so the statement in brackets after `else` was evaluated. In the second example, the evaluation of `x*2 > 50` was `TRUE` so the first statement was evaluated. Finally, in the third example, `x > 50` was `FALSE` and since there is no `else` statement nothing happened. 
 
 If you want to apply an `if...else` statement to a vector of values rather than one at a time, you can use a useful function `ifelse()`. The `ifelse()` function expects the first item in the parenthesis to be the test expression, followed by the event to execute if the statement is true and then the event to execute if the expression is false.
 
@@ -1172,7 +1203,7 @@ myfunct(val_seq)
 #>  [1]  0.2  0.8  1.8  3.2  5.0  7.2  9.8 12.8 16.2 20.0
 ```
 
-Let's break down what is happening in the chunk of code above. First, we defined a function with one argument `x`. Inside the function expression we then initialized a new variable for the output called `z`. We then enter a for loop that iterates values of `i` for a sequence of numbers from 1 to the length of vector `x` using the `seq_len()` call.. The value of `z` at position `i` is defined as the value of `x` at position `i` times `i` divided by `5`. Once this loop finishes, the function returns the vector `z` with the results. As this example shows, arguments need not be limited to single values and can include vectors, data.frames, matrices, lists, or any type of R object.
+Let's break down what is happening in the chunk of code above. First, we defined a function with one argument `x`. Inside the function expression we then initialized a new variable for the output called `z` by simply setting it to `NULL` or empty. We then enter a for loop that iterates values of `i` for a sequence of numbers from 1 to the length of vector `x` using the `seq_len()` call.. The value of `z` at position `i` is defined as the value of `x` at position `i` times `i` divided by `5`. Once this loop finishes, the function returns the vector `z` with the results. As this example shows, arguments need not be limited to single values and can include vectors, data.frames, matrices, lists, or any type of R object.
 
 To clarify how the iterator works, the function `seq_len()` creates a sequence of numbers from 1 to the number indicated. When you are setting the number of runs of a loop based on the length of some other object it is good practice to use this function.
 
@@ -1205,7 +1236,7 @@ We have provided the answer below but give this a try on your own first before p
 
 No peeking until you try!!
 
-![Artwork by Allison Horst `@`allison_horst](images/monster_support.jpg){width=100%}
+![Artwork by Allison Horst `@allison_horst`](images/monster_support.jpg){width=100%}
 
 Here is our solution below:
 

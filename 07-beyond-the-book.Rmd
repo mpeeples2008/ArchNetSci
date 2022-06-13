@@ -1,8 +1,8 @@
 # Going Beyond the Book{#BeyondTheBook}
 
-Although the Brughmans and Peeples (2022) book covers quite a bit, there are areas of network research that we did not have space to cover in detail. In this section, we plan to offer additional extended discussions of topics given limited attention in the published book or new topics or methods that come up in the future.  
+Although the Brughmans and Peeples (2022) book covers quite a bit, there are areas of network research that we did not have space to cover in detail. In this section, we plan to offer additional extended discussions of topics given limited attention in the published book or new topics or methods that come up in the future. If you have an idea for an addition here, don't hesitate to let us know we'll do our best to include it (or better yet, collaborate on creating a new section or tutorial to post here).
 
-In this initial version, we provide here an extended discussion of two topics in particular: 1) exponential random graph models and 2) spatial interaction models.
+In this initial version, we provide here an extended discussion of two topics that are given limited attention in the book: 1) exponential random graph models and 2) spatial interaction models.
 
 ## Exponential Random Graph Models (ERGM){#ERGM}
 
@@ -77,6 +77,8 @@ In many ways it is easiest to describe what ERGMs do and how they work by exampl
 We start with an example that was described briefly in the Brughmans and Peeples (2022) book in Chapter 4, but not covered in detail. Specifically, we explore the potential generative processes involved in the development of the intervisibility network among long barrows in the Cranborne Chase area in southern England. As this example is only briefly described in the Brughmans and Peeples (2022) book, you may also want to read and follow along with the original article where that analyses first appeared ([Brughmans and Brandes 2017](https://www.frontiersin.org/articles/10.3389/fdigh.2017.00017/)).
 
 Briefly, the network consists of a set of nodes which represent long barrows and edges among them which represent ground-truthed ties of intervisbility between pairs of barrows. The original data came from work by Chris Tilley (1994). These data were used by Brughmans and Brandes (2017) to formally test the notion put forth by Tilley that highly visible barrows "attracted" others over time. In network terms this could be characterized as a "preferential attachment" process. Brughmans and Brandes created an ERGM model with particular properties drawn from Tilley's theoretical model of network development and found that networks simulated with those properties using ERGMs had substantially similar properties to the observed network. Based on this, they considered Tilley's theoretical model plausible.
+
+![Photograph of a long barrow at Cranborne Chase. [Original image by Jim Champion: CC 3.0](https://commons.wikimedia.org/wiki/File:Gussage_down_long_barrow.jpg)](images/long_barrow.jpg){width=100%}
 
 The original ERGM analysis published by Brughmans and Brandes was conducted in a Java program designed for ERGM analysis called [PNet](http://www.melnet.org.au/pnet). Here we replicate some of their results and a few additional analyses using slightly different methods and assumptions in R by way of demonstration. Our results differ slightly from the published results because of the randomness inherent in fitting ERGMs but all coefficient retain the same sign and magnitude suggesting a good replication of the most important results. 
 
@@ -1107,6 +1109,8 @@ Now let's plot the resulting network with each node scaled by the total incident
 ```{r, fig.width = 7, fig.height = 3}
 library(igraph)
 library(ggraph)
+library(sf)
+library(ggmap)
 
 locations_sf <-
   st_as_sf(wankarani, coords = c("Easting", "Northing"), crs = 32721)
@@ -1198,8 +1202,8 @@ ggplot(data = df) +
   theme_bw()
 ```
 
-We are not aware of published examples of the use of radition models for archaeological cases but there is certainly potential.
+We are aware of few published examples of the use of radiation models for archaeological cases, but there is certainly potential (see Evans 2016).
 
 ### Other Spatial Interaction Models{#OtherModels}
 
-There are many other spatial interaction models we haven't covered here. Most are generally similar in that they take information on site size, perhaps other relevant archaeological information, and a few user selected parameters to model flows across edges and sometimes to iteratively predict sizes of nodes. Other common models we haven't covered here include the XTENT model (Renfrew and Level 1979; see Ducke and Suchowska 2021 for an example with code for GRASS GIS) and various derviations of maxent (or maximum entropy) models. Another approach that merits mention here is the [ariadne model](https://figshare.com/articles/dataset/ariadne/97746) designed by Tim Evans and used in collaboration with Ray Rivers, Carl Knappett, and others. This model provides a means for predicting site features and estimating optimal networks based on location and very general size information (or other archaeological features). This model has features that make it particularly useful for generating directed spatial networks (see [Evans et al. 2011](https://plato.tp.ph.ic.ac.uk/~time/networks/arch/interactionsArxivSubmissionV2.pdf)). Although there is a basic R implementation for the ariadne model developed by the ISAAKiel team [available here](https://rdrr.io/github/CRC1266-A2/moin/src/R/hamiltonian.R) the computational constraints make this function unfeasible in R for all but very small networks. Instead, if you are interested in applying the ariadne model, we suggest you use the original Java program created by Tim Evans and [available here](https://figshare.com/articles/dataset/ariadne/97746).
+There are many other spatial interaction models we haven't covered here. Most are fairly similar in that they take information on site size, perhaps other relevant archaeological information, and a few user selected parameters to model flows across edges and sometimes to iteratively predict sizes of nodes, the weights of flows, or both. Other common models we haven't covered here include the XTENT model (Renfrew and Level 1979; see Ducke and Suchowska 2021 for an example with code for GRASS GIS) and various derivations of MaxEnt (or maximum entropy) models. Another approach that merits mention here is the [ariadne model](https://figshare.com/articles/dataset/ariadne/97746) designed by Tim Evans and used in collaboration with Ray Rivers, Carl Knappett, and others. This model provides a means for predicting site features and estimating optimal networks based on location and very general size information (or other archaeological features). This model has features that make it particularly useful for generating directed spatial networks (see [Evans et al. 2011](https://plato.tp.ph.ic.ac.uk/~time/networks/arch/interactionsArxivSubmissionV2.pdf)). Although there is a basic R implementation for the ariadne model developed by the ISAAKiel team [available here](https://rdrr.io/github/CRC1266-A2/moin/src/R/hamiltonian.R) the computational constraints make this function unfeasible in R for all but very small networks. Instead, if you are interested in applying the ariadne model, we suggest you use the original Java program created by Tim Evans and [available here](https://figshare.com/articles/dataset/ariadne/97746).
