@@ -45,9 +45,9 @@ cibola_attr <- read.csv(file = "data/Cibola_attr.csv", header = TRUE)
 cibola_i <- igraph::graph_from_adjacency_matrix(as.matrix(cibola),
                                                 mode = "undirected")
 cibola_i
-#> IGRAPH 840a3fc UN-- 31 167 -- 
+#> IGRAPH 8e9d495 UN-- 31 167 -- 
 #> + attr: name (v/c)
-#> + edges from 840a3fc (vertex names):
+#> + edges from 8e9d495 (vertex names):
 #>  [1] Apache.Creek--Casa.Malpais        
 #>  [2] Apache.Creek--Coyote.Creek        
 #>  [3] Apache.Creek--Hooper.Ranch        
@@ -248,7 +248,7 @@ ggraph(net,
 When working with geographic data, it is also sometimes useful to plot directly on top of some sort of base map. There are many options for this but one of the most convenient is to use the `sf` and `ggmap` packages to directly download the relevant base map layer and plot directly on top of it. This first requires converting points to latitude and longitude in decimal degrees if they are not already in that format. See the details on the [sf package](https://r-spatial.github.io/sf/) and [ggmap package](https://github.com/dkahle/ggmap) for more details. 
 
 <div class="rmdtip">
-<p>We describe the spcifics of spatial data handling, geographic
+<p>We describe the specifics of spatial data handling, geographic
 coordinates, and projection in the section on <a
 href="#SpatialNetworks">Spatial Networks</a>. See that section for a
 full description and how R deals with geographic information.</p>
@@ -520,14 +520,11 @@ In many cases you may want to label either the nodes, edges, or other features o
 
 
 ```r
-# First set a node attribute called name based on site names
-V(net2)$name <- get.vertex.attribute(brnet_w, attr = "vertex.names")
-
 set.seed(436)
 ggraph(net2, "fr") +
   geom_edge_link() +
   geom_node_point(size = 4, col = "blue") +
-  geom_node_text(aes(label = name), size = 3, repel = TRUE) +
+  geom_node_text(aes(label = vertex.names), size = 3, repel = TRUE) +
   theme_graph()
 ```
 
@@ -548,7 +545,9 @@ E(g)$weight <- c(3, 1, 6, 8, 4, 2)
 
 set.seed(4351)
 ggraph(g, layout = "stress") +
-  geom_edge_fan(aes(label = weight)) +
+  geom_edge_fan(aes(label = weight),
+                angle_calc = "along",
+                label_dodge = unit(2, "mm")) +
   geom_node_point(size = 20, col = "lightblue") +
   geom_node_text(label = V(g)$name) +
   theme_graph()

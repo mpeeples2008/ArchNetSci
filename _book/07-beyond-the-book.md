@@ -1586,26 +1586,6 @@ Now let's plot the resulting network with each node scaled by the total incident
 
 ```r
 library(igraph)
-#> 
-#> Attaching package: 'igraph'
-#> The following objects are masked from 'package:sna':
-#> 
-#>     betweenness, bonpow, closeness, components,
-#>     degree, dyad.census, evcent, hierarchy,
-#>     is.connected, neighborhood, triad.census
-#> The following objects are masked from 'package:network':
-#> 
-#>     %c%, %s%, add.edges, add.vertices, delete.edges,
-#>     delete.vertices, get.edge.attribute, get.edges,
-#>     get.vertex.attribute, is.bipartite, is.directed,
-#>     list.edge.attributes, list.vertex.attributes,
-#>     set.edge.attribute, set.vertex.attribute
-#> The following objects are masked from 'package:stats':
-#> 
-#>     decompose, spectrum
-#> The following object is masked from 'package:base':
-#> 
-#>     union
 library(ggraph)
 library(sf)
 library(ggmap)

@@ -69,7 +69,7 @@ cibola_clust <-
            row.names = 1)
 clust_p <- prop.table(as.matrix(cibola_clust), margin = 1)
 sim_mat <-
-  (2 - as.matrix(vegan::vegdist(clust_p, method = "manhattan")) / 2)
+  (2 - as.matrix(vegan::vegdist(clust_p, method = "manhattan"))) / 2
 sim_net <- network(
   sim_mat,
   directed = FALSE,

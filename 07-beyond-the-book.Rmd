@@ -1106,7 +1106,7 @@ rad_test <- radiation(pop = wankarani$Area / 500, d_mat = d)
 
 Now let's plot the resulting network with each node scaled by the total incident flow (row sums of the output of the function above). We plot network edges with weights indicated by color (blue indicates low weight and yellow indicates high weight).
 
-```{r, fig.width = 7, fig.height = 3}
+```{r, fig.width = 7, fig.height = 3, warning=F, message=F}
 library(igraph)
 library(ggraph)
 library(sf)
@@ -1173,7 +1173,7 @@ ggmap(base_bolivia, darken = 0.35) +
 
 This map shows clusters of higher and lower edge weights and again variation in total weighted degree (with higher values in the east). The results are similar, but not identical to the output of the simple gravity model.
 
-```{r, fig.width = 7, fig.heigh = 7}
+```{r, fig.width = 7, fig.heigh = 7, warning=F, message=F}
 dg_grav <-  rowSums(grav_mod(
   attract = wankarani$Area / 1000,
   B = 1,

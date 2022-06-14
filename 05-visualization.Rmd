@@ -192,7 +192,7 @@ ggraph(net,
 When working with geographic data, it is also sometimes useful to plot directly on top of some sort of base map. There are many options for this but one of the most convenient is to use the `sf` and `ggmap` packages to directly download the relevant base map layer and plot directly on top of it. This first requires converting points to latitude and longitude in decimal degrees if they are not already in that format. See the details on the [sf package](https://r-spatial.github.io/sf/) and [ggmap package](https://github.com/dkahle/ggmap) for more details. 
 
 ```{block, type="rmdtip"}
-We describe the spcifics of spatial data handling, geographic coordinates, and projection in the section on [Spatial Networks](#SpatialNetworks). See that section for a full description and how R deals with geographic information. 
+We describe the specifics of spatial data handling, geographic coordinates, and projection in the section on [Spatial Networks](#SpatialNetworks). See that section for a full description and how R deals with geographic information. 
 ```
 
 
@@ -421,14 +421,11 @@ If you want to see all of the possible options for `geom_edge_` commands, simply
 In many cases you may want to label either the nodes, edges, or other features of a network. This is relatively easy to do in `ggraph` with the `geom_node_text()` command. This will place labels as specified on each node. If you use the `repel = TRUE` argument it will repel the names slightly from the node to make them more readable. As shown in the example for [Figure 6.4](#Figure_6_4) it is also possible to filter labels to label only certain nodes.
 
 ```{r node_label}
-# First set a node attribute called name based on site names
-V(net2)$name <- get.vertex.attribute(brnet_w, attr = "vertex.names")
-
 set.seed(436)
 ggraph(net2, "fr") +
   geom_edge_link() +
   geom_node_point(size = 4, col = "blue") +
-  geom_node_text(aes(label = name), size = 3, repel = TRUE) +
+  geom_node_text(aes(label = vertex.names), size = 3, repel = TRUE) +
   theme_graph()
 ```
 
@@ -446,7 +443,9 @@ E(g)$weight <- c(3, 1, 6, 8, 4, 2)
 
 set.seed(4351)
 ggraph(g, layout = "stress") +
-  geom_edge_fan(aes(label = weight)) +
+  geom_edge_fan(aes(label = weight),
+                angle_calc = "along",
+                label_dodge = unit(2, "mm")) +
   geom_node_point(size = 20, col = "lightblue") +
   geom_node_text(label = V(g)$name) +
   theme_graph()

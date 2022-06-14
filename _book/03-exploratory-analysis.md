@@ -70,7 +70,7 @@ cibola_clust <-
            row.names = 1)
 clust_p <- prop.table(as.matrix(cibola_clust), margin = 1)
 sim_mat <-
-  (2 - as.matrix(vegan::vegdist(clust_p, method = "manhattan")) / 2)
+  (2 - as.matrix(vegan::vegdist(clust_p, method = "manhattan"))) / 2
 sim_net <- network(
   sim_mat,
   directed = FALSE,
@@ -137,9 +137,9 @@ igraph::degree(directed_net, mode = "out")[1:5] # outdegree
 # not the network object
 (rowSums(sim_mat) - 1)[1:5]
 #> Apache Creek      Atsinna  Baca Pueblo Casa Malpais 
-#>     47.00848     46.87024     45.77997     48.30358 
+#>     16.00848     15.87024     14.77997     17.30358 
 #>      Cienega 
-#>     48.09394
+#>     17.09394
 
 # If you want to normalize your degree centrality metric by the
 # number of nodes present you can do that by adding the normalize=TRUE
@@ -480,7 +480,7 @@ If you want to identify particular shortest paths to or from nodes in a network 
 igraph::shortest_paths(simple_net, from = 1, to = 21)
 #> $vpath
 #> $vpath[[1]]
-#> + 5/31 vertices, named, from 795e046:
+#> + 5/31 vertices, named, from 80bc1e6:
 #> [1] Apache.Creek          Casa.Malpais         
 #> [3] Garcia.Ranch          Heshotauthla         
 #> [5] Pueblo.de.los.Muertos
@@ -509,7 +509,7 @@ igraph::diameter(directed_net, directed = TRUE)
 
 igraph::farthest_vertices(directed_net, directed = TRUE)
 #> $vertices
-#> + 2/30 vertices, named, from 795ec6e:
+#> + 2/30 vertices, named, from 80bd69b:
 #> [1] Apache Creek          Pueblo de los Muertos
 #> 
 #> $distance
@@ -547,9 +547,9 @@ components <- igraph::decompose(simple_net, min.vertices = 1)
 
 components
 #> [[1]]
-#> IGRAPH 7b4b430 UN-- 30 167 -- 
+#> IGRAPH 83495da UN-- 30 167 -- 
 #> + attr: name (v/c)
-#> + edges from 7b4b430 (vertex names):
+#> + edges from 83495da (vertex names):
 #>  [1] Apache.Creek--Casa.Malpais        
 #>  [2] Apache.Creek--Coyote.Creek        
 #>  [3] Apache.Creek--Hooper.Ranch        
@@ -561,9 +561,9 @@ components
 #> + ... omitted several edges
 #> 
 #> [[2]]
-#> IGRAPH 7b4b447 UN-- 1 0 -- 
+#> IGRAPH 8349602 UN-- 1 0 -- 
 #> + attr: name (v/c)
-#> + edges from 7b4b447 (vertex names):
+#> + edges from 8349602 (vertex names):
 
 V(components[[2]])$name
 #> [1] "WS.Ranch"
@@ -605,15 +605,15 @@ min_cut(simple_net_noiso, value.only = FALSE)
 #> [1] 1
 #> 
 #> $cut
-#> + 1/167 edge from 795e4f9 (vertex names):
+#> + 1/167 edge from 80bc9ca (vertex names):
 #> [1] Ojo Bonito--Baca Pueblo
 #> 
 #> $partition1
-#> + 1/30 vertex, named, from 795e4f9:
+#> + 1/30 vertex, named, from 80bc9ca:
 #> [1] Baca Pueblo
 #> 
 #> $partition2
-#> + 29/30 vertices, named, from 795e4f9:
+#> + 29/30 vertices, named, from 80bc9ca:
 #>  [1] Apache Creek          Casa Malpais         
 #>  [3] Coyote Creek          Hooper Ranch         
 #>  [5] Horse Camp Mill       Hubble Corner        
@@ -640,7 +640,7 @@ A clique as a network science concept is arguably the strictest method of defini
 
 ```r
 max_cliques(simple_net, min = 1)[[24]]
-#> + 9/31 vertices, named, from 795e046:
+#> + 9/31 vertices, named, from 80bc1e6:
 #> [1] Los.Gigantes    Cienega         Tinaja         
 #> [4] Spier.170       Scribe.S        Pescado.Cluster
 #> [7] Mirabal         Heshotauthla    Yellowhouse
