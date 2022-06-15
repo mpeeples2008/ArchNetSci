@@ -114,13 +114,16 @@ For this example we will read in the `Cibola_edgelist.csv` file and define an ob
 el1 <- read.csv(file = "data/Cibola_edgelist.csv", header = TRUE)
 # look at the first few rows
 head(el1)
-#>           FROM                   TO
-#> 1 Apache Creek         Casa Malpais
-#> 2 Apache Creek         Coyote Creek
-#> 3 Apache Creek         Hooper Ranch
-#> 4 Apache Creek      Horse Camp Mill
-#> 5 Apache Creek        Hubble Corner
-#> 6 Apache Creek Mineral Creek Pueblo
+```
+
+```
+##           FROM                   TO
+## 1 Apache Creek         Casa Malpais
+## 2 Apache Creek         Coyote Creek
+## 3 Apache Creek         Hooper Ranch
+## 4 Apache Creek      Horse Camp Mill
+## 5 Apache Creek        Hubble Corner
+## 6 Apache Creek Mineral Creek Pueblo
 ```
 
 In addition to the .csv files, several examples in this book and several of the data sets above are provide as .RData files which can be read directly in R and can contain multiple R objects. These can be read directly into the R environment using the `load()` function. See the example below. Again note that you must specify the specific directory within the working directory where the file is located.

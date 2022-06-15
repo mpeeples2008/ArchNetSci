@@ -45,37 +45,45 @@ cibola_attr <- read.csv(file = "data/Cibola_attr.csv", header = TRUE)
 cibola_i <- igraph::graph_from_adjacency_matrix(as.matrix(cibola),
                                                 mode = "undirected")
 cibola_i
-#> IGRAPH df788ea UN-- 31 167 -- 
-#> + attr: name (v/c)
-#> + edges from df788ea (vertex names):
-#>  [1] Apache.Creek--Casa.Malpais          Apache.Creek--Coyote.Creek         
-#>  [3] Apache.Creek--Hooper.Ranch          Apache.Creek--Horse.Camp.Mill      
-#>  [5] Apache.Creek--Hubble.Corner         Apache.Creek--Mineral.Creek.Pueblo 
-#>  [7] Apache.Creek--Rudd.Creek.Ruin       Apache.Creek--Techado.Springs      
-#>  [9] Apache.Creek--Tri.R.Pueblo          Apache.Creek--UG481                
-#> [11] Apache.Creek--UG494                 Atsinna     --Cienega              
-#> [13] Atsinna     --Los.Gigantes          Atsinna     --Mirabal              
-#> [15] Atsinna     --Ojo.Bonito            Atsinna     --Pueblo.de.los.Muertos
-#> + ... omitted several edges
+```
 
+```
+## IGRAPH 4177ba9 UN-- 31 167 -- 
+## + attr: name (v/c)
+## + edges from 4177ba9 (vertex names):
+##  [1] Apache.Creek--Casa.Malpais          Apache.Creek--Coyote.Creek         
+##  [3] Apache.Creek--Hooper.Ranch          Apache.Creek--Horse.Camp.Mill      
+##  [5] Apache.Creek--Hubble.Corner         Apache.Creek--Mineral.Creek.Pueblo 
+##  [7] Apache.Creek--Rudd.Creek.Ruin       Apache.Creek--Techado.Springs      
+##  [9] Apache.Creek--Tri.R.Pueblo          Apache.Creek--UG481                
+## [11] Apache.Creek--UG494                 Atsinna     --Cienega              
+## [13] Atsinna     --Los.Gigantes          Atsinna     --Mirabal              
+## [15] Atsinna     --Ojo.Bonito            Atsinna     --Pueblo.de.los.Muertos
+## + ... omitted several edges
+```
+
+```r
 # Create network object in statnet/network format
 cibola_n <- asNetwork(cibola_i)
 cibola_n
-#>  Network attributes:
-#>   vertices = 31 
-#>   directed = FALSE 
-#>   hyper = FALSE 
-#>   loops = FALSE 
-#>   multiple = FALSE 
-#>   bipartite = FALSE 
-#>   total edges= 167 
-#>     missing edges= 0 
-#>     non-missing edges= 167 
-#> 
-#>  Vertex attribute names: 
-#>     vertex.names 
-#> 
-#> No edge attributes
+```
+
+```
+##  Network attributes:
+##   vertices = 31 
+##   directed = FALSE 
+##   hyper = FALSE 
+##   loops = FALSE 
+##   multiple = FALSE 
+##   bipartite = FALSE 
+##   total edges= 167 
+##     missing edges= 0 
+##     non-missing edges= 167 
+## 
+##  Vertex attribute names: 
+##     vertex.names 
+## 
+## No edge attributes
 ```
 
 ### `network` package{#networkpackage}
@@ -178,7 +186,6 @@ In this section we illustrate some of the most useful graphical options for visu
 
 
 ```r
-
 library(igraph)
 library(statnet)
 library(intergraph)
@@ -578,7 +585,6 @@ The following chunk of code provides a simple example using the Louvain clusteri
 
 
 ```r
-
 library(ggforce)
 library(concaveman)
 
@@ -1155,7 +1161,6 @@ cibola_i <- asIgraph(brnet)
 
 locs <- tkplot(cibola_i)
 coords <- tkplot.getcoords(locs)
-
 ```
 
 This will bring up a window like the example below and when you click "Close" it will automatically create the variables with the node location information for plotting. 
@@ -1177,8 +1182,6 @@ The figure that appears in the book was originally created using GIS software bu
 
 
 ```r
-
-
 library(igraph)
 library(ggmap)
 library(sf)
@@ -1369,8 +1372,6 @@ In the code below the only thing we change between each plot is the `layout` arg
 
 
 ```r
-
-
 library(igraph)
 library(ggraph)
 library(ggpubr)
@@ -1722,7 +1723,6 @@ points(
 <img src="05-visualization_files/figure-html/Fig6_11-1.png" width="672" />
 
 ```r
-
 set.seed(34456)
 x <- rnorm(15, 1, 0.5)
 y <- rnorm(15, 1, 0.5)
@@ -1869,8 +1869,6 @@ You can [download the data](data/Figure6_14.Rdata) to follow along.
 
 
 ```r
-
-
 library(igraph)
 library(ggraph)
 
@@ -1899,7 +1897,6 @@ See the tutorial on [edges](#EdgeOptions) above for more details on using arrows
 
 
 ```r
-
 library(igraph)
 library(grid)
 library(gridExtra)
@@ -1957,7 +1954,6 @@ The following chunk of code uses [ceramic similarity data from the SWSN database
 
 
 ```r
-
 library(igraph)
 library(statnet)
 library(intergraph)
@@ -2039,7 +2035,6 @@ edgebundle::install_bundle_py(method = "auto", conda = "auto")
 
 
 ```r
-
 library(igraph)
 library(ggraph)
 library(edgebundle)
@@ -2118,7 +2113,6 @@ This plot uses a sub-set of the [Cibola technological similarity network](#Cibol
 
 
 ```r
-
 library(igraph)
 library(ggraph)
 library(ggpubr)
@@ -2207,7 +2201,6 @@ before you run the code below.</p>
 
 
 ```r
-
 library(d3r)
 library(rjson)
 
@@ -2287,7 +2280,6 @@ Fig. 6.22. Examples of simultaneous display of two consecutive intervals for the
 
 
 ```r
-
 library(igraph)
 library(ggraph)
 library(ggpubr)
@@ -2337,7 +2329,6 @@ similt_net
 <img src="05-visualization_files/figure-html/unnamed-chunk-18-1.png" width="672" />
 
 ```r
-
 lin_net
 ```
 
@@ -2361,7 +2352,6 @@ network in the list.</p>
 
 
 ```r
-
 library(networkDynamic)
 library(ndtv)
 library(GISTools)
@@ -2372,26 +2362,36 @@ load("data/Figure6_23.Rdata")
 # create networkDynamic object from list containing multiple
 # sna network objects
 sanpedro <- networkDynamic(network.list = sp_nets)
-#> Neither start or onsets specified, assuming start=0
-#> Onsets and termini not specified, assuming each network in network.list should have a discrete spell of length 1
-#> Argument base.net not specified, using first element of network.list instead
-#> Created net.obs.period to describe network
-#>  Network observation period info:
-#>   Number of observation spells: 1 
-#>   Maximal time range observed: 0 until 5 
-#>   Temporal mode: discrete 
-#>   Time unit: step 
-#>   Suggested time increment: 1
+```
 
+```
+## Neither start or onsets specified, assuming start=0
+## Onsets and termini not specified, assuming each network in network.list should have a discrete spell of length 1
+## Argument base.net not specified, using first element of network.list instead
+## Created net.obs.period to describe network
+##  Network observation period info:
+##   Number of observation spells: 1 
+##   Maximal time range observed: 0 until 5 
+##   Temporal mode: discrete 
+##   Time unit: step 
+##   Suggested time increment: 1
+```
+
+```r
 # Compute animation
 compute.animation(sanpedro, default.dist = 7, animation.mode = "kamadakawai")
-#> slice parameters:
-#>   start:0
-#>   end:5
-#>   interval:1
-#>   aggregate.dur:1
-#>   rule:latest
+```
 
+```
+## slice parameters:
+##   start:0
+##   end:5
+##   interval:1
+##   aggregate.dur:1
+##   rule:latest
+```
+
+```r
 # Define colors for regions
 mycol <- c(
   add.alpha("#1b9e77", 0.75),
@@ -2421,7 +2421,6 @@ timePrism(
 <img src="05-visualization_files/figure-html/Fig6_23-1.png" width="672" />
 
 ```r
-
 # Plot proximity timeline
 set.seed(235254)
 proximity.timeline(
@@ -11129,7 +11128,6 @@ For this example we closely follow an example provided on the [Static and dynami
 
 
 ```r
-
 library(visNetwork)
 library(networkD3)
 library(igraph)
@@ -11187,7 +11185,6 @@ The following chunk of code reproduces Figure 6.26 for one time period (AD1300-1
 
 
 ```r
-
 library(statnet)
 library(ggraph)
 

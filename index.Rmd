@@ -3,16 +3,19 @@ title: "Online Companion to *Archaeological Network Science*"
 author: "Matthew A. Peeples and Tom Brughmans"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
+output: bookdown::bs4_book
 documentclass: book
 bibliography: 
   - references.bib
   - packages.bib
-biblio-style: apalike
+csl: society-for-american-archaeology.csl
 url: https://book.archnetworks.net
 description: |
   This online bookdown document accompanies the Cambridge Manuals in Archaeology book
   *Archaeological Network Science* by Tom Brughmans and Matthew A. Peeples.
 link-citations: yes
+colorlinks: yes
+github-repo: "mpeeples2008/ArchNetSci"
 cover-image: images/cover.png
 ---
 
@@ -23,12 +26,9 @@ is_html <- knitr::is_html_output()
 ```
 
 ```{asis index-2, echo=is_html}
-
-This project serves as a companion to the Cambridge Manuals in Archaeology book *Archaeological Network Science* by Tom Brughmans and Matthew A. Peeples (2022). 
-
 <a href="https://book.archnetworks.net"><img src="images/cover.png" width="250" height="375" alt="Brughmans and Peeples Book Cover" align="right" style="margin: 0 1em 0 1em" /></a>
 
-This document contains a series of tutorials that outline methods for managing, analyzing, and visualizing network data, primarily using the R programming language. We provide code and examples to replicate the analyses presented in the book as well as many other additional useful tools. This Online Companion is designed to expand upon topics covered in the book and you may find it useful to follow along with these examples as you read the text. Sections 1 through 6 in this document correspond to the topics and information covered in Chapters 2 through 7 of the Brughmans and Peeples book. Section 7 of this document includes topics beyond the scope of the book (exponential random graph models and spatial interaction models) and topics we hope to expand in the future. You can use the table of contents on the left-hand side of your screen to jump directly to a particular section and the table and contents on the right to navigate within each section. We have also created a [quick TOC reference](#TableOfContents) if you are seeking something in particular. 
+This project serves as a companion to the Cambridge Manuals in Archaeology book *Archaeological Network Science* by Tom Brughmans and Matthew A. Peeples (2022). This document contains a series of tutorials that outline methods for managing, analyzing, and visualizing network data, primarily using the R programming language. We provide code and examples to replicate the analyses presented in the book as well as many other additional useful tools. This Online Companion is designed to expand upon topics covered in the book and you may find it useful to follow along with these examples as you read the text. Sections 1 through 6 in this document correspond to the topics and information covered in Chapters 2 through 7 of the Brughmans and Peeples book. Sections 7 and 8 in this document go beyond the scope of the published book (including detailed discussions of exponential random graph models and spatial interaction models). We plan to continue to add to and expand this document in the future. You can use the table of contents on the left-hand side of your screen to jump directly to a particular section and the table and contents on the right to navigate within each section. We have also created a [quick TOC reference](#TableOfContents) if you are seeking something in particular. 
 ```
 
 For more information on the book and the authors check out the project website here: [archnetworks.net](https://archnetworks.net).

@@ -1,7 +1,18 @@
-book_filename: "Archaeological_Network_Science"
+book_filename: "ArchNetSci"
+rmd_files:
+  - "index.Rmd"
+  - "01-data.Rmd"
+  - "02-network-data-formats.Rmd"
+  - "03-exploratory-analysis.Rmd"
+  - "04-uncertainty.Rmd"
+  - "05-visualization.Rmd"
+  - "06-spatial-networks.Rmd"
+  - "07-beyond-the-book.Rmd"
+  - "lookup.Rmd"
+  - "references.Rmd"
 new_session: true
-before_chapter_script: _common.R
 delete_merged_file: true
 language:
   ui:
+    edit: "Edit"
     chapter_name: "Section "

@@ -3,11 +3,6 @@ bookdown::bs4_book:
   theme:
     primary: "#096B72"
     info: "#0dcaf0"
-  repo: https://github.com/mpeeples2008/Archaeological_Network_Science
-bookdown::pdf_book:
+  repo: https://github.com/mpeeples2008/ArchNetSci
   includes:
-    in_header: analytics/ga.html
-  latex_engine: xelatex
-  citation_package: natbib
-  keep_tex: yes
-bookdown::epub_book: default
+    in_header: ["analytics/ga.html"]

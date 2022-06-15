@@ -1,18 +1,21 @@
 ---
 title: "Online Companion to *Archaeological Network Science*"
 author: "Matthew A. Peeples and Tom Brughmans"
-date: "2022-06-14"
+date: "2022-06-15"
 site: bookdown::bookdown_site
+output: bookdown::bs4_book
 documentclass: book
 bibliography: 
   - references.bib
   - packages.bib
-biblio-style: apalike
+csl: society-for-american-archaeology.csl
 url: https://book.archnetworks.net
 description: |
   This online bookdown document accompanies the Cambridge Manuals in Archaeology book
   *Archaeological Network Science* by Tom Brughmans and Matthew A. Peeples.
 link-citations: yes
+colorlinks: yes
+github-repo: "mpeeples2008/ArchNetSci"
 cover-image: images/cover.png
 ---
 
@@ -20,18 +23,15 @@ cover-image: images/cover.png
 
 
 
-
-This project serves as a companion to the Cambridge Manuals in Archaeology book *Archaeological Network Science* by Tom Brughmans and Matthew A. Peeples (2022). 
-
 <a href="https://book.archnetworks.net"><img src="images/cover.png" width="250" height="375" alt="Brughmans and Peeples Book Cover" align="right" style="margin: 0 1em 0 1em" /></a>
 
-This document contains a series of tutorials that outline methods for managing, analyzing, and visualizing network data, primarily using the R programming language. We provide code and examples to replicate the analyses presented in the book as well as many other additional useful tools. This Online Companion is designed to expand upon topics covered in the book and you may find it useful to follow along with these examples as you read the text. Sections 1 through 6 in this document correspond to the topics and information covered in Chapters 2 through 7 of the Brughmans and Peeples book. Section 7 of this document includes topics beyond the scope of the book (exponential random graph models and spatial interaction models) and topics we hope to expand in the future. You can use the table of contents on the left-hand side of your screen to jump directly to a particular section and the table and contents on the right to navigate within each section. We have also created a [quick TOC reference](#TableOfContents) if you are seeking something in particular. 
+This project serves as a companion to the Cambridge Manuals in Archaeology book *Archaeological Network Science* by Tom Brughmans and Matthew A. Peeples (2022). This document contains a series of tutorials that outline methods for managing, analyzing, and visualizing network data, primarily using the R programming language. We provide code and examples to replicate the analyses presented in the book as well as many other additional useful tools. This Online Companion is designed to expand upon topics covered in the book and you may find it useful to follow along with these examples as you read the text. Sections 1 through 6 in this document correspond to the topics and information covered in Chapters 2 through 7 of the Brughmans and Peeples book. Sections 7 and 8 in this document go beyond the scope of the published book (including detailed discussions of exponential random graph models and spatial interaction models). We plan to continue to add to and expand this document in the future. You can use the table of contents on the left-hand side of your screen to jump directly to a particular section and the table and contents on the right to navigate within each section. We have also created a [quick TOC reference](#TableOfContents) if you are seeking something in particular. 
 
 For more information on the book and the authors check out the project website here: [archnetworks.net](https://archnetworks.net).
 
 **Cite this document as:**
 
-> Peeples, Matthew A. and Tom Brughmans (2022). Online Companion to Archaeological Network Science by Brughmans and Peeples. <https://archnetworks.net>, Accessed 2022-06-14.
+> Peeples, Matthew A. and Tom Brughmans (2022). Online Companion to Archaeological Network Science by Brughmans and Peeples. <https://archnetworks.net>, Accessed 2022-06-15.
 
 **The associated book can be cited as**
 
@@ -248,11 +248,26 @@ Getting started with R is as simple as typing directly into the Console. You can
 
 ```r
 3 + 3
-#> [1] 6
+```
+
+```
+## [1] 6
+```
+
+```r
 4 * 10
-#> [1] 40
+```
+
+```
+## [1] 40
+```
+
+```r
 50 / 5
-#> [1] 10
+```
+
+```
+## [1] 10
 ```
 
 R uses `( )` for bracketing groups of operations. These can be nested to do more complex mathematical operations or to determine the order of operations. For example compare the two equations below:
@@ -260,10 +275,18 @@ R uses `( )` for bracketing groups of operations. These can be nested to do more
 
 ```r
 ((4 * 5 + 3) / 2) * 12
-#> [1] 138
+```
 
+```
+## [1] 138
+```
+
+```r
 (((4 * 5)) + 3 / 2) * 12
-#> [1] 258
+```
+
+```
+## [1] 258
 ```
 
 R uses typical mathematical operators including `+ - * /` for addition, subtraction, multiplication, and division and `^` to raise a number to an exponent. 
@@ -271,9 +294,18 @@ R uses typical mathematical operators including `+ - * /` for addition, subtract
 
 ```r
 5^2
-#> [1] 25
+```
+
+```
+## [1] 25
+```
+
+```r
 5^(2 + 1)
-#> [1] 125
+```
+
+```
+## [1] 125
 ```
 
 Anything placed after a `#` in a block of code will be treated as a comment and not evaluated:
@@ -281,9 +313,18 @@ Anything placed after a `#` in a block of code will be treated as a comment and 
 
 ```r
 4 * 20 # comment here
-#> [1] 80
+```
+
+```
+## [1] 80
+```
+
+```r
 3 * 4 # 4 + 4 will not be evaluated as it is after the #
-#> [1] 12
+```
+
+```
+## [1] 12
 ```
 
 ### Creating Variables/Objects{- #Variables}
@@ -294,15 +335,28 @@ R can also assign numbers, characters, or more complex operations to variables (
 ```r
 test_var <- 50
 test_var
-#> [1] 50
+```
 
+```
+## [1] 50
+```
+
+```r
 test2 = 10 + test_var
 test2
-#> [1] 60
+```
 
+```
+## [1] 60
+```
+
+```r
 char1 <- "hello world"
 char1
-#> [1] "hello world"
+```
+
+```
+## [1] "hello world"
 ```
 
 Object names in R are case sensitive and cannot include spaces. Object names can include numbers and letters but must start with a letter. It is a good idea to use descriptive object names where the object will be used repeatably.
@@ -322,16 +376,37 @@ Many mathematical constants are built right into R so be sure not to overwrite a
 
 ```r
 pi
-#> [1] 3.141593
+```
+
+```
+## [1] 3.141593
+```
+
+```r
 LETTERS
-#>  [1] "A" "B" "C" "D" "E" "F" "G" "H" "I" "J" "K" "L" "M" "N" "O" "P" "Q" "R" "S"
-#> [20] "T" "U" "V" "W" "X" "Y" "Z"
+```
+
+```
+##  [1] "A" "B" "C" "D" "E" "F" "G" "H" "I" "J" "K" "L" "M" "N" "O" "P" "Q" "R" "S"
+## [20] "T" "U" "V" "W" "X" "Y" "Z"
+```
+
+```r
 letters
-#>  [1] "a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l" "m" "n" "o" "p" "q" "r" "s"
-#> [20] "t" "u" "v" "w" "x" "y" "z"
+```
+
+```
+##  [1] "a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l" "m" "n" "o" "p" "q" "r" "s"
+## [20] "t" "u" "v" "w" "x" "y" "z"
+```
+
+```r
 month.name
-#>  [1] "January"   "February"  "March"     "April"     "May"       "June"     
-#>  [7] "July"      "August"    "September" "October"   "November"  "December"
+```
+
+```
+##  [1] "January"   "February"  "March"     "April"     "May"       "June"     
+##  [7] "July"      "August"    "September" "October"   "November"  "December"
 ```
 
 
@@ -356,11 +431,26 @@ R can also use logical operators (see list below). These operators can be used i
 ```r
 v <- 50
 v > 20
-#> [1] TRUE
+```
+
+```
+## [1] TRUE
+```
+
+```r
 v < 20
-#> [1] FALSE
+```
+
+```
+## [1] FALSE
+```
+
+```r
 v * 2 == 100
-#> [1] TRUE
+```
+
+```
+## [1] TRUE
 ```
 
 Logical operators can also include *and* statements with the `&` symbol and *or* statements with `|`. For example:
@@ -369,9 +459,18 @@ Logical operators can also include *and* statements with the `&` symbol and *or*
 ```r
 v <- 40
 v > 20 & v < 30 # and statement
-#> [1] FALSE
+```
+
+```
+## [1] FALSE
+```
+
+```r
 v > 20 | v < 30 # or statement
-#> [1] TRUE
+```
+
+```
+## [1] TRUE
 ```
 
 ### Vectors{- #Vectors}
@@ -382,7 +481,10 @@ R can also assign a vector of numbers or characters to a variable and preform op
 ```r
 z <- c(2, 4, 6, 8, 10, 12)
 z / 2
-#> [1] 1 2 3 4 5 6
+```
+
+```
+## [1] 1 2 3 4 5 6
 ```
 
 If you want to call a particular value or selection of values in a vector you can use the `[]` square brackets and indicate which item(s) you are interested in.
@@ -390,11 +492,26 @@ If you want to call a particular value or selection of values in a vector you ca
 
 ```r
 z[3] # item 3 in object z
-#> [1] 6
+```
+
+```
+## [1] 6
+```
+
+```r
 z[4:6] # items 4 through 6 in object z
-#> [1]  8 10 12
+```
+
+```
+## [1]  8 10 12
+```
+
+```r
 z[c(3, 2, 1)] # items 3, 2, 1, in that order from object z
-#> [1] 6 4 2
+```
+
+```
+## [1] 6 4 2
 ```
 
 We can also search vectors or other objects for specific values:
@@ -411,7 +528,10 @@ vec_obj <-
     "Correa")
 
 vec_obj[vec_obj == "Correa"]
-#> [1] "Correa" "Correa"
+```
+
+```
+## [1] "Correa" "Correa"
 ```
 
 To see if a particular value is in a given object we can use the `%in%` operator and get a logical value in return.
@@ -419,10 +539,18 @@ To see if a particular value is in a given object we can use the `%in%` operator
 
 ```r
 "Ohtani" %in% vec_obj
-#> [1] TRUE
+```
 
+```
+## [1] TRUE
+```
+
+```r
 "Judge" %in% vec_obj
-#> [1] FALSE
+```
+
+```
+## [1] FALSE
 ```
 
 
@@ -434,19 +562,58 @@ R has a number of built-in functions that perform many common operations and sta
 ```r
 v <- c(5, 10, 15, 20, 25, 30, 2000)
 max(v)
-#> [1] 2000
+```
+
+```
+## [1] 2000
+```
+
+```r
 min(v)
-#> [1] 5
+```
+
+```
+## [1] 5
+```
+
+```r
 mean(v)
-#> [1] 300.7143
+```
+
+```
+## [1] 300.7143
+```
+
+```r
 median(v)
-#> [1] 20
+```
+
+```
+## [1] 20
+```
+
+```r
 log(v, base = exp(1)) # argument setting the base
-#> [1] 1.609438 2.302585 2.708050 2.995732 3.218876 3.401197 7.600902
+```
+
+```
+## [1] 1.609438 2.302585 2.708050 2.995732 3.218876 3.401197 7.600902
+```
+
+```r
 log10(v)
-#> [1] 0.698970 1.000000 1.176091 1.301030 1.397940 1.477121 3.301030
+```
+
+```
+## [1] 0.698970 1.000000 1.176091 1.301030 1.397940 1.477121 3.301030
+```
+
+```r
 round(pi, digits = 2) # argument setting the number of digits to retain
-#> [1] 3.14
+```
+
+```
+## [1] 3.14
 ```
 
 For a list of some of the most frequently used built-in functions see [this Quick-R](https://www.statmethods.net/management/functions.html) page. 
@@ -460,9 +627,12 @@ R can be used to work with tabular data as well. Typically it is most convenient
 dat <- c(3, 4, 2, 20)
 mat1 <- matrix(data = dat, nrow = 2, ncol = 2)
 mat1
-#>      [,1] [,2]
-#> [1,]    3    2
-#> [2,]    4   20
+```
+
+```
+##      [,1] [,2]
+## [1,]    3    2
+## [2,]    4   20
 ```
 
 Note that the `matrix()` function reads the numbers in first by column and then by row. If we want want to change that we can first investigate the options for this function using the `help()` function. In order to see the documentation for a given function simply type `help("NameOfFunction")` at the console or `?NameOfFunction`. 
@@ -502,9 +672,12 @@ mat2 <- matrix(
   byrow = TRUE
 )
 mat2
-#>      [,1] [,2]
-#> [1,]    3    4
-#> [2,]    2   20
+```
+
+```
+##      [,1] [,2]
+## [1,]    3    4
+## [2,]    2   20
 ```
 
 Just like we did with vectors, we can also use matrices for many mathematical and statistical functions that are built directly into R. For example, let's run a Fisher's Exact Test using the `fisher.test` function to assess the independence of rows and columns in this table.
@@ -512,17 +685,20 @@ Just like we did with vectors, we can also use matrices for many mathematical an
 
 ```r
 fisher.test(mat2)
-#> 
-#> 	Fisher's Exact Test for Count Data
-#> 
-#> data:  mat2
-#> p-value = 0.07474
-#> alternative hypothesis: true odds ratio is not equal to 1
-#> 95 percent confidence interval:
-#>    0.5875228 107.8450263
-#> sample estimates:
-#> odds ratio 
-#>   6.815654
+```
+
+```
+## 
+## 	Fisher's Exact Test for Count Data
+## 
+## data:  mat2
+## p-value = 0.07474
+## alternative hypothesis: true odds ratio is not equal to 1
+## 95 percent confidence interval:
+##    0.5875228 107.8450263
+## sample estimates:
+## odds ratio 
+##   6.815654
 ```
 
 The output includes information about the data we used to run the test, a p-value, the alternative hypothesis, confidence intervals, and the odds ratio. The output we get from any given function will vary depending on the application. See the `help()` documents for your function of interest to get more info about output.
@@ -543,23 +719,46 @@ It is possible to determine what type of data an R object contains using the `st
 ```r
 num <- c(12.3, 32.4, 53, 4.2, 4, 22.3)
 str(num)
-#>  num [1:6] 12.3 32.4 53 4.2 4 22.3
+```
 
+```
+##  num [1:6] 12.3 32.4 53 4.2 4 22.3
+```
+
+```r
 int <- c(1L, 2L, 5L, 6L)
 str(int)
-#>  int [1:4] 1 2 5 6
+```
 
+```
+##  int [1:4] 1 2 5 6
+```
+
+```r
 char <- c("string1", "string2", "This too is a string")
 str(char)
-#>  chr [1:3] "string1" "string2" "This too is a string"
+```
 
+```
+##  chr [1:3] "string1" "string2" "This too is a string"
+```
+
+```r
 tf <- c(TRUE, FALSE, FALSE, TRUE) # note the lack of " "
 str(tf)
-#>  logi [1:4] TRUE FALSE FALSE TRUE
+```
 
+```
+##  logi [1:4] TRUE FALSE FALSE TRUE
+```
+
+```r
 fac <- as.factor(c("type1", "type2", "type2", "type3"))
 str(fac)
-#>  Factor w/ 3 levels "type1","type2",..: 1 2 2 3
+```
+
+```
+##  Factor w/ 3 levels "type1","type2",..: 1 2 2 3
 ```
 
 ### Object Types in R{- #ObjectTypes}
@@ -579,7 +778,10 @@ We have already introduced vectors above but we can point out one more feature t
 ```r
 v <- c(1, 6, 4, 8, 7, 5, 3, 8, 10, 44)
 length(v)
-#> [1] 10
+```
+
+```
+## [1] 10
 ```
 
 #### Matrices{- #Mat}
@@ -589,11 +791,20 @@ Once again, we have already introduced matrices above but there are a few more d
 
 ```r
 mat1
-#>      [,1] [,2]
-#> [1,]    3    2
-#> [2,]    4   20
+```
+
+```
+##      [,1] [,2]
+## [1,]    3    2
+## [2,]    4   20
+```
+
+```r
 mat1[2, 1] # row 2 column 1
-#> [1] 4
+```
+
+```
+## [1] 4
 ```
 
 If you want to know the size of a matrix, you can use the `dim()` dimensions function:
@@ -601,7 +812,10 @@ If you want to know the size of a matrix, you can use the `dim()` dimensions fun
 
 ```r
 dim(mat1)
-#> [1] 2 2
+```
+
+```
+## [1] 2 2
 ```
 
 
@@ -619,10 +833,13 @@ col5 <- c(TRUE, FALSE, TRUE)
 
 dat <- data.frame(col1, col2, col3, col4, col5)
 dat
-#>       col1 col2   col3  col4  col5
-#> 1  mammoth   50  11.14 type1  TRUE
-#> 2 mastadon   52  22.23 type1 FALSE
-#> 3    bison   14 656.34 type2  TRUE
+```
+
+```
+##       col1 col2   col3  col4  col5
+## 1  mammoth   50  11.14 type1  TRUE
+## 2 mastadon   52  22.23 type1 FALSE
+## 3    bison   14 656.34 type2  TRUE
 ```
 
 If we want to look at what kind of data R understands each column to be, we can use the `str()` or structure function.
@@ -630,12 +847,15 @@ If we want to look at what kind of data R understands each column to be, we can 
 
 ```r
 str(dat)
-#> 'data.frame':	3 obs. of  5 variables:
-#>  $ col1: chr  "mammoth" "mastadon" "bison"
-#>  $ col2: int  50 52 14
-#>  $ col3: num  11.1 22.2 656.3
-#>  $ col4: Factor w/ 2 levels "type1","type2": 1 1 2
-#>  $ col5: logi  TRUE FALSE TRUE
+```
+
+```
+## 'data.frame':	3 obs. of  5 variables:
+##  $ col1: chr  "mammoth" "mastadon" "bison"
+##  $ col2: int  50 52 14
+##  $ col3: num  11.1 22.2 656.3
+##  $ col4: Factor w/ 2 levels "type1","type2": 1 1 2
+##  $ col5: logi  TRUE FALSE TRUE
 ```
 
 Note that the `dim()` function also works on data frames as does the `[,]` call for specific items:
@@ -643,14 +863,29 @@ Note that the `dim()` function also works on data frames as does the `[,]` call 
 
 ```r
 dat
-#>       col1 col2   col3  col4  col5
-#> 1  mammoth   50  11.14 type1  TRUE
-#> 2 mastadon   52  22.23 type1 FALSE
-#> 3    bison   14 656.34 type2  TRUE
+```
+
+```
+##       col1 col2   col3  col4  col5
+## 1  mammoth   50  11.14 type1  TRUE
+## 2 mastadon   52  22.23 type1 FALSE
+## 3    bison   14 656.34 type2  TRUE
+```
+
+```r
 dim(dat)
-#> [1] 3 5
+```
+
+```
+## [1] 3 5
+```
+
+```r
 dat[2, 1]
-#> [1] "mastadon"
+```
+
+```
+## [1] "mastadon"
 ```
 
 #### Lists{- #List}
@@ -662,19 +897,22 @@ A list is simply a convenient way of combining multiple objects into a single ob
 ```r
 out1 <- list(mat1, dat, c(1, 2, 4)) # create a list containing 3 objects
 out1
-#> [[1]]
-#>      [,1] [,2]
-#> [1,]    3    2
-#> [2,]    4   20
-#> 
-#> [[2]]
-#>       col1 col2   col3  col4  col5
-#> 1  mammoth   50  11.14 type1  TRUE
-#> 2 mastadon   52  22.23 type1 FALSE
-#> 3    bison   14 656.34 type2  TRUE
-#> 
-#> [[3]]
-#> [1] 1 2 4
+```
+
+```
+## [[1]]
+##      [,1] [,2]
+## [1,]    3    2
+## [2,]    4   20
+## 
+## [[2]]
+##       col1 col2   col3  col4  col5
+## 1  mammoth   50  11.14 type1  TRUE
+## 2 mastadon   52  22.23 type1 FALSE
+## 3    bison   14 656.34 type2  TRUE
+## 
+## [[3]]
+## [1] 1 2 4
 ```
 
 If you want to call a specific element of the list you use double square brackets `[[]]` along with the numeric index in the middle:
@@ -682,7 +920,10 @@ If you want to call a specific element of the list you use double square bracket
 
 ```r
 out1[[3]]
-#> [1] 1 2 4
+```
+
+```
+## [1] 1 2 4
 ```
 
 You can even stack sets of double and single brackets to call specific items within list elements:
@@ -690,9 +931,18 @@ You can even stack sets of double and single brackets to call specific items wit
 
 ```r
 out1[[3]][2] # item 2 in list object 3
-#> [1] 2
+```
+
+```
+## [1] 2
+```
+
+```r
 out1[[2]][2, 1] # row 2 column 1 in list object 2
-#> [1] "mastadon"
+```
+
+```
+## [1] "mastadon"
 ```
 
 
@@ -744,9 +994,18 @@ Once our package installs, we can "call" it or initialize it using the `libaray(
 
 ```r
 library(vegan)
-#> Loading required package: permute
-#> Loading required package: lattice
-#> This is vegan 2.6-2
+```
+
+```
+## Loading required package: permute
+```
+
+```
+## Loading required package: lattice
+```
+
+```
+## This is vegan 2.6-2
 ```
 
 Now we can use not just the base R functions, but also the functions within the `vegan` package. Within this package one particularly useful function is called `diversity()` which allows us to calculate all manner of common diversity measures. Remember to check `?diversity` if you want to learn more about the package and its arguments. Let's give it a try by creating a vector and then calculating two different diversity indices on that vector:
@@ -756,10 +1015,18 @@ Now we can use not just the base R functions, but also the functions within the 
 vec1 <- c(1, 6, 2, 7, 45, 3, 6, 2, 4, 6, 7, 2)
 
 diversity(vec1, index = "shannon")
-#> [1] 1.831803
+```
 
+```
+## [1] 1.831803
+```
+
+```r
 diversity(vec1, index = "simpson")
-#> [1] 0.7259993
+```
+
+```
+## [1] 0.7259993
 ```
 
 <div class="rmdtip">
@@ -812,11 +1079,16 @@ mat4 <- matrix(vec2, 3, 3) # 3 row 3 column matrix
 row.names(mat4) <- c("row 1", "row 2", "row 3") # assign row names
 colnames(mat4) <- c("A", "B", "C") #assign col names
 mat4 # view matrix
-#>        A B C
-#> row 1  4 4 6
-#> row 2  2 2 4
-#> row 3 65 4 2
+```
 
+```
+##        A B C
+## row 1  4 4 6
+## row 2  2 2 4
+## row 3 65 4 2
+```
+
+```r
 # Export the matrix as a csv file
 write.csv(mat4, file = "data/output_mat.csv")
 ```
@@ -834,10 +1106,13 @@ read_mat <-
            header = T,
            row.names = 1)
 read_mat
-#>        A B C
-#> row 1  4 4 6
-#> row 2  2 2 4
-#> row 3 65 4 2
+```
+
+```
+##        A B C
+## row 1  4 4 6
+## row 2  2 2 4
+## row 3 65 4 2
 ```
 
 <div class="rmdwarning">
@@ -852,13 +1127,22 @@ matter but where it does, we can convert it to a matrix using the
 
 ```r
 str(read_mat)
-#> 'data.frame':	3 obs. of  3 variables:
-#>  $ A: int  4 2 65
-#>  $ B: int  4 2 4
-#>  $ C: int  6 4 2
+```
+
+```
+## 'data.frame':	3 obs. of  3 variables:
+##  $ A: int  4 2 65
+##  $ B: int  4 2 4
+##  $ C: int  6 4 2
+```
+
+```r
 read_mat2 <- as.matrix(read_mat)
 is.matrix(read_mat2)
-#> [1] TRUE
+```
+
+```
+## [1] TRUE
 ```
 
 There are lots of different functions for reading in files in different formats and we will introduce some of these later in the subsequent sections of this tutorial where relevant. For an overview of some of the most common file types [see this Quick-R tutorial](https://www.statmethods.net/input/importingdata.html).
@@ -964,7 +1248,6 @@ ggplot(data = df) +
 <img src="index_files/figure-html/unnamed-chunk-53-1.png" width="672" />
 
 ```r
-
 # Bined biplot example
 ggplot(data = df) +
   geom_bin2d(aes(x = x, y = y)) +
@@ -975,7 +1258,6 @@ ggplot(data = df) +
 <img src="index_files/figure-html/unnamed-chunk-53-2.png" width="672" />
 
 ```r
-
 # Create data frame for bar plot example
 df2 <- data.frame(d1 = rpois(50, lambda = 4),
                   gp = sample(size = 50, letters[1:4], replace = T))
@@ -1034,15 +1316,25 @@ if (x > 50) {
 } else {
   cat("Less Than 50")
 }
-#> Less Than 50
+```
 
+```
+## Less Than 50
+```
+
+```r
 if (x * 2 > 50) {
   cat("Greater Than 50")
 } else {
   cat("Less Than 50")
 }
-#> Greater Than 50
+```
 
+```
+## Greater Than 50
+```
+
+```r
 if (x > 50) {
   cat("Greater Than 50")
 }
@@ -1056,15 +1348,23 @@ If you want to apply an `if...else` statement to a vector of values rather than 
 ```r
 x <- seq(5, 100, by = 5)
 x
-#>  [1]   5  10  15  20  25  30  35  40  45  50  55  60  65  70  75  80  85  90  95
-#> [20] 100
+```
 
+```
+##  [1]   5  10  15  20  25  30  35  40  45  50  55  60  65  70  75  80  85  90  95
+## [20] 100
+```
+
+```r
 ifelse(x > 50, "Greater Than 50", "Less Than 50")
-#>  [1] "Less Than 50"    "Less Than 50"    "Less Than 50"    "Less Than 50"   
-#>  [5] "Less Than 50"    "Less Than 50"    "Less Than 50"    "Less Than 50"   
-#>  [9] "Less Than 50"    "Less Than 50"    "Greater Than 50" "Greater Than 50"
-#> [13] "Greater Than 50" "Greater Than 50" "Greater Than 50" "Greater Than 50"
-#> [17] "Greater Than 50" "Greater Than 50" "Greater Than 50" "Greater Than 50"
+```
+
+```
+##  [1] "Less Than 50"    "Less Than 50"    "Less Than 50"    "Less Than 50"   
+##  [5] "Less Than 50"    "Less Than 50"    "Less Than 50"    "Less Than 50"   
+##  [9] "Less Than 50"    "Less Than 50"    "Greater Than 50" "Greater Than 50"
+## [13] "Greater Than 50" "Greater Than 50" "Greater Than 50" "Greater Than 50"
+## [17] "Greater Than 50" "Greater Than 50" "Greater Than 50" "Greater Than 50"
 ```
 
 Another useful and frequently used conditional function is the `which()` function. This function allows you to evaluate which items in an object meet a given condition. Let's take a look at an example to see how this works:
@@ -1073,15 +1373,35 @@ Another useful and frequently used conditional function is the `which()` functio
 ```r
 x <- seq(1, 10) # sequence of numbers 1 to 10
 x
-#>  [1]  1  2  3  4  5  6  7  8  9 10
-which(x > 5)
-#> [1]  6  7  8  9 10
+```
 
+```
+##  [1]  1  2  3  4  5  6  7  8  9 10
+```
+
+```r
+which(x > 5)
+```
+
+```
+## [1]  6  7  8  9 10
+```
+
+```r
 y <- seq(2, 20, by = 2) # sequence of numbers 2 to 20 by 2s
 y
-#>  [1]  2  4  6  8 10 12 14 16 18 20
+```
+
+```
+##  [1]  2  4  6  8 10 12 14 16 18 20
+```
+
+```r
 which(y > 10)
-#> [1]  6  7  8  9 10
+```
+
+```
+## [1]  6  7  8  9 10
 ```
 
 In the first example above, we created a sequence of numbers from 1 to 10 and then evaluated which were greater than 5. The results indicated that items 6, 7, 8, 9, and 10 in the vector were greater than 5. Note that these results are not referring to the values but instead are the numeric indexes of the values. The second example illustrates this. This is much like the first example by we create a sequence of numbers from 2 to 20 counting by 2s. When we evaluate which numbers in the vector are greater than 10, our results tell us the 6th, 7th, 8th, 9th, and 10th numbers are greater than 10.
@@ -1104,11 +1424,14 @@ What this means is that for every value in a sequence of values, evaluate the ex
 for (i in 1:5) { # for every value in the sequence from 1:5
   print(i * 2)
 }
-#> [1] 2
-#> [1] 4
-#> [1] 6
-#> [1] 8
-#> [1] 10
+```
+
+```
+## [1] 2
+## [1] 4
+## [1] 6
+## [1] 8
+## [1] 10
 ```
 
 As this example helps illustrate, the `for (i in 1:5)` statement defines `i = 1` and then evaluates the statement `print(i * 2)`, and then defines `i = 2` and evaluates `print(i * 2)`, and so on until it completes the chunk for `i = 5`. The key feature of for loops is that we can use the value assigned to the iterator `i` in the statement inside the curly brackets `{}` to evaluate the statement for a range of values. The sequence of values assigned to the iterator are arbitrary and can occur in any order:
@@ -1120,13 +1443,16 @@ val_seq <- c(5, 1, 8, 4, 1, 5, 7)
 for (m in val_seq) {
   print(m)
 }
-#> [1] 5
-#> [1] 1
-#> [1] 8
-#> [1] 4
-#> [1] 1
-#> [1] 5
-#> [1] 7
+```
+
+```
+## [1] 5
+## [1] 1
+## [1] 8
+## [1] 4
+## [1] 1
+## [1] 5
+## [1] 7
 ```
 
 We can also assign the results of any expressions in the curly brackets to a new object. If you want to retain all results and not have the results rewritten, you will need to first define an output object before you start.
@@ -1138,14 +1464,22 @@ for (z in 1:10) {
   out <- z
 }
 out
-#> [1] 10
+```
 
+```
+## [1] 10
+```
+
+```r
 out <- NULL
 for (z in 1:10) {
   out[z] <- z
 }
 out
-#>  [1]  1  2  3  4  5  6  7  8  9 10
+```
+
+```
+##  [1]  1  2  3  4  5  6  7  8  9 10
 ```
 
 In the second example, the statement within the brackets tells R to assign the value of `z` to `out` at position `[z]` and therefore all results are retained rather than rewritten each sequence of the loop.
@@ -1177,10 +1511,18 @@ do_something <- function(x, y) {
 }
 
 do_something(4, 5)
-#> [1] 21
+```
 
+```
+## [1] 21
+```
+
+```r
 do_something(10, 5)
-#> [1] 75
+```
+
+```
+## [1] 75
 ```
 
 As this shows, any named argument in the function call can be used in the expression evaluated within the brackets. Functions can contain many lines of code and many arguments but the features and format are the same as the simple examples here. Let's look at a somewhat more complex function to see how this works:
@@ -1197,7 +1539,10 @@ myfunct <- function(x) {
 
 val_seq <- seq(1:10)
 myfunct(val_seq)
-#>  [1]  0.2  0.8  1.8  3.2  5.0  7.2  9.8 12.8 16.2 20.0
+```
+
+```
+##  [1]  0.2  0.8  1.8  3.2  5.0  7.2  9.8 12.8 16.2 20.0
 ```
 
 Let's break down what is happening in the chunk of code above. First, we defined a function with one argument `x`. Inside the function expression we then initialized a new variable for the output called `z` by simply setting it to `NULL` or empty. We then enter a for loop that iterates values of `i` for a sequence of numbers from 1 to the length of vector `x` using the `seq_len()` call.. The value of `z` at position `i` is defined as the value of `x` at position `i` times `i` divided by `5`. Once this loop finishes, the function returns the vector `z` with the results. As this example shows, arguments need not be limited to single values and can include vectors, data.frames, matrices, lists, or any type of R object.
@@ -1207,7 +1552,10 @@ To clarify how the iterator works, the function `seq_len()` creates a sequence o
 
 ```r
 seq_len(10)
-#>  [1]  1  2  3  4  5  6  7  8  9 10
+```
+
+```
+##  [1]  1  2  3  4  5  6  7  8  9 10
 ```
 
 
@@ -1250,13 +1598,26 @@ convert_temp <- function(f) {
 f_temp <- c(44, 59, 59, 39, 50, 59, 35)
 out <- convert_temp(f_temp)
 out
-#> [1]  6.666667 15.000000 15.000000  3.888889 10.000000 15.000000  1.666667
+```
 
+```
+## [1]  6.666667 15.000000 15.000000  3.888889 10.000000 15.000000  1.666667
+```
+
+```r
 res <- round(out, digits = 0)
 res
-#> [1]  7 15 15  4 10 15  2
+```
 
+```
+## [1]  7 15 15  4 10 15  2
+```
+
+```r
 paste(c(LETTERS[res]), collapse = "")
-#> [1] "GOODJOB"
+```
+
+```
+## [1] "GOODJOB"
 ```
 

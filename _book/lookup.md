@@ -1,0 +1,249 @@
+# Table of Contents Quick Reference{- #TableOfContents}
+
+The purpose of this section is to provide a quick index of topics covered in this document so that you can easily identify and work on specific things. Use the cross-reference links below to find what you are looking for.
+
+## Welcome{-}
+
+[Welcome](#Welcome)
+
+* [How Should I Use this Online Companion?](#HowTo)
+* [Reproducibility](#Repro)
+* [Computational Archaeology Discord Community](#Discord)
+* [New to R and R Studio?](#NewToR)
+* [Contribute to the Project](#Contributing)
+* [Help Build the Community](#Community)
+* [Acknowledgements](#Acknowledgements)
+
+## Getting Started with R{-}
+
+[Getting Started with R](#GettingStarted)
+
+* [Download and Install R](#InstallR)
+  + [Windows](#Windows)
+  + [MacOC](#MacOS)
+  + [Linux](#Linux)
+* [Download and Install R-Studio](#InstallRStudio)
+* [Run R-Studio](#RunRStudio)
+* [R and R-Studio Basics](#RBasics)
+  + [Organization of R-Studio](#Org)
+  + [Mathematical Operations](#Math)
+  + [Creating Variables/Objects](#Variables)
+  + [Logical Operators](#Logical)
+  + [Vectors](#Vectors)
+  + [Using Basic R Functions](#Functions)
+  + [Tabular Data](#Tabular)
+  + [Data Types in R](#DataTypes)
+  + [Object Types in R](#ObjectTypes)
+    - [Vectors](#Vec)
+    - [Matrices](#Mat)
+    - [Data Frames](#DF)
+    - [Lists](#List)
+* [The Workspace Tab](#WorkspaceTab)
+  + [Setting the Working Directory](#Directory)
+  + [Working with your first R script](#FirstScript)
+* [Installing and Using Packages](#InstallPackages)
+* [Working with External Files](#WorkingWithFiles)
+* [Plotting Data](#Plotting)
+* [Warnings and Messages in R](#Warnings)
+* [More Advanced R Features](#AdvancedR)
+  + [Conditional Statements](#Conditionsls)
+  + [Loops](#Loops)
+  + [Custom Functions](#CustomFunctions)
+* [Test Your Skills](#TestYourSkills)
+
+
+## Section 1: Data and Workspace Setup{-}
+
+[Data and Workspace Setup](#DataAndWorkspace)
+
+* [Data Sets](#DataSets)
+  + [Just Give Me Everything](#Everything)
+  + [Roman Road Networks](#RomanRoads)
+  + [Southwest Social Networks Project Ceramic Similarity Networks](#SWSN)
+  + [Cibola Region Technological Similarity Networks](#Cibola)
+  + [Himalayan Visibility Networks](#Himalaya)
+  + [Archaeological Publication Networks](#ArchPubs)
+  + [Iron Age Sites in Southern Spain](#Guadalquivir)
+* [Importing Data in R](#Importing)
+* [Required/Suggested R Packages](#PrimaryPackages)
+  + [Should I Just Install Everything](#ShouldIInstall)
+* [R Environment](#Environment)
+* [Suggested Workspace Setup](#WorkspaceSetup)
+
+## Section 2: Network Data in R{-}
+
+[Network Data in R](#NetworkData)
+
+* [Network Data Formats](#NetworkDataFormats)
+  + [Edge list](#Edgelist)
+  + [Adjacency list](#AdjacencyList)
+  + [Adjacency matrix](#AdjacencyMatrix)
+  + [Incidence matrix](#IncidenceMatrix)
+  + [Node and edge attribute data](#NodeAttributes)
+* [Network Types](#TypesOfNetworks)
+  + [Simple networks](#SimpleNetworks)
+  + [Directed networks](#Directed Networks)
+  + [Signed, Categorized, and Weighted Networks](#WeightedNetworks)
+  + [Two-mode networks](#TwoMode)
+  + [Similarity networks](#SimilarityNetworks)
+    - [Brainerd-Robinson similarity](#BrainerdRobinson)
+    - [Morisita's Index](#Morisita)
+    - [$\chi^{2}$ Distance](#ChiSquare)
+    - [Jaccard Similarity](#Jaccard)
+    - [Creating network objects from similarity matrices](#NetFromSim)
+  + [Ego networks](#EgoNetworks)
+  + [Multilayer networks](#Multinet)
+* [Converting among network object types](#ConvertingNetworkFormats)
+  
+## Section 3: Exploratory Network Analysis{-}
+
+[Exploratory Network Analysis](#Exploratory)
+
+* [Example Network Objects](#ExampleNetworkObjects)
+* [Calculating Network Metrics in R](#CalcMetric)
+* [Network Centrality](#Centrality)
+  + [Degree Centrality](#Degree)
+  + [Betweenness Centrality](#Betweenness)
+  + [Eigenvector Centraoity](#Eigenvector)
+  + [Page Rank](#PageRank)
+  + [Closeness Centrality](#Closeness)
+  + [Hubs and Authorities](#HubsAndAuthorities)
+* [Triads and Clustering](#TriadsAndClustering)
+  + [Triads](#Triads)
+  + [Triad Census](#Triads)
+  + [Transitivity](#Transitivity)
+* [Walks, Paths, and Distance](#WalksPathsDistance)
+  + [Distance](#Distance)
+  + [Shortest Paths](#ShortestPaths)
+  + [Network Diameter](#Diameter)
+* [Components and Bridges](#ComponentsAndBridges)
+  + [Identifying Components](#IdentifyingComponents)
+  + [Cutpoints](#Cutpoints)
+  + [Bridges](#Bridges)
+* [Cliques and Communities](#CliquesAndCommunities)
+  + [Cliques](#Cliques)
+  + [K-Cores](#KCores)
+  + [Cluster Detection Agloritms](#ClusterDetection)
+    - [Girvan-Newman Clustering](#GirvanNewman)
+    - [Walktrap Algorithm](#Walktrap)
+    - [Louvain Modularity](#Louvain)
+    - [Calculating Modularity of Partitions](#Modularity)
+    - [Finding Edges Between Communities](#FindingEdgesBetween)
+* [Case Study: Roman Roads in the Iberian Peninsula](#ExploratoryRomanRoads)
+   
+## Section 4: Quantifying Uncertainty{-}
+
+[Quantifying Uncertainty](#Uncertainty)
+
+* [R Scripts for Conducting Uncertainty Analysis](#UncertaintyScripts)
+* [A General Approach to Uncertainty](#UncertaintyGeneral)
+* [Nodes Missing at Random](#NodesAtRandom)
+* [Edges Missing at Random](#EdgesAtRandom)
+* [Assessing Individual Nodes/Edges Missing at Random](#IndNodesAtRandom)
+* [Nodes/Edges Missing Due To Biased Sampling](#MissingBiased)
+* [Resampling with Incidence Matrices](#SimIncidence)
+* [Edge Probability Modeling](#EdgeProbability)
+  + [Edge Probability and Similarity Networks](#EdgeProbSim)
+* [Uncertainty Due to Small or Variable Sample Sizes](#SampleSize)
+
+## Section 5: Network Visualization{-}
+
+[Network Visualization](#NetworkVisualization)
+
+* [Data and R Setup](#VizDatasets)
+* [Visualizing Networks in R](#VisInR)
+  + [`network` package](#networkpackage)
+  + [`igraph` package](#igraphpackage)
+  + [`ggraph` package](#ggraphpackage)
+* [Network Visualization Options](#NetVizOptions)
+  + [Graph Layouts](#GraphLayouts)
+    - [Manual Layouts](#ManualLayouts)
+    - [Geographic Layouts](#GeographicLayouts)
+    - [Shape-based and Algorithmic Layouts](#AlgorithmicLayouts)
+  + [Node and Edge Options](#NodeEdgeOptions)
+    - [Nodes](#NodeOptions)
+    - [Edges](#EdgeOptions)
+    - [Labels](#LabelOptions)
+  + [Be Kind To the Color Blind](#Colorblind)
+  + [Communities and Groups](#ViZCommunities)
+* [Replicating the Book Figures](#ReplicatingBookFigures)
+  + [Figure 6.1 - Manual Layout](#Figure_6_1)
+  + [Figure 6.2 - Examples of Common Network Plot Formats](#Figure_6_2)
+  + [Figure 6.3 - Examples of Rare Network Plot Formats](#Figure_6_3)
+  + [Figure 6.4 - Simple Network with Clusters](#Figure_6_4)
+  + [Figure 6.5 - Interactive Layout](#Figure_6_5)
+  + [Figure 6.6 - Absolute Geographic Layout](#Figure_6_6)
+  + [Figure 6.7 - Distorted Geographic Layout](#Figure_6_7)
+  + [Figure 6.8 - Graph Layout Algorithms](#Figure_6_8)
+  + [Figure 6.9 - Heirarchical Graph Layouts](#Figure_6_9)
+  + [Figure 6.10 - Be Kind To the Color Blind](#Figure_6_10)
+  + [Figure 6.11 - Node Symbol and Color Schemes](#Figure_6_11)
+  + [Figure 6.12 - Image for Node, Example 1](#Figure_6_12)
+  + [Figure 6.13 - Image for Node, Example 2](#Figure_6_13)
+  + [Figure 6.14 - Edge Thickness and Color](#Figure_6_14)
+  + [Figure 6.15 - Edge Direction](#Figure_6_15)
+  + [Figure 6.16 - Edge Binarization](#Figure_6_16)
+  + [Figure 6.17 - Edge Bundling](#Figure_6_17)
+  + [Figure 6.18 - Group-in-a-box Layout](#Figure_6_18)
+  + [Figure 6.19 - Weighted Adjacency Matrix](#Figure_6_19)
+  + [Figure 6.20 - Nodetrix Diagram Interactive Plot](#Figure_6_20)
+  + [Figure 6.21 - Temporal Change, The Filmstrip Approach](#Figure_6_21)
+  + [Figure 6.22 - Temporal Change, Similtaneous Display](#Figure_6_22)
+  + [Figure 6.23 - Timelines and Time Prisms](#Figure_6_23)
+  + [Figure 6.24 - Animation](#Figure_6_24)
+  + [Figure 6.25 - Interactive Networks](#Figure_6_25)
+  + [Figure 6.26 - Case Study, SWSN Example 1](#Figure_6_26)
+  + [Figure 6.27 - Case Study, SWSN Example 2](#Figure_6_27)
+
+
+## Section 6: Spatial Networks{-}
+
+[Spatial Networks](#SpatialNetworks)
+
+* [Working with Geographic Data in R](#GeoData)
+* [Example Data](#ExampleData)
+* [Planar Networks and Trees](#PlanarTrees)
+  + [Evaluating Planarity](#EvaluatingPlanarity)
+  + [Defining Trees](#DefiningTress)
+* [Spatial Network Models](#SpatialNetworkModels)
+  + [Relative Neighborhood Networks](#RelativeNeighborhoods)
+  + [Gabrial Graphs](#GabrialGraphs)
+  + [Beta Skeletons](#BetaSkeletons)
+  + [Minimum Spanning Trees](#MinSpanningTrees)
+  + [Delaunay Triangulation](#DelaunayTri)
+  + [K-Nearest Neighbors](#KNN)
+  + [Max Distance Networks](#MaxDist)
+* [Case Studies: Spatial Networks and Networks in Space](#SpaceCaseStudies)
+  + [Proximity of Iron Age Sites in Southern Spain](#IronAgeSpain)
+  + [Networks in Space in the U.S. Southwest](#SpaceSW)
+  
+## Section 7: Exponential Random Graph Models{-}
+
+[Exponential Random Graph Models](#ERGM)
+ 
+* [ERGMs in R](#ERGMsInR)
+* [Cranborne Chase Visibility Network Example](#CranborneChase)
+  + [Assessments of Network Properties](#NetProperties)
+  + [Fitting Models with `ergm`](#FitModels)
+  + [Building a Model Based on Theory](#ModelTheory)
+  + [Assessing Goodness-of-Fit](#GOF)
+  + [Asessing Models and MCMC Diagnostics](#Diagnostics)
+* [Simulating Networks from ERGMs](#SimERGMs)
+* [Additinoal Info on ERGM Terms](#ERGMterms)
+  + [Avoiding Model Degeneracy](#Degeneracy)
+
+## Section 8: Spatial Interaction Models{-}
+
+[Spatial Interaction Models](#SpatialInteraction)
+
+* [Simple Gravity Models](#GravityModel)
+  + [Parameterizing the Gravity Model](#ParameterizingGravity)
+* [The Rihll and Wilson "Retail" Model](#RihllWilson)
+  + [Parameterizing the Retail Model](#ParameterizingRetail)
+* [Truncated Power Functions](#TruncatedPower)
+* [Other Spatial Interaction Models](#OtherModels)
+
+## References and R Packages{-}
+
+[References and R Packages](https://book.archnetworks.net/references-and-r-packages.html)
+

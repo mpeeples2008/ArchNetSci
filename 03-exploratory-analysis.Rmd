@@ -614,4 +614,4 @@ colnames(ns_res) <- c("Measure", "Basic Network", "50 Km Buffer",
 knitr::kable(ns_res, format = "html")
 ```
 
-For an extended discussion of the Cranborne Chase case study and exponential random graph models (ERGM) see the [Going Beyond the Book](#BeyondTheBook) section.
+For an extended discussion of the Cranborne Chase case study and exponential random graph models [click here](#ERGM)

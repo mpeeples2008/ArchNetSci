@@ -37,23 +37,26 @@ nodes <- read.csv("data/Hispania_nodes.csv", header = T)
 locs <- st_as_sf(nodes, coords = c("long", "lat"), crs = 4326)
 
 locs
-#> Simple feature collection with 122 features and 2 fields
-#> Geometry type: POINT
-#> Dimension:     XY
-#> Bounding box:  xmin: -9.1453 ymin: 36.0899 xmax: 3.1705 ymax: 43.5494
-#> Geodetic CRS:  WGS 84
-#> First 10 features:
-#>    Id                                    name                geometry
-#> 1  n0                               "Bracara"  POINT (-8.427 41.5501)
-#> 2  n1                           "Iria Flavia" POINT (-8.5974 42.8101)
-#> 3  n2                               "Saltigi" POINT (-1.7228 38.9186)
-#> 4  n3                              "Bilbilis" POINT (-1.6083 41.3766)
-#> 5  n4                             "Scallabis" POINT (-8.6871 39.2362)
-#> 6  n5                  "Mercablum/Merifabion" POINT (-6.0886 36.2765)
-#> 7  n6 "Valentia (Hispania Tarraconensis) (1)" POINT (-0.3755 39.4758)
-#> 8  n7                               "Italica" POINT (-6.0449 37.4411)
-#> 9  n8               "Acci/Col. Iulia Gemella" POINT (-3.1346 37.3003)
-#> 10 n9                               "Toletum" POINT (-4.0245 39.8567)
+```
+
+```
+## Simple feature collection with 122 features and 2 fields
+## Geometry type: POINT
+## Dimension:     XY
+## Bounding box:  xmin: -9.1453 ymin: 36.0899 xmax: 3.1705 ymax: 43.5494
+## Geodetic CRS:  WGS 84
+## First 10 features:
+##    Id                                    name                geometry
+## 1  n0                               "Bracara"  POINT (-8.427 41.5501)
+## 2  n1                           "Iria Flavia" POINT (-8.5974 42.8101)
+## 3  n2                               "Saltigi" POINT (-1.7228 38.9186)
+## 4  n3                              "Bilbilis" POINT (-1.6083 41.3766)
+## 5  n4                             "Scallabis" POINT (-8.6871 39.2362)
+## 6  n5                  "Mercablum/Merifabion" POINT (-6.0886 36.2765)
+## 7  n6 "Valentia (Hispania Tarraconensis) (1)" POINT (-0.3755 39.4758)
+## 8  n7                               "Italica" POINT (-6.0449 37.4411)
+## 9  n8               "Acci/Col. Iulia Gemella" POINT (-3.1346 37.3003)
+## 10 n9                               "Toletum" POINT (-4.0245 39.8567)
 ```
 
 Another feature used throughout this guide that needs further explanation is the `ggmap` funtion `get_stamenmap`. This function automatically retrieves a background map for you using a few arguments:
@@ -186,7 +189,10 @@ library(RBGL)
 g <- as_graphnel(road_net)
 # Implement test
 boyerMyrvoldPlanarityTest(g)
-#> [1] FALSE
+```
+
+```
+## [1] FALSE
 ```
 
 This results suggests that our Roman Road data is not planar. We can plot the data to evaluate this and do see crossed edges that could not be re-positioned. 
@@ -222,7 +228,10 @@ ggraph(g, layout = "stress") +
 ```r
 g <- as_graphnel(g)
 boyerMyrvoldPlanarityTest(g)
-#> [1] TRUE
+```
+
+```
+## [1] TRUE
 ```
 
 Here is another example where the graph layout algorithm happens to produce a planar graph.
@@ -243,7 +252,10 @@ ggraph(g, layout = "stress") +
 ```r
 g <- as_graphnel(g)
 boyerMyrvoldPlanarityTest(g)
-#> [1] TRUE
+```
+
+```
+## [1] TRUE
 ```
 
 ### Defining Trees {#DefiningTrees}
@@ -262,14 +274,20 @@ Let's create a simple tree using the `make_tree` function in igraph.
 ```r
 tree1 <- make_tree(n = 50, children = 5, mode = "undirected")
 tree1
-#> IGRAPH 0a73426 U--- 50 49 -- Tree
-#> + attr: name (g/c), children (g/n), mode (g/c)
-#> + edges from 0a73426:
-#>  [1]  1-- 2  1-- 3  1-- 4  1-- 5  1-- 6  2-- 7  2-- 8  2-- 9  2--10  2--11
-#> [11]  3--12  3--13  3--14  3--15  3--16  4--17  4--18  4--19  4--20  4--21
-#> [21]  5--22  5--23  5--24  5--25  5--26  6--27  6--28  6--29  6--30  6--31
-#> [31]  7--32  7--33  7--34  7--35  7--36  8--37  8--38  8--39  8--40  8--41
-#> [41]  9--42  9--43  9--44  9--45  9--46 10--47 10--48 10--49 10--50
+```
+
+```
+## IGRAPH 6dca47d U--- 50 49 -- Tree
+## + attr: name (g/c), children (g/n), mode (g/c)
+## + edges from 6dca47d:
+##  [1]  1-- 2  1-- 3  1-- 4  1-- 5  1-- 6  2-- 7  2-- 8  2-- 9  2--10  2--11
+## [11]  3--12  3--13  3--14  3--15  3--16  4--17  4--18  4--19  4--20  4--21
+## [21]  5--22  5--23  5--24  5--25  5--26  6--27  6--28  6--29  6--30  6--31
+## [31]  7--32  7--33  7--34  7--35  7--36  8--37  8--38  8--39  8--40  8--41
+## [41]  9--42  9--43  9--44  9--45  9--46 10--47 10--48 10--49 10--50
+```
+
+```r
 plot(tree1)
 ```
 
@@ -442,7 +460,10 @@ ggmap(my_map) +
     show.legend = FALSE
   ) +
   theme_void()
-#> Warning: Removed 2 rows containing missing values (geom_point).
+```
+
+```
+## Warning: Removed 2 rows containing missing values (geom_point).
 ```
 
 <img src="06-spatial-networks_files/figure-html/unnamed-chunk-17-2.png" width="672" />
@@ -632,11 +653,14 @@ Next we create a distance matrix based on the decimal degrees locations using th
 library(geosphere)
 g_dist1 <- as.matrix(distm(guad[, c(2, 3)]))
 g_dist1[1:4, 1:4]
-#>          [,1]     [,2]     [,3]     [,4]
-#> [1,]     0.00 69995.82 42265.58 51296.53
-#> [2,] 69995.82     0.00 28240.50 29202.84
-#> [3,] 42265.58 28240.50     0.00 23692.10
-#> [4,] 51296.53 29202.84 23692.10     0.00
+```
+
+```
+##          [,1]     [,2]     [,3]     [,4]
+## [1,]     0.00 69995.82 42265.58 51296.53
+## [2,] 69995.82     0.00 28240.50 29202.84
+## [3,] 42265.58 28240.50     0.00 23692.10
+## [4,] 51296.53 29202.84 23692.10     0.00
 ```
 
 From here we can create maximum distance networks at both the 10km and 18km distance and plot it using the geographic location of nodes for node placement.
@@ -922,24 +946,26 @@ sim <-
 dmat <- as.matrix(dist(attr[, 9:10]))
 fit <- gam(as.vector(sim) ~ as.vector(dmat))
 summary(fit)
-#> 
-#> Family: gaussian 
-#> Link function: identity 
-#> 
-#> Formula:
-#> as.vector(sim) ~ as.vector(dmat)
-#> 
-#> Parametric coefficients:
-#>                   Estimate Std. Error t value Pr(>|t|)    
-#> (Intercept)      7.979e-01  2.547e-03   313.3   <2e-16 ***
-#> as.vector(dmat) -2.487e-06  1.448e-08  -171.8   <2e-16 ***
-#> ---
-#> Signif. codes:  
-#> 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-#> 
-#> 
-#> R-sq.(adj) =  0.372   Deviance explained = 37.2%
-#> GCV = 0.082702  Scale est. = 0.082699  n = 49729
+```
+
+```
+## 
+## Family: gaussian 
+## Link function: identity 
+## 
+## Formula:
+## as.vector(sim) ~ as.vector(dmat)
+## 
+## Parametric coefficients:
+##                   Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)      7.979e-01  2.547e-03   313.3   <2e-16 ***
+## as.vector(dmat) -2.487e-06  1.448e-08  -171.8   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## 
+## R-sq.(adj) =  0.372   Deviance explained = 37.2%
+## GCV = 0.082702  Scale est. = 0.082699  n = 49729
 ```
 
 As these results show and as described in the book, spatial distance is a statistically significant predictor of ceramic similarity and distance appear to explain about 37.2% of the variation in ceramic similarity.

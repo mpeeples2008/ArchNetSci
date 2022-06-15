@@ -107,7 +107,6 @@ MaxDist
 SpaceCaseStudies
 IronAgeSpain
 SpaceSW
-BeyondTheBook
 ERGM
 ERGMsInR
 CranborneChase

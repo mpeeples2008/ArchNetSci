@@ -409,9 +409,14 @@ Now, let's try a real example using the `chaco_net` data again by creating a ran
 set.seed(4463)
 mis <- runif(223, 0, 1)
 mis[1:10]
-#>  [1] 0.6903157 0.9895447 0.3810867 0.2849476 0.2689112
-#>  [6] 0.9784197 0.8042309 0.5805580 0.8660900 0.6179489
+```
 
+```
+##  [1] 0.6903157 0.9895447 0.3810867 0.2849476 0.2689112 0.9784197 0.8042309
+##  [8] 0.5805580 0.8660900 0.6179489
+```
+
+```r
 # Run the function
 dg_test <- sim_missing_nodes(chaco_net, met = "degree", missing_probs = mis)
 
@@ -440,22 +445,27 @@ First we need to provide two data files. The first is the [bibliographic attribu
 
 
 ```r
-
 # Read in publication and author attribute data
 bib <- read.csv("data/biblio_attr.csv")
 bib[1:3, ]
-#>        Key      Item.Type
-#> 1 FUV8A7JK journalArticle
-#> 2 C7MRVHWA    bookSection
-#> 3 3EG6T4P6 journalArticle
-#>                                                         Publication.Title
-#> 1                                    Archaeological Review from Cambridge
-#> 2 Network analysis in archaeology. New approaches to regional interaction
-#> 3                                                      American Antiquity
-#>   Publication.Year          Authors
-#> 1             2014       Stoner, Jo
-#> 2             2013    Isaksen, Leif
-#> 3             1991 Peregrine, Peter
+```
+
+```
+##        Key      Item.Type
+## 1 FUV8A7JK journalArticle
+## 2 C7MRVHWA    bookSection
+## 3 3EG6T4P6 journalArticle
+##                                                         Publication.Title
+## 1                                    Archaeological Review from Cambridge
+## 2 Network analysis in archaeology. New approaches to regional interaction
+## 3                                                      American Antiquity
+##   Publication.Year          Authors
+## 1             2014       Stoner, Jo
+## 2             2013    Isaksen, Leif
+## 3             1991 Peregrine, Peter
+```
+
+```r
 # Read in incidence matrix of publication and author data
 bib_dat <-
   as.matrix(read.table(
@@ -526,20 +536,22 @@ lookup_prob <-
 # spurious results if you do not ensure these are the same.
 lookup_dat <- sort(data.frame(Key = lookup[,1], prob = lookup_prob))
 head(lookup_dat)
-#>          Key      prob
-#> 117 24QNVV37 0.9583333
-#> 86  29GVMCNZ 0.0625000
-#> 81  2QC8N5RN 1.0000000
-#> 112 2QU9ZNUG 0.8125000
-#> 126 2T8HPW5E 0.9583333
-#> 18  37TC37D2 1.0000000
+```
+
+```
+##          Key      prob
+## 117 24QNVV37 0.9583333
+## 86  29GVMCNZ 0.0625000
+## 81  2QC8N5RN 1.0000000
+## 112 2QU9ZNUG 0.8125000
+## 126 2T8HPW5E 0.9583333
+## 18  37TC37D2 1.0000000
 ```
 
 With the probabilities of retention for `missing_probs` in place, we can then call source code for our [sim_missing_inc.R script](scripts/sim_missing_inc.R) and run the function. Following the example in the book we run the function for `nsim = 1000` and for 3 sampling fractions `(0.9, 0.8, 0.7)` with the metric of interest as `betweenness`. Let's first run the function for our "probability by date" biased sampling process.
 
 
 ```r
-
 source("scripts/sim_missing_inc.R")
 
 # Run function
@@ -552,20 +564,22 @@ bib_bias <- sim_missing_inc(
   met = "betweenness",
 )
 head(bib_bias)
-#>   variable     value
-#> 1      0.9 0.9747220
-#> 2      0.9 0.9608842
-#> 3      0.9 0.9999614
-#> 4      0.9 0.9999803
-#> 5      0.9 0.9760737
-#> 6      0.9 0.9999803
+```
+
+```
+##   variable     value
+## 1      0.9 0.9747220
+## 2      0.9 0.9608842
+## 3      0.9 0.9999614
+## 4      0.9 0.9999803
+## 5      0.9 0.9760737
+## 6      0.9 0.9999803
 ```
 
 Next we want to run the function again to simulate nodes missing at random. All we need to do is change the `missing_probs` argument to `NA` (or exclude that argument altogether). Let's run it:
 
 
 ```r
-
 # Run the function
 set.seed(4363)
 bib_rand <- sim_missing_inc(
@@ -576,13 +590,16 @@ bib_rand <- sim_missing_inc(
   met = "betweenness"
 )
 head(bib_rand)
-#>   variable     value
-#> 1      0.9 0.9817859
-#> 2      0.9 0.9804552
-#> 3      0.9 0.9818085
-#> 4      0.9 0.8911948
-#> 5      0.9 0.8733779
-#> 6      0.9 1.0000000
+```
+
+```
+##   variable     value
+## 1      0.9 0.9817859
+## 2      0.9 0.9804552
+## 3      0.9 0.9818085
+## 4      0.9 0.8911948
+## 5      0.9 0.8733779
+## 6      0.9 1.0000000
 ```
 
 Now we can combine the results into a single data frame and plot them as paired box plots for comparison. In order to create paired box plots it is easiest to create a single data frame that contains the results of both runs above. We combine these and add a new column called "Treatment" that specifies for each row in the data frame whether it was part of the Random or Biased sample.
@@ -797,9 +814,14 @@ load("data/Cibola_wt.RData")
 
 # View first few edge weights in network object
 E(cibola_wt)$weight[1:10]
-#>  [1] 0.7050691 0.7757143 0.8348214 0.8656783 0.8028571 0.7329193 0.7509158
-#>  [8] 0.8441558 0.7857143 0.8102919
+```
 
+```
+##  [1] 0.7050691 0.7757143 0.8348214 0.8656783 0.8028571 0.7329193 0.7509158
+##  [8] 0.8441558 0.7857143 0.8102919
+```
+
+```r
 set.seed(4446347)
 sim_nets <- edge_prob(cibola_wt, nsim = 1000, probs = E(cibola_wt)$weight)
 ```

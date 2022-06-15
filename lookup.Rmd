@@ -217,28 +217,31 @@ The purpose of this section is to provide a quick index of topics covered in thi
   + [Proximity of Iron Age Sites in Southern Spain](#IronAgeSpain)
   + [Networks in Space in the U.S. Southwest](#SpaceSW)
   
-## Section 7: Going Beyond the Book{-}
+## Section 7: Exponential Random Graph Models{-}
 
-[Going Beyond the Book](#BeyondTheBook)
-
-* [Exponential Random Graph Models (ERGM)](#ERGM)
-  + [ERGMs in R](#ERGMsInR)
-  + [Cranborne Chase Visibility Network Example](#CranborneChase)
+[Exponential Random Graph Models](#ERGM)
+ 
+* [ERGMs in R](#ERGMsInR)
+* [Cranborne Chase Visibility Network Example](#CranborneChase)
   + [Assessments of Network Properties](#NetProperties)
   + [Fitting Models with `ergm`](#FitModels)
   + [Building a Model Based on Theory](#ModelTheory)
   + [Assessing Goodness-of-Fit](#GOF)
   + [Asessing Models and MCMC Diagnostics](#Diagnostics)
-  + [Simulating Networks from ERGMs](#SimERGMs)
-  + [Additinoal Info on ERGM Terms](#ERGMterms)
-    - [Avoiding Model Degeneracy](#Degeneracy)
-* [Spatial Interaction Models](#SpatialInteraction)
-  + [Simple Gravity Models](#GravityModel)
-    - [Parameterizing the Gravity Model](#ParameterizingGravity)
-  + [The Rihll and Wilson "Retail" Model](#RihllWilson)
-    - [Parameterizing the Retail Model](#ParameterizingRetail)
-  + [Truncated Power Functions](#TruncatedPower)
-  + [Other Spatial Interaction Models](#OtherModels)
+* [Simulating Networks from ERGMs](#SimERGMs)
+* [Additinoal Info on ERGM Terms](#ERGMterms)
+  + [Avoiding Model Degeneracy](#Degeneracy)
+
+## Section 8: Spatial Interaction Models{-}
+
+[Spatial Interaction Models](#SpatialInteraction)
+
+* [Simple Gravity Models](#GravityModel)
+  + [Parameterizing the Gravity Model](#ParameterizingGravity)
+* [The Rihll and Wilson "Retail" Model](#RihllWilson)
+  + [Parameterizing the Retail Model](#ParameterizingRetail)
+* [Truncated Power Functions](#TruncatedPower)
+* [Other Spatial Interaction Models](#OtherModels)
 
 ## References and R Packages{-}
 

@@ -1,10 +1,6 @@
-# Going Beyond the Book{#BeyondTheBook}
+# (PART) **Going Beyond the Book**{-}
 
-Although the Brughmans and Peeples (2022) book covers quite a bit, there are areas of network research that we did not have space to cover in detail. In this section, we plan to offer additional extended discussions of topics given limited attention in the published book or new topics or methods that come up in the future. If you have an idea for an addition here, don't hesitate to let us know we'll do our best to include it (or better yet, collaborate on creating a new section or tutorial to post here).
-
-In this initial version, we provide here an extended discussion of two topics that are given limited attention in the book: 1) exponential random graph models and 2) spatial interaction models.
-
-## Exponential Random Graph Models (ERGM){#ERGM}
+# Exponential Random Graph Models{#ERGM}
 
 Exponential Random Graph Models (ERGM; typically pronounced "UR-gum") are a class of statistical models designed to help represent, evaluate, and simulate ideas about network generating processes and structural properties (for a good introductions to the method see Lusher et al. 2013; and for archaeological cases see Amati et al. 2020; Brughmans et al. 2014; Wang and Marwick 2021). These models allow us to formally represent our theories about how particular patterns of relationships (such as paths of a given length or triads of a specific configuration) or associations (such as mutuality or connections among nodes that share an attribute) emerge and persist in our networks. Further ERGMs help us evaluate how well such theories account for our observed network data. Specifically, an ERGM can be used to generate large numbers of networks in a random process targeted towards particular configurations and associations that represent our theories of interest. We can then compare those simulated networks to our observed network to generate perspectives on the plausibility of our theory. Essentially, ERGMs help us determine how the local tendencies in network formation generate the global properties and structures of our networks.
 
@@ -58,7 +54,7 @@ probability of an event occurring is &gt; 0.5. Log odds will be exactly
 </div>
 
 
-### ERGMs in R {#ERGMsInR}
+## ERGMs in R {#ERGMsInR}
 
 In general, the analysis of ERGMs in R is conducted in three basic steps:
 
@@ -86,7 +82,7 @@ library(statnet) # initialize statnet library
 
 In many ways it is easiest to describe what ERGMs do and how they work by example. In the next sections we provide a couple of archaeological examples that highlight some of the ways ERGMs have or could be used in archaeology. We further provide additional resources for taking these methods further.
 
-### Cranborne Chase Visibility Network Example{#CranborneChase}
+## Cranborne Chase Visibility Network Example{#CranborneChase}
 
 We start with an example that was described briefly in the Brughmans and Peeples (2022) book in Chapter 4, but not covered in detail. Specifically, we explore the potential generative processes involved in the development of the intervisibility network among long barrows in the Cranborne Chase area in southern England. As this example is only briefly described in the Brughmans and Peeples (2022) book, you may also want to read and follow along with the original article where that analyses first appeared ([Brughmans and Brandes 2017](https://www.frontiersin.org/articles/10.3389/fdigh.2017.00017/)).
 
@@ -104,21 +100,24 @@ Let's start by bringing in our Cranborne Chase network data (as a `network` obje
 ```r
 load("data/cranborne.Rdata")
 cranborne
-#>  Network attributes:
-#>   vertices = 32 
-#>   directed = FALSE 
-#>   hyper = FALSE 
-#>   loops = FALSE 
-#>   multiple = FALSE 
-#>   bipartite = FALSE 
-#>   total edges= 46 
-#>     missing edges= 0 
-#>     non-missing edges= 46 
-#> 
-#>  Vertex attribute names: 
-#>     vertex.names 
-#> 
-#> No edge attributes
+```
+
+```
+##  Network attributes:
+##   vertices = 32 
+##   directed = FALSE 
+##   hyper = FALSE 
+##   loops = FALSE 
+##   multiple = FALSE 
+##   bipartite = FALSE 
+##   total edges= 46 
+##     missing edges= 0 
+##     non-missing edges= 46 
+## 
+##  Vertex attribute names: 
+##     vertex.names 
+## 
+## No edge attributes
 ```
 
 This network is an undirected, unweighted network object with 32 nodes and 46 edges. Let's look at a few properties of the network including density, mean degree, degree centralization, and number of isolates.
@@ -126,13 +125,34 @@ This network is an undirected, unweighted network object with 32 nodes and 46 ed
 
 ```r
 sna::gden(cranborne) # density
-#> [1] 0.09274194
+```
+
+```
+## [1] 0.09274194
+```
+
+```r
 mean(sna::degree(cranborne)) # mean degree
-#> [1] 5.75
+```
+
+```
+## [1] 5.75
+```
+
+```r
 sna::centralization(cranborne, g = 1, degree) # degree centralization
-#> [1] 0.1419355
+```
+
+```
+## [1] 0.1419355
+```
+
+```r
 length(sna::isolates(cranborne)) # numbe of isolates
-#> [1] 3
+```
+
+```
+## [1] 3
 ```
 
 This is a fairly sparse network with few isolates and a low degree centralization.
@@ -167,27 +187,51 @@ In the chunk of code below we see the form that `ergm` model objects take in R. 
 
 ```r
 mod_null <- ergm(cranborne ~ edges)
-#> Starting maximum pseudolikelihood estimation (MPLE):
-#> Evaluating the predictor and response matrix.
-#> Maximizing the pseudolikelihood.
-#> Finished MPLE.
-#> Stopping at the initial estimate.
-#> Evaluating log-likelihood at the estimate.
+```
+
+```
+## Starting maximum pseudolikelihood estimation (MPLE):
+```
+
+```
+## Evaluating the predictor and response matrix.
+```
+
+```
+## Maximizing the pseudolikelihood.
+```
+
+```
+## Finished MPLE.
+```
+
+```
+## Stopping at the initial estimate.
+```
+
+```
+## Evaluating log-likelihood at the estimate.
+```
+
+```r
 summary(mod_null)
-#> Call:
-#> ergm(formula = cranborne ~ edges)
-#> 
-#> Maximum Likelihood Results:
-#> 
-#>       Estimate Std. Error MCMC % z value Pr(>|z|)    
-#> edges  -2.2806     0.1548      0  -14.73   <1e-04 ***
-#> ---
-#> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-#> 
-#>      Null Deviance: 687.6  on 496  degrees of freedom
-#>  Residual Deviance: 306.4  on 495  degrees of freedom
-#>  
-#> AIC: 308.4  BIC: 312.6  (Smaller is better. MC Std. Err. = 0)
+```
+
+```
+## Call:
+## ergm(formula = cranborne ~ edges)
+## 
+## Maximum Likelihood Results:
+## 
+##       Estimate Std. Error MCMC % z value Pr(>|z|)    
+## edges  -2.2806     0.1548      0  -14.73   <1e-04 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+##      Null Deviance: 687.6  on 496  degrees of freedom
+##  Residual Deviance: 306.4  on 495  degrees of freedom
+##  
+## AIC: 308.4  BIC: 312.6  (Smaller is better. MC Std. Err. = 0)
 ```
 
 In the output above there are a number of important features that need explanation. 
@@ -212,7 +256,10 @@ So in this example, the likelihood of an edge between two particular nodes is `2
 
 ```r
 exp(-2.2806) / (1 + exp(-2.2806))
-#> [1] 0.09274246
+```
+
+```
+## [1] 0.09274246
 ```
 
 As we would expect, this number is very close to the density of the network which is what the `edges` term uses as a constraint (number of edges is a function of density):
@@ -220,7 +267,10 @@ As we would expect, this number is very close to the density of the network whic
 
 ```r
 sna::gden(cranborne)
-#> [1] 0.09274194
+```
+
+```
+## [1] 0.09274194
 ```
 
 What this indicates is that if we are trying to predict a given network state (a given set of present an absent edges) and the only information we know is the network density, the probability that a particular edge is present is roughly equal to the network density. As the coefficient is statistically significant, this means that there is a low probability (p-value) of obtaining a model with no terms at random that provides as good or better predictions of the observed than the model including the `edges` term.
@@ -275,26 +325,28 @@ mod1 <- ergm(
   )
 )
 summary(mod1)
-#> Call:
-#> ergm(formula = cranborne ~ edges + triangle + threetrail + altkstar(lambda = 2, 
-#>     fixed = TRUE), control = control.ergm(MCMC.burnin = 1000, 
-#>     MCMC.interval = 10000, MCMC.samplesize = 25000, seed = 34526))
-#> 
-#> Monte Carlo Maximum Likelihood Results:
-#> 
-#>            Estimate Std. Error MCMC % z value Pr(>|z|)    
-#> edges      -3.84281    1.05839      0  -3.631 0.000283 ***
-#> triangle    1.79394    0.24931      0   7.195  < 1e-04 ***
-#> threetrail -0.06218    0.02695      0  -2.307 0.021045 *  
-#> altkstar.2  0.73755    0.51720      0   1.426 0.153853    
-#> ---
-#> Signif. codes:  
-#> 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-#> 
-#>      Null Deviance: 687.6  on 496  degrees of freedom
-#>  Residual Deviance: 277.0  on 492  degrees of freedom
-#>  
-#> AIC: 285  BIC: 301.8  (Smaller is better. MC Std. Err. = 0.03905)
+```
+
+```
+## Call:
+## ergm(formula = cranborne ~ edges + triangle + threetrail + altkstar(lambda = 2, 
+##     fixed = TRUE), control = control.ergm(MCMC.burnin = 1000, 
+##     MCMC.interval = 10000, MCMC.samplesize = 25000, seed = 34526))
+## 
+## Monte Carlo Maximum Likelihood Results:
+## 
+##            Estimate Std. Error MCMC % z value Pr(>|z|)    
+## edges      -3.84281    1.05839      0  -3.631 0.000283 ***
+## triangle    1.79394    0.24931      0   7.195  < 1e-04 ***
+## threetrail -0.06218    0.02695      0  -2.307 0.021045 *  
+## altkstar.2  0.73755    0.51720      0   1.426 0.153853    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+##      Null Deviance: 687.6  on 496  degrees of freedom
+##  Residual Deviance: 277.0  on 492  degrees of freedom
+##  
+## AIC: 285  BIC: 301.8  (Smaller is better. MC Std. Err. = 0.03905)
 ```
 
 As our results show, we have three significant predictors: `edges`, `triangle`, and `threetrail` and `altkstar` is not significant just as Brughmans and Brandes (2017) found. Looking at our coefficients, our negative `edges` term suggests that edges are more likely absent than present in our model as we would expect given the density. For `triangle` we have a positive coefficient suggesting that `triangles` are more likely than we would expect by chance. Finally, `threetrails` are slightly less common than we would expect in a random network. The difference is small but statistically significant.
@@ -316,27 +368,29 @@ mod2 <- ergm(
   )
 )
 summary(mod2)
-#> Call:
-#> ergm(formula = cranborne ~ edges + triangle + threetrail + altkstar(2, 
-#>     fixed = TRUE) + isolates, control = control.ergm(MCMC.burnin = 1000, 
-#>     MCMC.interval = 10000, MCMC.samplesize = 25000, seed = 1346))
-#> 
-#> Monte Carlo Maximum Likelihood Results:
-#> 
-#>            Estimate Std. Error MCMC % z value Pr(>|z|)    
-#> edges      -8.62662    3.03274      0  -2.844  0.00445 ** 
-#> triangle    1.82713    0.23686      0   7.714  < 1e-04 ***
-#> threetrail -0.10134    0.03922      0  -2.584  0.00978 ** 
-#> altkstar.2  2.50887    1.20530      0   2.082  0.03738 *  
-#> isolates   -2.93421    1.67966      0  -1.747  0.08065 .  
-#> ---
-#> Signif. codes:  
-#> 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-#> 
-#>      Null Deviance: 687.6  on 496  degrees of freedom
-#>  Residual Deviance: 274.2  on 491  degrees of freedom
-#>  
-#> AIC: 284.2  BIC: 305.3  (Smaller is better. MC Std. Err. = 0.04273)
+```
+
+```
+## Call:
+## ergm(formula = cranborne ~ edges + triangle + threetrail + altkstar(2, 
+##     fixed = TRUE) + isolates, control = control.ergm(MCMC.burnin = 1000, 
+##     MCMC.interval = 10000, MCMC.samplesize = 25000, seed = 1346))
+## 
+## Monte Carlo Maximum Likelihood Results:
+## 
+##            Estimate Std. Error MCMC % z value Pr(>|z|)    
+## edges      -8.62662    3.03274      0  -2.844  0.00445 ** 
+## triangle    1.82713    0.23686      0   7.714  < 1e-04 ***
+## threetrail -0.10134    0.03922      0  -2.584  0.00978 ** 
+## altkstar.2  2.50887    1.20530      0   2.082  0.03738 *  
+## isolates   -2.93421    1.67966      0  -1.747  0.08065 .  
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+##      Null Deviance: 687.6  on 496  degrees of freedom
+##  Residual Deviance: 274.2  on 491  degrees of freedom
+##  
+## AIC: 284.2  BIC: 305.3  (Smaller is better. MC Std. Err. = 0.04273)
 ```
 
 In this model we again obtain results that mirror those of Brughmans and Brandes (2017). We see with our `edges` term a tendency for edges to be absent as we would expect. For `triangle` we see a strong tendency for closed triangles in our network as Tilley's model predicted. We do not however see a tendency towards visual pathways beyond what we would expect by chance as our `threetrail` term suggests a slight tendency away from these configurations. With the addition of the `isolates` term our `altkstar` term is significant and positive suggesting a tendency for some nodes to have higher degree than most. Finally, `isolates` is negative suggesting a tendency against isolated nodes but the p-value is a bit higher so we should not put too much interpretive weight in this coefficient estimate.
@@ -353,19 +407,27 @@ mod1_gof <- gof(mod1)
 mod2_gof <- gof(mod2)
 
 mod1_gof$summary.model
-#>                  obs      min      mean      max MC p-value
-#> edges       46.00000  33.0000  45.30000  59.0000       0.94
-#> triangle    17.00000   4.0000  16.27000  35.0000       0.96
-#> threetrail 446.00000 185.0000 425.82000 858.0000       0.88
-#> altkstar.2  91.34375  56.9375  88.94297 130.0781       0.86
+```
 
+```
+##                  obs      min      mean      max MC p-value
+## edges       46.00000  33.0000  45.30000  59.0000       0.94
+## triangle    17.00000   4.0000  16.27000  35.0000       0.96
+## threetrail 446.00000 185.0000 425.82000 858.0000       0.88
+## altkstar.2  91.34375  56.9375  88.94297 130.0781       0.86
+```
+
+```r
 mod2_gof$summary.model
-#>                  obs    min      mean      max MC p-value
-#> edges       46.00000  34.00  45.89000  59.0000       1.00
-#> triangle    17.00000   5.00  18.07000  43.0000       0.84
-#> threetrail 446.00000 209.00 447.84000 896.0000       0.92
-#> altkstar.2  91.34375  58.25  91.27828 134.7656       0.94
-#> isolates     3.00000   0.00   3.24000   9.0000       1.00
+```
+
+```
+##                  obs    min      mean      max MC p-value
+## edges       46.00000  34.00  45.89000  59.0000       1.00
+## triangle    17.00000   5.00  18.07000  43.0000       0.84
+## threetrail 446.00000 209.00 447.84000 896.0000       0.92
+## altkstar.2  91.34375  58.25  91.27828 134.7656       0.94
+## isolates     3.00000   0.00   3.24000   9.0000       1.00
 ```
 
 The summary output for each model shows the observed feature value for a given term and then the min, max, and mean value in the simulated networks. In general, we want the mean values to match closely with relatively small ranges around them. The MC p-value (Markov Chain p-value) provides and indication of fit here where higher numbers generally indicate a better fit. This is essentially the proportion of the steps in the chain where a given term met certain criteria. In general the results here suggest that the model terms generally provide a better fit for model 2 than model 1 (as Brughmans and Brandes also suggested using somewhat different goodness-of-fit statistics not directly calculated in `ergm`).
@@ -401,94 +463,84 @@ In order to assess our models, we can use the `mcmc.diagnostics` function. Here 
 ```r
 library(latticeExtra)
 mcmc.diagnostics(mod2)
-#> Sample statistics summary:
-#> 
-#> Iterations = 3127500:62500000
-#> Thinning interval = 2500 
-#> Number of chains = 1 
-#> Sample size per chain = 23750 
-#> 
-#> 1. Empirical mean and standard deviation for each variable,
-#>    plus standard error of the mean:
-#> 
-#>                 Mean      SD Naive SE Time-series SE
-#> edges      4.961e-01   5.810  0.03770        0.03936
-#> triangle   1.505e+00   8.300  0.05386        0.06611
-#> threetrail 2.358e+01 149.343  0.96906        1.07973
-#> altkstar.2 1.796e+00  17.066  0.11074        0.11878
-#> isolates   5.895e-04   1.799  0.01167        0.01167
-#> 
-#> 2. Quantiles for each variable:
-#> 
-#>               2.5%     25%    50%    75%  97.5%
-#> edges       -11.00  -3.000  1.000   4.00  12.00
-#> triangle    -11.00  -4.000  0.000   6.00  22.00
-#> threetrail -232.00 -81.000 11.000 114.00 357.00
-#> altkstar.2  -31.01  -9.656  1.595  13.08  35.78
-#> isolates     -3.00  -1.000  0.000   1.00   4.00
-#> 
-#> 
-#> Are sample statistics significantly different from observed?
-#>                   edges      triangle    threetrail
-#> diff.      4.961263e-01  1.505432e+00  2.358029e+01
-#> test stat. 1.260538e+01  2.277319e+01  2.183906e+01
-#> P-val.     1.972186e-36 8.456534e-115 9.875989e-106
-#>              altkstar.2     isolates Overall (Chi^2)
-#> diff.      1.795793e+00 0.0005894737              NA
-#> test stat. 1.511878e+01 0.0505052519    8.728784e+02
-#> P-val.     1.217728e-51 0.9597197643   1.031866e-182
-#> 
-#> Sample statistics cross-correlations:
-#>                 edges    triangle threetrail altkstar.2
-#> edges       1.0000000  0.66456994  0.8629153  0.9781116
-#> triangle    0.6645699  1.00000000  0.8495920  0.7523098
-#> threetrail  0.8629153  0.84959205  1.0000000  0.9371681
-#> altkstar.2  0.9781116  0.75230982  0.9371681  1.0000000
-#> isolates   -0.5432036 -0.05753382 -0.2053427 -0.3803291
-#>               isolates
-#> edges      -0.54320356
-#> triangle   -0.05753382
-#> threetrail -0.20534272
-#> altkstar.2 -0.38032908
-#> isolates    1.00000000
-#> 
-#> Sample statistics auto-correlation:
-#> Chain 1 
-#>                   edges     triangle   threetrail
-#> Lag 0      1.0000000000 1.000000e+00  1.000000000
-#> Lag 2500   0.0429091833 1.923780e-01  0.095528809
-#> Lag 5000   0.0097481059 4.664168e-02  0.021285573
-#> Lag 7500  -0.0004124377 8.484439e-03 -0.004538084
-#> Lag 10000  0.0013139749 3.333200e-03  0.002856167
-#> Lag 12500  0.0049697502 1.209685e-05  0.006275546
-#>             altkstar.2     isolates
-#> Lag 0      1.000000000  1.000000000
-#> Lag 2500   0.059569304  0.004099518
-#> Lag 5000   0.013925158 -0.006208182
-#> Lag 7500  -0.003439839  0.009006027
-#> Lag 10000  0.002174916  0.003930273
-#> Lag 12500  0.007192035 -0.006963082
-#> 
-#> Sample statistics burn-in diagnostic (Geweke):
-#> Chain 1 
-#> 
-#> Fraction in 1st window = 0.1
-#> Fraction in 2nd window = 0.5 
-#> 
-#>      edges   triangle threetrail altkstar.2   isolates 
-#>    -0.3864     0.6796     0.2605    -0.1335     0.7546 
-#> 
-#> Individual P-values (lower = worse):
-#>      edges   triangle threetrail altkstar.2   isolates 
-#>  0.6991902  0.4967317  0.7944651  0.8938198  0.4504707 
-#> Joint P-value (lower = worse):  0.7725547 .
+```
+
+```
+## Sample statistics summary:
+## 
+## Iterations = 3127500:62500000
+## Thinning interval = 2500 
+## Number of chains = 1 
+## Sample size per chain = 23750 
+## 
+## 1. Empirical mean and standard deviation for each variable,
+##    plus standard error of the mean:
+## 
+##                 Mean      SD Naive SE Time-series SE
+## edges      4.961e-01   5.810  0.03770        0.03936
+## triangle   1.505e+00   8.300  0.05386        0.06611
+## threetrail 2.358e+01 149.343  0.96906        1.07973
+## altkstar.2 1.796e+00  17.066  0.11074        0.11878
+## isolates   5.895e-04   1.799  0.01167        0.01167
+## 
+## 2. Quantiles for each variable:
+## 
+##               2.5%     25%    50%    75%  97.5%
+## edges       -11.00  -3.000  1.000   4.00  12.00
+## triangle    -11.00  -4.000  0.000   6.00  22.00
+## threetrail -232.00 -81.000 11.000 114.00 357.00
+## altkstar.2  -31.01  -9.656  1.595  13.08  35.78
+## isolates     -3.00  -1.000  0.000   1.00   4.00
+## 
+## 
+## Are sample statistics significantly different from observed?
+##                   edges      triangle    threetrail   altkstar.2     isolates
+## diff.      4.961263e-01  1.505432e+00  2.358029e+01 1.795793e+00 0.0005894737
+## test stat. 1.260538e+01  2.277319e+01  2.183906e+01 1.511878e+01 0.0505052519
+## P-val.     1.972186e-36 8.456534e-115 9.875989e-106 1.217728e-51 0.9597197643
+##            Overall (Chi^2)
+## diff.                   NA
+## test stat.    8.728784e+02
+## P-val.       1.031866e-182
+## 
+## Sample statistics cross-correlations:
+##                 edges    triangle threetrail altkstar.2    isolates
+## edges       1.0000000  0.66456994  0.8629153  0.9781116 -0.54320356
+## triangle    0.6645699  1.00000000  0.8495920  0.7523098 -0.05753382
+## threetrail  0.8629153  0.84959205  1.0000000  0.9371681 -0.20534272
+## altkstar.2  0.9781116  0.75230982  0.9371681  1.0000000 -0.38032908
+## isolates   -0.5432036 -0.05753382 -0.2053427 -0.3803291  1.00000000
+## 
+## Sample statistics auto-correlation:
+## Chain 1 
+##                   edges     triangle   threetrail   altkstar.2     isolates
+## Lag 0      1.0000000000 1.000000e+00  1.000000000  1.000000000  1.000000000
+## Lag 2500   0.0429091833 1.923780e-01  0.095528809  0.059569304  0.004099518
+## Lag 5000   0.0097481059 4.664168e-02  0.021285573  0.013925158 -0.006208182
+## Lag 7500  -0.0004124377 8.484439e-03 -0.004538084 -0.003439839  0.009006027
+## Lag 10000  0.0013139749 3.333200e-03  0.002856167  0.002174916  0.003930273
+## Lag 12500  0.0049697502 1.209685e-05  0.006275546  0.007192035 -0.006963082
+## 
+## Sample statistics burn-in diagnostic (Geweke):
+## Chain 1 
+## 
+## Fraction in 1st window = 0.1
+## Fraction in 2nd window = 0.5 
+## 
+##      edges   triangle threetrail altkstar.2   isolates 
+##    -0.3864     0.6796     0.2605    -0.1335     0.7546 
+## 
+## Individual P-values (lower = worse):
+##      edges   triangle threetrail altkstar.2   isolates 
+##  0.6991902  0.4967317  0.7944651  0.8938198  0.4504707 
+## Joint P-value (lower = worse):  0.7725547 .
 ```
 
 <img src="07-beyond-the-book_files/figure-html/unnamed-chunk-17-1.png" width="672" /><img src="07-beyond-the-book_files/figure-html/unnamed-chunk-17-2.png" width="672" />
 
 ```
-#> 
-#> MCMC diagnostics shown here are from the last round of simulation, prior to computation of final parameter estimates. Because the final estimates are refinements of those used for this simulation run, these diagnostics may understate model performance. To directly assess the performance of the final model on in-model statistics, please use the GOF command: gof(ergmFitObject, GOF=~model).
+## 
+## MCMC diagnostics shown here are from the last round of simulation, prior to computation of final parameter estimates. Because the final estimates are refinements of those used for this simulation run, these diagnostics may understate model performance. To directly assess the performance of the final model on in-model statistics, please use the GOF command: gof(ergmFitObject, GOF=~model).
 ```
 
 In this output the particularly relevant parts include:
@@ -517,7 +569,7 @@ can be done about it, including alternatives to the
 </div>
 
 
-### Simulating Networks from ERGMs{#SimERGMs}
+## Simulating Networks from ERGMs{#SimERGMs}
 
 It is possible to generate and explore network simulated using a particular ERGM using the `simulate` function. Let's generate some random networks from model 2 used above and then look at them along with the original network.
 
@@ -537,7 +589,6 @@ for (i in 1:9) {
 <img src="07-beyond-the-book_files/figure-html/unnamed-chunk-19-1.png" width="672" />
 
 ```r
-
 par(mfrow = c(1, 1)) # return to single panel
 plot(cranborne,
      vertex.cex = (sna::degree(cranborne) / 4) + 1)
@@ -547,7 +598,7 @@ plot(cranborne,
 
 These simulations help us better understand the model we have created. There are a obvious similarities between the original network and the simulations but there are also key differences. In particular, most of the random simulations created networks with a single large component whereas the original network has multiple components. This likely explains the mismatch in our goodness-of-fit statistics for geodesic distance. We could perhaps deal with this by including additional terms such as terms defined in relation to geographic location or clustering, but that is an experiment for another day.
 
-### Additional Info on ERGM Terms{#ERGMterms}
+## Additional Info on ERGM Terms{#ERGMterms}
 
 In the Cranborne Chase example above, we were working with a published example so the hard part (thinking about how a particular theory can be conceptualized in formal network model terms) was done for us. In practice, choosing terms to use can be quite difficult and confusing. This is particularly true because there are multiple terms that do essentially the same thing in different ways. In this section we first walk through a few of the other common options that were not covered above and then provide some advice on where to go next.
 
@@ -584,40 +635,43 @@ mod_cibola <- ergm(cibola_n ~ edges + nodematch("region") +
                      nodematch("pubarch", diff = TRUE) +
                      edgecov(d_mat))
 summary(mod_cibola)
-#> Call:
-#> ergm(formula = cibola_n ~ edges + nodematch("region") + nodematch("pubarch", 
-#>     diff = TRUE) + edgecov(d_mat))
-#> 
-#> Maximum Likelihood Results:
-#> 
-#>                                            Estimate Std. Error MCMC % z value
-#> edges                                     1.196e+00  3.513e-01      0   3.405
-#> nodematch.region                          1.299e+00  4.593e-01      0   2.828
-#> nodematch.pubarch.Cicular Great Kiva      2.843e-01  4.439e-01      0   0.640
-#> nodematch.pubarch.none                   -7.750e-01  2.763e-01      0  -2.805
-#> nodematch.pubarch.Rectangular Great Kiva -6.913e-01  5.448e-01      0  -1.269
-#> edgecov.d_mat                            -2.323e-05  3.847e-06      0  -6.039
-#>                                          Pr(>|z|)    
-#> edges                                    0.000662 ***
-#> nodematch.region                         0.004688 ** 
-#> nodematch.pubarch.Cicular Great Kiva     0.521864    
-#> nodematch.pubarch.none                   0.005026 ** 
-#> nodematch.pubarch.Rectangular Great Kiva 0.204441    
-#> edgecov.d_mat                             < 1e-04 ***
-#> ---
-#> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-#> 
-#>      Null Deviance: 644.6  on 465  degrees of freedom
-#>  Residual Deviance: 489.2  on 459  degrees of freedom
-#>  
-#> AIC: 501.2  BIC: 526.1  (Smaller is better. MC Std. Err. = 0)
+```
+
+```
+## Call:
+## ergm(formula = cibola_n ~ edges + nodematch("region") + nodematch("pubarch", 
+##     diff = TRUE) + edgecov(d_mat))
+## 
+## Maximum Likelihood Results:
+## 
+##                                            Estimate Std. Error MCMC % z value
+## edges                                     1.196e+00  3.513e-01      0   3.405
+## nodematch.region                          1.299e+00  4.593e-01      0   2.828
+## nodematch.pubarch.Cicular Great Kiva      2.843e-01  4.439e-01      0   0.640
+## nodematch.pubarch.none                   -7.750e-01  2.763e-01      0  -2.805
+## nodematch.pubarch.Rectangular Great Kiva -6.913e-01  5.448e-01      0  -1.269
+## edgecov.d_mat                            -2.323e-05  3.847e-06      0  -6.039
+##                                          Pr(>|z|)    
+## edges                                    0.000662 ***
+## nodematch.region                         0.004688 ** 
+## nodematch.pubarch.Cicular Great Kiva     0.521864    
+## nodematch.pubarch.none                   0.005026 ** 
+## nodematch.pubarch.Rectangular Great Kiva 0.204441    
+## edgecov.d_mat                             < 1e-04 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+##      Null Deviance: 644.6  on 465  degrees of freedom
+##  Residual Deviance: 489.2  on 459  degrees of freedom
+##  
+## AIC: 501.2  BIC: 526.1  (Smaller is better. MC Std. Err. = 0)
 ```
 
 This creates output just like our example above and this gives you a sense of how categorical and covariate ERGM terms work. In this example we have a positive coefficient for `edges` suggesting that there more edges are active than are not. Further, we have a positive coefficient for `nodematch.region` indicating that there are more edges between pairs of sites in the same region than would be expected by chance. If we skip down to `edgecov.d_mat` we can see the impact of distance on edges. We have a negative coefficient (which is very close to zero: `-2.323e-05`)which suggests that there are slight more longer distance connections than shorter ones in this network (because although there is a tendency for connections within regions there are also many connections between regions). Finally, we have the `nodematch.pubarch` variables for each value in `pubarch`. The only term that is statistically significant here is `nodematch.pubarch.none` which is negative suggesting that sites without public architecture have fewer connections than we would expect by chance.
 
 The examples above basically cover all of the common applications of `ergm` terms. There are terms that are specific to directed networks, weighted networks, bipartite networks, and even multilayers networks but the basic procedures of using them are covered in the examples above. Everything else is finding the right model to fit your data (and this really is the hard part). There is no magic bullet here but in general we suggest you carefully read the [ERGM term descriptions](https://zalmquist.github.io/ERGM_Lab/ergm-terms.html#:~:text=ergm%20functions%20such%20as%20ergm,valued%20mode%20and%20vice%20versa.) and consider how these different terms relate to your data and network theories. Your efforts will be better spent when your model is designed in relation to a specific and well-described network theory/hypothesis. We suggest reading the archaeological examples of ERGMs cited in this document and in the broader networks literature to get a sense of what is possible before diving into your own ERGM project. 
 
-#### Avoiding Model Degeneracy{#Degeneracy}
+### Avoiding Model Degeneracy{#Degeneracy}
 
 Model degeneracy refers to when a specified ERGM never converges. What this means is there is some term or combination of terms in the model that have created a situation where no networks with the given properties can be obtained (or can only be obtained in very rare combinations of circumstances). What this typically looks like when this happens in R is that you enter your `ergm` call at the command line and things appear to be going okay but then you eventually get hung up with something like "Estimating equations are not within tolerance region. Iteration 2 of at most 60" and nothing happens for a long time. 
 
@@ -644,22 +698,25 @@ Let's try our model again substituting the `gwesp` term in the place of `triangl
 mod_win <- ergm(cranborne ~ edges + gwesp(0.25, fixed = TRUE),
                 control = control.ergm(seed = 2362))
 summary(mod_win)
-#> Call:
-#> ergm(formula = cranborne ~ edges + gwesp(0.25, fixed = TRUE), 
-#>     control = control.ergm(seed = 2362))
-#> 
-#> Monte Carlo Maximum Likelihood Results:
-#> 
-#>                  Estimate Std. Error MCMC % z value Pr(>|z|)    
-#> edges             -3.4233     0.3252      0 -10.526   <1e-04 ***
-#> gwesp.fixed.0.25   1.0975     0.2614      0   4.198   <1e-04 ***
-#> ---
-#> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-#> 
-#>      Null Deviance: 687.6  on 496  degrees of freedom
-#>  Residual Deviance: 279.4  on 494  degrees of freedom
-#>  
-#> AIC: 283.4  BIC: 291.9  (Smaller is better. MC Std. Err. = 0.3086)
+```
+
+```
+## Call:
+## ergm(formula = cranborne ~ edges + gwesp(0.25, fixed = TRUE), 
+##     control = control.ergm(seed = 2362))
+## 
+## Monte Carlo Maximum Likelihood Results:
+## 
+##                  Estimate Std. Error MCMC % z value Pr(>|z|)    
+## edges             -3.4233     0.3252      0 -10.526   <1e-04 ***
+## gwesp.fixed.0.25   1.0975     0.2614      0   4.198   <1e-04 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+##      Null Deviance: 687.6  on 496  degrees of freedom
+##  Residual Deviance: 279.4  on 494  degrees of freedom
+##  
+## AIC: 283.4  BIC: 291.9  (Smaller is better. MC Std. Err. = 0.3086)
 ```
 
 So the model converges and we get `gwesp` as a statistically significant predictor with a positive coefficient estimate just as we saw with `triangle` in the complete model. Indeed if we include `gwesp` in the complete model we get results that largely mirror those above suggesting that this term is playing a similar role.
@@ -673,25 +730,28 @@ mod_win2 <-
     control = control.ergm(seed = 1346)
   )
 summary(mod_win2)
-#> Call:
-#> ergm(formula = cranborne ~ edges + gwesp(0.25, fixed = TRUE) + 
-#>     threetrail + altkstar(2, fixed = TRUE) + isolates, control = control.ergm(seed = 1346))
-#> 
-#> Monte Carlo Maximum Likelihood Results:
-#> 
-#>                  Estimate Std. Error MCMC % z value Pr(>|z|)    
-#> edges            -10.6887     3.5864      0  -2.980  0.00288 ** 
-#> gwesp.fixed.0.25   1.4626     0.3691      0   3.963  < 1e-04 ***
-#> threetrail        -0.0901     0.0464      0  -1.942  0.05213 .  
-#> altkstar.2         2.8456     1.3950      0   2.040  0.04136 *  
-#> isolates          -4.2948     1.9158      0  -2.242  0.02497 *  
-#> ---
-#> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-#> 
-#>      Null Deviance: 687.6  on 496  degrees of freedom
-#>  Residual Deviance: 272.3  on 491  degrees of freedom
-#>  
-#> AIC: 282.3  BIC: 303.3  (Smaller is better. MC Std. Err. = 0.5114)
+```
+
+```
+## Call:
+## ergm(formula = cranborne ~ edges + gwesp(0.25, fixed = TRUE) + 
+##     threetrail + altkstar(2, fixed = TRUE) + isolates, control = control.ergm(seed = 1346))
+## 
+## Monte Carlo Maximum Likelihood Results:
+## 
+##                  Estimate Std. Error MCMC % z value Pr(>|z|)    
+## edges            -10.6887     3.5864      0  -2.980  0.00288 ** 
+## gwesp.fixed.0.25   1.4626     0.3691      0   3.963  < 1e-04 ***
+## threetrail        -0.0901     0.0464      0  -1.942  0.05213 .  
+## altkstar.2         2.8456     1.3950      0   2.040  0.04136 *  
+## isolates          -4.2948     1.9158      0  -2.242  0.02497 *  
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+##      Null Deviance: 687.6  on 496  degrees of freedom
+##  Residual Deviance: 272.3  on 491  degrees of freedom
+##  
+## AIC: 282.3  BIC: 303.3  (Smaller is better. MC Std. Err. = 0.5114)
 ```
 
 What about the numbers we're providing to the `gwesp` term argument `(0.25, fixed = T)`. These number specify the so-called decay parameter in the model and whether or not that parameter should be fixed or allowed to vary across steps in the MCMC process. The details of this are well beyond the scope of this tutorial but suffice it to say that the general advice is to select the decay value that produces the best fit model in your given analysis. If you run your model without `fixed = T` the model will attempt to estimate the decay parameter and you will get an additional result in our output the specifies the coefficient for that decay term as well. Keep in mind that this is essentially adding a term to the model so it may then be harder or take longer to fit your models.
@@ -703,34 +763,37 @@ Here is an example:
 mod_nofix <- ergm(cranborne ~ edges + gwesp,
                   control = control.ergm(seed = 2362))
 summary(mod_nofix)
-#> Call:
-#> ergm(formula = cranborne ~ edges + gwesp, control = control.ergm(seed = 2362))
-#> 
-#> Monte Carlo Maximum Likelihood Results:
-#> 
-#>             Estimate Std. Error MCMC % z value Pr(>|z|)    
-#> edges        -3.4081     0.3144      0 -10.840  < 1e-04 ***
-#> gwesp         1.0186     0.2972      0   3.427  0.00061 ***
-#> gwesp.decay   0.3447     0.2914      0   1.183  0.23698    
-#> ---
-#> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-#> 
-#>      Null Deviance: 687.6  on 496  degrees of freedom
-#>  Residual Deviance: 279.6  on 493  degrees of freedom
-#>  
-#> AIC: 285.6  BIC: 298.2  (Smaller is better. MC Std. Err. = 0.3423)
+```
+
+```
+## Call:
+## ergm(formula = cranborne ~ edges + gwesp, control = control.ergm(seed = 2362))
+## 
+## Monte Carlo Maximum Likelihood Results:
+## 
+##             Estimate Std. Error MCMC % z value Pr(>|z|)    
+## edges        -3.4081     0.3144      0 -10.840  < 1e-04 ***
+## gwesp         1.0186     0.2972      0   3.427  0.00061 ***
+## gwesp.decay   0.3447     0.2914      0   1.183  0.23698    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+##      Null Deviance: 687.6  on 496  degrees of freedom
+##  Residual Deviance: 279.6  on 493  degrees of freedom
+##  
+## AIC: 285.6  BIC: 298.2  (Smaller is better. MC Std. Err. = 0.3423)
 ```
 
 
 In addition to the `gwesp` term, there are many additional terms [listed here](https://zalmquist.github.io/ERGM_Lab/ergm-terms.html#:~:text=ergm%20functions%20such%20as%20ergm,valued%20mode%20and%20vice%20versa.) which fill similar roles and help you build models that avoid degeneracy. For more information see Hunter and Handcock (2006).
 
-## Spatial Interaction Models{#SpatialInteraction}
+# Spatial Interaction Models{#SpatialInteraction}
 
 In the [Spatial Networks](#SpatialNetworks) section of this document we cover most of the simple network models for generating spatial networks based on absolute distance, configurations of locations, and territories. There is one general class of spatial network model that we described briefly in the Brughmans and Peeples (2022) book but did not cover in detail as the specifics require considerably more discussion. This includes a wide variety of spatial interaction models such as gravity models, truncated power functions, radiation models, and similar custom derivations of these approaches. In general, a spatial interaction model is a formal mathematical model that is used to predict the movement of people (or other sorts of entities) between origins and destinations. These models typically use information on the relative sizes or "attractiveness" of origins and destinations or other additional information on volumes of flows in and out. Such models have long been popular in geography, economics, and other fields for doing things like predicting the amount of trade between cities or nations or predicting or improving the location of services in a given geographic extent. Statistical spatial interaction models have been used in archaeology as well for both empirical and simulation studies (e.g., Bevan and Wilson 2013; Evans et al. 2011; Gauthier 2020; Paliou and Bevan 2016; Rihll and Wilson 1987) though they have not had nearly the impact they have had in other fields. We suggest that there is considerable potential for these models, in particular in contexts where we have other independent information for evaluating network flows across a study area.
 
 In this section, we briefly outline a few common spatial interaction models and provide examples. For additional detailed overview and examples of these models there are several useful publications (see [Evans et al. 2011](https://www.researchgate.net/publication/277221754_Interactions_In_Space_For_Archaeological_Models); [Rivers et al. 2011](https://plato.tp.ph.ic.ac.uk/~time/networks/arch/BevanRewriteFigTableInText110727.pdf); and [Amati et al. 2018](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5797198/)). 
 
-### Simple Gravity Models{#GravityModel}
+## Simple Gravity Models{#GravityModel}
 
 We'll start here with the very simple gravity model. This model is built on the notion that the "mass" of population at different origins and destinations creates attractive forces between them that is further influenced by the space and travel costs between them. This model takes many forms but the simplest can be written as:
 
@@ -842,7 +905,6 @@ superheat(test1)
 <img src="07-beyond-the-book_files/figure-html/unnamed-chunk-29-1.png" width="672" />
 
 ```r
-
 library(scales)
 df <- data.frame(Flow = rowSums(test1), Area = wankarani$Area)
 
@@ -940,7 +1002,6 @@ superheat(test2)
 <img src="07-beyond-the-book_files/figure-html/unnamed-chunk-31-1.png" width="672" />
 
 ```r
-
 df <- data.frame(Flow = rowSums(test2), Area = wankarani$Area)
 
 ggplot(data = df) +
@@ -1008,7 +1069,7 @@ ggmap(base_bolivia, darken = 0.35) +
 
 When we lower the `B` $\beta$ parameter we get a stronger linear relationship between site area and flow. Further, when we look at the network, we see a more even degree distribution (though there are still nodes with higher degree) and more distributed edge weights across the network, though the high values are still. concentrated in the eastern cluster. 
 
-#### Parameterizing the Gravity Model{#ParameterizeGravity}
+### Parameterizing the Gravity Model{#ParameterizeGravity}
 
 The simple model above uses just a single parameter $\beta$ and is largely based on empirical information on the distance among settlements and their sizes. The basic assumption here is that larger sizes "attract" more flow and also have more flow to provide to other sites. Distance is also important and the $\beta$ parameter determines the decay rate of distance as the plot below illustrates. 
 
@@ -1043,7 +1104,7 @@ ggplot(data = df) +
 
 As we see in the plot above, the decay rate varies at different values of $\beta$ and also in relation to the distance between points. How then, do we select the appropriate $\beta$ in a model like this? There are a few ways to address this question depending on data availability and the nature of the issue such networks are being used to address. First, do we have some independent measure of network flow among our sites? For example, perhaps we could take information on the number or diversity of trade wares recovered at each site. We might expect sites with greater flow to have higher numbers or more diverse trade ware assemblages. We could evaluate this proposition using regression models and determine which $\beta$ provides the best fit for the data and theory. Often, however, when we are working with simple gravity models we have somewhat limited data and cannot make such direct comparisons. It is possible that we have a theoretical expectation for the shape of the decay curve as shown above (note that distances could also be things like cost-distance here so perhaps we have a notion of maximal travel times or a caloric budget for movement) and we can certainly factor that into our model. As we will see below, however, there are alternatives to the simple gravity model that provide additional avenues for evaluating model fit.
 
-### The Rihll and Wilson "Retail" Model{#RihllWilson}
+## The Rihll and Wilson "Retail" Model{#RihllWilson}
 
 One of the most popular extensions of the gravity model in archaeology was published by Rihll and Wilson in 1987 for their study of Greek city states in the 9th through 8th centuries B.C. They used a spatial interaction model that is sometimes called the "retail" model. This approach was originally designed for assessing the likely flows of resources into retail shops and how that can lead to shop growth/increased income and the establishment of a small number of super-centers that receive a large share of the overall available flow (often at the expense of smaller shops). When thinking about this model in a settlement context, the "flows" are people and resources and the growth of highly central nodes in the network is used to approximate the development of settlement hierarchy and the growth of large settlement centers. 
 
@@ -1243,7 +1304,6 @@ ggmap(map) +
 <img src="07-beyond-the-book_files/figure-html/unnamed-chunk-38-1.png" width="672" />
 
 ```r
-
 knitr::kable(dat[rw2$terminals,])
 ```
 
@@ -1284,7 +1344,6 @@ ggmap(map) +
 <img src="07-beyond-the-book_files/figure-html/unnamed-chunk-39-1.png" width="672" />
 
 ```r
-
 knitr::kable(dat[rw3$terminals,])
 ```
 
@@ -1312,7 +1371,7 @@ knitr::kable(dat[rw3$terminals,])
 
 As this map illustrates, increasing $\beta$ increases the distance decay meaning that local interactions are more important leading to a more even distribution of $W_j$ values and more terminal sites (which are further somewhat spatially clustered). 
 
-#### Parameterizing the Retail Model{#ParameterizingRetail}
+### Parameterizing the Retail Model{#ParameterizingRetail}
 
 How might we select appropriate values for $\alpha$ and $\beta$ in our model? The approach Rihll and Wilson and many subsequent researchers have taken (see Bevan and Wilson 2013; Filet 2017) is to use our knowledge of the archaeological record and regional settlement patterns and to select a model that is most consistent with that knowledge. Our model creates more or fewer highly central nodes depending on how we set our parameters. As we noted above, the terminal nodes we defined consistently include historically important and large sites like Athens suggesting that our model is likely doing something reasonable. One potential approach would be to run comparisons for a plausible range of values for $\alpha$ and $\beta$ and to evaluate relationships with our own archaeological knowledge of settlement hierarchy and which sites/places are defined as terminal sites or highly central places in our model. 
 
@@ -1357,9 +1416,15 @@ load(file = "data/retail_pars.Rdata")
 
 library(reshape2)
 library(ggraph)
-#> Registered S3 method overwritten by 'ggforce':
-#>   method           from 
-#>   scale_type.units units
+```
+
+```
+## Registered S3 method overwritten by 'ggforce':
+##   method           from 
+##   scale_type.units units
+```
+
+```r
 res_df <- melt(res)
 
 ggplot(data = res_df) +
@@ -1374,7 +1439,7 @@ ggplot(data = res_df) +
 
 As this plot shows low values for both $\alpha$ and $\beta$ tend to generate networks with lots of terminals but the relationship between these parameters is not linear. Based on this and our knowledge of the archaeological record, we could make an argument for evaluating a particular combination of parameters but there is certainly no single way to make that decision. To see further expansions of such an approach that attempts to deal with incomplete survey data and other kinds of considerations of settlement prominence, see the published example by [Bevan and Wilson (2013)](https://www.researchgate.net/publication/257154745_Models_of_settlement_hierarchy_based_on_partial_evidence).
 
-### Truncated Power Functions{#TruncatedPower}
+## Truncated Power Functions{#TruncatedPower}
 
 Another similar spatial interaction model was used in a study by [Menze and Ur (2012)](https://dash.harvard.edu/handle/1/8523994) in their exploration of networks in northern Mesopotamia. Their model is quite similar to the simple gravity model we saw above but with a couple of additional parameters and constraints. We leave the details of the approach to the published article but briefly describe their model here. This truncated power function requires information on settlement location, some measure of size or "attraction," and three parameter values. Edge interaction $E_{ij}$ in this model can be formally defined as:
 
@@ -1438,7 +1503,6 @@ We can now plot the sites again, this time with points scaled based on the total
 
 
 ```r
-
 edge_flow <- rowSums(res_mat)
 
 ggplot(mesop) +
@@ -1484,7 +1548,7 @@ ggplot(data = df) +
 
 We could go about parameterizing this truncated power function in much the same way that we saw with the models above (i.e., testing values and evaluating results against the archaeological pattern). Indeed that is what Menze and Ur do but with a slight twist on what we've seen so far. In their case, they are lucky enough to have remotely sensed data on actual trails among sites for some portion of their study area. How they selected model parameters is by testing a range of values for all parameters and selecting the set that produced the closest match between site to site network edges and the orientations of actual observed trails (there are some methodological details I'm glossing over here so refer to the article for more). As this illustrates, there are many potential ways to select model parameters based on empirical information.
 
-### Radiation Models{#RadiationModels}
+## Radiation Models{#RadiationModels}
 
 In 2012 Filippo Simini and colleagues ([Simini et al. 2012](https://dspace.mit.edu/handle/1721.1/77896)) presented a new model, designed specifically to model human geographic mobility called the radiation model. This model was created explicitly as an alternative to various gravity models and, in certain cases, was demonstrated to generate improved empirical predictions of human population movement between origins and destinations. This model shares some basic features with gravity models but importantly, the approach includes no parameters at all. Instead, this model uses simply measures of population at a set of sites and the distances between them. That is all that is required so this model is relatively simple and could likely be applied in many archaeological cases. Let's take a look at how it is formally defined: 
 
@@ -1659,6 +1723,6 @@ ggplot(data = df) +
 
 We are aware of few published examples of the use of radiation models for archaeological cases, but there is certainly potential (see Evans 2016).
 
-### Other Spatial Interaction Models{#OtherModels}
+## Other Spatial Interaction Models{#OtherModels}
 
 There are many other spatial interaction models we haven't covered here. Most are fairly similar in that they take information on site size, perhaps other relevant archaeological information, and a few user selected parameters to model flows across edges and sometimes to iteratively predict sizes of nodes, the weights of flows, or both. Other common models we haven't covered here include the XTENT model (Renfrew and Level 1979; see Ducke and Suchowska 2021 for an example with code for GRASS GIS) and various derivations of MaxEnt (or maximum entropy) models. Another approach that merits mention here is the [ariadne model](https://figshare.com/articles/dataset/ariadne/97746) designed by Tim Evans and used in collaboration with Ray Rivers, Carl Knappett, and others. This model provides a means for predicting site features and estimating optimal networks based on location and very general size information (or other archaeological features). This model has features that make it particularly useful for generating directed spatial networks (see [Evans et al. 2011](https://plato.tp.ph.ic.ac.uk/~time/networks/arch/interactionsArxivSubmissionV2.pdf)). Although there is a basic R implementation for the ariadne model developed by the ISAAKiel team [available here](https://rdrr.io/github/CRC1266-A2/moin/src/R/hamiltonian.R) the computational constraints make this function unfeasible in R for all but very small networks. Instead, if you are interested in applying the ariadne model, we suggest you use the original Java program created by Tim Evans and [available here](https://figshare.com/articles/dataset/ariadne/97746).

@@ -1,10 +1,6 @@
-# Going Beyond the Book{#BeyondTheBook}
+# (PART) **Going Beyond the Book**{-}
 
-Although the Brughmans and Peeples (2022) book covers quite a bit, there are areas of network research that we did not have space to cover in detail. In this section, we plan to offer additional extended discussions of topics given limited attention in the published book or new topics or methods that come up in the future. If you have an idea for an addition here, don't hesitate to let us know we'll do our best to include it (or better yet, collaborate on creating a new section or tutorial to post here).
-
-In this initial version, we provide here an extended discussion of two topics that are given limited attention in the book: 1) exponential random graph models and 2) spatial interaction models.
-
-## Exponential Random Graph Models (ERGM){#ERGM}
+# Exponential Random Graph Models{#ERGM}
 
 Exponential Random Graph Models (ERGM; typically pronounced "UR-gum") are a class of statistical models designed to help represent, evaluate, and simulate ideas about network generating processes and structural properties (for a good introductions to the method see Lusher et al. 2013; and for archaeological cases see Amati et al. 2020; Brughmans et al. 2014; Wang and Marwick 2021). These models allow us to formally represent our theories about how particular patterns of relationships (such as paths of a given length or triads of a specific configuration) or associations (such as mutuality or connections among nodes that share an attribute) emerge and persist in our networks. Further ERGMs help us evaluate how well such theories account for our observed network data. Specifically, an ERGM can be used to generate large numbers of networks in a random process targeted towards particular configurations and associations that represent our theories of interest. We can then compare those simulated networks to our observed network to generate perspectives on the plausibility of our theory. Essentially, ERGMs help us determine how the local tendencies in network formation generate the global properties and structures of our networks.
 
@@ -50,7 +46,7 @@ Negative log odds values indicate that probability of an event occurring is < 0.
 ```
 
 
-### ERGMs in R {#ERGMsInR}
+## ERGMs in R {#ERGMsInR}
 
 In general, the analysis of ERGMs in R is conducted in three basic steps:
 
@@ -72,7 +68,7 @@ library(statnet) # initialize statnet library
 
 In many ways it is easiest to describe what ERGMs do and how they work by example. In the next sections we provide a couple of archaeological examples that highlight some of the ways ERGMs have or could be used in archaeology. We further provide additional resources for taking these methods further.
 
-### Cranborne Chase Visibility Network Example{#CranborneChase}
+## Cranborne Chase Visibility Network Example{#CranborneChase}
 
 We start with an example that was described briefly in the Brughmans and Peeples (2022) book in Chapter 4, but not covered in detail. Specifically, we explore the potential generative processes involved in the development of the intervisibility network among long barrows in the Cranborne Chase area in southern England. As this example is only briefly described in the Brughmans and Peeples (2022) book, you may also want to read and follow along with the original article where that analyses first appeared ([Brughmans and Brandes 2017](https://www.frontiersin.org/articles/10.3389/fdigh.2017.00017/)).
 
@@ -277,7 +273,7 @@ Let's consider that our network has 32 nodes and 46 edges with 17 closed triangl
 ```
 
 
-### Simulating Networks from ERGMs{#SimERGMs}
+## Simulating Networks from ERGMs{#SimERGMs}
 
 It is possible to generate and explore network simulated using a particular ERGM using the `simulate` function. Let's generate some random networks from model 2 used above and then look at them along with the original network.
 
@@ -299,7 +295,7 @@ plot(cranborne,
 
 These simulations help us better understand the model we have created. There are a obvious similarities between the original network and the simulations but there are also key differences. In particular, most of the random simulations created networks with a single large component whereas the original network has multiple components. This likely explains the mismatch in our goodness-of-fit statistics for geodesic distance. We could perhaps deal with this by including additional terms such as terms defined in relation to geographic location or clustering, but that is an experiment for another day.
 
-### Additional Info on ERGM Terms{#ERGMterms}
+## Additional Info on ERGM Terms{#ERGMterms}
 
 In the Cranborne Chase example above, we were working with a published example so the hard part (thinking about how a particular theory can be conceptualized in formal network model terms) was done for us. In practice, choosing terms to use can be quite difficult and confusing. This is particularly true because there are multiple terms that do essentially the same thing in different ways. In this section we first walk through a few of the other common options that were not covered above and then provide some advice on where to go next.
 
@@ -340,7 +336,7 @@ This creates output just like our example above and this gives you a sense of ho
 
 The examples above basically cover all of the common applications of `ergm` terms. There are terms that are specific to directed networks, weighted networks, bipartite networks, and even multilayers networks but the basic procedures of using them are covered in the examples above. Everything else is finding the right model to fit your data (and this really is the hard part). There is no magic bullet here but in general we suggest you carefully read the [ERGM term descriptions](https://zalmquist.github.io/ERGM_Lab/ergm-terms.html#:~:text=ergm%20functions%20such%20as%20ergm,valued%20mode%20and%20vice%20versa.) and consider how these different terms relate to your data and network theories. Your efforts will be better spent when your model is designed in relation to a specific and well-described network theory/hypothesis. We suggest reading the archaeological examples of ERGMs cited in this document and in the broader networks literature to get a sense of what is possible before diving into your own ERGM project. 
 
-#### Avoiding Model Degeneracy{#Degeneracy}
+### Avoiding Model Degeneracy{#Degeneracy}
 
 Model degeneracy refers to when a specified ERGM never converges. What this means is there is some term or combination of terms in the model that have created a situation where no networks with the given properties can be obtained (or can only be obtained in very rare combinations of circumstances). What this typically looks like when this happens in R is that you enter your `ergm` call at the command line and things appear to be going okay but then you eventually get hung up with something like "Estimating equations are not within tolerance region. Iteration 2 of at most 60" and nothing happens for a long time. 
 
@@ -391,13 +387,13 @@ summary(mod_nofix)
 
 In addition to the `gwesp` term, there are many additional terms [listed here](https://zalmquist.github.io/ERGM_Lab/ergm-terms.html#:~:text=ergm%20functions%20such%20as%20ergm,valued%20mode%20and%20vice%20versa.) which fill similar roles and help you build models that avoid degeneracy. For more information see Hunter and Handcock (2006).
 
-## Spatial Interaction Models{#SpatialInteraction}
+# Spatial Interaction Models{#SpatialInteraction}
 
 In the [Spatial Networks](#SpatialNetworks) section of this document we cover most of the simple network models for generating spatial networks based on absolute distance, configurations of locations, and territories. There is one general class of spatial network model that we described briefly in the Brughmans and Peeples (2022) book but did not cover in detail as the specifics require considerably more discussion. This includes a wide variety of spatial interaction models such as gravity models, truncated power functions, radiation models, and similar custom derivations of these approaches. In general, a spatial interaction model is a formal mathematical model that is used to predict the movement of people (or other sorts of entities) between origins and destinations. These models typically use information on the relative sizes or "attractiveness" of origins and destinations or other additional information on volumes of flows in and out. Such models have long been popular in geography, economics, and other fields for doing things like predicting the amount of trade between cities or nations or predicting or improving the location of services in a given geographic extent. Statistical spatial interaction models have been used in archaeology as well for both empirical and simulation studies (e.g., Bevan and Wilson 2013; Evans et al. 2011; Gauthier 2020; Paliou and Bevan 2016; Rihll and Wilson 1987) though they have not had nearly the impact they have had in other fields. We suggest that there is considerable potential for these models, in particular in contexts where we have other independent information for evaluating network flows across a study area.
 
 In this section, we briefly outline a few common spatial interaction models and provide examples. For additional detailed overview and examples of these models there are several useful publications (see [Evans et al. 2011](https://www.researchgate.net/publication/277221754_Interactions_In_Space_For_Archaeological_Models); [Rivers et al. 2011](https://plato.tp.ph.ic.ac.uk/~time/networks/arch/BevanRewriteFigTableInText110727.pdf); and [Amati et al. 2018](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5797198/)). 
 
-### Simple Gravity Models{#GravityModel}
+## Simple Gravity Models{#GravityModel}
 
 We'll start here with the very simple gravity model. This model is built on the notion that the "mass" of population at different origins and destinations creates attractive forces between them that is further influenced by the space and travel costs between them. This model takes many forms but the simplest can be written as:
 
@@ -651,7 +647,7 @@ ggmap(base_bolivia, darken = 0.35) +
 
 When we lower the `B` $\beta$ parameter we get a stronger linear relationship between site area and flow. Further, when we look at the network, we see a more even degree distribution (though there are still nodes with higher degree) and more distributed edge weights across the network, though the high values are still. concentrated in the eastern cluster. 
 
-#### Parameterizing the Gravity Model{#ParameterizeGravity}
+### Parameterizing the Gravity Model{#ParameterizeGravity}
 
 The simple model above uses just a single parameter $\beta$ and is largely based on empirical information on the distance among settlements and their sizes. The basic assumption here is that larger sizes "attract" more flow and also have more flow to provide to other sites. Distance is also important and the $\beta$ parameter determines the decay rate of distance as the plot below illustrates. 
 
@@ -683,7 +679,7 @@ ggplot(data = df) +
 
 As we see in the plot above, the decay rate varies at different values of $\beta$ and also in relation to the distance between points. How then, do we select the appropriate $\beta$ in a model like this? There are a few ways to address this question depending on data availability and the nature of the issue such networks are being used to address. First, do we have some independent measure of network flow among our sites? For example, perhaps we could take information on the number or diversity of trade wares recovered at each site. We might expect sites with greater flow to have higher numbers or more diverse trade ware assemblages. We could evaluate this proposition using regression models and determine which $\beta$ provides the best fit for the data and theory. Often, however, when we are working with simple gravity models we have somewhat limited data and cannot make such direct comparisons. It is possible that we have a theoretical expectation for the shape of the decay curve as shown above (note that distances could also be things like cost-distance here so perhaps we have a notion of maximal travel times or a caloric budget for movement) and we can certainly factor that into our model. As we will see below, however, there are alternatives to the simple gravity model that provide additional avenues for evaluating model fit.
 
-### The Rihll and Wilson "Retail" Model{#RihllWilson}
+## The Rihll and Wilson "Retail" Model{#RihllWilson}
 
 One of the most popular extensions of the gravity model in archaeology was published by Rihll and Wilson in 1987 for their study of Greek city states in the 9th through 8th centuries B.C. They used a spatial interaction model that is sometimes called the "retail" model. This approach was originally designed for assessing the likely flows of resources into retail shops and how that can lead to shop growth/increased income and the establishment of a small number of super-centers that receive a large share of the overall available flow (often at the expense of smaller shops). When thinking about this model in a settlement context, the "flows" are people and resources and the growth of highly central nodes in the network is used to approximate the development of settlement hierarchy and the growth of large settlement centers. 
 
@@ -880,7 +876,7 @@ knitr::kable(dat[rw3$terminals,])
 
 As this map illustrates, increasing $\beta$ increases the distance decay meaning that local interactions are more important leading to a more even distribution of $W_j$ values and more terminal sites (which are further somewhat spatially clustered). 
 
-#### Parameterizing the Retail Model{#ParameterizingRetail}
+### Parameterizing the Retail Model{#ParameterizingRetail}
 
 How might we select appropriate values for $\alpha$ and $\beta$ in our model? The approach Rihll and Wilson and many subsequent researchers have taken (see Bevan and Wilson 2013; Filet 2017) is to use our knowledge of the archaeological record and regional settlement patterns and to select a model that is most consistent with that knowledge. Our model creates more or fewer highly central nodes depending on how we set our parameters. As we noted above, the terminal nodes we defined consistently include historically important and large sites like Athens suggesting that our model is likely doing something reasonable. One potential approach would be to run comparisons for a plausible range of values for $\alpha$ and $\beta$ and to evaluate relationships with our own archaeological knowledge of settlement hierarchy and which sites/places are defined as terminal sites or highly central places in our model. 
 
@@ -934,7 +930,7 @@ ggplot(data = res_df) +
 
 As this plot shows low values for both $\alpha$ and $\beta$ tend to generate networks with lots of terminals but the relationship between these parameters is not linear. Based on this and our knowledge of the archaeological record, we could make an argument for evaluating a particular combination of parameters but there is certainly no single way to make that decision. To see further expansions of such an approach that attempts to deal with incomplete survey data and other kinds of considerations of settlement prominence, see the published example by [Bevan and Wilson (2013)](https://www.researchgate.net/publication/257154745_Models_of_settlement_hierarchy_based_on_partial_evidence).
 
-### Truncated Power Functions{#TruncatedPower}
+## Truncated Power Functions{#TruncatedPower}
 
 Another similar spatial interaction model was used in a study by [Menze and Ur (2012)](https://dash.harvard.edu/handle/1/8523994) in their exploration of networks in northern Mesopotamia. Their model is quite similar to the simple gravity model we saw above but with a couple of additional parameters and constraints. We leave the details of the approach to the published article but briefly describe their model here. This truncated power function requires information on settlement location, some measure of size or "attraction," and three parameter values. Edge interaction $E_{ij}$ in this model can be formally defined as:
 
@@ -1037,7 +1033,7 @@ ggplot(data = df) +
 
 We could go about parameterizing this truncated power function in much the same way that we saw with the models above (i.e., testing values and evaluating results against the archaeological pattern). Indeed that is what Menze and Ur do but with a slight twist on what we've seen so far. In their case, they are lucky enough to have remotely sensed data on actual trails among sites for some portion of their study area. How they selected model parameters is by testing a range of values for all parameters and selecting the set that produced the closest match between site to site network edges and the orientations of actual observed trails (there are some methodological details I'm glossing over here so refer to the article for more). As this illustrates, there are many potential ways to select model parameters based on empirical information.
 
-### Radiation Models{#RadiationModels}
+## Radiation Models{#RadiationModels}
 
 In 2012 Filippo Simini and colleagues ([Simini et al. 2012](https://dspace.mit.edu/handle/1721.1/77896)) presented a new model, designed specifically to model human geographic mobility called the radiation model. This model was created explicitly as an alternative to various gravity models and, in certain cases, was demonstrated to generate improved empirical predictions of human population movement between origins and destinations. This model shares some basic features with gravity models but importantly, the approach includes no parameters at all. Instead, this model uses simply measures of population at a set of sites and the distances between them. That is all that is required so this model is relatively simple and could likely be applied in many archaeological cases. Let's take a look at how it is formally defined: 
 
@@ -1204,6 +1200,6 @@ ggplot(data = df) +
 
 We are aware of few published examples of the use of radiation models for archaeological cases, but there is certainly potential (see Evans 2016).
 
-### Other Spatial Interaction Models{#OtherModels}
+## Other Spatial Interaction Models{#OtherModels}
 
 There are many other spatial interaction models we haven't covered here. Most are fairly similar in that they take information on site size, perhaps other relevant archaeological information, and a few user selected parameters to model flows across edges and sometimes to iteratively predict sizes of nodes, the weights of flows, or both. Other common models we haven't covered here include the XTENT model (Renfrew and Level 1979; see Ducke and Suchowska 2021 for an example with code for GRASS GIS) and various derivations of MaxEnt (or maximum entropy) models. Another approach that merits mention here is the [ariadne model](https://figshare.com/articles/dataset/ariadne/97746) designed by Tim Evans and used in collaboration with Ray Rivers, Carl Knappett, and others. This model provides a means for predicting site features and estimating optimal networks based on location and very general size information (or other archaeological features). This model has features that make it particularly useful for generating directed spatial networks (see [Evans et al. 2011](https://plato.tp.ph.ic.ac.uk/~time/networks/arch/interactionsArxivSubmissionV2.pdf)). Although there is a basic R implementation for the ariadne model developed by the ISAAKiel team [available here](https://rdrr.io/github/CRC1266-A2/moin/src/R/hamiltonian.R) the computational constraints make this function unfeasible in R for all but very small networks. Instead, if you are interested in applying the ariadne model, we suggest you use the original Java program created by Tim Evans and [available here](https://figshare.com/articles/dataset/ariadne/97746).
