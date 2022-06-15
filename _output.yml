@@ -6,7 +6,7 @@ bookdown::bs4_book:
   repo: https://github.com/mpeeples2008/Archaeological_Network_Science
 bookdown::pdf_book:
   includes:
-    in_header: preamble.tex
+    in_header: analytics/ga.html
   latex_engine: xelatex
   citation_package: natbib
   keep_tex: yes
