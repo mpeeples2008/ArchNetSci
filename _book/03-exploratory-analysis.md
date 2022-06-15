@@ -100,56 +100,42 @@ Graph level degree centralization is equally simple to call using the `centr_deg
 ```r
 # simple network with isolates
 igraph::degree(simple_net)[1:5]
-#> Apache.Creek      Atsinna  Baca.Pueblo Casa.Malpais 
-#>           11            8            1           11 
-#>      Cienega 
-#>           13
+#> Apache.Creek      Atsinna  Baca.Pueblo Casa.Malpais      Cienega 
+#>           11            8            1           11           13
 # simple network no isolates
 igraph::degree(simple_net_noiso)[1:5]
-#>    Apache Creek    Casa Malpais    Coyote Creek 
-#>              11              11              11 
-#>    Hooper Ranch Horse Camp Mill 
-#>              11              12
+#>    Apache Creek    Casa Malpais    Coyote Creek    Hooper Ranch Horse Camp Mill 
+#>              11              11              11              11              12
 
 # directed network
 igraph::degree(directed_net, mode = "in")[1:5] # indegree
-#>    Coyote Creek Techado Springs   Hubble Corner 
-#>               1               6               5 
-#>    Tri-R Pueblo    Heshotauthla 
-#>               6               2
+#>    Coyote Creek Techado Springs   Hubble Corner    Tri-R Pueblo    Heshotauthla 
+#>               1               6               5               6               2
 igraph::degree(directed_net, mode = "out")[1:5] # outdegree
-#>    Coyote Creek Techado Springs   Hubble Corner 
-#>               6               2               5 
-#>    Tri-R Pueblo    Heshotauthla 
-#>               2              11
+#>    Coyote Creek Techado Springs   Hubble Corner    Tri-R Pueblo    Heshotauthla 
+#>               6               2               5               2              11
 
 # weighted network - rowSums of adjacency matrix
 (rowSums(as.matrix(
   as_adjacency_matrix(weighted_net,
                       attr = "weight")
 )) - 1)[1:5]
-#>    Apache Creek    Casa Malpais    Coyote Creek 
-#>              25              29              21 
-#>    Hooper Ranch Horse Camp Mill 
-#>              18              27
+#>    Apache Creek    Casa Malpais    Coyote Creek    Hooper Ranch Horse Camp Mill 
+#>              25              29              21              18              27
 
 # similarity network. Note we use the similarity matrix here and
 # not the network object
 (rowSums(sim_mat) - 1)[1:5]
-#> Apache Creek      Atsinna  Baca Pueblo Casa Malpais 
-#>     16.00848     15.87024     14.77997     17.30358 
-#>      Cienega 
-#>     17.09394
+#> Apache Creek      Atsinna  Baca Pueblo Casa Malpais      Cienega 
+#>     16.00848     15.87024     14.77997     17.30358     17.09394
 
 # If you want to normalize your degree centrality metric by the
 # number of nodes present you can do that by adding the normalize=TRUE
 # command to the function calls above. For weighted and similarity
 # networks you can simply divide by the number of nodes minus 1.
 igraph::degree(simple_net, normalize = T)[1:5]
-#> Apache.Creek      Atsinna  Baca.Pueblo Casa.Malpais 
-#>   0.36666667   0.26666667   0.03333333   0.36666667 
-#>      Cienega 
-#>   0.43333333
+#> Apache.Creek      Atsinna  Baca.Pueblo Casa.Malpais      Cienega 
+#>   0.36666667   0.26666667   0.03333333   0.36666667   0.43333333
 
 # it is also possible to directly plot the degree distribution for
 # a given network using the degree.distribution function.
@@ -165,8 +151,8 @@ hist(igraph::degree.distribution(simple_net))
 # graph level centralization
 igraph::centr_degree(simple_net)
 #> $res
-#>  [1] 11  8  1 11 13 11  6 13 14 18 11 12 13 11 12 12 13 14
-#> [19] 11  5 10 12 13 13  9 14 13 14  6  0 10
+#>  [1] 11  8  1 11 13 11  6 13 14 18 11 12 13 11 12 12 13 14 11  5 10 12 13 13  9
+#> [26] 14 13 14  6  0 10
 #> 
 #> $centralization
 #> [1] 0.2408602
@@ -199,34 +185,26 @@ The betweenness functions work very much like the degree function calls above. B
 ```r
 # calculate betweenness for simple network
 igraph::betweenness(simple_net)[1:5]
-#> Apache.Creek      Atsinna  Baca.Pueblo Casa.Malpais 
-#>     1.125000     0.000000     0.000000     8.825306 
-#>      Cienega 
-#>     8.032865
+#> Apache.Creek      Atsinna  Baca.Pueblo Casa.Malpais      Cienega 
+#>     1.125000     0.000000     0.000000     8.825306     8.032865
 # calculate betweenness for weighted network
 igraph::betweenness(weighted_net, directed = FALSE)[1:5]
-#>    Apache Creek    Casa Malpais    Coyote Creek 
-#>        20.94423        18.96259        17.67829 
-#>    Hooper Ranch Horse Camp Mill 
-#>        15.66853         2.78036
+#>    Apache Creek    Casa Malpais    Coyote Creek    Hooper Ranch Horse Camp Mill 
+#>        20.94423        18.96259        17.67829        15.66853         2.78036
 # calculate betweenness for weighted network specifying weight attribute
 igraph::betweenness(weighted_net, weights = E(weighted_net)$weight)[1:5]
-#>    Apache Creek    Casa Malpais    Coyote Creek 
-#>        20.94423        18.96259        17.67829 
-#>    Hooper Ranch Horse Camp Mill 
-#>        15.66853         2.78036
+#>    Apache Creek    Casa Malpais    Coyote Creek    Hooper Ranch Horse Camp Mill 
+#>        20.94423        18.96259        17.67829        15.66853         2.78036
 
 # calculate graph level centralization
 centr_betw(simple_net)
 #> $res
-#>  [1]   1.1250000   0.0000000   0.0000000   8.8253059
-#>  [5]   8.0328650   3.2862641   0.2500000  58.7048084
-#>  [9]  15.6031093 142.3305364   1.1250000   9.0503059
-#> [13]  11.9501530   6.2604913   1.2590038  12.8566507
-#> [17]   8.0328650  41.0052110   0.5722222   2.7950980
-#> [21]   0.2844828   9.0503059  15.3558646   8.0328650
-#> [25]   0.0000000  16.0653473  11.9501530  17.0225282
-#> [29]   0.0000000   0.0000000   2.1735632
+#>  [1]   1.1250000   0.0000000   0.0000000   8.8253059   8.0328650   3.2862641
+#>  [7]   0.2500000  58.7048084  15.6031093 142.3305364   1.1250000   9.0503059
+#> [13]  11.9501530   6.2604913   1.2590038  12.8566507   8.0328650  41.0052110
+#> [19]   0.5722222   2.7950980   0.2844828   9.0503059  15.3558646   8.0328650
+#> [25]   0.0000000  16.0653473  11.9501530  17.0225282   0.0000000   0.0000000
+#> [31]   2.1735632
 #> 
 #> $centralization
 #> [1] 0.3064557
@@ -243,10 +221,8 @@ The `igraph::eigen_centrality` function can be calculated for simple networks wi
 ```r
 eigen_centrality(simple_net,
    scale = TRUE)$vector[1:5]
-#> Apache.Creek      Atsinna  Baca.Pueblo Casa.Malpais 
-#>   0.46230981   0.54637071   0.07114132   0.53026366 
-#>      Cienega 
-#>   0.85007181
+#> Apache.Creek      Atsinna  Baca.Pueblo Casa.Malpais      Cienega 
+#>   0.46230981   0.54637071   0.07114132   0.53026366   0.85007181
 
 eigen_centrality(
   weighted_net,
@@ -254,10 +230,8 @@ eigen_centrality(
   directed = FALSE,
   scale = FALSE
 )$vector[1:5]
-#>    Apache Creek    Casa Malpais    Coyote Creek 
-#>      0.08116512      0.10608344      0.07254989 
-#>    Hooper Ranch Horse Camp Mill 
-#>      0.05355994      0.10123595
+#>    Apache Creek    Casa Malpais    Coyote Creek    Hooper Ranch Horse Camp Mill 
+#>      0.08116512      0.10608344      0.07254989      0.05355994      0.10123595
 ```
 
 ### Page Rank Centrality{#PageRank}
@@ -268,10 +242,8 @@ The `igraph::page_rank` function can be calculated for simple networks with and 
 ```r
 page_rank(directed_net,
   directed = TRUE)$vector[1:5]
-#>    Coyote Creek Techado Springs   Hubble Corner 
-#>      0.01375364      0.03433734      0.02521968 
-#>    Tri-R Pueblo    Heshotauthla 
-#>      0.04722743      0.01549665
+#>    Coyote Creek Techado Springs   Hubble Corner    Tri-R Pueblo    Heshotauthla 
+#>      0.01375364      0.03433734      0.02521968      0.04722743      0.01549665
 
 page_rank(
   weighted_net,
@@ -279,10 +251,8 @@ page_rank(
   directed = FALSE,
   algo = "prpack"
 )$vector[1:5]
-#>    Apache Creek    Casa Malpais    Coyote Creek 
-#>      0.03340837      0.03761940      0.02901255 
-#>    Hooper Ranch Horse Camp Mill 
-#>      0.02610001      0.03551477
+#>    Apache Creek    Casa Malpais    Coyote Creek    Hooper Ranch Horse Camp Mill 
+#>      0.03340837      0.03761940      0.02901255      0.02610001      0.03551477
 ```
 
 ### Closeness Centrality {#Closeness}
@@ -301,28 +271,20 @@ Let's take a look at some examples:
 
 ```r
 igraph::closeness(simple_net)[1:5]
-#> Apache.Creek      Atsinna  Baca.Pueblo Casa.Malpais 
-#>   0.01470588   0.01470588   0.01315789   0.01886792 
-#>      Cienega 
-#>   0.02000000
+#> Apache.Creek      Atsinna  Baca.Pueblo Casa.Malpais      Cienega 
+#>   0.01470588   0.01470588   0.01315789   0.01886792   0.02000000
 
 igraph::closeness(simple_net_noiso)[1:5]
-#>    Apache Creek    Casa Malpais    Coyote Creek 
-#>      0.01470588      0.01886792      0.01754386 
-#>    Hooper Ranch Horse Camp Mill 
-#>      0.01470588      0.01923077
+#>    Apache Creek    Casa Malpais    Coyote Creek    Hooper Ranch Horse Camp Mill 
+#>      0.01470588      0.01886792      0.01754386      0.01470588      0.01923077
 
 igraph::closeness(weighted_net, weights = E(weighted_net)$weight)[1:5]
-#>    Apache Creek    Casa Malpais    Coyote Creek 
-#>      0.01010101      0.01298701      0.01219512 
-#>    Hooper Ranch Horse Camp Mill 
-#>      0.01111111      0.01063830
+#>    Apache Creek    Casa Malpais    Coyote Creek    Hooper Ranch Horse Camp Mill 
+#>      0.01010101      0.01298701      0.01219512      0.01111111      0.01063830
 
 igraph::closeness(directed_net, mode = "in")[1:5]
-#>    Coyote Creek Techado Springs   Hubble Corner 
-#>      1.00000000      0.04166667      0.04761905 
-#>    Tri-R Pueblo    Heshotauthla 
-#>      0.04347826      0.09090909
+#>    Coyote Creek Techado Springs   Hubble Corner    Tri-R Pueblo    Heshotauthla 
+#>      1.00000000      0.04166667      0.04761905      0.04347826      0.09090909
 ```
 
 ### Hubs and Authorities {#HubsAndAuthorities}
@@ -332,16 +294,12 @@ In directed networks it is possible to calculate hub and authority scores to ide
 
 ```r
 igraph::hub_score(directed_net)$vector[1:5]
-#>    Coyote Creek Techado Springs   Hubble Corner 
-#>      0.31998744      0.12265832      0.30740409 
-#>    Tri-R Pueblo    Heshotauthla 
-#>      0.08450797      1.00000000
+#>    Coyote Creek Techado Springs   Hubble Corner    Tri-R Pueblo    Heshotauthla 
+#>      0.31998744      0.12265832      0.30740409      0.08450797      1.00000000
 
 igraph::authority_score(directed_net)$vector[1:5]
-#>    Coyote Creek Techado Springs   Hubble Corner 
-#>      0.05372558      0.32708203      0.28835263 
-#>    Tri-R Pueblo    Heshotauthla 
-#>      0.35970234      0.25265287
+#>    Coyote Creek Techado Springs   Hubble Corner    Tri-R Pueblo    Heshotauthla 
+#>      0.05372558      0.32708203      0.28835263      0.35970234      0.25265287
 ```
 
 ## Triads and clustering{#TriadsAndClustering}
@@ -357,14 +315,14 @@ One common method for outlining the overall structural properties of a network i
 
 ```r
 igraph::triad_census(directed_net)
-#>  [1] 1404 2007    0  134  146  174    0    0  195    0    0
-#> [12]    0    0    0    0    0
+#>  [1] 1404 2007    0  134  146  174    0    0  195    0    0    0    0    0    0
+#> [16]    0
 
 igraph::triad_census(simple_net)
-#> Warning in igraph::triad_census(simple_net): At core/misc/
-#> motifs.c:1165 : Triad census called on an undirected graph.
-#>  [1] 1033    0 2551    0    0    0    0    0    0    0  441
-#> [12]    0    0    0    0  470
+#> Warning in igraph::triad_census(simple_net): At core/misc/motifs.c:1165 : Triad
+#> census called on an undirected graph.
+#>  [1] 1033    0 2551    0    0    0    0    0    0    0  441    0    0    0    0
+#> [16]  470
 ```
 
 Often can be useful to visualize the motifs defined for each entry in the triad census and this can be done using the `graph_from_isomorphism_class()` function which outputs every possible combination of nodes of a given size you specify (3 in this case). We can plot these configurations in a single plot using the `ggraph` and `ggpubr` packages. These packages are described in more detail in the visualization section of this document. We label each configuration using the "isomporhism code" that are frequently used to describe triads.
@@ -437,13 +395,11 @@ igraph::transitivity(simple_net, type = "global")
 #> [1] 0.7617504
 
 igraph::transitivity(simple_net, type = "local")
-#>  [1] 0.8727273 1.0000000       NaN 0.8363636 0.8333333
-#>  [6] 0.8727273 0.8666667 0.4358974 0.7252747 0.4183007
-#> [11] 0.8727273 0.8333333 0.7435897 0.8000000 0.8787879
-#> [16] 0.7272727 0.8333333 0.6703297 0.9272727 0.7000000
-#> [21] 0.9555556 0.8333333 0.7692308 0.8333333 1.0000000
-#> [26] 0.7582418 0.7435897 0.7142857 1.0000000       NaN
-#> [31] 0.8222222
+#>  [1] 0.8727273 1.0000000       NaN 0.8363636 0.8333333 0.8727273 0.8666667
+#>  [8] 0.4358974 0.7252747 0.4183007 0.8727273 0.8333333 0.7435897 0.8000000
+#> [15] 0.8787879 0.7272727 0.8333333 0.6703297 0.9272727 0.7000000 0.9555556
+#> [22] 0.8333333 0.7692308 0.8333333 1.0000000 0.7582418 0.7435897 0.7142857
+#> [29] 1.0000000       NaN 0.8222222
 ```
 
 ## Walks, Paths, and Distance{#WalksPathsDistance}
@@ -480,10 +436,9 @@ If you want to identify particular shortest paths to or from nodes in a network 
 igraph::shortest_paths(simple_net, from = 1, to = 21)
 #> $vpath
 #> $vpath[[1]]
-#> + 5/31 vertices, named, from 80bc1e6:
-#> [1] Apache.Creek          Casa.Malpais         
-#> [3] Garcia.Ranch          Heshotauthla         
-#> [5] Pueblo.de.los.Muertos
+#> + 5/31 vertices, named, from cf55ce3:
+#> [1] Apache.Creek          Casa.Malpais          Garcia.Ranch         
+#> [4] Heshotauthla          Pueblo.de.los.Muertos
 #> 
 #> 
 #> $epath
@@ -509,7 +464,7 @@ igraph::diameter(directed_net, directed = TRUE)
 
 igraph::farthest_vertices(directed_net, directed = TRUE)
 #> $vertices
-#> + 2/30 vertices, named, from 80bd69b:
+#> + 2/30 vertices, named, from cf56c6d:
 #> [1] Apache Creek          Pueblo de los Muertos
 #> 
 #> $distance
@@ -547,23 +502,23 @@ components <- igraph::decompose(simple_net, min.vertices = 1)
 
 components
 #> [[1]]
-#> IGRAPH 83495da UN-- 30 167 -- 
+#> IGRAPH d1b786e UN-- 30 167 -- 
 #> + attr: name (v/c)
-#> + edges from 83495da (vertex names):
-#>  [1] Apache.Creek--Casa.Malpais        
-#>  [2] Apache.Creek--Coyote.Creek        
-#>  [3] Apache.Creek--Hooper.Ranch        
-#>  [4] Apache.Creek--Horse.Camp.Mill     
-#>  [5] Apache.Creek--Hubble.Corner       
-#>  [6] Apache.Creek--Mineral.Creek.Pueblo
-#>  [7] Apache.Creek--Rudd.Creek.Ruin     
-#>  [8] Apache.Creek--Techado.Springs     
+#> + edges from d1b786e (vertex names):
+#>  [1] Apache.Creek--Casa.Malpais          Apache.Creek--Coyote.Creek         
+#>  [3] Apache.Creek--Hooper.Ranch          Apache.Creek--Horse.Camp.Mill      
+#>  [5] Apache.Creek--Hubble.Corner         Apache.Creek--Mineral.Creek.Pueblo 
+#>  [7] Apache.Creek--Rudd.Creek.Ruin       Apache.Creek--Techado.Springs      
+#>  [9] Apache.Creek--Tri.R.Pueblo          Apache.Creek--UG481                
+#> [11] Apache.Creek--UG494                 Atsinna     --Cienega              
+#> [13] Atsinna     --Los.Gigantes          Atsinna     --Mirabal              
+#> [15] Atsinna     --Ojo.Bonito            Atsinna     --Pueblo.de.los.Muertos
 #> + ... omitted several edges
 #> 
 #> [[2]]
-#> IGRAPH 8349602 UN-- 1 0 -- 
+#> IGRAPH d1b7892 UN-- 1 0 -- 
 #> + attr: name (v/c)
-#> + edges from 8349602 (vertex names):
+#> + edges from d1b7892 (vertex names):
 
 V(components[[2]])$name
 #> [1] "WS.Ranch"
@@ -605,26 +560,25 @@ min_cut(simple_net_noiso, value.only = FALSE)
 #> [1] 1
 #> 
 #> $cut
-#> + 1/167 edge from 80bc9ca (vertex names):
+#> + 1/167 edge from cf56313 (vertex names):
 #> [1] Ojo Bonito--Baca Pueblo
 #> 
 #> $partition1
-#> + 1/30 vertex, named, from 80bc9ca:
+#> + 1/30 vertex, named, from cf56313:
 #> [1] Baca Pueblo
 #> 
 #> $partition2
-#> + 29/30 vertices, named, from 80bc9ca:
-#>  [1] Apache Creek          Casa Malpais         
-#>  [3] Coyote Creek          Hooper Ranch         
-#>  [5] Horse Camp Mill       Hubble Corner        
-#>  [7] Mineral Creek Pueblo  Rudd Creek Ruin      
-#>  [9] Techado Springs       Tri-R Pueblo         
-#> [11] UG481                 UG494                
-#> [13] Atsinna               Cienega              
-#> [15] Los Gigantes          Mirabal              
-#> [17] Ojo Bonito            Pueblo de los Muertos
-#> [19] Scribe S              Spier 170            
-#> + ... omitted several vertices
+#> + 29/30 vertices, named, from cf56313:
+#>  [1] Apache Creek          Casa Malpais          Coyote Creek         
+#>  [4] Hooper Ranch          Horse Camp Mill       Hubble Corner        
+#>  [7] Mineral Creek Pueblo  Rudd Creek Ruin       Techado Springs      
+#> [10] Tri-R Pueblo          UG481                 UG494                
+#> [13] Atsinna               Cienega               Los Gigantes         
+#> [16] Mirabal               Ojo Bonito            Pueblo de los Muertos
+#> [19] Scribe S              Spier 170             Tinaja               
+#> [22] Garcia Ranch          Hinkson               Heshotauthla         
+#> [25] Jarlosa               Pescado Cluster       Yellowhouse          
+#> [28] Foote Canyon          Platt Ranch
 ```
 
 As this example illustrates the edge between Ojo Bonito and Baca Pueblo is a bridge (perhaps not surprising as Ojo Bonito was a cut point).
@@ -640,10 +594,10 @@ A clique as a network science concept is arguably the strictest method of defini
 
 ```r
 max_cliques(simple_net, min = 1)[[24]]
-#> + 9/31 vertices, named, from 80bc1e6:
-#> [1] Los.Gigantes    Cienega         Tinaja         
-#> [4] Spier.170       Scribe.S        Pescado.Cluster
-#> [7] Mirabal         Heshotauthla    Yellowhouse
+#> + 9/31 vertices, named, from cf55ce3:
+#> [1] Los.Gigantes    Cienega         Tinaja          Spier.170      
+#> [5] Scribe.S        Pescado.Cluster Mirabal         Heshotauthla   
+#> [9] Yellowhouse
 ```
 
 Note in this list that the same node can appear in more than one maximal clique.
@@ -657,10 +611,8 @@ A k-core is a maximal subnetwork in which each vertex has at least degree k with
 # Define coreness of each node
 kcore <- coreness(simple_net)
 kcore[1:6]
-#> Apache.Creek      Atsinna  Baca.Pueblo Casa.Malpais 
-#>            9            8            1            9 
-#>      Cienega Coyote.Creek 
-#>            9            9
+#> Apache.Creek      Atsinna  Baca.Pueblo Casa.Malpais      Cienega Coyote.Creek 
+#>            9            8            1            9            9            9
 
 # set up colorscale
 col_set <- heat.colors(max(kcore), rev = TRUE)
@@ -748,18 +700,12 @@ In many cases you may be interested in identifying edges that remain within or e
 
 ```r
 igraph::crossing(lv, simple_net)[1:6]
-#>         Apache.Creek|Casa.Malpais 
-#>                             FALSE 
-#>         Apache.Creek|Coyote.Creek 
-#>                             FALSE 
-#>         Apache.Creek|Hooper.Ranch 
-#>                             FALSE 
-#>      Apache.Creek|Horse.Camp.Mill 
-#>                             FALSE 
-#>        Apache.Creek|Hubble.Corner 
-#>                             FALSE 
-#> Apache.Creek|Mineral.Creek.Pueblo 
-#>                             FALSE
+#>         Apache.Creek|Casa.Malpais         Apache.Creek|Coyote.Creek 
+#>                             FALSE                             FALSE 
+#>         Apache.Creek|Hooper.Ranch      Apache.Creek|Horse.Camp.Mill 
+#>                             FALSE                             FALSE 
+#>        Apache.Creek|Hubble.Corner Apache.Creek|Mineral.Creek.Pueblo 
+#>                             FALSE                             FALSE
 ```
 
 Beyond this, if you plot an igraph object and add a cluster definition to the call it will produce a network graph with the clusters outlined and with nodes that extend between clusters shown in red.

@@ -43,28 +43,17 @@ locs
 #> Bounding box:  xmin: -9.1453 ymin: 36.0899 xmax: 3.1705 ymax: 43.5494
 #> Geodetic CRS:  WGS 84
 #> First 10 features:
-#>    Id                                    name
-#> 1  n0                               "Bracara"
-#> 2  n1                           "Iria Flavia"
-#> 3  n2                               "Saltigi"
-#> 4  n3                              "Bilbilis"
-#> 5  n4                             "Scallabis"
-#> 6  n5                  "Mercablum/Merifabion"
-#> 7  n6 "Valentia (Hispania Tarraconensis) (1)"
-#> 8  n7                               "Italica"
-#> 9  n8               "Acci/Col. Iulia Gemella"
-#> 10 n9                               "Toletum"
-#>                   geometry
-#> 1   POINT (-8.427 41.5501)
-#> 2  POINT (-8.5974 42.8101)
-#> 3  POINT (-1.7228 38.9186)
-#> 4  POINT (-1.6083 41.3766)
-#> 5  POINT (-8.6871 39.2362)
-#> 6  POINT (-6.0886 36.2765)
-#> 7  POINT (-0.3755 39.4758)
-#> 8  POINT (-6.0449 37.4411)
-#> 9  POINT (-3.1346 37.3003)
-#> 10 POINT (-4.0245 39.8567)
+#>    Id                                    name                geometry
+#> 1  n0                               "Bracara"  POINT (-8.427 41.5501)
+#> 2  n1                           "Iria Flavia" POINT (-8.5974 42.8101)
+#> 3  n2                               "Saltigi" POINT (-1.7228 38.9186)
+#> 4  n3                              "Bilbilis" POINT (-1.6083 41.3766)
+#> 5  n4                             "Scallabis" POINT (-8.6871 39.2362)
+#> 6  n5                  "Mercablum/Merifabion" POINT (-6.0886 36.2765)
+#> 7  n6 "Valentia (Hispania Tarraconensis) (1)" POINT (-0.3755 39.4758)
+#> 8  n7                               "Italica" POINT (-6.0449 37.4411)
+#> 9  n8               "Acci/Col. Iulia Gemella" POINT (-3.1346 37.3003)
+#> 10 n9                               "Toletum" POINT (-4.0245 39.8567)
 ```
 
 Another feature used throughout this guide that needs further explanation is the `ggmap` funtion `get_stamenmap`. This function automatically retrieves a background map for you using a few arguments:
@@ -273,16 +262,14 @@ Let's create a simple tree using the `make_tree` function in igraph.
 ```r
 tree1 <- make_tree(n = 50, children = 5, mode = "undirected")
 tree1
-#> IGRAPH bb88933 U--- 50 49 -- Tree
+#> IGRAPH 0788036 U--- 50 49 -- Tree
 #> + attr: name (g/c), children (g/n), mode (g/c)
-#> + edges from bb88933:
-#>  [1]  1-- 2  1-- 3  1-- 4  1-- 5  1-- 6  2-- 7  2-- 8  2-- 9
-#>  [9]  2--10  2--11  3--12  3--13  3--14  3--15  3--16  4--17
-#> [17]  4--18  4--19  4--20  4--21  5--22  5--23  5--24  5--25
-#> [25]  5--26  6--27  6--28  6--29  6--30  6--31  7--32  7--33
-#> [33]  7--34  7--35  7--36  8--37  8--38  8--39  8--40  8--41
-#> [41]  9--42  9--43  9--44  9--45  9--46 10--47 10--48 10--49
-#> [49] 10--50
+#> + edges from 0788036:
+#>  [1]  1-- 2  1-- 3  1-- 4  1-- 5  1-- 6  2-- 7  2-- 8  2-- 9  2--10  2--11
+#> [11]  3--12  3--13  3--14  3--15  3--16  4--17  4--18  4--19  4--20  4--21
+#> [21]  5--22  5--23  5--24  5--25  5--26  6--27  6--28  6--29  6--30  6--31
+#> [31]  7--32  7--33  7--34  7--35  7--36  8--37  8--38  8--39  8--40  8--41
+#> [41]  9--42  9--43  9--44  9--45  9--46 10--47 10--48 10--49 10--50
 plot(tree1)
 ```
 
@@ -455,8 +442,7 @@ ggmap(my_map) +
     show.legend = FALSE
   ) +
   theme_void()
-#> Warning: Removed 2 rows containing missing values
-#> (geom_point).
+#> Warning: Removed 2 rows containing missing values (geom_point).
 ```
 
 <img src="06-spatial-networks_files/figure-html/unnamed-chunk-17-2.png" width="672" />

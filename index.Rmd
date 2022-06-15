@@ -4,7 +4,9 @@ author: "Matthew A. Peeples and Tom Brughmans"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 documentclass: book
-bibliography: references_all.bib
+bibliography: 
+  - references.bib
+  - packages.bib
 biblio-style: apalike
 url: https://book.archnetworks.net
 description: |

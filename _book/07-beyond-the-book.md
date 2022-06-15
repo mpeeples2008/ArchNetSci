@@ -182,8 +182,7 @@ summary(mod_null)
 #>       Estimate Std. Error MCMC % z value Pr(>|z|)    
 #> edges  -2.2806     0.1548      0  -14.73   <1e-04 ***
 #> ---
-#> Signif. codes:  
-#> 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+#> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> 
 #>      Null Deviance: 687.6  on 496  degrees of freedom
 #>  Residual Deviance: 306.4  on 495  degrees of freedom
@@ -591,37 +590,22 @@ summary(mod_cibola)
 #> 
 #> Maximum Likelihood Results:
 #> 
-#>                                            Estimate
-#> edges                                     1.196e+00
-#> nodematch.region                          1.299e+00
-#> nodematch.pubarch.Cicular Great Kiva      2.843e-01
-#> nodematch.pubarch.none                   -7.750e-01
-#> nodematch.pubarch.Rectangular Great Kiva -6.913e-01
-#> edgecov.d_mat                            -2.323e-05
-#>                                          Std. Error MCMC %
-#> edges                                     3.513e-01      0
-#> nodematch.region                          4.593e-01      0
-#> nodematch.pubarch.Cicular Great Kiva      4.439e-01      0
-#> nodematch.pubarch.none                    2.763e-01      0
-#> nodematch.pubarch.Rectangular Great Kiva  5.448e-01      0
-#> edgecov.d_mat                             3.847e-06      0
-#>                                          z value Pr(>|z|)
-#> edges                                      3.405 0.000662
-#> nodematch.region                           2.828 0.004688
-#> nodematch.pubarch.Cicular Great Kiva       0.640 0.521864
-#> nodematch.pubarch.none                    -2.805 0.005026
-#> nodematch.pubarch.Rectangular Great Kiva  -1.269 0.204441
-#> edgecov.d_mat                             -6.039  < 1e-04
-#>                                             
-#> edges                                    ***
-#> nodematch.region                         ** 
-#> nodematch.pubarch.Cicular Great Kiva        
-#> nodematch.pubarch.none                   ** 
-#> nodematch.pubarch.Rectangular Great Kiva    
-#> edgecov.d_mat                            ***
+#>                                            Estimate Std. Error MCMC % z value
+#> edges                                     1.196e+00  3.513e-01      0   3.405
+#> nodematch.region                          1.299e+00  4.593e-01      0   2.828
+#> nodematch.pubarch.Cicular Great Kiva      2.843e-01  4.439e-01      0   0.640
+#> nodematch.pubarch.none                   -7.750e-01  2.763e-01      0  -2.805
+#> nodematch.pubarch.Rectangular Great Kiva -6.913e-01  5.448e-01      0  -1.269
+#> edgecov.d_mat                            -2.323e-05  3.847e-06      0  -6.039
+#>                                          Pr(>|z|)    
+#> edges                                    0.000662 ***
+#> nodematch.region                         0.004688 ** 
+#> nodematch.pubarch.Cicular Great Kiva     0.521864    
+#> nodematch.pubarch.none                   0.005026 ** 
+#> nodematch.pubarch.Rectangular Great Kiva 0.204441    
+#> edgecov.d_mat                             < 1e-04 ***
 #> ---
-#> Signif. codes:  
-#> 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+#> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> 
 #>      Null Deviance: 644.6  on 465  degrees of freedom
 #>  Residual Deviance: 489.2  on 459  degrees of freedom
@@ -666,15 +650,11 @@ summary(mod_win)
 #> 
 #> Monte Carlo Maximum Likelihood Results:
 #> 
-#>                  Estimate Std. Error MCMC % z value
-#> edges             -3.4233     0.3252      0 -10.526
-#> gwesp.fixed.0.25   1.0975     0.2614      0   4.198
-#>                  Pr(>|z|)    
-#> edges              <1e-04 ***
-#> gwesp.fixed.0.25   <1e-04 ***
+#>                  Estimate Std. Error MCMC % z value Pr(>|z|)    
+#> edges             -3.4233     0.3252      0 -10.526   <1e-04 ***
+#> gwesp.fixed.0.25   1.0975     0.2614      0   4.198   <1e-04 ***
 #> ---
-#> Signif. codes:  
-#> 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+#> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> 
 #>      Null Deviance: 687.6  on 496  degrees of freedom
 #>  Residual Deviance: 279.4  on 494  degrees of freedom
@@ -699,21 +679,14 @@ summary(mod_win2)
 #> 
 #> Monte Carlo Maximum Likelihood Results:
 #> 
-#>                  Estimate Std. Error MCMC % z value
-#> edges            -10.6887     3.5864      0  -2.980
-#> gwesp.fixed.0.25   1.4626     0.3691      0   3.963
-#> threetrail        -0.0901     0.0464      0  -1.942
-#> altkstar.2         2.8456     1.3950      0   2.040
-#> isolates          -4.2948     1.9158      0  -2.242
-#>                  Pr(>|z|)    
-#> edges             0.00288 ** 
-#> gwesp.fixed.0.25  < 1e-04 ***
-#> threetrail        0.05213 .  
-#> altkstar.2        0.04136 *  
-#> isolates          0.02497 *  
+#>                  Estimate Std. Error MCMC % z value Pr(>|z|)    
+#> edges            -10.6887     3.5864      0  -2.980  0.00288 ** 
+#> gwesp.fixed.0.25   1.4626     0.3691      0   3.963  < 1e-04 ***
+#> threetrail        -0.0901     0.0464      0  -1.942  0.05213 .  
+#> altkstar.2         2.8456     1.3950      0   2.040  0.04136 *  
+#> isolates          -4.2948     1.9158      0  -2.242  0.02497 *  
 #> ---
-#> Signif. codes:  
-#> 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+#> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> 
 #>      Null Deviance: 687.6  on 496  degrees of freedom
 #>  Residual Deviance: 272.3  on 491  degrees of freedom
@@ -740,8 +713,7 @@ summary(mod_nofix)
 #> gwesp         1.0186     0.2972      0   3.427  0.00061 ***
 #> gwesp.decay   0.3447     0.2914      0   1.183  0.23698    
 #> ---
-#> Signif. codes:  
-#> 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+#> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> 
 #>      Null Deviance: 687.6  on 496  degrees of freedom
 #>  Residual Deviance: 279.6  on 493  degrees of freedom

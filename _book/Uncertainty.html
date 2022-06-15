@@ -820,8 +820,8 @@ transpose function to place columns in the target position.
 
 <span class="co"># View first few edge weights in network object</span>
 <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/E.html">E</a></span><span class="op">(</span><span class="va">cibola_wt</span><span class="op">)</span><span class="op">$</span><span class="va">weight</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>
-<span class="co">#&gt;  [1] 0.7050691 0.7757143 0.8348214 0.8656783 0.8028571</span>
-<span class="co">#&gt;  [6] 0.7329193 0.7509158 0.8441558 0.7857143 0.8102919</span>
+<span class="co">#&gt;  [1] 0.7050691 0.7757143 0.8348214 0.8656783 0.8028571 0.7329193 0.7509158</span>
+<span class="co">#&gt;  [8] 0.8441558 0.7857143 0.8102919</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">4446347</span><span class="op">)</span>
 <span class="va">sim_nets</span> <span class="op">&lt;-</span> <span class="fu">edge_prob</span><span class="op">(</span><span class="va">cibola_wt</span>, nsim <span class="op">=</span> <span class="fl">1000</span>, probs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/E.html">E</a></span><span class="op">(</span><span class="va">cibola_wt</span><span class="op">)</span><span class="op">$</span><span class="va">weight</span><span class="op">)</span></code></pre></div>

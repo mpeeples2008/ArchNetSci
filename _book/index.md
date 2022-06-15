@@ -4,7 +4,9 @@ author: "Matthew A. Peeples and Tom Brughmans"
 date: "2022-06-14"
 site: bookdown::bookdown_site
 documentclass: book
-bibliography: references_all.bib
+bibliography: 
+  - references.bib
+  - packages.bib
 biblio-style: apalike
 url: https://book.archnetworks.net
 description: |
@@ -322,15 +324,14 @@ Many mathematical constants are built right into R so be sure not to overwrite a
 pi
 #> [1] 3.141593
 LETTERS
-#>  [1] "A" "B" "C" "D" "E" "F" "G" "H" "I" "J" "K" "L" "M" "N"
-#> [15] "O" "P" "Q" "R" "S" "T" "U" "V" "W" "X" "Y" "Z"
+#>  [1] "A" "B" "C" "D" "E" "F" "G" "H" "I" "J" "K" "L" "M" "N" "O" "P" "Q" "R" "S"
+#> [20] "T" "U" "V" "W" "X" "Y" "Z"
 letters
-#>  [1] "a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l" "m" "n"
-#> [15] "o" "p" "q" "r" "s" "t" "u" "v" "w" "x" "y" "z"
+#>  [1] "a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l" "m" "n" "o" "p" "q" "r" "s"
+#> [20] "t" "u" "v" "w" "x" "y" "z"
 month.name
-#>  [1] "January"   "February"  "March"     "April"    
-#>  [5] "May"       "June"      "July"      "August"   
-#>  [9] "September" "October"   "November"  "December"
+#>  [1] "January"   "February"  "March"     "April"     "May"       "June"     
+#>  [7] "July"      "August"    "September" "October"   "November"  "December"
 ```
 
 
@@ -441,11 +442,9 @@ mean(v)
 median(v)
 #> [1] 20
 log(v, base = exp(1)) # argument setting the base
-#> [1] 1.609438 2.302585 2.708050 2.995732 3.218876 3.401197
-#> [7] 7.600902
+#> [1] 1.609438 2.302585 2.708050 2.995732 3.218876 3.401197 7.600902
 log10(v)
-#> [1] 0.698970 1.000000 1.176091 1.301030 1.397940 1.477121
-#> [7] 3.301030
+#> [1] 0.698970 1.000000 1.176091 1.301030 1.397940 1.477121 3.301030
 round(pi, digits = 2) # argument setting the number of digits to retain
 #> [1] 3.14
 ```
@@ -1057,17 +1056,15 @@ If you want to apply an `if...else` statement to a vector of values rather than 
 ```r
 x <- seq(5, 100, by = 5)
 x
-#>  [1]   5  10  15  20  25  30  35  40  45  50  55  60  65  70
-#> [15]  75  80  85  90  95 100
+#>  [1]   5  10  15  20  25  30  35  40  45  50  55  60  65  70  75  80  85  90  95
+#> [20] 100
 
 ifelse(x > 50, "Greater Than 50", "Less Than 50")
-#>  [1] "Less Than 50"    "Less Than 50"    "Less Than 50"   
-#>  [4] "Less Than 50"    "Less Than 50"    "Less Than 50"   
-#>  [7] "Less Than 50"    "Less Than 50"    "Less Than 50"   
-#> [10] "Less Than 50"    "Greater Than 50" "Greater Than 50"
-#> [13] "Greater Than 50" "Greater Than 50" "Greater Than 50"
-#> [16] "Greater Than 50" "Greater Than 50" "Greater Than 50"
-#> [19] "Greater Than 50" "Greater Than 50"
+#>  [1] "Less Than 50"    "Less Than 50"    "Less Than 50"    "Less Than 50"   
+#>  [5] "Less Than 50"    "Less Than 50"    "Less Than 50"    "Less Than 50"   
+#>  [9] "Less Than 50"    "Less Than 50"    "Greater Than 50" "Greater Than 50"
+#> [13] "Greater Than 50" "Greater Than 50" "Greater Than 50" "Greater Than 50"
+#> [17] "Greater Than 50" "Greater Than 50" "Greater Than 50" "Greater Than 50"
 ```
 
 Another useful and frequently used conditional function is the `which()` function. This function allows you to evaluate which items in an object meet a given condition. Let's take a look at an example to see how this works:
@@ -1253,8 +1250,7 @@ convert_temp <- function(f) {
 f_temp <- c(44, 59, 59, 39, 50, 59, 35)
 out <- convert_temp(f_temp)
 out
-#> [1]  6.666667 15.000000 15.000000  3.888889 10.000000
-#> [6] 15.000000  1.666667
+#> [1]  6.666667 15.000000 15.000000  3.888889 10.000000 15.000000  1.666667
 
 res <- round(out, digits = 0)
 res

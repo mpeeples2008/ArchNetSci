@@ -136,17 +136,17 @@ These will be the basis for all examples in this section.
 <span class="va">cibola_i</span> <span class="op">&lt;-</span> <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/graph_from_adjacency_matrix.html">graph_from_adjacency_matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">cibola</span><span class="op">)</span>,
                                                 mode <span class="op">=</span> <span class="st">"undirected"</span><span class="op">)</span>
 <span class="va">cibola_i</span>
-<span class="co">#&gt; IGRAPH 8e9d495 UN-- 31 167 -- </span>
+<span class="co">#&gt; IGRAPH dc851bc UN-- 31 167 -- </span>
 <span class="co">#&gt; + attr: name (v/c)</span>
-<span class="co">#&gt; + edges from 8e9d495 (vertex names):</span>
-<span class="co">#&gt;  [1] Apache.Creek--Casa.Malpais        </span>
-<span class="co">#&gt;  [2] Apache.Creek--Coyote.Creek        </span>
-<span class="co">#&gt;  [3] Apache.Creek--Hooper.Ranch        </span>
-<span class="co">#&gt;  [4] Apache.Creek--Horse.Camp.Mill     </span>
-<span class="co">#&gt;  [5] Apache.Creek--Hubble.Corner       </span>
-<span class="co">#&gt;  [6] Apache.Creek--Mineral.Creek.Pueblo</span>
-<span class="co">#&gt;  [7] Apache.Creek--Rudd.Creek.Ruin     </span>
-<span class="co">#&gt;  [8] Apache.Creek--Techado.Springs     </span>
+<span class="co">#&gt; + edges from dc851bc (vertex names):</span>
+<span class="co">#&gt;  [1] Apache.Creek--Casa.Malpais          Apache.Creek--Coyote.Creek         </span>
+<span class="co">#&gt;  [3] Apache.Creek--Hooper.Ranch          Apache.Creek--Horse.Camp.Mill      </span>
+<span class="co">#&gt;  [5] Apache.Creek--Hubble.Corner         Apache.Creek--Mineral.Creek.Pueblo </span>
+<span class="co">#&gt;  [7] Apache.Creek--Rudd.Creek.Ruin       Apache.Creek--Techado.Springs      </span>
+<span class="co">#&gt;  [9] Apache.Creek--Tri.R.Pueblo          Apache.Creek--UG481                </span>
+<span class="co">#&gt; [11] Apache.Creek--UG494                 Atsinna     --Cienega              </span>
+<span class="co">#&gt; [13] Atsinna     --Los.Gigantes          Atsinna     --Mirabal              </span>
+<span class="co">#&gt; [15] Atsinna     --Ojo.Bonito            Atsinna     --Pueblo.de.los.Muertos</span>
 <span class="co">#&gt; + ... omitted several edges</span>
 
 <span class="co"># Create network object in statnet/network format</span>

@@ -45,17 +45,17 @@ cibola_attr <- read.csv(file = "data/Cibola_attr.csv", header = TRUE)
 cibola_i <- igraph::graph_from_adjacency_matrix(as.matrix(cibola),
                                                 mode = "undirected")
 cibola_i
-#> IGRAPH 8e9d495 UN-- 31 167 -- 
+#> IGRAPH dc851bc UN-- 31 167 -- 
 #> + attr: name (v/c)
-#> + edges from 8e9d495 (vertex names):
-#>  [1] Apache.Creek--Casa.Malpais        
-#>  [2] Apache.Creek--Coyote.Creek        
-#>  [3] Apache.Creek--Hooper.Ranch        
-#>  [4] Apache.Creek--Horse.Camp.Mill     
-#>  [5] Apache.Creek--Hubble.Corner       
-#>  [6] Apache.Creek--Mineral.Creek.Pueblo
-#>  [7] Apache.Creek--Rudd.Creek.Ruin     
-#>  [8] Apache.Creek--Techado.Springs     
+#> + edges from dc851bc (vertex names):
+#>  [1] Apache.Creek--Casa.Malpais          Apache.Creek--Coyote.Creek         
+#>  [3] Apache.Creek--Hooper.Ranch          Apache.Creek--Horse.Camp.Mill      
+#>  [5] Apache.Creek--Hubble.Corner         Apache.Creek--Mineral.Creek.Pueblo 
+#>  [7] Apache.Creek--Rudd.Creek.Ruin       Apache.Creek--Techado.Springs      
+#>  [9] Apache.Creek--Tri.R.Pueblo          Apache.Creek--UG481                
+#> [11] Apache.Creek--UG494                 Atsinna     --Cienega              
+#> [13] Atsinna     --Los.Gigantes          Atsinna     --Mirabal              
+#> [15] Atsinna     --Ojo.Bonito            Atsinna     --Pueblo.de.los.Muertos
 #> + ... omitted several edges
 
 # Create network object in statnet/network format

@@ -195,56 +195,42 @@
 <div class="sourceCode" id="cb100"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># simple network with isolates</span>
 <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/degree.html">degree</a></span><span class="op">(</span><span class="va">simple_net</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>
-<span class="co">#&gt; Apache.Creek      Atsinna  Baca.Pueblo Casa.Malpais </span>
-<span class="co">#&gt;           11            8            1           11 </span>
-<span class="co">#&gt;      Cienega </span>
-<span class="co">#&gt;           13</span>
+<span class="co">#&gt; Apache.Creek      Atsinna  Baca.Pueblo Casa.Malpais      Cienega </span>
+<span class="co">#&gt;           11            8            1           11           13</span>
 <span class="co"># simple network no isolates</span>
 <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/degree.html">degree</a></span><span class="op">(</span><span class="va">simple_net_noiso</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>
-<span class="co">#&gt;    Apache Creek    Casa Malpais    Coyote Creek </span>
-<span class="co">#&gt;              11              11              11 </span>
-<span class="co">#&gt;    Hooper Ranch Horse Camp Mill </span>
-<span class="co">#&gt;              11              12</span>
+<span class="co">#&gt;    Apache Creek    Casa Malpais    Coyote Creek    Hooper Ranch Horse Camp Mill </span>
+<span class="co">#&gt;              11              11              11              11              12</span>
 
 <span class="co"># directed network</span>
 <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/degree.html">degree</a></span><span class="op">(</span><span class="va">directed_net</span>, mode <span class="op">=</span> <span class="st">"in"</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span> <span class="co"># indegree</span>
-<span class="co">#&gt;    Coyote Creek Techado Springs   Hubble Corner </span>
-<span class="co">#&gt;               1               6               5 </span>
-<span class="co">#&gt;    Tri-R Pueblo    Heshotauthla </span>
-<span class="co">#&gt;               6               2</span>
+<span class="co">#&gt;    Coyote Creek Techado Springs   Hubble Corner    Tri-R Pueblo    Heshotauthla </span>
+<span class="co">#&gt;               1               6               5               6               2</span>
 <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/degree.html">degree</a></span><span class="op">(</span><span class="va">directed_net</span>, mode <span class="op">=</span> <span class="st">"out"</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span> <span class="co"># outdegree</span>
-<span class="co">#&gt;    Coyote Creek Techado Springs   Hubble Corner </span>
-<span class="co">#&gt;               6               2               5 </span>
-<span class="co">#&gt;    Tri-R Pueblo    Heshotauthla </span>
-<span class="co">#&gt;               2              11</span>
+<span class="co">#&gt;    Coyote Creek Techado Springs   Hubble Corner    Tri-R Pueblo    Heshotauthla </span>
+<span class="co">#&gt;               6               2               5               2              11</span>
 
 <span class="co"># weighted network - rowSums of adjacency matrix</span>
 <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html">rowSums</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span>
   <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/as_adjacency_matrix.html">as_adjacency_matrix</a></span><span class="op">(</span><span class="va">weighted_net</span>,
                       attr <span class="op">=</span> <span class="st">"weight"</span><span class="op">)</span>
 <span class="op">)</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>
-<span class="co">#&gt;    Apache Creek    Casa Malpais    Coyote Creek </span>
-<span class="co">#&gt;              25              29              21 </span>
-<span class="co">#&gt;    Hooper Ranch Horse Camp Mill </span>
-<span class="co">#&gt;              18              27</span>
+<span class="co">#&gt;    Apache Creek    Casa Malpais    Coyote Creek    Hooper Ranch Horse Camp Mill </span>
+<span class="co">#&gt;              25              29              21              18              27</span>
 
 <span class="co"># similarity network. Note we use the similarity matrix here and</span>
 <span class="co"># not the network object</span>
 <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html">rowSums</a></span><span class="op">(</span><span class="va">sim_mat</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>
-<span class="co">#&gt; Apache Creek      Atsinna  Baca Pueblo Casa Malpais </span>
-<span class="co">#&gt;     16.00848     15.87024     14.77997     17.30358 </span>
-<span class="co">#&gt;      Cienega </span>
-<span class="co">#&gt;     17.09394</span>
+<span class="co">#&gt; Apache Creek      Atsinna  Baca Pueblo Casa Malpais      Cienega </span>
+<span class="co">#&gt;     16.00848     15.87024     14.77997     17.30358     17.09394</span>
 
 <span class="co"># If you want to normalize your degree centrality metric by the</span>
 <span class="co"># number of nodes present you can do that by adding the normalize=TRUE</span>
 <span class="co"># command to the function calls above. For weighted and similarity</span>
 <span class="co"># networks you can simply divide by the number of nodes minus 1.</span>
 <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/degree.html">degree</a></span><span class="op">(</span><span class="va">simple_net</span>, normalize <span class="op">=</span> <span class="cn">T</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>
-<span class="co">#&gt; Apache.Creek      Atsinna  Baca.Pueblo Casa.Malpais </span>
-<span class="co">#&gt;   0.36666667   0.26666667   0.03333333   0.36666667 </span>
-<span class="co">#&gt;      Cienega </span>
-<span class="co">#&gt;   0.43333333</span>
+<span class="co">#&gt; Apache.Creek      Atsinna  Baca.Pueblo Casa.Malpais      Cienega </span>
+<span class="co">#&gt;   0.36666667   0.26666667   0.03333333   0.36666667   0.43333333</span>
 
 <span class="co"># it is also possible to directly plot the degree distribution for</span>
 <span class="co"># a given network using the degree.distribution function.</span>
@@ -257,8 +243,8 @@
 <span class="co"># graph level centralization</span>
 <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/centr_degree.html">centr_degree</a></span><span class="op">(</span><span class="va">simple_net</span><span class="op">)</span>
 <span class="co">#&gt; $res</span>
-<span class="co">#&gt;  [1] 11  8  1 11 13 11  6 13 14 18 11 12 13 11 12 12 13 14</span>
-<span class="co">#&gt; [19] 11  5 10 12 13 13  9 14 13 14  6  0 10</span>
+<span class="co">#&gt;  [1] 11  8  1 11 13 11  6 13 14 18 11 12 13 11 12 12 13 14 11  5 10 12 13 13  9</span>
+<span class="co">#&gt; [26] 14 13 14  6  0 10</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $centralization</span>
 <span class="co">#&gt; [1] 0.2408602</span>
@@ -286,34 +272,26 @@
 <div class="sourceCode" id="cb103"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># calculate betweenness for simple network</span>
 <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/betweenness.html">betweenness</a></span><span class="op">(</span><span class="va">simple_net</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>
-<span class="co">#&gt; Apache.Creek      Atsinna  Baca.Pueblo Casa.Malpais </span>
-<span class="co">#&gt;     1.125000     0.000000     0.000000     8.825306 </span>
-<span class="co">#&gt;      Cienega </span>
-<span class="co">#&gt;     8.032865</span>
+<span class="co">#&gt; Apache.Creek      Atsinna  Baca.Pueblo Casa.Malpais      Cienega </span>
+<span class="co">#&gt;     1.125000     0.000000     0.000000     8.825306     8.032865</span>
 <span class="co"># calculate betweenness for weighted network</span>
 <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/betweenness.html">betweenness</a></span><span class="op">(</span><span class="va">weighted_net</span>, directed <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>
-<span class="co">#&gt;    Apache Creek    Casa Malpais    Coyote Creek </span>
-<span class="co">#&gt;        20.94423        18.96259        17.67829 </span>
-<span class="co">#&gt;    Hooper Ranch Horse Camp Mill </span>
-<span class="co">#&gt;        15.66853         2.78036</span>
+<span class="co">#&gt;    Apache Creek    Casa Malpais    Coyote Creek    Hooper Ranch Horse Camp Mill </span>
+<span class="co">#&gt;        20.94423        18.96259        17.67829        15.66853         2.78036</span>
 <span class="co"># calculate betweenness for weighted network specifying weight attribute</span>
 <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/betweenness.html">betweenness</a></span><span class="op">(</span><span class="va">weighted_net</span>, weights <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/E.html">E</a></span><span class="op">(</span><span class="va">weighted_net</span><span class="op">)</span><span class="op">$</span><span class="va">weight</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>
-<span class="co">#&gt;    Apache Creek    Casa Malpais    Coyote Creek </span>
-<span class="co">#&gt;        20.94423        18.96259        17.67829 </span>
-<span class="co">#&gt;    Hooper Ranch Horse Camp Mill </span>
-<span class="co">#&gt;        15.66853         2.78036</span>
+<span class="co">#&gt;    Apache Creek    Casa Malpais    Coyote Creek    Hooper Ranch Horse Camp Mill </span>
+<span class="co">#&gt;        20.94423        18.96259        17.67829        15.66853         2.78036</span>
 
 <span class="co"># calculate graph level centralization</span>
 <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/centr_betw.html">centr_betw</a></span><span class="op">(</span><span class="va">simple_net</span><span class="op">)</span>
 <span class="co">#&gt; $res</span>
-<span class="co">#&gt;  [1]   1.1250000   0.0000000   0.0000000   8.8253059</span>
-<span class="co">#&gt;  [5]   8.0328650   3.2862641   0.2500000  58.7048084</span>
-<span class="co">#&gt;  [9]  15.6031093 142.3305364   1.1250000   9.0503059</span>
-<span class="co">#&gt; [13]  11.9501530   6.2604913   1.2590038  12.8566507</span>
-<span class="co">#&gt; [17]   8.0328650  41.0052110   0.5722222   2.7950980</span>
-<span class="co">#&gt; [21]   0.2844828   9.0503059  15.3558646   8.0328650</span>
-<span class="co">#&gt; [25]   0.0000000  16.0653473  11.9501530  17.0225282</span>
-<span class="co">#&gt; [29]   0.0000000   0.0000000   2.1735632</span>
+<span class="co">#&gt;  [1]   1.1250000   0.0000000   0.0000000   8.8253059   8.0328650   3.2862641</span>
+<span class="co">#&gt;  [7]   0.2500000  58.7048084  15.6031093 142.3305364   1.1250000   9.0503059</span>
+<span class="co">#&gt; [13]  11.9501530   6.2604913   1.2590038  12.8566507   8.0328650  41.0052110</span>
+<span class="co">#&gt; [19]   0.5722222   2.7950980   0.2844828   9.0503059  15.3558646   8.0328650</span>
+<span class="co">#&gt; [25]   0.0000000  16.0653473  11.9501530  17.0225282   0.0000000   0.0000000</span>
+<span class="co">#&gt; [31]   2.1735632</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $centralization</span>
 <span class="co">#&gt; [1] 0.3064557</span>
@@ -329,10 +307,8 @@
 <div class="sourceCode" id="cb104"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/eigen_centrality.html">eigen_centrality</a></span><span class="op">(</span><span class="va">simple_net</span>,
    scale <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">$</span><span class="va">vector</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>
-<span class="co">#&gt; Apache.Creek      Atsinna  Baca.Pueblo Casa.Malpais </span>
-<span class="co">#&gt;   0.46230981   0.54637071   0.07114132   0.53026366 </span>
-<span class="co">#&gt;      Cienega </span>
-<span class="co">#&gt;   0.85007181</span>
+<span class="co">#&gt; Apache.Creek      Atsinna  Baca.Pueblo Casa.Malpais      Cienega </span>
+<span class="co">#&gt;   0.46230981   0.54637071   0.07114132   0.53026366   0.85007181</span>
 
 <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/eigen_centrality.html">eigen_centrality</a></span><span class="op">(</span>
   <span class="va">weighted_net</span>,
@@ -340,10 +316,8 @@
   directed <span class="op">=</span> <span class="cn">FALSE</span>,
   scale <span class="op">=</span> <span class="cn">FALSE</span>
 <span class="op">)</span><span class="op">$</span><span class="va">vector</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>
-<span class="co">#&gt;    Apache Creek    Casa Malpais    Coyote Creek </span>
-<span class="co">#&gt;      0.08116512      0.10608344      0.07254989 </span>
-<span class="co">#&gt;    Hooper Ranch Horse Camp Mill </span>
-<span class="co">#&gt;      0.05355994      0.10123595</span></code></pre></div>
+<span class="co">#&gt;    Apache Creek    Casa Malpais    Coyote Creek    Hooper Ranch Horse Camp Mill </span>
+<span class="co">#&gt;      0.08116512      0.10608344      0.07254989      0.05355994      0.10123595</span></code></pre></div>
 </div>
 <div id="PageRank" class="section level3" number="3.3.4">
 <h3>
@@ -353,10 +327,8 @@
 <div class="sourceCode" id="cb105"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/page_rank.html">page_rank</a></span><span class="op">(</span><span class="va">directed_net</span>,
   directed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">$</span><span class="va">vector</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>
-<span class="co">#&gt;    Coyote Creek Techado Springs   Hubble Corner </span>
-<span class="co">#&gt;      0.01375364      0.03433734      0.02521968 </span>
-<span class="co">#&gt;    Tri-R Pueblo    Heshotauthla </span>
-<span class="co">#&gt;      0.04722743      0.01549665</span>
+<span class="co">#&gt;    Coyote Creek Techado Springs   Hubble Corner    Tri-R Pueblo    Heshotauthla </span>
+<span class="co">#&gt;      0.01375364      0.03433734      0.02521968      0.04722743      0.01549665</span>
 
 <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/page_rank.html">page_rank</a></span><span class="op">(</span>
   <span class="va">weighted_net</span>,
@@ -364,10 +336,8 @@
   directed <span class="op">=</span> <span class="cn">FALSE</span>,
   algo <span class="op">=</span> <span class="st">"prpack"</span>
 <span class="op">)</span><span class="op">$</span><span class="va">vector</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>
-<span class="co">#&gt;    Apache Creek    Casa Malpais    Coyote Creek </span>
-<span class="co">#&gt;      0.03340837      0.03761940      0.02901255 </span>
-<span class="co">#&gt;    Hooper Ranch Horse Camp Mill </span>
-<span class="co">#&gt;      0.02610001      0.03551477</span></code></pre></div>
+<span class="co">#&gt;    Apache Creek    Casa Malpais    Coyote Creek    Hooper Ranch Horse Camp Mill </span>
+<span class="co">#&gt;      0.03340837      0.03761940      0.02901255      0.02610001      0.03551477</span></code></pre></div>
 </div>
 <div id="Closeness" class="section level3" number="3.3.5">
 <h3>
@@ -385,28 +355,20 @@ careful.
 <p>Let’s take a look at some examples:</p>
 <div class="sourceCode" id="cb106"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/closeness.html">closeness</a></span><span class="op">(</span><span class="va">simple_net</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>
-<span class="co">#&gt; Apache.Creek      Atsinna  Baca.Pueblo Casa.Malpais </span>
-<span class="co">#&gt;   0.01470588   0.01470588   0.01315789   0.01886792 </span>
-<span class="co">#&gt;      Cienega </span>
-<span class="co">#&gt;   0.02000000</span>
+<span class="co">#&gt; Apache.Creek      Atsinna  Baca.Pueblo Casa.Malpais      Cienega </span>
+<span class="co">#&gt;   0.01470588   0.01470588   0.01315789   0.01886792   0.02000000</span>
 
 <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/closeness.html">closeness</a></span><span class="op">(</span><span class="va">simple_net_noiso</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>
-<span class="co">#&gt;    Apache Creek    Casa Malpais    Coyote Creek </span>
-<span class="co">#&gt;      0.01470588      0.01886792      0.01754386 </span>
-<span class="co">#&gt;    Hooper Ranch Horse Camp Mill </span>
-<span class="co">#&gt;      0.01470588      0.01923077</span>
+<span class="co">#&gt;    Apache Creek    Casa Malpais    Coyote Creek    Hooper Ranch Horse Camp Mill </span>
+<span class="co">#&gt;      0.01470588      0.01886792      0.01754386      0.01470588      0.01923077</span>
 
 <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/closeness.html">closeness</a></span><span class="op">(</span><span class="va">weighted_net</span>, weights <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/E.html">E</a></span><span class="op">(</span><span class="va">weighted_net</span><span class="op">)</span><span class="op">$</span><span class="va">weight</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>
-<span class="co">#&gt;    Apache Creek    Casa Malpais    Coyote Creek </span>
-<span class="co">#&gt;      0.01010101      0.01298701      0.01219512 </span>
-<span class="co">#&gt;    Hooper Ranch Horse Camp Mill </span>
-<span class="co">#&gt;      0.01111111      0.01063830</span>
+<span class="co">#&gt;    Apache Creek    Casa Malpais    Coyote Creek    Hooper Ranch Horse Camp Mill </span>
+<span class="co">#&gt;      0.01010101      0.01298701      0.01219512      0.01111111      0.01063830</span>
 
 <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/closeness.html">closeness</a></span><span class="op">(</span><span class="va">directed_net</span>, mode <span class="op">=</span> <span class="st">"in"</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>
-<span class="co">#&gt;    Coyote Creek Techado Springs   Hubble Corner </span>
-<span class="co">#&gt;      1.00000000      0.04166667      0.04761905 </span>
-<span class="co">#&gt;    Tri-R Pueblo    Heshotauthla </span>
-<span class="co">#&gt;      0.04347826      0.09090909</span></code></pre></div>
+<span class="co">#&gt;    Coyote Creek Techado Springs   Hubble Corner    Tri-R Pueblo    Heshotauthla </span>
+<span class="co">#&gt;      1.00000000      0.04166667      0.04761905      0.04347826      0.09090909</span></code></pre></div>
 </div>
 <div id="HubsAndAuthorities" class="section level3" number="3.3.6">
 <h3>
@@ -415,16 +377,12 @@ careful.
 <p>In directed networks it is possible to calculate hub and authority scores to identify nodes that are characterized by high indegree and high outdegree in particular. Because this is a measure that depends on direction it is only appropriate for directed network objects. If you run this function for an undirected network hub scores and authority scores will be identical. These functions can also be applied networks that are both directed and weighted. If you do not want all options printed you can use the atomic vector $vector call as well.</p>
 <div class="sourceCode" id="cb107"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/hub_score.html">hub_score</a></span><span class="op">(</span><span class="va">directed_net</span><span class="op">)</span><span class="op">$</span><span class="va">vector</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>
-<span class="co">#&gt;    Coyote Creek Techado Springs   Hubble Corner </span>
-<span class="co">#&gt;      0.31998744      0.12265832      0.30740409 </span>
-<span class="co">#&gt;    Tri-R Pueblo    Heshotauthla </span>
-<span class="co">#&gt;      0.08450797      1.00000000</span>
+<span class="co">#&gt;    Coyote Creek Techado Springs   Hubble Corner    Tri-R Pueblo    Heshotauthla </span>
+<span class="co">#&gt;      0.31998744      0.12265832      0.30740409      0.08450797      1.00000000</span>
 
 <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/authority_score.html">authority_score</a></span><span class="op">(</span><span class="va">directed_net</span><span class="op">)</span><span class="op">$</span><span class="va">vector</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>
-<span class="co">#&gt;    Coyote Creek Techado Springs   Hubble Corner </span>
-<span class="co">#&gt;      0.05372558      0.32708203      0.28835263 </span>
-<span class="co">#&gt;    Tri-R Pueblo    Heshotauthla </span>
-<span class="co">#&gt;      0.35970234      0.25265287</span></code></pre></div>
+<span class="co">#&gt;    Coyote Creek Techado Springs   Hubble Corner    Tri-R Pueblo    Heshotauthla </span>
+<span class="co">#&gt;      0.05372558      0.32708203      0.28835263      0.35970234      0.25265287</span></code></pre></div>
 </div>
 </div>
 <div id="TriadsAndClustering" class="section level2" number="3.4">
@@ -440,14 +398,14 @@ careful.
 <p>One common method for outlining the overall structural properties of a network is to conduct a “triad census” which counts each of the 4 or 16 possible triads for a given network. Although a triad census can be conducted on an undirected network using the <code><a href="https://rdrr.io/pkg/igraph/man/triad_census.html">igraph::triad_census</a></code> function, a warning will be returned along with 0 results for all impossible triad configurations so be aware. The results are returned as a vector of counts of each possible node configuration in an order outlined in the help document associated with the function (see <code><a href="https://rdrr.io/pkg/igraph/man/triad_census.html">?triad_census</a></code> for more).</p>
 <div class="sourceCode" id="cb108"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/triad_census.html">triad_census</a></span><span class="op">(</span><span class="va">directed_net</span><span class="op">)</span>
-<span class="co">#&gt;  [1] 1404 2007    0  134  146  174    0    0  195    0    0</span>
-<span class="co">#&gt; [12]    0    0    0    0    0</span>
+<span class="co">#&gt;  [1] 1404 2007    0  134  146  174    0    0  195    0    0    0    0    0    0</span>
+<span class="co">#&gt; [16]    0</span>
 
 <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/triad_census.html">triad_census</a></span><span class="op">(</span><span class="va">simple_net</span><span class="op">)</span>
-<span class="co">#&gt; Warning in igraph::triad_census(simple_net): At core/misc/</span>
-<span class="co">#&gt; motifs.c:1165 : Triad census called on an undirected graph.</span>
-<span class="co">#&gt;  [1] 1033    0 2551    0    0    0    0    0    0    0  441</span>
-<span class="co">#&gt; [12]    0    0    0    0  470</span></code></pre></div>
+<span class="co">#&gt; Warning in igraph::triad_census(simple_net): At core/misc/motifs.c:1165 : Triad</span>
+<span class="co">#&gt; census called on an undirected graph.</span>
+<span class="co">#&gt;  [1] 1033    0 2551    0    0    0    0    0    0    0  441    0    0    0    0</span>
+<span class="co">#&gt; [16]  470</span></code></pre></div>
 <p>Often can be useful to visualize the motifs defined for each entry in the triad census and this can be done using the <code><a href="https://rdrr.io/pkg/igraph/man/graph_from_isomorphism_class.html">graph_from_isomorphism_class()</a></code> function which outputs every possible combination of nodes of a given size you specify (3 in this case). We can plot these configurations in a single plot using the <code>ggraph</code> and <code>ggpubr</code> packages. These packages are described in more detail in the visualization section of this document. We label each configuration using the “isomporhism code” that are frequently used to describe triads.</p>
 <div class="sourceCode" id="cb109"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggraph.data-imaginist.com">ggraph</a></span><span class="op">)</span>
@@ -514,13 +472,11 @@ careful.
 <span class="co">#&gt; [1] 0.7617504</span>
 
 <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/transitivity.html">transitivity</a></span><span class="op">(</span><span class="va">simple_net</span>, type <span class="op">=</span> <span class="st">"local"</span><span class="op">)</span>
-<span class="co">#&gt;  [1] 0.8727273 1.0000000       NaN 0.8363636 0.8333333</span>
-<span class="co">#&gt;  [6] 0.8727273 0.8666667 0.4358974 0.7252747 0.4183007</span>
-<span class="co">#&gt; [11] 0.8727273 0.8333333 0.7435897 0.8000000 0.8787879</span>
-<span class="co">#&gt; [16] 0.7272727 0.8333333 0.6703297 0.9272727 0.7000000</span>
-<span class="co">#&gt; [21] 0.9555556 0.8333333 0.7692308 0.8333333 1.0000000</span>
-<span class="co">#&gt; [26] 0.7582418 0.7435897 0.7142857 1.0000000       NaN</span>
-<span class="co">#&gt; [31] 0.8222222</span></code></pre></div>
+<span class="co">#&gt;  [1] 0.8727273 1.0000000       NaN 0.8363636 0.8333333 0.8727273 0.8666667</span>
+<span class="co">#&gt;  [8] 0.4358974 0.7252747 0.4183007 0.8727273 0.8333333 0.7435897 0.8000000</span>
+<span class="co">#&gt; [15] 0.8787879 0.7272727 0.8333333 0.6703297 0.9272727 0.7000000 0.9555556</span>
+<span class="co">#&gt; [22] 0.8333333 0.7692308 0.8333333 1.0000000 0.7582418 0.7435897 0.7142857</span>
+<span class="co">#&gt; [29] 1.0000000       NaN 0.8222222</span></code></pre></div>
 </div>
 </div>
 <div id="WalksPathsDistance" class="section level2" number="3.5">
@@ -557,10 +513,9 @@ careful.
 <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/distances.html">shortest_paths</a></span><span class="op">(</span><span class="va">simple_net</span>, from <span class="op">=</span> <span class="fl">1</span>, to <span class="op">=</span> <span class="fl">21</span><span class="op">)</span>
 <span class="co">#&gt; $vpath</span>
 <span class="co">#&gt; $vpath[[1]]</span>
-<span class="co">#&gt; + 5/31 vertices, named, from 80bc1e6:</span>
-<span class="co">#&gt; [1] Apache.Creek          Casa.Malpais         </span>
-<span class="co">#&gt; [3] Garcia.Ranch          Heshotauthla         </span>
-<span class="co">#&gt; [5] Pueblo.de.los.Muertos</span>
+<span class="co">#&gt; + 5/31 vertices, named, from cf55ce3:</span>
+<span class="co">#&gt; [1] Apache.Creek          Casa.Malpais          Garcia.Ranch         </span>
+<span class="co">#&gt; [4] Heshotauthla          Pueblo.de.los.Muertos</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $epath</span>
@@ -584,7 +539,7 @@ careful.
 
 <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/diameter.html">farthest_vertices</a></span><span class="op">(</span><span class="va">directed_net</span>, directed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="co">#&gt; $vertices</span>
-<span class="co">#&gt; + 2/30 vertices, named, from 80bd69b:</span>
+<span class="co">#&gt; + 2/30 vertices, named, from cf56c6d:</span>
 <span class="co">#&gt; [1] Apache Creek          Pueblo de los Muertos</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $distance</span>
@@ -616,23 +571,23 @@ careful.
 
 <span class="va">components</span>
 <span class="co">#&gt; [[1]]</span>
-<span class="co">#&gt; IGRAPH 83495da UN-- 30 167 -- </span>
+<span class="co">#&gt; IGRAPH d1b786e UN-- 30 167 -- </span>
 <span class="co">#&gt; + attr: name (v/c)</span>
-<span class="co">#&gt; + edges from 83495da (vertex names):</span>
-<span class="co">#&gt;  [1] Apache.Creek--Casa.Malpais        </span>
-<span class="co">#&gt;  [2] Apache.Creek--Coyote.Creek        </span>
-<span class="co">#&gt;  [3] Apache.Creek--Hooper.Ranch        </span>
-<span class="co">#&gt;  [4] Apache.Creek--Horse.Camp.Mill     </span>
-<span class="co">#&gt;  [5] Apache.Creek--Hubble.Corner       </span>
-<span class="co">#&gt;  [6] Apache.Creek--Mineral.Creek.Pueblo</span>
-<span class="co">#&gt;  [7] Apache.Creek--Rudd.Creek.Ruin     </span>
-<span class="co">#&gt;  [8] Apache.Creek--Techado.Springs     </span>
+<span class="co">#&gt; + edges from d1b786e (vertex names):</span>
+<span class="co">#&gt;  [1] Apache.Creek--Casa.Malpais          Apache.Creek--Coyote.Creek         </span>
+<span class="co">#&gt;  [3] Apache.Creek--Hooper.Ranch          Apache.Creek--Horse.Camp.Mill      </span>
+<span class="co">#&gt;  [5] Apache.Creek--Hubble.Corner         Apache.Creek--Mineral.Creek.Pueblo </span>
+<span class="co">#&gt;  [7] Apache.Creek--Rudd.Creek.Ruin       Apache.Creek--Techado.Springs      </span>
+<span class="co">#&gt;  [9] Apache.Creek--Tri.R.Pueblo          Apache.Creek--UG481                </span>
+<span class="co">#&gt; [11] Apache.Creek--UG494                 Atsinna     --Cienega              </span>
+<span class="co">#&gt; [13] Atsinna     --Los.Gigantes          Atsinna     --Mirabal              </span>
+<span class="co">#&gt; [15] Atsinna     --Ojo.Bonito            Atsinna     --Pueblo.de.los.Muertos</span>
 <span class="co">#&gt; + ... omitted several edges</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; [[2]]</span>
-<span class="co">#&gt; IGRAPH 8349602 UN-- 1 0 -- </span>
+<span class="co">#&gt; IGRAPH d1b7892 UN-- 1 0 -- </span>
 <span class="co">#&gt; + attr: name (v/c)</span>
-<span class="co">#&gt; + edges from 8349602 (vertex names):</span>
+<span class="co">#&gt; + edges from d1b7892 (vertex names):</span>
 
 <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html">V</a></span><span class="op">(</span><span class="va">components</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">$</span><span class="va">name</span>
 <span class="co">#&gt; [1] "WS.Ranch"</span></code></pre></div>
@@ -668,26 +623,25 @@ careful.
 <span class="co">#&gt; [1] 1</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $cut</span>
-<span class="co">#&gt; + 1/167 edge from 80bc9ca (vertex names):</span>
+<span class="co">#&gt; + 1/167 edge from cf56313 (vertex names):</span>
 <span class="co">#&gt; [1] Ojo Bonito--Baca Pueblo</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $partition1</span>
-<span class="co">#&gt; + 1/30 vertex, named, from 80bc9ca:</span>
+<span class="co">#&gt; + 1/30 vertex, named, from cf56313:</span>
 <span class="co">#&gt; [1] Baca Pueblo</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $partition2</span>
-<span class="co">#&gt; + 29/30 vertices, named, from 80bc9ca:</span>
-<span class="co">#&gt;  [1] Apache Creek          Casa Malpais         </span>
-<span class="co">#&gt;  [3] Coyote Creek          Hooper Ranch         </span>
-<span class="co">#&gt;  [5] Horse Camp Mill       Hubble Corner        </span>
-<span class="co">#&gt;  [7] Mineral Creek Pueblo  Rudd Creek Ruin      </span>
-<span class="co">#&gt;  [9] Techado Springs       Tri-R Pueblo         </span>
-<span class="co">#&gt; [11] UG481                 UG494                </span>
-<span class="co">#&gt; [13] Atsinna               Cienega              </span>
-<span class="co">#&gt; [15] Los Gigantes          Mirabal              </span>
-<span class="co">#&gt; [17] Ojo Bonito            Pueblo de los Muertos</span>
-<span class="co">#&gt; [19] Scribe S              Spier 170            </span>
-<span class="co">#&gt; + ... omitted several vertices</span></code></pre></div>
+<span class="co">#&gt; + 29/30 vertices, named, from cf56313:</span>
+<span class="co">#&gt;  [1] Apache Creek          Casa Malpais          Coyote Creek         </span>
+<span class="co">#&gt;  [4] Hooper Ranch          Horse Camp Mill       Hubble Corner        </span>
+<span class="co">#&gt;  [7] Mineral Creek Pueblo  Rudd Creek Ruin       Techado Springs      </span>
+<span class="co">#&gt; [10] Tri-R Pueblo          UG481                 UG494                </span>
+<span class="co">#&gt; [13] Atsinna               Cienega               Los Gigantes         </span>
+<span class="co">#&gt; [16] Mirabal               Ojo Bonito            Pueblo de los Muertos</span>
+<span class="co">#&gt; [19] Scribe S              Spier 170             Tinaja               </span>
+<span class="co">#&gt; [22] Garcia Ranch          Hinkson               Heshotauthla         </span>
+<span class="co">#&gt; [25] Jarlosa               Pescado Cluster       Yellowhouse          </span>
+<span class="co">#&gt; [28] Foote Canyon          Platt Ranch</span></code></pre></div>
 <p>As this example illustrates the edge between Ojo Bonito and Baca Pueblo is a bridge (perhaps not surprising as Ojo Bonito was a cut point).</p>
 </div>
 </div>
@@ -703,10 +657,10 @@ careful.
 <p>A clique as a network science concept is arguably the strictest method of defining a cohesive subgroup. It is any set of three or more nodes in which each node is directly connected to all other nodes. It can be alternatively defined as a completely connected subnetwork, or a subnetwork with maximum density. The function <code><a href="https://rdrr.io/pkg/igraph/man/cliques.html">igraph::max_cliques</a></code> finds all maximal cliques in a network and outputs a list object with nodes in each set indicated. For the sake of space here we only output one clique of the 24 that were defined by this function call.</p>
 <div class="sourceCode" id="cb119"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/cliques.html">max_cliques</a></span><span class="op">(</span><span class="va">simple_net</span>, min <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">[[</span><span class="fl">24</span><span class="op">]</span><span class="op">]</span>
-<span class="co">#&gt; + 9/31 vertices, named, from 80bc1e6:</span>
-<span class="co">#&gt; [1] Los.Gigantes    Cienega         Tinaja         </span>
-<span class="co">#&gt; [4] Spier.170       Scribe.S        Pescado.Cluster</span>
-<span class="co">#&gt; [7] Mirabal         Heshotauthla    Yellowhouse</span></code></pre></div>
+<span class="co">#&gt; + 9/31 vertices, named, from cf55ce3:</span>
+<span class="co">#&gt; [1] Los.Gigantes    Cienega         Tinaja          Spier.170      </span>
+<span class="co">#&gt; [5] Scribe.S        Pescado.Cluster Mirabal         Heshotauthla   </span>
+<span class="co">#&gt; [9] Yellowhouse</span></code></pre></div>
 <p>Note in this list that the same node can appear in more than one maximal clique.</p>
 </div>
 <div id="KCores" class="section level3" number="3.7.2">
@@ -718,10 +672,8 @@ careful.
 <code class="sourceCode R"><span class="co"># Define coreness of each node</span>
 <span class="va">kcore</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/coreness.html">coreness</a></span><span class="op">(</span><span class="va">simple_net</span><span class="op">)</span>
 <span class="va">kcore</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span><span class="op">]</span>
-<span class="co">#&gt; Apache.Creek      Atsinna  Baca.Pueblo Casa.Malpais </span>
-<span class="co">#&gt;            9            8            1            9 </span>
-<span class="co">#&gt;      Cienega Coyote.Creek </span>
-<span class="co">#&gt;            9            9</span>
+<span class="co">#&gt; Apache.Creek      Atsinna  Baca.Pueblo Casa.Malpais      Cienega Coyote.Creek </span>
+<span class="co">#&gt;            9            8            1            9            9            9</span>
 
 <span class="co"># set up colorscale</span>
 <span class="va">col_set</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html">heat.colors</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">kcore</span><span class="op">)</span>, rev <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
@@ -799,18 +751,12 @@ careful.
 <p>In many cases you may be interested in identifying edges that remain within or extend between some network partition. This can be done using the <code><a href="https://rdrr.io/pkg/igraph/man/communities.html">igraph::crossing</a></code> function. This function expects a igraph cluster definition object and an igraph network and will return a list of <code>TRUE</code> and <code>FALSE</code> values for each edge where true indicates an edge that extends beyond the cluster assigned to the nodes. Let’s take a look at the first 10 edges in our simple_net object based on the Louvain cluster definition.</p>
 <div class="sourceCode" id="cb125"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/communities.html">crossing</a></span><span class="op">(</span><span class="va">lv</span>, <span class="va">simple_net</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span><span class="op">]</span>
-<span class="co">#&gt;         Apache.Creek|Casa.Malpais </span>
-<span class="co">#&gt;                             FALSE </span>
-<span class="co">#&gt;         Apache.Creek|Coyote.Creek </span>
-<span class="co">#&gt;                             FALSE </span>
-<span class="co">#&gt;         Apache.Creek|Hooper.Ranch </span>
-<span class="co">#&gt;                             FALSE </span>
-<span class="co">#&gt;      Apache.Creek|Horse.Camp.Mill </span>
-<span class="co">#&gt;                             FALSE </span>
-<span class="co">#&gt;        Apache.Creek|Hubble.Corner </span>
-<span class="co">#&gt;                             FALSE </span>
-<span class="co">#&gt; Apache.Creek|Mineral.Creek.Pueblo </span>
-<span class="co">#&gt;                             FALSE</span></code></pre></div>
+<span class="co">#&gt;         Apache.Creek|Casa.Malpais         Apache.Creek|Coyote.Creek </span>
+<span class="co">#&gt;                             FALSE                             FALSE </span>
+<span class="co">#&gt;         Apache.Creek|Hooper.Ranch      Apache.Creek|Horse.Camp.Mill </span>
+<span class="co">#&gt;                             FALSE                             FALSE </span>
+<span class="co">#&gt;        Apache.Creek|Hubble.Corner Apache.Creek|Mineral.Creek.Pueblo </span>
+<span class="co">#&gt;                             FALSE                             FALSE</span></code></pre></div>
 <p>Beyond this, if you plot an igraph object and add a cluster definition to the call it will produce a network graph with the clusters outlined and with nodes that extend between clusters shown in red.</p>
 <div class="sourceCode" id="cb126"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">54</span><span class="op">)</span>

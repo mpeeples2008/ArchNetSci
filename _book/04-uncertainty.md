@@ -797,8 +797,8 @@ load("data/Cibola_wt.RData")
 
 # View first few edge weights in network object
 E(cibola_wt)$weight[1:10]
-#>  [1] 0.7050691 0.7757143 0.8348214 0.8656783 0.8028571
-#>  [6] 0.7329193 0.7509158 0.8441558 0.7857143 0.8102919
+#>  [1] 0.7050691 0.7757143 0.8348214 0.8656783 0.8028571 0.7329193 0.7509158
+#>  [8] 0.8441558 0.7857143 0.8102919
 
 set.seed(4446347)
 sim_nets <- edge_prob(cibola_wt, nsim = 1000, probs = E(cibola_wt)$weight)

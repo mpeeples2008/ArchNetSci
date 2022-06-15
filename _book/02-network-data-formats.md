@@ -84,17 +84,17 @@ cibola_net <-
 
 # Display igraph network object and then plot a simple node-link diagram
 cibola_net
-#> IGRAPH 7899e77 UN-- 30 167 -- 
+#> IGRAPH c7a7ae3 UN-- 30 167 -- 
 #> + attr: name (v/c)
-#> + edges from 7899e77 (vertex names):
-#>  [1] Apache Creek--Casa Malpais        
-#>  [2] Apache Creek--Coyote Creek        
-#>  [3] Apache Creek--Hooper Ranch        
-#>  [4] Apache Creek--Horse Camp Mill     
-#>  [5] Apache Creek--Hubble Corner       
-#>  [6] Apache Creek--Mineral Creek Pueblo
-#>  [7] Apache Creek--Rudd Creek Ruin     
-#>  [8] Apache Creek--Techado Springs     
+#> + edges from c7a7ae3 (vertex names):
+#>  [1] Apache Creek--Casa Malpais          Apache Creek--Coyote Creek         
+#>  [3] Apache Creek--Hooper Ranch          Apache Creek--Horse Camp Mill      
+#>  [5] Apache Creek--Hubble Corner         Apache Creek--Mineral Creek Pueblo 
+#>  [7] Apache Creek--Rudd Creek Ruin       Apache Creek--Techado Springs      
+#>  [9] Apache Creek--Tri-R Pueblo          Apache Creek--UG481                
+#> [11] Apache Creek--UG494                 Atsinna     --Cienega              
+#> [13] Atsinna     --Los Gigantes          Atsinna     --Mirabal              
+#> [15] Atsinna     --Ojo Bonito            Atsinna     --Pueblo de los Muertos
 #> + ... omitted several edges
 # Set random seed to ensure graph layout stays the same each time.
 set.seed(3523)
@@ -116,34 +116,24 @@ adj_list <- igraph::as_adj_edge_list(cibola_net)
 
 # examine adjacency list for the site Apache Creek
 adj_list$`Apache Creek`
-#> + 11/167 edges from 7899e77 (vertex names):
-#>  [1] Apache Creek--Casa Malpais        
-#>  [2] Apache Creek--Coyote Creek        
-#>  [3] Apache Creek--Hooper Ranch        
-#>  [4] Apache Creek--Horse Camp Mill     
-#>  [5] Apache Creek--Hubble Corner       
-#>  [6] Apache Creek--Mineral Creek Pueblo
-#>  [7] Apache Creek--Rudd Creek Ruin     
-#>  [8] Apache Creek--Techado Springs     
-#>  [9] Apache Creek--Tri-R Pueblo        
-#> [10] Apache Creek--UG481               
-#> + ... omitted several edges
+#> + 11/167 edges from c7a7ae3 (vertex names):
+#>  [1] Apache Creek--Casa Malpais         Apache Creek--Coyote Creek        
+#>  [3] Apache Creek--Hooper Ranch         Apache Creek--Horse Camp Mill     
+#>  [5] Apache Creek--Hubble Corner        Apache Creek--Mineral Creek Pueblo
+#>  [7] Apache Creek--Rudd Creek Ruin      Apache Creek--Techado Springs     
+#>  [9] Apache Creek--Tri-R Pueblo         Apache Creek--UG481               
+#> [11] Apache Creek--UG494
 
 # It is also possible to call specific nodes by number. In this case,
 # site 2 is Casa Malpais
 adj_list[[2]]
-#> + 11/167 edges from 7899e77 (vertex names):
-#>  [1] Apache Creek--Casa Malpais   
-#>  [2] Casa Malpais--Coyote Creek   
-#>  [3] Casa Malpais--Hooper Ranch   
-#>  [4] Casa Malpais--Horse Camp Mill
-#>  [5] Casa Malpais--Hubble Corner  
-#>  [6] Casa Malpais--Rudd Creek Ruin
-#>  [7] Casa Malpais--Techado Springs
-#>  [8] Casa Malpais--Tri-R Pueblo   
-#>  [9] Casa Malpais--UG481          
-#> [10] Casa Malpais--Garcia Ranch   
-#> + ... omitted several edges
+#> + 11/167 edges from c7a7ae3 (vertex names):
+#>  [1] Apache Creek--Casa Malpais    Casa Malpais--Coyote Creek   
+#>  [3] Casa Malpais--Hooper Ranch    Casa Malpais--Horse Camp Mill
+#>  [5] Casa Malpais--Hubble Corner   Casa Malpais--Rudd Creek Ruin
+#>  [7] Casa Malpais--Techado Springs Casa Malpais--Tri-R Pueblo   
+#>  [9] Casa Malpais--UG481           Casa Malpais--Garcia Ranch   
+#> [11] Casa Malpais--Hinkson
 ```
 
 The output for a particular node can be called by either referencing the name using using `$` followed by the site name or `[[k]]` double brackets where `k` is the row number of the node in question. The printed output is essentially a list of all of the edges incident on the node in question identified by the name of the sending and receiving node. 
@@ -160,18 +150,18 @@ We can obtain an adjacency matrix object in R by converting our network object c
 adj_mat <- igraph::as_adjacency_matrix(cibola_net)
 adj_mat[1:5, 1:5]
 #> 5 x 5 sparse Matrix of class "dgCMatrix"
-#>                 Apache Creek Casa Malpais Coyote Creek
-#> Apache Creek               .            1            1
-#> Casa Malpais               1            .            1
-#> Coyote Creek               1            1            .
-#> Hooper Ranch               1            1            1
-#> Horse Camp Mill            1            1            1
-#>                 Hooper Ranch Horse Camp Mill
-#> Apache Creek               1               1
-#> Casa Malpais               1               1
-#> Coyote Creek               1               1
-#> Hooper Ranch               .               1
-#> Horse Camp Mill            1               .
+#>                 Apache Creek Casa Malpais Coyote Creek Hooper Ranch
+#> Apache Creek               .            1            1            1
+#> Casa Malpais               1            .            1            1
+#> Coyote Creek               1            1            .            1
+#> Hooper Ranch               1            1            1            .
+#> Horse Camp Mill            1            1            1            1
+#>                 Horse Camp Mill
+#> Apache Creek                  1
+#> Casa Malpais                  1
+#> Coyote Creek                  1
+#> Hooper Ranch                  1
+#> Horse Camp Mill               .
 
 # Read in adjacency matrix and convert to network object for plotting
 adj_mat2 <-
@@ -213,20 +203,20 @@ cibola_clust <-
            header = TRUE,
            row.names = 1)
 head(cibola_clust)
-#>              Clust1 Clust2 Clust3 Clust4 Clust5 Clust6
-#> Apache Creek      7      3      6     16      6      1
-#> Atsinna           0     12     26      5      0      1
-#> Baca Pueblo       0      9      3     12      1      2
-#> Casa Malpais      2     15      7     28     17     16
-#> Cienega           2     28     34      2      0     10
-#> Coyote Creek     10     13      8     30     20      5
-#>              Clust7 Clust8 Clust9 Clust10
-#> Apache Creek      1      2      0       0
-#> Atsinna           6      0      7       0
-#> Baca Pueblo       5      0     16       1
-#> Casa Malpais      2      5      1       0
-#> Cienega          11      0      5       1
-#> Coyote Creek      1      8      0       5
+#>              Clust1 Clust2 Clust3 Clust4 Clust5 Clust6 Clust7 Clust8 Clust9
+#> Apache Creek      7      3      6     16      6      1      1      2      0
+#> Atsinna           0     12     26      5      0      1      6      0      7
+#> Baca Pueblo       0      9      3     12      1      2      5      0     16
+#> Casa Malpais      2     15      7     28     17     16      2      5      1
+#> Cienega           2     28     34      2      0     10     11      0      5
+#> Coyote Creek     10     13      8     30     20      5      1      8      0
+#>              Clust10
+#> Apache Creek       0
+#> Atsinna            0
+#> Baca Pueblo        1
+#> Casa Malpais       0
+#> Cienega            1
+#> Coyote Creek       5
 
 # Convert into a network object using the incidence matrix format. Note that
 # multiple=TRUE as we want this defined as a bipartite network.
@@ -236,20 +226,20 @@ cibola_inc <-
                                       multiple = TRUE)
 head(cibola_inc)
 #> 6 x 41 sparse Matrix of class "dgCMatrix"
-#>                                                           
-#> Apache Creek . . . . . . . . . . . . . . . . . . . . . . .
-#> Atsinna      . . . . . . . . . . . . . . . . . . . . . . .
-#> Baca Pueblo  . . . . . . . . . . . . . . . . . . . . . . .
-#> Casa Malpais . . . . . . . . . . . . . . . . . . . . . . .
-#> Cienega      . . . . . . . . . . . . . . . . . . . . . . .
-#> Coyote Creek . . . . . . . . . . . . . . . . . . . . . . .
-#>                                                         
-#> Apache Creek . . . . . . . .  7  3  6 16  6  1  1 2  . .
-#> Atsinna      . . . . . . . .  . 12 26  5  .  1  6 .  7 .
-#> Baca Pueblo  . . . . . . . .  .  9  3 12  1  2  5 . 16 1
-#> Casa Malpais . . . . . . . .  2 15  7 28 17 16  2 5  1 .
-#> Cienega      . . . . . . . .  2 28 34  2  . 10 11 .  5 1
-#> Coyote Creek . . . . . . . . 10 13  8 30 20  5  1 8  . 5
+#>                                                                              
+#> Apache Creek . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  7
+#> Atsinna      . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  .
+#> Baca Pueblo  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  .
+#> Casa Malpais . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  2
+#> Cienega      . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  2
+#> Coyote Creek . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10
+#>                                      
+#> Apache Creek  3  6 16  6  1  1 2  . .
+#> Atsinna      12 26  5  .  1  6 .  7 .
+#> Baca Pueblo   9  3 12  1  2  5 . 16 1
+#> Casa Malpais 15  7 28 17 16  2 5  1 .
+#> Cienega      28 34  2  . 10 11 .  5 1
+#> Coyote Creek 13  8 30 20  5  1 8  . 5
 
 set.seed(4543)
 # Plot as two-mode network
@@ -269,20 +259,13 @@ In the following example we use [this file](data/Cibola_attr.csv) which includes
 # Read in attribute data and look at the first few rows.
 cibola_attr <- read.csv(file = "data/Cibola_attr.csv", header = TRUE)
 head(cibola_attr)
-#>           Site      x       y             Great.Kiva
-#> 1 Apache Creek 724125 3747310 Rectangular Great Kiva
-#> 2      Atsinna 726741 3895499                   none
-#> 3  Baca Pueblo 651431 3797143                   none
-#> 4 Casa Malpais 659021 3786211 Rectangular Great Kiva
-#> 5      Cienega 738699 3887985                   none
-#> 6 Coyote Creek 671154 3780509 Rectangular Great Kiva
-#>                  Region
-#> 1    Mogollon Highlands
-#> 2       El Morro Valley
-#> 3 Upper Little Colorado
-#> 4 Upper Little Colorado
-#> 5       El Morro Valley
-#> 6 Upper Little Colorado
+#>           Site      x       y             Great.Kiva                Region
+#> 1 Apache Creek 724125 3747310 Rectangular Great Kiva    Mogollon Highlands
+#> 2      Atsinna 726741 3895499                   none       El Morro Valley
+#> 3  Baca Pueblo 651431 3797143                   none Upper Little Colorado
+#> 4 Casa Malpais 659021 3786211 Rectangular Great Kiva Upper Little Colorado
+#> 5      Cienega 738699 3887985                   none       El Morro Valley
+#> 6 Coyote Creek 671154 3780509 Rectangular Great Kiva Upper Little Colorado
 ```
 
 In order to assign an attribute to a particular node or edge we can use the `V` and `E` (vertex and edge) calls in `igraph`. For example, in the following example, we will assign a `region` variable to each node in the network we created above using the `V` function to assign a vertex attribute. You simply type the name of the network object in the parenthesis after `V` and use the `$` atomic variable symbol to assign a name to the attribute that will be associated with that network object.
@@ -295,37 +278,32 @@ V(cibola_net2)$region <- cibola_attr$Region
 
 # If we now call that attribute we get a vector listing each assigned value
 V(cibola_net2)$region
-#>  [1] "Mogollon Highlands"    "El Morro Valley"      
-#>  [3] "Upper Little Colorado" "Upper Little Colorado"
-#>  [5] "El Morro Valley"       "Upper Little Colorado"
-#>  [7] "Mogollon Highlands"    "Carrizo Wash"         
-#>  [9] "Pescado Basin"         "West Zuni"            
-#> [11] "Upper Little Colorado" "Mariana Mesa"         
-#> [13] "Mariana Mesa"          "West Zuni"            
-#> [15] "El Morro Valley"       "Vernon Area"          
-#> [17] "El Morro Valley"       "West Zuni"            
-#> [19] "Pescado Basin"         "Carrizo Wash"         
-#> [21] "El Morro Valley"       "Upper Little Colorado"
-#> [23] "El Morro Valley"       "West Zuni"            
-#> [25] "Mariana Mesa"          "El Morro Valley"      
-#> [27] "Mariana Mesa"          "Mariana Mesa"         
-#> [29] "Mariana Mesa"          "Mogollon Highlands"   
+#>  [1] "Mogollon Highlands"    "El Morro Valley"       "Upper Little Colorado"
+#>  [4] "Upper Little Colorado" "El Morro Valley"       "Upper Little Colorado"
+#>  [7] "Mogollon Highlands"    "Carrizo Wash"          "Pescado Basin"        
+#> [10] "West Zuni"             "Upper Little Colorado" "Mariana Mesa"         
+#> [13] "Mariana Mesa"          "West Zuni"             "El Morro Valley"      
+#> [16] "Vernon Area"           "El Morro Valley"       "West Zuni"            
+#> [19] "Pescado Basin"         "Carrizo Wash"          "El Morro Valley"      
+#> [22] "Upper Little Colorado" "El Morro Valley"       "West Zuni"            
+#> [25] "Mariana Mesa"          "El Morro Valley"       "Mariana Mesa"         
+#> [28] "Mariana Mesa"          "Mariana Mesa"          "Mogollon Highlands"   
 #> [31] "Pescado Basin"
 
 # Note that "region" is now listed as an attribute when we view
 # the network object
 cibola_net2
-#> IGRAPH 78cec16 UN-- 31 167 -- 
+#> IGRAPH c7db8c6 UN-- 31 167 -- 
 #> + attr: name (v/c), region (v/c)
-#> + edges from 78cec16 (vertex names):
-#>  [1] Apache.Creek--Casa.Malpais        
-#>  [2] Apache.Creek--Coyote.Creek        
-#>  [3] Apache.Creek--Hooper.Ranch        
-#>  [4] Apache.Creek--Horse.Camp.Mill     
-#>  [5] Apache.Creek--Hubble.Corner       
-#>  [6] Apache.Creek--Mineral.Creek.Pueblo
-#>  [7] Apache.Creek--Rudd.Creek.Ruin     
-#>  [8] Apache.Creek--Techado.Springs     
+#> + edges from c7db8c6 (vertex names):
+#>  [1] Apache.Creek--Casa.Malpais          Apache.Creek--Coyote.Creek         
+#>  [3] Apache.Creek--Hooper.Ranch          Apache.Creek--Horse.Camp.Mill      
+#>  [5] Apache.Creek--Hubble.Corner         Apache.Creek--Mineral.Creek.Pueblo 
+#>  [7] Apache.Creek--Rudd.Creek.Ruin       Apache.Creek--Techado.Springs      
+#>  [9] Apache.Creek--Tri.R.Pueblo          Apache.Creek--UG481                
+#> [11] Apache.Creek--UG494                 Atsinna     --Cienega              
+#> [13] Atsinna     --Los.Gigantes          Atsinna     --Mirabal              
+#> [15] Atsinna     --Ojo.Bonito            Atsinna     --Pueblo.de.los.Muertos
 #> + ... omitted several edges
 ```
 
@@ -370,17 +348,17 @@ simple_net_i <-
   igraph::graph_from_adjacency_matrix(as.matrix(adj_mat2),
                                       mode = "undirected")
 simple_net_i
-#> IGRAPH 79cb02f UN-- 31 167 -- 
+#> IGRAPH c8cb323 UN-- 31 167 -- 
 #> + attr: name (v/c)
-#> + edges from 79cb02f (vertex names):
-#>  [1] Apache.Creek--Casa.Malpais        
-#>  [2] Apache.Creek--Coyote.Creek        
-#>  [3] Apache.Creek--Hooper.Ranch        
-#>  [4] Apache.Creek--Horse.Camp.Mill     
-#>  [5] Apache.Creek--Hubble.Corner       
-#>  [6] Apache.Creek--Mineral.Creek.Pueblo
-#>  [7] Apache.Creek--Rudd.Creek.Ruin     
-#>  [8] Apache.Creek--Techado.Springs     
+#> + edges from c8cb323 (vertex names):
+#>  [1] Apache.Creek--Casa.Malpais          Apache.Creek--Coyote.Creek         
+#>  [3] Apache.Creek--Hooper.Ranch          Apache.Creek--Horse.Camp.Mill      
+#>  [5] Apache.Creek--Hubble.Corner         Apache.Creek--Mineral.Creek.Pueblo 
+#>  [7] Apache.Creek--Rudd.Creek.Ruin       Apache.Creek--Techado.Springs      
+#>  [9] Apache.Creek--Tri.R.Pueblo          Apache.Creek--UG481                
+#> [11] Apache.Creek--UG494                 Atsinna     --Cienega              
+#> [13] Atsinna     --Los.Gigantes          Atsinna     --Mirabal              
+#> [15] Atsinna     --Ojo.Bonito            Atsinna     --Pueblo.de.los.Muertos
 #> + ... omitted several edges
 
 # Covert to a network object using statnet/network
@@ -429,9 +407,9 @@ el2 <- cibola_edgelist[sample(seq(1, nrow(cibola_edgelist)), 125,
 directed_net <-
   igraph::graph_from_edgelist(as.matrix(el2), directed = TRUE)
 directed_net
-#> IGRAPH 79d2fb1 DN-- 30 125 -- 
+#> IGRAPH c8d3ad9 DN-- 30 125 -- 
 #> + attr: name (v/c)
-#> + edges from 79d2fb1 (vertex names):
+#> + edges from c8d3ad9 (vertex names):
 #>  [1] Coyote Creek   ->Techado Springs      
 #>  [2] Hubble Corner  ->Tri-R Pueblo         
 #>  [3] Hubble Corner  ->Techado Springs      
@@ -445,18 +423,18 @@ directed_net
 # View as adjacency matrix of direted network object
 (as_adjacency_matrix(directed_net))[1:5, 1:5]
 #> 5 x 5 sparse Matrix of class "dgCMatrix"
-#>                 Coyote Creek Techado Springs Hubble Corner
-#> Coyote Creek               .               1             1
-#> Techado Springs            .               .             .
-#> Hubble Corner              .               1             .
-#> Tri-R Pueblo               .               .             .
-#> Heshotauthla               .               .             .
-#>                 Tri-R Pueblo Heshotauthla
-#> Coyote Creek               .            .
-#> Techado Springs            1            .
-#> Hubble Corner              1            .
-#> Tri-R Pueblo               .            .
-#> Heshotauthla               .            .
+#>                 Coyote Creek Techado Springs Hubble Corner Tri-R Pueblo
+#> Coyote Creek               .               1             1            .
+#> Techado Springs            .               .             .            1
+#> Hubble Corner              .               1             .            1
+#> Tri-R Pueblo               .               .             .            .
+#> Heshotauthla               .               .             .            .
+#>                 Heshotauthla
+#> Coyote Creek               .
+#> Techado Springs            .
+#> Hubble Corner              .
+#> Tri-R Pueblo               .
+#> Heshotauthla               .
 
 # Plot network
 set.seed(4353)
@@ -504,18 +482,18 @@ head(get.data.frame(weighted_net))
 # indicates which edge attribute to use for values in the matrix
 head(as_adjacency_matrix(weighted_net, attr = "weight"))[1:5, 1:5]
 #> 5 x 5 sparse Matrix of class "dgCMatrix"
-#>                 Apache Creek Casa Malpais Coyote Creek
-#> Apache Creek               .            4            1
-#> Casa Malpais               4            .            1
-#> Coyote Creek               1            1            .
-#> Hooper Ranch               1            1            1
-#> Horse Camp Mill            3            2            4
-#>                 Hooper Ranch Horse Camp Mill
-#> Apache Creek               1               3
-#> Casa Malpais               1               2
-#> Coyote Creek               1               4
-#> Hooper Ranch               .               4
-#> Horse Camp Mill            4               .
+#>                 Apache Creek Casa Malpais Coyote Creek Hooper Ranch
+#> Apache Creek               .            4            1            1
+#> Casa Malpais               4            .            1            1
+#> Coyote Creek               1            1            .            1
+#> Hooper Ranch               1            1            1            .
+#> Horse Camp Mill            3            2            4            4
+#>                 Horse Camp Mill
+#> Apache Creek                  3
+#> Casa Malpais                  2
+#> Coyote Creek                  4
+#> Hooper Ranch                  4
+#> Horse Camp Mill               .
 
 # Plot the network
 set.seed(574)
@@ -544,17 +522,17 @@ cibola_inc <- igraph::graph_from_incidence_matrix(cibola_clust,
                                                   directed = FALSE,
                                                   multiple = TRUE)
 cibola_inc
-#> IGRAPH 7a1c9dd UN-B 41 2214 -- 
+#> IGRAPH c919bf5 UN-B 41 2214 -- 
 #> + attr: type (v/l), name (v/c)
-#> + edges from 7a1c9dd (vertex names):
-#>  [1] Apache Creek--Clust1 Apache Creek--Clust1
-#>  [3] Apache Creek--Clust1 Apache Creek--Clust1
-#>  [5] Apache Creek--Clust1 Apache Creek--Clust1
-#>  [7] Apache Creek--Clust1 Apache Creek--Clust2
-#>  [9] Apache Creek--Clust2 Apache Creek--Clust2
-#> [11] Apache Creek--Clust3 Apache Creek--Clust3
-#> [13] Apache Creek--Clust3 Apache Creek--Clust3
-#> [15] Apache Creek--Clust3 Apache Creek--Clust3
+#> + edges from c919bf5 (vertex names):
+#>  [1] Apache Creek--Clust1 Apache Creek--Clust1 Apache Creek--Clust1
+#>  [4] Apache Creek--Clust1 Apache Creek--Clust1 Apache Creek--Clust1
+#>  [7] Apache Creek--Clust1 Apache Creek--Clust2 Apache Creek--Clust2
+#> [10] Apache Creek--Clust2 Apache Creek--Clust3 Apache Creek--Clust3
+#> [13] Apache Creek--Clust3 Apache Creek--Clust3 Apache Creek--Clust3
+#> [16] Apache Creek--Clust3 Apache Creek--Clust4 Apache Creek--Clust4
+#> [19] Apache Creek--Clust4 Apache Creek--Clust4 Apache Creek--Clust4
+#> [22] Apache Creek--Clust4 Apache Creek--Clust4 Apache Creek--Clust4
 #> + ... omitted several edges
 set.seed(4537643)
 # Plot as two-mode network
@@ -585,20 +563,20 @@ two_mode <- function(x, thresh = 0.25) {
 mod_clust <- two_mode(cibola_clust, thresh = 0.25)
 # Examine the first few rows
 head(mod_clust)
-#>              Clust1 Clust2 Clust3 Clust4 Clust5 Clust6
-#> Apache Creek      0      0      0      1      0      0
-#> Atsinna           0      0      1      0      0      0
-#> Baca Pueblo       0      0      0      0      0      0
-#> Casa Malpais      0      0      0      1      0      0
-#> Cienega           0      1      1      0      0      0
-#> Coyote Creek      0      0      0      1      0      0
-#>              Clust7 Clust8 Clust9 Clust10
-#> Apache Creek      0      0      0       0
-#> Atsinna           0      0      0       0
-#> Baca Pueblo       0      0      1       0
-#> Casa Malpais      0      0      0       0
-#> Cienega           0      0      0       0
-#> Coyote Creek      0      0      0       0
+#>              Clust1 Clust2 Clust3 Clust4 Clust5 Clust6 Clust7 Clust8 Clust9
+#> Apache Creek      0      0      0      1      0      0      0      0      0
+#> Atsinna           0      0      1      0      0      0      0      0      0
+#> Baca Pueblo       0      0      0      0      0      0      0      0      1
+#> Casa Malpais      0      0      0      1      0      0      0      0      0
+#> Cienega           0      1      1      0      0      0      0      0      0
+#> Coyote Creek      0      0      0      1      0      0      0      0      0
+#>              Clust10
+#> Apache Creek       0
+#> Atsinna            0
+#> Baca Pueblo        0
+#> Casa Malpais       0
+#> Cienega            0
+#> Coyote Creek       0
 # Create a graph matrix from the new incidence matrix
 two_mode_net <- igraph::graph_from_incidence_matrix(
                           mod_clust,
@@ -639,20 +617,13 @@ plot(site_net)
 # matrix multiplication we transpose.
 clust_mode <- t(mod_clust) %*% mod_clust
 head(clust_mode)
-#>        Clust1 Clust2 Clust3 Clust4 Clust5 Clust6 Clust7
-#> Clust1      1      0      0      0      0      0      0
-#> Clust2      0     16      9      1      0      2      0
-#> Clust3      0      9     10      0      0      1      0
-#> Clust4      0      1      0     11      1      0      0
-#> Clust5      0      0      0      1      1      0      0
-#> Clust6      0      2      1      0      0      2      0
-#>        Clust8 Clust9 Clust10
-#> Clust1      0      0       0
-#> Clust2      0      0       0
-#> Clust3      0      0       0
-#> Clust4      0      0       0
-#> Clust5      0      0       0
-#> Clust6      0      0       0
+#>        Clust1 Clust2 Clust3 Clust4 Clust5 Clust6 Clust7 Clust8 Clust9 Clust10
+#> Clust1      1      0      0      0      0      0      0      0      0       0
+#> Clust2      0     16      9      1      0      2      0      0      0       0
+#> Clust3      0      9     10      0      0      1      0      0      0       0
+#> Clust4      0      1      0     11      1      0      0      0      0       0
+#> Clust5      0      0      0      1      1      0      0      0      0       0
+#> Clust6      0      2      1      0      0      2      0      0      0       0
 
 clust_net <- igraph::graph_from_adjacency_matrix(clust_mode,
                                                  mode = "undirected",
@@ -698,16 +669,11 @@ cibola_br <- ((2 - as.matrix(vegan::vegdist(clust_p,
 
 # Lets look at the first few rows.
 cibola_br[1:4, 1:4]
-#>              Apache Creek   Atsinna Baca Pueblo
-#> Apache Creek    1.0000000 0.3433584   0.4455782
-#> Atsinna         0.3433584 1.0000000   0.5750090
-#> Baca Pueblo     0.4455782 0.5750090   1.0000000
-#> Casa Malpais    0.7050691 0.3740804   0.5608953
-#>              Casa Malpais
-#> Apache Creek    0.7050691
-#> Atsinna         0.3740804
-#> Baca Pueblo     0.5608953
-#> Casa Malpais    1.0000000
+#>              Apache Creek   Atsinna Baca Pueblo Casa Malpais
+#> Apache Creek    1.0000000 0.3433584   0.4455782    0.7050691
+#> Atsinna         0.3433584 1.0000000   0.5750090    0.3740804
+#> Baca Pueblo     0.4455782 0.5750090   1.0000000    0.5608953
+#> Casa Malpais    0.7050691 0.3740804   0.5608953    1.0000000
 ```
 
 At this point we could simply define this as a weighted network object where weights are equal to the similarity scores, or we could define a threshold for defining edges as present or absent. We will discuss these options in detail after presenting other similarity/distance metrics.
@@ -736,16 +702,11 @@ This metric ranges from 0 (where no categories overlap at all) to 1 where the ca
 cibola_mor <- 1 - as.matrix(vegan::vegdist(cibola_clust,
                                            method = "morisita"))
 cibola_mor[1:4, 1:4]
-#>              Apache Creek   Atsinna Baca Pueblo
-#> Apache Creek    1.0000000 0.4885799   0.6014729
-#> Atsinna         0.4885799 1.0000000   0.5885682
-#> Baca Pueblo     0.6014729 0.5885682   1.0000000
-#> Casa Malpais    0.9060751 0.4459998   0.6529069
-#>              Casa Malpais
-#> Apache Creek    0.9060751
-#> Atsinna         0.4459998
-#> Baca Pueblo     0.6529069
-#> Casa Malpais    1.0000000
+#>              Apache Creek   Atsinna Baca Pueblo Casa Malpais
+#> Apache Creek    1.0000000 0.4885799   0.6014729    0.9060751
+#> Atsinna         0.4885799 1.0000000   0.5885682    0.4459998
+#> Baca Pueblo     0.6014729 0.5885682   1.0000000    0.6529069
+#> Casa Malpais    0.9060751 0.4459998   0.6529069    1.0000000
 ```
 
 
@@ -779,16 +740,11 @@ cibola_x <- chi_dist(cibola_clust)
 cibola_x01 <- 1 - (cibola_x / max(cibola_x))
 
 cibola_x01[1:4, 1:4]
-#>              Apache Creek   Atsinna Baca Pueblo
-#> Apache Creek    1.0000000 0.2904662   0.1010795
-#> Atsinna         0.2904662 1.0000000   0.3393173
-#> Baca Pueblo     0.1010795 0.3393173   1.0000000
-#> Casa Malpais    0.6166508 0.2999925   0.1469591
-#>              Casa Malpais
-#> Apache Creek    0.6166508
-#> Atsinna         0.2999925
-#> Baca Pueblo     0.1469591
-#> Casa Malpais    1.0000000
+#>              Apache Creek   Atsinna Baca Pueblo Casa Malpais
+#> Apache Creek    1.0000000 0.2904662   0.1010795    0.6166508
+#> Atsinna         0.2904662 1.0000000   0.3393173    0.2999925
+#> Baca Pueblo     0.1010795 0.3393173   1.0000000    0.1469591
+#> Casa Malpais    0.6166508 0.2999925   0.1469591    1.0000000
 ```
 
 #### Jaccard Similarity{- #Jaccard}
@@ -1052,17 +1008,17 @@ ego_nets <- make_ego_graph(cibola_net)
 
 # Examine the first ego-network
 ego_nets[[1]]
-#> IGRAPH 7c6ea46 UN-- 12 59 -- 
+#> IGRAPH cb61779 UN-- 12 59 -- 
 #> + attr: name (v/c)
-#> + edges from 7c6ea46 (vertex names):
-#>  [1] Apache Creek--Casa Malpais   
-#>  [2] Apache Creek--Coyote Creek   
-#>  [3] Casa Malpais--Coyote Creek   
-#>  [4] Apache Creek--Hooper Ranch   
-#>  [5] Casa Malpais--Hooper Ranch   
-#>  [6] Coyote Creek--Hooper Ranch   
-#>  [7] Apache Creek--Horse Camp Mill
-#>  [8] Casa Malpais--Horse Camp Mill
+#> + edges from cb61779 (vertex names):
+#>  [1] Apache Creek   --Casa Malpais         Apache Creek   --Coyote Creek        
+#>  [3] Casa Malpais   --Coyote Creek         Apache Creek   --Hooper Ranch        
+#>  [5] Casa Malpais   --Hooper Ranch         Coyote Creek   --Hooper Ranch        
+#>  [7] Apache Creek   --Horse Camp Mill      Casa Malpais   --Horse Camp Mill     
+#>  [9] Coyote Creek   --Horse Camp Mill      Hooper Ranch   --Horse Camp Mill     
+#> [11] Apache Creek   --Hubble Corner        Casa Malpais   --Hubble Corner       
+#> [13] Coyote Creek   --Hubble Corner        Hooper Ranch   --Hubble Corner       
+#> [15] Horse Camp Mill--Hubble Corner        Apache Creek   --Mineral Creek Pueblo
 #> + ... omitted several edges
 
 # Plot Apache Creek ego-network
@@ -1088,8 +1044,8 @@ It is also possible to determine the size of ego-networks for an entire one-mode
 
 ```r
 ego_size(cibola_net)
-#>  [1] 12 12 12 12 13 14 13 13 10 14 15  7  9 14 13 14 15 11
-#> [19] 14 14 15  2 14 19 15 12 12 11  7  6
+#>  [1] 12 12 12 12 13 14 13 13 10 14 15  7  9 14 13 14 15 11 14 14 15  2 14 19 15
+#> [26] 12 12 11  7  6
 ```
 
 ### Multilayer Network{#Multinet}
@@ -1126,38 +1082,38 @@ The `multinet` network objects are compatible with `igraph` and individual layer
 # multilayer network, the multinet package can help us do that directly
 # and quite simply.
 multinet::degree_ml(florentine)
-#>  [1]  3  6  6 11  3  1  5  6  6  4  4  7  3  2  3
+#>  [1]  1  3  6  7  4  2  3 11  3  4  5  6  3  6  6
 
 # Similarly, we could apply cluster detection algorithms to all layers
 # of a multilayer network simultaneously.
 multinet::glouvain_ml(florentine)
 #>           actor    layer cid
-#> 1        Ginori marriage   0
-#> 2        Ginori business   0
-#> 3        Medici marriage   0
-#> 4        Medici business   0
-#> 5       Albizzi marriage   0
-#> 6    Acciaiuoli marriage   0
-#> 7     Barbadori marriage   0
-#> 8     Barbadori business   0
-#> 9    Tornabuoni marriage   0
-#> 10   Tornabuoni business   0
-#> 11      Ridolfi marriage   0
-#> 12        Pazzi marriage   0
-#> 13        Pazzi business   0
-#> 14     Salviati marriage   0
-#> 15     Salviati business   0
-#> 16   Castellani marriage   1
-#> 17   Castellani business   1
-#> 18     Bischeri marriage   1
-#> 19     Bischeri business   1
-#> 20 Lamberteschi marriage   1
-#> 21 Lamberteschi business   1
-#> 22     Guadagni marriage   1
-#> 23     Guadagni business   1
-#> 24      Strozzi marriage   1
-#> 25      Peruzzi marriage   1
-#> 26      Peruzzi business   1
+#> 1       Peruzzi marriage   0
+#> 2       Peruzzi business   0
+#> 3       Strozzi marriage   0
+#> 4  Lamberteschi marriage   0
+#> 5  Lamberteschi business   0
+#> 6      Guadagni marriage   0
+#> 7      Guadagni business   0
+#> 8    Castellani marriage   0
+#> 9    Castellani business   0
+#> 10     Bischeri marriage   0
+#> 11     Bischeri business   0
+#> 12   Acciaiuoli marriage   1
+#> 13      Albizzi marriage   1
+#> 14    Barbadori marriage   1
+#> 15    Barbadori business   1
+#> 16        Pazzi marriage   1
+#> 17        Pazzi business   1
+#> 18     Salviati marriage   1
+#> 19     Salviati business   1
+#> 20       Medici marriage   1
+#> 21       Medici business   1
+#> 22      Ridolfi marriage   1
+#> 23   Tornabuoni marriage   1
+#> 24   Tornabuoni business   1
+#> 25       Ginori marriage   1
+#> 26       Ginori business   1
 ```
 
 For an archaeological example of multilevel network analysis [this GitHub project](https://github.com/ajupton/archy-multilayer-nets) by Andy Upton.
@@ -1185,23 +1141,23 @@ Here is a simple example:
 ```r
 mor_wt_i <- asIgraph(mor_wt)
 mor_wt_i
-#> IGRAPH 7ce9125 U-W- 31 465 -- 
-#> + attr: na (v/l), vertex.names (v/c), na (e/l),
-#> | weight (e/n)
-#> + edges from 7ce9125:
-#>  [1] 1-- 2 1-- 3 1-- 4 1-- 5 1-- 6 1-- 7 1-- 8 1-- 9 1--10
-#> [10] 1--11 1--12 1--13 1--14 1--15 1--16 1--17 1--18 1--19
-#> [19] 1--20 1--21 1--22 1--23 1--24 1--25 1--26 1--27 1--28
-#> [28] 1--29 1--30 1--31 2-- 3 2-- 4 2-- 5 2-- 6 2-- 7 2-- 8
-#> [37] 2-- 9 2--10 2--11 2--12 2--13 2--14 2--15 2--16 2--17
-#> [46] 2--18 2--19 2--20 2--21 2--22 2--23 2--24 2--25 2--26
-#> [55] 2--27 2--28 2--29 2--30 2--31 3-- 4 3-- 5 3-- 6 3-- 7
+#> IGRAPH cbd6ec2 U-W- 31 465 -- 
+#> + attr: na (v/l), vertex.names (v/c), na (e/l), weight (e/n)
+#> + edges from cbd6ec2:
+#>   [1] 1-- 2 1-- 3 1-- 4 1-- 5 1-- 6 1-- 7 1-- 8 1-- 9 1--10 1--11 1--12 1--13
+#>  [13] 1--14 1--15 1--16 1--17 1--18 1--19 1--20 1--21 1--22 1--23 1--24 1--25
+#>  [25] 1--26 1--27 1--28 1--29 1--30 1--31 2-- 3 2-- 4 2-- 5 2-- 6 2-- 7 2-- 8
+#>  [37] 2-- 9 2--10 2--11 2--12 2--13 2--14 2--15 2--16 2--17 2--18 2--19 2--20
+#>  [49] 2--21 2--22 2--23 2--24 2--25 2--26 2--27 2--28 2--29 2--30 2--31 3-- 4
+#>  [61] 3-- 5 3-- 6 3-- 7 3-- 8 3-- 9 3--10 3--11 3--12 3--13 3--14 3--15 3--16
+#>  [73] 3--17 3--18 3--19 3--20 3--21 3--22 3--23 3--24 3--25 3--26 3--27 3--28
+#>  [85] 3--29 3--30 3--31 4-- 5 4-- 6 4-- 7 4-- 8 4-- 9 4--10 4--11 4--12 4--13
 #> + ... omitted several edges
 
 # view first 10 edge weights to show that they are retained
 E(mor_wt_i)$weight[1:10]
-#>  [1] 0.4885799 0.6014729 0.9060751 0.4049019 1.0000000
-#>  [6] 0.7087214 0.7724938 0.4521581 0.7996468 1.0000000
+#>  [1] 0.4885799 0.6014729 0.9060751 0.4049019 1.0000000 0.7087214 0.7724938
+#>  [8] 0.4521581 0.7996468 1.0000000
 ```
 
 And back in the other direction:
@@ -1228,7 +1184,7 @@ mor_new
 #>     weight
 
 (mor_new %e% "weight")[1:10]
-#>  [1] 0.4885799 0.6014729 0.9060751 0.4049019 1.0000000
-#>  [6] 0.7087214 0.7724938 0.4521581 0.7996468 1.0000000
+#>  [1] 0.4885799 0.6014729 0.9060751 0.4049019 1.0000000 0.7087214 0.7724938
+#>  [8] 0.4521581 0.7996468 1.0000000
 ```
 
