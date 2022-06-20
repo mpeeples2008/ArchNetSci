@@ -1726,3 +1726,242 @@ We are aware of few published examples of the use of radiation models for archae
 ## Other Spatial Interaction Models{#OtherModels}
 
 There are many other spatial interaction models we haven't covered here. Most are fairly similar in that they take information on site size, perhaps other relevant archaeological information, and a few user selected parameters to model flows across edges and sometimes to iteratively predict sizes of nodes, the weights of flows, or both. Other common models we haven't covered here include the XTENT model (Renfrew and Level 1979; see Ducke and Suchowska 2021 for an example with code for GRASS GIS) and various derivations of MaxEnt (or maximum entropy) models. Another approach that merits mention here is the [ariadne model](https://figshare.com/articles/dataset/ariadne/97746) designed by Tim Evans and used in collaboration with Ray Rivers, Carl Knappett, and others. This model provides a means for predicting site features and estimating optimal networks based on location and very general size information (or other archaeological features). This model has features that make it particularly useful for generating directed spatial networks (see [Evans et al. 2011](https://plato.tp.ph.ic.ac.uk/~time/networks/arch/interactionsArxivSubmissionV2.pdf)). Although there is a basic R implementation for the ariadne model developed by the ISAAKiel team [available here](https://rdrr.io/github/CRC1266-A2/moin/src/R/hamiltonian.R) the computational constraints make this function unfeasible in R for all but very small networks. Instead, if you are interested in applying the ariadne model, we suggest you use the original Java program created by Tim Evans and [available here](https://figshare.com/articles/dataset/ariadne/97746).
+
+# Affiliation Data, Two-Mode Networks, and Co-Association{#Affiliation}
+
+Many of the material cultural networks that archaeologists have generated in recent studies are based, at least in part, on affiliation data. An affiliation network is a particular form of network defined in terms of what are often called "actors" and "events." Typically, such data are used to generate a bipartite (two-mode) network where one set of nodes represents a set of social entities (individuals, groups, etc.) and the second set of nodes represent some set of features or events they can have in common or attend. For example, the classic affiliation data set is refereed to as the *Deep South* case study which represents data on a group of women in a southern town and the social events in which they participated (Davis et al. 1941). An affiliation network is defined connecting people to events in this case based on the notion that people who attended more events together had more opportunities to interact, or that their co-attendance was a reflection of other social relationships (see Breiger 1974). Similarly, events that had many of the same attendees could also be thought of as being more strongly connected than events with very different rosters. The bipartite network created connecting these two classes of nodes are often further projected into distinct one-mode networks of person-to-person and event-to-event relationships for further analyses.
+
+Although this is not always explicitly discussed, the affiliation network framework mirrors many archaeological network constructions where sites/regions/contexts are connected via the materials present in those contexts. For example, sites may stand in for "persons" in such a network and artifacts categories as "events" with the underlying reasoning being that the inhabitants of sites that share more categories of artifacts were more likely to have interacted than the inhabitants of sites with very different materials. In most archaeological examples where such data have been used (e.g., Coward 2013; Golitko et al. 2012; Mizoguchi 2013; Mills et al. 2013, 2015, etc.) these affiliation data are projected into a single one-mode network focused on sites/contexts and that network is used for most formal analyses. This is not, of course, the only path forward. There are examples of archaeologists conducting direct analyses of two-mode data (e.g., Blair 2022; Ladefoged et al. 2019, etc.). The consideration of material networks as affiliation networks also opens up the possibility of many additional methods that have as of yet been rare in archaeological network research. In this section, we outline a few approaches that may be of use as archaeologists continue to experiment with such data.
+
+## Analyzing Two-Mode Networks{#AnalyzingTwoMode}
+
+In the examples here we will be using the [Cibola data set](#Cibola) used throughout this document. The specific data we will use consist of a set of sites as one mode and a set of ceramic technological clusters as the second mode. Our underlying assumption is that sites that share more ceramic technological clusters are more strongly connected than sites that share fewer. Further, ceramic technological clusters that are frequently co-associated in site assemblages are more closely connected than those that do not frequently co-occur.
+
+Let's read in the data and create a simple two-mode network visualization to start by reading in the Cibola incidence matrix. We will be using the `igraph` package for most of the examples below so we initialize that as well as the `ggraph` package for plotting:
+
+
+```r
+library(igraph)
+library(ggraph)
+
+# Read in two-way table of sites and ceramic technological clusters
+cibola_clust <- read.csv(file = "data/Cibola_clust.csv",
+                         header = TRUE,
+                         row.names = 1)
+# Create network from incidence matrix based on presence/absence of
+# a cluster at a site
+cibola_inc <- igraph::graph_from_incidence_matrix(cibola_clust,
+                                                  directed = FALSE)
+# Plot as two-mode network
+set.seed(4643)
+ggraph(cibola_inc) +
+  geom_edge_link(aes(size = 0.5), color = "gray", show.legend = FALSE) +
+  geom_node_point(aes(color = as.factor(V(cibola_inc)$type),
+                      size = 4),
+                  show.legend = FALSE) +
+  geom_node_text(aes(label = name), size = 3, repel = TRUE) +
+  theme_graph()
+```
+
+<img src="07-beyond-the-book_files/figure-html/unnamed-chunk-52-1.png" width="672" />
+
+
+### Using Traditional Network Metrics{#TraditionalMetrics}
+
+There are several different possible approaches for directly analyzing two-mode network data. Perhaps the simplest approach is to analyze two-mode data using typical one-mode metrics like we've already seen throughout this guide. Essentially, this is akin to treating both modes the same and evaluating relative positions and structures between node classes. If you send a bipartite network object to the typical network measures outlined in the [Exploratory Analysis](#Exploratory) section. For example, here we apply two measures of centrality and plot the results.  
+
+
+```r
+dg_bi <- igraph::degree(cibola_inc)
+bw_bi <- igraph::betweenness(cibola_inc)
+
+# Plot as two-mode network with size by centrality
+set.seed(4643)
+ggraph(cibola_inc) +
+  geom_edge_link(aes(size = 0.5), color = "gray", show.legend = FALSE) +
+  geom_node_point(aes(color = as.factor(V(cibola_inc)$type),
+                      size = dg_bi),
+                  show.legend = FALSE) +
+  geom_node_text(aes(label = name), size = 3, repel = TRUE) +
+  ggtitle("Node Size by Degree") +
+  theme_graph()
+```
+
+<img src="07-beyond-the-book_files/figure-html/unnamed-chunk-53-1.png" width="672" />
+
+```r
+set.seed(4643)
+ggraph(cibola_inc) +
+  geom_edge_link(aes(size = 0.5), color = "gray", show.legend = FALSE) +
+  geom_node_point(aes(color = as.factor(V(cibola_inc)$type),
+                      size = bw_bi),
+                  show.legend = FALSE) +
+  geom_node_text(aes(label = name), size = 3, repel = TRUE) +
+  ggtitle("Node Size by Betweenness") +
+  theme_graph()
+```
+
+<img src="07-beyond-the-book_files/figure-html/unnamed-chunk-53-2.png" width="672" />
+
+This method could be useful if you are interested in determining relative centrality between classes of nodes. In the example here, for both degree and betweenness centrality the mode made of of ceramic technological clusters (in blue) seems to include the most central nodes, but there are exceptions. 
+
+### Using Two-Mode Specific Network Metrics{#TwoModeMetrics}
+
+In addition to the traditional approach to calculating network metrics for bipartite networks using the same one-mode metrics we've previously used, there are also methods designed specifically to work with two-mode network data. Unfortunately, most of these metrics have not been incorporated into robust and currently maintained packages for R. Many of these approaches represent simply normalizations of existing network metrics, however, so it is possible to create our own custom versions without too much trouble.
+
+For example, if we are interesetd in network density, it doesn't make sense to simply use regular density measures as that asssumes any node can be connected to any other node. In a two-mode network, nodes can only be connected *between* classes. Thus, to obtain appropriate two-mode density, we need to divide density by a factor defined as:
+
+$$\frac{n_1n_2}{(n_1+n_2)(n_1+n_2-1)}$$
+where $n_1$ and $n_2$ represent the number of nodes in modes 1 and 2 respectively.
+
+Let's give this a try by first calculating density the traditional (`den_init`) way and then correcting it (`den_corr`). Note that we divide our initial density by 2 because we only want density counted in one direction.
+
+
+```r
+# edge density divided by 2 because we only want edges counted in one direction
+den_init <- edge_density(cibola_inc) / 2
+den_init
+```
+
+```
+## [1] 0.145122
+```
+
+```r
+# number of nodes in first mode
+n1 <- length(which(V(cibola_inc)$type == FALSE))
+n1
+```
+
+```
+## [1] 31
+```
+
+```r
+# number of nodes in second mode
+n2 <- length(which(V(cibola_inc)$type == TRUE))
+n2
+```
+
+```
+## [1] 10
+```
+
+```r
+den_corr <- den_init / ((n1 * n2) / ((n1 + n2) * (n1 + n2 - 1)))
+den_corr
+```
+
+```
+## [1] 0.7677419
+```
+
+As this example shows, our initial density estimate was quite low at about 0.145 but once we correct for node class, we get a quite dense network of about 0.768. 
+
+Let's take a look at degree centrality next. As we saw in the previous section it is possible to calculate degree cetnrality using the traditional metric and simply plotting that. In the plot shown previously, most of the "Cluster" nodes shown in blue had much higher degree than the sites. This isn't surprsing given that there are 31 sites and 10 ceramic clusters. In other words, the theoretically posible degree for the technological cluster nodes is more than 3 times higher than that for sites. One easy way to deal with degree in two mode network is to normalize by the size of the opposite node class. For example, degree centrlity in one-mode networks can be normalized as:
+
+$$d_i^* = \frac{d_i}{n-1}$$
+
+where $d_i$ is the original degree for node $i$ and $n$ is the number of nodes in the network. 
+
+For two-mode networks, the standardization would take the following form:
+
+$$\begin{aligned}
+d^*_{i} =& \frac{d_{i}}{n_2} \text{, for } i \in V_1 \\
+d^*_{j} =& \frac {d_{j}}{n_1} \text{, for } j \in V_2 
+\end{aligned}$$
+
+where
+
+* $d_{i}$ is the degree of node $i$ in mode $V_1$
+* $d_{j}$ is the degree of node $j$ in mode $V_2$
+* $n_1$ is the number of nodes in mode $1$
+* $n_2$ is the number of nodes in mode $2$
+
+Let's give this a try with our Cibola ceramic technological clusters data. We roll this into a function for convenience:
+
+
+```r
+degree_twomode <- function(net) {
+  n1 <- length(which(V(net)$type == FALSE))
+  n2 <- length(which(V(net)$type == TRUE))
+  temp_dg <- igraph::degree(net, mode = "in")
+  dg_n1 <- temp_dg[which(V(net)$type == FALSE)] / n2
+  dg_n2 <- temp_dg[which(V(net)$type == TRUE)] / n1
+  return(c(dg_n1, dg_n2))
+}
+
+dg_tm <- degree_twomode(cibola_inc)
+dg_tm
+```
+
+```
+##          Apache Creek               Atsinna           Baca Pueblo 
+##             0.8000000             0.6000000             0.8000000 
+##          Casa Malpais               Cienega          Coyote Creek 
+##             0.9000000             0.8000000             0.9000000 
+##          Foote Canyon          Garcia Ranch          Heshotauthla 
+##             1.0000000             0.7000000             0.7000000 
+##               Hinkson          Hooper Ranch       Horse Camp Mill 
+##             1.0000000             0.8000000             0.9000000 
+##         Hubble Corner               Jarlosa          Los Gigantes 
+##             0.8000000             0.6000000             0.5000000 
+##  Mineral Creek Pueblo               Mirabal            Ojo Bonito 
+##             0.9000000             0.7000000             0.6000000 
+##       Pescado Cluster           Platt Ranch Pueblo de los Muertos 
+##             0.7000000             0.8000000             0.6000000 
+##       Rudd Creek Ruin              Scribe S             Spier 170 
+##             0.9000000             0.6000000             0.6000000 
+##       Techado Springs                Tinaja          Tri-R Pueblo 
+##             1.0000000             0.7000000             0.9000000 
+##                 UG481                 UG494              WS Ranch 
+##             1.0000000             0.8000000             0.9000000 
+##           Yellowhouse                Clust1                Clust2 
+##             0.3000000             0.6129032             1.0000000 
+##                Clust3                Clust4                Clust5 
+##             1.0000000             0.9032258             0.7741935 
+##                Clust6                Clust7                Clust8 
+##             0.9354839             0.9032258             0.5161290 
+##                Clust9               Clust10 
+##             0.6774194             0.3548387
+```
+
+```r
+# Plot as two-mode network with size by centrality
+set.seed(4643)
+ggraph(cibola_inc) +
+  geom_edge_link(aes(size = 0.5), color = "gray", show.legend = FALSE) +
+  geom_node_point(aes(color = as.factor(V(cibola_inc)$type),
+                      size = dg_tm),
+                  show.legend = FALSE) +
+  geom_node_text(aes(label = name), size = 3, repel = TRUE) +
+  ggtitle("Node Size by Degree") +
+  theme_graph()
+```
+
+<img src="07-beyond-the-book_files/figure-html/unnamed-chunk-55-1.png" width="672" />
+
+As this shows, after normalization most of the nodes have similar degree values with a couple of low degree outliers. If we plot the normalized degree distributions for both methods as density plots, the difference is even more obvious.
+
+
+```r
+dg_orig <- igraph::degree(cibola_inc, mode = "in", normalized = TRUE)
+
+dg_all <- c(dg_orig, dg_tm)
+dg_lab <- c(rep("one-mode degree", 41), rep("two-mode degree", 41))
+
+df <- data.frame(dg = dg_all, group = dg_lab)
+
+ggplot(df) +
+  geom_density(aes(x = dg, fill = group), alpha = 0.5) +
+  xlim(range = c(0, 1)) +
+  theme_bw()
+```
+
+<img src="07-beyond-the-book_files/figure-html/unnamed-chunk-56-1.png" width="672" />
+
+Indeed, the one-mode metric suggests that most nodes have low degree whereas the two-mode metric suggests most nodes have quite high degree. This demonstrates how important it is to modify traditional network metrics for the two-mode use case to assess distributional features like this. There are similar normalization factors for other centrality measures in the published network literature ([see this document by Borgatti for examples](http://www.analytictech.com/borgatti/papers/2modeconcepts.pdf)) but few of these have been implemented in R as of yet. This would be a useful project in the future (and perhaps we will add that here eventually).
+
+### Projecting Two-Mode Networks to One-Mode Before Analysis
+
+Another common approach to the analysis of two-mode networks is to project them into two separate one-mode networks and then to analyze each of them separately. We have already seen this approach in several examples in this document. Indeed, this is the most common procedure 

@@ -4,17 +4,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Section 4 Quantifying Uncertainty | Online Companion to Archaeological Network Science</title>
+<title>Section 5 Quantifying Uncertainty | Online Companion to Archaeological Network Science</title>
 <meta name="author" content="Matthew A. Peeples and Tom Brughmans">
 <meta name="description" content="In almost any archaeological network study, the networks we create are incomplete (i.e., we know that we are missing nodes or edges for various reasons: site destruction, lack of survey coverage,...">
 <meta name="generator" content="bookdown 0.26 with bs4_book()">
-<meta property="og:title" content="Section 4 Quantifying Uncertainty | Online Companion to Archaeological Network Science">
+<meta property="og:title" content="Section 5 Quantifying Uncertainty | Online Companion to Archaeological Network Science">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://book.archnetworks.net/Uncertainty.html">
 <meta property="og:image" content="https://book.archnetworks.net/images/cover.png">
 <meta property="og:description" content="In almost any archaeological network study, the networks we create are incomplete (i.e., we know that we are missing nodes or edges for various reasons: site destruction, lack of survey coverage,...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Section 4 Quantifying Uncertainty | Online Companion to Archaeological Network Science">
+<meta name="twitter:title" content="Section 5 Quantifying Uncertainty | Online Companion to Archaeological Network Science">
 <meta name="twitter:description" content="In almost any archaeological network study, the networks we create are incomplete (i.e., we know that we are missing nodes or edges for various reasons: site destruction, lack of survey coverage,...">
 <meta name="twitter:image" content="https://book.archnetworks.net/images/cover.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -77,18 +77,22 @@
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
         <ul class="book-toc list-unstyled">
 <li><a class="" href="index.html">Welcome</a></li>
-<li><a class="" href="GettingStarted.html">Gettings Started with R</a></li>
-<li><a class="" href="DataAndWorkspace.html"><span class="header-section-number">1</span> Data and Workspace Setup</a></li>
-<li><a class="" href="NetworkData.html"><span class="header-section-number">2</span> Network Data in R</a></li>
-<li><a class="" href="Exploratory.html"><span class="header-section-number">3</span> Exploratory Network Analysis</a></li>
-<li><a class="active" href="Uncertainty.html"><span class="header-section-number">4</span> Quantifying Uncertainty</a></li>
-<li><a class="" href="Visualization.html"><span class="header-section-number">5</span> Network Visualization</a></li>
-<li><a class="" href="SpatialNetworks.html"><span class="header-section-number">6</span> Spatial Networks</a></li>
-<li class="book-part">Going Beyond the Book</li>
-<li><a class="" href="ERGM.html"><span class="header-section-number">7</span> Exponential Random Graph Models</a></li>
-<li><a class="" href="SpatialInteraction.html"><span class="header-section-number">8</span> Spatial Interaction Models</a></li>
+<li class="book-part">PART I: Getting Started</li>
+<li><a class="" href="GettingStarted.html"><span class="header-section-number">1</span> Getting Started with R</a></li>
+<li class="book-part">PART II: Work While You Read</li>
+<li><a class="" href="DataAndWorkspace.html"><span class="header-section-number">2</span> Data and Workspace Setup</a></li>
+<li><a class="" href="NetworkData.html"><span class="header-section-number">3</span> Network Data in R</a></li>
+<li><a class="" href="Exploratory.html"><span class="header-section-number">4</span> Exploratory Network Analysis</a></li>
+<li><a class="active" href="Uncertainty.html"><span class="header-section-number">5</span> Quantifying Uncertainty</a></li>
+<li><a class="" href="Visualization.html"><span class="header-section-number">6</span> Network Visualization</a></li>
+<li><a class="" href="SpatialNetworks.html"><span class="header-section-number">7</span> Spatial Networks</a></li>
+<li class="book-part">PART III: Going Beyond the Book</li>
+<li><a class="" href="ERGM.html"><span class="header-section-number">8</span> Exponential Random Graph Models</a></li>
+<li><a class="" href="SpatialInteraction.html"><span class="header-section-number">9</span> Spatial Interaction Models</a></li>
+<li><a class="" href="Affiliation.html"><span class="header-section-number">10</span> Affiliation Data and Co-Association</a></li>
+<li class="book-part">Additional Material</li>
 <li><a class="" href="TableOfContents.html">Table of Contents Quick Reference</a></li>
-<li><a class="" href="references-and-r-packages-1.html">References and R Packages</a></li>
+<li><a class="" href="references-and-r-packages.html">References and R Packages</a></li>
 </ul>
 
         <div class="book-extra">
@@ -96,15 +100,15 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="Uncertainty" class="section level1" number="4">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="Uncertainty" class="section level1" number="5">
 <h1>
-<span class="header-section-number">Section 4</span> Quantifying Uncertainty<a class="anchor" aria-label="anchor" href="#Uncertainty"><i class="fas fa-link"></i></a>
+<span class="header-section-number">Section 5</span> Quantifying Uncertainty<a class="anchor" aria-label="anchor" href="#Uncertainty"><i class="fas fa-link"></i></a>
 </h1>
 <p>In almost any archaeological network study, the networks we create are incomplete (i.e., we know that we are missing nodes or edges for various reasons: site destruction, lack of survey coverage, looting, etc.). How might the fact that our networks are samples of a larger and typically unobtainable “total network” influence our interpretations of network structure and node position? In this section, we take inspiration from recent research in other areas of network research (Borgatti et al. 2006; Costenbader and Valente 2003; Smith and Moody 2013; Smith et al. 2017; Smith et al. 2022) and develop a means for assessing the impact of missing and poor quality information in our networks. This accompanies Chapter 5 of Brughmans and Peeples (2022) and we recommend that you read Chapter 5 as you work through the examples below.</p>
 <p>For most of the other analyses presented in the book it is possible to use a number of different network software packages to conduct similar analyses. The analyses presented in Chapter 5, however, require the creation of custom scripts and procedures that are only possible in a programming language environment like R. We attempt here to not only provide information on how to replicate the examples in the book but also provide guidance on how you might modify the functions and code provided here for your own purposes.</p>
-<div id="UncertaintyScripts" class="section level2" number="4.1">
+<div id="UncertaintyScripts" class="section level2" number="5.1">
 <h2>
-<span class="header-section-number">4.1</span> R Scripts and Custom Functions<a class="anchor" aria-label="anchor" href="#UncertaintyScripts"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.1</span> R Scripts and Custom Functions<a class="anchor" aria-label="anchor" href="#UncertaintyScripts"><i class="fas fa-link"></i></a>
 </h2>
 <p>In this chapter, we have created a number of relatively complex custom functions to conduct the assessments of network uncertainty outlined in Chapter 5. We provide step by step overviews of how these functions work below but it is useful to bundle the functions into .R script files and call them directly from the file when working with your own data.</p>
 <p>The scripts described in detail below include:</p>
@@ -127,9 +131,9 @@
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"scripts/sim_missing_nodes.R"</span><span class="op">)</span></code></pre></div>
 <p>Note that you must include the correct absolute or relative file path for the script to run properly.</p>
 </div>
-<div id="UncertaintyGeneral" class="section level2" number="4.2">
+<div id="UncertaintyGeneral" class="section level2" number="5.2">
 <h2>
-<span class="header-section-number">4.2</span> A General Approach to Uncertainty<a class="anchor" aria-label="anchor" href="#UncertaintyGeneral"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.2</span> A General Approach to Uncertainty<a class="anchor" aria-label="anchor" href="#UncertaintyGeneral"><i class="fas fa-link"></i></a>
 </h2>
 <p>As outlined in the book, our basic approach to quantifying and dealing with uncertainty is to use the sample we have as a means for understanding the robustness or vulnerability of the population from which that sample was drawn to the kinds of variability or perturbations we might expect. The procedures we outline primarily take the following basic form:</p>
 <ul>
@@ -140,9 +144,9 @@
 </ul>
 <p>The underlying assumption of the approach outlined here is that the robustness or vulnerability to a particular perturbation of the observed network data, drawn from a total network that is unattainable, provides information about the robustness or vulnerability of that unattainable total network to the same kinds of perturbations. For example, if we are interested in exploring the degree distribution of a network and our sampling experiments show massive fluctuations in degree in sub-samples with only small numbers of nodes removed at random, this would suggest that the particular properties of this network are not robust to nodes missing at random for degree calculations. From this, we should not place much confidence in any results obtained from the original sample as indicative of the total network from which it was drawn. On the other hand, say we instead find that in the resampling experiments the degree distributions in our sub-samples are substantially similar to that of the original network sample even when moderate or large numbers of nodes are removed. In that case, we might conclude that our network structure is such that assessments of degree distribution are robust to node missigness within the range of what we might expect for our original sample. It is important to note, however, that this finding should not be transferred to any other metrics as any given network is likely to be robust to certain kinds of perturbations for certain network metrics, but not to others.</p>
 </div>
-<div id="NodesAtRandom" class="section level2" number="4.3">
+<div id="NodesAtRandom" class="section level2" number="5.3">
 <h2>
-<span class="header-section-number">4.3</span> Nodes Missing at Random<a class="anchor" aria-label="anchor" href="#NodesAtRandom"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.3</span> Nodes Missing at Random<a class="anchor" aria-label="anchor" href="#NodesAtRandom"><i class="fas fa-link"></i></a>
 </h2>
 <p>This sub-section accompanies the discussion of nodes or edges missing at random in Brughmans and Peeples (2022) Chapter 5.3.1. Here we take one interval of the Chaco World ceramic similarity network (ca. A.D. 1050-1100) and simulate the impact of nodes missing at random on network centrality statistics. Download the <a href="data/AD1050net.csv">ceramic similarity adjacency matrix</a> to follow along.</p>
 <p>The first thing we need to do is initialize our required libraries, import the network adjacency matrix, and convert it into a <code>igraph</code> network object. For several of the examples in this section we are using a simple undirected network though the code would also work for weighted or directed networks as well.</p>
@@ -341,9 +345,9 @@
   <span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="04-uncertainty_files/figure-html/unnamed-chunk-5-1.png" width="672"></div>
 </div>
-<div id="EdgesAtRandom" class="section level2" number="4.4">
+<div id="EdgesAtRandom" class="section level2" number="5.4">
 <h2>
-<span class="header-section-number">4.4</span> Edges Missing at Random<a class="anchor" aria-label="anchor" href="#EdgesAtRandom"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.4</span> Edges Missing at Random<a class="anchor" aria-label="anchor" href="#EdgesAtRandom"><i class="fas fa-link"></i></a>
 </h2>
 <p>In some cases, we are interested in the potential impact of missing edges rather than missing nodes. For example, if we have created a network of co-presence (based on shared ceramic types, site mentions on monuments, or some other similar data) how robust is our network to the omission of certain edges? How are different centrality metrics influenced by edge omission?</p>
 <p>In this section, will conduct an analysis similar to that described above for assessing missing nodes. Specifically, we will sub-sample our networks by removing a fraction of edges and then test the stability of centrality measures and node position across a range of sampling fractions.</p>
@@ -390,9 +394,9 @@ will return an error.
   <span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="04-uncertainty_files/figure-html/unnamed-chunk-8-1.png" width="672"></div>
 </div>
-<div id="IndNodesAtRandom" class="section level2" number="4.5">
+<div id="IndNodesAtRandom" class="section level2" number="5.5">
 <h2>
-<span class="header-section-number">4.5</span> Assessing Indivdiual Nodes/Edges<a class="anchor" aria-label="anchor" href="#IndNodesAtRandom"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.5</span> Assessing Indivdiual Nodes/Edges<a class="anchor" aria-label="anchor" href="#IndNodesAtRandom"><i class="fas fa-link"></i></a>
 </h2>
 <p>This sub-section follows along with Chapter 5.3.2 in Brughmans and Peeples (2022). In some cases we may be interested not simply in the robustness of a particular network metric to a specific kind of perturbation across all nodes or edges, but instead in the potential variability of the position or characteristics of a single node (or group of nodes) due to such perturbations. In order to explore individual nodes, we can employ similar procedures to those outlined above with a few additional modifications to our function. In this example we will use the <a href="DataAndWorkspace.html#Cibola">Cibola technological similarity network</a>. As we describe in the book, we want to assess the stability of the position of the Garcia Ranch site. Specifically, we want to know the whether or not the high betweenness centrality value of Garcia Ranch is robust to nodes missing at random in this network.</p>
 <p>We define a new function to conduct these analyses below. This function is similar to those used above but instead of providing Spearman’s <span class="math inline">\(/rho\)</span> values it outputs the specific rank order of the node in question across each simulation.</p>
@@ -452,9 +456,9 @@ will return an error.
 <div class="inline-figure"><img src="04-uncertainty_files/figure-html/unnamed-chunk-10-1.png" width="672"></div>
 <p>As we describe in the book, the position of Garcia Ranch as a highly central node appears to be stable to nodes missing at random. Indeed, by far the most common position for this node was 2 which is its position in the original network.</p>
 </div>
-<div id="MissingBiased" class="section level2" number="4.6">
+<div id="MissingBiased" class="section level2" number="5.6">
 <h2>
-<span class="header-section-number">4.6</span> Nodes/Edges Missing Due to Biased Sampling<a class="anchor" aria-label="anchor" href="#MissingBiased"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.6</span> Nodes/Edges Missing Due to Biased Sampling<a class="anchor" aria-label="anchor" href="#MissingBiased"><i class="fas fa-link"></i></a>
 </h2>
 <p>This sub-section follows along with Brughmans and Peeples (2022) Chapter 5.3.3. There are many contexts where we are interested in modeling data that are not missing at random but instead are influenced by some biased sampling process. For example, say we have a study area where there have been lots of general reconnaissance surveys that have recorded most of the large sites but few full coverage surveys that have captured smaller sites. In that case, we may wish to model missingness such that small sites would more likely be missing than large sites.</p>
 <p>The <code>sim_missing_nodes</code> and <code>sime_missing_edges</code> functions we created above can both help us test the impacts of biased sampling processes. In order to do this we simply use the additional argument <code>missing_probs</code>. This argument requires a vector the same length as the number of nodes or edges, depending on which function you are using. This vector should contain numeric values between 0 and 1 that denote the probabilities that a node or edge will be retained in the sub-sampling effort (and must be in the same order that nodes or edges are recorded in the network object).</p>
@@ -501,9 +505,9 @@ or you’ll get an error.
     legend.text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">rel</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span>
   <span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="04-uncertainty_files/figure-html/unnamed-chunk-13-1.png" width="672"></div>
-<div id="SimIncidence" class="section level3" number="4.6.1">
+<div id="SimIncidence" class="section level3" number="5.6.1">
 <h3>
-<span class="header-section-number">4.6.1</span> Resampling with Incidence Matrices<a class="anchor" aria-label="anchor" href="#SimIncidence"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.6.1</span> Resampling with Incidence Matrices<a class="anchor" aria-label="anchor" href="#SimIncidence"><i class="fas fa-link"></i></a>
 </h3>
 <p>In the book, we illustrate our approach to biased sampling using the <a href="DataAndWorkspace.html#ArchPubs">co-authorship network</a> data. In this case we start with an incidence matrix of publications and authors and we want to assess the potential impact of missing publications on the network of authors. Since we gathered these data from digital repositories and citations, it is likely that we are missing some publications and it is reasonable to assume that we would be more likely to miss older publications than newer ones given the inclusion of newer publications in searchable digital indexes. Thus, in this example we want to assess missingness such that newer publications are more likely to be retained than older ones in our sample. We compare this to missing at random to assess how these results relate to one another.</p>
 <p>First we need to provide two data files. The first is the <a href="data/biblio_attr.csv">bibliographic attribute data</a> which includes date, publication type, and other information on each publication designated by a unique identifier. The second is an <a href="data/biblio_dat2.csv">incidence matrix</a> of publications denoted by unique identifier (rows) and authors (columns). We read this into R and then create an adjacency matrix of author to author connections using matrix algebra (multiply the incidence matrix by the transpose of the incidence matrix), convert it into a <code>igraph</code> network object and then calculate betweenness centrality for all nodes. We plot a simple network node link diagram to visualize these data.</p>
@@ -669,9 +673,9 @@ transpose function to place columns in the target position.
 <div class="inline-figure"><img src="04-uncertainty_files/figure-html/unnamed-chunk-19-1.png" width="672"></div>
 </div>
 </div>
-<div id="EdgeProbability" class="section level2" number="4.7">
+<div id="EdgeProbability" class="section level2" number="5.7">
 <h2>
-<span class="header-section-number">4.7</span> Edge Probability Modeling<a class="anchor" aria-label="anchor" href="#EdgeProbability"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.7</span> Edge Probability Modeling<a class="anchor" aria-label="anchor" href="#EdgeProbability"><i class="fas fa-link"></i></a>
 </h2>
 <p>In this section we take inspiration from some recent work in the area of “Dark Networks” (see Everton 2012) or the investigation of illicit networks. In this field, a number of methods have recently been developed that allow researchers to more directly incorporate assessments of the reliability of specific edges into analyses. This can be done in a number of different ways. Perhaps the most common approach for networks based on data gathered from intelligence sources (such as studies of terrorist networks) is to qualitatively assign different levels of confidence to ties between pairs of actors using an ordinal scale determined based on the source of the information (reliable, usually reliable,… unreliable). This ordinal scale of confidence can then be converted into a probability (from 0 to 1) and that probability value could be used to inform the creation of a range of “possible” networks given the underlying data.</p>
 <p>We are not aware of any archaeological examples where edges have been formally qualitatively assigned “confidence levels” in exactly this way, but we think there are potential applications of this method. For example, we could define a network where we assign a low probability of a tie between two archaeological sites if they share an import from a third site/region and a higher probability for a tie between two sites if they share imports from each others’ region. Importantly, such methods can be used to combine information from different sources into a single assessment of the probability of connection.</p>
@@ -816,9 +820,9 @@ transpose function to place columns in the target position.
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_vline</a></span><span class="op">(</span>xintercept <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">dg_20</span><span class="op">$</span><span class="va">val</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="04-uncertainty_files/figure-html/unnamed-chunk-23-1.png" width="672"></div>
-<div id="EdgeProbSim" class="section level3" number="4.7.1">
+<div id="EdgeProbSim" class="section level3" number="5.7.1">
 <h3>
-<span class="header-section-number">4.7.1</span> Edge Probability and Similarity Networks<a class="anchor" aria-label="anchor" href="#EdgeProbSim"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.7.1</span> Edge Probability and Similarity Networks<a class="anchor" aria-label="anchor" href="#EdgeProbSim"><i class="fas fa-link"></i></a>
 </h3>
 <p>One area of archaeological network research where the edge probability modeling approach outlined above may be of use relates to similarity networks. Many similarity networks used in archaeology are built such that the edge weights are scaled between 0 and 1. These edge weights could be thought of as “probabilities” just as we saw with the simulated example above. Indeed, this conforms with the frequent interpretation of similarity values as relating to probabilities of interaction in numerous network studies (e.g., Mills et al. 2013a, 2013b, 2015; Golitko and Feinman 2015; Golitko et al. 2012, etc.).</p>
 <p>Let’s take a look at an example using a weighted similarity network generated using the <a href="DataAndWorkspace.html#Cibola">Cibola technological similarity data</a> used above. Download the <a href="data/Cibola_wt.RData">RData file here</a> to follow along.</p>
@@ -886,9 +890,9 @@ transpose function to place columns in the target position.
 <div class="inline-figure"><img src="04-uncertainty_files/figure-html/unnamed-chunk-26-1.png" width="672"></div>
 </div>
 </div>
-<div id="SampleSize" class="section level2" number="4.8">
+<div id="SampleSize" class="section level2" number="5.8">
 <h2>
-<span class="header-section-number">4.8</span> Uncertainty Due to Small or Variable Sample Size<a class="anchor" aria-label="anchor" href="#SampleSize"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.8</span> Uncertainty Due to Small or Variable Sample Size<a class="anchor" aria-label="anchor" href="#SampleSize"><i class="fas fa-link"></i></a>
 </h2>
 <p>This section follows Brughmans and Peeples (2022) Chapter 5.3.5 to provide an example of how you can use the simulation approach outlined here to assess sampling variability in the frequency data underlying archaeological networks. In this example, we use apportioned ceramic frequency data from the Chaco World portion of the <a href="DataAndWorkspace.html#SWSN">Southwest Social Networks database</a>. You can <a href="data/AD1050cer.csv">download the data here</a> to follow along.</p>
 <p>The goal of this sub-section is to illustrate how you can use a bootstrappping approach to assess variability in network properties based on sampling error in the raw data underlying archaeological networks. In our example based on ceramic similarity networks here this involves creating a large number of random replicates of each row of our raw ceramic data with sample size held constant (as the observed sample size for that site) and with the probabilities that a given sherd will be a given type determined by the underlying multinomial frequency distribution of types at that site. In other words, we pull a bunch of random samples from the site with the probability that a given sample is a given type determined by the relative frequency of that type in the actual data. Once this procedure has been completed, we can then assess centrality metrics or any other graph, node, or edge level property and determine the degree to which absolute values and relative ranks are potentially influenced by sampling error.</p>
@@ -1037,24 +1041,24 @@ transpose function to place columns in the target position.
 </div>
 </div>
   <div class="chapter-nav">
-<div class="prev"><a href="Exploratory.html"><span class="header-section-number">3</span> Exploratory Network Analysis</a></div>
-<div class="next"><a href="Visualization.html"><span class="header-section-number">5</span> Network Visualization</a></div>
+<div class="prev"><a href="Exploratory.html"><span class="header-section-number">4</span> Exploratory Network Analysis</a></div>
+<div class="next"><a href="Visualization.html"><span class="header-section-number">6</span> Network Visualization</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#Uncertainty"><span class="header-section-number">4</span> Quantifying Uncertainty</a></li>
-<li><a class="nav-link" href="#UncertaintyScripts"><span class="header-section-number">4.1</span> R Scripts and Custom Functions</a></li>
-<li><a class="nav-link" href="#UncertaintyGeneral"><span class="header-section-number">4.2</span> A General Approach to Uncertainty</a></li>
-<li><a class="nav-link" href="#NodesAtRandom"><span class="header-section-number">4.3</span> Nodes Missing at Random</a></li>
-<li><a class="nav-link" href="#EdgesAtRandom"><span class="header-section-number">4.4</span> Edges Missing at Random</a></li>
-<li><a class="nav-link" href="#IndNodesAtRandom"><span class="header-section-number">4.5</span> Assessing Indivdiual Nodes/Edges</a></li>
+<li><a class="nav-link" href="#Uncertainty"><span class="header-section-number">5</span> Quantifying Uncertainty</a></li>
+<li><a class="nav-link" href="#UncertaintyScripts"><span class="header-section-number">5.1</span> R Scripts and Custom Functions</a></li>
+<li><a class="nav-link" href="#UncertaintyGeneral"><span class="header-section-number">5.2</span> A General Approach to Uncertainty</a></li>
+<li><a class="nav-link" href="#NodesAtRandom"><span class="header-section-number">5.3</span> Nodes Missing at Random</a></li>
+<li><a class="nav-link" href="#EdgesAtRandom"><span class="header-section-number">5.4</span> Edges Missing at Random</a></li>
+<li><a class="nav-link" href="#IndNodesAtRandom"><span class="header-section-number">5.5</span> Assessing Indivdiual Nodes/Edges</a></li>
 <li>
-<a class="nav-link" href="#MissingBiased"><span class="header-section-number">4.6</span> Nodes/Edges Missing Due to Biased Sampling</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#SimIncidence"><span class="header-section-number">4.6.1</span> Resampling with Incidence Matrices</a></li></ul>
+<a class="nav-link" href="#MissingBiased"><span class="header-section-number">5.6</span> Nodes/Edges Missing Due to Biased Sampling</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#SimIncidence"><span class="header-section-number">5.6.1</span> Resampling with Incidence Matrices</a></li></ul>
 </li>
 <li>
-<a class="nav-link" href="#EdgeProbability"><span class="header-section-number">4.7</span> Edge Probability Modeling</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#EdgeProbSim"><span class="header-section-number">4.7.1</span> Edge Probability and Similarity Networks</a></li></ul>
+<a class="nav-link" href="#EdgeProbability"><span class="header-section-number">5.7</span> Edge Probability Modeling</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#EdgeProbSim"><span class="header-section-number">5.7.1</span> Edge Probability and Similarity Networks</a></li></ul>
 </li>
-<li><a class="nav-link" href="#SampleSize"><span class="header-section-number">4.8</span> Uncertainty Due to Small or Variable Sample Size</a></li>
+<li><a class="nav-link" href="#SampleSize"><span class="header-section-number">5.8</span> Uncertainty Due to Small or Variable Sample Size</a></li>
 </ul>
 
       <div class="book-extra">
@@ -1072,7 +1076,7 @@ transpose function to place columns in the target position.
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-06-15.</p>
+    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-06-20.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

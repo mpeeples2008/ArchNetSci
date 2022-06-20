@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Section 10 Affiliation Data and Co-Association | Online Companion to Archaeological Network Science</title>
+<meta name="author" content="Matthew A. Peeples and Tom Brughmans">
+<meta name="description" content="Many of the material cultural networks that archaeologists have generated in recent studies are based, at least in part, on affiliation data. An affiliation network is a particular form of network...">
+<meta name="generator" content="bookdown 0.26 with bs4_book()">
+<meta property="og:title" content="Section 10 Affiliation Data and Co-Association | Online Companion to Archaeological Network Science">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://book.archnetworks.net/Affiliation.html">
+<meta property="og:image" content="https://book.archnetworks.net/images/cover.png">
+<meta property="og:description" content="Many of the material cultural networks that archaeologists have generated in recent studies are based, at least in part, on affiliation data. An affiliation network is a particular form of network...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Section 10 Affiliation Data and Co-Association | Online Companion to Archaeological Network Science">
+<meta name="twitter:description" content="Many of the material cultural networks that archaeologists have generated in recent studies are based, at least in part, on affiliation data. An affiliation network is a particular form of network...">
+<meta name="twitter:image" content="https://book.archnetworks.net/images/cover.png">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="libs/vis-9.1.0/vis-network.min.css" rel="stylesheet">
+<script src="libs/vis-9.1.0/vis-network.min.js"></script><script src="libs/visNetwork-binding-2.1.0/visNetwork.js"></script><!-- GA Google Analytics @ https://m0n.co/ga --><script>
+    			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    			})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    			ga('create', 'G-M3DDCE92Y9', 'auto');
+    			ga('send', 'pageview');
+    		</script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Online Companion to <em>Archaeological Network Science</em></a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Welcome</a></li>
+<li class="book-part">PART I: Getting Started</li>
+<li><a class="" href="GettingStarted.html"><span class="header-section-number">1</span> Getting Started with R</a></li>
+<li class="book-part">PART II: Work While You Read</li>
+<li><a class="" href="DataAndWorkspace.html"><span class="header-section-number">2</span> Data and Workspace Setup</a></li>
+<li><a class="" href="NetworkData.html"><span class="header-section-number">3</span> Network Data in R</a></li>
+<li><a class="" href="Exploratory.html"><span class="header-section-number">4</span> Exploratory Network Analysis</a></li>
+<li><a class="" href="Uncertainty.html"><span class="header-section-number">5</span> Quantifying Uncertainty</a></li>
+<li><a class="" href="Visualization.html"><span class="header-section-number">6</span> Network Visualization</a></li>
+<li><a class="" href="SpatialNetworks.html"><span class="header-section-number">7</span> Spatial Networks</a></li>
+<li class="book-part">PART III: Going Beyond the Book</li>
+<li><a class="" href="ERGM.html"><span class="header-section-number">8</span> Exponential Random Graph Models</a></li>
+<li><a class="" href="SpatialInteraction.html"><span class="header-section-number">9</span> Spatial Interaction Models</a></li>
+<li><a class="active" href="Affiliation.html"><span class="header-section-number">10</span> Affiliation Data and Co-Association</a></li>
+<li class="book-part">Additional Material</li>
+<li><a class="" href="TableOfContents.html">Table of Contents Quick Reference</a></li>
+<li><a class="" href="references-and-r-packages.html">References and R Packages</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/mpeeples2008/ArchNetSci">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="Affiliation" class="section level1" number="10">
+<h1>
+<span class="header-section-number">Section 10</span> Affiliation Data and Co-Association<a class="anchor" aria-label="anchor" href="#Affiliation"><i class="fas fa-link"></i></a>
+</h1>
+<p>Many of the material cultural networks that archaeologists have generated in recent studies are based, at least in part, on affiliation data. An affiliation network is a particular form of network defined in terms of what are often called “actors” and “events.” Typically, such data are used to generate a bipartite (two-mode) network where one set of nodes represents a set of social entities (individuals, groups, etc.) and the second set of nodes represent some set of features or events they can have in common or attend. For example, the classic affiliation data set is refereed to as the <em>Deep South</em> case study which represents data on a group of women in a southern town and the social events in which they participated (Davis et al. 1941). An affiliation network is defined connecting people to events in this case based on the notion that people who attended more events together had more opportunities to interact, or perhaps that their co-attendance was a reflection of other social relationships (see Breiger 1974). Similarly, events that had many of the same attendees could also be thought of as being more strongly connected than events with very different rosters of participants. The bipartite network created connecting these two classes of nodes are often further projected into distinct one-mode networks of person-to-person and event-to-event relationships for further analyses.</p>
+<p>Although this is not always explicitly discussed, the affiliation network framework mirrors many archaeological network constructions where sites/regions/contexts are connected via the materials present in those contexts. For example, sites may stand in for “persons” in such a network and artifacts categories as “events” with the underlying reasoning being that the inhabitants of sites that share more categories of artifacts were more likely to have interacted than the inhabitants of sites with very different materials. In most archaeological examples where such data have been used (e.g., Coward 2013; Golitko et al. 2012; Mizoguchi 2013; Mills et al. 2013, 2015, etc.) these affiliation data are projected into a single one-mode network focused on sites/contexts and that network is used for most formal analyses. This is not, of course, the only path forward. There are examples of archaeologists conducting direct analyses of two-mode data (e.g., Blair 2015, 2017; Ladefoged et al. 2019, etc.). The consideration of material networks as affiliation networks also opens up the possibility of many additional methods that have as of yet been rare in archaeological network research. In this section, we outline a few approaches that may be of use as archaeologists continue to experiment with such affiliation data.</p>
+<div id="AnalyzingTwoMode" class="section level2" number="10.1">
+<h2>
+<span class="header-section-number">10.1</span> Analyzing Two-Mode Networks<a class="anchor" aria-label="anchor" href="#AnalyzingTwoMode"><i class="fas fa-link"></i></a>
+</h2>
+<p>In the examples here we will be using the <a href="DataAndWorkspace.html#Cibola">Cibola data set</a> used throughout this document. The specific data we will use consist of a set of sites as the first mode and a set of ceramic technological clusters as the second mode. Our underlying assumption is that sites that share more ceramic technological clusters are more strongly connected than sites that share fewer. Further, ceramic technological clusters that are frequently co-associated in site assemblages are more closely connected than those that do not frequently co-occur.</p>
+<p>Let’s read in the data and create a simple two-mode network visualization to start by reading in the Cibola incidence matrix. We will be using the <code>igraph</code> package for most of the examples below so we initialize that as well as the <code>ggraph</code> package for plotting:</p>
+<div class="sourceCode" id="cb632"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://igraph.org">igraph</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggraph.data-imaginist.com">ggraph</a></span><span class="op">)</span>
+
+<span class="co"># Read in two-way table of sites and ceramic technological clusters</span>
+<span class="va">cibola_clust</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"data/Cibola_clust.csv"</span>,
+                         header <span class="op">=</span> <span class="cn">TRUE</span>,
+                         row.names <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
+<span class="co"># Create network from incidence matrix based on presence/absence of</span>
+<span class="co"># a cluster at a site</span>
+<span class="va">cibola_inc</span> <span class="op">&lt;-</span> <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/graph_from_incidence_matrix.html">graph_from_incidence_matrix</a></span><span class="op">(</span><span class="va">cibola_clust</span>,
+                                                  directed <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+<span class="co"># Plot as two-mode network</span>
+<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">4643</span><span class="op">)</span>
+<span class="fu"><a href="https://ggraph.data-imaginist.com/reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">cibola_inc</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"gray"</span>, show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html">V</a></span><span class="op">(</span><span class="va">cibola_inc</span><span class="op">)</span><span class="op">$</span><span class="va">type</span><span class="op">)</span>,
+                      size <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,
+                  show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_node_text.html">geom_node_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">name</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">3</span>, repel <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/theme_graph.html">theme_graph</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="09-affiliation_files/figure-html/unnamed-chunk-1-1.png" width="672"></div>
+<div id="TraditionalMetrics" class="section level3" number="10.1.1">
+<h3>
+<span class="header-section-number">10.1.1</span> Using Traditional Network Metrics<a class="anchor" aria-label="anchor" href="#TraditionalMetrics"><i class="fas fa-link"></i></a>
+</h3>
+<p>There are several possible approaches for analyzing two-mode network data. Perhaps the simplest approach is to analyze two-mode data using typical one-mode metrics like we’ve already seen throughout this guide. Essentially, this is akin to treating both modes as equivalent and evaluating relative positions and structures between node classes. If you send a bipartite network object to the typical network measures outlined in the <a href="Exploratory.html#Exploratory">Exploratory Analysis</a> section, you will get results returned as if it were a one-mode network. For example, here we apply two measures of centrality and plot the results.</p>
+<div class="sourceCode" id="cb633"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">dg_bi</span> <span class="op">&lt;-</span> <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/degree.html">degree</a></span><span class="op">(</span><span class="va">cibola_inc</span><span class="op">)</span>
+<span class="va">bw_bi</span> <span class="op">&lt;-</span> <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/betweenness.html">betweenness</a></span><span class="op">(</span><span class="va">cibola_inc</span><span class="op">)</span>
+
+<span class="co"># Plot as two-mode network with size by centrality</span>
+<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">4643</span><span class="op">)</span>
+<span class="fu"><a href="https://ggraph.data-imaginist.com/reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">cibola_inc</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"gray"</span>, show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html">V</a></span><span class="op">(</span><span class="va">cibola_inc</span><span class="op">)</span><span class="op">$</span><span class="va">type</span><span class="op">)</span>,
+                      size <span class="op">=</span> <span class="va">dg_bi</span><span class="op">)</span>,
+                  show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_node_text.html">geom_node_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">name</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">3</span>, repel <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Node Size by Degree"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/theme_graph.html">theme_graph</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="09-affiliation_files/figure-html/unnamed-chunk-2-1.png" width="672"></div>
+<div class="sourceCode" id="cb634"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">4643</span><span class="op">)</span>
+<span class="fu"><a href="https://ggraph.data-imaginist.com/reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">cibola_inc</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"gray"</span>, show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html">V</a></span><span class="op">(</span><span class="va">cibola_inc</span><span class="op">)</span><span class="op">$</span><span class="va">type</span><span class="op">)</span>,
+                      size <span class="op">=</span> <span class="va">bw_bi</span><span class="op">)</span>,
+                  show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_node_text.html">geom_node_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">name</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">3</span>, repel <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Node Size by Betweenness"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/theme_graph.html">theme_graph</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="09-affiliation_files/figure-html/unnamed-chunk-2-2.png" width="672"></div>
+<p>This method could be useful if you are interested in determining relative centrality between classes of nodes, in particular where the numbers of nodes in each mode are similar. In the example here, for both degree and betweenness centrality the mode made of of ceramic technological clusters (in blue) seems to include the most central nodes, but there are a few exceptions. Importantly, however, there is an imbalance in the size of each mode so it is important to consider the potential impact of such differences.</p>
+</div>
+<div id="TwoModeMetrics" class="section level3" number="10.1.2">
+<h3>
+<span class="header-section-number">10.1.2</span> Using Two-Mode Specific Network Metrics<a class="anchor" aria-label="anchor" href="#TwoModeMetrics"><i class="fas fa-link"></i></a>
+</h3>
+<p>In addition to the traditional approach to calculating network metrics for bipartite networks using the same one-mode metrics we’ve previously used, there are also methods designed specifically to work with two-mode network data. Unfortunately, most of these metrics have not been incorporated into robust and currently maintained packages for R. Many of these approaches represent simply normalizations of existing network metrics, however, so it is possible to create our own custom versions without too much trouble.</p>
+<div id="density" class="section level4 unnumbered">
+<h4>Density<a class="anchor" aria-label="anchor" href="#density"><i class="fas fa-link"></i></a>
+</h4>
+<p>For example, if we are interested in network density, it doesn’t make sense to simply use regular density measures as that assumes any node can be connected to any other node. In a two-mode network, nodes can only be connected <em>between</em> classes. Thus, to obtain appropriate two-mode density, we need to divide density by a factor defined as:</p>
+<p><span class="math display">\[\frac{n_1n_2}{(n_1+n_2)(n_1+n_2-1)}\]</span>
+where <span class="math inline">\(n_1\)</span> and <span class="math inline">\(n_2\)</span> represent the number of nodes in modes 1 and 2 respectively.</p>
+<p>Let’s give this a try by first calculating density the traditional (<code>den_init</code>) way and then correcting it (<code>den_corr</code>). Note that we divide our initial density by 2 because we only want density counted based on connections in one direction.</p>
+<div class="sourceCode" id="cb635"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># edge density divided by 2 because we only want edges counted in one direction</span>
+<span class="va">den_init</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/edge_density.html">edge_density</a></span><span class="op">(</span><span class="va">cibola_inc</span><span class="op">)</span> <span class="op">/</span> <span class="fl">2</span>
+<span class="va">den_init</span></code></pre></div>
+<pre><code>## [1] 0.145122</code></pre>
+<div class="sourceCode" id="cb637"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># number of nodes in first mode</span>
+<span class="va">n1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html">V</a></span><span class="op">(</span><span class="va">cibola_inc</span><span class="op">)</span><span class="op">$</span><span class="va">type</span> <span class="op">==</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span>
+<span class="va">n1</span></code></pre></div>
+<pre><code>## [1] 31</code></pre>
+<div class="sourceCode" id="cb639"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># number of nodes in second mode</span>
+<span class="va">n2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html">V</a></span><span class="op">(</span><span class="va">cibola_inc</span><span class="op">)</span><span class="op">$</span><span class="va">type</span> <span class="op">==</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>
+<span class="va">n2</span></code></pre></div>
+<pre><code>## [1] 10</code></pre>
+<div class="sourceCode" id="cb641"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">den_corr</span> <span class="op">&lt;-</span> <span class="va">den_init</span> <span class="op">/</span> <span class="op">(</span><span class="op">(</span><span class="va">n1</span> <span class="op">*</span> <span class="va">n2</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="op">(</span><span class="va">n1</span> <span class="op">+</span> <span class="va">n2</span><span class="op">)</span> <span class="op">*</span> <span class="op">(</span><span class="va">n1</span> <span class="op">+</span> <span class="va">n2</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+<span class="va">den_corr</span></code></pre></div>
+<pre><code>## [1] 0.7677419</code></pre>
+<p>As this example shows, our initial density estimate was quite low at about 0.145 but once we correct for node class, we get a quite dense network of about 0.768. This makes sense given how many active edges we see in the figures above. The high centrality suggests that most nodes in mode 1 have connections to most nodes in mode 2.</p>
+</div>
+<div id="degree-centrality" class="section level4 unnumbered">
+<h4>Degree Centrality<a class="anchor" aria-label="anchor" href="#degree-centrality"><i class="fas fa-link"></i></a>
+</h4>
+<p>Let’s take a look at degree centrality next. As we saw in the previous section it is possible to calculate degree centrality using the traditional metric and simply plotting that. In the plot shown previously, most of the “Technological Cluster” nodes shown in blue had much higher degree than the sites. This isn’t surprising given that there are 31 sites and 10 ceramic clusters and such a high two-mode density. In other words, the theoretically possible degree for the technological cluster nodes is more than 3 times higher than that for sites so it isn’t surprising that our observed values are higher for mode two. One easy way to deal with degree in two-mode network is to normalize by the size of the opposite node class. For example, degree centrality in one-mode networks can be normalized as:</p>
+<p><span class="math display">\[d_i^* = \frac{d_i}{n-1}\]</span></p>
+<p>where <span class="math inline">\(d_i\)</span> is the original degree for node <span class="math inline">\(i\)</span> and <span class="math inline">\(n\)</span> is the number of nodes in the network.</p>
+<p>For two-mode networks, the standardization would take the following form:</p>
+<p><span class="math display">\[\begin{aligned}
+d^*_{i} =&amp; \frac{d_{i}}{n_2} \text{, for } i \in V_1 \\
+d^*_{j} =&amp; \frac {d_{j}}{n_1} \text{, for } j \in V_2
+\end{aligned}\]</span></p>
+<p>where</p>
+<ul>
+<li>
+<span class="math inline">\(d_{i}\)</span> is the degree of node <span class="math inline">\(i\)</span> in mode <span class="math inline">\(V_1\)</span>
+</li>
+<li>
+<span class="math inline">\(d_{j}\)</span> is the degree of node <span class="math inline">\(j\)</span> in mode <span class="math inline">\(V_2\)</span>
+</li>
+<li>
+<span class="math inline">\(n_1\)</span> is the number of nodes in mode <span class="math inline">\(1\)</span>
+</li>
+<li>
+<span class="math inline">\(n_2\)</span> is the number of nodes in mode <span class="math inline">\(2\)</span>
+</li>
+</ul>
+<p>Let’s give this a try with our Cibola ceramic technological clusters data. We roll this into a function for convenience:</p>
+<div class="sourceCode" id="cb643"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">degree_twomode</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">net</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">n1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html">V</a></span><span class="op">(</span><span class="va">net</span><span class="op">)</span><span class="op">$</span><span class="va">type</span> <span class="op">==</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span>
+  <span class="va">n2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html">V</a></span><span class="op">(</span><span class="va">net</span><span class="op">)</span><span class="op">$</span><span class="va">type</span> <span class="op">==</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>
+  <span class="va">temp_dg</span> <span class="op">&lt;-</span> <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/degree.html">degree</a></span><span class="op">(</span><span class="va">net</span>, mode <span class="op">=</span> <span class="st">"in"</span><span class="op">)</span>
+  <span class="va">dg_n1</span> <span class="op">&lt;-</span> <span class="va">temp_dg</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html">V</a></span><span class="op">(</span><span class="va">net</span><span class="op">)</span><span class="op">$</span><span class="va">type</span> <span class="op">==</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">]</span> <span class="op">/</span> <span class="va">n2</span>
+  <span class="va">dg_n2</span> <span class="op">&lt;-</span> <span class="va">temp_dg</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html">V</a></span><span class="op">(</span><span class="va">net</span><span class="op">)</span><span class="op">$</span><span class="va">type</span> <span class="op">==</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">]</span> <span class="op">/</span> <span class="va">n1</span>
+  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">dg_n1</span>, <span class="va">dg_n2</span><span class="op">)</span><span class="op">)</span>
+<span class="op">}</span>
+
+<span class="va">dg_tm</span> <span class="op">&lt;-</span> <span class="fu">degree_twomode</span><span class="op">(</span><span class="va">cibola_inc</span><span class="op">)</span>
+<span class="va">dg_tm</span></code></pre></div>
+<pre><code>##          Apache Creek               Atsinna           Baca Pueblo 
+##             0.8000000             0.6000000             0.8000000 
+##          Casa Malpais               Cienega          Coyote Creek 
+##             0.9000000             0.8000000             0.9000000 
+##          Foote Canyon          Garcia Ranch          Heshotauthla 
+##             1.0000000             0.7000000             0.7000000 
+##               Hinkson          Hooper Ranch       Horse Camp Mill 
+##             1.0000000             0.8000000             0.9000000 
+##         Hubble Corner               Jarlosa          Los Gigantes 
+##             0.8000000             0.6000000             0.5000000 
+##  Mineral Creek Pueblo               Mirabal            Ojo Bonito 
+##             0.9000000             0.7000000             0.6000000 
+##       Pescado Cluster           Platt Ranch Pueblo de los Muertos 
+##             0.7000000             0.8000000             0.6000000 
+##       Rudd Creek Ruin              Scribe S             Spier 170 
+##             0.9000000             0.6000000             0.6000000 
+##       Techado Springs                Tinaja          Tri-R Pueblo 
+##             1.0000000             0.7000000             0.9000000 
+##                 UG481                 UG494              WS Ranch 
+##             1.0000000             0.8000000             0.9000000 
+##           Yellowhouse                Clust1                Clust2 
+##             0.3000000             0.6129032             1.0000000 
+##                Clust3                Clust4                Clust5 
+##             1.0000000             0.9032258             0.7741935 
+##                Clust6                Clust7                Clust8 
+##             0.9354839             0.9032258             0.5161290 
+##                Clust9               Clust10 
+##             0.6774194             0.3548387</code></pre>
+<div class="sourceCode" id="cb645"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Plot as two-mode network with size by centrality</span>
+<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">4643</span><span class="op">)</span>
+<span class="fu"><a href="https://ggraph.data-imaginist.com/reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">cibola_inc</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"gray"</span>, show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html">V</a></span><span class="op">(</span><span class="va">cibola_inc</span><span class="op">)</span><span class="op">$</span><span class="va">type</span><span class="op">)</span>,
+                      size <span class="op">=</span> <span class="va">dg_tm</span><span class="op">)</span>,
+                  show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_node_text.html">geom_node_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">name</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">3</span>, repel <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Node Size by Two-Mode Normalized Degree"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/theme_graph.html">theme_graph</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="09-affiliation_files/figure-html/unnamed-chunk-4-1.png" width="672"></div>
+<p>As this shows, after normalization most of the nodes have similar degree values with a couple of low degree nodes. If we plot the normalized degree distributions for both the one-mode method and the two-mode normalization as density plots, the difference is even more obvious.</p>
+<div class="sourceCode" id="cb646"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">dg_orig</span> <span class="op">&lt;-</span> <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/degree.html">degree</a></span><span class="op">(</span><span class="va">cibola_inc</span>, mode <span class="op">=</span> <span class="st">"in"</span>, normalized <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+
+<span class="va">dg_all</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">dg_orig</span>, <span class="va">dg_tm</span><span class="op">)</span>
+<span class="va">dg_lab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"one-mode degree"</span>, <span class="fl">41</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"two-mode degree"</span>, <span class="fl">41</span><span class="op">)</span><span class="op">)</span>
+
+<span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>dg <span class="op">=</span> <span class="va">dg_all</span>, group <span class="op">=</span> <span class="va">dg_lab</span><span class="op">)</span>
+
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_density.html">geom_density</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">dg</span>, fill <span class="op">=</span> <span class="va">group</span><span class="op">)</span>, alpha <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html">xlim</a></span><span class="op">(</span>range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="09-affiliation_files/figure-html/unnamed-chunk-5-1.png" width="672"></div>
+<p>Indeed, the one-mode metric suggests that most nodes have low degree whereas the two-mode metric suggests most nodes have high degree. This demonstrates how important it is to modify traditional network metrics for the two-mode use case to assess distributional features like this.</p>
+</div>
+<div id="betweenness-centrality" class="section level4 unnumbered">
+<h4>Betweenness Centrality<a class="anchor" aria-label="anchor" href="#betweenness-centrality"><i class="fas fa-link"></i></a>
+</h4>
+<p>Let’s now try the same for betweenness centrality. The normalization of betweenness is a bit more complicated as it involves shortest paths rather than just counts of nodes. For one mode networks, betweenness is typically normalized by dividing results by <span class="math inline">\((n-1)(n-2)\)</span>. For the case of two-mode networks the following equations are used:</p>
+<p><span class="math display">\[\begin{aligned}
+b_{v_1\text{max}} = &amp; \frac{1}{2}[n_2^2 (s+1)^2 + n_2 (s+1) (2t-s-1)-t(2s-t+3))] \\
+b_{v_2\text{max}} = &amp; \frac{1}{2}[n_1^2 (p+1)^2 + n_1 (p+1) (2r-p-1)-t(2p-r+3))]
+\end{aligned}
+\]</span></p>
+<p><span class="math display">\[\begin{aligned}
+s =&amp; (n_1 - 1) \text { div } n_2 \\
+t =&amp; (n_1 - 1) \text{ mod } n_2 \\
+p =&amp; (n_2 - 1) \text { div } n_1 \\
+r =&amp; (n_1 - 1) \text { mod } n_2
+\end{aligned}\]</span></p>
+<p>where</p>
+<ul>
+<li>
+<span class="math inline">\(b_{v_1\text{max}}\)</span> is the theoretical maximum betweenness for mode 1 and <span class="math inline">\(b_{v_2\text{max}}\)</span> is the same for mode 2</li>
+<li>
+<span class="math inline">\(n_1\)</span> and <span class="math inline">\(n_2\)</span> are the number of nodes in modes 1 and 2 respectively</li>
+<li>
+<span class="math inline">\(\text {div}\)</span> refers to integer division where any numbers past the decimal point are dropped after the division operation</li>
+<li>
+<span class="math inline">\(\text {mod}\)</span> refers to modulo where only numbers beyond the decimal point are retained after the division operation</li>
+</ul>
+<p>Using these equations we can then calculate normalized betweennes for two-modes as:</p>
+<p><span class="math display">\[\begin{aligned}
+b^*_i =&amp; \frac{b_i}b_{v_1\text{max}} \text {, for } i \in V_1\\
+b^*_j =&amp; \frac{b_j}b_{v_2\text{max}} \text {, for } j \in V_2
+\end{aligned}\]</span></p>
+<p>In the following chunk of code, we roll these equations into a function and then calculate two-mode betweenness and plot it. For the sake of convenience, we have placed both of the functions for two-mode centrality created here into a <a href="scripts/twomode.R">script which you can download here</a>.</p>
+<div class="sourceCode" id="cb647"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">betweenness_twomode</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">net</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">n1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html">V</a></span><span class="op">(</span><span class="va">net</span><span class="op">)</span><span class="op">$</span><span class="va">type</span> <span class="op">==</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span>
+  <span class="va">n2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html">V</a></span><span class="op">(</span><span class="va">net</span><span class="op">)</span><span class="op">$</span><span class="va">type</span> <span class="op">==</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>
+  <span class="va">temp_bw</span> <span class="op">&lt;-</span> <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/betweenness.html">betweenness</a></span><span class="op">(</span><span class="va">net</span>, directed <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+  <span class="va">s_v</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="op">(</span><span class="va">n1</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span> <span class="op">/</span> <span class="va">n2</span>, <span class="fl">0</span><span class="op">)</span>
+  <span class="va">t_v</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">n1</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html">%%</a></span> <span class="va">n2</span>
+  <span class="va">p_v</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="op">(</span><span class="va">n2</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span> <span class="op">/</span> <span class="va">n1</span>, <span class="fl">0</span><span class="op">)</span>
+  <span class="va">r_v</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">n1</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html">%%</a></span> <span class="va">n2</span>
+  <span class="va">bw_v1</span> <span class="op">&lt;-</span>
+    <span class="fl">0.5</span> <span class="op">*</span> <span class="op">(</span><span class="va">n2</span><span class="op">^</span><span class="fl">2</span> <span class="op">*</span> <span class="op">(</span><span class="va">s_v</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="va">n2</span> <span class="op">*</span> <span class="op">(</span><span class="va">s_v</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span> <span class="op">*</span>
+            <span class="op">(</span><span class="fl">2</span> <span class="op">*</span> <span class="va">t_v</span> <span class="op">-</span> <span class="va">s_v</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span> <span class="op">-</span> <span class="va">t_v</span> <span class="op">*</span> <span class="op">(</span><span class="fl">2</span> <span class="op">*</span> <span class="va">s_v</span> <span class="op">-</span> <span class="va">t_v</span> <span class="op">+</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span>
+  <span class="va">bw_v2</span> <span class="op">&lt;-</span> 
+    <span class="fl">0.5</span> <span class="op">*</span> <span class="op">(</span><span class="va">n1</span><span class="op">^</span><span class="fl">2</span> <span class="op">*</span> <span class="op">(</span><span class="va">p_v</span> <span class="op">+</span><span class="fl">1</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="va">n1</span> <span class="op">*</span> <span class="op">(</span><span class="va">p_v</span> <span class="op">+</span><span class="fl">1</span><span class="op">)</span> <span class="op">*</span> <span class="op">(</span><span class="fl">2</span> <span class="op">*</span> <span class="va">r_v</span> <span class="op">-</span> <span class="va">p_v</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span> <span class="op">*</span>
+             <span class="va">r_v</span> <span class="op">*</span> <span class="op">(</span><span class="fl">2</span> <span class="op">*</span> <span class="va">p_v</span> <span class="op">-</span> <span class="va">r_v</span> <span class="op">+</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span>
+  <span class="va">bw_n1</span> <span class="op">&lt;-</span> <span class="va">temp_bw</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html">V</a></span><span class="op">(</span><span class="va">net</span><span class="op">)</span><span class="op">$</span><span class="va">type</span> <span class="op">==</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">]</span> <span class="op">/</span> <span class="va">bw_v2</span>
+  <span class="va">bw_n2</span> <span class="op">&lt;-</span> <span class="va">temp_bw</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html">V</a></span><span class="op">(</span><span class="va">net</span><span class="op">)</span><span class="op">$</span><span class="va">type</span> <span class="op">==</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">]</span> <span class="op">/</span> <span class="va">bw_v1</span>
+  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">bw_n1</span>, <span class="va">bw_n2</span><span class="op">)</span><span class="op">)</span>
+<span class="op">}</span>
+
+<span class="va">bw_tm</span> <span class="op">&lt;-</span> <span class="fu">betweenness_twomode</span><span class="op">(</span><span class="va">cibola_inc</span><span class="op">)</span>
+<span class="va">bw_tm</span></code></pre></div>
+<pre><code>##          Apache Creek               Atsinna           Baca Pueblo 
+##          0.0070822286          0.0025896615          0.0093451935 
+##          Casa Malpais               Cienega          Coyote Creek 
+##          0.0099600613          0.0100144209          0.0125792905 
+##          Foote Canyon          Garcia Ranch          Heshotauthla 
+##          0.0161688627          0.0042695215          0.0040337432 
+##               Hinkson          Hooper Ranch       Horse Camp Mill 
+##          0.0161688627          0.0070822286          0.0099600613 
+##         Hubble Corner               Jarlosa          Los Gigantes 
+##          0.0102638260          0.0025896615          0.0017552743 
+##  Mineral Creek Pueblo               Mirabal            Ojo Bonito 
+##          0.0125792905          0.0040337432          0.0025896615 
+##       Pescado Cluster           Platt Ranch Pueblo de los Muertos 
+##          0.0051844595          0.0070822286          0.0025896615 
+##       Rudd Creek Ruin              Scribe S             Spier 170 
+##          0.0133076983          0.0022732239          0.0030177883 
+##       Techado Springs                Tinaja          Tri-R Pueblo 
+##          0.0161688627          0.0040337432          0.0099600613 
+##                 UG481                 UG494              WS Ranch 
+##          0.0161688627          0.0070822286          0.0133076983 
+##           Yellowhouse                Clust1                Clust2 
+##          0.0002542476          0.0348523775          0.1297623337 
+##                Clust3                Clust4                Clust5 
+##          0.1297623337          0.0927886415          0.0634360762 
+##                Clust6                Clust7                Clust8 
+##          0.1134973990          0.0960766642          0.0224202375 
+##                Clust9               Clust10 
+##          0.0529783153          0.0102589547</code></pre>
+<div class="sourceCode" id="cb649"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Plot as two-mode network with size by centrality</span>
+<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">4643</span><span class="op">)</span>
+<span class="fu"><a href="https://ggraph.data-imaginist.com/reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">cibola_inc</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"gray"</span>, show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html">V</a></span><span class="op">(</span><span class="va">cibola_inc</span><span class="op">)</span><span class="op">$</span><span class="va">type</span><span class="op">)</span>,
+                      size <span class="op">=</span> <span class="va">bw_tm</span><span class="op">)</span>,
+                  show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_node_text.html">geom_node_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">name</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">3</span>, repel <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Node Size by Two-Mode Normalized Betweenness"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/theme_graph.html">theme_graph</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="09-affiliation_files/figure-html/unnamed-chunk-6-1.png" width="672"></div>
+<p>This plot suggests that the normalized betweenness is quite similar the original one-mode measure in this particular network, but that will not necessarily always be the case.</p>
+<p>There are similar normalization factors for other centrality measures in the published network literature (<a href="http://www.analytictech.com/borgatti/papers/2modeconcepts.pdf">see this document by Borgatti for examples</a>) but few of these have been implemented in R as of yet. This would be a useful project in the future (and perhaps we will add that here eventually. <a href="index.html#Contributing">Want to help?</a>).</p>
+</div>
+</div>
+<div id="ProjectingTwoMode" class="section level3" number="10.1.3">
+<h3>
+<span class="header-section-number">10.1.3</span> Projecting Two-Mode Networks Before Analysis<a class="anchor" aria-label="anchor" href="#ProjectingTwoMode"><i class="fas fa-link"></i></a>
+</h3>
+<p>Another common approach to the analysis of two-mode networks is to project them into two separate one-mode networks and then to analyze one or both modes using traditional one-mode metrics. We have already seen this approach in several examples throughout this guide. Indeed, this is the most common approach that archaeological network studies have taken. As we describe in the <a href="NetworkData.html#NetworkData">Network Data Formats</a> section, there are several ways of projecting an incidence matrix into one-mode networks. This includes the matrix multiplication method which counts the numbers of co-occurrences that we already described <a href="NetworkData.html#TwoMode">in our coverage of two-mode networks</a> as well as various similarity metrics for producing weighted networks based on measures such as Brainerd-Robinson similarity, <span class="math inline">\(\chi\)</span>-square distance, Jaccard similarity, and many others discussed in the <a href="NetworkData.html#SimilarityNetworks">similarity networks</a> section. Although such networks are not often explicitly described in terms of affiliation networks, they very much fit the definition. In this section, we offer a slightly expanded discussion of some of these methods to highlight important issues for affiliation data specifically.</p>
+<div id="matrix-multiplication" class="section level4 unnumbered">
+<h4>Matrix Multiplication<a class="anchor" aria-label="anchor" href="#matrix-multiplication"><i class="fas fa-link"></i></a>
+</h4>
+<p>As <a href="NetworkData.html#TwoMode">prevsiously described</a> one of the most common ways for generating one mode projections from two-mode data is through matrix multiplication. Specifically, if you multiply a matrix <span class="math inline">\(A\)</span> by the transpose of that same matrix <span class="math inline">\(A^T\)</span>, you will get a square matrix with the number of rows and columns equal to the rows in the original matrix with each cell representing the number of intersections between the two modes (and with the diagonal of the matrix representing the number of opposite mode categories present in the mode under consideration). Let’s take a look at this process formally:</p>
+<p><span class="math display">\[\begin{equation}
+A  \cdot A^T =
+\begin{pmatrix}
+a &amp; b \\
+c &amp; d
+\end{pmatrix}
+\cdot
+\begin{pmatrix}
+a &amp; c \\
+b &amp; d
+\end{pmatrix} =
+\begin{pmatrix}
+aa + bb &amp; ac+bd \\
+ca +db &amp; cc + dd
+\end{pmatrix}
+\end{equation}\]</span></p>
+<p>If we assume the original matrix contains only 0s and 1s then we will end up with the intersection of the two network modes in the diagonal as describe above.</p>
+<p>There are a couple of ways to conduct this procedure in R. Previously we used the <code>%*%</code> operator for matrix multiplication and the <code><a href="https://rdrr.io/r/base/t.html">t()</a></code> transpose function to calculate a matrix multiplied by its transpose, but it is also possible to use an R built-in function called <code>crossprod</code> to do the same thing. Indeed, if you are working on large matrices, which can be computationally expensive, the <code>crossprod</code> function is considerably faster. In the chunk below we calculate a square matrix for the <code>cibola_clust</code> data set using both methods and then subtract the results from each other to ensure that they are identical.</p>
+<div class="sourceCode" id="cb650"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mat1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">cibola_clust</span><span class="op">)</span>
+<span class="va">mat1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">mat1</span> <span class="op">&gt;</span> <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span>
+
+<span class="va">res1</span> <span class="op">&lt;-</span> <span class="va">mat1</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html">%*%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="va">mat1</span><span class="op">)</span>
+
+<span class="co"># this does the same as the above</span>
+<span class="va">res2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/crossprod.html">crossprod</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="va">mat1</span><span class="op">)</span><span class="op">)</span>
+
+<span class="co"># Check to see if they are identical</span>
+<span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">res1</span><span class="op">-</span><span class="va">res2</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] 0</code></pre>
+<p>Another important feature of a one-mode network generated in this way is that it can be treated as a weighted network by simply including the <code>weighted = TRUE</code> argument in the call. For example:</p>
+<div class="sourceCode" id="cb652"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/diag.html">diag</a></span><span class="op">(</span><span class="va">res1</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fl">0</span>
+<span class="va">cibola_onemode</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/graph_from_adjacency_matrix.html">graph_from_adjacency_matrix</a></span><span class="op">(</span><span class="va">res1</span>, weighted <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+
+<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">4643</span><span class="op">)</span>
+<span class="fu"><a href="https://ggraph.data-imaginist.com/reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">cibola_onemode</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="va">weight</span>, color <span class="op">=</span> <span class="va">weight</span><span class="op">)</span>,
+                 width <span class="op">=</span> <span class="fl">1</span>, show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/scale_edge_alpha.html">scale_edge_alpha_continuous</a></span><span class="op">(</span>range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/scale_edge_colour.html">scale_edge_color_viridis</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/degree.html">degree</a></span><span class="op">(</span><span class="va">cibola_onemode</span><span class="op">)</span><span class="op">)</span>,
+                  show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_node_text.html">geom_node_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">name</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">3</span>, repel <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/theme_graph.html">theme_graph</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="09-affiliation_files/figure-html/unnamed-chunk-8-1.png" width="672"></div>
+<p>That produces a hairball that is fairly hard to visually interpret. To try to ameliorate that we can borrow a function we previously created in the <a href="NetworkData.html#TwoMode">two-mode networks</a> discussion in the Network Data section and only consider a ceramic cluster present at a site if it makes up at least 20% of the assemblage. Let’s try this:</p>
+<div class="sourceCode" id="cb653"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">two_mode</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">thresh</span> <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span> <span class="op">{</span>
+  <span class="co"># Create matrix of proportions from x input into function</span>
+  <span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/proportions.html">prop.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span>
+  <span class="co"># Define anything with greater than or equal to threshold as</span>
+  <span class="co"># present (1)</span>
+  <span class="va">temp</span><span class="op">[</span><span class="va">temp</span> <span class="op">&gt;=</span> <span class="va">thresh</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">1</span>
+  <span class="co"># Define all other cells as absent (0)</span>
+  <span class="va">temp</span><span class="op">[</span><span class="va">temp</span> <span class="op">&lt;</span> <span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">0</span>
+  <span class="co"># Return the new binarized table as output of the function</span>
+  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">temp</span><span class="op">)</span>
+<span class="op">}</span>
+
+<span class="va">mat_new</span> <span class="op">&lt;-</span> <span class="fu">two_mode</span><span class="op">(</span><span class="va">cibola_clust</span>, thresh <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span>
+
+<span class="va">res3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/crossprod.html">crossprod</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="va">mat_new</span><span class="op">)</span><span class="op">)</span>
+
+<span class="va">cibola_om_reduced</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/graph_from_adjacency_matrix.html">graph_from_adjacency_matrix</a></span><span class="op">(</span><span class="va">res3</span>, weighted <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+
+<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">4643</span><span class="op">)</span>
+<span class="fu"><a href="https://ggraph.data-imaginist.com/reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">cibola_om_reduced</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="va">weight</span>, color <span class="op">=</span> <span class="va">weight</span><span class="op">)</span>,
+                 width <span class="op">=</span> <span class="fl">1</span>, show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/scale_edge_alpha.html">scale_edge_alpha_continuous</a></span><span class="op">(</span>range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/scale_edge_colour.html">scale_edge_color_viridis</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/degree.html">degree</a></span><span class="op">(</span><span class="va">cibola_om_reduced</span><span class="op">)</span><span class="op">)</span>,
+                  show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_node_text.html">geom_node_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">name</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">3</span>, repel <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/theme_graph.html">theme_graph</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="09-affiliation_files/figure-html/unnamed-chunk-9-1.png" width="672"></div>
+<p>That is a lot easier to interpret. We’ve got one cluster of quite strong ties and then a second cluster characterized by weaker ties with relatively week ties between the clusters. Notably, this pattern is very similar to the pattern seen in the Brainerd-Robinson similarity matrices generated using these data which isn’t too surprising.</p>
+</div>
+<div id="weighted-matrix-projection" class="section level4 unnumbered">
+<h4>Weighted Matrix Projection<a class="anchor" aria-label="anchor" href="#weighted-matrix-projection"><i class="fas fa-link"></i></a>
+</h4>
+<p>We have already described several similarity metrics in detail in <a href="NetworkData.html#SimilarityNetworks">the similarity networks section of this document</a>. In this section, we want to offer one additional approach developed by Newman (2001) for defining connections in scientific collaboration networks. Newman wanted to extend the procedure for assessing co-occurrence to take into account the number of collaborators involved in each collaboration. Specifically, he posited that when there were fewer collaborators, the connection between a pair of co-authors was stronger than when there were many co-authors. We could equivalently think of this in terms of material culture to suggest that sites or contexts that shared rare categories were more strongly connected than sites/contexts that shared only common categories. Using this logic, Newman created a new weighting scheme for co-occurrence networks where the weight of a connection between nodes <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> is the defined in terms of the number of cross-mode connections for that node. In other words:</p>
+<p><span class="math display">\[w_{ij} = \Sigma_p \frac{1}{N_p-1}\]</span></p>
+<p>where <span class="math inline">\(N_p\)</span> is the number of connections from mode 1 to mode 2 for node <span class="math inline">\(p\)</span> and <span class="math inline">\(w_{ij}\)</span> is the weight of the connection from <span class="math inline">\(i\)</span> to <span class="math inline">\(j\)</span>.</p>
+<div class="rmdnote">
+<p>
+The Newman method of weighting bipartite networks has been
+implemented in an R package called <code>tnet</code>. This package has a
+few other useful functions for the analysis of bipartite, weighted, and
+longitudinal networks so it is worth investigating (see
+<code><a href="https://rdrr.io/pkg/tnet/man/tnet-package.html">?tnet</a></code>). Unfortunately, it is no longer being actively
+maintained.
+</p>
+</div>
+<p>Let’s take a look at Newman’s method using the <code>tnet</code> package. This package expects a simple two-column edge list with only integers for the node identifiers which we can generate using the <code>igraph</code> <code>get.edgelist</code> function and including the <code>names = FALSE</code> argument:</p>
+<div class="sourceCode" id="cb654"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://toreopsahl.com/tnet/">tnet</a></span><span class="op">)</span>
+
+<span class="va">tm_el</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/as_edgelist.html">get.edgelist</a></span><span class="op">(</span><span class="va">cibola_inc</span>, names <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">tm_el</span><span class="op">)</span></code></pre></div>
+<pre><code>##      [,1] [,2]
+## [1,]    1   32
+## [2,]    1   33
+## [3,]    1   34
+## [4,]    1   35
+## [5,]    1   36
+## [6,]    1   37</code></pre>
+<div class="sourceCode" id="cb656"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">proj_newman</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/tnet/man/projecting_tm.html">projecting_tm</a></span><span class="op">(</span><span class="va">tm_el</span>, method <span class="op">=</span> <span class="st">"Newman"</span><span class="op">)</span><span class="op">)</span>
+
+<span class="va">proj_net</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/graph_from_edgelist.html">graph_from_edgelist</a></span><span class="op">(</span><span class="va">proj_newman</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/pkg/igraph/man/E.html">E</a></span><span class="op">(</span><span class="va">proj_net</span><span class="op">)</span><span class="op">$</span><span class="va">weight</span> <span class="op">&lt;-</span> <span class="va">proj_newman</span><span class="op">[</span>, <span class="fl">3</span><span class="op">]</span>
+<span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html">V</a></span><span class="op">(</span><span class="va">proj_net</span><span class="op">)</span><span class="op">$</span><span class="va">name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/row.names.html">row.names</a></span><span class="op">(</span><span class="va">cibola_clust</span><span class="op">)</span>
+
+<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">4643</span><span class="op">)</span>
+<span class="fu"><a href="https://ggraph.data-imaginist.com/reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">proj_net</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>color <span class="op">=</span> <span class="va">weight</span><span class="op">)</span>,
+                 width <span class="op">=</span> <span class="fl">1</span>, show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/scale_edge_alpha.html">scale_edge_alpha_continuous</a></span><span class="op">(</span>range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/scale_edge_colour.html">scale_edge_color_viridis</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/degree.html">degree</a></span><span class="op">(</span><span class="va">proj_net</span><span class="op">)</span><span class="op">)</span>,
+                  show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_node_text.html">geom_node_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">name</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">3</span>, repel <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/theme_graph.html">theme_graph</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="09-affiliation_files/figure-html/unnamed-chunk-11-1.png" width="672"></div>
+<p>As expected, we get another hairball here, but let’s take a look at the edge weights of this projection versus the original matrix multiplication projection:</p>
+<div class="sourceCode" id="cb657"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/E.html">E</a></span><span class="op">(</span><span class="va">proj_net</span><span class="op">)</span><span class="op">$</span><span class="va">weight</span>, <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/E.html">E</a></span><span class="op">(</span><span class="va">cibola_onemode</span><span class="op">)</span><span class="op">$</span><span class="va">weight</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span></code></pre></div>
+<pre><code>## [1] 0.9454047</code></pre>
+<div class="sourceCode" id="cb659"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/E.html">E</a></span><span class="op">(</span><span class="va">proj_net</span><span class="op">)</span><span class="op">$</span><span class="va">weight</span>, <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/E.html">E</a></span><span class="op">(</span><span class="va">cibola_onemode</span><span class="op">)</span><span class="op">$</span><span class="va">weight</span>, pch <span class="op">=</span> <span class="fl">16</span>, col <span class="op">=</span> <span class="st">"blue"</span>,
+     xlab <span class="op">=</span> <span class="st">"Newman Weights"</span>, ylab <span class="op">=</span> <span class="st">"Matrix Multiplication Weights"</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="09-affiliation_files/figure-html/unnamed-chunk-12-1.png" width="672"></div>
+<p>AS this shows, edge weights are highly correlated with an <span class="math inline">\(r^2 = 0.95\)</span> but there are also some subtle differences that distinguish these two projection methods. Via experimentation we have found the Newman model to be particularly useful in situations where there are a mix of common and rare artifact (mode 2) categories as this produces networks that account for relative frequency via context-to-context co-associations.</p>
+</div>
+</div>
+</div>
+<div id="CorrespondenceAnalysis" class="section level2" number="10.2">
+<h2>
+<span class="header-section-number">10.2</span> Correspondence Analysis<a class="anchor" aria-label="anchor" href="#CorrespondenceAnalysis"><i class="fas fa-link"></i></a>
+</h2>
+<p>Another method that has proven useful in exploring affiliation data in archaeological and many other contexts is correspondence analysis. Correspondence analysis is a method of dimension reduction based on the decomposition of the <span class="math inline">\(chi\)</span>-square statistic that allows for the projection of the rows and columns of an incidence matrix into the same low dimensional space (see Peeples and Schachner 2012). Correspondence analysis works on either count or presence/absence data. The technical details of this approach are beyond the scope of this document (see Peeples and Schachner 2012), but generally correspondence analysis can be used to plot row and column cases from an incidence matrix in a single bi-plot where the spatial configuration of those points is related to the degree of co-association among them (though not a perfect representation of co-association). Correspondence analysis is frequently used for frequency seriation in archaeology but can also be useful in any analysis focused on co-association including spatial analyses (Alberti 2017). Correspondence analysis has also previously been used by <a href="https://www.sciencedirect.com/science/article/abs/pii/S0278416518301132?via%3Dihub">Giomi and Peeples (2019)</a> for investigating assemblages of materials recovered in discrete excavation contexts within the Pueblo Bonito Chacoan Great House complex. They explicitly compare correspondence analysis to related co-association methods we will describe further below to construct networks of co-association among artifact categories.</p>
+<div class="rmdnote">
+<p>
+Conducting correspondence analysis and visualizing it in R is
+typically done using the <code>ca</code> package. This package has a
+plotting function within it that creates bi-plots where each mode (rows
+and columns of the incidence matrix) are displayed with different shapes
+and colors. See the <code>?ca()</code> function help for more
+information. Although we do not use it here, the <code>anacor</code>
+package provides additional extensions of correspondence analysis
+methods (such as alternative axis scaling methods) that may also be
+useful.
+</p>
+</div>
+<p>Let’s start by applying the <code>ca</code> function to our <code>cibola_clust</code> incidence matrix data set:</p>
+<div class="sourceCode" id="cb660"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://www.carme-n.org/">ca</a></span><span class="op">)</span>
+
+<span class="va">ca_cibola</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ca/man/ca.html">ca</a></span><span class="op">(</span><span class="va">cibola_clust</span><span class="op">)</span>
+<span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">ca_cibola</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="09-affiliation_files/figure-html/ca-1.png" width="672"></div>
+<p>This plot clearly shows associations between certain clusters and sets of sites. If you are familiar with the sites used here you may also notice that there are clear geographic clusters as well. In addition to this, the dimensions contain percentages in the labels. What this indicates is the amount of variation in the underlying incidence matrix that each dimension represents. Correspondence analysis is designed such that the first dimension accounts for the most variation and so on up to 1 dimension less than the number of categories present.</p>
+<div id="CAViz" class="section level3" number="10.2.1">
+<h3>
+<span class="header-section-number">10.2.1</span> Network Visuals Using Correspondence Analysis<a class="anchor" aria-label="anchor" href="#CAViz"><i class="fas fa-link"></i></a>
+</h3>
+<p>Correspondence analysis has frequently been used for plotting affiliation data like this in sociology, in particular using layouts generated through CA to plot networks with edges generated using some other mode of projection described above (see Borgatti and Halgin 2014; Faust 2005). In the chunk of code below we plot the reduced Cibola one-mode network edges as well as the one mode projection of the columns using the positions on the correspondence analysis axes as the point locations.</p>
+<div class="sourceCode" id="cb661"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Create network object using crossprod function</span>
+<span class="va">col_net</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/graph_from_adjacency_matrix.html">graph_from_adjacency_matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/crossprod.html">crossprod</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">cibola_clust</span><span class="op">)</span><span class="op">)</span>,
+                                       weighted <span class="op">=</span> <span class="cn">TRUE</span>,
+                                       mode <span class="op">=</span> <span class="st">"undirected"</span>,
+                                       diag <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+
+<span class="co"># Combine both edgelists into a single frame</span>
+<span class="va">el_com</span> <span class="op">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/as_edgelist.html">get.edgelist</a></span><span class="op">(</span><span class="va">cibola_om_reduced</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/as_edgelist.html">get.edgelist</a></span><span class="op">(</span><span class="va">col_net</span><span class="op">)</span><span class="op">)</span>
+
+<span class="co"># Define composite network object and add Edge and Vertex attributes</span>
+<span class="va">net2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/graph_from_edgelist.html">graph_from_edgelist</a></span><span class="op">(</span><span class="va">el_com</span>, directed <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/pkg/igraph/man/E.html">E</a></span><span class="op">(</span><span class="va">net2</span><span class="op">)</span><span class="op">$</span><span class="va">weight</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/E.html">E</a></span><span class="op">(</span><span class="va">cibola_om_reduced</span><span class="op">)</span><span class="op">$</span><span class="va">weight</span>, <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/E.html">E</a></span><span class="op">(</span><span class="va">col_net</span><span class="op">)</span><span class="op">$</span><span class="va">weight</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/pkg/igraph/man/E.html">E</a></span><span class="op">(</span><span class="va">net2</span><span class="op">)</span><span class="op">$</span><span class="va">mode</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"blue"</span>, <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/gsize.html">ecount</a></span><span class="op">(</span><span class="va">cibola_om_reduced</span><span class="op">)</span><span class="op">)</span>,
+                  <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"red"</span>, <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/gsize.html">ecount</a></span><span class="op">(</span><span class="va">col_net</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html">V</a></span><span class="op">(</span><span class="va">net2</span><span class="op">)</span><span class="op">$</span><span class="va">mode2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"blue"</span>, <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/gorder.html">vcount</a></span><span class="op">(</span><span class="va">cibola_om_reduced</span><span class="op">)</span><span class="op">)</span>,
+                   <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"red"</span>, <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/gorder.html">vcount</a></span><span class="op">(</span><span class="va">col_net</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html">V</a></span><span class="op">(</span><span class="va">net2</span><span class="op">)</span><span class="op">$</span><span class="va">name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/row.names.html">row.names</a></span><span class="op">(</span><span class="va">cibola_clust</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">cibola_clust</span><span class="op">)</span><span class="op">)</span>
+
+<span class="co"># Create object containing row and column coordinates from correspondence</span>
+<span class="co"># analysis results</span>
+<span class="va">xy</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span><span class="va">ca_cibola</span><span class="op">$</span><span class="va">rowcoord</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span>, <span class="va">ca_cibola</span><span class="op">$</span><span class="va">colcoord</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>
+
+<span class="co"># Plot the results color coding by mode</span>
+<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">4643</span><span class="op">)</span>
+<span class="fu"><a href="https://ggraph.data-imaginist.com/reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">net2</span>, layout <span class="op">=</span> <span class="st">"manual"</span>,
+       x <span class="op">=</span> <span class="va">xy</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span>,
+       y <span class="op">=</span> <span class="va">xy</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_edge_link.html">geom_edge_link0</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="va">weight</span>, color  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/E.html">E</a></span><span class="op">(</span><span class="va">net2</span><span class="op">)</span><span class="op">$</span><span class="va">mode</span><span class="op">)</span>,
+                 show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/scale_edge_colour.html">scale_edge_color_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"blue"</span>, <span class="st">"red"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>color <span class="op">=</span> <span class="va">mode2</span>, shape <span class="op">=</span> <span class="va">mode2</span><span class="op">)</span>, 
+                  size <span class="op">=</span> <span class="fl">3</span>,
+                  show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_color_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"blue"</span>, <span class="st">"red"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_shape_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">16</span>, <span class="fl">17</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_node_text.html">geom_node_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">name</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">3</span>, repel <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="09-affiliation_files/figure-html/unnamed-chunk-14-1.png" width="672"></div>
+<p>As this plot illustrates, there is considerable information here about the co-associations of the two modes in our incidence matrix in visuals like this. We suggest that visualizations like this are a potential avenue worth perusing in future archaeological network investigations of incidence matrix data sets.</p>
+</div>
+</div>
+<div id="MeasuringCoassociation" class="section level2" number="10.3">
+<h2>
+<span class="header-section-number">10.3</span> Measuring Co-association<a class="anchor" aria-label="anchor" href="#MeasuringCoassociation"><i class="fas fa-link"></i></a>
+</h2>
+<p>Giomi and Peeples (2019) presented a network analysis focused on intra-site variability in the Chacoan Great House complex of Pueblo Bonito. In this analysis, they used correspondence analysis as shown above in addition a method for assessing co-occurrence in two-way tables first published by Kintigh (2006). This method calculates the expected co-occurrence of every pair of objects in an assemblage based on the total number of contexts considered and the number of contexts that contain each type of object (you can think about types of objects and contexts as two modes in a two-mode network). This method relies on presence/absence only so it can be applied in many contexts even where only sketchy information on archaeological context inventories are available. Giomi and Peeples present this measure of co-association <span class="math inline">\(C_{ab}\)</span> between object types <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> defined as:</p>
+<p><span class="math display">\[C_{ab}=\frac{o_{ab}-Np_{ab}}{\sqrt{Np_{ab}(1-p_{ab})}}\]</span></p>
+<p>where</p>
+<ul>
+<li>
+<span class="math inline">\(o_{ab}\)</span> = the observed number of co-occurrences between object classes <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>.</li>
+<li>
+<span class="math inline">\(N\)</span> = the total number of assemblages</li>
+<li>
+<span class="math inline">\(p_{ab}\)</span> = the expected proportion of co-occurrences between object classes <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> defined as the proportion of assemblages where <span class="math inline">\(a\)</span> occurs times the proportion of assemblages where <span class="math inline">\(b\)</span> occurs.</li>
+</ul>
+<p>This measure provides an index of the number of co-occurrences observed in relation to expected given the overall frequency of each object class in Z-standardized units. That means that a value of 3 means that two object classes co-occur approximately 3 standard deviations more than we would expect given the frequency of occurrence for those object classes and the number of contexts for which we have data. Similarly a value of -2 means that two object classes are 2 standard deviations less associated than would be expected given their frequency of occurrence.</p>
+<p>Here is the function used by Giomi and Peeples (2019) and also available <a href="https://github.com/mpeeples2008/Giomi-and-Peeples-2019">on GitHub here</a>.</p>
+<div class="sourceCode" id="cb662"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">## Co-occurrence assessment script</span>
+<span class="co">## This function expects a binary data frame object that contains only 1s and 0s with the contexts under consideration as rows and the </span>
+<span class="co">## categories as columns and each cell represents the presence or absence of a particular category in a particular context</span>
+
+<span class="va">cooccur</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
+  
+  <span class="co"># calculate the proportional occurrence of each artifact class</span>
+  <span class="va">nm.p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html">colSums</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> 
+  
+  <span class="co"># calculated observed co-occurrences through matrix multiplication</span>
+  <span class="va">obs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html">%*%</a></span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> 
+  <span class="fu"><a href="https://rdrr.io/r/base/diag.html">diag</a></span><span class="op">(</span><span class="va">obs</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fl">0</span>
+  
+  <span class="co"># create matrix of expected values based on proportional occurrence </span>
+  <span class="va">expect</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">obs</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">obs</span><span class="op">)</span><span class="op">)</span> 
+  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">obs</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+    <span class="kw">for</span> <span class="op">(</span><span class="va">j</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">obs</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+      <span class="va">expect</span><span class="op">[</span><span class="va">i</span>,<span class="va">j</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">nm.p</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">*</span><span class="va">nm.p</span><span class="op">[</span><span class="va">j</span><span class="op">]</span><span class="op">)</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">}</span><span class="op">}</span> 
+  
+  <span class="co"># convert expected count to expected proportion</span>
+  <span class="va">p</span> <span class="op">&lt;-</span> <span class="va">expect</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+  
+  <span class="co"># calculate final matrix of scores and output</span>
+  <span class="va">out</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">obs</span><span class="op">-</span><span class="va">expect</span><span class="op">)</span><span class="op">/</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="va">expect</span><span class="op">*</span><span class="op">(</span><span class="fl">1</span><span class="op">-</span><span class="va">p</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> 
+  <span class="fu"><a href="https://rdrr.io/r/base/diag.html">diag</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fl">0</span>
+  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span><span class="op">}</span></code></pre></div>
+<p>To test this approach we’re going to use a partial inventory of artifacts from a site in west-central New Mexico called Techado Springs (Smith et al. 2009). This was an extensively excavated settlement with over 500 rooms and we have artifact inventory data for 198 of those rooms. For the example here, we’re using 9 categories of features/objects encountered in those rooms, all of which are related to the ceramic production process. You can <a href="data/Techado_artifacts.csv">download the artifact data here</a> to follow along.</p>
+<div class="sourceCode" id="cb663"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">tec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"data/Techado_artifacts.csv"</span>, header <span class="op">=</span> <span class="cn">TRUE</span>, row.names <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
+<span class="va">tec</span> <span class="op">&lt;-</span> <span class="va">tec</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html">rowSums</a></span><span class="op">(</span><span class="va">tec</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span>, <span class="op">]</span>
+
+<span class="va">out</span> <span class="op">&lt;-</span> <span class="fu">cooccur</span><span class="op">(</span><span class="va">tec</span><span class="op">)</span>
+
+<span class="co"># see first few columns</span>
+<span class="va">out</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span></code></pre></div>
+<pre><code>##                   CeramicDryFeature CeramicVessel        Puki   PaintCup
+## CeramicDryFeature         0.0000000     3.9785881  2.25632854  1.5877018
+## CeramicVessel             3.9785881     0.0000000 -1.38858632 -0.2800886
+## Puki                      2.2563285    -1.3885863  0.00000000 -0.9061016
+## PaintCup                  1.5877018    -0.2800886 -0.90610162  0.0000000
+## PolishingStone           -1.0575847           NaN -5.15060380  1.3732138
+## RawClay                  -0.8651613    -1.5384481 -1.43135460 -1.3739322
+## Scoop                     0.7167460    -1.4775196 -1.59036373  0.6854396
+## CeramicScrapper           0.2165159     0.2621044 -0.01569124  2.1188426
+## UnfiredVessel             3.6918908     8.3227556  1.04664169  1.9422423</code></pre>
+<p>Looking at the first few columns of the output of our <code>cooccur</code> function we can see a few particularly high and low values. For example, polishing stones and pukis (tools used for supporting vessels while forming them) are much less associated than would be expected by chance (-5.15). On the other side, ceramic drying features and un-fired vessels are much more associated than we would expect by chance (3.69). There are also several <code>NaN</code> or <code>NA</code> indicating that those two categories never co-occur in this data set.</p>
+<p>Next, let’s plot all of the returned values as a histogram:</p>
+<div class="sourceCode" id="cb665"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="va">out</span>, breaks <span class="op">=</span> <span class="fl">10</span>, xlab <span class="op">=</span> <span class="st">"C_p"</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure">
+<img src="09-affiliation_files/figure-html/unnamed-chunk-17-1.png" width="672">
+If we examine this histogram of all values returned from the analysis we see a distribution that is peaked near 0 (or the degree of co-association we would expect by chance) but there are extreme values in both directions suggesting much less and greater co-association than would be expected by chance for certain features/object classes.</div>
+<div id="COViz" class="section level3" number="10.3.1">
+<h3>
+<span class="header-section-number">10.3.1</span> Alternative Methods for Visualizing Co-associations<a class="anchor" aria-label="anchor" href="#COViz"><i class="fas fa-link"></i></a>
+</h3>
+<p>Another way we can visualize these data is using a network graph as described by Giomi and Peeples (2019). First, we dichotomize the output created above. We are going to use an absolute threshold here and define a edge (connection) between any pair of object classes that are associated 2 standard deviations or greater more than expected by chance. There is nothing special about this 2 SD threshold and in practice it is a good idea to try a range of values and compare your results.</p>
+<div class="sourceCode" id="cb666"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">net_dat</span> <span class="op">&lt;-</span> <span class="va">out</span>
+<span class="va">net_dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">net_dat</span> <span class="op">&lt;</span> <span class="fl">2</span>, <span class="fl">0</span>, <span class="va">net_dat</span><span class="op">)</span>
+<span class="va">net_dat</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">net_dat</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">0</span>
+
+<span class="va">net_c</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/graph_from_adjacency_matrix.html">graph_from_adjacency_matrix</a></span><span class="op">(</span><span class="va">net_dat</span>,
+                                     mode <span class="op">=</span> <span class="st">"undirected"</span>,
+                                     weighted <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html">V</a></span><span class="op">(</span><span class="va">net_c</span><span class="op">)</span><span class="op">$</span><span class="va">name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">tec</span><span class="op">)</span>
+
+<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">4643</span><span class="op">)</span>
+<span class="fu"><a href="https://ggraph.data-imaginist.com/reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">net_c</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>width <span class="op">=</span> <span class="va">weight</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/scale_edge_width.html">scale_edge_width_continuous</a></span><span class="op">(</span>range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">1.5</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">3</span>, color <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_node_text.html">geom_node_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">name</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">3</span>, repel <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/theme_graph.html">theme_graph</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="09-affiliation_files/figure-html/unnamed-chunk-18-1.png" width="672"></div>
+<p>This plot shows the strongest co-associations among categories and provides a nice distillation of important relationships in one mode of these data. It is also possible to do the reverse and explore the connections among rooms by virtue of the co-associations in their assemblages. Let’s give this a try using the <code><a href="https://rdrr.io/r/base/t.html">t()</a></code> transpose function to reverse the matrix for our analysis. In the plot below we have further defined clusters among nodes using the Louvain clustering method and color coded them to evaluate the potential for community structure in our results.</p>
+<div class="sourceCode" id="cb667"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">net_dat</span> <span class="op">&lt;-</span> <span class="fu">cooccur</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="va">tec</span><span class="op">)</span><span class="op">)</span>
+<span class="va">net_dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">net_dat</span> <span class="op">&gt;</span> <span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span>
+<span class="va">net_dat</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">net_dat</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">0</span>
+
+<span class="va">net_r</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/graph_from_adjacency_matrix.html">graph_from_adjacency_matrix</a></span><span class="op">(</span><span class="va">net_dat</span>, mode <span class="op">=</span> <span class="st">"undirected"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html">V</a></span><span class="op">(</span><span class="va">net_r</span><span class="op">)</span><span class="op">$</span><span class="va">name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/row.names.html">row.names</a></span><span class="op">(</span><span class="va">tec</span><span class="op">)</span>
+
+<span class="va">group</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/cluster_louvain.html">cluster_louvain</a></span><span class="op">(</span><span class="va">net_r</span><span class="op">)</span><span class="op">$</span><span class="va">memberships</span><span class="op">[</span><span class="fl">1</span>, <span class="op">]</span>
+
+<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">4532</span><span class="op">)</span>
+<span class="fu"><a href="https://ggraph.data-imaginist.com/reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">net_r</span>, layout <span class="op">=</span> <span class="st">"fr"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span><span class="op">)</span>,
+                  size <span class="op">=</span> <span class="fl">3</span>,
+                  show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_colour_discrete.html">scale_color_discrete</a></span><span class="op">(</span><span class="st">"Set2"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_node_text.html">geom_node_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">name</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">3</span>, repel <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/theme_graph.html">theme_graph</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="09-affiliation_files/figure-html/unnamed-chunk-19-1.png" width="672"></div>
+<p>Hmm… There appear to be some clusters… interesting. There are a lot of things we would likely want to do here including going back to the original data and looking for other commonalities among rooms that group together in terms of strong similarities in ceramic production tools and features. For example, Giomi and Peeples (2019) explore the relationships between cluster/clique membership and room inventories and make behavioral interpretations of common assemblages drawing on ethnographic examples.</p>
+<p>As the brief example above illustrates, co-association methods like this are a natural fit for network methods and we argue that archaeologists should explore these and similar approaches more in the future.</p>
+
+</div>
+</div>
+</div>
+
+
+
+  <div class="chapter-nav">
+<div class="prev"><a href="SpatialInteraction.html"><span class="header-section-number">9</span> Spatial Interaction Models</a></div>
+<div class="next"><a href="TableOfContents.html">Table of Contents Quick Reference</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#Affiliation"><span class="header-section-number">10</span> Affiliation Data and Co-Association</a></li>
+<li>
+<a class="nav-link" href="#AnalyzingTwoMode"><span class="header-section-number">10.1</span> Analyzing Two-Mode Networks</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#TraditionalMetrics"><span class="header-section-number">10.1.1</span> Using Traditional Network Metrics</a></li>
+<li><a class="nav-link" href="#TwoModeMetrics"><span class="header-section-number">10.1.2</span> Using Two-Mode Specific Network Metrics</a></li>
+<li><a class="nav-link" href="#ProjectingTwoMode"><span class="header-section-number">10.1.3</span> Projecting Two-Mode Networks Before Analysis</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#CorrespondenceAnalysis"><span class="header-section-number">10.2</span> Correspondence Analysis</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#CAViz"><span class="header-section-number">10.2.1</span> Network Visuals Using Correspondence Analysis</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#MeasuringCoassociation"><span class="header-section-number">10.3</span> Measuring Co-association</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#COViz"><span class="header-section-number">10.3.1</span> Alternative Methods for Visualizing Co-associations</a></li></ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/mpeeples2008/ArchNetSci/blob/master/09-affiliation.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/mpeeples2008/ArchNetSci/edit/master/09-affiliation.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-06-20.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

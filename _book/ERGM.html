@@ -4,17 +4,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Section 7 Exponential Random Graph Models | Online Companion to Archaeological Network Science</title>
+<title>Section 8 Exponential Random Graph Models | Online Companion to Archaeological Network Science</title>
 <meta name="author" content="Matthew A. Peeples and Tom Brughmans">
 <meta name="description" content="Exponential Random Graph Models (ERGM; typically pronounced “UR-gum”) are a class of statistical models designed to help represent, evaluate, and simulate ideas about network generating processes...">
 <meta name="generator" content="bookdown 0.26 with bs4_book()">
-<meta property="og:title" content="Section 7 Exponential Random Graph Models | Online Companion to Archaeological Network Science">
+<meta property="og:title" content="Section 8 Exponential Random Graph Models | Online Companion to Archaeological Network Science">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://book.archnetworks.net/ERGM.html">
 <meta property="og:image" content="https://book.archnetworks.net/images/cover.png">
 <meta property="og:description" content="Exponential Random Graph Models (ERGM; typically pronounced “UR-gum”) are a class of statistical models designed to help represent, evaluate, and simulate ideas about network generating processes...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Section 7 Exponential Random Graph Models | Online Companion to Archaeological Network Science">
+<meta name="twitter:title" content="Section 8 Exponential Random Graph Models | Online Companion to Archaeological Network Science">
 <meta name="twitter:description" content="Exponential Random Graph Models (ERGM; typically pronounced “UR-gum”) are a class of statistical models designed to help represent, evaluate, and simulate ideas about network generating processes...">
 <meta name="twitter:image" content="https://book.archnetworks.net/images/cover.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -77,18 +77,22 @@
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
         <ul class="book-toc list-unstyled">
 <li><a class="" href="index.html">Welcome</a></li>
-<li><a class="" href="GettingStarted.html">Gettings Started with R</a></li>
-<li><a class="" href="DataAndWorkspace.html"><span class="header-section-number">1</span> Data and Workspace Setup</a></li>
-<li><a class="" href="NetworkData.html"><span class="header-section-number">2</span> Network Data in R</a></li>
-<li><a class="" href="Exploratory.html"><span class="header-section-number">3</span> Exploratory Network Analysis</a></li>
-<li><a class="" href="Uncertainty.html"><span class="header-section-number">4</span> Quantifying Uncertainty</a></li>
-<li><a class="" href="Visualization.html"><span class="header-section-number">5</span> Network Visualization</a></li>
-<li><a class="" href="SpatialNetworks.html"><span class="header-section-number">6</span> Spatial Networks</a></li>
-<li class="book-part">Going Beyond the Book</li>
-<li><a class="active" href="ERGM.html"><span class="header-section-number">7</span> Exponential Random Graph Models</a></li>
-<li><a class="" href="SpatialInteraction.html"><span class="header-section-number">8</span> Spatial Interaction Models</a></li>
+<li class="book-part">PART I: Getting Started</li>
+<li><a class="" href="GettingStarted.html"><span class="header-section-number">1</span> Getting Started with R</a></li>
+<li class="book-part">PART II: Work While You Read</li>
+<li><a class="" href="DataAndWorkspace.html"><span class="header-section-number">2</span> Data and Workspace Setup</a></li>
+<li><a class="" href="NetworkData.html"><span class="header-section-number">3</span> Network Data in R</a></li>
+<li><a class="" href="Exploratory.html"><span class="header-section-number">4</span> Exploratory Network Analysis</a></li>
+<li><a class="" href="Uncertainty.html"><span class="header-section-number">5</span> Quantifying Uncertainty</a></li>
+<li><a class="" href="Visualization.html"><span class="header-section-number">6</span> Network Visualization</a></li>
+<li><a class="" href="SpatialNetworks.html"><span class="header-section-number">7</span> Spatial Networks</a></li>
+<li class="book-part">PART III: Going Beyond the Book</li>
+<li><a class="active" href="ERGM.html"><span class="header-section-number">8</span> Exponential Random Graph Models</a></li>
+<li><a class="" href="SpatialInteraction.html"><span class="header-section-number">9</span> Spatial Interaction Models</a></li>
+<li><a class="" href="Affiliation.html"><span class="header-section-number">10</span> Affiliation Data and Co-Association</a></li>
+<li class="book-part">Additional Material</li>
 <li><a class="" href="TableOfContents.html">Table of Contents Quick Reference</a></li>
-<li><a class="" href="references-and-r-packages-1.html">References and R Packages</a></li>
+<li><a class="" href="references-and-r-packages.html">References and R Packages</a></li>
 </ul>
 
         <div class="book-extra">
@@ -96,9 +100,9 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="ERGM" class="section level1" number="7">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="ERGM" class="section level1" number="8">
 <h1>
-<span class="header-section-number">Section 7</span> Exponential Random Graph Models<a class="anchor" aria-label="anchor" href="#ERGM"><i class="fas fa-link"></i></a>
+<span class="header-section-number">Section 8</span> Exponential Random Graph Models<a class="anchor" aria-label="anchor" href="#ERGM"><i class="fas fa-link"></i></a>
 </h1>
 <p>Exponential Random Graph Models (ERGM; typically pronounced “UR-gum”) are a class of statistical models designed to help represent, evaluate, and simulate ideas about network generating processes and structural properties (for a good introductions to the method see Lusher et al. 2013; and for archaeological cases see Amati et al. 2020; Brughmans et al. 2014; Wang and Marwick 2021). These models allow us to formally represent our theories about how particular patterns of relationships (such as paths of a given length or triads of a specific configuration) or associations (such as mutuality or connections among nodes that share an attribute) emerge and persist in our networks. Further ERGMs help us evaluate how well such theories account for our observed network data. Specifically, an ERGM can be used to generate large numbers of networks in a random process targeted towards particular configurations and associations that represent our theories of interest. We can then compare those simulated networks to our observed network to generate perspectives on the plausibility of our theory. Essentially, ERGMs help us determine how the local tendencies in network formation generate the global properties and structures of our networks.</p>
 <p>In many ways, ERGMs are similar to logistic regression models where we predict the presence or absence of ties between pairs of nodes with edge formation modeled as dependent on network structure and properties (e.g., density, transitivity, centralization, etc.). Such models help us assess the probability that the observed network is a product of specified properties or generative processes that may be more or less likely to occur than we would expect by chance in a random network.</p>
@@ -162,9 +166,9 @@ probability of an event occurring is &gt; 0.5. Log odds will be exactly
 0 when the probability of an event occurring is 0.5.
 </p>
 </div>
-<div id="ERGMsInR" class="section level2" number="7.1">
+<div id="ERGMsInR" class="section level2" number="8.1">
 <h2>
-<span class="header-section-number">7.1</span> ERGMs in R<a class="anchor" aria-label="anchor" href="#ERGMsInR"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.1</span> ERGMs in R<a class="anchor" aria-label="anchor" href="#ERGMsInR"><i class="fas fa-link"></i></a>
 </h2>
 <p>In general, the analysis of ERGMs in R is conducted in three basic steps:</p>
 <ul>
@@ -184,13 +188,13 @@ in the <code>network</code> format to be analysed using the
 </p>
 </div>
 <p>Let’s initialize our <code>statnet</code> suite to get started:</p>
-<div class="sourceCode" id="cb560"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb559"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://statnet.org">statnet</a></span><span class="op">)</span> <span class="co"># initialize statnet library</span></code></pre></div>
 <p>In many ways it is easiest to describe what ERGMs do and how they work by example. In the next sections we provide a couple of archaeological examples that highlight some of the ways ERGMs have or could be used in archaeology. We further provide additional resources for taking these methods further.</p>
 </div>
-<div id="CranborneChase" class="section level2" number="7.2">
+<div id="CranborneChase" class="section level2" number="8.2">
 <h2>
-<span class="header-section-number">7.2</span> Cranborne Chase Visibility Network Example<a class="anchor" aria-label="anchor" href="#CranborneChase"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.2</span> Cranborne Chase Visibility Network Example<a class="anchor" aria-label="anchor" href="#CranborneChase"><i class="fas fa-link"></i></a>
 </h2>
 <p>We start with an example that was described briefly in the Brughmans and Peeples (2022) book in Chapter 4, but not covered in detail. Specifically, we explore the potential generative processes involved in the development of the intervisibility network among long barrows in the Cranborne Chase area in southern England. As this example is only briefly described in the Brughmans and Peeples (2022) book, you may also want to read and follow along with the original article where that analyses first appeared (<a href="https://www.frontiersin.org/articles/10.3389/fdigh.2017.00017/">Brughmans and Brandes 2017</a>).</p>
 <p>Briefly, the network consists of a set of nodes which represent long barrows and edges among them which represent ground-truthed ties of intervisbility between pairs of barrows. The original data came from work by Chris Tilley (1994). These data were used by Brughmans and Brandes (2017) to formally test the notion put forth by Tilley that highly visible barrows “attracted” others over time. In network terms this could be characterized as a “preferential attachment” process. Brughmans and Brandes created an ERGM model with particular properties drawn from Tilley’s theoretical model of network development and found that networks simulated with those properties using ERGMs had substantially similar properties to the observed network. Based on this, they considered Tilley’s theoretical model plausible.</p>
@@ -198,12 +202,12 @@ in the <code>network</code> format to be analysed using the
 <img src="images/long_barrow.jpg" style="width:100.0%" alt=""><p class="caption">Photograph of a long barrow at Cranborne Chase. <a href="https://commons.wikimedia.org/wiki/File:Gussage_down_long_barrow.jpg">Original image by Jim Champion: CC 3.0</a></p>
 </div>
 <p>The original ERGM analysis published by Brughmans and Brandes was conducted in a Java program designed for ERGM analysis called <a href="http://www.melnet.org.au/pnet">PNet</a>. Here we replicate some of their results and a few additional analyses using slightly different methods and assumptions in R by way of demonstration. Our results differ slightly from the published results because of the randomness inherent in fitting ERGMs but all coefficient retain the same sign and magnitude suggesting a good replication of the most important results.</p>
-<div id="NetProperties" class="section level3" number="7.2.1">
+<div id="NetProperties" class="section level3" number="8.2.1">
 <h3>
-<span class="header-section-number">7.2.1</span> Assessments of Network Properties<a class="anchor" aria-label="anchor" href="#NetProperties"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.2.1</span> Assessments of Network Properties<a class="anchor" aria-label="anchor" href="#NetProperties"><i class="fas fa-link"></i></a>
 </h3>
 <p>Let’s start by bringing in our Cranborne Chase network data (as a <code>network</code> object) and looking at the general properties of the network object.</p>
-<div class="sourceCode" id="cb561"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb560"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span><span class="op">(</span><span class="st">"data/cranborne.Rdata"</span><span class="op">)</span>
 <span class="va">cranborne</span></code></pre></div>
 <pre><code>##  Network attributes:
@@ -213,98 +217,92 @@ in the <code>network</code> format to be analysed using the
 ##   loops = FALSE 
 ##   multiple = FALSE 
 ##   bipartite = FALSE 
-##   total edges= 46 
+##   total edges= 49 
 ##     missing edges= 0 
-##     non-missing edges= 46 
+##     non-missing edges= 49 
 ## 
 ##  Vertex attribute names: 
 ##     vertex.names 
 ## 
 ## No edge attributes</code></pre>
 <p>This network is an undirected, unweighted network object with 32 nodes and 46 edges. Let’s look at a few properties of the network including density, mean degree, degree centralization, and number of isolates.</p>
-<div class="sourceCode" id="cb563"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb562"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">sna</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sna/man/gden.html">gden</a></span><span class="op">(</span><span class="va">cranborne</span><span class="op">)</span> <span class="co"># density</span></code></pre></div>
-<pre><code>## [1] 0.09274194</code></pre>
-<div class="sourceCode" id="cb565"><pre class="downlit sourceCode r">
+<pre><code>## [1] 0.09879032</code></pre>
+<div class="sourceCode" id="cb564"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="fu">sna</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sna/man/degree.html">degree</a></span><span class="op">(</span><span class="va">cranborne</span><span class="op">)</span><span class="op">)</span> <span class="co"># mean degree</span></code></pre></div>
-<pre><code>## [1] 5.75</code></pre>
-<div class="sourceCode" id="cb567"><pre class="downlit sourceCode r">
+<pre><code>## [1] 6.125</code></pre>
+<div class="sourceCode" id="cb566"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">sna</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sna/man/centralization.html">centralization</a></span><span class="op">(</span><span class="va">cranborne</span>, g <span class="op">=</span> <span class="fl">1</span>, <span class="va">degree</span><span class="op">)</span> <span class="co"># degree centralization</span></code></pre></div>
-<pre><code>## [1] 0.1419355</code></pre>
-<div class="sourceCode" id="cb569"><pre class="downlit sourceCode r">
+<pre><code>## [1] 0.2043011</code></pre>
+<div class="sourceCode" id="cb568"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu">sna</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sna/man/isolates.html">isolates</a></span><span class="op">(</span><span class="va">cranborne</span><span class="op">)</span><span class="op">)</span> <span class="co"># numbe of isolates</span></code></pre></div>
 <pre><code>## [1] 3</code></pre>
 <p>This is a fairly sparse network with few isolates and a low degree centralization.</p>
 <p>Let’s plot it with nodes scaled by degree:</p>
-<div class="sourceCode" id="cb571"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb570"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">4367</span><span class="op">)</span>
 <span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">cranborne</span>, vertex.cex <span class="op">=</span> <span class="op">(</span><span class="fu">sna</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sna/man/degree.html">degree</a></span><span class="op">(</span><span class="va">cranborne</span><span class="op">)</span> <span class="op">/</span> <span class="fl">4</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="07-beyond-the-book_files/figure-html/unnamed-chunk-6-1.png" width="672"></div>
+<div class="inline-figure"><img src="07-ergm_files/figure-html/unnamed-chunk-6-1.png" width="672"></div>
 <p>This network has 3 components and a few isolates. In general many of the nodes have similar degree centrality values but there are a few nodes which appear to have higher degree. We can look at a histogram of degree centrality to further assess the distribution.</p>
-<div class="sourceCode" id="cb572"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb571"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="fu">sna</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sna/man/degree.html">degree</a></span><span class="op">(</span><span class="va">cranborne</span><span class="op">)</span>,
+     breaks <span class="op">=</span> <span class="fl">10</span>,
      main <span class="op">=</span> <span class="st">"Degree Distribution"</span>,
      xlab <span class="op">=</span> <span class="st">"Degree Centrality"</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="07-beyond-the-book_files/figure-html/unnamed-chunk-7-1.png" width="672"></div>
+<div class="inline-figure"><img src="07-ergm_files/figure-html/unnamed-chunk-7-1.png" width="672"></div>
 </div>
-<div id="fitting-models-with-ergm" class="section level3" number="7.2.2">
+<div id="fitting-models-with-ergm" class="section level3" number="8.2.2">
 <h3>
-<span class="header-section-number">7.2.2</span> Fitting Models with <code id="FitModels">ergm</code><a class="anchor" aria-label="anchor" href="#fitting-models-with-ergm"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.2.2</span> Fitting Models with <code id="FitModels">ergm</code><a class="anchor" aria-label="anchor" href="#fitting-models-with-ergm"><i class="fas fa-link"></i></a>
 </h3>
 <p>Now that we’ve explored some of the basic properties of our network, the next step is to begin to fit ERGMs to our observed network. The first thing we are going to do is fit a very simple model with only one term. In the <code>ergm</code> package “terms” refer to the specific constraints placed on our randomly generated networks (see <code><a href="https://rdrr.io/pkg/tergm/man/ergm-terms.html">?ergm.terms</a></code> for a list of the many built-in terms). The most basic term that is included in many models is <code>edges</code> which simply refers to the number of edges in a network. An ERGM with a single <code>edges</code> term is conceptually equivalent to a typical GLM regression model where the only predictor is the intercept.</p>
 <p>In the chunk of code below we see the form that <code>ergm</code> model objects take in R. Inside the <code>ergm</code> call we have our network on the left hand size <code>cranborne</code> followed by <code>~</code> and then followed by <code>edges</code> which is a built-in “term” in the <code>ergm</code> package. As we will see below, when we use multiple terms we separate them by a <code>+</code>. Once we have crated our <code>ergm</code> model object we then explore the output using the <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> function.</p>
-<div class="sourceCode" id="cb573"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">mod_null</span> <span class="op">&lt;-</span> <span class="fu">ergm</span><span class="op">(</span><span class="va">cranborne</span> <span class="op">~</span> <span class="va">edges</span><span class="op">)</span></code></pre></div>
-<pre><code>## Starting maximum pseudolikelihood estimation (MPLE):</code></pre>
-<pre><code>## Evaluating the predictor and response matrix.</code></pre>
-<pre><code>## Maximizing the pseudolikelihood.</code></pre>
-<pre><code>## Finished MPLE.</code></pre>
-<pre><code>## Stopping at the initial estimate.</code></pre>
-<pre><code>## Evaluating log-likelihood at the estimate.</code></pre>
-<div class="sourceCode" id="cb580"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">mod_null</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb572"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mod_null</span> <span class="op">&lt;-</span> <span class="fu">ergm</span><span class="op">(</span><span class="va">cranborne</span> <span class="op">~</span> <span class="va">edges</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">mod_null</span><span class="op">)</span></code></pre></div>
 <pre><code>## Call:
 ## ergm(formula = cranborne ~ edges)
 ## 
 ## Maximum Likelihood Results:
 ## 
 ##       Estimate Std. Error MCMC % z value Pr(&gt;|z|)    
-## edges  -2.2806     0.1548      0  -14.73   &lt;1e-04 ***
+## edges  -2.2107     0.1505      0  -14.69   &lt;1e-04 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ##      Null Deviance: 687.6  on 496  degrees of freedom
-##  Residual Deviance: 306.4  on 495  degrees of freedom
+##  Residual Deviance: 319.8  on 495  degrees of freedom
 ##  
-## AIC: 308.4  BIC: 312.6  (Smaller is better. MC Std. Err. = 0)</code></pre>
+## AIC: 321.8  BIC: 326  (Smaller is better. MC Std. Err. = 0)</code></pre>
 <p>In the output above there are a number of important features that need explanation.</p>
 <p>The summary output includes the call/model formula we used followed by the Maximum Likelihood Results. The output we will focus on here includes the estimates of each model term, the standard error of the estimates, and the p-value associated with that term:</p>
 <ul>
-<li>First, in the example here, we get an estimate of <code>edges</code> as <code>-2.2806</code> which is the conditional log odds of two nodes having an edge between them (explained further below)</li>
+<li>First, in the example here, we get an estimate of <code>edges</code> as <code>-2.2107</code> which is the conditional log odds of two nodes having an edge between them (explained further below)</li>
 <li>Next, we have the standard error of the coefficient estimate.</li>
 <li>And we also have “Pr(&gt;|z|) which is the p-value associated with a particular term. The p-value here is calculated as a function of the relative size of the coefficient estimate and the standard error.</li>
 </ul>
 <p>What the estimate (and associated standard error and p-value) indicates is how much a change in the term by one unit changes the likelihood that a particular edge is present. In this case, a change by one unit in the term <code>edges</code> refers to the addition of exactly 1 edge to the network (<span class="math inline">\(\delta(g(y)) = 1\)</span>) so the coefficient is an estimate of how much the addition of 1 edge to the network changes the likelihood of any particular edge:</p>
 <p><span class="math display">\[\begin{aligned}
 \text{logit}(p(y)) &amp; = \theta \times \delta(g(y))\\
-&amp; = -2.2806 \times \text{change in the number of edges}\\
-&amp; = -2.2806 \times 1\\
-&amp; = -2.2806
+&amp; = -2.2107 \times \text{change in the number of edges}\\
+&amp; = -2.2107 \times 1\\
+&amp; = -2.2107
 \end{aligned}\]</span></p>
-<p>So in this example, the likelihood of an edge between two particular nodes is <code>2.2806</code> times <em>less</em> likely for every additional increase in the number of network by 1 edge in the network as a whole. So for every edge added the probability that a particular edge is present decreases. What this negative coefficient means is that an edge is more likely absent than present (and a positive coefficient would suggest the opposite) and thus, if we add an edge elsewhere in the network it is even less likely that our target edge will be active. We can calculate the probability of that an edge is present by taking the inverse logit of <span class="math inline">\(\theta\)</span>:</p>
-<div class="sourceCode" id="cb582"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="op">-</span><span class="fl">2.2806</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="op">-</span><span class="fl">2.2806</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] 0.09274246</code></pre>
+<p>So in this example, the likelihood of an edge between two particular nodes is <code>2.2107</code> times <em>less</em> likely for every additional increase in the number of network by 1 edge in the network as a whole. So for every edge added the probability that a particular edge is present decreases. What this negative coefficient means is that an edge is more likely absent than present (and a positive coefficient would suggest the opposite) and thus, if we add an edge elsewhere in the network it is even less likely that our target edge will be active. We can calculate the probability of that an edge is present by taking the inverse logit of <span class="math inline">\(\theta\)</span>:</p>
+<div class="sourceCode" id="cb574"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="op">-</span><span class="fl">2.2107</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="op">-</span><span class="fl">2.2107</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] 0.09879373</code></pre>
 <p>As we would expect, this number is very close to the density of the network which is what the <code>edges</code> term uses as a constraint (number of edges is a function of density):</p>
-<div class="sourceCode" id="cb584"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb576"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">sna</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sna/man/gden.html">gden</a></span><span class="op">(</span><span class="va">cranborne</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] 0.09274194</code></pre>
+<pre><code>## [1] 0.09879032</code></pre>
 <p>What this indicates is that if we are trying to predict a given network state (a given set of present an absent edges) and the only information we know is the network density, the probability that a particular edge is present is roughly equal to the network density. As the coefficient is statistically significant, this means that there is a low probability (p-value) of obtaining a model with no terms at random that provides as good or better predictions of the observed than the model including the <code>edges</code> term.</p>
 <p>Finally we can see our model fit statistics at the bottom with <a href="https://en.wikipedia.org/wiki/Akaike_information_criterion">AIC (Akaike Information Criterion)</a> and <a href="https://en.wikipedia.org/wiki/Bayesian_information_criterion">BIC (Bayesian Information Criterion)</a>. These are both model fit statistics that can be used to compare competing models where lower values represent better fit between the model and the data. Further, the Null deviance is a measure of how well the network was predicted by a model with no covariates vs. the residual deviance which is a measure of how well the network is predicted by a model with the covariates. Residual deviance will be lower than Null deviance and bigger gap between the two is better. In general, the absolute values of these model fit terms do not matter but rather they provide a means for comparing multiple models for predicting the same observations as we will see below.</p>
 </div>
-<div id="ModelTheory" class="section level3" number="7.2.3">
+<div id="ModelTheory" class="section level3" number="8.2.3">
 <h3>
-<span class="header-section-number">7.2.3</span> Building a Model Based on Theory<a class="anchor" aria-label="anchor" href="#ModelTheory"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.2.3</span> Building a Model Based on Theory<a class="anchor" aria-label="anchor" href="#ModelTheory"><i class="fas fa-link"></i></a>
 </h3>
 <p>The simple example above built an ERGM predicated on nothing but network density using the <code>edges</code> term. As outlined by Brughmans and Brandes (2017) there are specific features of the Cranborne Chase network development process theorized by Tilley which could be converted into a formal ERGM model using specific <code>ergm.terms</code>. Specifically, Tilley suggested that long barrows tended to be clustered into groups and intervisibility was a primary concern for some, but not all long barrows. Further, he suggested that long barrows tended to be clustered in sets and include straight paths where multiple barrows were visible from a single point. Finally, Tilley suggested that barrows that were already highly visible tended to attract new visibility connections through time. To capture this theory of network development in formal terms, Brughmans and Brandes (2017) create a set of terms to match Tilley’s expectations. They include the following terms:</p>
 <ul>
@@ -342,13 +340,13 @@ arguements within the <code>control.ergm</code> function call:
 </p>
 </div>
 <p>Let’s fit the model and look at the summary. Note when you run this on your own computer you will see additional verbose output on the console as the sampling process proceeds. We have eliminated that here to avoid visual clutter:</p>
-<div class="sourceCode" id="cb586"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb578"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mod1</span> <span class="op">&lt;-</span> <span class="fu">ergm</span><span class="op">(</span>
   <span class="va">cranborne</span> <span class="op">~</span> <span class="va">edges</span> <span class="op">+</span> <span class="va">triangle</span> <span class="op">+</span> <span class="va">threetrail</span> <span class="op">+</span>
     <span class="fu">altkstar</span><span class="op">(</span>lambda <span class="op">=</span> <span class="fl">2</span>, fixed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
   control <span class="op">=</span> <span class="fu">control.ergm</span><span class="op">(</span>
     MCMC.burnin <span class="op">=</span> <span class="fl">1000</span>,
-    MCMC.interval <span class="op">=</span> <span class="fl">10000</span>,
+    MCMC.interval <span class="op">=</span> <span class="fl">15000</span>,
     MCMC.samplesize <span class="op">=</span> <span class="fl">25000</span>,
     seed <span class="op">=</span> <span class="fl">34526</span>
   <span class="op">)</span>
@@ -357,32 +355,32 @@ arguements within the <code>control.ergm</code> function call:
 <pre><code>## Call:
 ## ergm(formula = cranborne ~ edges + triangle + threetrail + altkstar(lambda = 2, 
 ##     fixed = TRUE), control = control.ergm(MCMC.burnin = 1000, 
-##     MCMC.interval = 10000, MCMC.samplesize = 25000, seed = 34526))
+##     MCMC.interval = 15000, MCMC.samplesize = 25000, seed = 34526))
 ## 
 ## Monte Carlo Maximum Likelihood Results:
 ## 
 ##            Estimate Std. Error MCMC % z value Pr(&gt;|z|)    
-## edges      -3.84281    1.05839      0  -3.631 0.000283 ***
-## triangle    1.79394    0.24931      0   7.195  &lt; 1e-04 ***
-## threetrail -0.06218    0.02695      0  -2.307 0.021045 *  
-## altkstar.2  0.73755    0.51720      0   1.426 0.153853    
+## edges      -3.74166    0.91423      0  -4.093   &lt;1e-04 ***
+## triangle    1.59951    0.21921      0   7.297   &lt;1e-04 ***
+## threetrail -0.04077    0.01622      0  -2.513    0.012 *  
+## altkstar.2  0.59694    0.39283      0   1.520    0.129    
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ##      Null Deviance: 687.6  on 496  degrees of freedom
-##  Residual Deviance: 277.0  on 492  degrees of freedom
+##  Residual Deviance: 286.0  on 492  degrees of freedom
 ##  
-## AIC: 285  BIC: 301.8  (Smaller is better. MC Std. Err. = 0.03905)</code></pre>
-<p>As our results show, we have three significant predictors: <code>edges</code>, <code>triangle</code>, and <code>threetrail</code> and <code>altkstar</code> is not significant just as Brughmans and Brandes (2017) found. Looking at our coefficients, our negative <code>edges</code> term suggests that edges are more likely absent than present in our model as we would expect given the density. For <code>triangle</code> we have a positive coefficient suggesting that <code>triangles</code> are more likely than we would expect by chance. Finally, <code>threetrails</code> are slightly less common than we would expect in a random network. The difference is small but statistically significant.</p>
+## AIC: 294  BIC: 310.8  (Smaller is better. MC Std. Err. = 0.08471)</code></pre>
+<p>As our results show, we have three significant predictors: <code>edges</code>, <code>triangle</code>, and <code>threetrail</code> and <code>altkstar</code> is not significant (at <span class="math inline">\(\alpha = 0.05\)</span>) just as Brughmans and Brandes (2017) found. Looking at our coefficients, our negative <code>edges</code> term suggests that edges are more likely absent than present in our model as we would expect given the density. For <code>triangle</code> we have a positive coefficient suggesting that <code>triangles</code> are more likely than we would expect by chance. Finally, <code>threetrails</code> are slightly less common than we would expect in a random network. The difference is small but statistically significant.</p>
 <p>Brughmans and Brandes (2017) generated similar results but their assessments of the goodness of fit of their model (see discussion below) caused them to create a second model with an additional term to capture the tendency for nodes to be connected to other nodes (and thus not be <code>isolates</code>).</p>
 <p>Let’s run the second model and look at the results:</p>
-<div class="sourceCode" id="cb588"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb580"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mod2</span> <span class="op">&lt;-</span> <span class="fu">ergm</span><span class="op">(</span>
   <span class="va">cranborne</span> <span class="op">~</span> <span class="va">edges</span> <span class="op">+</span> <span class="va">triangle</span> <span class="op">+</span> <span class="va">threetrail</span> <span class="op">+</span>
     <span class="fu">altkstar</span><span class="op">(</span><span class="fl">2</span>, fixed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span> <span class="va">isolates</span>,
   control <span class="op">=</span> <span class="fu">control.ergm</span><span class="op">(</span>
     MCMC.burnin <span class="op">=</span> <span class="fl">1000</span>,
-    MCMC.interval <span class="op">=</span> <span class="fl">10000</span>,
+    MCMC.interval <span class="op">=</span> <span class="fl">15000</span>,
     MCMC.samplesize <span class="op">=</span> <span class="fl">25000</span>,
     seed <span class="op">=</span> <span class="fl">1346</span>
   <span class="op">)</span>
@@ -391,67 +389,67 @@ arguements within the <code>control.ergm</code> function call:
 <pre><code>## Call:
 ## ergm(formula = cranborne ~ edges + triangle + threetrail + altkstar(2, 
 ##     fixed = TRUE) + isolates, control = control.ergm(MCMC.burnin = 1000, 
-##     MCMC.interval = 10000, MCMC.samplesize = 25000, seed = 1346))
+##     MCMC.interval = 15000, MCMC.samplesize = 25000, seed = 1346))
 ## 
 ## Monte Carlo Maximum Likelihood Results:
 ## 
 ##            Estimate Std. Error MCMC % z value Pr(&gt;|z|)    
-## edges      -8.62662    3.03274      0  -2.844  0.00445 ** 
-## triangle    1.82713    0.23686      0   7.714  &lt; 1e-04 ***
-## threetrail -0.10134    0.03922      0  -2.584  0.00978 ** 
-## altkstar.2  2.50887    1.20530      0   2.082  0.03738 *  
-## isolates   -2.93421    1.67966      0  -1.747  0.08065 .  
+## edges      -7.60337    2.69813      0  -2.818  0.00483 ** 
+## triangle    1.62452    0.20215      0   8.036  &lt; 1e-04 ***
+## threetrail -0.05946    0.02256      0  -2.635  0.00841 ** 
+## altkstar.2  1.92114    0.98390      0   1.953  0.05087 .  
+## isolates   -2.57763    1.61226      0  -1.599  0.10987    
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ##      Null Deviance: 687.6  on 496  degrees of freedom
-##  Residual Deviance: 274.2  on 491  degrees of freedom
+##  Residual Deviance: 283.4  on 491  degrees of freedom
 ##  
-## AIC: 284.2  BIC: 305.3  (Smaller is better. MC Std. Err. = 0.04273)</code></pre>
+## AIC: 293.4  BIC: 314.4  (Smaller is better. MC Std. Err. = 0.04119)</code></pre>
 <p>In this model we again obtain results that mirror those of Brughmans and Brandes (2017). We see with our <code>edges</code> term a tendency for edges to be absent as we would expect. For <code>triangle</code> we see a strong tendency for closed triangles in our network as Tilley’s model predicted. We do not however see a tendency towards visual pathways beyond what we would expect by chance as our <code>threetrail</code> term suggests a slight tendency away from these configurations. With the addition of the <code>isolates</code> term our <code>altkstar</code> term is significant and positive suggesting a tendency for some nodes to have higher degree than most. Finally, <code>isolates</code> is negative suggesting a tendency against isolated nodes but the p-value is a bit higher so we should not put too much interpretive weight in this coefficient estimate.</p>
 </div>
-<div id="GOF" class="section level3" number="7.2.4">
+<div id="GOF" class="section level3" number="8.2.4">
 <h3>
-<span class="header-section-number">7.2.4</span> Assessing Goodness-of-Fit<a class="anchor" aria-label="anchor" href="#GOF"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.2.4</span> Assessing Goodness-of-Fit<a class="anchor" aria-label="anchor" href="#GOF"><i class="fas fa-link"></i></a>
 </h3>
 <p>If we compare model fit statistics we can see that the AIC for model 2 is slightly lower than for model 1. Further, the difference between the Null and residual deviance is slightly greater for model 2. At the same time, the BIC for model 2 is slightly higher than for model 1. Overall this suggests that the two models are quite similar in terms of their improvement over a model with no predictors but we don’t have strong statistical argument from these terms alone for picking one over the other (and thus it probably makes sense to evaluate fit statistics as we show here or theoretical arguments for preferring one model or the other).</p>
 <p>To take this further we can use the <code>gof</code> or goodness-of-fit function in <code>ergm</code> to assess the degree to which our models provide reasonable descriptions of our observations. We can start by running the <code>gof</code> function for both models. This function provides visualizations and other statistics to help assess the degree to which model statistics, node degree, edge-wise shared partners, and geodesic distance between nodes are preserved in the networks simulated in the ERGM. If you run this function on a directed network, you additionally get assessmess of indegree and outdegree.</p>
-<div class="sourceCode" id="cb590"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb582"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mod1_gof</span> <span class="op">&lt;-</span> <span class="fu">gof</span><span class="op">(</span><span class="va">mod1</span><span class="op">)</span>
 <span class="va">mod2_gof</span> <span class="op">&lt;-</span> <span class="fu">gof</span><span class="op">(</span><span class="va">mod2</span><span class="op">)</span>
 
 <span class="va">mod1_gof</span><span class="op">$</span><span class="va">summary.model</span></code></pre></div>
-<pre><code>##                  obs      min      mean      max MC p-value
-## edges       46.00000  33.0000  45.30000  59.0000       0.94
-## triangle    17.00000   4.0000  16.27000  35.0000       0.96
-## threetrail 446.00000 185.0000 425.82000 858.0000       0.88
-## altkstar.2  91.34375  56.9375  88.94297 130.0781       0.86</code></pre>
-<div class="sourceCode" id="cb592"><pre class="downlit sourceCode r">
+<pre><code>##                 obs    min     mean       max MC p-value
+## edges       49.0000  32.00  49.9100   74.0000       1.00
+## triangle    22.0000   5.00  24.2100  143.0000       0.80
+## threetrail 628.0000 224.00 689.5200 3028.0000       0.80
+## altkstar.2 102.7891  59.25 106.3128  206.5781       0.98</code></pre>
+<div class="sourceCode" id="cb584"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mod2_gof</span><span class="op">$</span><span class="va">summary.model</span></code></pre></div>
-<pre><code>##                  obs    min      mean      max MC p-value
-## edges       46.00000  34.00  45.89000  59.0000       1.00
-## triangle    17.00000   5.00  18.07000  43.0000       0.84
-## threetrail 446.00000 209.00 447.84000 896.0000       0.92
-## altkstar.2  91.34375  58.25  91.27828 134.7656       0.94
-## isolates     3.00000   0.00   3.24000   9.0000       1.00</code></pre>
+<pre><code>##                 obs     min    mean       max MC p-value
+## edges       49.0000  31.000  50.140   63.0000       0.86
+## triangle    22.0000   5.000  22.590   76.0000       0.84
+## threetrail 628.0000 226.000 654.230 1568.0000       0.98
+## altkstar.2 102.7891  58.875 106.187  150.7266       0.86
+## isolates     3.0000   0.000   2.780   11.0000       0.98</code></pre>
 <p>The summary output for each model shows the observed feature value for a given term and then the min, max, and mean value in the simulated networks. In general, we want the mean values to match closely with relatively small ranges around them. The MC p-value (Markov Chain p-value) provides and indication of fit here where higher numbers generally indicate a better fit. This is essentially the proportion of the steps in the chain where a given term met certain criteria. In general the results here suggest that the model terms generally provide a better fit for model 2 than model 1 (as Brughmans and Brandes also suggested using somewhat different goodness-of-fit statistics not directly calculated in <code>ergm</code>).</p>
 <p>It is also instructive to compare the properties of our randomly generated networks under each model to the observed network for properties that weren’t directly included in our model. The <code>gof</code> function can be plotted directly to provide this information. Let’s look at the four plots provided for both models:</p>
-<div class="sourceCode" id="cb594"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb586"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">mod1_gof</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="07-beyond-the-book_files/figure-html/unnamed-chunk-15-1.png" width="672"></div>
-<div class="sourceCode" id="cb595"><pre class="downlit sourceCode r">
+<div class="inline-figure"><img src="07-ergm_files/figure-html/unnamed-chunk-15-1.png" width="672"></div>
+<div class="sourceCode" id="cb587"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">mod2_gof</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="07-beyond-the-book_files/figure-html/unnamed-chunk-15-2.png" width="672"></div>
+<div class="inline-figure"><img src="07-ergm_files/figure-html/unnamed-chunk-15-2.png" width="672"></div>
 <p>In each of these plots the solid black line represents the values for a given property in our observed network and the boxplots represent the distribution of values obtained in our randomly generated networks. As both plots show the median model statistics are quite similar to the observed in both models. In general we want to see the observed values to fall within the densest portion of the values for our randomly generated networks (i.e., near the middle of the boxplots and certainly within the range). In our example here, both the observed degree distribution and edge-wise shared partners (the number of nodes with a specific number of partners) are quite similar to the simulated range of values. Importantly, we did not include terms for degree or edge-wise shared partners in our model but it still generated networks that closely match our observed in terms of these properties. This is evidence of a good fit. For minimum geodesic distance (length of shortest paths) however, we see that both models consistently over-estimated the geodesic distance for nodes for middling values. Overall, this suggests a fairly good (but not perfect) match between our simulated and observed network properties despite these properties not be directly included in our models. Importantly, our interpretation of our network doesn’t hinge on geodesic distance so this mismatch is not a huge problem. No model is perfect but these results suggest that that model we tested here at least approximates the features of our observed network most relevant to our theoretical model.</p>
 </div>
-<div id="Diagnostics" class="section level3" number="7.2.5">
+<div id="Diagnostics" class="section level3" number="8.2.5">
 <h3>
-<span class="header-section-number">7.2.5</span> Assessing Models and MCMC Diagnostics<a class="anchor" aria-label="anchor" href="#Diagnostics"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.2.5</span> Assessing Models and MCMC Diagnostics<a class="anchor" aria-label="anchor" href="#Diagnostics"><i class="fas fa-link"></i></a>
 </h3>
 <p>Another important consideration we have not yet discussed is the need to assess the diagnostics of our model generating process to evalute if it operated as expected. The <code>ergm</code> package generates our random networks using a <a href="https://en.wikipedia.org/wiki/Markov_chain_Monte_Carlo">Markov Chain Monte Carlo (MCMC)</a> process. MCMC is a means for efficiently randomly sampling from a high-dimensional probability distribution. We want to ensure that as our MCMC process explores the parameter space fully and that it does not generate problematic data such as temporally correlated estimates or highly skewed distributions of coefficient estimates. Problems like these would be an indication of poor model specification (the inappropriate inclusion or exclusion of relevant terms for predicting our network).</p>
 <p>In order to assess our models, we can use the <code>mcmc.diagnostics</code> function. Here we run it for model 2 and look at the results. We also call the <code>latticeExtra</code> package here as that helps make the visual output look a bit better.</p>
-<div class="sourceCode" id="cb596"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb588"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://latticeextra.r-forge.r-project.org/">latticeExtra</a></span><span class="op">)</span>
 <span class="fu">mcmc.diagnostics</span><span class="op">(</span><span class="va">mod2</span><span class="op">)</span></code></pre></div>
 <pre><code>## Sample statistics summary:
@@ -522,7 +520,7 @@ arguements within the <code>control.ergm</code> function call:
 ##      edges   triangle threetrail altkstar.2   isolates 
 ##  0.6991902  0.4967317  0.7944651  0.8938198  0.4504707 
 ## Joint P-value (lower = worse):  0.7725547 .</code></pre>
-<p><img src="07-beyond-the-book_files/figure-html/unnamed-chunk-17-1.png" width="672"><img src="07-beyond-the-book_files/figure-html/unnamed-chunk-17-2.png" width="672"></p>
+<p><img src="07-ergm_files/figure-html/unnamed-chunk-17-1.png" width="672"><img src="07-ergm_files/figure-html/unnamed-chunk-17-2.png" width="672"></p>
 <pre><code>## 
 ## MCMC diagnostics shown here are from the last round of simulation, prior to computation of final parameter estimates. Because the final estimates are refinements of those used for this simulation run, these diagnostics may understate model performance. To directly assess the performance of the final model on in-model statistics, please use the GOF command: gof(ergmFitObject, GOF=~model).</code></pre>
 <p>In this output the particularly relevant parts include:</p>
@@ -539,50 +537,54 @@ arguements within the <code>control.ergm</code> function call:
 In the example above we noted that all of our terms appeared to look
 good in our model diagnostics though the term <code>triangle</code>
 produced a slightly skewed distribution with a long-tail of randomly
-generated networks that had substantially more closed triangles than the
-mean. Why might this be?
+generated networks that had more closed triangles than the mean and the
+observed. Why might this be?
 </p>
 <p>
-Let’s consider that our network has 32 nodes and 46 edges with 17
-closed triangles. It turns out that it is actually fairly hard to draw
-configurations with far fewer than the observed number of closed
-triangles given the size of the network, the density, and the tendency
-against isolates. Thus, it is not surprising that our random networks
-veered slightly away from the observed value in our example here. This
-is not uncommon for ERGM terms that include dyadic or triadic
-relationships. In a section below we discuss <a href="ERGM.html#Degeneracy">model
-degeneracy</a> (which refers to models that fail to converge) and what
-can be done about it, including alternatives to the
-<code>triangle</code> model term.
+Although we are often interested in transitivity and other properties
+of networks that rely on triangles, the number of closed triads in a
+network is actually highly constrained on other lower-level features
+already included in the model: specifically the number of nodes and
+density. There is considerable experimental work that demonstrates that
+the majority of the variation in triad configurations can be explained
+by these two simple terms in many networks (see Faust 2007, 2008, 2010).
+The inclusion of these related terms can confound the MCMC algorithm
+designed to generate estimates of model parameters and sometimes lead to
+the exploration of unlikely parameter combinations. This is not uncommon
+for ERGM terms that include dyadic or triadic relationships. In a
+section below we discuss <a href="ERGM.html#Degeneracy">model degeneracy</a>
+(which refers to models that fail to converge) and what can be done
+about it, including alternatives to the <code>triangle</code> model
+term.
 </p>
 </div>
 </div>
 </div>
-<div id="SimERGMs" class="section level2" number="7.3">
+<div id="SimERGMs" class="section level2" number="8.3">
 <h2>
-<span class="header-section-number">7.3</span> Simulating Networks from ERGMs<a class="anchor" aria-label="anchor" href="#SimERGMs"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.3</span> Simulating Networks from ERGMs<a class="anchor" aria-label="anchor" href="#SimERGMs"><i class="fas fa-link"></i></a>
 </h2>
 <p>It is possible to generate and explore network simulated using a particular ERGM using the <code>simulate</code> function. Let’s generate some random networks from model 2 used above and then look at them along with the original network.</p>
 <p>In the code below we simply run a single <code>simulate</code> function with the model object, the argument <code>nsim</code> representing the number of networks we wish to generate, and <code>seed</code> which is the random seed for reproducability. The output is a <code><a href="https://rdrr.io/r/base/list.html">list()</a></code> object containing multiple <code>network</code> format objects.</p>
-<div class="sourceCode" id="cb599"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">sim_nets</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/simulate.html">simulate</a></span><span class="op">(</span><span class="va">mod2</span>, nsim <span class="op">=</span> <span class="fl">9</span>, seed <span class="op">=</span> <span class="fl">34464</span><span class="op">)</span>
+<div class="sourceCode" id="cb591"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">sim_nets</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/simulate.html">simulate</a></span><span class="op">(</span><span class="va">mod2</span>, nsim <span class="op">=</span> <span class="fl">9</span>, seed <span class="op">=</span> <span class="fl">3464524</span><span class="op">)</span>
 
 <span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span> <span class="co"># set up for multipanel plotting</span>
 <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">9</span><span class="op">)</span> <span class="op">{</span>
   <span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">sim_nets</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span>,
        vertex.cex <span class="op">=</span> <span class="op">(</span><span class="fu">sna</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sna/man/degree.html">degree</a></span><span class="op">(</span><span class="va">sim_nets</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">)</span> <span class="op">/</span> <span class="fl">4</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
-<div class="inline-figure"><img src="07-beyond-the-book_files/figure-html/unnamed-chunk-19-1.png" width="672"></div>
-<div class="sourceCode" id="cb600"><pre class="downlit sourceCode r">
+<div class="inline-figure"><img src="07-ergm_files/figure-html/unnamed-chunk-19-1.png" width="672"></div>
+<div class="sourceCode" id="cb592"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="co"># return to single panel</span>
 <span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">cranborne</span>,
      vertex.cex <span class="op">=</span> <span class="op">(</span><span class="fu">sna</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sna/man/degree.html">degree</a></span><span class="op">(</span><span class="va">cranborne</span><span class="op">)</span> <span class="op">/</span> <span class="fl">4</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="07-beyond-the-book_files/figure-html/unnamed-chunk-19-2.png" width="672"></div>
+<div class="inline-figure"><img src="07-ergm_files/figure-html/unnamed-chunk-19-2.png" width="672"></div>
 <p>These simulations help us better understand the model we have created. There are a obvious similarities between the original network and the simulations but there are also key differences. In particular, most of the random simulations created networks with a single large component whereas the original network has multiple components. This likely explains the mismatch in our goodness-of-fit statistics for geodesic distance. We could perhaps deal with this by including additional terms such as terms defined in relation to geographic location or clustering, but that is an experiment for another day.</p>
 </div>
-<div id="ERGMterms" class="section level2" number="7.4">
+<div id="ERGMterms" class="section level2" number="8.4">
 <h2>
-<span class="header-section-number">7.4</span> Additional Info on ERGM Terms<a class="anchor" aria-label="anchor" href="#ERGMterms"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.4</span> Additional Info on ERGM Terms<a class="anchor" aria-label="anchor" href="#ERGMterms"><i class="fas fa-link"></i></a>
 </h2>
 <p>In the Cranborne Chase example above, we were working with a published example so the hard part (thinking about how a particular theory can be conceptualized in formal network model terms) was done for us. In practice, choosing terms to use can be quite difficult and confusing. This is particularly true because there are multiple terms that do essentially the same thing in different ways. In this section we first walk through a few of the other common options that were not covered above and then provide some advice on where to go next.</p>
 <p>In the first example below we will be using the <a href="DataAndWorkspace.html#Cibola">Cibola technological similarity networks</a> used in several other portions of this guide. The data imported below includes a <code>network</code> object and a data frame that contains attributes relating to the nodes in that network. We load in the data and then assign attributes to the <code>Cibola_n</code> object.</p>
@@ -595,7 +597,7 @@ can be done about it, including alternatives to the
 <li>
 <strong>d_mat</strong> - An edge attribute which is defined by a distance matrix among all settlements in meters.</li>
 </ul>
-<div class="sourceCode" id="cb601"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb593"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span><span class="op">(</span><span class="st">"data/Cibola_n.RData"</span><span class="op">)</span>
 <span class="co"># Cibola_n network object</span>
 <span class="co"># Cibola_attr - attribute data frame</span>
@@ -609,7 +611,7 @@ can be done about it, including alternatives to the
 <span class="va">d_mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/dist.html">dist</a></span><span class="op">(</span><span class="va">cibola_attr</span><span class="op">[</span>, <span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>In many cases we want to use attributes of nodes or edges as predictors in our ERGMs rather than simply network structures. This can be done a few different ways but in the example below we use the <code>nodematch</code> term which calculates a coefficient for nodes that share values for a given attribute. We can also set an additional argument in <code>nodematch</code> which specifies coefficient for each unique value in the node attribute (<code>diff = TRUE</code>). Finally, we use a matrix of geographic distances of edges as a <code>edgecov</code> (edge covariate) term. This term expects a square matrix of <code>n x n</code> for where <code>n</code> is the number of nodes in the network and helps us assess the degree to which the distance between settlemetns is predictive of the presence or absence of an edge.</p>
 <p>Let’s take a look at an example using all three of these terms:</p>
-<div class="sourceCode" id="cb602"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb594"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mod_cibola</span> <span class="op">&lt;-</span> <span class="fu">ergm</span><span class="op">(</span><span class="va">cibola_n</span> <span class="op">~</span> <span class="va">edges</span> <span class="op">+</span> <span class="fu">nodematch</span><span class="op">(</span><span class="st">"region"</span><span class="op">)</span> <span class="op">+</span>
                      <span class="fu">nodematch</span><span class="op">(</span><span class="st">"pubarch"</span>, diff <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span>
                      <span class="fu">edgecov</span><span class="op">(</span><span class="va">d_mat</span><span class="op">)</span><span class="op">)</span>
@@ -643,9 +645,9 @@ can be done about it, including alternatives to the
 ## AIC: 501.2  BIC: 526.1  (Smaller is better. MC Std. Err. = 0)</code></pre>
 <p>This creates output just like our example above and this gives you a sense of how categorical and covariate ERGM terms work. In this example we have a positive coefficient for <code>edges</code> suggesting that there more edges are active than are not. Further, we have a positive coefficient for <code>nodematch.region</code> indicating that there are more edges between pairs of sites in the same region than would be expected by chance. If we skip down to <code>edgecov.d_mat</code> we can see the impact of distance on edges. We have a negative coefficient (which is very close to zero: <code>-2.323e-05</code>)which suggests that there are slight more longer distance connections than shorter ones in this network (because although there is a tendency for connections within regions there are also many connections between regions). Finally, we have the <code>nodematch.pubarch</code> variables for each value in <code>pubarch</code>. The only term that is statistically significant here is <code>nodematch.pubarch.none</code> which is negative suggesting that sites without public architecture have fewer connections than we would expect by chance.</p>
 <p>The examples above basically cover all of the common applications of <code>ergm</code> terms. There are terms that are specific to directed networks, weighted networks, bipartite networks, and even multilayers networks but the basic procedures of using them are covered in the examples above. Everything else is finding the right model to fit your data (and this really is the hard part). There is no magic bullet here but in general we suggest you carefully read the <a href="https://zalmquist.github.io/ERGM_Lab/ergm-terms.html#:~:text=ergm%20functions%20such%20as%20ergm,valued%20mode%20and%20vice%20versa.">ERGM term descriptions</a> and consider how these different terms relate to your data and network theories. Your efforts will be better spent when your model is designed in relation to a specific and well-described network theory/hypothesis. We suggest reading the archaeological examples of ERGMs cited in this document and in the broader networks literature to get a sense of what is possible before diving into your own ERGM project.</p>
-<div id="Degeneracy" class="section level3" number="7.4.1">
+<div id="Degeneracy" class="section level3" number="8.4.1">
 <h3>
-<span class="header-section-number">7.4.1</span> Avoiding Model Degeneracy<a class="anchor" aria-label="anchor" href="#Degeneracy"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.4.1</span> Avoiding Model Degeneracy<a class="anchor" aria-label="anchor" href="#Degeneracy"><i class="fas fa-link"></i></a>
 </h3>
 <p>Model degeneracy refers to when a specified ERGM never converges. What this means is there is some term or combination of terms in the model that have created a situation where no networks with the given properties can be obtained (or can only be obtained in very rare combinations of circumstances). What this typically looks like when this happens in R is that you enter your <code>ergm</code> call at the command line and things appear to be going okay but then you eventually get hung up with something like “Estimating equations are not within tolerance region. Iteration 2 of at most 60” and nothing happens for a long time.</p>
 <p>As described above in our assessment of MCMC diagnostics, this can sometimes happen because you have specified a term that essentially does not allow for for simulated networks that approximate the observed. A classic example is a network with terms for <code>edges</code> and <code>triangle</code> for triadic closure and no other terms.</p>
@@ -656,11 +658,11 @@ Do not run the chunk of code below. We promise, it doesn’t go
 anywhere and will just waste your time.
 </p>
 </div>
-<div class="sourceCode" id="cb604"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb596"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mod_fail</span> <span class="op">&lt;-</span> <span class="fu">ergm</span><span class="op">(</span><span class="va">cranborne</span> <span class="op">~</span> <span class="va">edges</span> <span class="op">+</span> <span class="va">triangle</span><span class="op">)</span></code></pre></div>
 <p>What then, can we do in the place of including terms that cause model degeneracy? Luckily there are a number of additional terms that have been designed to deal with exactly this issue. These include the “geometrically weighted” terms that are already built right into the <code>ergm</code> package. For example, the term <code>gwesp</code> or geometrically weighted shared partners is a measure of triadic closure that doesn’t rely on the specific count of triangles, but instead on the tendency towards closing individual triads in the network.</p>
 <p>Let’s try our model again substituting the <code>gwesp</code> term in the place of <code>triangle</code>.</p>
-<div class="sourceCode" id="cb605"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb597"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mod_win</span> <span class="op">&lt;-</span> <span class="fu">ergm</span><span class="op">(</span><span class="va">cranborne</span> <span class="op">~</span> <span class="va">edges</span> <span class="op">+</span> <span class="fu">gwesp</span><span class="op">(</span><span class="fl">0.25</span>, fixed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
                 control <span class="op">=</span> <span class="fu">control.ergm</span><span class="op">(</span>seed <span class="op">=</span> <span class="fl">2362</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">mod_win</span><span class="op">)</span></code></pre></div>
@@ -671,17 +673,17 @@ anywhere and will just waste your time.
 ## Monte Carlo Maximum Likelihood Results:
 ## 
 ##                  Estimate Std. Error MCMC % z value Pr(&gt;|z|)    
-## edges             -3.4233     0.3252      0 -10.526   &lt;1e-04 ***
-## gwesp.fixed.0.25   1.0975     0.2614      0   4.198   &lt;1e-04 ***
+## edges             -3.4856     0.3307      0 -10.539   &lt;1e-04 ***
+## gwesp.fixed.0.25   1.1627     0.2596      0   4.479   &lt;1e-04 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ##      Null Deviance: 687.6  on 496  degrees of freedom
-##  Residual Deviance: 279.4  on 494  degrees of freedom
+##  Residual Deviance: 289.1  on 494  degrees of freedom
 ##  
-## AIC: 283.4  BIC: 291.9  (Smaller is better. MC Std. Err. = 0.3086)</code></pre>
+## AIC: 293.1  BIC: 301.5  (Smaller is better. MC Std. Err. = 0.2945)</code></pre>
 <p>So the model converges and we get <code>gwesp</code> as a statistically significant predictor with a positive coefficient estimate just as we saw with <code>triangle</code> in the complete model. Indeed if we include <code>gwesp</code> in the complete model we get results that largely mirror those above suggesting that this term is playing a similar role.</p>
-<div class="sourceCode" id="cb607"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb599"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mod_win2</span> <span class="op">&lt;-</span>
   <span class="fu">ergm</span><span class="op">(</span>
     <span class="va">cranborne</span> <span class="op">~</span> <span class="va">edges</span> <span class="op">+</span> <span class="fu">gwesp</span><span class="op">(</span><span class="fl">0.25</span>, fixed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span> <span class="va">threetrail</span> <span class="op">+</span>
@@ -696,71 +698,72 @@ anywhere and will just waste your time.
 ## Monte Carlo Maximum Likelihood Results:
 ## 
 ##                  Estimate Std. Error MCMC % z value Pr(&gt;|z|)    
-## edges            -10.6887     3.5864      0  -2.980  0.00288 ** 
-## gwesp.fixed.0.25   1.4626     0.3691      0   3.963  &lt; 1e-04 ***
-## threetrail        -0.0901     0.0464      0  -1.942  0.05213 .  
-## altkstar.2         2.8456     1.3950      0   2.040  0.04136 *  
-## isolates          -4.2948     1.9158      0  -2.242  0.02497 *  
+## edges            -9.04117    3.36219      0  -2.689  0.00717 ** 
+## gwesp.fixed.0.25  1.51929    0.36396      0   4.174  &lt; 1e-04 ***
+## threetrail       -0.03945    0.02866      0  -1.376  0.16874    
+## altkstar.2        1.91799    1.22533      0   1.565  0.11752    
+## isolates         -3.58093    1.88523      0  -1.899  0.05750 .  
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ##      Null Deviance: 687.6  on 496  degrees of freedom
-##  Residual Deviance: 272.3  on 491  degrees of freedom
+##  Residual Deviance: 284.6  on 491  degrees of freedom
 ##  
-## AIC: 282.3  BIC: 303.3  (Smaller is better. MC Std. Err. = 0.5114)</code></pre>
-<p>What about the numbers we’re providing to the <code>gwesp</code> term argument <code>(0.25, fixed = T)</code>. These number specify the so-called decay parameter in the model and whether or not that parameter should be fixed or allowed to vary across steps in the MCMC process. The details of this are well beyond the scope of this tutorial but suffice it to say that the general advice is to select the decay value that produces the best fit model in your given analysis. If you run your model without <code>fixed = T</code> the model will attempt to estimate the decay parameter and you will get an additional result in our output the specifies the coefficient for that decay term as well. Keep in mind that this is essentially adding a term to the model so it may then be harder or take longer to fit your models.</p>
+## AIC: 294.6  BIC: 315.6  (Smaller is better. MC Std. Err. = 0.4782)</code></pre>
+<p>What about the numbers we’re providing to the <code>gwesp</code> term argument <code>(0.25, fixed = TRUE)</code>. These number specify the so-called decay parameter in the model and whether or not that parameter should be fixed or allowed to vary across steps in the MCMC process. The details of this are well beyond the scope of this tutorial but suffice it to say that the general advice is to select the decay value that produces the best fit model in your given analysis. If you run your model without <code>fixed = TRUE</code> the model will attempt to estimate the decay parameter and you will get an additional result in our output the specifies the coefficient for that decay term as well. Keep in mind that this is essentially adding a term to the model so it may then be harder or take longer to fit your models.</p>
 <p>Here is an example:</p>
-<div class="sourceCode" id="cb609"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb601"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mod_nofix</span> <span class="op">&lt;-</span> <span class="fu">ergm</span><span class="op">(</span><span class="va">cranborne</span> <span class="op">~</span> <span class="va">edges</span> <span class="op">+</span> <span class="va">gwesp</span>,
-                  control <span class="op">=</span> <span class="fu">control.ergm</span><span class="op">(</span>seed <span class="op">=</span> <span class="fl">2362</span><span class="op">)</span><span class="op">)</span>
+                  control <span class="op">=</span> <span class="fu">control.ergm</span><span class="op">(</span>seed <span class="op">=</span> <span class="fl">23642</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">mod_nofix</span><span class="op">)</span></code></pre></div>
 <pre><code>## Call:
-## ergm(formula = cranborne ~ edges + gwesp, control = control.ergm(seed = 2362))
+## ergm(formula = cranborne ~ edges + gwesp, control = control.ergm(seed = 23642))
 ## 
 ## Monte Carlo Maximum Likelihood Results:
 ## 
 ##             Estimate Std. Error MCMC % z value Pr(&gt;|z|)    
-## edges        -3.4081     0.3144      0 -10.840  &lt; 1e-04 ***
-## gwesp         1.0186     0.2972      0   3.427  0.00061 ***
-## gwesp.decay   0.3447     0.2914      0   1.183  0.23698    
+## edges        -3.3989     0.3120      0 -10.892  &lt; 1e-04 ***
+## gwesp         0.9357     0.2915      0   3.210  0.00133 ** 
+## gwesp.decay   0.5738     0.3125      0   1.836  0.06636 .  
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ##      Null Deviance: 687.6  on 496  degrees of freedom
-##  Residual Deviance: 279.6  on 493  degrees of freedom
+##  Residual Deviance: 288.2  on 493  degrees of freedom
 ##  
-## AIC: 285.6  BIC: 298.2  (Smaller is better. MC Std. Err. = 0.3423)</code></pre>
+## AIC: 294.2  BIC: 306.8  (Smaller is better. MC Std. Err. = 0.3811)</code></pre>
 <p>In addition to the <code>gwesp</code> term, there are many additional terms <a href="https://zalmquist.github.io/ERGM_Lab/ergm-terms.html#:~:text=ergm%20functions%20such%20as%20ergm,valued%20mode%20and%20vice%20versa.">listed here</a> which fill similar roles and help you build models that avoid degeneracy. For more information see Hunter and Handcock (2006).</p>
+
 </div>
 </div>
 </div>
   <div class="chapter-nav">
-<div class="prev"><a href="SpatialNetworks.html"><span class="header-section-number">6</span> Spatial Networks</a></div>
-<div class="next"><a href="SpatialInteraction.html"><span class="header-section-number">8</span> Spatial Interaction Models</a></div>
+<div class="prev"><a href="SpatialNetworks.html"><span class="header-section-number">7</span> Spatial Networks</a></div>
+<div class="next"><a href="SpatialInteraction.html"><span class="header-section-number">9</span> Spatial Interaction Models</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#ERGM"><span class="header-section-number">7</span> Exponential Random Graph Models</a></li>
-<li><a class="nav-link" href="#ERGMsInR"><span class="header-section-number">7.1</span> ERGMs in R</a></li>
+<li><a class="nav-link" href="#ERGM"><span class="header-section-number">8</span> Exponential Random Graph Models</a></li>
+<li><a class="nav-link" href="#ERGMsInR"><span class="header-section-number">8.1</span> ERGMs in R</a></li>
 <li>
-<a class="nav-link" href="#CranborneChase"><span class="header-section-number">7.2</span> Cranborne Chase Visibility Network Example</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#NetProperties"><span class="header-section-number">7.2.1</span> Assessments of Network Properties</a></li>
-<li><a class="nav-link" href="#fitting-models-with-ergm"><span class="header-section-number">7.2.2</span> Fitting Models with ergm</a></li>
-<li><a class="nav-link" href="#ModelTheory"><span class="header-section-number">7.2.3</span> Building a Model Based on Theory</a></li>
-<li><a class="nav-link" href="#GOF"><span class="header-section-number">7.2.4</span> Assessing Goodness-of-Fit</a></li>
-<li><a class="nav-link" href="#Diagnostics"><span class="header-section-number">7.2.5</span> Assessing Models and MCMC Diagnostics</a></li>
+<a class="nav-link" href="#CranborneChase"><span class="header-section-number">8.2</span> Cranborne Chase Visibility Network Example</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#NetProperties"><span class="header-section-number">8.2.1</span> Assessments of Network Properties</a></li>
+<li><a class="nav-link" href="#fitting-models-with-ergm"><span class="header-section-number">8.2.2</span> Fitting Models with ergm</a></li>
+<li><a class="nav-link" href="#ModelTheory"><span class="header-section-number">8.2.3</span> Building a Model Based on Theory</a></li>
+<li><a class="nav-link" href="#GOF"><span class="header-section-number">8.2.4</span> Assessing Goodness-of-Fit</a></li>
+<li><a class="nav-link" href="#Diagnostics"><span class="header-section-number">8.2.5</span> Assessing Models and MCMC Diagnostics</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#SimERGMs"><span class="header-section-number">7.3</span> Simulating Networks from ERGMs</a></li>
+<li><a class="nav-link" href="#SimERGMs"><span class="header-section-number">8.3</span> Simulating Networks from ERGMs</a></li>
 <li>
-<a class="nav-link" href="#ERGMterms"><span class="header-section-number">7.4</span> Additional Info on ERGM Terms</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#Degeneracy"><span class="header-section-number">7.4.1</span> Avoiding Model Degeneracy</a></li></ul>
+<a class="nav-link" href="#ERGMterms"><span class="header-section-number">8.4</span> Additional Info on ERGM Terms</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#Degeneracy"><span class="header-section-number">8.4.1</span> Avoiding Model Degeneracy</a></li></ul>
 </li>
 </ul>
 
       <div class="book-extra">
         <ul class="list-unstyled">
-<li><a id="book-source" href="https://github.com/mpeeples2008/ArchNetSci/blob/master/07-beyond-the-book.Rmd">View source <i class="fab fa-github"></i></a></li>
-          <li><a id="book-edit" href="https://github.com/mpeeples2008/ArchNetSci/edit/master/07-beyond-the-book.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+<li><a id="book-source" href="https://github.com/mpeeples2008/ArchNetSci/blob/master/07-ergm.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/mpeeples2008/ArchNetSci/edit/master/07-ergm.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
         </ul>
 </div>
     </nav>
@@ -772,7 +775,7 @@ anywhere and will just waste your time.
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-06-15.</p>
+    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-06-20.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

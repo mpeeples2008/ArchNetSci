@@ -4,17 +4,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Section 2 Network Data in R | Online Companion to Archaeological Network Science</title>
+<title>Section 3 Network Data in R | Online Companion to Archaeological Network Science</title>
 <meta name="author" content="Matthew A. Peeples and Tom Brughmans">
 <meta name="description" content="A network is simply a set of entities and the formally defined relationships among them. There are, however, many different ways that networks can be encoded and displayed. This section provides...">
 <meta name="generator" content="bookdown 0.26 with bs4_book()">
-<meta property="og:title" content="Section 2 Network Data in R | Online Companion to Archaeological Network Science">
+<meta property="og:title" content="Section 3 Network Data in R | Online Companion to Archaeological Network Science">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://book.archnetworks.net/NetworkData.html">
 <meta property="og:image" content="https://book.archnetworks.net/images/cover.png">
 <meta property="og:description" content="A network is simply a set of entities and the formally defined relationships among them. There are, however, many different ways that networks can be encoded and displayed. This section provides...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Section 2 Network Data in R | Online Companion to Archaeological Network Science">
+<meta name="twitter:title" content="Section 3 Network Data in R | Online Companion to Archaeological Network Science">
 <meta name="twitter:description" content="A network is simply a set of entities and the formally defined relationships among them. There are, however, many different ways that networks can be encoded and displayed. This section provides...">
 <meta name="twitter:image" content="https://book.archnetworks.net/images/cover.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -77,18 +77,22 @@
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
         <ul class="book-toc list-unstyled">
 <li><a class="" href="index.html">Welcome</a></li>
-<li><a class="" href="GettingStarted.html">Gettings Started with R</a></li>
-<li><a class="" href="DataAndWorkspace.html"><span class="header-section-number">1</span> Data and Workspace Setup</a></li>
-<li><a class="active" href="NetworkData.html"><span class="header-section-number">2</span> Network Data in R</a></li>
-<li><a class="" href="Exploratory.html"><span class="header-section-number">3</span> Exploratory Network Analysis</a></li>
-<li><a class="" href="Uncertainty.html"><span class="header-section-number">4</span> Quantifying Uncertainty</a></li>
-<li><a class="" href="Visualization.html"><span class="header-section-number">5</span> Network Visualization</a></li>
-<li><a class="" href="SpatialNetworks.html"><span class="header-section-number">6</span> Spatial Networks</a></li>
-<li class="book-part">Going Beyond the Book</li>
-<li><a class="" href="ERGM.html"><span class="header-section-number">7</span> Exponential Random Graph Models</a></li>
-<li><a class="" href="SpatialInteraction.html"><span class="header-section-number">8</span> Spatial Interaction Models</a></li>
+<li class="book-part">PART I: Getting Started</li>
+<li><a class="" href="GettingStarted.html"><span class="header-section-number">1</span> Getting Started with R</a></li>
+<li class="book-part">PART II: Work While You Read</li>
+<li><a class="" href="DataAndWorkspace.html"><span class="header-section-number">2</span> Data and Workspace Setup</a></li>
+<li><a class="active" href="NetworkData.html"><span class="header-section-number">3</span> Network Data in R</a></li>
+<li><a class="" href="Exploratory.html"><span class="header-section-number">4</span> Exploratory Network Analysis</a></li>
+<li><a class="" href="Uncertainty.html"><span class="header-section-number">5</span> Quantifying Uncertainty</a></li>
+<li><a class="" href="Visualization.html"><span class="header-section-number">6</span> Network Visualization</a></li>
+<li><a class="" href="SpatialNetworks.html"><span class="header-section-number">7</span> Spatial Networks</a></li>
+<li class="book-part">PART III: Going Beyond the Book</li>
+<li><a class="" href="ERGM.html"><span class="header-section-number">8</span> Exponential Random Graph Models</a></li>
+<li><a class="" href="SpatialInteraction.html"><span class="header-section-number">9</span> Spatial Interaction Models</a></li>
+<li><a class="" href="Affiliation.html"><span class="header-section-number">10</span> Affiliation Data and Co-Association</a></li>
+<li class="book-part">Additional Material</li>
 <li><a class="" href="TableOfContents.html">Table of Contents Quick Reference</a></li>
-<li><a class="" href="references-and-r-packages-1.html">References and R Packages</a></li>
+<li><a class="" href="references-and-r-packages.html">References and R Packages</a></li>
 </ul>
 
         <div class="book-extra">
@@ -96,15 +100,15 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="NetworkData" class="section level1" number="2">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="NetworkData" class="section level1" number="3">
 <h1>
-<span class="header-section-number">Section 2</span> Network Data in R<a class="anchor" aria-label="anchor" href="#NetworkData"><i class="fas fa-link"></i></a>
+<span class="header-section-number">Section 3</span> Network Data in R<a class="anchor" aria-label="anchor" href="#NetworkData"><i class="fas fa-link"></i></a>
 </h1>
 <p>A network is simply a set of entities and the formally defined relationships among them. There are, however, many different ways that networks can be encoded and displayed. This section provides examples of many of the most common network formats and data types discussed in Chapter 3 of Brughmans and Peeples 2022. For most of the examples below we use the Cibola technological similarity network data set (described in Chapter 2.8.3 and <a href="DataAndWorkspace.html#Cibola">here</a>) because it is relatively small and easy to display in a variety of formats.</p>
 <p>Throughout this document, we refer to the unique bounded entities connected in a formal network as <strong>nodes</strong> and the connections between them as <strong>edges</strong> but note that there are many other terms used in the literature and in the documentation for the R packages used here. Nodes are often referred to as <strong>vertices</strong> or <strong>actors</strong> and edges are often referred to as <strong>ties</strong> or <strong>links</strong>. Note that we use <strong>network</strong> to refer to the formal system of interdependent pairwise relationships (edges) among a set of entities (nodes) but the term <strong>graph</strong> is often used equivalently in mathematics and other fields.</p>
-<div id="NetworkDataFormats" class="section level2" number="2.1">
+<div id="NetworkDataFormats" class="section level2" number="3.1">
 <h2>
-<span class="header-section-number">2.1</span> Network Data Formats<a class="anchor" aria-label="anchor" href="#NetworkDataFormats"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.1</span> Network Data Formats<a class="anchor" aria-label="anchor" href="#NetworkDataFormats"><i class="fas fa-link"></i></a>
 </h2>
 <p>This section follows Chapter 3.2 in Brughmans and Peeples (2022) to provide examples of the same network and attribute data in a variety of different data formats as well as code for converting among these formats in R.</p>
 <p>The network data formats we discuss in this section include:</p>
@@ -139,9 +143,9 @@ Finally, we provide a brief example at the end of this section using
 <code>multinet</code> which is a package focused on conducting <a href="#Multinet">multilayer network analyses</a>.
 </p>
 </div>
-<div id="NetworkDataFunctions" class="section level3" number="2.1.1">
+<div id="NetworkDataFunctions" class="section level3" number="3.1.1">
 <h3>
-<span class="header-section-number">2.1.1</span> Defining Network Objects in R<a class="anchor" aria-label="anchor" href="#NetworkDataFunctions"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.1.1</span> Defining Network Objects in R<a class="anchor" aria-label="anchor" href="#NetworkDataFunctions"><i class="fas fa-link"></i></a>
 </h3>
 <p>In general most of the examples of network data formats in the remainder of this section are converted into R network objects in two basic steps.</p>
 <ul>
@@ -152,9 +156,9 @@ Finally, we provide a brief example at the end of this section using
 <p><code>igraph::graph_from_**DataType**</code></p>
 <p>where <code>**DataType**</code> is replaced with the appropriate format such as <code>edgelist</code>, <code>adjacency_matrix</code>, and so on. In most of the examples below we then plot the network just to confirm that everything works, but that is certainly optional.</p>
 </div>
-<div id="Edgelist" class="section level3" number="2.1.2">
+<div id="Edgelist" class="section level3" number="3.1.2">
 <h3>
-<span class="header-section-number">2.1.2</span> Edge List<a class="anchor" aria-label="anchor" href="#Edgelist"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.1.2</span> Edge List<a class="anchor" aria-label="anchor" href="#Edgelist"><i class="fas fa-link"></i></a>
 </h3>
 <p>The edge list is a very quick and easy way to capture network data. It simply lists the edges in the network one by one by node id: <em>E=((n1,n2),(n1,n3),(n1,n4),…,(ni,nj))</em>. For the purposes of data management it is usually easiest to create an edge list as a data frame or matrix where each row represents a pair of nodes with connections going from the node in one column to the node in the second column (additional columns can be used for edge weight or other edge attributes).</p>
 <p>In this example, we import the Cibola data set in this format as a data frame and then convert it to an <code>igraph</code> network object for further analysis. You can download the <a href="data/Cibola_edgelist.csv">edgelist file here</a> to follow along on your own. Since the edges in this network are undirected this will be a simple binary network, and we will use the <code>directed = FALSE</code> argument in the <code><a href="https://rdrr.io/pkg/igraph/man/graph_from_edgelist.html">igraph::graph_from_edgelist</a></code> function call. This function simply takes a edge list in tabular format and converts it to a network object R recognizes that can further be used for analysis and visualization.</p>
@@ -182,9 +186,9 @@ Finally, we provide a brief example at the end of this section using
 
 <span class="co"># Display igraph network object and then plot a simple node-link diagram</span>
 <span class="va">cibola_net</span></code></pre></div>
-<pre><code>## IGRAPH 2bc21dc UN-- 30 167 -- 
+<pre><code>## IGRAPH 1374069 UN-- 30 167 -- 
 ## + attr: name (v/c)
-## + edges from 2bc21dc (vertex names):
+## + edges from 1374069 (vertex names):
 ##  [1] Apache Creek--Casa Malpais          Apache Creek--Coyote Creek         
 ##  [3] Apache Creek--Hooper Ranch          Apache Creek--Horse Camp Mill      
 ##  [5] Apache Creek--Hubble Corner         Apache Creek--Mineral Creek Pueblo 
@@ -200,9 +204,9 @@ Finally, we provide a brief example at the end of this section using
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">cibola_net</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="02-network-data-formats_files/figure-html/unnamed-chunk-3-1.png" width="672"></div>
 </div>
-<div id="AdjacencyList" class="section level3" number="2.1.3">
+<div id="AdjacencyList" class="section level3" number="3.1.3">
 <h3>
-<span class="header-section-number">2.1.3</span> Adjacency List<a class="anchor" aria-label="anchor" href="#AdjacencyList"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.1.3</span> Adjacency List<a class="anchor" aria-label="anchor" href="#AdjacencyList"><i class="fas fa-link"></i></a>
 </h3>
 <p>The adjacency list consists of a set of rows, where the first node in each row is connected to all subsequent nodes in that same row. It is therefore more concise than the edge list (in which each relationship has its own row), but unlike the edge list it does not result in rows of equal length (each row in an edge list typically has two values, representing the pair of nodes). Adjacency lists are relatively rare in practice but can sometimes be useful formats for directly gathering network data in small networks and are supported by many network analysis software packages.</p>
 <p>In the following chunk of code, we convert the network object we created above into an adjacency list using the <code><a href="https://rdrr.io/pkg/igraph/man/as_adj_list.html">igraph::as_adj_edge_list()</a></code> function and examine a couple of the rows.</p>
@@ -212,7 +216,7 @@ Finally, we provide a brief example at the end of this section using
 
 <span class="co"># examine adjacency list for the site Apache Creek</span>
 <span class="va">adj_list</span><span class="op">$</span><span class="va">`Apache Creek`</span></code></pre></div>
-<pre><code>## + 11/167 edges from 2bc21dc (vertex names):
+<pre><code>## + 11/167 edges from 1374069 (vertex names):
 ##  [1] Apache Creek--Casa Malpais         Apache Creek--Coyote Creek        
 ##  [3] Apache Creek--Hooper Ranch         Apache Creek--Horse Camp Mill     
 ##  [5] Apache Creek--Hubble Corner        Apache Creek--Mineral Creek Pueblo
@@ -223,7 +227,7 @@ Finally, we provide a brief example at the end of this section using
 <code class="sourceCode R"><span class="co"># It is also possible to call specific nodes by number. In this case,</span>
 <span class="co"># site 2 is Casa Malpais</span>
 <span class="va">adj_list</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></code></pre></div>
-<pre><code>## + 11/167 edges from 2bc21dc (vertex names):
+<pre><code>## + 11/167 edges from 1374069 (vertex names):
 ##  [1] Apache Creek--Casa Malpais    Casa Malpais--Coyote Creek   
 ##  [3] Casa Malpais--Hooper Ranch    Casa Malpais--Horse Camp Mill
 ##  [5] Casa Malpais--Hubble Corner   Casa Malpais--Rudd Creek Ruin
@@ -232,9 +236,9 @@ Finally, we provide a brief example at the end of this section using
 ## [11] Casa Malpais--Hinkson</code></pre>
 <p>The output for a particular node can be called by either referencing the name using using <code>$</code> followed by the site name or <code>[[k]]</code> double brackets where <code>k</code> is the row number of the node in question. The printed output is essentially a list of all of the edges incident on the node in question identified by the name of the sending and receiving node.</p>
 </div>
-<div id="AdjacencyMatrix" class="section level3" number="2.1.4">
+<div id="AdjacencyMatrix" class="section level3" number="3.1.4">
 <h3>
-<span class="header-section-number">2.1.4</span> Adjacency Matrix<a class="anchor" aria-label="anchor" href="#AdjacencyMatrix"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.1.4</span> Adjacency Matrix<a class="anchor" aria-label="anchor" href="#AdjacencyMatrix"><i class="fas fa-link"></i></a>
 </h3>
 <p>The adjacency matrix is perhaps the most common and versatile network data format for data analysis in network science (in sociology it is sometimes referred to as the sociomatrix). It is a symmetric matrix of size <em>n x n</em>, with a set of rows and columns denoting the nodes in that network. The node names or identifiers are typically used to label both rows and columns. When a pair of nodes is connected by an edge (i.e. when they are adjacent), the corresponding cell will have an entry. The diagonal of this matrix represents “self loops” and can variously be defined as connected or unconnected depending on the application.</p>
 <p>We can obtain an adjacency matrix object in R by converting our network object created above or by reading in a file directly with rows and columns denoting site and with 0 or 1 denoting the presence or absence of a relation. We take the data frame object <code>adj_mat</code> which is a square matrix of 1s and 0s and convert it into a network object using the <code><a href="https://rdrr.io/pkg/igraph/man/graph_from_adjacency_matrix.html">igraph::graph_from_adjacency_matrix()</a></code> function. You can download the csv file to follow along on your own <a href="data/Cibola_adj.csv">here</a>.</p>
@@ -277,9 +281,9 @@ Finally, we provide a brief example at the end of this section using
 <div class="inline-figure"><img src="02-network-data-formats_files/figure-html/unnamed-chunk-5-1.png" width="672"></div>
 <p>Note when you compare this network graph to the one produced based on the edge list there is an additional unconnected node (WS Ranch) that was not shown in the previous network. This is one of the advantages of an adjacency matrix is it provides a way of easily including unconnected nodes without having to manually add them or include self-loops.</p>
 </div>
-<div id="IncidenceMatrix" class="section level3" number="2.1.5">
+<div id="IncidenceMatrix" class="section level3" number="3.1.5">
 <h3>
-<span class="header-section-number">2.1.5</span> Incidence Matrix<a class="anchor" aria-label="anchor" href="#IncidenceMatrix"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.1.5</span> Incidence Matrix<a class="anchor" aria-label="anchor" href="#IncidenceMatrix"><i class="fas fa-link"></i></a>
 </h3>
 <p>An incidence matrix is most frequently used to define connections among different sets of nodes in a two-mode or bipartite network where the rows and columns represent two different classes of nodes and the presence/absence or value of an edge is indicated in the corresponding cell.</p>
 <p>By way of example here we can read in the data that were used to generate the one-mode networks of ceramic technological similarity we have been examining so far. In the corresponding data frame, each row represents a site and each column represents a specific cluster of technological attributes in cooking pottery (see Peeples 2018, pg. 100-104 for more details) with the number in each cell representing the count of each technological cluster at each site.</p>
@@ -334,9 +338,9 @@ Finally, we provide a brief example at the end of this section using
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">cibola_inc</span>, vertex.color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html">V</a></span><span class="op">(</span><span class="va">cibola_inc</span><span class="op">)</span><span class="op">$</span><span class="va">type</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="02-network-data-formats_files/figure-html/unnamed-chunk-6-1.png" width="672"></div>
 </div>
-<div id="NodeAttributes" class="section level3" number="2.1.6">
+<div id="NodeAttributes" class="section level3" number="3.1.6">
 <h3>
-<span class="header-section-number">2.1.6</span> Node and Edge Information<a class="anchor" aria-label="anchor" href="#NodeAttributes"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.1.6</span> Node and Edge Information<a class="anchor" aria-label="anchor" href="#NodeAttributes"><i class="fas fa-link"></i></a>
 </h3>
 <p>Frequently we want to use other information about nodes and edges (node location, site type, edge weight, etc.) in our analyses and need to track these data in a separate attribute object or data column. One common way to do this is to simply create a data frame that contains the required attribute information and call specific data from this data frame when needed. As the following example shows, it is also possible to directly assign attributes to nodes or edges in an <code>igraph</code> network object and use those for subsequent analyses using the <code><a href="https://rdrr.io/pkg/igraph/man/V.html">V()</a></code> for nodes (V standing for vertices) and <code><a href="https://rdrr.io/pkg/igraph/man/E.html">E()</a></code> for edges calls within <code>igraph</code>.</p>
 <p>In the following example we use <a href="data/Cibola_attr.csv">this file</a> which includes basic attribute data by site (node) for all sites in the network we’ve been working with here. This file includes x and y coordinates for the sites, information on the presence/absence and shape of Great Kiva public architectural features at those sites, and the Region to which they have been assigned. First we read in the data.</p>
@@ -374,9 +378,9 @@ Finally, we provide a brief example at the end of this section using
 <code class="sourceCode R"><span class="co"># Note that "region" is now listed as an attribute when we view</span>
 <span class="co"># the network object</span>
 <span class="va">cibola_net2</span></code></pre></div>
-<pre><code>## IGRAPH 2bf6572 UN-- 31 167 -- 
+<pre><code>## IGRAPH 13ac932 UN-- 31 167 -- 
 ## + attr: name (v/c), region (v/c)
-## + edges from 2bf6572 (vertex names):
+## + edges from 13ac932 (vertex names):
 ##  [1] Apache.Creek--Casa.Malpais          Apache.Creek--Coyote.Creek         
 ##  [3] Apache.Creek--Hooper.Ranch          Apache.Creek--Horse.Camp.Mill      
 ##  [5] Apache.Creek--Hubble.Corner         Apache.Creek--Mineral.Creek.Pueblo 
@@ -393,9 +397,9 @@ Finally, we provide a brief example at the end of this section using
 <div class="inline-figure"><img src="02-network-data-formats_files/figure-html/unnamed-chunk-9-1.png" width="672"></div>
 </div>
 </div>
-<div id="TypesOfNetworks" class="section level2" number="2.2">
+<div id="TypesOfNetworks" class="section level2" number="3.2">
 <h2>
-<span class="header-section-number">2.2</span> Types of Networks<a class="anchor" aria-label="anchor" href="#TypesOfNetworks"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.2</span> Types of Networks<a class="anchor" aria-label="anchor" href="#TypesOfNetworks"><i class="fas fa-link"></i></a>
 </h2>
 <p>This section roughly follows Brughmans and Peeples (2022) Chapter 3.3 to describe and provide examples in R format of many of the most common types of networks. In the examples below we will use the <code>igraph</code> R package but we also show how to use the <code>statnet</code> and <code>network</code> packages where applicable.</p>
 <p>In this section, we cover:</p>
@@ -415,9 +419,9 @@ Finally, we provide a brief example at the end of this section using
 <li>
 <strong>Multilayer Networks</strong> - A network where a single set of nodes is connected by two or more sets of edges that each represent a different kind of relationship among the nodes.</li>
 </ul>
-<div id="SimpleNetworks" class="section level3" number="2.2.1">
+<div id="SimpleNetworks" class="section level3" number="3.2.1">
 <h3>
-<span class="header-section-number">2.2.1</span> Simple Networks<a class="anchor" aria-label="anchor" href="#SimpleNetworks"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.2.1</span> Simple Networks<a class="anchor" aria-label="anchor" href="#SimpleNetworks"><i class="fas fa-link"></i></a>
 </h3>
 <p>We call a network a simple network (or simple graph) if we only have a set of nodes and a set of edges connecting them, with no additional information about the edges or specific rules they need to follow. Simple networks are, in other words, unweighted and undirected one-mode networks. By way of example we will use the Cibola region <a href="data/Cibola_adj.csv">adjacency matrix file</a> and convert it into a simple network using both <code>igraph</code> and <code>network</code>. Notice how in both examples we specify that this is an undirected network (<code>mode = "undirected"</code> and <code>directed = FALSE</code>).</p>
 <div class="sourceCode" id="cb221"><pre class="downlit sourceCode r">
@@ -432,9 +436,9 @@ Finally, we provide a brief example at the end of this section using
   <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/graph_from_adjacency_matrix.html">graph_from_adjacency_matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">adj_mat2</span><span class="op">)</span>,
                                       mode <span class="op">=</span> <span class="st">"undirected"</span><span class="op">)</span>
 <span class="va">simple_net_i</span></code></pre></div>
-<pre><code>## IGRAPH 2ceab4a UN-- 31 167 -- 
+<pre><code>## IGRAPH 14b24a2 UN-- 31 167 -- 
 ## + attr: name (v/c)
-## + edges from 2ceab4a (vertex names):
+## + edges from 14b24a2 (vertex names):
 ##  [1] Apache.Creek--Casa.Malpais          Apache.Creek--Coyote.Creek         
 ##  [3] Apache.Creek--Hooper.Ranch          Apache.Creek--Horse.Camp.Mill      
 ##  [5] Apache.Creek--Hubble.Corner         Apache.Creek--Mineral.Creek.Pueblo 
@@ -466,9 +470,9 @@ Finally, we provide a brief example at the end of this section using
 ## No edge attributes</code></pre>
 <p>Notice how the two formats differ in the way they internally store network data in R and the way they print output to the screen but that both show a total of 31 nodes (vertices) and 167 edges (for the igraph object the first row specifies node and edge numbers between the – marks).</p>
 </div>
-<div id="DirectedNetworks" class="section level3" number="2.2.2">
+<div id="DirectedNetworks" class="section level3" number="3.2.2">
 <h3>
-<span class="header-section-number">2.2.2</span> Directed Networks<a class="anchor" aria-label="anchor" href="#DirectedNetworks"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.2.2</span> Directed Networks<a class="anchor" aria-label="anchor" href="#DirectedNetworks"><i class="fas fa-link"></i></a>
 </h3>
 <p>Sometimes relationships are directional, meaning they have an orientation. For example, the flow of a river is directed downstream. In such cases we can incorporate this information in our network data by distinguishing between the source and the target of an edge.</p>
 <p>By way of example here we will modify the Cibola network edge list to remove some number of edges at random to simulate directed network data. We will then convert these data into various network and matrix formats to illustrate how directed networks are stored and used in R. We first use the <code>sample</code> function to define a sub-sample of our network nodes and then we create a network object from that random sub-sample. By randomly removing some edges from the edge list we are left with a directed network where not all edges will be reciprocated.</p>
@@ -488,9 +492,9 @@ Finally, we provide a brief example at the end of this section using
 <span class="va">directed_net</span> <span class="op">&lt;-</span>
   <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/graph_from_edgelist.html">graph_from_edgelist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">el2</span><span class="op">)</span>, directed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="va">directed_net</span></code></pre></div>
-<pre><code>## IGRAPH 2cf39c5 DN-- 30 125 -- 
+<pre><code>## IGRAPH 14baed4 DN-- 30 125 -- 
 ## + attr: name (v/c)
-## + edges from 2cf39c5 (vertex names):
+## + edges from 14baed4 (vertex names):
 ##  [1] Coyote Creek   -&gt;Techado Springs      
 ##  [2] Hubble Corner  -&gt;Tri-R Pueblo         
 ##  [3] Hubble Corner  -&gt;Techado Springs      
@@ -523,9 +527,9 @@ Finally, we provide a brief example at the end of this section using
 <div class="inline-figure"><img src="02-network-data-formats_files/figure-html/unnamed-chunk-11-1.png" width="672"></div>
 <p>Notice that when we look at the igraph network plot it has arrows indicating the direction of connection in the edge list. If you are making your own directed edge list, the sending node by default will be in the first column and the receiving node in the second column. In the adjacency matrix the upper and lower triangles are no longer identical. Again, if you are generating your own adjacency matrix, you can simply mark edges sent from nodes denoted as rows and edges received from the same nodes as columns. Finally, in the plot, since R recognizes this as a directed igraph object when we plot the network, it automatically shows arrows indicating the direction of the edge.</p>
 </div>
-<div id="WeightedNetworks" class="section level3" number="2.2.3">
+<div id="WeightedNetworks" class="section level3" number="3.2.3">
 <h3>
-<span class="header-section-number">2.2.3</span> Signed, Categorized, and Weighted Networks<a class="anchor" aria-label="anchor" href="#WeightedNetworks"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.2.3</span> Signed, Categorized, and Weighted Networks<a class="anchor" aria-label="anchor" href="#WeightedNetworks"><i class="fas fa-link"></i></a>
 </h3>
 <p>In many situations we want to add values to specific edges such as signs (sometimes called valences), nominal categories, or weights defining the strength or nature of relationships. There are a variety of ways that we can record and assign such weights or values to edges in R. The simplest way is to directly include that information in one of the formats described above such as an edge list or adjacency matrix. For example, we can add a third column to an edge list that denotes the weight, category, or sign of each edge or can fill the cells in an adjacency matrix with specific values rather than simply 1s or 0s.</p>
 <p>In this example, we will randomly generate edge weights for the Cibola network edge list and adjacency matrix to illustrate how R handles these formats. We use the <code>sample</code> function again to create a random vector of values between 1 and 4 for every edge in the network and then add it to the edge list as a new variable called <code>$Weight</code>. We then convert this data frame into a network object.</p>
@@ -578,9 +582,9 @@ Finally, we provide a brief example at the end of this section using
 <div class="inline-figure"><img src="02-network-data-formats_files/figure-html/unnamed-chunk-12-1.png" width="672"></div>
 <p>Notice in the final plot that line thickness is used to indicate edges with various weights. We will explore further options for such visualizations in the network <a href="Visualization.html#Visualization">visualizations section</a> of this document.</p>
 </div>
-<div id="TwoMode" class="section level3" number="2.2.4">
+<div id="TwoMode" class="section level3" number="3.2.4">
 <h3>
-<span class="header-section-number">2.2.4</span> Two-mode Networks and Affiliation Networks<a class="anchor" aria-label="anchor" href="#TwoMode"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.2.4</span> Two-mode Networks and Affiliation Networks<a class="anchor" aria-label="anchor" href="#TwoMode"><i class="fas fa-link"></i></a>
 </h3>
 <p>Two-mode networks are networks where two separate categories of nodes are defined with a structural variable (edges) between these categories. In sociology, two-mode networks are often used for studying the affiliation of individuals with organizations, such as the presence of professionals on the boards of companies or the attendance of scholars at conferences (referred to as affiliation networks).</p>
 <p>Two-mode network data are typically recorded in a two-way table with rows and columns representing two different classes of nodes and with individual cells representing the presence/absence or weight of edges between those classes of nodes. By way of example here we will return to the table of ceramic technological clusters by sites for the Cibola region data. The simplest way to create an unweighted two-mode network from these data is to create a network object directly from a two-way table as we saw above. In this example this will create an edge between each site and each technological cluster present there irrespective of relative frequency using the <code><a href="https://rdrr.io/pkg/igraph/man/graph_from_incidence_matrix.html">igraph::graph_from_incidence_matrix</a></code> function.</p>
@@ -595,9 +599,9 @@ Finally, we provide a brief example at the end of this section using
                                                   directed <span class="op">=</span> <span class="cn">FALSE</span>,
                                                   multiple <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="va">cibola_inc</span></code></pre></div>
-<pre><code>## IGRAPH 2d413a5 UN-B 41 2214 -- 
+<pre><code>## IGRAPH 1508aa5 UN-B 41 2214 -- 
 ## + attr: type (v/l), name (v/c)
-## + edges from 2d413a5 (vertex names):
+## + edges from 1508aa5 (vertex names):
 ##  [1] Apache Creek--Clust1 Apache Creek--Clust1 Apache Creek--Clust1
 ##  [4] Apache Creek--Clust1 Apache Creek--Clust1 Apache Creek--Clust1
 ##  [7] Apache Creek--Clust1 Apache Creek--Clust2 Apache Creek--Clust2
@@ -691,9 +695,9 @@ Finally, we provide a brief example at the end of this section using
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">clust_net</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="02-network-data-formats_files/figure-html/unnamed-chunk-15-2.png" width="672"></div>
 </div>
-<div id="SimilarityNetworks" class="section level3" number="2.2.5">
+<div id="SimilarityNetworks" class="section level3" number="3.2.5">
 <h3>
-<span class="header-section-number">2.2.5</span> Similarity Networks<a class="anchor" aria-label="anchor" href="#SimilarityNetworks"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.2.5</span> Similarity Networks<a class="anchor" aria-label="anchor" href="#SimilarityNetworks"><i class="fas fa-link"></i></a>
 </h3>
 <p>Similarity networks simply refer to one-mode networks where nodes are defined as entities of interest with edges defined and/or weighted based on some metric of similarity (or distance) defined based on the features, attributes, or assemblage associated with that node. Such an approach is frequently used in archaeology to explore material cultural networks where nodes are contexts of interests (e.g., sites, excavation units, houses, etc.) and edges are defined or weighted based on similarities in the relative frequencies of artifacts or particular classes of artifacts recovered in those contexts.</p>
 <p>There are many different ways to define and track similarity network data for use in R. In this example, we will show several methods using the affiliation data we used in the previous example. Specifically, we will define and weight edges based on similarities in the frequencies of ceramic technological clusters at sites in our Cibola region sample.</p>
@@ -730,9 +734,9 @@ Finally, we provide a brief example at the end of this section using
 ## Casa Malpais    0.7050691 0.3740804   0.5608953    1.0000000</code></pre>
 <p>At this point we could simply define this as a weighted network object where weights are equal to the similarity scores, or we could define a threshold for defining edges as present or absent. We will discuss these options in detail after presenting other similarity/distance metrics.</p>
 </div>
-<div id="morisitas-overlap-index---morisita" class="section level4" number="2.2.5.1">
+<div id="morisitas-overlap-index---morisita" class="section level4" number="3.2.5.1">
 <h4>
-<span class="header-section-number">2.2.5.1</span> Morisita’s Overlap Index {- ?#Morisita}<a class="anchor" aria-label="anchor" href="#morisitas-overlap-index---morisita"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.2.5.1</span> Morisita’s Overlap Index {- ?#Morisita}<a class="anchor" aria-label="anchor" href="#morisitas-overlap-index---morisita"><i class="fas fa-link"></i></a>
 </h4>
 <p>Another measure that has been used for defining similarities among assemblages for archaeological similarity networks is Morisita’s overlap index. This measure is a measure of the overlap of individual assemblages within a larger population that takes the size of samples into account. Specifically, the approach assumes that as sample size increases diversity will likely increase. This measure produces results that are very similar to the Brainerd-Robinson metric in practice in most cases but this measure may be preferred where there are dramatic differences in assemblage sizes among observations.</p>
 <p>Morisita’s index is calculated as:</p>
@@ -1000,9 +1004,9 @@ Finally, we provide a brief example at the end of this section using
 </div>
 </div>
 </div>
-<div id="EgoNetworks" class="section level3" number="2.2.6">
+<div id="EgoNetworks" class="section level3" number="3.2.6">
 <h3>
-<span class="header-section-number">2.2.6</span> Ego Networks<a class="anchor" aria-label="anchor" href="#EgoNetworks"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.2.6</span> Ego Networks<a class="anchor" aria-label="anchor" href="#EgoNetworks"><i class="fas fa-link"></i></a>
 </h3>
 <p>When we aim to understand the relational environment within which an entity is embedded, because it is relevant for our research questions or because data collection challenges dictate this focus, archaeological network research can make use of so-called ego-networks: a type of network that includes a focal node (the so-called ego), the set of nodes the ego is connected to by an edge (the so-called alters) and the edges between this set of nodes.</p>
 <p>Extracting an ego-network from an existing igraph network object in R is very easy. Here we will extract and plot the ego-network for Apache Creek, the first site in the network files we created above. First we read in data and create a network object and then we apply the <code><a href="https://rdrr.io/pkg/igraph/man/ego.html">igraph::make_ego_graph</a></code> function to the network object we created.</p>
@@ -1023,9 +1027,9 @@ Finally, we provide a brief example at the end of this section using
 
 <span class="co"># Examine the first ego-network</span>
 <span class="va">ego_nets</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></code></pre></div>
-<pre><code>## IGRAPH 2f93a84 UN-- 12 59 -- 
+<pre><code>## IGRAPH 1770c0f UN-- 12 59 -- 
 ## + attr: name (v/c)
-## + edges from 2f93a84 (vertex names):
+## + edges from 1770c0f (vertex names):
 ##  [1] Apache Creek   --Casa Malpais         Apache Creek   --Coyote Creek        
 ##  [3] Casa Malpais   --Coyote Creek         Apache Creek   --Hooper Ranch        
 ##  [5] Casa Malpais   --Hooper Ranch         Coyote Creek   --Hooper Ranch        
@@ -1052,9 +1056,9 @@ Finally, we provide a brief example at the end of this section using
 <pre><code>##  [1] 12 12 12 12 13 14 13 13 10 14 15  7  9 14 13 14 15 11 14 14 15  2 14 19 15
 ## [26] 12 12 11  7  6</code></pre>
 </div>
-<div id="Multinet" class="section level3" number="2.2.7">
+<div id="Multinet" class="section level3" number="3.2.7">
 <h3>
-<span class="header-section-number">2.2.7</span> Multilayer Network<a class="anchor" aria-label="anchor" href="#Multinet"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.2.7</span> Multilayer Network<a class="anchor" aria-label="anchor" href="#Multinet"><i class="fas fa-link"></i></a>
 </h3>
 <p>In the simplest terms, multilayer networks are networks where a single set of nodes are connected by two or more sets of edges that each represent a different kind of relationship among the nodes. This is a relatively new area of network science in archaeological network research but we expect this will likely change in the coming years. There are now new R packages which help manage and analyze multilayer network data.</p>
 <p>The <code>multinet</code> package (Rossi and Vega 2021) is designed to facilitate the analysis of multilayer networks. In order to explore some of the possibilities here we use example data and analyses included in this package. Specifically, we will look at the famous network data on Florentine families in the 14th century where connections were defined in terms of both business and marriage.</p>
@@ -1081,44 +1085,44 @@ Finally, we provide a brief example at the end of this section using
 <span class="co"># multilayer network, the multinet package can help us do that directly</span>
 <span class="co"># and quite simply.</span>
 <span class="fu">multinet</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/multinet/man/ActorMeasures.html">degree_ml</a></span><span class="op">(</span><span class="va">florentine</span><span class="op">)</span></code></pre></div>
-<pre><code>##  [1]  7 11  3  2  4  3  4  3  5  6  6  6  3  6  1</code></pre>
+<pre><code>##  [1]  3  4  4  6  6  5  6  1 11  7  3  2  3  3  6</code></pre>
 <div class="sourceCode" id="cb286"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Similarly, we could apply cluster detection algorithms to all layers</span>
 <span class="co"># of a multilayer network simultaneously.</span>
 <span class="fu">multinet</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/multinet/man/Communities.html">glouvain_ml</a></span><span class="op">(</span><span class="va">florentine</span><span class="op">)</span></code></pre></div>
 <pre><code>##           actor    layer cid
-## 1       Peruzzi marriage   0
-## 2       Peruzzi business   0
-## 3       Strozzi marriage   0
-## 4    Castellani marriage   0
-## 5    Castellani business   0
-## 6     Barbadori marriage   0
-## 7     Barbadori business   0
-## 8  Lamberteschi marriage   1
-## 9  Lamberteschi business   1
-## 10     Guadagni marriage   1
-## 11     Guadagni business   1
-## 12     Bischeri marriage   1
-## 13     Bischeri business   1
-## 14       Medici marriage   2
-## 15       Medici business   2
-## 16     Salviati marriage   2
-## 17     Salviati business   2
-## 18        Pazzi marriage   2
-## 19        Pazzi business   2
-## 20       Ginori marriage   2
-## 21       Ginori business   2
-## 22   Tornabuoni marriage   2
-## 23   Tornabuoni business   2
-## 24      Ridolfi marriage   2
-## 25      Albizzi marriage   2
-## 26   Acciaiuoli marriage   2</code></pre>
+## 1       Ridolfi marriage   0
+## 2    Tornabuoni marriage   0
+## 3    Tornabuoni business   0
+## 4    Acciaiuoli marriage   0
+## 5        Medici marriage   0
+## 6        Medici business   0
+## 7         Pazzi marriage   0
+## 8         Pazzi business   0
+## 9      Salviati marriage   0
+## 10     Salviati business   0
+## 11       Ginori marriage   1
+## 12       Ginori business   1
+## 13      Albizzi marriage   1
+## 14    Barbadori marriage   1
+## 15    Barbadori business   1
+## 16      Strozzi marriage   2
+## 17   Castellani marriage   2
+## 18   Castellani business   2
+## 19     Bischeri marriage   2
+## 20     Bischeri business   2
+## 21 Lamberteschi marriage   2
+## 22 Lamberteschi business   2
+## 23     Guadagni marriage   2
+## 24     Guadagni business   2
+## 25      Peruzzi marriage   2
+## 26      Peruzzi business   2</code></pre>
 <p>For an archaeological example of multilevel network analysis <a href="https://github.com/ajupton/archy-multilayer-nets">this GitHub project</a> by Andy Upton.</p>
 </div>
 </div>
-<div id="ConvertingNetworkFormats" class="section level2" number="2.3">
+<div id="ConvertingNetworkFormats" class="section level2" number="3.3">
 <h2>
-<span class="header-section-number">2.3</span> Converting Among Network Object Types<a class="anchor" aria-label="anchor" href="#ConvertingNetworkFormats"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.3</span> Converting Among Network Object Types<a class="anchor" aria-label="anchor" href="#ConvertingNetworkFormats"><i class="fas fa-link"></i></a>
 </h2>
 <div class="rmdtip">
 <p>
@@ -1140,9 +1144,9 @@ would instead use <code>asNetwrok</code>.
 <div class="sourceCode" id="cb288"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mor_wt_i</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/intergraph/man/asIgraph.html">asIgraph</a></span><span class="op">(</span><span class="va">mor_wt</span><span class="op">)</span>
 <span class="va">mor_wt_i</span></code></pre></div>
-<pre><code>## IGRAPH 302e780 U-W- 31 465 -- 
+<pre><code>## IGRAPH 17edd93 U-W- 31 465 -- 
 ## + attr: na (v/l), vertex.names (v/c), na (e/l), weight (e/n)
-## + edges from 302e780:
+## + edges from 17edd93:
 ##   [1] 1-- 2 1-- 3 1-- 4 1-- 5 1-- 6 1-- 7 1-- 8 1-- 9 1--10 1--11 1--12 1--13
 ##  [13] 1--14 1--15 1--16 1--17 1--18 1--19 1--20 1--21 1--22 1--23 1--24 1--25
 ##  [25] 1--26 1--27 1--28 1--29 1--30 1--31 2-- 3 2-- 4 2-- 5 2-- 6 2-- 7 2-- 8
@@ -1185,34 +1189,34 @@ would instead use <code>asNetwrok</code>.
 </div>
 </div>
   <div class="chapter-nav">
-<div class="prev"><a href="DataAndWorkspace.html"><span class="header-section-number">1</span> Data and Workspace Setup</a></div>
-<div class="next"><a href="Exploratory.html"><span class="header-section-number">3</span> Exploratory Network Analysis</a></div>
+<div class="prev"><a href="DataAndWorkspace.html"><span class="header-section-number">2</span> Data and Workspace Setup</a></div>
+<div class="next"><a href="Exploratory.html"><span class="header-section-number">4</span> Exploratory Network Analysis</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#NetworkData"><span class="header-section-number">2</span> Network Data in R</a></li>
+<li><a class="nav-link" href="#NetworkData"><span class="header-section-number">3</span> Network Data in R</a></li>
 <li>
-<a class="nav-link" href="#NetworkDataFormats"><span class="header-section-number">2.1</span> Network Data Formats</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#NetworkDataFunctions"><span class="header-section-number">2.1.1</span> Defining Network Objects in R</a></li>
-<li><a class="nav-link" href="#Edgelist"><span class="header-section-number">2.1.2</span> Edge List</a></li>
-<li><a class="nav-link" href="#AdjacencyList"><span class="header-section-number">2.1.3</span> Adjacency List</a></li>
-<li><a class="nav-link" href="#AdjacencyMatrix"><span class="header-section-number">2.1.4</span> Adjacency Matrix</a></li>
-<li><a class="nav-link" href="#IncidenceMatrix"><span class="header-section-number">2.1.5</span> Incidence Matrix</a></li>
-<li><a class="nav-link" href="#NodeAttributes"><span class="header-section-number">2.1.6</span> Node and Edge Information</a></li>
+<a class="nav-link" href="#NetworkDataFormats"><span class="header-section-number">3.1</span> Network Data Formats</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#NetworkDataFunctions"><span class="header-section-number">3.1.1</span> Defining Network Objects in R</a></li>
+<li><a class="nav-link" href="#Edgelist"><span class="header-section-number">3.1.2</span> Edge List</a></li>
+<li><a class="nav-link" href="#AdjacencyList"><span class="header-section-number">3.1.3</span> Adjacency List</a></li>
+<li><a class="nav-link" href="#AdjacencyMatrix"><span class="header-section-number">3.1.4</span> Adjacency Matrix</a></li>
+<li><a class="nav-link" href="#IncidenceMatrix"><span class="header-section-number">3.1.5</span> Incidence Matrix</a></li>
+<li><a class="nav-link" href="#NodeAttributes"><span class="header-section-number">3.1.6</span> Node and Edge Information</a></li>
 </ul>
 </li>
 <li>
-<a class="nav-link" href="#TypesOfNetworks"><span class="header-section-number">2.2</span> Types of Networks</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#SimpleNetworks"><span class="header-section-number">2.2.1</span> Simple Networks</a></li>
-<li><a class="nav-link" href="#DirectedNetworks"><span class="header-section-number">2.2.2</span> Directed Networks</a></li>
-<li><a class="nav-link" href="#WeightedNetworks"><span class="header-section-number">2.2.3</span> Signed, Categorized, and Weighted Networks</a></li>
-<li><a class="nav-link" href="#TwoMode"><span class="header-section-number">2.2.4</span> Two-mode Networks and Affiliation Networks</a></li>
-<li><a class="nav-link" href="#SimilarityNetworks"><span class="header-section-number">2.2.5</span> Similarity Networks</a></li>
-<li><a class="nav-link" href="#EgoNetworks"><span class="header-section-number">2.2.6</span> Ego Networks</a></li>
-<li><a class="nav-link" href="#Multinet"><span class="header-section-number">2.2.7</span> Multilayer Network</a></li>
+<a class="nav-link" href="#TypesOfNetworks"><span class="header-section-number">3.2</span> Types of Networks</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#SimpleNetworks"><span class="header-section-number">3.2.1</span> Simple Networks</a></li>
+<li><a class="nav-link" href="#DirectedNetworks"><span class="header-section-number">3.2.2</span> Directed Networks</a></li>
+<li><a class="nav-link" href="#WeightedNetworks"><span class="header-section-number">3.2.3</span> Signed, Categorized, and Weighted Networks</a></li>
+<li><a class="nav-link" href="#TwoMode"><span class="header-section-number">3.2.4</span> Two-mode Networks and Affiliation Networks</a></li>
+<li><a class="nav-link" href="#SimilarityNetworks"><span class="header-section-number">3.2.5</span> Similarity Networks</a></li>
+<li><a class="nav-link" href="#EgoNetworks"><span class="header-section-number">3.2.6</span> Ego Networks</a></li>
+<li><a class="nav-link" href="#Multinet"><span class="header-section-number">3.2.7</span> Multilayer Network</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#ConvertingNetworkFormats"><span class="header-section-number">2.3</span> Converting Among Network Object Types</a></li>
+<li><a class="nav-link" href="#ConvertingNetworkFormats"><span class="header-section-number">3.3</span> Converting Among Network Object Types</a></li>
 </ul>
 
       <div class="book-extra">
@@ -1230,7 +1234,7 @@ would instead use <code>asNetwrok</code>.
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-06-15.</p>
+    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-06-20.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

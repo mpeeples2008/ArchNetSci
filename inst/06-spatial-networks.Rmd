@@ -1,6 +1,6 @@
 # Spatial Networks{#SpatialNetworks}
 
-This section follows along with Chapter 7 of Brughmans and Peeples (2022) to provide information on how to implement spatial network models and analyses in R. Spatial networks are one of the most common kinds of networks used in archaeological research. Many network studies rely on GIS tools to conduct spatial network research, but R is quite capable of spatial analysis.
+This section follows along with Chapter 7 of Brughmans and Peeples (2022) to provide information on how to implement spatial network models and analyses in R. Spatial networks are one of the most common kinds of networks used in archaeological research. Many network studies rely on GIS tools to conduct spatial network research, but R is quite capable of spatial analysis. Note that we have created a separate section on [spatial interaction models](#SpatialInteraction) in the "Going Beyond the Book" section of this document as those approaches in particular require extended discussion.
 
 Working with geographic data in R can be a bit complicated and we cannot cover all aspects in this brief tutorial. If you are interested in exploring geospatial networks more, we suggest you take a look at the excellent and free [*Geocomputation With R*](https://geocompr.robinlovelace.net/) book by Robin Lovelace, Jakob Nowosad, and Jannes Muenchow. The book is a bookdown document just like this tutorial and provides excellent and up to date coverage of spatial operations and the management of spatial data in R. 
 
@@ -12,12 +12,12 @@ There are a number of packages for R that are designed explicitly for working wi
 
 The primary packages include:
 
-* `sf` - This package is designed for plotting and encoding simple spatial features and vector data and converting locations among different map projections. Check [here](https://r-spatial.github.io/sf/) for a good brief overview of the package.
-* `ggmap` - This package is a visualization tool that allows you to combine typical R figures in the `ggplot2` format with static maps available online through services like Google Maps, Stamen Maps, OpenStreet Maps, and others. This package is useful for quickly generating maps with a background layer and that is how we use it here.  
-* `cccd` - This is a package that is designed explicitly for working with spatial data and has a number of functions for defining networks based on relative neighborhoods and other spatial network definitions. 
-* `deldir` - This package package is designed to create spatial partitions including calculating Delaunay triangulation and Voronoi tessellations of spatial planes.
-* `geosphere` - This is a package focused on spherical trigonometry and has functions which allow us to calculate distances between points in spherical geographic space across the globe.
-* `RBGL` - This is an R implementation of a package called the Boost Graph Library. This package has a number of functions but we use it here as it provides a function to test for graph planarity.
+* **`sf`** - This package is designed for plotting and encoding simple spatial features and vector data and converting locations among different map projections. Check [here](https://r-spatial.github.io/sf/) for a good brief overview of the package.
+* **`ggmap`** - This package is a visualization tool that allows you to combine typical R figures in the `ggplot2` format with static maps available online through services like Google Maps, Stamen Maps, OpenStreet Maps, and others. This package is useful for quickly generating maps with a background layer and that is how we use it here.  
+* **`cccd`** - This is a package that is designed explicitly for working with spatial data and has a number of functions for defining networks based on relative neighborhoods and other spatial network definitions. 
+* **`deldir`** - This package package is designed to create spatial partitions including calculating Delaunay triangulation and Voronoi tessellations of spatial planes.
+* **`geosphere`** - This is a package focused on spherical trigonometry and has functions which allow us to calculate distances between points in spherical geographic space across the globe.
+* **`RBGL`** - This is an R implementation of a package called the Boost Graph Library. This package has a number of functions but we use it here as it provides a function to test for graph planarity.
 
 The spatial data we use in this document consists of vector data. This simply means that our mapping data re not images or pixels representing space but instead spatial coordinates that define locations and distances. One key aspect of spatial data in R, especially at large scales, is that we often need to define a projection or coordinate reference system to produce accurate maps. 
 
@@ -37,9 +37,9 @@ locs
 
 Another feature used throughout this guide that needs further explanation is the `ggmap` funtion `get_stamenmap`. This function automatically retrieves a background map for you using a few arguments:
 
-* `bbox` - the bounding box which represents the decimal degrees longitude and latitude coordinates of the lower left and upper right area you wish to map.
-* `maptype` - a name that indicates the style of map to use ([check here for options]https://rdrr.io/cran/ggmap/man/get_stamenmap.html).
-* `zoom` - a variable denonting the detail or zoom level to be retrieved. Higher number give more detail but take longer to detail.
+* **`bbox`** - the bounding box which represents the decimal degrees longitude and latitude coordinates of the lower left and upper right area you wish to map.
+* **`maptype`** - a name that indicates the style of map to use ([check here for options](https://rdrr.io/cran/ggmap/man/get_stamenmap.html)).
+* **`zoom`** - a variable denoting the detail or zoom level to be retrieved. Higher number give more detail but take longer to detail.
 
 With the `ggmap` package, these background maps can easily be incorporated into network graphics.
 
@@ -63,8 +63,8 @@ library(ggmap)
 library(sf)
 
 # Read in edgelist and node location data and covert to network object
-edges1 <- read.csv("data/Hispania_roads.csv", header = T)
-nodes <- read.csv("data/Hispania_nodes.csv", header = T)
+edges1 <- read.csv("data/Hispania_roads.csv", header = TRUE)
+nodes <- read.csv("data/Hispania_nodes.csv", header = TRUE)
 road_net <-
   graph_from_edgelist(as.matrix(edges1[, 1:2]), directed = FALSE)
 
@@ -83,7 +83,7 @@ edges <- as.data.frame(matrix(NA, nrow(edgelist), 4))
 colnames(edges) <- c("X1", "Y1", "X2", "Y2")
 # Iterate across each edge and assoign lat and long values to
 # X1, Y1, X2, and Y2
-for (i in 1:nrow(edgelist)) {
+for (i in seq_len(nrow(edgelist))) {
   edges[i, ] <- c(nodes[which(nodes$Id == edgelist[i, 1]), 3],
                   nodes[which(nodes$Id == edgelist[i, 1]), 2],
                   nodes[which(nodes$Id == edgelist[i, 2]), 3],
@@ -91,12 +91,12 @@ for (i in 1:nrow(edgelist)) {
 }
 
 # Download stamenmap background data.
-myMap <- get_stamenmap(bbox = c(-9.5, 36, 3, 43.8),
+my_map <- get_stamenmap(bbox = c(-9.5, 36, 3, 43.8),
                        maptype = "watercolor",
                        zoom = 6)
 
 # Produce map starting with background
-ggmap(myMap) +
+ggmap(my_map) +
   # geom_segment plots lines by the beginning and ending
   # coordinates like the edges object we created above
   geom_segment(
@@ -107,7 +107,7 @@ ggmap(myMap) +
       xend = X2,
       yend = Y2
     ),
-    col = 'black',
+    col = "black",
     size = 1
   ) +
   # plot site node locations
@@ -115,18 +115,18 @@ ggmap(myMap) +
     data = xy,
     aes(x, y),
     alpha = 0.8,
-    col = 'black',
+    col = "black",
     fill = "white",
     shape = 21,
     size = 2,
-    show.legend = F
+    show.legend = FALSE
   ) +
   theme_void()
 ```
 
 ## Planar Networks and Trees{#PlanarTrees}
 
-### Evaluating Planarity{#Evaluating Planarity}
+### Evaluating Planarity{#EvaluatingPlanarity}
 
 A planar network is a network that can be drawn on a plane where the edges do not cross but instead always end in nodes. In many small networks it is relatively easy to determine whether or not a network is planar by simply viewing a network graph. In larger graphs, this can sometimes be difficult. 
 
@@ -137,7 +137,7 @@ There is a package available for R called `RBGL` which is an R implementation of
 In order to install the `RBGL` and `BiocManager` libraries (if required), run the following lines of code.
 
 ```{r, eval=F, warning=F, message=F}
-if(!requireNamespace("BiocManager", quietly = TRUE))
+if (!requireNamespace("BiocManager", quietly = TRUE))
   install.packages("BiocManager")
 BiocManager::install("RBGL")
 ```
@@ -159,7 +159,7 @@ This results suggests that our Roman Road data is not planar. We can plot the da
 ```{r, warning=F, message=F, fig.height=7, fig.width=7}
 library(ggraph)
 set.seed(5364)
-ggraph(road_net, layout = 'kk') +
+ggraph(road_net, layout = "kk") +
   geom_edge_link() +
   geom_node_point(size = 3) +
   ggtitle("Network of Roman Roads") +
@@ -218,12 +218,12 @@ It is also possible plot trees with a heirarchical network layout where nodes ar
 
 ```{r, warning=F, message=F,fig.height=5, fig.width=7}
 ggraph(tree1,
-       layout = 'igraph',
-       algorithm = 'tree',
+       layout = "igraph",
+       algorithm = "tree",
        root = 1) +
   geom_edge_diagonal(edge_width = 0.5, alpha = .4) +
   geom_node_text(aes(label = V(tree1)), size = 3.5) +
-  theme_void() 
+  theme_void()
 ```
 
 ## Spatial Network Models {#SpatialNetworkModels}
@@ -306,7 +306,7 @@ Minimum spanning tree: in a set of nodes in the Euclidean plane, edges are creat
 
 Perhaps the most common use-case for trees in archaeological networks is to define the minimum spanning tree of a given graph or the minimum set of nodes and edges required for a fully connected graph. The `igraph` package has a function called `mst` that defines the minimum spanning tree for a given graph. Let's try this with the Roman Road and then plot it as a node-link diagram and a map.
 
-```{r, fig.height=5, fig.width=7}
+```{r, fig.height=5, fig.width=7, warning=F, message=F}
 mst_net <- igraph::mst(road_net)
 set.seed(4643)
 ggraph(mst_net, layout = "kk") +
@@ -318,13 +318,13 @@ edgelist <- get.edgelist(mst_net)
 # Create dataframe of beginning and ending points of edges
 edges <- as.data.frame(matrix(NA, nrow(edgelist), 4))
 colnames(edges) <- c("X1", "Y1", "X2", "Y2")
-for (i in 1:nrow(edgelist)) {
+for (i in seq_len(nrow(edgelist))) {
   edges[i, ] <- c(nodes[which(nodes$Id == edgelist[i, 1]), 3],
                   nodes[which(nodes$Id == edgelist[i, 1]), 2],
                   nodes[which(nodes$Id == edgelist[i, 2]), 3],
                   nodes[which(nodes$Id == edgelist[i, 2]), 2])
 }
-ggmap(myMap) +
+ggmap(my_map) +
   geom_segment(
     data = edges,
     aes(
@@ -333,18 +333,18 @@ ggmap(myMap) +
       xend = X2,
       yend = Y2
     ),
-    col = 'black',
+    col = "black",
     size = 1
   ) +
   geom_point(
     data = nodes[, c(3, 2)],
     aes(long, lat),
     alpha = 0.8,
-    col = 'black',
+    col = "black",
     fill = "white",
     shape = 21,
     size = 1.5,
-    show.legend = F
+    show.legend = FALSE
   ) +
   theme_void()
 ```
@@ -371,7 +371,7 @@ plot(dt1)
 mapdat <- as.data.frame(dt1$dirsgs)
 # Extract network for plotting
 mapdat2 <- as.data.frame(dt1$delsgs)
-ggmap(myMap) +
+ggmap(my_map) +
   geom_segment(
     data = mapdat,
     aes(
@@ -380,7 +380,7 @@ ggmap(myMap) +
       xend = x2,
       yend = y2
     ),
-    col = 'black',
+    col = "black",
     size = 1
   ) +
   geom_segment(
@@ -391,18 +391,18 @@ ggmap(myMap) +
       xend = x2,
       yend = y2
     ),
-    col = 'red',
+    col = "red",
     size = 1
   ) +
   geom_point(
     data = nodes,
     aes(long, lat),
     alpha = 0.8,
-    col = 'black',
+    col = "black",
     fill = "white",
     shape = 21,
     size = 3,
-    show.legend = F
+    show.legend = FALSE
   ) +
   theme_void()
 ```
@@ -418,15 +418,15 @@ The `cccd` package has a routine that allows for the calculation of K-nearest ne
 nn1 <- nng(x = nodes[, c(3, 2)], k = 1)
 # Calculate k=6 nearest neighbor graph
 nn6 <- nng(x = nodes[, c(3, 2)], k = 6)
-EL1 <- as.data.frame(
+el1 <- as.data.frame(
   rbind(cbind(get.edgelist(nn6),
          rep("K=6", nrow(get.edgelist(nn1))
              )),
-        cbind(get.edgelist(nn1), 
+        cbind(get.edgelist(nn1),
           rep("K=1", nrow(get.edgelist(nn1))
              ))))
-colnames(EL1) <- c("from", "to", "K")
-g <- graph_from_data_frame(EL1)
+colnames(el1) <- c("from", "to", "K")
+g <- graph_from_data_frame(el1)
 # Plot both graphs
 ggraph(g, layout = "manual",
        x = nodes[, 3], y = nodes[, 2]) +
@@ -454,18 +454,18 @@ d1 <- distm(nodes[, c(3, 2)])
 # the threshold to count.
 net100 <- network(event2dichot(
   d1,
-  method = 'absolute',
+  method = "absolute",
   thresh = 100000,
   leq = TRUE
 ),
-directed = F)
+directed = FALSE)
 net250 <- network(event2dichot(
   d1,
-  method = 'absolute',
+  method = "absolute",
   thresh = 250000,
   leq = TRUE
 ),
-directed = F)
+directed = FALSE)
 # Plot 100 Km network
 ggraph(net100,
        layout = "manual",
@@ -493,7 +493,7 @@ The first case study in Chapter 7 of Brughmans and Peeples (2022) is an example 
 First we read in the data which represents site location information in lat/long decimal degrees.
 
 ```{r}
-guad <- read.csv("data/Guadalquivir.csv", header=TRUE)
+guad <- read.csv("data/Guadalquivir.csv", header = TRUE)
 ```
 
 Next we create a distance matrix based on the decimal degrees locations using the "distm" function.
@@ -508,29 +508,30 @@ From here we can create maximum distance networks at both the 10km and 18km dist
 
 ```{r, message=F, warning=F, fig.height=5, fig.width=7}
 library(intergraph)
-# Note we use the leq=TRUE argument here as we want nodes less than the threshold to count.
+# Note we use the leq=TRUE argument here as we want nodes
+# less than the threshold to count.
 net10 <- asIgraph(network(
   event2dichot(
     g_dist1,
-    method = 'absolute',
+    method = "absolute",
     thresh = 10000,
     leq = TRUE
   ),
-  directed = F
+  directed = FALSE
 ))
 net18 <- asIgraph(network(
   event2dichot(
     g_dist1,
-    method = 'absolute',
+    method = "absolute",
     thresh = 18000,
     leq = TRUE
   ),
-  directed = F
+  directed = FALSE
 ))
 g10_deg <- as.data.frame(igraph::degree(net10))
-colnames(g10_deg) <- 'degree'
+colnames(g10_deg) <- "degree"
 g18_deg <- as.data.frame(igraph::degree(net18))
-colnames(g18_deg) <- 'degree'
+colnames(g18_deg) <- "degree"
 # Plot histogram of degree for 10km network
 h10 <- ggplot(data = g10_deg) +
   geom_histogram(aes(x = degree), bins = 15)
@@ -593,7 +594,7 @@ g_rng <- ggraph(rng1,
   geom_node_point(size = 2) +
   theme_graph()
 g_rng_deg <- as.data.frame(igraph::degree(rng1))
-colnames(g_rng_deg) <- 'degree'
+colnames(g_rng_deg) <- "degree"
 # Plot histogram of degree for relative neighborhood network
 h_rng <- ggplot(data = g_rng_deg) +
   geom_histogram(aes(x = degree), bins = 3)
@@ -619,7 +620,7 @@ g_gg <- ggraph(gg1,
   geom_node_point(size = 2) +
   theme_graph()
 g_gg_deg <- as.data.frame(igraph::degree(gg1))
-colnames(g_gg_deg) <- 'degree'
+colnames(g_gg_deg) <- "degree"
 # Plot histogram of degree for relative neighborhood network
 h_gg <- ggplot(data = g_gg_deg) +
   geom_histogram(aes(x = degree), bins = 5)
@@ -672,13 +673,13 @@ g_nn6 <- ggraph(nn6,
   theme_graph()
 # Set up dataframes of degree distribution for each network
 nn2_deg <- as.data.frame(igraph::degree(nn2))
-colnames(nn2_deg) <- 'degree'
+colnames(nn2_deg) <- "degree"
 nn3_deg <- as.data.frame(igraph::degree(nn3))
-colnames(nn3_deg) <- 'degree'
+colnames(nn3_deg) <- "degree"
 nn4_deg <- as.data.frame(igraph::degree(nn4))
-colnames(nn4_deg) <- 'degree'
+colnames(nn4_deg) <- "degree"
 nn6_deg <- as.data.frame(igraph::degree(nn6))
-colnames(nn6_deg) <- 'degree'
+colnames(nn6_deg) <- "degree"
 # Initialize histogram plot for each degree distribution
 h_nn2 <- ggplot(data = nn2_deg) +
   geom_histogram(aes(x = degree), bins = 5) +
@@ -735,15 +736,15 @@ The first analysis explores the degree to which similarities in ceramics (in ter
 
 ```{r, warning=F, message=F, cache=T}
 library(mgcv)
-load('data/map.RData')
-attr <- read.csv('data/AD1050attr.csv', row.names = 1)
-cer <- read.csv('data/AD1050cer.csv',
+load("data/map.RData")
+attr <- read.csv("data/AD1050attr.csv", row.names = 1)
+cer <- read.csv("data/AD1050cer.csv",
                 header = T,
                 row.names = 1)
 sim <-
   (2 - as.matrix(vegan::vegdist(prop.table(
-    as.matrix(cer), 1), 
-    method = 'manhattan'))) / 2
+    as.matrix(cer), 1),
+    method = "manhattan"))) / 2
 dmat <- as.matrix(dist(attr[, 9:10]))
 fit <- gam(as.vector(sim) ~ as.vector(dmat))
 summary(fit)
@@ -759,19 +760,19 @@ The next analysis presented the book creates a series of minimum distance networ
 kms <- seq(36000, 400000, by = 36000)
 # Define minimum distance networks for each item in "kms" and the
 # calculate variance explained
-temp.out <- NULL
-for (i in 1:length(kms)) {
-  dmat.temp <- dmat
-  dmat.temp[dmat > kms[i]] <- 0
-  dmat.temp[dmat.temp > 0] <- 1
+temp_out <- NULL
+for (i in seq_len(length(kms))) {
+  dmat_temp <- dmat
+  dmat_temp[dmat > kms[i]] <- 0
+  dmat_temp[dmat_temp > 0] <- 1
   # Calculate gam model and output r^2 value
   temp <- gam(as.vector(sim[lower.tri(sim)]) ~
-                as.vector(dmat.temp[lower.tri(dmat.temp)]))
-  temp.out[i] <- summary(temp)$r.sq
+                as.vector(dmat_temp[lower.tri(dmat_temp)]))
+  temp_out[i] <- summary(temp)$r.sq
 }
 # Create data frame of output
-dat <- as.data.frame(cbind(kms / 1000, temp.out))
-colnames(dat) <- c('Dist', 'Cor')
+dat <- as.data.frame(cbind(kms / 1000, temp_out))
+colnames(dat) <- c("Dist", "Cor")
 library(ggplot2)
 # Plot the results
 ggplot(data = dat) +
@@ -795,15 +796,16 @@ Finally, let's recreate figure 7.8 from the book to display the 36km minimum dis
 d36 <- as.matrix(dist(attr[, 9:10]))
 d36[d36 < 36001] <- 1
 d36[d36 > 1] <- 0
-g36.net <- graph_from_adjacency_matrix(d36, mode = "undirected")
+g36_net <- graph_from_adjacency_matrix(d36, mode = "undirected")
 locations_sf <- st_as_sf(attr,
                          coords = c("EASTING", "NORTHING"),
                          crs = 26912)
 z <- st_transform(locations_sf, crs = 4326)
 coord1 <- do.call(rbind, st_geometry(z)) %>%
-  tibble::as_tibble() %>% setNames(c("lon", "lat"))
+  tibble::as_tibble() %>%
+  setNames(c("lon", "lat"))
 xy <- as.data.frame(cbind(attr$SWSN_Site, coord1))
-colnames(xy) <- c('site', 'x', 'y')
+colnames(xy) <- c("site", "x", "y")
 base <- get_stamenmap(
   bbox = c(-110.75, 33.5, -107, 38),
   zoom = 8,
@@ -811,11 +813,11 @@ base <- get_stamenmap(
   color = "bw"
 )
 # Extract edgelist from network object
-edgelist <- get.edgelist(g36.net)
+edgelist <- get.edgelist(g36_net)
 # Create dataframe of beginning and ending points of edges
 edges <- as.data.frame(matrix(NA, nrow(edgelist), 4))
 colnames(edges) <- c("X1", "Y1", "X2", "Y2")
-for (i in 1:nrow(edgelist)) {
+for (i in seq_len(nrow(edgelist))) {
   edges[i, ] <- c(xy[which(xy$site == edgelist[i, 1]), 2],
                   xy[which(xy$site == edgelist[i, 1]), 3],
                   xy[which(xy$site == edgelist[i, 2]), 2],
@@ -830,17 +832,17 @@ figure7_8 <- ggmap(base, darken = 0.15) +
       xend = X2,
       yend = Y2
     ),
-    col = 'white',
+    col = "white",
     size = 0.10,
-    show.legend = F
+    show.legend = FALSE
   ) +
   geom_point(
     data = xy,
     aes(x, y),
     alpha = 0.65,
     size = 1,
-    col = 'red',
-    show.legend = F
+    col = "red",
+    show.legend = FALSE
   ) +
   theme_void()
 figure7_8

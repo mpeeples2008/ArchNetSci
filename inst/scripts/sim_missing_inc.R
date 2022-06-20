@@ -7,18 +7,18 @@ sim_missing_inc <- function(net,
                             met = NA) {
   # Initialize required library
   require(reshape2)
-  
+
   props <- as.vector(props)
-  
+
   if (FALSE %in% (is.numeric(props) & (props > 0) & (props <= 1))) {
     stop("Variable props must be numeric and be between 0 and 1",
          call. = F)
   }
-  
+
   # Select measure of interest based on variable met and calculate
   if (!(met %in% c("degree", "betweenness", "eigenvector"))) {
     stop(
-      "Argument met must be either degree, betweenness, or eigenvector. 
+      "Argument met must be either degree, betweenness, or eigenvector.
       Check function call.",
       call. = F
     )
@@ -27,8 +27,7 @@ sim_missing_inc <- function(net,
     if (met == "degree") {
       met_orig <- igraph::degree(net)
     }
-    else
-    {
+    else   {
       if (met == "betweenness") {
         met_orig <- igraph::betweenness(net)
       }
@@ -39,22 +38,22 @@ sim_missing_inc <- function(net,
       }
     }
   }
-  
+
   # Create data frame for out put and name columns
   output <- matrix(NA, nsim, length(props))
   colnames(output) <- as.character(props)
-  
+
   # Iterate over each value of props and then each value from 1 to nsim
-  for (j in 1:length(props)) {
+  for (j in seq_len(length(props))) {
     for (i in 1:nsim) {
-      # Run code in brackets if missing_probs == NA
+      # Run code in brackets if missing_probs is NA
       if (is.na(missing_probs)[1]) {
-        # Create a sub-sample of the incidence matrix rows 
+        # Create a sub-sample of the incidence matrix rows
         # at random
         sub_samp <- sample(seq(1, nrow(inc)),
                            size = round(nrow(inc) * props[j], 0))
         # Create an adjacency matrix by matrix algebra
-        sub_adj <- t(inc[sub_samp,]) %*% inc[sub_samp,]
+        sub_adj <- t(inc[sub_samp, ]) %*% inc[sub_samp, ]
         # create a network object from the resulting adjacency matrix
         sub_net <- igraph::graph_from_adjacency_matrix(sub_adj,
                                                        mode = "undirected",
@@ -68,7 +67,7 @@ sim_missing_inc <- function(net,
                            size = round(nrow(inc) * props[j], 0),
                            prob = missing_probs)
         # Create an adjacency matrix by matrix algebra
-        sub_adj <- t(inc[sub_samp,]) %*% inc[sub_samp,]
+        sub_adj <- t(inc[sub_samp, ]) %*% inc[sub_samp, ]
         # create a network object from the resulting adjacency matrix
         sub_net <- igraph::graph_from_adjacency_matrix(sub_adj,
                                                        mode = "undirected",
@@ -78,8 +77,7 @@ sim_missing_inc <- function(net,
       if (met == "degree") {
         temp_stats <- igraph::degree(sub_net)
       }
-      else
-      {
+      else   {
         if (met == "betweenness") {
           temp_stats <- igraph::betweenness(sub_net)
         }
@@ -93,11 +91,10 @@ sim_missing_inc <- function(net,
       # met_orig and each temp_stats iteration.
       output[i, j] <- suppressWarnings(cor(temp_stats,
                                            met_orig,
-                                           method = 'spearman'))
+                                           method = "spearman"))
     }
   }
-  # Return output as data.frame 
+  # Return output as data.frame
   df_output <- suppressWarnings(melt(as.data.frame(output)))
   return(df_output)
 }
-

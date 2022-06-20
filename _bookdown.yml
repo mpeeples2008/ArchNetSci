@@ -7,7 +7,9 @@ rmd_files:
   - "04-uncertainty.Rmd"
   - "05-visualization.Rmd"
   - "06-spatial-networks.Rmd"
-  - "07-beyond-the-book.Rmd"
+  - "07-ergm.Rmd"
+  - "08-spatial-interaction.Rmd"
+  - "09-affiliation.Rmd"
   - "lookup.Rmd"
   - "references.Rmd"
 new_session: true

@@ -1,3 +1,5 @@
+# (PART) Additional Material{-}
+
 # Table of Contents Quick Reference{- #TableOfContents}
 
 The purpose of this section is to provide a quick index of topics covered in this document so that you can easily identify and work on specific things. Use the cross-reference links below to find what you are looking for.
@@ -14,7 +16,9 @@ The purpose of this section is to provide a quick index of topics covered in thi
 * [Help Build the Community](#Community)
 * [Acknowledgements](#Acknowledgements)
 
-## Getting Started with R{-}
+## PART II: GETTING STARTED{-}
+
+## Section 1: Getting Started with R{-}
 
 [Getting Started with R](#GettingStarted)
 
@@ -52,7 +56,9 @@ The purpose of this section is to provide a quick index of topics covered in thi
 * [Test Your Skills](#TestYourSkills)
 
 
-## Section 1: Data and Workspace Setup{-}
+## PART II: WORK WHILE YOU READ{-}
+
+## Section 2: Data and Workspace Setup{-}
 
 [Data and Workspace Setup](#DataAndWorkspace)
 
@@ -70,7 +76,7 @@ The purpose of this section is to provide a quick index of topics covered in thi
 * [R Environment](#Environment)
 * [Suggested Workspace Setup](#WorkspaceSetup)
 
-## Section 2: Network Data in R{-}
+## Section 3: Network Data in R{-}
 
 [Network Data in R](#NetworkData)
 
@@ -95,7 +101,7 @@ The purpose of this section is to provide a quick index of topics covered in thi
   + [Multilayer networks](#Multinet)
 * [Converting among network object types](#ConvertingNetworkFormats)
   
-## Section 3: Exploratory Network Analysis{-}
+## Section 4: Exploratory Network Analysis{-}
 
 [Exploratory Network Analysis](#Exploratory)
 
@@ -131,7 +137,7 @@ The purpose of this section is to provide a quick index of topics covered in thi
     - [Finding Edges Between Communities](#FindingEdgesBetween)
 * [Case Study: Roman Roads in the Iberian Peninsula](#ExploratoryRomanRoads)
    
-## Section 4: Quantifying Uncertainty{-}
+## Section 5: Quantifying Uncertainty{-}
 
 [Quantifying Uncertainty](#Uncertainty)
 
@@ -146,7 +152,7 @@ The purpose of this section is to provide a quick index of topics covered in thi
   + [Edge Probability and Similarity Networks](#EdgeProbSim)
 * [Uncertainty Due to Small or Variable Sample Sizes](#SampleSize)
 
-## Section 5: Network Visualization{-}
+## Section 6: Network Visualization{-}
 
 [Network Visualization](#NetworkVisualization)
 
@@ -196,7 +202,7 @@ The purpose of this section is to provide a quick index of topics covered in thi
   + [Figure 6.27 - Case Study, SWSN Example 2](#Figure_6_27)
 
 
-## Section 6: Spatial Networks{-}
+## Section 7: Spatial Networks{-}
 
 [Spatial Networks](#SpatialNetworks)
 
@@ -216,8 +222,10 @@ The purpose of this section is to provide a quick index of topics covered in thi
 * [Case Studies: Spatial Networks and Networks in Space](#SpaceCaseStudies)
   + [Proximity of Iron Age Sites in Southern Spain](#IronAgeSpain)
   + [Networks in Space in the U.S. Southwest](#SpaceSW)
-  
-## Section 7: Exponential Random Graph Models{-}
+
+## PART III: GOING BEYOND THE BOOK{-}
+
+## Section 8: Exponential Random Graph Models{-}
 
 [Exponential Random Graph Models](#ERGM)
  
@@ -232,7 +240,7 @@ The purpose of this section is to provide a quick index of topics covered in thi
 * [Additinoal Info on ERGM Terms](#ERGMterms)
   + [Avoiding Model Degeneracy](#Degeneracy)
 
-## Section 8: Spatial Interaction Models{-}
+## Section 9: Spatial Interaction Models{-}
 
 [Spatial Interaction Models](#SpatialInteraction)
 
@@ -243,7 +251,23 @@ The purpose of this section is to provide a quick index of topics covered in thi
 * [Truncated Power Functions](#TruncatedPower)
 * [Other Spatial Interaction Models](#OtherModels)
 
-## References and R Packages{-}
+## Section 10: Affiliation Data and Co-Association{-}
+
+[Affiliation Data and Co-Association](#Affiliation)
+
+* [Analyzing Two-Mode Networks](#AnalyzingTwoMode)
+  + [Using Traditional Network Metrics](#TraditionalMetrics)
+  + [Using Two-Mode Specific Network Metrics](#TwoModeMetrics)
+  + [Projecting Two-Mode Networks Before Analysis](#ProjectingTwoMode)
+* [Correspondence Analysis](#CorrespondenceAnalysis)
+  + [Network Visuals Using Correspondence Analysis](#CAViz)
+* [Measuring Co-Association](#MeasuringCoassociation)
+  + [Alternative Methods for Visualizing Co-associations](#COViz)
+
+## ADDITIONAL INFORMATION AND MATERIALS{-}
+
 
 [References and R Packages](https://book.archnetworks.net/references-and-r-packages.html)
+
+[ArchNetSci GitHub Repository](https://github.com/mpeeples2008/ArchNetSci)
 

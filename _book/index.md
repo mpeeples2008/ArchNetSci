@@ -1,7 +1,7 @@
 ---
 title: "Online Companion to *Archaeological Network Science*"
 author: "Matthew A. Peeples and Tom Brughmans"
-date: "2022-06-15"
+date: "2022-06-20"
 site: bookdown::bookdown_site
 output: bookdown::bs4_book
 documentclass: book
@@ -23,15 +23,17 @@ cover-image: images/cover.png
 
 
 
+This project serves as a companion to the Cambridge Manuals in Archaeology book *Archaeological Network Science* by Tom Brughmans and Matthew A. Peeples (2022). 
+
 <a href="https://book.archnetworks.net"><img src="images/cover.png" width="250" height="375" alt="Brughmans and Peeples Book Cover" align="right" style="margin: 0 1em 0 1em" /></a>
 
-This project serves as a companion to the Cambridge Manuals in Archaeology book *Archaeological Network Science* by Tom Brughmans and Matthew A. Peeples (2022). This document contains a series of tutorials that outline methods for managing, analyzing, and visualizing network data, primarily using the R programming language. We provide code and examples to replicate the analyses presented in the book as well as many other additional useful tools. This Online Companion is designed to expand upon topics covered in the book and you may find it useful to follow along with these examples as you read the text. Sections 1 through 6 in this document correspond to the topics and information covered in Chapters 2 through 7 of the Brughmans and Peeples book. Sections 7 and 8 in this document go beyond the scope of the published book (including detailed discussions of exponential random graph models and spatial interaction models). We plan to continue to add to and expand this document in the future. You can use the table of contents on the left-hand side of your screen to jump directly to a particular section and the table and contents on the right to navigate within each section. We have also created a [quick TOC reference](#TableOfContents) if you are seeking something in particular. 
+This document contains a series of tutorials that outline methods for managing, analyzing, and visualizing network data, primarily using the R programming language. We provide code and examples to replicate the analyses presented in the book as well as many other additional useful tools. This bulk of this Online Companion is designed to be used with the book in hand to expand on topics covered in the published version. Part I of this document (see the Table of Contents) is focused on helping you get started in R and R-Studio. Part II which includes sections 2 through 7 corresponds to the topics and information covered in Chapters 2 through 7 of the Brughmans and Peeples book. Part III (Going Beyond the Book) includes tutorials beyond the scope of the published book including "advanced" topics that require additional detailed description and knowledge of the methods presented in Parts I and II. We plan to continue to add to and expand Part III in the future. You can use the table of contents on the left-hand side of your screen to jump directly to a particular section and the table and contents on the right to navigate within each section. We have also created a [quick TOC reference](#TableOfContents) if you are seeking something in particular. 
 
 For more information on the book and the authors check out the project website here: [archnetworks.net](https://archnetworks.net).
 
 **Cite this document as:**
 
-> Peeples, Matthew A. and Tom Brughmans (2022). Online Companion to Archaeological Network Science by Brughmans and Peeples. <https://archnetworks.net>, Accessed 2022-06-15.
+> Peeples, Matthew A. and Tom Brughmans (2022). Online Companion to Archaeological Network Science by Brughmans and Peeples. <https://archnetworks.net>, Accessed 2022-06-20.
 
 **The associated book can be cited as**
 
@@ -55,8 +57,8 @@ The tutorials here are designed to complement the text of the associated book (B
 
 A few suggestions on where to start:
 
-* If you are new to network analysis and R, we would suggest going through each section of this document, starting with "Getting Started with R" and then going through the numbered sections in order as you following along in the book.
-* If you are already familiar with R but new to network analysis, we suggest you read Section 1 to set up your data and work space, and then follow along with the remaining numbered sections and associated book chapters as you read.
+* If you are new to network analysis and R, we would suggest going through each section of this document, starting with Part I: Getting Started with R and then going through Part II in order as you following along with the corresponding chapters in the book.
+* If you are already familiar with R but new to network analysis, you can start with Section 2 in Part II to set up your data and work space, and then follow along with the remaining numbered sections and associated book chapters as you read.
 * If you are already a network analyst and confident R user and are just looking for code chunks to implement something in particular, feel free to skip around. We have tried to make each section as independent as possible so that you can pick and choose what you want to work on. Use the [Table of Contents](#TableOfContents) to find topics quickly.
 * If you're a real pro and are designing your own network analyses or visualizations, we would love it if you contributed to the project to help this document grow.
 
@@ -134,9 +136,9 @@ If you already have a basic familiarity with R and want to go further, there are
 
 ## Contribute To the Project{- #Contributing}
 
-We welcome contributions to this project from the community and the GitHub platform helps us facilitate that. You will first need to [sign up for a GitHub account](https://github.com/) and log in. If you find something that needs updating or changing (typos or errors) you can simply click the "View source" link at the right sidebar on the relevant page and then click the edit icon found near the top of the code block and make your proposed changes. These changes will be saved in a new "fork" of the document and we will review these and implement them where relevant and happily add your name to our list of contributors. 
+We welcome contributions to this project from the community and the GitHub platform helps us facilitate that. You will first need to [sign up for a GitHub account](https://github.com/) and log in. If you find something that needs updating or changing (typos or errors) you can simply click the "View source" link at the right sidebar on the relevant page and then click the edit icon found near the top of the code block and make your proposed changes. These changes will be saved in a new "fork" of the document and we will review these and implement them where relevant and happily add your name to our list of contributors. Note that we generally use the [tidyverse style guide](https://style.tidyverse.org/) for formatting code and comments.
 
-If you detect a larger error such as code not running or if you would like to request a new feature or  update, you can create an issue using the [issue tracker](https://github.com/mpeeples2008/ArchNetSci/issues) page associated with the project repository.
+If you detect a larger error such as code not running or if you would like to request a new feature or update, you can create an issue using the [issue tracker](https://github.com/mpeeples2008/ArchNetSci/issues) page associated with the project repository.
 
 All contributors must agree to adhere to our [code of conduct](https://github.com/mpeeples2008/ArchNetSci/blob/main/CODE_OF_CONDUCT.md).
 
@@ -146,7 +148,7 @@ We are devoted to seeing the community of archaeological network practitioners g
 
 * Spread the word to your friends and colleagues
 * Share links to these online resources on social media using the [#archnetworks](https://twitter.com/search?q=%23archnetworks&src=typed_query) hashtag
-* Please cite the book *and* the Online Companion if you use methods or code from this document
+* Please cite the book *and* the Online Companion if you use methods or code from this document. [Citation Info](https://github.com/mpeeples2008/ArchNetSci/blob/main/CITATION.bib)
 * Star the [GitHub project repository](https://github.com/mpeeples2008/ArchNetSci) and contribute to the project
 * [Join the Computational Archaeology Discord](https://discord.gg/Z9UXwjASM5) and invite other interested people
 * Share articles, teaching resources, data, or other archaeological network materials for posting on our associated website [(archnetworks.net)](https://archnetworks.net)
@@ -161,13 +163,15 @@ This Online Companion to Archaeological Network Science is licensed under a [Cre
 
 This online bookdown project and the associated book were made possible thanks to the support of several generous funding sources including: The Carlsberg Foundation, in the context of the Past Social Networks Project (CF21-0382); the National Science Foundation through both the Archaeology and the Measurement, Methodology, and Statistics programs (grant #1758690 and #1758606); and the School of Human Evolution and Social Change at Arizona State University. Thank you to Jens Emil Bødstrup Christoffersen for providing detailed comments on and for testing the initial version of this online bookdown document. Any errors that remain are our own.
 
-![](images/NSF_Logo.png){width=150px} ![](images/ASU_SHESC_Logo.png){width=300px}
+![](images/Carlsbergfondet.png){width=300px} &nbsp; &nbsp; ![](images/NSF_Logo.png){width=150px} &nbsp; &nbsp; ![](images/ASU_SHESC_Logo.png){width=300px}
 
-# Gettings Started with R{- #GettingStarted}
+# (PART) **PART I: Getting Started** {-}
+
+# Getting Started with R{#GettingStarted}
 
 In order to follow along with the code and examples in this document, you will need recent installations of both R and R-Studio on your computer. R and R-studio are available for Windows, MacOS, and Linux. This section provides a very brief overview of how to get up and running. Following this, we introduce the basics of R and R-Studio to get you ready for the tutorials in the remainder of this document. If you follow this tutorial here we are confident you will be able to engage with the examples and code in this Online Companion.
 
-## Download and Install R{- #InstallR}
+## Download and Install R{#InstallR}
 
 The first step is to install a recent version of R (we recommend 4.2 or later as this document was originally created in version 4.2). Follow the instructions below for the appropriate operating system.
 
@@ -175,19 +179,19 @@ The first step is to install a recent version of R (we recommend 4.2 or later as
 * Choose a mirror for your download selecting one in your country or the "Cloud" option.
 * Next, click on Windows, MacOS, or your Linux distribution and follow the instructions below.
 
-### Windows{- #Windows}
+### Windows{ #Windows}
 
 * Click the "base" sub-directory on the left hand side of the screen and then click "Download R-4.2.0 for Windows" (the version number should be 4.2 or later) to download the most recent version as an executable.
 * Once your download is complete, run the *.exe file and answer questions as prompted to complete the installation. 
 
-### MacOS{- #MacOS}
+### MacOS{ #MacOS}
 
 To install R on MacOS, you first need to know which chip manufacturer your Mac has. In order to determine which chip you have go to the Apple menu and select "About This Mac" and look for information under "Processor" or "Chip" in the window that pops up. It will either be Intel or M1.
 
 * Next, click the on the link under "Latest release" for the *.pkg file for the appropriate Mac processor in your computer. There is a separate notarized and signed .pkg file Macs with Intel processors and Macs with Apple M1 processors (mostly produced 2020 and later). Note, these .pkg files are not interchangeable so confirm which one you need before attempting to install.
 * Once you have downloaded the appropriate .pkg, run it and answer the questions during the install as required.
 
-### Linux{- #Linux}
+### Linux{ #Linux}
 
 Linux installations of R are primarily done through the console but the instructions are slightly different depending on which distribution you are using.
 
@@ -195,7 +199,7 @@ Linux installations of R are primarily done through the console but the instruct
 * The "R-core" or "R-base" builds are the ones you want to choose. 
 * Follow the instructions for your build and install any recommended dependencies. 
 
-## Download and Install R-Studio{- #InstallRStudio}
+## Download and Install R-Studio{ #InstallRStudio}
 
 R-studio is an integrated development environment (IDE) for R, Python, and related programming tools that provides additional features for running and debugging code and data management. We see this IDE as essential to working with large and complex R projects. 
 
@@ -206,19 +210,19 @@ In order to install R-Studio:
 * Download and run the latest "installer" file for the appropriate operating system.
 * Run the downloaded file and answer questions at prompts as appropriate. R-Studio should automatically detect your installation of R.
 
-## Run R-Studio{- #RunRStudio}
+## Run R-Studio{ #RunRStudio}
 
 Once you've installed both R and R-Studio, open R-studio and look for the Console window (it will typically be the left hand side of the screen). That will tell you the version of R that is associated with the installation of R-Studio. If all goes well, it should be the recent version of R you just installed. 
 
 ![R Version Installed](images/r-version.jpg){width=100%}
 
-## R and R-Studio Basics{- #RBasics}
+## R and R-Studio Basics{ #RBasics}
 
 R is a powerful statistical analysis platform that can be used to conduct some quite complex analyses. The learning curve is a bit steep when first getting started but the payoff is HUGE because the ecosystem of existing R scripts and packages is so large and diverse. We cannot hope to cover everything R and R-Studio can do in this very short intro here. Our tutorial here is a version of the "Introduction to R programming" that Peeples has used in the first week of his Quantitative and Formal Methods in Archaeology class for a number of years. Hopefully this will get you started. 
 
 Although R seems complicated at first, many quite complex statistical analyses are run with just a few lines of code. Once you learn the basics, more complex features of R are really just combinations of these basic procedures. You won't become an R expert overnight, but we've seen many students pick up the basics quite quickly and begin to take on their first independent analyses in R in a matter of hours. 
 
-### Organization of R-Studio{- #Org}
+### Organization of R-Studio{ #Org}
 
 First off, let's take a look at the R-Studio setup. When you first open R-Studio for the first time, you will see a screen divided into 3 panes. Before getting started click on "File" at the top of the screen and go to "New File > R Script" to open a 4th pane. You should see something like the screen below. 
 
@@ -241,7 +245,7 @@ Organization of R-Studio Windows:
 
 Note that the locations and visibility of these panes can be changed by going to "View > Panes" and selecting different options. In the set of tutorials that follow we are going to focus on the Console first and will introduce the other panels and what they provide along the way.
 
-### Mathematical Operations{- #Math}
+### Mathematical Operations{ #Math}
 
 Getting started with R is as simple as typing directly into the Console. You can use the R console like a calculator to conduct mathematical operations. Simply type the numbers and operators at the console and hit enter to calculate. The answer will output directly on the console by default. Try typing the following at the console:
 
@@ -327,7 +331,7 @@ Anything placed after a `#` in a block of code will be treated as a comment and 
 ## [1] 12
 ```
 
-### Creating Variables/Objects{- #Variables}
+### Creating Variables/Objects{ #Variables}
 
 R can also assign numbers, characters, or more complex operations to variables (also known as objects in this context) which can then be used in mathematical operations. Typically, we assign values to a object using the `<-` assign command but `=` also works. For example:
 
@@ -410,7 +414,7 @@ month.name
 ```
 
 
-### Logical Operators{- #Logical}
+### Logical Operators{ #Logical}
 
 R can also use logical operators (see list below). These operators can be used in conjunction with other operations and return a value indicating `TRUE` or `FALSE`. These can be used in more complex functions and conditional statements as we will see below.
 
@@ -473,7 +477,7 @@ v > 20 | v < 30 # or statement
 ## [1] TRUE
 ```
 
-### Vectors{- #Vectors}
+### Vectors{ #Vectors}
 
 R can also assign a vector of numbers or characters to a variable and preform operations using that vector. For example in the following we use the `c()` (c for combine) command to create a vector and subject it to a mathematical or other operation.
 
@@ -554,7 +558,7 @@ To see if a particular value is in a given object we can use the `%in%` operator
 ```
 
 
-### Using Basic R Functions{- #Functions}
+### Using Basic R Functions{ #Functions}
 
 R has a number of built-in functions that perform many common operations and statistical analyses. We have already used one of these above `c()` and it was so fast and easy you might have missed it. Functions are typically used by typing the name of the function followed by a set of parenthesis that contain all of the arguments that the function expects. For example:
 
@@ -618,7 +622,7 @@ round(pi, digits = 2) # argument setting the number of digits to retain
 
 For a list of some of the most frequently used built-in functions see [this Quick-R](https://www.statmethods.net/management/functions.html) page. 
 
-### Tabular Data{- #Tabular}
+### Tabular Data{ #Tabular}
 
 R can be used to work with tabular data as well. Typically it is most convenient to read such data for a file for very large tabular data [(see working with files below)](#WorkingWithFiles), but we can also generate simple numeric tabular data directly in R using the `matrix()` function. In the following example we create a two-row, two-column matrix by converting a vector of numbers into a matrix by specifying the number of rows `nrow` and number of columns `ncol`. The assignments we make inside the `matrix()` function are called arguments. 
 
@@ -703,7 +707,7 @@ fisher.test(mat2)
 
 The output includes information about the data we used to run the test, a p-value, the alternative hypothesis, confidence intervals, and the odds ratio. The output we get from any given function will vary depending on the application. See the `help()` documents for your function of interest to get more info about output.
 
-### Data Types in R{- #DataTypes}
+### Data Types in R{ #DataTypes}
 
 There are many different types of data that R understands but we focus here on the most common categories. This includes numeric data, integer data, character data, logical data, and factors.
 
@@ -761,7 +765,7 @@ str(fac)
 ##  Factor w/ 3 levels "type1","type2",..: 1 2 2 3
 ```
 
-### Object Types in R{- #ObjectTypes}
+### Object Types in R{ #ObjectTypes}
 
 The four most common object types in R are vectors, matrices, lists, and data frames. We have already explored vectors and matrices but we can define these and the other classes in more detail here.
 
@@ -770,7 +774,7 @@ The four most common object types in R are vectors, matrices, lists, and data fr
 * **data frame** - a set of values in a rectangular two-way table where different columns can be different data types
 * **list** - a list is a collection of other R objects that can be vectors, matrices, data frames or others in any format that are combined into a single object.
 
-#### Vectors{- #Vec}
+#### Vectors{ #Vec}
 
 We have already introduced vectors above but we can point out one more feature that is often useful in assessing vectors. The `length()` function tells you how many elements are in a vector.
 
@@ -784,7 +788,7 @@ length(v)
 ## [1] 10
 ```
 
-#### Matrices{- #Mat}
+#### Matrices{ #Mat}
 
 Once again, we have already introduced matrices above but there are a few more details that are worth addressing here. Again, if you want to call a specific value in a matrix you can use the `[ , ]` square brackets with the row number listed followed by a comma and the column number. For example:
 
@@ -819,7 +823,7 @@ dim(mat1)
 ```
 
 
-#### Data Frame{- #DF} 
+#### Data Frame{ #DF} 
 
 As the brief definitions above suggest, data frames are very similar to matrices but can include mixed data types in the same rectangular table. Each row and column must, however, have the same number of entries. A data frame can be created by combining a set of vectors. For example:
 
@@ -888,7 +892,7 @@ dat[2, 1]
 ## [1] "mastadon"
 ```
 
-#### Lists{- #List}
+#### Lists{ #List}
 
 A list is simply a convenient way of combining multiple objects into a single object. It doesn't matter what type of objects they are. Lists can be defined using the `list()` function. For example:
 
@@ -946,17 +950,17 @@ out1[[2]][2, 1] # row 2 column 1 in list object 2
 ```
 
 
-## The Workspace Tab{- #WorkspaceTab}
+## The Workspace Tab{ #WorkspaceTab}
 
 Now that we are starting to get into more complex calls and functions, it will be useful to write and edit the code before executing it rather than typing it directly into the Console. To do this, we can work in the Workspace tab R script document we created at the beginning of this tutorial (Go to File > New File > R Script to open a new document). These .R documents can be edited and saved on your computer so that you can return to them later. Let's take a look at how this works.
 
 Think of the R script document as a draft of what you plan to type to the Console. 
 
-### Setting the Working Directory{- #Directory}
+### Setting the Working Directory{ #Directory}
 
 Before we get started, let's save the blank R file we just created. First, we want to define the "Working Directory" where files associated with this project will go. To do that go to the menu at the top of the screen and click "Session > Set Working Directory > Choose Working Directory" and then navigate to the location where you would like to save the file. Next, click on "File > Save As" and define a name for your R script. This should end in .R as this is the extension R and R studio recognize for R Scripts.
 
-### Working with your first R script{- #FirstScript}
+### Working with your first R script{ #FirstScript}
 
 Now that you have saved this script, you can type mathematical operations, functions, and other code just as we did directly in the Console above. The main advantage is that if you make a mistake you can go back and fix it more easily. Go ahead and copy the code in the next code chunk below and paste it in your R script int he Workspace window and then save the document.
 
@@ -978,7 +982,7 @@ Once you have this saved, highlight all of the code in the Workspace window and 
 
 This will execute the code in your Console and print the results. Let's say when we ran this code, we realized that we actually wanted to raise `mat3` to the 3rd power or we typed one number in our data incorrectly. We can make those changes and then select the code and click run again to do this. This is the true power of scripts in that they allow us to make changes and modify our code easily as we go without retyping commands. Anything you can do in the console you can first set up in the Workspace pane.
 
-## Installing and Using Packages{- #InstallPackages}
+## Installing and Using Packages{ #InstallPackages}
 
 So far, everything we have done has involved packages included in "base" R and only internal built-in functions. One of the best things about R is the ecosystem of packages created and peer reviewed by others for all manner of statistical analyses you can imagine. There is a package out there for just about everything so it is always a good idea to check before you start to write any complex script on your own.
 
@@ -1062,7 +1066,7 @@ this is the archive that contains most of the peer reviewed and
 established packages for R.</p>
 </div>
 
-## Working with External Files{- #WorkingWithFiles}
+## Working with External Files{ #WorkingWithFiles}
 
 In many cases we may wish to either write or read an external files with R. Frequently these files take the shape of spreadsheets such as Excel documents or csv (comma separated value) documents. R has many functions for reading in such data and most are built-in to base R. Let's try this out by first writing a .csv (comma separated value) file from a matrix we generate and then reading it back in. Note that any files you write from the console will go directly to the R working directory unless you otherwise specify.
 
@@ -1147,7 +1151,7 @@ is.matrix(read_mat2)
 
 There are lots of different functions for reading in files in different formats and we will introduce some of these later in the subsequent sections of this tutorial where relevant. For an overview of some of the most common file types [see this Quick-R tutorial](https://www.statmethods.net/input/importingdata.html).
 
-## Plotting Data{- #Plotting}
+## Plotting Data{ #Plotting}
 
 One of the great features of R is the ability to make all kinds of amazing data visualizations. Making simple graphics is very easy but as we will see, defining very specific details often requires a number of different packages and considerable care. Indeed, the vast majority of functions used in this Online Companion are used for visualizations.
 
@@ -1268,7 +1272,7 @@ ggplot(data = df2) +
 
 <img src="index_files/figure-html/unnamed-chunk-53-3.png" width="672" />
 
-## Warnings and Messages in R{- #Warnings}
+## Warnings and Messages in R{ #Warnings}
 
 As you have run the code above or in other sections of this documents, you may have seen additional "warnings" or "messages" appear on the screen. For example something like: 
 
@@ -1278,11 +1282,11 @@ This output in the console is simply letting us know that we might want to selec
 
 For the purposes of this online companion, however, we have "muted" these warnings and messages in the output except in a couple of places where we are pointing out something specific. Any messages you generate should be innocuous but feel free to ask if you have questions or concerns.
 
-## More Advanced R Features{- #AdvancedR}
+## More Advanced R Features{ #AdvancedR}
 
 The examples so far have covered most of the basic features of R and R-Studio. There are just a few more things that are implemented in this online document that need a bit of additional explanation. If you can follow along with the examples above, you will be able to replicate most of the work in this document. The features in this section will help you expand your skills and better understand the more complicated code in this document. 
 
-### Conditional Statements{- #Conditionals}
+### Conditional Statements{ #Conditionals}
 
 Another common need for programming in R is to conduct an action conditioned on another action or variable state. For example, if A is `TRUE` then do B. If statements like this are formally in R using the following format:
 
@@ -1406,7 +1410,7 @@ which(y > 10)
 
 In the first example above, we created a sequence of numbers from 1 to 10 and then evaluated which were greater than 5. The results indicated that items 6, 7, 8, 9, and 10 in the vector were greater than 5. Note that these results are not referring to the values but instead are the numeric indexes of the values. The second example illustrates this. This is much like the first example by we create a sequence of numbers from 2 to 20 counting by 2s. When we evaluate which numbers in the vector are greater than 10, our results tell us the 6th, 7th, 8th, 9th, and 10th numbers are greater than 10.
 
-### Loops{- #Loops}
+### Loops{ #Loops}
 
 A loop provides a set of instructions for R to repeat a code block some number of times based on rules we supply. The typical syntax is:
 
@@ -1486,7 +1490,7 @@ In the second example, the statement within the brackets tells R to assign the v
 
 There is a lot more than can be done with loops but this basic description should be all you need to know to understand the code in this document.
 
-### Custom Functions{- #CustomFunctions}
+### Custom Functions{ #CustomFunctions}
 
 Finally, we are going to end with a discussion of how R can be used to create custom functions. If there is some operation you do again and again, it doesn't make sense to keep copying and pasting the code every time. It makes more sense to define a function and then just call that. Once defined, a custom function works just like all the built-in and package functions we've seen above. Here is the basic syntax of a function in R:
 
@@ -1559,7 +1563,7 @@ seq_len(10)
 ```
 
 
-## Test Your Skills{- #TestYourSkills}
+## Test Your Skills{ #TestYourSkills}
 
 If you've followed along with this tutorial so far, you should be able to do many basic operations in R and R-Studio. Let's now put your skills to the test. Use what you have learned above to create a function that converts Fahrenheit temperatures to Celsius. The formula for this conversion is `(F_temp - 32) * 5 / 9`. Create a function that reads in the F temperature and outputs C and the run it for the  sequence of values below. 
 

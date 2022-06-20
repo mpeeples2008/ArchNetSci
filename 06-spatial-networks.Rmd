@@ -306,7 +306,7 @@ Minimum spanning tree: in a set of nodes in the Euclidean plane, edges are creat
 
 Perhaps the most common use-case for trees in archaeological networks is to define the minimum spanning tree of a given graph or the minimum set of nodes and edges required for a fully connected graph. The `igraph` package has a function called `mst` that defines the minimum spanning tree for a given graph. Let's try this with the Roman Road and then plot it as a node-link diagram and a map.
 
-```{r, fig.height=5, fig.width=7}
+```{r, fig.height=5, fig.width=7, warning=F, message=F}
 mst_net <- igraph::mst(road_net)
 set.seed(4643)
 ggraph(mst_net, layout = "kk") +

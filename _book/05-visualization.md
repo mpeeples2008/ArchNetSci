@@ -48,9 +48,9 @@ cibola_i
 ```
 
 ```
-## IGRAPH 4177ba9 UN-- 31 167 -- 
+## IGRAPH 2999e0e UN-- 31 167 -- 
 ## + attr: name (v/c)
-## + edges from 4177ba9 (vertex names):
+## + edges from 2999e0e (vertex names):
 ##  [1] Apache.Creek--Casa.Malpais          Apache.Creek--Coyote.Creek         
 ##  [3] Apache.Creek--Hooper.Ranch          Apache.Creek--Horse.Camp.Mill      
 ##  [5] Apache.Creek--Hubble.Corner         Apache.Creek--Mineral.Creek.Pueblo 
@@ -2188,7 +2188,7 @@ Fig. 6.20. Nodetrix visualisation of the Peeples (2018) ceramic technological da
 
 ![Nodetrix visualization](images/nodetrix.jpg){width=100%}
 
-This Nodetrix interactive visualization was created using the Javascript implementation available on [GitHub](https://github.com/IRT-SystemX/nodetrix) by user [jdfekete](https://github.com/jdfekete/), Jean-Daniel Fekete who was one of the original authors of the method (Henry et al. 2007). 
+This Nodetrix interactive visualization was created using the Javascript implementation available on [GitHub](https://github.com/IRT-SystemX/nodetrix) by user [jdfekete](https://github.com/jdfekete/), Jean-Daniel Fekete who was one of the original authors of the method (Henry et al. 2007). To see a live demo of the Nodetrix Application in use with the Cibola technological similarity data [click here](https://mattpeeples.net/nodetrix/).
 
 The details of running the Javascript program are described on the GitHub page and are beyond this scope of this tutorial. We do illustrate below, however, how you can export R in the *.json format required by this program using the `d3r` and `rjson` packages. The code below expects and `igraph` network object. 
 
@@ -2217,8 +2217,6 @@ dj <- jsonlite::toJSON(dj)
 write(dj, "network.json")
 ```
 
-
-To see a live demo of the Nodetrix Application in use with the Cibola technological similarity data [click here](https://mattpeeples.net/nodetrix/).
 
 ### Figure 6.21: The Filmstrip Approach {- #Figure_6_21}
 
@@ -11227,9 +11225,9 @@ The original version of this figure was produced in ArcGIS using data prepared i
 first sort the order of edges bu length in the original edge list before
 converting it into a igraph network object. In the three lines beginning
 with <code># Order edges so shorest will plot last</code>, we use the
-<code>order</code> function and set <code>decreasing = T</code> so that
-edges will be listed from longest to shortest. The order of the edge
-list is the order that edges will be plotted.</p>
+<code>order</code> function and set <code>decreasing = TRUE</code> so
+that edges will be listed from longest to shortest. The order of the
+edge list is the order that edges will be plotted.</p>
 </div>
 
 
@@ -11281,7 +11279,7 @@ for (i in seq_len(nrow(edges2))) {
 
 # Order edges so shorest will plot last
 net_dat <- as.data.frame(cbind(edges2, dist_meas))
-net_dat <- net_dat[order(net_dat$dist_meas, decreasing = T), ]
+net_dat <- net_dat[order(net_dat$dist_meas, decreasing = TRUE), ]
 
 # Create bins in distance measurement
 net_dat <- net_dat %>%

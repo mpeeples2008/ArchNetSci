@@ -1965,7 +1965,7 @@ Fig. 6.20. Nodetrix visualisation of the Peeples (2018) ceramic technological da
 
 ![Nodetrix visualization](images/nodetrix.jpg){width=100%}
 
-This Nodetrix interactive visualization was created using the Javascript implementation available on [GitHub](https://github.com/IRT-SystemX/nodetrix) by user [jdfekete](https://github.com/jdfekete/), Jean-Daniel Fekete who was one of the original authors of the method (Henry et al. 2007). 
+This Nodetrix interactive visualization was created using the Javascript implementation available on [GitHub](https://github.com/IRT-SystemX/nodetrix) by user [jdfekete](https://github.com/jdfekete/), Jean-Daniel Fekete who was one of the original authors of the method (Henry et al. 2007). To see a live demo of the Nodetrix Application in use with the Cibola technological similarity data [click here](https://mattpeeples.net/nodetrix/).
 
 The details of running the Javascript program are described on the GitHub page and are beyond this scope of this tutorial. We do illustrate below, however, how you can export R in the *.json format required by this program using the `d3r` and `rjson` packages. The code below expects and `igraph` network object. 
 
@@ -1992,8 +1992,6 @@ dj <- jsonlite::toJSON(dj)
 write(dj, "network.json")
 ```
 
-
-To see a live demo of the Nodetrix Application in use with the Cibola technological similarity data [click here](https://mattpeeples.net/nodetrix/).
 
 ### Figure 6.21: The Filmstrip Approach {- #Figure_6_21}
 
@@ -2281,7 +2279,7 @@ Fig. 6.27. An explicit geographic map network of the SWSN project area through t
 The original version of this figure was produced in ArcGIS using data prepared in R. Here we show how these same network maps with edges color coded by geographic length can be produced in R. We provide code to prepare a map for one time period (AD1300-1350). [Use these data](data/Figure6_27.Rdata) to follow along. Note that this figure will differ slightly from the one in the book and in the original Mills et al. 2013 publication as site locations have been jittered. In this example we use geographic coordinates to calculate distance. See the [spatial networks](#SpatialNetworks) section for more details.
 
 ```{block, type="rmdtip"}
-Note for short edges to be visible on top of long edges here we must first sort the order of edges bu length in the original edge list before converting it into a igraph network object. In the three lines beginning with `# Order edges so shorest will plot last`, we use the `order` function and set `decreasing = T` so that edges will be listed from longest to shortest. The order of the edge list is the order that edges will be plotted.
+Note for short edges to be visible on top of long edges here we must first sort the order of edges bu length in the original edge list before converting it into a igraph network object. In the three lines beginning with `# Order edges so shorest will plot last`, we use the `order` function and set `decreasing = TRUE` so that edges will be listed from longest to shortest. The order of the edge list is the order that edges will be plotted.
 ```
 
 
@@ -2332,7 +2330,7 @@ for (i in seq_len(nrow(edges2))) {
 
 # Order edges so shorest will plot last
 net_dat <- as.data.frame(cbind(edges2, dist_meas))
-net_dat <- net_dat[order(net_dat$dist_meas, decreasing = T), ]
+net_dat <- net_dat[order(net_dat$dist_meas, decreasing = TRUE), ]
 
 # Create bins in distance measurement
 net_dat <- net_dat %>%
