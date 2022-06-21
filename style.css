@@ -13,6 +13,7 @@ that the columns never get too wide, either individually or collectively.
 
 */
 
+ /*------------- Body and header text---------------- */
 
 @media (min-width: 1200px) {
   .container-fluid {
@@ -559,4 +560,20 @@ img.cover {
     display: block;
     margin: 0 auto 1rem auto;
   }
+}
+
+.header_box {
+	width: 100%;
+	padding: 100px 0;
+	text-emphasis: center;
+}
+
+#bg {
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 50px;
+	right: 0;
+	background-color: #1e90ff;
+	height: 200px;
 }

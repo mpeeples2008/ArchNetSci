@@ -398,6 +398,14 @@
         "sass"
       ]
     },
+    "ca": {
+      "Package": "ca",
+      "Version": "0.71.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "392f13bb4dfd3c07259ecdeba6aa71f9",
+      "Requirements": []
+    },
     "cachem": {
       "Package": "cachem",
       "Version": "1.0.6",
@@ -2687,6 +2695,17 @@
       "Hash": "29f67ab15405b390b90e56ff22198ead",
       "Requirements": [
         "xfun"
+      ]
+    },
+    "tnet": {
+      "Package": "tnet",
+      "Version": "3.0.16",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "1625865c6eebcbef12a3e81cdb9fd2cd",
+      "Requirements": [
+        "igraph",
+        "survival"
       ]
     },
     "trust": {

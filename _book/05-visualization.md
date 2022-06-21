@@ -48,9 +48,9 @@ cibola_i
 ```
 
 ```
-## IGRAPH 2999e0e UN-- 31 167 -- 
+## IGRAPH 396c025 UN-- 31 167 -- 
 ## + attr: name (v/c)
-## + edges from 2999e0e (vertex names):
+## + edges from 396c025 (vertex names):
 ##  [1] Apache.Creek--Casa.Malpais          Apache.Creek--Coyote.Creek         
 ##  [3] Apache.Creek--Hooper.Ranch          Apache.Creek--Horse.Camp.Mill      
 ##  [5] Apache.Creek--Hubble.Corner         Apache.Creek--Mineral.Creek.Pueblo 

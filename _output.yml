@@ -1,8 +1,22 @@
 bookdown::bs4_book:
   css: style.css
+  template: assets/bs4_book.html
   theme:
     primary: "#096B72"
     info: "#0dcaf0"
-  repo: https://github.com/mpeeples2008/ArchNetSci
+    base_font:
+      google:
+        family: Lato
+    heading_font:
+      google:
+        family: Montserrat
+        wght: 600
+    code_font:
+      google:
+        family: Roboto Mono
+  repo:
+    base: https://github.com/mpeeples2008/ArchNetSci
+    branch: main
   includes:
     in_header: ["analytics/ga.html"]
+    before_body: ["assets/particles.html"]
