@@ -251,6 +251,11 @@ caption, p.caption {
 
 /* Headings -------------------------------------------- */
 
+h1 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
 h2 {
   margin-top: 2rem;
   margin-bottom: 1rem;
@@ -504,22 +509,22 @@ body {
 
 .rmdnote {
   border-color: var(--success);
-  background-image: url("images/packages.png");
+  background-image: url("../images/packages.png");
 }
 .rmdimportant {
   border-color: var(--success);
 }
 .rmdcaution {
   border-color: var(--danger);
-  background-image: url("images/warning.png");
+  background-image: url("../images/warning.png");
 }
 .rmdwarning {
   border-color: var(--warning);
-    background-image: url("images/warning.png");
+    background-image: url("../images/warning.png");
 }
 .rmdtip {
   border-color: var(--info);
-    background-image: url("images/tip.png");
+    background-image: url("../images/tip.png");
 }
 
 .rmdcaution pre, .rmdimportant pre, .rmdnote pre, .rmdtip pre, .rmdwarning pre {

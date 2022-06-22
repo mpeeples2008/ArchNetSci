@@ -20,8 +20,8 @@
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/_Lato-0.4.1/font.css" rel="stylesheet">
-<link href="libs/_Roboto%20Mono-0.4.1/font.css" rel="stylesheet">
-<link href="libs/_Montserrat-0.4.1/font.css" rel="stylesheet">
+<link href="libs/_Source%20Code%20Pro-0.4.1/font.css" rel="stylesheet">
+<link href="libs/_News%20Cycle-0.4.1/font.css" rel="stylesheet">
 <script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="libs/vis-9.1.0/vis-network.min.css" rel="stylesheet">
 <script src="libs/vis-9.1.0/vis-network.min.js"></script><script src="libs/visNetwork-binding-2.1.0/visNetwork.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script type="text/javascript" src="https://www.mattpeeples.net/book/particles.min.js"></script><script type="text/javascript" src="https://www.mattpeeples.net/book/custom.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MHX9HQF2BQ"></script><script>
@@ -56,13 +56,16 @@
       margin-left: 2em;
     }
   </style>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="assets/style.css">
 </head>
 <body data-spy="scroll" data-target="#toc">
 
 <div class="container-fluid">
-<div class="row">
+  <header><iframe src="https://mattpeeples.net/book/index.html" style="border:0px #ffffff none;" name="header_frame" scrolling="no" frameborder="0" marginheight="0px" marginwidth="0px" height="75px" width="100%" allowfullscreen></iframe>
+</header><div class="row">
   <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div><img src="images/placeholder.png" width="100%"></div>
 
     <div class="d-flex align-items-start justify-content-between">
       <h1>
@@ -102,8 +105,7 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><iframe src="https://mattpeeples.net/book/index.html" style="border:0px #ffffff none;" name="header_frame" scrolling="no" frameborder="0" marginheight="0px" marginwidth="0px" height="100px" width="100%" allowfullscreen></iframe>
-<div id="Exploratory" class="section level1" number="4">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="Exploratory" class="section level1" number="4">
 <h1>
 <span class="header-section-number">Section 4</span> Exploratory Network Analysis<a class="anchor" aria-label="anchor" href="#Exploratory"><i class="fas fa-link"></i></a>
 </h1>
@@ -532,7 +534,7 @@ careful.
 <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/distances.html">shortest_paths</a></span><span class="op">(</span><span class="va">simple_net</span>, from <span class="op">=</span> <span class="fl">1</span>, to <span class="op">=</span> <span class="fl">21</span><span class="op">)</span></code></pre></div>
 <pre><code>## $vpath
 ## $vpath[[1]]
-## + 5/31 vertices, named, from 2cf72de:
+## + 5/31 vertices, named, from 74d388c:
 ## [1] Apache.Creek          Casa.Malpais          Garcia.Ranch         
 ## [4] Heshotauthla          Pueblo.de.los.Muertos
 ## 
@@ -558,7 +560,7 @@ careful.
 <div class="sourceCode" id="cb366"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/diameter.html">farthest_vertices</a></span><span class="op">(</span><span class="va">directed_net</span>, directed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <pre><code>## $vertices
-## + 2/30 vertices, named, from 2cf83a2:
+## + 2/30 vertices, named, from 74d4820:
 ## [1] Apache Creek          Pueblo de los Muertos
 ## 
 ## $distance
@@ -590,9 +592,9 @@ careful.
 
 <span class="va">components</span></code></pre></div>
 <pre><code>## [[1]]
-## IGRAPH 2f1dba1 UN-- 30 167 -- 
+## IGRAPH 774580e UN-- 30 167 -- 
 ## + attr: name (v/c)
-## + edges from 2f1dba1 (vertex names):
+## + edges from 774580e (vertex names):
 ##  [1] Apache.Creek--Casa.Malpais          Apache.Creek--Coyote.Creek         
 ##  [3] Apache.Creek--Hooper.Ranch          Apache.Creek--Horse.Camp.Mill      
 ##  [5] Apache.Creek--Hubble.Corner         Apache.Creek--Mineral.Creek.Pueblo 
@@ -604,9 +606,9 @@ careful.
 ## + ... omitted several edges
 ## 
 ## [[2]]
-## IGRAPH 2f1dbb8 UN-- 1 0 -- 
+## IGRAPH 7745832 UN-- 1 0 -- 
 ## + attr: name (v/c)
-## + edges from 2f1dbb8 (vertex names):</code></pre>
+## + edges from 7745832 (vertex names):</code></pre>
 <div class="sourceCode" id="cb376"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html">V</a></span><span class="op">(</span><span class="va">components</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">$</span><span class="va">name</span></code></pre></div>
 <pre><code>## [1] "WS.Ranch"</code></pre>
@@ -642,15 +644,15 @@ careful.
 ## [1] 1
 ## 
 ## $cut
-## + 1/167 edge from 2cf7b34 (vertex names):
+## + 1/167 edge from 74d3e89 (vertex names):
 ## [1] Ojo Bonito--Baca Pueblo
 ## 
 ## $partition1
-## + 1/30 vertex, named, from 2cf7b34:
+## + 1/30 vertex, named, from 74d3e89:
 ## [1] Baca Pueblo
 ## 
 ## $partition2
-## + 29/30 vertices, named, from 2cf7b34:
+## + 29/30 vertices, named, from 74d3e89:
 ##  [1] Apache Creek          Casa Malpais          Coyote Creek         
 ##  [4] Hooper Ranch          Horse Camp Mill       Hubble Corner        
 ##  [7] Mineral Creek Pueblo  Rudd Creek Ruin       Techado Springs      
@@ -676,7 +678,7 @@ careful.
 <p>A clique as a network science concept is arguably the strictest method of defining a cohesive subgroup. It is any set of three or more nodes in which each node is directly connected to all other nodes. It can be alternatively defined as a completely connected subnetwork, or a subnetwork with maximum density. The function <code><a href="https://rdrr.io/pkg/igraph/man/cliques.html">igraph::max_cliques</a></code> finds all maximal cliques in a network and outputs a list object with nodes in each set indicated. For the sake of space here we only output one clique of the 24 that were defined by this function call.</p>
 <div class="sourceCode" id="cb385"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/cliques.html">max_cliques</a></span><span class="op">(</span><span class="va">simple_net</span>, min <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">[[</span><span class="fl">24</span><span class="op">]</span><span class="op">]</span></code></pre></div>
-<pre><code>## + 9/31 vertices, named, from 2cf72de:
+<pre><code>## + 9/31 vertices, named, from 74d388c:
 ## [1] Los.Gigantes    Cienega         Tinaja          Spier.170      
 ## [5] Scribe.S        Pescado.Cluster Mirabal         Heshotauthla   
 ## [9] Yellowhouse</code></pre>

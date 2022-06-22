@@ -8,7 +8,7 @@ documentclass: book
 bibliography: 
   - references.bib
   - packages.bib
-csl: society-for-american-archaeology.csl
+csl: assets/society-for-american-archaeology.csl
 url: https://book.archnetworks.net
 description: |
   This online bookdown document accompanies the Cambridge Manuals in Archaeology book

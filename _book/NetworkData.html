@@ -20,8 +20,8 @@
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/_Lato-0.4.1/font.css" rel="stylesheet">
-<link href="libs/_Roboto%20Mono-0.4.1/font.css" rel="stylesheet">
-<link href="libs/_Montserrat-0.4.1/font.css" rel="stylesheet">
+<link href="libs/_Source%20Code%20Pro-0.4.1/font.css" rel="stylesheet">
+<link href="libs/_News%20Cycle-0.4.1/font.css" rel="stylesheet">
 <script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="libs/vis-9.1.0/vis-network.min.css" rel="stylesheet">
 <script src="libs/vis-9.1.0/vis-network.min.js"></script><script src="libs/visNetwork-binding-2.1.0/visNetwork.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script type="text/javascript" src="https://www.mattpeeples.net/book/particles.min.js"></script><script type="text/javascript" src="https://www.mattpeeples.net/book/custom.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MHX9HQF2BQ"></script><script>
@@ -56,13 +56,16 @@
       margin-left: 2em;
     }
   </style>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="assets/style.css">
 </head>
 <body data-spy="scroll" data-target="#toc">
 
 <div class="container-fluid">
-<div class="row">
+  <header><iframe src="https://mattpeeples.net/book/index.html" style="border:0px #ffffff none;" name="header_frame" scrolling="no" frameborder="0" marginheight="0px" marginwidth="0px" height="75px" width="100%" allowfullscreen></iframe>
+</header><div class="row">
   <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div><img src="images/placeholder.png" width="100%"></div>
 
     <div class="d-flex align-items-start justify-content-between">
       <h1>
@@ -102,8 +105,7 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><iframe src="https://mattpeeples.net/book/index.html" style="border:0px #ffffff none;" name="header_frame" scrolling="no" frameborder="0" marginheight="0px" marginwidth="0px" height="100px" width="100%" allowfullscreen></iframe>
-<div id="NetworkData" class="section level1" number="3">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="NetworkData" class="section level1" number="3">
 <h1>
 <span class="header-section-number">Section 3</span> Network Data in R<a class="anchor" aria-label="anchor" href="#NetworkData"><i class="fas fa-link"></i></a>
 </h1>
@@ -189,9 +191,9 @@ Finally, we provide a brief example at the end of this section using
 
 <span class="co"># Display igraph network object and then plot a simple node-link diagram</span>
 <span class="va">cibola_net</span></code></pre></div>
-<pre><code>## IGRAPH 256921d UN-- 30 167 -- 
+<pre><code>## IGRAPH 6ce3725 UN-- 30 167 -- 
 ## + attr: name (v/c)
-## + edges from 256921d (vertex names):
+## + edges from 6ce3725 (vertex names):
 ##  [1] Apache Creek--Casa Malpais          Apache Creek--Coyote Creek         
 ##  [3] Apache Creek--Hooper Ranch          Apache Creek--Horse Camp Mill      
 ##  [5] Apache Creek--Hubble Corner         Apache Creek--Mineral Creek Pueblo 
@@ -219,7 +221,7 @@ Finally, we provide a brief example at the end of this section using
 
 <span class="co"># examine adjacency list for the site Apache Creek</span>
 <span class="va">adj_list</span><span class="op">$</span><span class="va">`Apache Creek`</span></code></pre></div>
-<pre><code>## + 11/167 edges from 256921d (vertex names):
+<pre><code>## + 11/167 edges from 6ce3725 (vertex names):
 ##  [1] Apache Creek--Casa Malpais         Apache Creek--Coyote Creek        
 ##  [3] Apache Creek--Hooper Ranch         Apache Creek--Horse Camp Mill     
 ##  [5] Apache Creek--Hubble Corner        Apache Creek--Mineral Creek Pueblo
@@ -230,7 +232,7 @@ Finally, we provide a brief example at the end of this section using
 <code class="sourceCode R"><span class="co"># It is also possible to call specific nodes by number. In this case,</span>
 <span class="co"># site 2 is Casa Malpais</span>
 <span class="va">adj_list</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></code></pre></div>
-<pre><code>## + 11/167 edges from 256921d (vertex names):
+<pre><code>## + 11/167 edges from 6ce3725 (vertex names):
 ##  [1] Apache Creek--Casa Malpais    Casa Malpais--Coyote Creek   
 ##  [3] Casa Malpais--Hooper Ranch    Casa Malpais--Horse Camp Mill
 ##  [5] Casa Malpais--Hubble Corner   Casa Malpais--Rudd Creek Ruin
@@ -381,9 +383,9 @@ Finally, we provide a brief example at the end of this section using
 <code class="sourceCode R"><span class="co"># Note that "region" is now listed as an attribute when we view</span>
 <span class="co"># the network object</span>
 <span class="va">cibola_net2</span></code></pre></div>
-<pre><code>## IGRAPH 2597f74 UN-- 31 167 -- 
+<pre><code>## IGRAPH 6d14446 UN-- 31 167 -- 
 ## + attr: name (v/c), region (v/c)
-## + edges from 2597f74 (vertex names):
+## + edges from 6d14446 (vertex names):
 ##  [1] Apache.Creek--Casa.Malpais          Apache.Creek--Coyote.Creek         
 ##  [3] Apache.Creek--Hooper.Ranch          Apache.Creek--Horse.Camp.Mill      
 ##  [5] Apache.Creek--Hubble.Corner         Apache.Creek--Mineral.Creek.Pueblo 
@@ -439,9 +441,9 @@ Finally, we provide a brief example at the end of this section using
   <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/graph_from_adjacency_matrix.html">graph_from_adjacency_matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">adj_mat2</span><span class="op">)</span>,
                                       mode <span class="op">=</span> <span class="st">"undirected"</span><span class="op">)</span>
 <span class="va">simple_net_i</span></code></pre></div>
-<pre><code>## IGRAPH 268497e UN-- 31 167 -- 
+<pre><code>## IGRAPH 6e05834 UN-- 31 167 -- 
 ## + attr: name (v/c)
-## + edges from 268497e (vertex names):
+## + edges from 6e05834 (vertex names):
 ##  [1] Apache.Creek--Casa.Malpais          Apache.Creek--Coyote.Creek         
 ##  [3] Apache.Creek--Hooper.Ranch          Apache.Creek--Horse.Camp.Mill      
 ##  [5] Apache.Creek--Hubble.Corner         Apache.Creek--Mineral.Creek.Pueblo 
@@ -495,9 +497,9 @@ Finally, we provide a brief example at the end of this section using
 <span class="va">directed_net</span> <span class="op">&lt;-</span>
   <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/graph_from_edgelist.html">graph_from_edgelist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">el2</span><span class="op">)</span>, directed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="va">directed_net</span></code></pre></div>
-<pre><code>## IGRAPH 268e7a0 DN-- 30 125 -- 
+<pre><code>## IGRAPH 6e0dc5f DN-- 30 125 -- 
 ## + attr: name (v/c)
-## + edges from 268e7a0 (vertex names):
+## + edges from 6e0dc5f (vertex names):
 ##  [1] Coyote Creek   -&gt;Techado Springs      
 ##  [2] Hubble Corner  -&gt;Tri-R Pueblo         
 ##  [3] Hubble Corner  -&gt;Techado Springs      
@@ -602,9 +604,9 @@ Finally, we provide a brief example at the end of this section using
                                                   directed <span class="op">=</span> <span class="cn">FALSE</span>,
                                                   multiple <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="va">cibola_inc</span></code></pre></div>
-<pre><code>## IGRAPH 26d4b6c UN-B 41 2214 -- 
+<pre><code>## IGRAPH 6e58929 UN-B 41 2214 -- 
 ## + attr: type (v/l), name (v/c)
-## + edges from 26d4b6c (vertex names):
+## + edges from 6e58929 (vertex names):
 ##  [1] Apache Creek--Clust1 Apache Creek--Clust1 Apache Creek--Clust1
 ##  [4] Apache Creek--Clust1 Apache Creek--Clust1 Apache Creek--Clust1
 ##  [7] Apache Creek--Clust1 Apache Creek--Clust2 Apache Creek--Clust2
@@ -1030,9 +1032,9 @@ Finally, we provide a brief example at the end of this section using
 
 <span class="co"># Examine the first ego-network</span>
 <span class="va">ego_nets</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></code></pre></div>
-<pre><code>## IGRAPH 290dc03 UN-- 12 59 -- 
+<pre><code>## IGRAPH 70cb415 UN-- 12 59 -- 
 ## + attr: name (v/c)
-## + edges from 290dc03 (vertex names):
+## + edges from 70cb415 (vertex names):
 ##  [1] Apache Creek   --Casa Malpais         Apache Creek   --Coyote Creek        
 ##  [3] Casa Malpais   --Coyote Creek         Apache Creek   --Hooper Ranch        
 ##  [5] Casa Malpais   --Hooper Ranch         Coyote Creek   --Hooper Ranch        
@@ -1088,38 +1090,38 @@ Finally, we provide a brief example at the end of this section using
 <span class="co"># multilayer network, the multinet package can help us do that directly</span>
 <span class="co"># and quite simply.</span>
 <span class="fu">multinet</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/multinet/man/ActorMeasures.html">degree_ml</a></span><span class="op">(</span><span class="va">florentine</span><span class="op">)</span></code></pre></div>
-<pre><code>##  [1]  7  2  3  4  3  6  3  6  6  1  4  3  6  5 11</code></pre>
+<pre><code>##  [1]  3  4  4  7 11  2  3  6  3  6  3  6  1  6  5</code></pre>
 <div class="sourceCode" id="cb286"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Similarly, we could apply cluster detection algorithms to all layers</span>
 <span class="co"># of a multilayer network simultaneously.</span>
 <span class="fu">multinet</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/multinet/man/Communities.html">glouvain_ml</a></span><span class="op">(</span><span class="va">florentine</span><span class="op">)</span></code></pre></div>
 <pre><code>##           actor    layer cid
-## 1         Pazzi business   0
-## 2         Pazzi marriage   0
-## 3      Salviati business   0
-## 4      Salviati marriage   0
-## 5       Albizzi marriage   0
-## 6        Ginori business   0
-## 7        Ginori marriage   0
-## 8    Acciaiuoli marriage   0
-## 9    Tornabuoni business   0
-## 10   Tornabuoni marriage   0
-## 11      Ridolfi marriage   0
-## 12       Medici business   0
-## 13       Medici marriage   0
-## 14      Peruzzi business   1
-## 15      Peruzzi marriage   1
+## 1       Ridolfi marriage   0
+## 2    Tornabuoni marriage   0
+## 3    Tornabuoni business   0
+## 4        Medici marriage   0
+## 5        Medici business   0
+## 6         Pazzi marriage   0
+## 7         Pazzi business   0
+## 8      Salviati marriage   0
+## 9      Salviati business   0
+## 10    Barbadori marriage   0
+## 11    Barbadori business   0
+## 12      Albizzi marriage   0
+## 13       Ginori marriage   0
+## 14       Ginori business   0
+## 15   Acciaiuoli marriage   0
 ## 16      Strozzi marriage   1
-## 17    Barbadori business   1
-## 18    Barbadori marriage   1
-## 19   Castellani business   1
-## 20   Castellani marriage   1
-## 21     Bischeri business   2
-## 22     Bischeri marriage   2
-## 23     Guadagni business   2
-## 24     Guadagni marriage   2
-## 25 Lamberteschi business   2
-## 26 Lamberteschi marriage   2</code></pre>
+## 17      Peruzzi marriage   1
+## 18      Peruzzi business   1
+## 19     Bischeri marriage   1
+## 20     Bischeri business   1
+## 21   Castellani marriage   1
+## 22   Castellani business   1
+## 23     Guadagni marriage   1
+## 24     Guadagni business   1
+## 25 Lamberteschi marriage   1
+## 26 Lamberteschi business   1</code></pre>
 <p>For an archaeological example of multilevel network analysis <a href="https://github.com/ajupton/archy-multilayer-nets">this GitHub project</a> by Andy Upton.</p>
 </div>
 </div>
@@ -1147,9 +1149,9 @@ would instead use <code>asNetwrok</code>.
 <div class="sourceCode" id="cb288"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mor_wt_i</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/intergraph/man/asIgraph.html">asIgraph</a></span><span class="op">(</span><span class="va">mor_wt</span><span class="op">)</span>
 <span class="va">mor_wt_i</span></code></pre></div>
-<pre><code>## IGRAPH 2997b40 U-W- 31 465 -- 
+<pre><code>## IGRAPH 71435ee U-W- 31 465 -- 
 ## + attr: na (v/l), vertex.names (v/c), na (e/l), weight (e/n)
-## + edges from 2997b40:
+## + edges from 71435ee:
 ##   [1] 1-- 2 1-- 3 1-- 4 1-- 5 1-- 6 1-- 7 1-- 8 1-- 9 1--10 1--11 1--12 1--13
 ##  [13] 1--14 1--15 1--16 1--17 1--18 1--19 1--20 1--21 1--22 1--23 1--24 1--25
 ##  [25] 1--26 1--27 1--28 1--29 1--30 1--31 2-- 3 2-- 4 2-- 5 2-- 6 2-- 7 2-- 8
