@@ -65,6 +65,8 @@ Suggests:
   downlit,
   bookdown,
   rmarkdown,
+  netdiffuseR,
+  ca,
   xml2
 Encoding: UTF-8
 LazyData: true

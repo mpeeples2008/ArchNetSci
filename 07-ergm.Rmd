@@ -80,7 +80,7 @@ The original ERGM analysis published by Brughmans and Brandes was conducted in a
 
 ### Assessments of Network Properties{#NetProperties}
 
-Let's start by bringing in our Cranborne Chase network data (as a `network` object) and looking at the general properties of the network object.
+Let's start by bringing in our Cranborne Chase network data (as a `network` object) and looking at the general properties of the network object. To follow along you can download the data [by clicking here](data/cranborne.Rdata).
 
 ```{r}
 load("data/cranborne.Rdata")
@@ -300,7 +300,7 @@ These simulations help us better understand the model we have created. There are
 
 In the Cranborne Chase example above, we were working with a published example so the hard part (thinking about how a particular theory can be conceptualized in formal network model terms) was done for us. In practice, choosing terms to use can be quite difficult and confusing. This is particularly true because there are multiple terms that do essentially the same thing in different ways. In this section we first walk through a few of the other common options that were not covered above and then provide some advice on where to go next.
 
-In the first example below we will be using the [Cibola technological similarity networks](#Cibola) used in several other portions of this guide. The data imported below includes a `network` object and a data frame that contains attributes relating to the nodes in that network. We load in the data and then assign attributes to the `Cibola_n` object.
+In the first example below we will be using the [Cibola technological similarity networks](#Cibola) used in several other portions of this guide. The data imported below includes a `network` object and a data frame that contains attributes relating to the nodes in that network. We load in the data and then assign attributes to the `Cibola_n` object. You can download the [data here](data/Cibola_n.Rdata) to follow along.
 
 The attributes we assign include:
 

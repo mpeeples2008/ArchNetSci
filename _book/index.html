@@ -116,7 +116,7 @@
 </h1>
 <p>This project serves as a companion to the Cambridge Manuals in Archaeology book <em>Archaeological Network Science</em> by Tom Brughmans and Matthew A. Peeples (2022).</p>
 <p><a href="https://book.archnetworks.net"><img src="images/cover.png" width="250" height="375" alt="Brughmans and Peeples Book Cover" align="right" style="margin: 0 1em 0 1em"></a></p>
-<p>This document contains a series of tutorials that outline methods for managing, analyzing, and visualizing network data, primarily using the R programming language. We provide code and examples to replicate the analyses presented in the book as well as many other additional useful tools. This bulk of this Online Companion is designed to be used with the book in hand to expand on topics covered in the published version. Part I of this document (see the Table of Contents) is focused on helping you get started in R and R-Studio. Part II which includes sections 2 through 7 corresponds to the topics and information covered in Chapters 2 through 7 of the Brughmans and Peeples book. Part III (Going Beyond the Book) includes tutorials beyond the scope of the published book including “advanced” topics that require additional detailed description and knowledge of the methods presented in Parts I and II. We plan to continue to add to and expand Part III in the future. You can use the table of contents on the left-hand side of your screen to jump directly to a particular section and the table and contents on the right to navigate within each section. We have also created a <a href="TableOfContents.html#TableOfContents">quick TOC reference</a> if you are seeking something in particular.</p>
+<p>This document contains a series of tutorials that outline methods for managing, analyzing, and visualizing network data, primarily using the R programming language. We provide code and examples to replicate the analyses presented in the book as well as many other useful tools. The bulk of this Online Companion is designed to be used with the book in hand to expand on topics covered in the published version. Part I of this document (see the Table of Contents) is focused on helping you get started in R and R-Studio. Part II which includes sections 2 through 7 corresponds to the topics and information covered in Chapters 2 through 7 of the Brughmans and Peeples book. Part III (Going Beyond the Book) includes tutorials beyond the scope of the published book including “advanced” topics that require additional detailed description and knowledge of the methods presented in Parts I and II. We plan to continue to add to and expand Part III in the future. You can use the table of contents on the left-hand side of your screen to jump directly to a particular section and the table and contents on the right to navigate within each section. We have also created a <a href="TableOfContents.html#TableOfContents">quick TOC reference</a> if you are seeking something in particular.</p>
 <p>For more information on the book and the authors check out the project website here: <a href="https://archnetworks.net">archnetworks.net</a>.</p>
 <p><strong>Cite this document as:</strong></p>
 <blockquote>
@@ -126,18 +126,6 @@
 <blockquote>
 <p>Brughmans, Tom and Matthew A. Peeples (in press). <em>Archaeological Network Science.</em> Cambridge Manuals in Archaeology. Cambridge University Press, Cambridge, UK.</p>
 </blockquote>
-<hr>
-<div class="warning" style="padding:0.1em; background-color:#E9D8FD; color:#69337A">
-<span>
-<p style="margin-top:1em; text-align:center">
-<b>NOTICE</b>
-</p>
-<p style="margin-left:1em;">
-Note that this is a pre-release version of this document. Be aware that this document is still being updated and edited. Please check back here for updates in the coming months for the 1.0 release version of this document.
-</p>
-<p></p></span>
-</div>
-<hr>
 <div id="HowTo" class="section level2 unnumbered">
 <h2>How Should I Use This Online Companion?<a class="anchor" aria-label="anchor" href="#HowTo"><i class="fas fa-link"></i></a>
 </h2>
@@ -167,8 +155,8 @@ or network methods.
 </div>
 <div class="rmdtip">
 <p>
-We use this icon to highlight helpful tips for using particular R
-functions or R-Studio procedures.
+We use this icon to highlight helpful tips for using R and R-Studio
+or for hints on the use of particular network methods.
 </p>
 </div>
 </div>
@@ -181,19 +169,19 @@ functions or R-Studio procedures.
 <p>The content of this document is designed to be as accessible and reproducible as possible. The source code used to produce this document along with all of the data used in analyses are available on <a href="https://github.com/mpeeples2008/ArchNetSci">GitHub</a>. This GitHub repository allows users to open issues, contribute to the document, or help fix typos or other errors (see information about <a href="index.html#Contributing">contributing</a> below). We have also opened a GitHub discussion board with this repository where users can ask questions about any data or code in the repository without making edits or issue requests directly.</p>
 <p>The easiest way to reproduce this document is to launch the project directly in your browser using <a href="https://mybinder.org/">Binder</a>. When you click on the link below it will open a browser based instance of R studio with all of the required packages and files. From there you can test and evaluate the code directly.</p>
 <p><a href="https://mybinder.org/v2/gh/mpeeples2008/ArchNetSci/main"><img src="https://mybinder.org/badge_logo.svg" alt="Binder"></a></p>
-<p>When you open Binder you will see a window with the logo and a spinning progress wheel. It will typically only take a minute or so to get up and running and then you will see the screen below. Click on the “R-Studio” link under “Notebook” and it will open a new window with an R-Studio instance that you can use just like you would on your own computer. If you click on the Binder link and it is taking a long time, click to “show” the build logs. If you are “lucky” enough to be the first to initialize Binder after a new build of the GitHub project it will take quite a bit longer to get started. Grab a coffee, tea, Dr. Pepper, or other beverage of choice as it will be approximately 30-35 minutes before R-Studio loads.</p>
+<p>When you open Binder you will see a window with the Binder logo and a spinning progress wheel. It will typically only take a minute or so to get up and running and then you will see the screen below. Click on the “R-Studio” link under “Notebook” and it will open a new window with an R-Studio instance that you can use just like you would on your own computer. If you click on the Binder link and it is taking a long time, click to “show” the build logs. If you are “lucky” enough to be the first to initialize Binder after a new build of the GitHub project it will take quite a bit longer to get started. Grab a coffee, tea, Dr. Pepper, or other beverage of choice as it will be approximately 30-35 minutes before R-Studio loads.</p>
 <div class="figure">
 <img src="images/binder.jpg" style="width:100.0%" alt=""><p class="caption">Binder Notebook Page</p>
 </div>
-<p>You can also install this repository as an R package directly from GitHub using:</p>
+<p>You can also install this repository as an R package directly from GitHub using the folloiwng code:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="st"><a href="https://devtools.r-lib.org/">"devtools"</a></span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span>
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"mpeeples2008/ArchNetSci"</span><span class="op">)</span></code></pre></div>
-<p>This package installation includes all of the dependencies required to run the code in this document and will create folders called “data” and “scripts” in the installation directory with all of the required files to replicate the analyses in this document.</p>
+<p>This package installation includes all of the dependencies required to run the code in this document and will create folders called “data” and “scripts” in the package installation directory with all of the required files to replicate the analyses in this document.</p>
 <p>Finally, you can run the code and generate documents locally using R and R Studio by downloading the entire R repository here: <a href="https://github.com/mpeeples2008/ArchNetSci/archive/refs/heads/main.zip">main.zip</a>. Unzip the files and then:</p>
 <ul>
 <li>Open the “ArchNetSci.Rproj” file in R studio.</li>
-<li>Use the <code><a href="https://rstudio.github.io/renv/reference/restore.html">renv::restore()</a></code> command to install the required packages and dependencies. Note that this is a large document that uses many packages so this may take some time.</li>
+<li>Use the <code><a href="https://rstudio.github.io/renv/reference/restore.html">renv::restore()</a></code> command at the console to install the required packages and dependencies. Note that this is a large document that uses many packages so this may take some time.</li>
 <li>You will then be able to browse the files and execute all of the code in the repository on your own computer.</li>
 </ul>
 <p>This online bookdown document has been deployed using the Netlify platform and the badge below shows the current status of the build hosted at <a href="book.archnetworks.net">https://book.archnetworks.net</a>.</p>
@@ -215,7 +203,7 @@ functions or R-Studio procedures.
 <div id="Contributing" class="section level2 unnumbered">
 <h2>Contribute To the Project<a class="anchor" aria-label="anchor" href="#Contributing"><i class="fas fa-link"></i></a>
 </h2>
-<p>We welcome contributions to this project from the community and the GitHub platform helps us facilitate that. You will first need to <a href="https://github.com/">sign up for a GitHub account</a> and log in. If you find something that needs updating or changing (typos or errors) you can simply click the “View source” link at the right sidebar on the relevant page and then click the edit icon found near the top of the code block and make your proposed changes. These changes will be saved in a new “fork” of the document and we will review these and implement them where relevant and happily add your name to our list of contributors. Note that we generally use the <a href="https://style.tidyverse.org/">tidyverse style guide</a> for formatting code and comments.</p>
+<p>We welcome contributions to this project from the community and the GitHub platform helps us facilitate that. You will first need to <a href="https://github.com/">sign up for a GitHub account</a> and log in. If you find something that needs updating or changing (typos or errors) you can simply click the “Edit source” link at the right sidebar on the relevant page and then click the edit icon found near the top of the code block and make your proposed changes. These changes will be saved in a new “fork” of the document and we will review these and implement them where relevant and happily add your name to our list of contributors. Note that we generally use the <a href="https://style.tidyverse.org/">tidyverse style guide</a> for formatting code and comments.</p>
 <p>If you detect a larger error such as code not running or if you would like to request a new feature or update, you can create an issue using the <a href="https://github.com/mpeeples2008/ArchNetSci/issues">issue tracker</a> page associated with the project repository.</p>
 <p>All contributors must agree to adhere to our <a href="https://github.com/mpeeples2008/ArchNetSci/blob/main/CODE_OF_CONDUCT.md">code of conduct</a>.</p>
 </div>

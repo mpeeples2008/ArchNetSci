@@ -139,7 +139,9 @@ AS the figures above show, the scale-free network model generates an adoption cu
 
 ### Empirical Networks{#DiffuseEmpiricalNetworks}
 
-The `rdiffnet` function described above can also be applied to empirical networks. By way of example, let's take a look at the Iberian [Roman Roads](#RomanRoads) data set we've used in several places in this document. Here we define sites as nodes and connect them with edges when there is a documented road between them. We draw additional edges to nearest neighbors for all remaining unconnected nodes to create a single fully connected network. First, let's map the network labeling the nodes by number:
+The `rdiffnet` function described above can also be applied to empirical networks. By way of example, let's take a look at the Iberian [Roman Roads](#RomanRoads) data set we've used in several places in this document. Here we define sites as nodes and connect them with edges when there is a documented road between them. We draw additional edges to nearest neighbors for all remaining unconnected nodes to create a single fully connected network. [Download the data here to follow along](data/road_networks.Rdata).
+
+First, let's map the network labeling the nodes by number:
 
 
 ```{r spatial_networks_diffusion, warning=F, message=F, fig.height=5, fig.width=7, cache=T}
@@ -318,7 +320,7 @@ Using this starting point, we get a fairly typical S-shaped curve and full satur
 
 ## Evaluating Diffusion Models{#EvaluatingDiffusion}
 
-Frequently, when evaluating diffusion processes in empirical networks, the goal is to compare a formal model or simulation of a diffusion process to other empirical information we have regarding nodes, edges, or network level metrics. To provide an example of what this can look like, we use the [Chaco World](#ChacoWorld) data and specifically the minimum distance network created in the [Spatial Networks section](#SpaceSW) which defined edges among Chacoan architectural complexes (ca. A.D. 1050-1150) within 36 kilometers of each other (which represents a one day walk on foot). The period in question is the peak distribution of Chacoan complexes across the region. We have added one additional attribute to this data set which is the beginning and ending date of each Chacoan complex. We will use this information to evaluate our diffusion models below.
+Frequently, when evaluating diffusion processes in empirical networks, the goal is to compare a formal model or simulation of a diffusion process to other empirical information we have regarding nodes, edges, or network level metrics. To provide an example of what this can look like, we use the [Chaco World](#ChacoWorld) data and specifically the minimum distance network created in the [Spatial Networks section](#SpaceSW) which defined edges among Chacoan architectural complexes (ca. A.D. 1050-1150) within 36 kilometers of each other (which represents a one day walk on foot). The period in question is the peak distribution of Chacoan complexes across the region. We have added one additional attribute to this data set which is the beginning and ending date of each Chacoan complex. We will use this information to evaluate our diffusion models below. [Download the data here to follow along](data/Chaco_net.Rdata).
 
 Let's start by loading in the data and mapping it:
 

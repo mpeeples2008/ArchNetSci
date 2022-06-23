@@ -25,7 +25,7 @@ There are numerous different configurations of the simple gravity model in the l
 
 In order to demonstrate simple gravity models, we're going to use a regional data set of Late Intermediate periods Wankarani sites in the Bolivian Altiplano provided online on the [Comparative Archaeology Database at the University of Pittsburgh](http://www.cadb.pitt.edu/mcandrews/index.html) (McAndrews 2005). The details of this database and all of the variables are described at the link provided. This data set has more variables than we will use here but this provides a good example to explore because it includes location and size information for all sites. 
 
-First, let's read in the data and create a quick plot showing site locations with points scaled by site area (as a measure of potential attractiveness and outflow potential). We will then select sites dating to the Late Intermediate period for analysis. We further limit consideration to habitation sites.
+First, let's read in the data and create a quick plot showing site locations with points scaled by site area (as a measure of potential attractiveness and outflow potential). We will then select sites dating to the Late Intermediate period for analysis. We further limit consideration to habitation sites. [Download the data here to follow along](dta/Wankarani_siteinfo.csv)
 
 
 ```r
@@ -349,7 +349,7 @@ where
 
 For the purposes of our examples here, we set $K$ to 1 to assume that sum of flows and size are in equal units and we set $\epsilon$ to 0.01 so that the model does not converge too rapidly. 
 
-By way of example, we will use the original Greek city states data used by Rihll and Wilson (1987) and [put online](https://figshare.com/articles/dataset/Locations_of_108_Archaeic_Greek_settlements_used_in_Rihll_and_Wilson_1987_/868961) by Tim Evans based on his own work using these data and related spatial interaction models. 
+By way of example, we will use the original Greek city states data used by Rihll and Wilson (1987) and [put online](https://figshare.com/articles/dataset/Locations_of_108_Archaeic_Greek_settlements_used_in_Rihll_and_Wilson_1987_/868961) by Tim Evans based on his own work using these data and related spatial interaction models. [Download the data here to follow along](data/Rihll_Wilson.csv).
 
 Let's first map the Greek city states data.
 
@@ -666,7 +666,7 @@ where
 
 The model output $E_{ij}$ is, according to Menze and Ur, meant to approximate the movement of people among nodes across the landscape. In order to evaluate this function, we replicate the results of the Menze and Ur paper with one small change. We drop the bottom 50% smallest sites from consideration due to the large sample size to keep run times manageable (but this could certainly be changed in the code below). We use the replication data set provided by Menze and Ur online [here](https://dataverse.harvard.edu/dataset.xhtml;jsessionid=adeb8ff43c833f1efe447dc9e8ba?persistentId=hdl%3A1902.1%2F17731&version=&q=&fileTypeGroupFacet=%22Text%22&fileAccess=&fileTag=&fileSortField=type&fileSortOrder=). 
 
-Let's read in the data, omit the rows without site volume estimates, and then remove the lowest 50% of sites in terms of volume values. We then plot the sites with points scaled by site volume.
+Let's read in the data, omit the rows without site volume estimates, and then remove the lowest 50% of sites in terms of volume values. We then plot the sites with points scaled by site volume. [Download the data here to follow along](data/menze_ur_sites.csv).
 
 
 ```r
@@ -814,7 +814,7 @@ radiation <- function(pop, d_mat) {
 }
 ```
 
-In order to test this model, we will use the same Wankarani settlement data we used above for the simple gravity model. We will use site area divided by 500 as our proxy for population here. Again we limit our sample to Late Intermediate period sites and habitations.
+In order to test this model, we will use the same Wankarani settlement data we used above for the simple gravity model. We will use site area divided by 500 as our proxy for population here. Again we limit our sample to Late Intermediate period sites and habitations. [Download the data here to follow along](data/Wankarani_siteinfo.csv).
 
 
 

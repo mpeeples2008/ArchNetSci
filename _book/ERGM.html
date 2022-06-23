@@ -216,7 +216,7 @@ in the <code>network</code> format to be analysed using the
 <h3>
 <span class="header-section-number">8.2.1</span> Assessments of Network Properties<a class="anchor" aria-label="anchor" href="#NetProperties"><i class="fas fa-link"></i></a>
 </h3>
-<p>Let’s start by bringing in our Cranborne Chase network data (as a <code>network</code> object) and looking at the general properties of the network object.</p>
+<p>Let’s start by bringing in our Cranborne Chase network data (as a <code>network</code> object) and looking at the general properties of the network object. To follow along you can download the data <a href="data/cranborne.Rdata">by clicking here</a>.</p>
 <div class="sourceCode" id="cb571"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span><span class="op">(</span><span class="st">"data/cranborne.Rdata"</span><span class="op">)</span>
 <span class="va">cranborne</span></code></pre></div>
@@ -597,7 +597,7 @@ term.
 <span class="header-section-number">8.4</span> Additional Info on ERGM Terms<a class="anchor" aria-label="anchor" href="#ERGMterms"><i class="fas fa-link"></i></a>
 </h2>
 <p>In the Cranborne Chase example above, we were working with a published example so the hard part (thinking about how a particular theory can be conceptualized in formal network model terms) was done for us. In practice, choosing terms to use can be quite difficult and confusing. This is particularly true because there are multiple terms that do essentially the same thing in different ways. In this section we first walk through a few of the other common options that were not covered above and then provide some advice on where to go next.</p>
-<p>In the first example below we will be using the <a href="DataAndWorkspace.html#Cibola">Cibola technological similarity networks</a> used in several other portions of this guide. The data imported below includes a <code>network</code> object and a data frame that contains attributes relating to the nodes in that network. We load in the data and then assign attributes to the <code>Cibola_n</code> object.</p>
+<p>In the first example below we will be using the <a href="DataAndWorkspace.html#Cibola">Cibola technological similarity networks</a> used in several other portions of this guide. The data imported below includes a <code>network</code> object and a data frame that contains attributes relating to the nodes in that network. We load in the data and then assign attributes to the <code>Cibola_n</code> object. You can download the <a href="data/Cibola_n.Rdata">data here</a> to follow along.</p>
 <p>The attributes we assign include:</p>
 <ul>
 <li>

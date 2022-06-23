@@ -6,7 +6,7 @@ Although this is not always explicitly discussed, the affiliation network framew
 
 ## Analyzing Two-Mode Networks{#AnalyzingTwoMode}
 
-In the examples here we will be using the [Cibola data set](#Cibola) used throughout this document. The specific data we will use consist of a set of sites as the first mode and a set of ceramic technological clusters as the second mode. Our underlying assumption is that sites that share more ceramic technological clusters are more strongly connected than sites that share fewer. Further, ceramic technological clusters that are frequently co-associated in site assemblages are more closely connected than those that do not frequently co-occur.
+In the examples here we will be using the [Cibola data set](#Cibola) used throughout this document. The specific data we will use consist of a set of sites as the first mode and a set of ceramic technological clusters as the second mode. Our underlying assumption is that sites that share more ceramic technological clusters are more strongly connected than sites that share fewer. Further, ceramic technological clusters that are frequently co-associated in site assemblages are more closely connected than those that do not frequently co-occur. [Download the data here to follow along](data/Cibola_clust.csv).
 
 Let's read in the data and create a simple two-mode network visualization to start by reading in the Cibola incidence matrix. We will be using the `igraph` package for most of the examples below so we initialize that as well as the `ggraph` package for plotting:
 
