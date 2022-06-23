@@ -60,12 +60,14 @@
 </head>
 <body data-spy="scroll" data-target="#toc">
 
-<div class="container-fluid">
-  <header><iframe src="https://mattpeeples.net/book/index.html" style="border:0px #ffffff none;" name="header_frame" scrolling="no" frameborder="0" marginheight="0px" marginwidth="0px" height="75px" width="100%" allowfullscreen></iframe>
-</header><div class="row">
-  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+        <iframe src="https://mattpeeples.net/book/index.html" style="border:0px #ffffff none;" name="header_frame" scrolling="no" frameborder="0" marginheight="0px" marginwidth="0px" height="75px" width="100%" allowfullscreen></iframe>
 
-    <div><img src="images/placeholder.png" width="100%"></div>
+ <div class="container-fluid">
+
+ <div class="row">
+<br><header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div><img src="images/placeholder.png" width="150px"></div>
 
     <div class="d-flex align-items-start justify-content-between">
       <h1>
@@ -95,6 +97,7 @@
 <li><a class="" href="ERGM.html"><span class="header-section-number">8</span> Exponential Random Graph Models</a></li>
 <li><a class="active" href="SpatialInteraction.html"><span class="header-section-number">9</span> Spatial Interaction Models</a></li>
 <li><a class="" href="Affiliation.html"><span class="header-section-number">10</span> Affiliation Data and Co-Association</a></li>
+<li><a class="" href="NetworkDiffusion.html"><span class="header-section-number">11</span> Network Diffusion</a></li>
 <li class="book-part">Additional Material</li>
 <li><a class="" href="TableOfContents.html">Table of Contents Quick Reference</a></li>
 <li><a class="" href="references-and-r-packages.html">References and R Packages</a></li>
@@ -134,7 +137,7 @@
 <p>There are numerous different configurations of the simple gravity model in the literature. Some versions add exponents to <span class="math inline">\(V_i\)</span> or <span class="math inline">\(V_j\)</span> to vary the importance of inflow and outflow independently, other versions use different derivations of deterrence, and many define inflows and outflows using different sources of empirical information with additional terms to scale the units. Calculating models like these is relatively easy but determining how to parameterize such models is typically the hard part as we discuss further below.</p>
 <p>In order to demonstrate simple gravity models, we’re going to use a regional data set of Late Intermediate periods Wankarani sites in the Bolivian Altiplano provided online on the <a href="http://www.cadb.pitt.edu/mcandrews/index.html">Comparative Archaeology Database at the University of Pittsburgh</a> (McAndrews 2005). The details of this database and all of the variables are described at the link provided. This data set has more variables than we will use here but this provides a good example to explore because it includes location and size information for all sites.</p>
 <p>First, let’s read in the data and create a quick plot showing site locations with points scaled by site area (as a measure of potential attractiveness and outflow potential). We will then select sites dating to the Late Intermediate period for analysis. We further limit consideration to habitation sites.</p>
-<div class="sourceCode" id="cb603"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb614"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">wankarani</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"data/Wankarani_siteinfo.csv"</span><span class="op">)</span>
 <span class="va">wankarani</span> <span class="op">&lt;-</span> <span class="va">wankarani</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">wankarani</span><span class="op">$</span><span class="va">Period</span> <span class="op">==</span> <span class="st">"Late Intermediate"</span><span class="op">)</span>, <span class="op">]</span>
 <span class="va">wankarani</span> <span class="op">&lt;-</span> <span class="va">wankarani</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">wankarani</span><span class="op">$</span><span class="va">Type</span> <span class="op">==</span> <span class="st">"habitation"</span><span class="op">)</span>, <span class="op">]</span>
@@ -185,7 +188,7 @@
 <li>
 <strong><code>d</code></strong> which is a matrix of distances among our nodes. Note that this could be something other than physical distance like travel time as well. It helps to have this in units that don’t result in very large numbers to keep the output manageable (though the actual absolute numbers don’t matter)</li>
 </ul>
-<div class="sourceCode" id="cb604"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb615"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">grav_mod</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">attract</span>, <span class="va">B</span>, <span class="va">d</span><span class="op">)</span> <span class="op">{</span>
   <span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">attract</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">attract</span><span class="op">)</span><span class="op">)</span>
   
@@ -199,7 +202,7 @@
   <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
 <p>Now let’s try an example using the Wankarani data. For this first example we will set <code>B</code> to <code>1</code>. We’ll take a look at the results by first, creating a heatmap of the gravity model for every pair of nodes using the <code>superheat</code> package. We will then plot the site size against the estimated flow from our model with both axes transformed to base-10 logarithms to see how those variables relate. We use the packages <code>scales</code> to provide exponential notation for the axis labels.</p>
-<div class="sourceCode" id="cb605"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb616"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># First calculate a distance matrix. We divide by</span>
 <span class="co"># 1000 so results are in kilometers.</span>
 <span class="va">d_mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/dist.html">dist</a></span><span class="op">(</span><span class="va">wankarani</span><span class="op">[</span>, <span class="fl">5</span><span class="op">:</span><span class="fl">6</span><span class="op">]</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span> <span class="fl">1000</span>
@@ -212,7 +215,7 @@
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">superheat</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/pkg/superheat/man/superheat.html">superheat</a></span><span class="op">(</span><span class="va">test1</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="08-spatial-interaction_files/figure-html/unnamed-chunk-3-1.png" width="672"></div>
-<div class="sourceCode" id="cb606"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb617"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://scales.r-lib.org">scales</a></span><span class="op">)</span>
 <span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>Flow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html">rowSums</a></span><span class="op">(</span><span class="va">test1</span><span class="op">)</span>, Area <span class="op">=</span> <span class="va">wankarani</span><span class="op">$</span><span class="va">Area</span><span class="op">)</span>
 
@@ -232,7 +235,7 @@
 <div class="inline-figure"><img src="08-spatial-interaction_files/figure-html/unnamed-chunk-3-2.png" width="672"></div>
 <p>As these plots illustrate, there are clusters in the estimated flows among nodes, which is not surprising given that the sites themselves form a few clusters. Further, the plot comparing area to flow shows that there is a roughly positive linear relationship between the two but there is also variation with nodes with more or less flow than would be expected based on distance alone.</p>
 <p>Next, let’s plot a network showing all connections scaled and colored based on their strength in terms of estimated flow and with nodes scaled based on weighted degree (the total volume of flow incident on that node). The blue colored ties are weaker and the yellow colored ties are stronger. For the sake of visual clarity we omit the 25% weakest edges.</p>
-<div class="sourceCode" id="cb607"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb618"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://statnet.org">statnet</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://igraph.org">igraph</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggraph.data-imaginist.com">ggraph</a></span><span class="op">)</span>
@@ -280,7 +283,7 @@
 <div class="inline-figure"><img src="08-spatial-interaction_files/figure-html/unnamed-chunk-4-1.png" width="672"></div>
 <p>As this plot shows, there are areas characterized by higher and lower flow throughout this study area. The largest site in the study area (shown in the first map above) is characterized by a high weighted degree but there are other smaller sites that also have high weighted degree, especialy in the eastern half of the study area.</p>
 <p>Let’s now take a look at the same data again, this time we set <code>B</code> or <span class="math inline">\(\beta\)</span> to <code>0.1</code>.</p>
-<div class="sourceCode" id="cb608"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb619"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># First calculate a distance matrix. We divide by</span>
 <span class="co"># 1000 so results are in kilometers.</span>
 <span class="va">d_mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/dist.html">dist</a></span><span class="op">(</span><span class="va">wankarani</span><span class="op">[</span>, <span class="fl">5</span><span class="op">:</span><span class="fl">6</span><span class="op">]</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span> <span class="fl">1000</span>
@@ -294,7 +297,7 @@
 
 <span class="fu"><a href="https://rdrr.io/pkg/superheat/man/superheat.html">superheat</a></span><span class="op">(</span><span class="va">test2</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="08-spatial-interaction_files/figure-html/unnamed-chunk-5-1.png" width="672"></div>
-<div class="sourceCode" id="cb609"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb620"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>Flow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html">rowSums</a></span><span class="op">(</span><span class="va">test2</span><span class="op">)</span>, Area <span class="op">=</span> <span class="va">wankarani</span><span class="op">$</span><span class="va">Area</span><span class="op">)</span>
 
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">df</span><span class="op">)</span> <span class="op">+</span>
@@ -311,7 +314,7 @@
   <span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="08-spatial-interaction_files/figure-html/unnamed-chunk-5-2.png" width="672"></div>
-<div class="sourceCode" id="cb610"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb621"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">sel_edges</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/sna/man/event2dichot.html">event2dichot</a></span><span class="op">(</span><span class="va">test2</span>, method <span class="op">=</span> <span class="st">"quantile"</span>, thresh <span class="op">=</span> <span class="fl">0.25</span><span class="op">)</span>
 <span class="va">test2_plot</span> <span class="op">&lt;-</span> <span class="va">test2</span> <span class="op">*</span> <span class="va">sel_edges</span>
 
@@ -359,7 +362,7 @@
 <span class="header-section-number">9.1.1</span> Parameterizing the Gravity Model<a class="anchor" aria-label="anchor" href="#ParameterizeGravity"><i class="fas fa-link"></i></a>
 </h3>
 <p>The simple model above uses just a single parameter <span class="math inline">\(\beta\)</span> and is largely based on empirical information on the distance among settlements and their sizes. The basic assumption here is that larger sizes “attract” more flow and also have more flow to provide to other sites. Distance is also important and the <span class="math inline">\(\beta\)</span> parameter determines the decay rate of distance as the plot below illustrates.</p>
-<div class="sourceCode" id="cb611"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb622"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">brk</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0.01</span>, <span class="fl">1</span>, by <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span>
 <span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">brk</span><span class="op">)</span>, <span class="fl">6</span><span class="op">)</span><span class="op">)</span>
 <span class="va">out</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">brk</span>
@@ -430,7 +433,7 @@
 <p>For the purposes of our examples here, we set <span class="math inline">\(K\)</span> to 1 to assume that sum of flows and size are in equal units and we set <span class="math inline">\(\epsilon\)</span> to 0.01 so that the model does not converge too rapidly.</p>
 <p>By way of example, we will use the original Greek city states data used by Rihll and Wilson (1987) and <a href="https://figshare.com/articles/dataset/Locations_of_108_Archaeic_Greek_settlements_used_in_Rihll_and_Wilson_1987_/868961">put online</a> by Tim Evans based on his own work using these data and related spatial interaction models.</p>
 <p>Let’s first map the Greek city states data.</p>
-<div class="sourceCode" id="cb612"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb623"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/dkahle/ggmap">ggmap</a></span><span class="op">)</span>
 
@@ -452,7 +455,7 @@
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_void</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="08-spatial-interaction_files/figure-html/unnamed-chunk-8-1.png" width="672"></div>
 <p>In the code below, we define a vector for the initial values of <span class="math inline">\(O_i\)</span> and <span class="math inline">\(W_j\)</span> setting the value to 1 for every site. We then define an initial <span class="math inline">\(\alpha = 1.05\)</span> (to suggest that flows in provide slight increasing returns) and <span class="math inline">\(\beta = 0.1\)</span> (which is a low decay rate such that long distance connections will retain some importance). The code then iteratively calculates values of <span class="math inline">\(T_{ij}\)</span> until the sum of weights stops changing by more than some very low threshold for a number of time steps. In the chunk of code below we calculate <span class="math inline">\(T_{ij}\)</span> and then plot histogram of <span class="math inline">\(W_j\)</span> in final state of model.</p>
-<div class="sourceCode" id="cb613"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb624"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Set model parameters and initial variable states</span>
 <span class="va">Oi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span><span class="op">)</span>
 <span class="va">Wj</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span><span class="op">)</span>
@@ -504,7 +507,7 @@
 <div class="inline-figure"><img src="08-spatial-interaction_files/figure-html/unnamed-chunk-9-1.png" width="672"></div>
 <p>As this shows, the Rihll and Wilson model generates flow weights with a heavy tailed distribution with these parameters. This means that a small number of nodes are receiving lots of flow but most are receiving very little.</p>
 <p>In order to look at this geographically, Rihll and Wilson defined what they call “Terminal Sites”. Terminal sites in the network are nodes where the total flow of inputs into the site <span class="math inline">\(Wj\)</span> is bigger than the largest flow out of the site. Let’s define our terminal sites for our model run above and then examine them.</p>
-<div class="sourceCode" id="cb614"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb625"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">terminal_sites</span> <span class="op">&lt;-</span> <span class="cn">NULL</span>
 <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">109</span><span class="op">)</span> <span class="va">terminal_sites</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">Tij</span><span class="op">[</span><span class="op">-</span><span class="va">i</span>, <span class="va">i</span><span class="op">]</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">Tij</span><span class="op">[</span><span class="va">i</span>, <span class="op">]</span><span class="op">)</span>
 
@@ -675,7 +678,7 @@
 </table></div>
 <p>Interesting, our terminal sites include many historically important and larger centers (such as Athens, Thebes, and Megara), despite the fact that we included no information about size in our model.</p>
 <p>Now let’s map them. Points are scaled based on the weight of inflow and terminal sites are colored in blue.</p>
-<div class="sourceCode" id="cb615"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb626"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/ggmap/man/ggmap.html">ggmap</a></span><span class="op">(</span><span class="va">map</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>
     data <span class="op">=</span> <span class="va">dat</span>,
@@ -691,7 +694,7 @@
 <div class="inline-figure"><img src="08-spatial-interaction_files/figure-html/unnamed-chunk-11-1.png" width="672"></div>
 <p>As this map illustrates, the terminal sites are roughly evenly distributed across the study area rather than clustered together. Now, let’s see what happens when we vary our parameters <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>.</p>
 <p>For the next map, we will set <span class="math inline">\(alpha = 1.15\)</span> and leave <span class="math inline">\(\beta\)</span> as is. To make it easier to calculate everything, we’re going to call an R script using <code><a href="https://rdrr.io/r/base/source.html">source()</a></code> that includes the full function and outputs <span class="math inline">\(W_j\)</span>, <span class="math inline">\(T_{ij}\)</span>, the number of iterations, and a logical vector indicating which nodes are terminals.</p>
-<div class="sourceCode" id="cb616"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb627"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"scripts/rihll_wilson.R"</span><span class="op">)</span>
 
 <span class="va">rw2</span> <span class="op">&lt;-</span> <span class="fu">rihll_wilson</span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">1.15</span>, beta <span class="op">=</span> <span class="fl">0.1</span>, dist_mat <span class="op">=</span> <span class="va">d</span><span class="op">)</span>
@@ -709,7 +712,7 @@
   <span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_void</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="08-spatial-interaction_files/figure-html/unnamed-chunk-12-1.png" width="672"></div>
-<div class="sourceCode" id="cb617"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb628"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="va">dat</span><span class="op">[</span><span class="va">rw2</span><span class="op">$</span><span class="va">terminals</span>,<span class="op">]</span><span class="op">)</span></code></pre></div>
 <div class="inline-table"><table class="table table-sm">
 <colgroup>
@@ -807,7 +810,7 @@
 </table></div>
 <p>Increasing <span class="math inline">\(\alpha\)</span> increases the importance of inflow so we end up with fewer terminal sites. Notably, we are still retaining many large and historically important cities despite not including information on site size in our model.</p>
 <p>Now let’s set <span class="math inline">\(\alpha = 1.05\)</span> and increase <span class="math inline">\(\beta = 0.35\)</span>:</p>
-<div class="sourceCode" id="cb618"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb629"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">rw3</span> <span class="op">&lt;-</span> <span class="fu">rihll_wilson</span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">1.05</span>, beta <span class="op">=</span> <span class="fl">0.35</span>, dist_mat <span class="op">=</span> <span class="va">d</span><span class="op">)</span>
 
 <span class="fu"><a href="https://rdrr.io/pkg/ggmap/man/ggmap.html">ggmap</a></span><span class="op">(</span><span class="va">map</span><span class="op">)</span> <span class="op">+</span>
@@ -823,7 +826,7 @@
   <span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_void</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="08-spatial-interaction_files/figure-html/unnamed-chunk-13-1.png" width="672"></div>
-<div class="sourceCode" id="cb619"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb630"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="va">dat</span><span class="op">[</span><span class="va">rw3</span><span class="op">$</span><span class="va">terminals</span>,<span class="op">]</span><span class="op">)</span></code></pre></div>
 <div class="inline-table"><table class="table table-sm">
 <colgroup>
@@ -1033,7 +1036,7 @@ If you attempt to run this on your own note that it takes quite a
 while to complete.
 </p>
 </div>
-<div class="sourceCode" id="cb620"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb631"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"scripts/terminals_by_par.R"</span><span class="op">)</span>
 
 <span class="va">alpha_ls</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0.90</span>, <span class="fl">1.25</span>, by <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span>
@@ -1054,7 +1057,7 @@ while to complete.
   <span class="op">}</span>
 <span class="op">}</span></code></pre></div>
 <p>In case you want to see the data but don’t want to wait for the above chunk to run, we have created an Rdata object with the output. Let’s load those data and plot them as a heatmap/tile plot:</p>
-<div class="sourceCode" id="cb621"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb632"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"data/retail_pars.Rdata"</span><span class="op">)</span>
 
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hadley/reshape">reshape2</a></span><span class="op">)</span>
@@ -1062,7 +1065,7 @@ while to complete.
 <pre><code>## Registered S3 method overwritten by 'ggforce':
 ##   method           from 
 ##   scale_type.units units</code></pre>
-<div class="sourceCode" id="cb623"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb634"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">res_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/reshape2/man/melt.html">melt</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span>
 
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">res_df</span><span class="op">)</span> <span class="op">+</span>
@@ -1096,7 +1099,7 @@ while to complete.
 </ul>
 <p>The model output <span class="math inline">\(E_{ij}\)</span> is, according to Menze and Ur, meant to approximate the movement of people among nodes across the landscape. In order to evaluate this function, we replicate the results of the Menze and Ur paper with one small change. We drop the bottom 50% smallest sites from consideration due to the large sample size to keep run times manageable (but this could certainly be changed in the code below). We use the replication data set provided by Menze and Ur online <a href="https://dataverse.harvard.edu/dataset.xhtml;jsessionid=adeb8ff43c833f1efe447dc9e8ba?persistentId=hdl%3A1902.1%2F17731&amp;version=&amp;q=&amp;fileTypeGroupFacet=%22Text%22&amp;fileAccess=&amp;fileTag=&amp;fileSortField=type&amp;fileSortOrder=">here</a>.</p>
 <p>Let’s read in the data, omit the rows without site volume estimates, and then remove the lowest 50% of sites in terms of volume values. We then plot the sites with points scaled by site volume.</p>
-<div class="sourceCode" id="cb624"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb635"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mesop</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"data/menze_ur_sites.csv"</span><span class="op">)</span>
 <span class="va">mesop</span> <span class="op">&lt;-</span> <span class="va">mesop</span><span class="op">[</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">mesop</span><span class="op">$</span><span class="va">volume</span><span class="op">)</span><span class="op">)</span>,<span class="op">]</span>
 <span class="va">mesop</span> <span class="op">&lt;-</span> <span class="va">mesop</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">mesop</span><span class="op">$</span><span class="va">volume</span> <span class="op">&gt;</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">mesop</span><span class="op">$</span><span class="va">volume</span>, <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span>,<span class="op">]</span>
@@ -1113,7 +1116,7 @@ while to complete.
 Note that the block below takes several minutes to run.
 </p>
 </div>
-<div class="sourceCode" id="cb625"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb636"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/dist.html">dist</a></span><span class="op">(</span><span class="va">mesop</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span> <span class="fl">1000</span>
 
 <span class="va">truncated_power</span> <span class="op">&lt;-</span> <span class="kw">function</span> <span class="op">(</span><span class="va">V</span>, <span class="va">d</span>, <span class="va">a</span>, <span class="va">y</span>, <span class="va">B</span><span class="op">)</span> <span class="op">{</span>
@@ -1131,7 +1134,7 @@ Note that the block below takes several minutes to run.
 
 <span class="va">res_mat</span> <span class="op">&lt;-</span> <span class="fu">truncated_power</span><span class="op">(</span>V <span class="op">=</span> <span class="va">mesop</span><span class="op">$</span><span class="va">volume</span>, d <span class="op">=</span> <span class="va">d</span>, a <span class="op">=</span> <span class="fl">1</span>, y <span class="op">=</span> <span class="fl">1</span>, B <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></code></pre></div>
 <p>We can now plot the sites again, this time with points scaled based on the total volume of flow incident on each node.</p>
-<div class="sourceCode" id="cb626"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb637"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">edge_flow</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html">rowSums</a></span><span class="op">(</span><span class="va">res_mat</span><span class="op">)</span>
 
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mesop</span><span class="op">)</span> <span class="op">+</span>
@@ -1146,7 +1149,7 @@ Note that the block below takes several minutes to run.
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_void</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="08-spatial-interaction_files/figure-html/unnamed-chunk-20-1.png" width="672"></div>
 <p>If we compare the plot above to figure 8 in Menze and Ur (2012) we see highly central sites in the same locations suggesting that we’ve reasonably approximated their results even though we are using a slightly different sample. Further, as the next plot shows, if we remove the few sites that are isolated in our sample (due to us removing the bottom 50% of sites) we also see the same strong linear correlation between the log of site volume and the log of our measure of interaction.</p>
-<div class="sourceCode" id="cb627"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb638"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">rem_low</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">edge_flow</span> <span class="op">&gt;</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">edge_flow</span>, <span class="fl">0.01</span><span class="op">)</span><span class="op">)</span>
 
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
@@ -1192,7 +1195,7 @@ Note that the block below takes several minutes to run.
 <strong><code>d_mat</code></strong> is a distance matrix among all nodes.</li>
 </ul>
 <p>A script containing this function can also be downloaded <a href="scripts/radiation.R">here</a></p>
-<div class="sourceCode" id="cb628"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb639"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">radiation</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">pop</span>, <span class="va">d_mat</span><span class="op">)</span> <span class="op">{</span>
   <span class="co">## create square matrix with rows and columns for every site</span>
   <span class="va">out</span> <span class="op">&lt;-</span>
@@ -1226,7 +1229,7 @@ Note that the block below takes several minutes to run.
   <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
 <p>In order to test this model, we will use the same Wankarani settlement data we used above for the simple gravity model. We will use site area divided by 500 as our proxy for population here. Again we limit our sample to Late Intermediate period sites and habitations.</p>
-<div class="sourceCode" id="cb629"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb640"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">wankarani</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"data/Wankarani_siteinfo.csv"</span><span class="op">)</span>
 <span class="va">wankarani</span> <span class="op">&lt;-</span> <span class="va">wankarani</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">wankarani</span><span class="op">$</span><span class="va">Period</span> <span class="op">==</span> <span class="st">"Late Intermediate"</span><span class="op">)</span>, <span class="op">]</span>
 <span class="va">wankarani</span> <span class="op">&lt;-</span> <span class="va">wankarani</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">wankarani</span><span class="op">$</span><span class="va">Type</span> <span class="op">==</span> <span class="st">"habitation"</span><span class="op">)</span>, <span class="op">]</span>
@@ -1235,7 +1238,7 @@ Note that the block below takes several minutes to run.
 
 <span class="va">rad_test</span> <span class="op">&lt;-</span> <span class="fu">radiation</span><span class="op">(</span>pop <span class="op">=</span> <span class="va">wankarani</span><span class="op">$</span><span class="va">Area</span> <span class="op">/</span> <span class="fl">500</span>, d_mat <span class="op">=</span> <span class="va">d</span><span class="op">)</span></code></pre></div>
 <p>Now let’s plot the resulting network with each node scaled by the total incident flow (row sums of the output of the function above). We plot network edges with weights indicated by color (blue indicates low weight and yellow indicates high weight).</p>
-<div class="sourceCode" id="cb630"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb641"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://igraph.org">igraph</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggraph.data-imaginist.com">ggraph</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span>
@@ -1300,7 +1303,7 @@ Note that the block below takes several minutes to run.
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_void</a></span><span class="op">(</span><span class="op">)</span> </code></pre></div>
 <div class="inline-figure"><img src="08-spatial-interaction_files/figure-html/unnamed-chunk-24-1.png" width="672"></div>
 <p>This map shows clusters of higher and lower edge weights and again variation in total weighted degree (with higher values in the east). The results are similar, but not identical to the output of the simple gravity model.</p>
-<div class="sourceCode" id="cb631"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb642"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dg_grav</span> <span class="op">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/r/base/colSums.html">rowSums</a></span><span class="op">(</span><span class="fu">grav_mod</span><span class="op">(</span>
   attract <span class="op">=</span> <span class="va">wankarani</span><span class="op">$</span><span class="va">Area</span> <span class="op">/</span> <span class="fl">1000</span>,
   B <span class="op">=</span> <span class="fl">1</span>,
@@ -1371,7 +1374,7 @@ Note that the block below takes several minutes to run.
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-06-21.</p>
+    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-06-23.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

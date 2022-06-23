@@ -168,3 +168,10 @@ CorrespondenceAnalysis
 CAViz
 MeasuringCoassociation
 COViz
+NetworkDiffusion
+DiffusionProcesses
+SimNetworkR
+DiffuseSimulatedNetworks
+DiffuseEmpiricalNetworks
+EvaluatingDiffusion
+section-11-network-diffusion

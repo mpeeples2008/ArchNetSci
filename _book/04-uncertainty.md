@@ -50,7 +50,14 @@ library(reshape2)
 library(ggraph)
 library(ggpubr)
 library(statnet)
+```
 
+```
+##       Installed ReposVer Built  
+## tergm "4.0.2"   "4.1.0"  "4.2.0"
+```
+
+```r
 # Import adjacency matrix and covert to network
 chaco <- read.csv(file = "data/AD1050net.csv", row.names = 1)
 

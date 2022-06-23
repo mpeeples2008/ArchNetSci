@@ -60,12 +60,14 @@
 </head>
 <body data-spy="scroll" data-target="#toc">
 
-<div class="container-fluid">
-  <header><iframe src="https://mattpeeples.net/book/index.html" style="border:0px #ffffff none;" name="header_frame" scrolling="no" frameborder="0" marginheight="0px" marginwidth="0px" height="75px" width="100%" allowfullscreen></iframe>
-</header><div class="row">
-  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+        <iframe src="https://mattpeeples.net/book/index.html" style="border:0px #ffffff none;" name="header_frame" scrolling="no" frameborder="0" marginheight="0px" marginwidth="0px" height="75px" width="100%" allowfullscreen></iframe>
 
-    <div><img src="images/placeholder.png" width="100%"></div>
+ <div class="container-fluid">
+
+ <div class="row">
+<br><header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div><img src="images/placeholder.png" width="150px"></div>
 
     <div class="d-flex align-items-start justify-content-between">
       <h1>
@@ -95,6 +97,7 @@
 <li><a class="" href="ERGM.html"><span class="header-section-number">8</span> Exponential Random Graph Models</a></li>
 <li><a class="" href="SpatialInteraction.html"><span class="header-section-number">9</span> Spatial Interaction Models</a></li>
 <li><a class="" href="Affiliation.html"><span class="header-section-number">10</span> Affiliation Data and Co-Association</a></li>
+<li><a class="" href="NetworkDiffusion.html"><span class="header-section-number">11</span> Network Diffusion</a></li>
 <li class="book-part">Additional Material</li>
 <li><a class="" href="TableOfContents.html">Table of Contents Quick Reference</a></li>
 <li><a class="" href="references-and-r-packages.html">References and R Packages</a></li>
@@ -134,11 +137,14 @@
 </ul>
 <p>Each of these will be used as appropriate to illustrate particular methods.</p>
 <p>In the following chunk of code we initialize all of the packages that we will use in this section and define all of the network objects that we will use (using the object names above). In these examples we will once again use the <a href="DataAndWorkspace.html#Cibola">Cibola technological similarity data</a> we used in the <a href="NetworkData.html#NetworkData">Network Data Formats</a> section previously.</p>
-<div class="sourceCode" id="cb296"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb298"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># initialize packages</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://igraph.org">igraph</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://statnet.org">statnet</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://mbojan.github.io/intergraph">intergraph</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://statnet.org">statnet</a></span><span class="op">)</span></code></pre></div>
+<pre><code>##       Installed ReposVer Built  
+## tergm "4.0.2"   "4.1.0"  "4.2.0"</code></pre>
+<div class="sourceCode" id="cb300"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://mbojan.github.io/intergraph">intergraph</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/vegandevs/vegan">vegan</a></span><span class="op">)</span>
 
 <span class="co"># read in csv data</span>
@@ -210,26 +216,26 @@
 </h3>
 <p>Degree centrality can be calculated using the <code><a href="https://rdrr.io/pkg/igraph/man/degree.html">igraph::degree</a></code> function for simple networks with or without isolates as well as simple directed networks. This method is not, however, appropriate for weighted networks or similarity networks (because it expects binary values). If you apply the <code><a href="https://rdrr.io/pkg/igraph/man/degree.html">igraph::degree</a></code> function to a weighted network object you will simply get the binary network degree centrality values. The alternative for calculating weighted degree for weighted and similarity networks is to simply calculate the row sums of the underlying similarity matrix (minus 1 to account for self loops) or adjacency matrix. For the degree function the returned output is a vector of values representing degree centrality which can further be assigned to an R object, plotted, or otherwise used. We provide a few examples here to illustrate. Note that for directed graphs you can also specify the mode as <code>in</code> for indegree or <code>out</code> for outdegree or <code>all</code> for the sum of both.</p>
 <p>Graph level degree centralization is equally simple to call using the <code>centr_degree</code> function. This function returns an object with multiple parts including a vector of degree centrality scores, the graph level centralization metric, and the theoretical maximum number of edges (n * [n-1]). This metric can be normalized such that the maximum centralization value would be 1 using the <code>normalize = TRUE</code> argument as we demonstrate below. See the comments in the code chunk below to follow along with which type of network object is used in each call. In most cases we only display the first 5 values to prevent long lists of output (using the <code>[1:5]</code> command).</p>
-<div class="sourceCode" id="cb297"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb301"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># simple network with isolates</span>
 <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/degree.html">degree</a></span><span class="op">(</span><span class="va">simple_net</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></code></pre></div>
 <pre><code>## Apache.Creek      Atsinna  Baca.Pueblo Casa.Malpais      Cienega 
 ##           11            8            1           11           13</code></pre>
-<div class="sourceCode" id="cb299"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb303"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># simple network no isolates</span>
 <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/degree.html">degree</a></span><span class="op">(</span><span class="va">simple_net_noiso</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></code></pre></div>
 <pre><code>##    Apache Creek    Casa Malpais    Coyote Creek    Hooper Ranch Horse Camp Mill 
 ##              11              11              11              11              12</code></pre>
-<div class="sourceCode" id="cb301"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb305"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># directed network</span>
 <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/degree.html">degree</a></span><span class="op">(</span><span class="va">directed_net</span>, mode <span class="op">=</span> <span class="st">"in"</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span> <span class="co"># indegree</span></code></pre></div>
 <pre><code>##    Coyote Creek Techado Springs   Hubble Corner    Tri-R Pueblo    Heshotauthla 
 ##               1               6               5               6               2</code></pre>
-<div class="sourceCode" id="cb303"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb307"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/degree.html">degree</a></span><span class="op">(</span><span class="va">directed_net</span>, mode <span class="op">=</span> <span class="st">"out"</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span> <span class="co"># outdegree</span></code></pre></div>
 <pre><code>##    Coyote Creek Techado Springs   Hubble Corner    Tri-R Pueblo    Heshotauthla 
 ##               6               2               5               2              11</code></pre>
-<div class="sourceCode" id="cb305"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb309"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># weighted network - rowSums of adjacency matrix</span>
 <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html">rowSums</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span>
   <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/as_adjacency_matrix.html">as_adjacency_matrix</a></span><span class="op">(</span><span class="va">weighted_net</span>,
@@ -237,13 +243,13 @@
 <span class="op">)</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></code></pre></div>
 <pre><code>##    Apache Creek    Casa Malpais    Coyote Creek    Hooper Ranch Horse Camp Mill 
 ##              25              29              21              18              27</code></pre>
-<div class="sourceCode" id="cb307"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb311"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># similarity network. Note we use the similarity matrix here and</span>
 <span class="co"># not the network object</span>
 <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html">rowSums</a></span><span class="op">(</span><span class="va">sim_mat</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></code></pre></div>
 <pre><code>## Apache Creek      Atsinna  Baca Pueblo Casa Malpais      Cienega 
 ##     16.00848     15.87024     14.77997     17.30358     17.09394</code></pre>
-<div class="sourceCode" id="cb309"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb313"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># If you want to normalize your degree centrality metric by the</span>
 <span class="co"># number of nodes present you can do that by adding the normalize=TRUE</span>
 <span class="co"># command to the function calls above. For weighted and similarity</span>
@@ -251,14 +257,14 @@
 <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/degree.html">degree</a></span><span class="op">(</span><span class="va">simple_net</span>, normalize <span class="op">=</span> <span class="cn">T</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></code></pre></div>
 <pre><code>## Apache.Creek      Atsinna  Baca.Pueblo Casa.Malpais      Cienega 
 ##   0.36666667   0.26666667   0.03333333   0.36666667   0.43333333</code></pre>
-<div class="sourceCode" id="cb311"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb315"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># it is also possible to directly plot the degree distribution for</span>
 <span class="co"># a given network using the degree.distribution function.</span>
 <span class="co"># Here we embed that call directly in a call for a histogram plot</span>
 <span class="co"># using the "hist" function</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/degree.html">degree.distribution</a></span><span class="op">(</span><span class="va">simple_net</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="03-exploratory-analysis_files/figure-html/unnamed-chunk-2-1.png" width="672"></div>
-<div class="sourceCode" id="cb312"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb316"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># graph level centralization</span>
 <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/centr_degree.html">centr_degree</a></span><span class="op">(</span><span class="va">simple_net</span><span class="op">)</span></code></pre></div>
 <pre><code>## $res
@@ -270,16 +276,16 @@
 ## 
 ## $theoretical_max
 ## [1] 930</code></pre>
-<div class="sourceCode" id="cb314"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb318"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># To calculate centralization score for a similarity matrix, use the</span>
 <span class="co"># sna::centralization function</span>
 <span class="fu">sna</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sna/man/centralization.html">centralization</a></span><span class="op">(</span><span class="va">sim_mat</span>, normalize <span class="op">=</span> <span class="cn">TRUE</span>, <span class="fu">sna</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/sna/man/degree.html">degree</a></span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 0.1082207</code></pre>
 <p>If you are interested in calculating graph level density you can do this using the <code>edge_density</code> function. Note that just like the degree function above, this only works for binary networks and if you submit a weighted network object you will simply get the binary edge density value.</p>
-<div class="sourceCode" id="cb316"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb320"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/edge_density.html">edge_density</a></span><span class="op">(</span><span class="va">simple_net_noiso</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 0.383908</code></pre>
-<div class="sourceCode" id="cb318"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb322"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/edge_density.html">edge_density</a></span><span class="op">(</span><span class="va">weighted_net</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 0.383908</code></pre>
 </div>
@@ -288,22 +294,22 @@
 <span class="header-section-number">4.3.2</span> Betweenness Centrality<a class="anchor" aria-label="anchor" href="#Betweenness"><i class="fas fa-link"></i></a>
 </h3>
 <p>The betweenness functions work very much like the degree function calls above. Betweenness centrality in <code>igraph</code> can be calculated for simple networks with and without isolates, directed networks, and weighted networks. In the case of weighted networks or similarity networks, the shortest paths between sets of nodes are calculated such that the path of greatest weight is taken at each juncture. You can normalize your results by using <code>normalize = TRUE</code> just like you could for degree. The <code><a href="https://rdrr.io/pkg/igraph/man/betweenness.html">igraph::betweenness</a></code> function will automatically detect if a graph is directed or weighted and use the appropriate method but you can also specify a particular edge attribute to use for weight if you perhaps have more than one weighting scheme.</p>
-<div class="sourceCode" id="cb320"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb324"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># calculate betweenness for simple network</span>
 <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/betweenness.html">betweenness</a></span><span class="op">(</span><span class="va">simple_net</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></code></pre></div>
 <pre><code>## Apache.Creek      Atsinna  Baca.Pueblo Casa.Malpais      Cienega 
 ##     1.125000     0.000000     0.000000     8.825306     8.032865</code></pre>
-<div class="sourceCode" id="cb322"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb326"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># calculate betweenness for weighted network</span>
 <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/betweenness.html">betweenness</a></span><span class="op">(</span><span class="va">weighted_net</span>, directed <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></code></pre></div>
 <pre><code>##    Apache Creek    Casa Malpais    Coyote Creek    Hooper Ranch Horse Camp Mill 
 ##        20.94423        18.96259        17.67829        15.66853         2.78036</code></pre>
-<div class="sourceCode" id="cb324"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb328"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># calculate betweenness for weighted network specifying weight attribute</span>
 <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/betweenness.html">betweenness</a></span><span class="op">(</span><span class="va">weighted_net</span>, weights <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/E.html">E</a></span><span class="op">(</span><span class="va">weighted_net</span><span class="op">)</span><span class="op">$</span><span class="va">weight</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></code></pre></div>
 <pre><code>##    Apache Creek    Casa Malpais    Coyote Creek    Hooper Ranch Horse Camp Mill 
 ##        20.94423        18.96259        17.67829        15.66853         2.78036</code></pre>
-<div class="sourceCode" id="cb326"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb330"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># calculate graph level centralization</span>
 <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/centr_betw.html">centr_betw</a></span><span class="op">(</span><span class="va">simple_net</span><span class="op">)</span></code></pre></div>
 <pre><code>## $res
@@ -325,12 +331,12 @@
 <span class="header-section-number">4.3.3</span> Eigenvector Centrality<a class="anchor" aria-label="anchor" href="#Eigenvector"><i class="fas fa-link"></i></a>
 </h3>
 <p>The <code><a href="https://rdrr.io/pkg/igraph/man/eigen_centrality.html">igraph::eigen_centrality</a></code> function can be calculated for simple networks with and without isolates, directed networks, and weighted networks. By default scores are scaled such that the maximum score of 1. You can turn this scaling of by using the <code>scale = FALSE</code> argument. This function automatically detects whether a network object is directed or weighted but you can also call edge attributes to specify a particular weight attribute. By default this function outputs many other features of the analysis such as the number of steps toward convergence and the number of iterations but if you just want the centrality results you can use the atomic vector call to $vector.</p>
-<div class="sourceCode" id="cb328"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb332"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/eigen_centrality.html">eigen_centrality</a></span><span class="op">(</span><span class="va">simple_net</span>,
    scale <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">$</span><span class="va">vector</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></code></pre></div>
 <pre><code>## Apache.Creek      Atsinna  Baca.Pueblo Casa.Malpais      Cienega 
 ##   0.46230981   0.54637071   0.07114132   0.53026366   0.85007181</code></pre>
-<div class="sourceCode" id="cb330"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb334"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/eigen_centrality.html">eigen_centrality</a></span><span class="op">(</span>
   <span class="va">weighted_net</span>,
   weights <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/E.html">E</a></span><span class="op">(</span><span class="va">weighted_net</span><span class="op">)</span><span class="op">$</span><span class="va">weight</span>,
@@ -345,12 +351,12 @@
 <span class="header-section-number">4.3.4</span> Page Rank Centrality<a class="anchor" aria-label="anchor" href="#PageRank"><i class="fas fa-link"></i></a>
 </h3>
 <p>The <code><a href="https://rdrr.io/pkg/igraph/man/page_rank.html">igraph::page_rank</a></code> function can be calculated for simple networks with and without isolates, directed networks, and weighted networks. By default scores are scaled such that the maximum score is 1. You can turn this scaling off by using the <code>scale = FALSE</code> argument. This function automatically detects whether a network object is directed or weighted but you can also call edge attributes to specify a particular weight attribute. You can change the algorithm used to implement the page rank algorithm (see help for details) and can also change the damping factor if desired.</p>
-<div class="sourceCode" id="cb332"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb336"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/page_rank.html">page_rank</a></span><span class="op">(</span><span class="va">directed_net</span>,
   directed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">$</span><span class="va">vector</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></code></pre></div>
 <pre><code>##    Coyote Creek Techado Springs   Hubble Corner    Tri-R Pueblo    Heshotauthla 
 ##      0.01375364      0.03433734      0.02521968      0.04722743      0.01549665</code></pre>
-<div class="sourceCode" id="cb334"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb338"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/page_rank.html">page_rank</a></span><span class="op">(</span>
   <span class="va">weighted_net</span>,
   weights <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/E.html">E</a></span><span class="op">(</span><span class="va">weighted_net</span><span class="op">)</span><span class="op">$</span><span class="va">weight</span>,
@@ -374,19 +380,19 @@ careful.
 </p>
 </div>
 <p>Let’s take a look at some examples:</p>
-<div class="sourceCode" id="cb336"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb340"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/closeness.html">closeness</a></span><span class="op">(</span><span class="va">simple_net</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></code></pre></div>
 <pre><code>## Apache.Creek      Atsinna  Baca.Pueblo Casa.Malpais      Cienega 
 ##   0.01470588   0.01470588   0.01315789   0.01886792   0.02000000</code></pre>
-<div class="sourceCode" id="cb338"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb342"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/closeness.html">closeness</a></span><span class="op">(</span><span class="va">simple_net_noiso</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></code></pre></div>
 <pre><code>##    Apache Creek    Casa Malpais    Coyote Creek    Hooper Ranch Horse Camp Mill 
 ##      0.01470588      0.01886792      0.01754386      0.01470588      0.01923077</code></pre>
-<div class="sourceCode" id="cb340"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb344"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/closeness.html">closeness</a></span><span class="op">(</span><span class="va">weighted_net</span>, weights <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/E.html">E</a></span><span class="op">(</span><span class="va">weighted_net</span><span class="op">)</span><span class="op">$</span><span class="va">weight</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></code></pre></div>
 <pre><code>##    Apache Creek    Casa Malpais    Coyote Creek    Hooper Ranch Horse Camp Mill 
 ##      0.01010101      0.01298701      0.01219512      0.01111111      0.01063830</code></pre>
-<div class="sourceCode" id="cb342"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb346"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/closeness.html">closeness</a></span><span class="op">(</span><span class="va">directed_net</span>, mode <span class="op">=</span> <span class="st">"in"</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></code></pre></div>
 <pre><code>##    Coyote Creek Techado Springs   Hubble Corner    Tri-R Pueblo    Heshotauthla 
 ##      1.00000000      0.04166667      0.04761905      0.04347826      0.09090909</code></pre>
@@ -396,11 +402,11 @@ careful.
 <span class="header-section-number">4.3.6</span> Hubs and Authorities<a class="anchor" aria-label="anchor" href="#HubsAndAuthorities"><i class="fas fa-link"></i></a>
 </h3>
 <p>In directed networks it is possible to calculate hub and authority scores to identify nodes that are characterized by high indegree and high outdegree in particular. Because this is a measure that depends on direction it is only appropriate for directed network objects. If you run this function for an undirected network hub scores and authority scores will be identical. These functions can also be applied networks that are both directed and weighted. If you do not want all options printed you can use the atomic vector $vector call as well.</p>
-<div class="sourceCode" id="cb344"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb348"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/hub_score.html">hub_score</a></span><span class="op">(</span><span class="va">directed_net</span><span class="op">)</span><span class="op">$</span><span class="va">vector</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></code></pre></div>
 <pre><code>##    Coyote Creek Techado Springs   Hubble Corner    Tri-R Pueblo    Heshotauthla 
 ##      0.31998744      0.12265832      0.30740409      0.08450797      1.00000000</code></pre>
-<div class="sourceCode" id="cb346"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb350"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/authority_score.html">authority_score</a></span><span class="op">(</span><span class="va">directed_net</span><span class="op">)</span><span class="op">$</span><span class="va">vector</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></code></pre></div>
 <pre><code>##    Coyote Creek Techado Springs   Hubble Corner    Tri-R Pueblo    Heshotauthla 
 ##      0.05372558      0.32708203      0.28835263      0.35970234      0.25265287</code></pre>
@@ -417,18 +423,18 @@ careful.
 </h3>
 <p>A triad is simply a set of three nodes and a description of the configuration of edges among them. For undirected graphs, there are four possibilities for describing the connections among those nodes (empty graph, 1 connection, 2 connections, 3 connections). For directed graphs the situation is considerably more complicated because ties can be considered in both directions and an edge in one direction isn’t necessarily reciprocated. Thus there are 16 different configurations that can exist (see Brughmans and Peeples 2022: Figure 4.4).</p>
 <p>One common method for outlining the overall structural properties of a network is to conduct a “triad census” which counts each of the 4 or 16 possible triads for a given network. Although a triad census can be conducted on an undirected network using the <code><a href="https://rdrr.io/pkg/igraph/man/triad_census.html">igraph::triad_census</a></code> function, a warning will be returned along with 0 results for all impossible triad configurations so be aware. The results are returned as a vector of counts of each possible node configuration in an order outlined in the help document associated with the function (see <code><a href="https://rdrr.io/pkg/igraph/man/triad_census.html">?triad_census</a></code> for more).</p>
-<div class="sourceCode" id="cb348"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb352"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/triad_census.html">triad_census</a></span><span class="op">(</span><span class="va">directed_net</span><span class="op">)</span></code></pre></div>
 <pre><code>##  [1] 1404 2007    0  134  146  174    0    0  195    0    0    0    0    0    0
 ## [16]    0</code></pre>
-<div class="sourceCode" id="cb350"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb354"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/triad_census.html">triad_census</a></span><span class="op">(</span><span class="va">simple_net</span><span class="op">)</span></code></pre></div>
 <pre><code>## Warning in igraph::triad_census(simple_net): At core/misc/motifs.c:1165 : Triad
 ## census called on an undirected graph.</code></pre>
 <pre><code>##  [1] 1033    0 2551    0    0    0    0    0    0    0  441    0    0    0    0
 ## [16]  470</code></pre>
 <p>Often can be useful to visualize the motifs defined for each entry in the triad census and this can be done using the <code><a href="https://rdrr.io/pkg/igraph/man/graph_from_isomorphism_class.html">graph_from_isomorphism_class()</a></code> function which outputs every possible combination of nodes of a given size you specify (3 in this case). We can plot these configurations in a single plot using the <code>ggraph</code> and <code>ggpubr</code> packages. These packages are described in more detail in the visualization section of this document. We label each configuration using the “isomporhism code” that are frequently used to describe triads.</p>
-<div class="sourceCode" id="cb353"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb357"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggraph.data-imaginist.com">ggraph</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rpkgs.datanovia.com/ggpubr/">ggpubr</a></span><span class="op">)</span>
 
@@ -488,10 +494,10 @@ careful.
 <span class="header-section-number">4.4.2</span> Transitivity and Clustering<a class="anchor" aria-label="anchor" href="#Transitivity"><i class="fas fa-link"></i></a>
 </h3>
 <p>A network’s global average transitivity (or clustering coefficient) is three times the number of closed triads over the total number of triads in a network. This measure can be calculated using <code><a href="https://rdrr.io/pkg/igraph/man/transitivity.html">igraph::transitivity</a></code> for simple networks with or without isolates, directed networks, and weighted networks. There are options within the function to determine the specific type of transitivity (global transitivity is the default) and for how to treat isolates. See the help document (<code><a href="https://rdrr.io/pkg/igraph/man/transitivity.html">?igraph::transitivity</a></code>) for more details. If you want to calculate local transitivity for a particular node you can use the <code>type = "local"</code> argument. This will return a <code>NA</code> value for nodes that are not part of any triads (isolates and nodes with a single connection).</p>
-<div class="sourceCode" id="cb354"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb358"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/transitivity.html">transitivity</a></span><span class="op">(</span><span class="va">simple_net</span>, type <span class="op">=</span> <span class="st">"global"</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 0.7617504</code></pre>
-<div class="sourceCode" id="cb356"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb360"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/transitivity.html">transitivity</a></span><span class="op">(</span><span class="va">simple_net</span>, type <span class="op">=</span> <span class="st">"local"</span><span class="op">)</span></code></pre></div>
 <pre><code>##  [1] 0.8727273 1.0000000       NaN 0.8363636 0.8333333 0.8727273 0.8666667
 ##  [8] 0.4358974 0.7252747 0.4183007 0.8727273 0.8333333 0.7435897 0.8000000
@@ -510,7 +516,7 @@ careful.
 <span class="header-section-number">4.5.1</span> Distance<a class="anchor" aria-label="anchor" href="#Distance"><i class="fas fa-link"></i></a>
 </h3>
 <p>In some cases, you may simply want information about the graph distance between nodes in general or perhaps the average distance. There are a variety of functions that can help with this including <code><a href="https://rdrr.io/pkg/igraph/man/distances.html">igraph::distances</a></code> and <code><a href="https://rdrr.io/pkg/igraph/man/distances.html">igraph::mean_distance</a></code>. These work on simple networks, directed networks, and weighted networks.</p>
-<div class="sourceCode" id="cb358"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb362"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Create matrix of all distances among nodes and view the first</span>
 <span class="co"># few rows and columns</span>
 <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/distances.html">distances</a></span><span class="op">(</span><span class="va">simple_net</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span></code></pre></div>
@@ -519,7 +525,7 @@ careful.
 ## Atsinna                 4       0           2            3
 ## Baca.Pueblo             4       2           0            3
 ## Casa.Malpais            1       3           3            0</code></pre>
-<div class="sourceCode" id="cb360"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb364"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Calculate the mean distance for a network</span>
 <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/distances.html">mean_distance</a></span><span class="op">(</span><span class="va">simple_net</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 1.949425</code></pre>
@@ -529,12 +535,12 @@ careful.
 <span class="header-section-number">4.5.2</span> Shortest Paths<a class="anchor" aria-label="anchor" href="#ShortestPaths"><i class="fas fa-link"></i></a>
 </h3>
 <p>If you want to identify particular shortest paths to or from nodes in a network you can use the <code><a href="https://rdrr.io/pkg/igraph/man/distances.html">igraph::shortest_paths</a></code> function or alternatively the <code><a href="https://rdrr.io/pkg/igraph/man/distances.html">igraph::all_shortest_paths</a></code> if you want all shortest paths originating at a particular node. To call this function you simply need to provide a network object and an id for the origin and destination of the path. The simplest solution is just to call the node number. This function works with directed and undirected networks with or without weights. Although it can be applied to networks with isolates, the isolates themselves will produce <code>NA</code> results.</p>
-<div class="sourceCode" id="cb362"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb366"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># track shortest path from Apache Creek to Pueblo de los Muertos</span>
 <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/distances.html">shortest_paths</a></span><span class="op">(</span><span class="va">simple_net</span>, from <span class="op">=</span> <span class="fl">1</span>, to <span class="op">=</span> <span class="fl">21</span><span class="op">)</span></code></pre></div>
 <pre><code>## $vpath
 ## $vpath[[1]]
-## + 5/31 vertices, named, from 74d388c:
+## + 5/31 vertices, named, from f75a79e:
 ## [1] Apache.Creek          Casa.Malpais          Garcia.Ranch         
 ## [4] Heshotauthla          Pueblo.de.los.Muertos
 ## 
@@ -554,13 +560,13 @@ careful.
 <span class="header-section-number">4.5.3</span> Diameter<a class="anchor" aria-label="anchor" href="#Diameter"><i class="fas fa-link"></i></a>
 </h3>
 <p>The <code><a href="https://rdrr.io/pkg/igraph/man/diameter.html">igraph::diameter</a></code> function calculates the diameter of a network (the longest shortest path) and you can also use the <code>farthest_vertices</code> function to get the ids of the nodes that form the ends of that longest shortest path. This metric can be calculated for directed and undirected, weighted and unweighted networks, with or without isolates.</p>
-<div class="sourceCode" id="cb364"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb368"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/diameter.html">diameter</a></span><span class="op">(</span><span class="va">directed_net</span>, directed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 4</code></pre>
-<div class="sourceCode" id="cb366"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb370"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/diameter.html">farthest_vertices</a></span><span class="op">(</span><span class="va">directed_net</span>, directed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <pre><code>## $vertices
-## + 2/30 vertices, named, from 74d4820:
+## + 2/30 vertices, named, from f75bd0a:
 ## [1] Apache Creek          Pueblo de los Muertos
 ## 
 ## $distance
@@ -572,14 +578,14 @@ careful.
 <span class="header-section-number">4.6</span> Components and Bridges<a class="anchor" aria-label="anchor" href="#ComponentsAndBridges"><i class="fas fa-link"></i></a>
 </h2>
 <p>Identifying fully connected subgraphs within a large network is a common analytical procedure and is quite straight forward in R using the igraph package. If you first want to know whether or not a given network is fully connected you can use the <code><a href="https://rdrr.io/pkg/igraph/man/components.html">igraph::is_connected</a></code> function to check.</p>
-<div class="sourceCode" id="cb368"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb372"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/components.html">is_connected</a></span><span class="op">(</span><span class="va">simple_net</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
-<div class="sourceCode" id="cb370"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb374"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/components.html">is_connected</a></span><span class="op">(</span><span class="va">simple_net_noiso</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <p>You can also count components using the <code>count_components</code> function.</p>
-<div class="sourceCode" id="cb372"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb376"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/components.html">count_components</a></span><span class="op">(</span><span class="va">simple_net</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 2</code></pre>
 <div id="IdentifyingComponents" class="section level3" number="4.6.1">
@@ -587,14 +593,14 @@ careful.
 <span class="header-section-number">4.6.1</span> Identifying Components<a class="anchor" aria-label="anchor" href="#IdentifyingComponents"><i class="fas fa-link"></i></a>
 </h3>
 <p>If you want to decompose a network object into its distinct components you can use the <code><a href="https://rdrr.io/pkg/igraph/man/decompose.html">igraph::decompose</a></code> function which outputs a list object with each entry representing a distinct component. Each object in the list can then be called using <code>[[k]]</code> where <code>k</code> is the number of the item in the list.</p>
-<div class="sourceCode" id="cb374"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb378"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">components</span> <span class="op">&lt;-</span> <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/decompose.html">decompose</a></span><span class="op">(</span><span class="va">simple_net</span>, min.vertices <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
 
 <span class="va">components</span></code></pre></div>
 <pre><code>## [[1]]
-## IGRAPH 774580e UN-- 30 167 -- 
+## IGRAPH f9f6576 UN-- 30 167 -- 
 ## + attr: name (v/c)
-## + edges from 774580e (vertex names):
+## + edges from f9f6576 (vertex names):
 ##  [1] Apache.Creek--Casa.Malpais          Apache.Creek--Coyote.Creek         
 ##  [3] Apache.Creek--Hooper.Ranch          Apache.Creek--Horse.Camp.Mill      
 ##  [5] Apache.Creek--Hubble.Corner         Apache.Creek--Mineral.Creek.Pueblo 
@@ -606,10 +612,10 @@ careful.
 ## + ... omitted several edges
 ## 
 ## [[2]]
-## IGRAPH 7745832 UN-- 1 0 -- 
+## IGRAPH f9f659a UN-- 1 0 -- 
 ## + attr: name (v/c)
-## + edges from 7745832 (vertex names):</code></pre>
-<div class="sourceCode" id="cb376"><pre class="downlit sourceCode r">
+## + edges from f9f659a (vertex names):</code></pre>
+<div class="sourceCode" id="cb380"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html">V</a></span><span class="op">(</span><span class="va">components</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">$</span><span class="va">name</span></code></pre></div>
 <pre><code>## [1] "WS.Ranch"</code></pre>
 <p>In the example here this network is fully connected with the exception of 1 node (WS Ranch). When you run the decompose function it separates WS ranch into a component as an isolate with no edges.</p>
@@ -620,14 +626,14 @@ careful.
 </h3>
 <p>A cutpoint is a node, the removal which creates a network with a higher number of components. There is not a convenient igraph function for identifying cutpoints but there is a function in the <code>sna</code> package within the <code>statnet</code> suite. Using the <code>intergraph</code> package we can easily convert an <code>igraph</code> object to a <code>network</code> object (using the <code>asNetwork</code> function) within the call to use this function.</p>
 <p>The <code>sna::cutpoint</code> function returns the node id for any cutpoints detected. We can use the numbers returned to find the name of the node in question.</p>
-<div class="sourceCode" id="cb378"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb382"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">cut_p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/sna/man/cutpoints.html">cutpoints</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/intergraph/man/asNetwork.html">asNetwork</a></span><span class="op">(</span><span class="va">simple_net</span><span class="op">)</span><span class="op">)</span>
 <span class="va">cut_p</span></code></pre></div>
 <pre><code>## [1] 18</code></pre>
-<div class="sourceCode" id="cb380"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb384"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html">V</a></span><span class="op">(</span><span class="va">simple_net</span><span class="op">)</span><span class="op">$</span><span class="va">name</span><span class="op">[</span><span class="va">cut_p</span><span class="op">]</span></code></pre></div>
 <pre><code>## [1] "Ojo.Bonito"</code></pre>
-<div class="sourceCode" id="cb382"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb386"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">4536</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">simple_net</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="03-exploratory-analysis_files/figure-html/unnamed-chunk-19-1.png" width="672"></div>
@@ -638,21 +644,21 @@ careful.
 <span class="header-section-number">4.6.3</span> Bridges<a class="anchor" aria-label="anchor" href="#Bridges"><i class="fas fa-link"></i></a>
 </h3>
 <p>A bridge is an edge, the removal of which results in a network with a higher number of components. The function igraph::min_cut finds bridges in network objects for sets of nodes or for the graph as a whole. The output of this function includes a vector called $cut which provides the edges representing bridges. By default this function only outputs the cut value but you can use the argument <code>value.only = FALSE</code> to get the full output.</p>
-<div class="sourceCode" id="cb383"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb387"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/min_cut.html">min_cut</a></span><span class="op">(</span><span class="va">simple_net_noiso</span>, value.only <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <pre><code>## $value
 ## [1] 1
 ## 
 ## $cut
-## + 1/167 edge from 74d3e89 (vertex names):
+## + 1/167 edge from f75b020 (vertex names):
 ## [1] Ojo Bonito--Baca Pueblo
 ## 
 ## $partition1
-## + 1/30 vertex, named, from 74d3e89:
+## + 1/30 vertex, named, from f75b020:
 ## [1] Baca Pueblo
 ## 
 ## $partition2
-## + 29/30 vertices, named, from 74d3e89:
+## + 29/30 vertices, named, from f75b020:
 ##  [1] Apache Creek          Casa Malpais          Coyote Creek         
 ##  [4] Hooper Ranch          Horse Camp Mill       Hubble Corner        
 ##  [7] Mineral Creek Pueblo  Rudd Creek Ruin       Techado Springs      
@@ -676,9 +682,9 @@ careful.
 <span class="header-section-number">4.7.1</span> Cliques<a class="anchor" aria-label="anchor" href="#Cliques"><i class="fas fa-link"></i></a>
 </h3>
 <p>A clique as a network science concept is arguably the strictest method of defining a cohesive subgroup. It is any set of three or more nodes in which each node is directly connected to all other nodes. It can be alternatively defined as a completely connected subnetwork, or a subnetwork with maximum density. The function <code><a href="https://rdrr.io/pkg/igraph/man/cliques.html">igraph::max_cliques</a></code> finds all maximal cliques in a network and outputs a list object with nodes in each set indicated. For the sake of space here we only output one clique of the 24 that were defined by this function call.</p>
-<div class="sourceCode" id="cb385"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb389"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/cliques.html">max_cliques</a></span><span class="op">(</span><span class="va">simple_net</span>, min <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">[[</span><span class="fl">24</span><span class="op">]</span><span class="op">]</span></code></pre></div>
-<pre><code>## + 9/31 vertices, named, from 74d388c:
+<pre><code>## + 9/31 vertices, named, from f75a79e:
 ## [1] Los.Gigantes    Cienega         Tinaja          Spier.170      
 ## [5] Scribe.S        Pescado.Cluster Mirabal         Heshotauthla   
 ## [9] Yellowhouse</code></pre>
@@ -689,13 +695,13 @@ careful.
 <span class="header-section-number">4.7.2</span> K-cores<a class="anchor" aria-label="anchor" href="#KCores"><i class="fas fa-link"></i></a>
 </h3>
 <p>A k-core is a maximal subnetwork in which each vertex has at least degree k within the subnetwork. In R this can be obtained using the <code><a href="https://rdrr.io/pkg/igraph/man/coreness.html">igraph::coreness</a></code> function and the filtering by value as appropriate. This function creates a vector of k values which can then be used to remove nodes as appropriate or symbolize them in plots.</p>
-<div class="sourceCode" id="cb387"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb391"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Define coreness of each node</span>
 <span class="va">kcore</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/coreness.html">coreness</a></span><span class="op">(</span><span class="va">simple_net</span><span class="op">)</span>
 <span class="va">kcore</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span><span class="op">]</span></code></pre></div>
 <pre><code>## Apache.Creek      Atsinna  Baca.Pueblo Casa.Malpais      Cienega Coyote.Creek 
 ##            9            8            1            9            9            9</code></pre>
-<div class="sourceCode" id="cb389"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb393"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># set up colorscale</span>
 <span class="va">col_set</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html">heat.colors</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">kcore</span><span class="op">)</span>, rev <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">2509</span><span class="op">)</span>
@@ -713,7 +719,7 @@ careful.
 <span class="header-section-number">4.7.3.1</span> Girvan-Newman Clustering<a class="anchor" aria-label="anchor" href="#GirvanNewman"><i class="fas fa-link"></i></a>
 </h4>
 <p>Girvan-Newman clustering is a divisive algorithm based on betweenness that defines a partition of network that maximizes modularity by removing nodes with high betweenness iteratively (see discussion in Brughmans and Peeples 2022 Chapter 4.6). In R this is referred to as the <code><a href="https://rdrr.io/pkg/igraph/man/cluster_edge_betweenness.html">igraph::edge.betweenness.community</a></code> function. This function can be used on directed or undirected networks with or without edge weights. This function outputs a variety of information including individual edge betweenness scores, modularity information, and partition membership. See the help documents for more information</p>
-<div class="sourceCode" id="cb390"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb394"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">gn</span> <span class="op">&lt;-</span> <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/cluster_edge_betweenness.html">edge.betweenness.community</a></span><span class="op">(</span><span class="va">simple_net</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">4353</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">simple_net</span>, vertex.color <span class="op">=</span> <span class="va">gn</span><span class="op">$</span><span class="va">membership</span><span class="op">)</span></code></pre></div>
@@ -724,7 +730,7 @@ careful.
 <span class="header-section-number">4.7.3.2</span> Walktrap Algorithm<a class="anchor" aria-label="anchor" href="#Walktrap"><i class="fas fa-link"></i></a>
 </h4>
 <p>The walktrap algorithm is designed to work for either binary or weighted networks and defines communities by generating a large number of short random walks and determining which sets of nodes consistently fall along the same short random walks. This can called using the <code><a href="https://rdrr.io/pkg/igraph/man/cluster_walktrap.html">igraph::cluster_walktrap</a></code> function. The “steps” argument determines the length of the short walks and is set to 4 by default.</p>
-<div class="sourceCode" id="cb391"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb395"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">wt</span> <span class="op">&lt;-</span> <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/cluster_walktrap.html">cluster_walktrap</a></span><span class="op">(</span><span class="va">simple_net</span>, steps <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">4353</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">simple_net</span>, vertex.color <span class="op">=</span> <span class="va">wt</span><span class="op">$</span><span class="va">membership</span><span class="op">)</span></code></pre></div>
@@ -735,7 +741,7 @@ careful.
 <span class="header-section-number">4.7.3.3</span> Louvain Modularity<a class="anchor" aria-label="anchor" href="#Louvain"><i class="fas fa-link"></i></a>
 </h4>
 <p>Louvain modularity is a cluster detection algorithm based on modularity. The algorithm iteratively moves nodes among community definitions in a way that optimizes modularity. This measure can be calculated on simple networks, directed networks, and weighted networks and is implemented in R through the <code><a href="https://rdrr.io/pkg/igraph/man/cluster_louvain.html">igraph::cluster_louvain</a></code> function.</p>
-<div class="sourceCode" id="cb392"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb396"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">lv</span> <span class="op">&lt;-</span> <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/cluster_louvain.html">cluster_louvain</a></span><span class="op">(</span><span class="va">simple_net</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">4353</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">simple_net</span>, vertex.color <span class="op">=</span> <span class="va">lv</span><span class="op">$</span><span class="va">membership</span><span class="op">)</span></code></pre></div>
@@ -746,19 +752,19 @@ careful.
 <span class="header-section-number">4.7.3.4</span> Calculating Modularity for Partitions<a class="anchor" aria-label="anchor" href="#Modularity"><i class="fas fa-link"></i></a>
 </h4>
 <p>If you would like to compare modularity scores among partitions of the same graph, this can be achieved using the <code><a href="https://rdrr.io/pkg/igraph/man/modularity.igraph.html">igraph::modularity</a></code> function. In the modularity call you simply supply an argument indicating the partition membership for each node. Note that this can also be used for attribute data such as regional designations. In the following chunk of code we will compare modularity for each of the clustering methods described above as well using subregion designations <a href="data/Cibola_attr.csv">from the original Cibola region attribute data</a></p>
-<div class="sourceCode" id="cb393"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb397"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Modularity for Girvan-Newman</span>
 <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/modularity.igraph.html">modularity</a></span><span class="op">(</span><span class="va">simple_net</span>, membership <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/communities.html">membership</a></span><span class="op">(</span><span class="va">gn</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 0.4103589</code></pre>
-<div class="sourceCode" id="cb395"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb399"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Modularity for walktrap</span>
 <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/modularity.igraph.html">modularity</a></span><span class="op">(</span><span class="va">simple_net</span>, membership <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/communities.html">membership</a></span><span class="op">(</span><span class="va">wt</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 0.4157195</code></pre>
-<div class="sourceCode" id="cb397"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb401"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Modularity for Louvain clustering</span>
 <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/modularity.igraph.html">modularity</a></span><span class="op">(</span><span class="va">simple_net</span>, membership <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/communities.html">membership</a></span><span class="op">(</span><span class="va">lv</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 0.4157195</code></pre>
-<div class="sourceCode" id="cb399"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb403"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Modularity for subregion</span>
 <span class="va">cibola_attr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"data/Cibola_attr.csv"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/modularity.igraph.html">modularity</a></span><span class="op">(</span><span class="va">simple_net</span>, membership <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">cibola_attr</span><span class="op">$</span><span class="va">Region</span><span class="op">)</span><span class="op">)</span></code></pre></div>
@@ -770,7 +776,7 @@ careful.
 <span class="header-section-number">4.7.3.5</span> Finding Edges Within and Between Communities<a class="anchor" aria-label="anchor" href="#FindingEdgesBetween"><i class="fas fa-link"></i></a>
 </h4>
 <p>In many cases you may be interested in identifying edges that remain within or extend between some network partition. This can be done using the <code><a href="https://rdrr.io/pkg/igraph/man/communities.html">igraph::crossing</a></code> function. This function expects a igraph cluster definition object and an igraph network and will return a list of <code>TRUE</code> and <code>FALSE</code> values for each edge where true indicates an edge that extends beyond the cluster assigned to the nodes. Let’s take a look at the first 10 edges in our simple_net object based on the Louvain cluster definition.</p>
-<div class="sourceCode" id="cb401"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb405"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/communities.html">crossing</a></span><span class="op">(</span><span class="va">lv</span>, <span class="va">simple_net</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span><span class="op">]</span></code></pre></div>
 <pre><code>##         Apache.Creek|Casa.Malpais         Apache.Creek|Coyote.Creek 
 ##                             FALSE                             FALSE 
@@ -779,7 +785,7 @@ careful.
 ##        Apache.Creek|Hubble.Corner Apache.Creek|Mineral.Creek.Pueblo 
 ##                             FALSE                             FALSE</code></pre>
 <p>Beyond this, if you plot an igraph object and add a cluster definition to the call it will produce a network graph with the clusters outlined and with nodes that extend between clusters shown in red.</p>
-<div class="sourceCode" id="cb403"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb407"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">54</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">lv</span>, <span class="va">simple_net</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="03-exploratory-analysis_files/figure-html/unnamed-chunk-28-1.png" width="672"></div>
@@ -800,7 +806,7 @@ careful.
 <strong><code>road_net3</code></strong> - A network that retains all of the ties of the first road network but connects each isolate to its nearest neighbor among the road network settlements</li>
 </ul>
 <p>First let’s read in the <a href="data/road_networks.RData">data file</a> that contains all three networks and start by plotting them in turn on a map. We are using a custom network map function here that is save in a file called <a href="scripts/map_net.R">map_net.R</a> that takes locations with decimal degrees locations and plots a network directly on a map. We will go over the specifics of the function in more detail in the <a href="Visualization.html#Visualization">Network Visualization</a> and <a href="SpatialNetworks.html#SpatialNetworks">Spatial Networks</a> sections but here we simply call the script directly from the .R file. Make sure you have the libraries initialized below to replicate this map.</p>
-<div class="sourceCode" id="cb404"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb408"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://igraph.org">igraph</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/dkahle/ggmap">ggmap</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span>
@@ -821,7 +827,7 @@ careful.
   map_title <span class="op">=</span> <span class="st">"Basic Network"</span>
 <span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="03-exploratory-analysis_files/figure-html/iberian_roads-1.png" width="672"></div>
-<div class="sourceCode" id="cb405"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb409"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Create Basic network map</span>
 <span class="fu">map_net</span><span class="op">(</span>
   nodes <span class="op">=</span> <span class="va">nodes</span>,
@@ -832,7 +838,7 @@ careful.
   map_title <span class="op">=</span> <span class="st">"Basic Network+ 50Km Buffer"</span>
 <span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="03-exploratory-analysis_files/figure-html/iberian_roads-2.png" width="672"></div>
-<div class="sourceCode" id="cb406"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb410"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Create Basic network map</span>
 <span class="fu">map_net</span><span class="op">(</span>
   nodes <span class="op">=</span> <span class="va">nodes</span>,
@@ -845,7 +851,7 @@ careful.
 <div class="inline-figure"><img src="03-exploratory-analysis_files/figure-html/iberian_roads-3.png" width="672"></div>
 <p>Now that we’ve replicated the visuals, we want to replicate network statistics. Since we’re going to calculate several of the same network statistics for the networks in question, we can wrap this all into a function to save a bit of time. The following function expects an <code>igraph</code> network object and calculates each of the 10 variables show in the example in the book and returns them as a matrix.</p>
 <p>Although the function below is somewhat long, it is very simple. It defines a function with a single argument <code>net</code> which is an <code>igraph</code> network object. It then creates an output matrix called <code>out</code> with the appropriate number of rows and columns and then populates the first column with the name of each measure. Next each network measure is evaluated in turn and assigned to the appropriate row in column 2 of the <code>out</code> matrix. Finally, the full matrix is returned: <code>return(out)</code>.</p>
-<div class="sourceCode" id="cb407"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb411"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://igraph.org">igraph</a></span><span class="op">)</span>
 
 <span class="va">net_stats</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">net</span><span class="op">)</span> <span class="op">{</span>
@@ -877,7 +883,7 @@ careful.
 <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
 <p>Now let’s run it for each of the three networks in turn to reproduce the results in the book. We then combine the results into a single table that is nicely formatted using the <code>kable</code> function. If you’d prefer you can simply view the results of <code>net_stats()</code> right at the console.</p>
-<div class="sourceCode" id="cb408"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb412"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ns1</span> <span class="op">&lt;-</span> <span class="fu">net_stats</span><span class="op">(</span><span class="va">road_net</span><span class="op">)</span>
 
 <span class="va">ns2</span> <span class="op">&lt;-</span> <span class="fu">net_stats</span><span class="op">(</span><span class="va">road_net2</span><span class="op">)</span>
@@ -1115,7 +1121,7 @@ Open Triad Count
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-06-21.</p>
+    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-06-23.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

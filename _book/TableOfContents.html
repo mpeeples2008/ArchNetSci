@@ -60,12 +60,14 @@
 </head>
 <body data-spy="scroll" data-target="#toc">
 
-<div class="container-fluid">
-  <header><iframe src="https://mattpeeples.net/book/index.html" style="border:0px #ffffff none;" name="header_frame" scrolling="no" frameborder="0" marginheight="0px" marginwidth="0px" height="75px" width="100%" allowfullscreen></iframe>
-</header><div class="row">
-  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+        <iframe src="https://mattpeeples.net/book/index.html" style="border:0px #ffffff none;" name="header_frame" scrolling="no" frameborder="0" marginheight="0px" marginwidth="0px" height="75px" width="100%" allowfullscreen></iframe>
 
-    <div><img src="images/placeholder.png" width="100%"></div>
+ <div class="container-fluid">
+
+ <div class="row">
+<br><header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div><img src="images/placeholder.png" width="150px"></div>
 
     <div class="d-flex align-items-start justify-content-between">
       <h1>
@@ -95,6 +97,7 @@
 <li><a class="" href="ERGM.html"><span class="header-section-number">8</span> Exponential Random Graph Models</a></li>
 <li><a class="" href="SpatialInteraction.html"><span class="header-section-number">9</span> Spatial Interaction Models</a></li>
 <li><a class="" href="Affiliation.html"><span class="header-section-number">10</span> Affiliation Data and Co-Association</a></li>
+<li><a class="" href="NetworkDiffusion.html"><span class="header-section-number">11</span> Network Diffusion</a></li>
 <li class="book-part">Additional Material</li>
 <li><a class="active" href="TableOfContents.html">Table of Contents Quick Reference</a></li>
 <li><a class="" href="references-and-r-packages.html">References and R Packages</a></li>
@@ -523,6 +526,27 @@
 </li>
 </ul>
 </div>
+<div id="section-11-network-diffusion" class="section level2" number="11.4">
+<h2>
+<span class="header-section-number">11.4</span> Section 11: Network Diffusion<a class="anchor" aria-label="anchor" href="#section-11-network-diffusion"><i class="fas fa-link"></i></a>
+</h2>
+<p><a href="NetworkDiffusion.html#NetworkDiffusion">Network Diffusion</a></p>
+<ul>
+<li>
+<a href="NetworkDiffusion.html#DiffusionProcesses">Diffusion Processes</a>
+<ul>
+<li>
+<a href="NetworkDiffusion.html#SimNetworkR">Simulating Network Diffusion in R</a>
+<ul>
+<li><a href="NetworkDiffusion.html#DiffuseSimulatedNetworks">Simulated Networks</a></li>
+<li><a href="NetworkDiffusion.html#DiffuseEmpiricalNetworks">Empirical Networks</a></li>
+</ul>
+</li>
+<li><a href="NetworkDiffusion.html#EvaluatingDiffusion">Evaluating Diffusion Models</a></li>
+</ul>
+</li>
+</ul>
+</div>
 <div id="additional-information-and-materials" class="section level2 unnumbered">
 <h2>ADDITIONAL INFORMATION AND MATERIALS<a class="anchor" aria-label="anchor" href="#additional-information-and-materials"><i class="fas fa-link"></i></a>
 </h2>
@@ -532,7 +556,7 @@
 </div>
 </div>
   <div class="chapter-nav">
-<div class="prev"><a href="Affiliation.html"><span class="header-section-number">10</span> Affiliation Data and Co-Association</a></div>
+<div class="prev"><a href="NetworkDiffusion.html"><span class="header-section-number">11</span> Network Diffusion</a></div>
 <div class="next"><a href="references-and-r-packages.html">References and R Packages</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="In this section"><h2>In this section</h2>
@@ -552,6 +576,7 @@
 <li><a class="nav-link" href="#section-8-exponential-random-graph-models">Section 8: Exponential Random Graph Models</a></li>
 <li><a class="nav-link" href="#section-9-spatial-interaction-models">Section 9: Spatial Interaction Models</a></li>
 <li><a class="nav-link" href="#section-10-affiliation-data-and-co-association">Section 10: Affiliation Data and Co-Association</a></li>
+<li><a class="nav-link" href="#section-11-network-diffusion"><span class="header-section-number">11.4</span> Section 11: Network Diffusion</a></li>
 <li><a class="nav-link" href="#additional-information-and-materials">ADDITIONAL INFORMATION AND MATERIALS</a></li>
 </ul>
 
@@ -570,7 +595,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-06-21.</p>
+    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-06-23.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

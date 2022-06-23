@@ -567,10 +567,14 @@ img.cover {
   }
 }
 
+.header_cont {width=100%; position:fixed; top:0px;}
+
 .header_box {
 	width: 100%;
-	padding: 100px 0;
-	text-emphasis: center;
+	height: 75px auto;
+	background: #1e90ff;
+	position: fixed;
+	top: 0px;
 }
 
 #bg {

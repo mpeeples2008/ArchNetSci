@@ -10,6 +10,7 @@ rmd_files:
   - "07-ergm.Rmd"
   - "08-spatial-interaction.Rmd"
   - "09-affiliation.Rmd"
+  - "10-diffusion.Rmd"
   - "lookup.Rmd"
   - "references.Rmd"
 new_session: true
