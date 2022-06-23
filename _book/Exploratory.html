@@ -540,7 +540,7 @@ careful.
 <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/distances.html">shortest_paths</a></span><span class="op">(</span><span class="va">simple_net</span>, from <span class="op">=</span> <span class="fl">1</span>, to <span class="op">=</span> <span class="fl">21</span><span class="op">)</span></code></pre></div>
 <pre><code>## $vpath
 ## $vpath[[1]]
-## + 5/31 vertices, named, from f75a79e:
+## + 5/31 vertices, named, from 6b4e252:
 ## [1] Apache.Creek          Casa.Malpais          Garcia.Ranch         
 ## [4] Heshotauthla          Pueblo.de.los.Muertos
 ## 
@@ -566,7 +566,7 @@ careful.
 <div class="sourceCode" id="cb370"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/diameter.html">farthest_vertices</a></span><span class="op">(</span><span class="va">directed_net</span>, directed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <pre><code>## $vertices
-## + 2/30 vertices, named, from f75bd0a:
+## + 2/30 vertices, named, from 6b4f223:
 ## [1] Apache Creek          Pueblo de los Muertos
 ## 
 ## $distance
@@ -598,9 +598,9 @@ careful.
 
 <span class="va">components</span></code></pre></div>
 <pre><code>## [[1]]
-## IGRAPH f9f6576 UN-- 30 167 -- 
+## IGRAPH 6dd0675 UN-- 30 167 -- 
 ## + attr: name (v/c)
-## + edges from f9f6576 (vertex names):
+## + edges from 6dd0675 (vertex names):
 ##  [1] Apache.Creek--Casa.Malpais          Apache.Creek--Coyote.Creek         
 ##  [3] Apache.Creek--Hooper.Ranch          Apache.Creek--Horse.Camp.Mill      
 ##  [5] Apache.Creek--Hubble.Corner         Apache.Creek--Mineral.Creek.Pueblo 
@@ -612,9 +612,9 @@ careful.
 ## + ... omitted several edges
 ## 
 ## [[2]]
-## IGRAPH f9f659a UN-- 1 0 -- 
+## IGRAPH 6dd069b UN-- 1 0 -- 
 ## + attr: name (v/c)
-## + edges from f9f659a (vertex names):</code></pre>
+## + edges from 6dd069b (vertex names):</code></pre>
 <div class="sourceCode" id="cb380"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html">V</a></span><span class="op">(</span><span class="va">components</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">$</span><span class="va">name</span></code></pre></div>
 <pre><code>## [1] "WS.Ranch"</code></pre>
@@ -650,15 +650,15 @@ careful.
 ## [1] 1
 ## 
 ## $cut
-## + 1/167 edge from f75b020 (vertex names):
+## + 1/167 edge from 6b4e850 (vertex names):
 ## [1] Ojo Bonito--Baca Pueblo
 ## 
 ## $partition1
-## + 1/30 vertex, named, from f75b020:
+## + 1/30 vertex, named, from 6b4e850:
 ## [1] Baca Pueblo
 ## 
 ## $partition2
-## + 29/30 vertices, named, from f75b020:
+## + 29/30 vertices, named, from 6b4e850:
 ##  [1] Apache Creek          Casa Malpais          Coyote Creek         
 ##  [4] Hooper Ranch          Horse Camp Mill       Hubble Corner        
 ##  [7] Mineral Creek Pueblo  Rudd Creek Ruin       Techado Springs      
@@ -684,7 +684,7 @@ careful.
 <p>A clique as a network science concept is arguably the strictest method of defining a cohesive subgroup. It is any set of three or more nodes in which each node is directly connected to all other nodes. It can be alternatively defined as a completely connected subnetwork, or a subnetwork with maximum density. The function <code><a href="https://rdrr.io/pkg/igraph/man/cliques.html">igraph::max_cliques</a></code> finds all maximal cliques in a network and outputs a list object with nodes in each set indicated. For the sake of space here we only output one clique of the 24 that were defined by this function call.</p>
 <div class="sourceCode" id="cb389"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/cliques.html">max_cliques</a></span><span class="op">(</span><span class="va">simple_net</span>, min <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">[[</span><span class="fl">24</span><span class="op">]</span><span class="op">]</span></code></pre></div>
-<pre><code>## + 9/31 vertices, named, from f75a79e:
+<pre><code>## + 9/31 vertices, named, from 6b4e252:
 ## [1] Los.Gigantes    Cienega         Tinaja          Spier.170      
 ## [5] Scribe.S        Pescado.Cluster Mirabal         Heshotauthla   
 ## [9] Yellowhouse</code></pre>

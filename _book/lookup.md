@@ -264,15 +264,15 @@ The purpose of this section is to provide a quick index of topics covered in thi
 * [Measuring Co-Association](#MeasuringCoassociation)
   + [Alternative Methods for Visualizing Co-associations](#COViz)
 
-## Section 11: Network Diffusion
+## Section 11: Network Diffusion{-}
 
 [Network Diffusion](#NetworkDiffusion)
 
 * [Diffusion Processes](#DiffusionProcesses)
-  + [Simulating Network Diffusion in R](#SimNetworkR)
-    - [Simulated Networks](#DiffuseSimulatedNetworks)
-    - [Empirical Networks](#DiffuseEmpiricalNetworks)
-  + [Evaluating Diffusion Models](#EvaluatingDiffusion)
+* [Simulating Network Diffusion in R](#SimNetworkR)
+  + [Simulated Networks](#DiffuseSimulatedNetworks)
+  + [Empirical Networks](#DiffuseEmpiricalNetworks)
+* [Evaluating Diffusion Models](#EvaluatingDiffusion)
 
 ## ADDITIONAL INFORMATION AND MATERIALS{-}
 

@@ -174,4 +174,3 @@ SimNetworkR
 DiffuseSimulatedNetworks
 DiffuseEmpiricalNetworks
 EvaluatingDiffusion
-section-11-network-diffusion
