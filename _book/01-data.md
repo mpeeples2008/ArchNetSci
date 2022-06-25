@@ -235,6 +235,7 @@ This version of the book was built with R version 4.2.0 (2022-04-22 ucrt) and th
 |ape            |5.6-2   |CRAN (R 4.2.0) |
 |bookdown       |0.26    |CRAN (R 4.2.0) |
 |bslib          |0.3.1   |CRAN (R 4.2.0) |
+|ca             |0.71.1  |CRAN (R 4.2.0) |
 |cccd           |1.6     |CRAN (R 4.2.0) |
 |colorspace     |2.0-3   |CRAN (R 4.2.0) |
 |concaveman     |1.1.0   |CRAN (R 4.2.0) |
@@ -260,6 +261,7 @@ This version of the book was built with R version 4.2.0 (2022-04-22 ucrt) and th
 |latticeExtra   |0.6-29  |CRAN (R 4.2.0) |
 |maptools       |1.1-4   |CRAN (R 4.2.0) |
 |multinet       |4.0.1   |CRAN (R 4.2.0) |
+|netdiffuseR    |1.22.3  |CRAN (R 4.2.0) |
 |networkD3      |0.4     |CRAN (R 4.2.0) |
 |networkDynamic |0.11.2  |CRAN (R 4.2.0) |
 |patchwork      |1.1.1   |CRAN (R 4.2.0) |
