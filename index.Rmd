@@ -6,8 +6,8 @@ site: bookdown::bookdown_site
 output: bookdown::bs4_book
 documentclass: book
 bibliography: 
-  - references.bib
-  - packages.bib
+  - assets/references.bib
+  - assets/packages.bib
 csl: assets/society-for-american-archaeology.csl
 url: https://book.archnetworks.net
 description: |

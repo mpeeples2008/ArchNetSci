@@ -18,4 +18,4 @@ bookdown::bs4_book:
     base: https://github.com/mpeeples2008/ArchNetSci
     branch: main
   includes:
-    in_header: ["analytics/ga.html"]
+    in_header: ["assets/ga.html"]
