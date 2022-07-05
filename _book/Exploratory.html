@@ -456,7 +456,7 @@ careful.
 <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">0</span><span class="op">:</span><span class="fl">15</span><span class="op">)</span> <span class="op">{</span>
   <span class="va">g_temp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/graph_from_isomorphism_class.html">graph_from_isomorphism_class</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">3</span>,
                                          number <span class="op">=</span> <span class="va">i</span>,
-                                         directed <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>
+                                         directed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
   <span class="va">g</span><span class="op">[[</span><span class="va">i</span> <span class="op">+</span> <span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">g_temp</span>,
                        layout <span class="op">=</span> <span class="st">"manual"</span>,
                        x <span class="op">=</span> <span class="va">xy</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span>,
@@ -541,7 +541,7 @@ careful.
 <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/distances.html">shortest_paths</a></span><span class="op">(</span><span class="va">simple_net</span>, from <span class="op">=</span> <span class="fl">1</span>, to <span class="op">=</span> <span class="fl">21</span><span class="op">)</span></code></pre></div>
 <pre><code>## $vpath
 ## $vpath[[1]]
-## + 5/31 vertices, named, from 85cf5f8:
+## + 5/31 vertices, named, from 959baa5:
 ## [1] Apache.Creek          Casa.Malpais          Garcia.Ranch         
 ## [4] Heshotauthla          Pueblo.de.los.Muertos
 ## 
@@ -567,7 +567,7 @@ careful.
 <div class="sourceCode" id="cb370"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/diameter.html">farthest_vertices</a></span><span class="op">(</span><span class="va">directed_net</span>, directed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <pre><code>## $vertices
-## + 2/30 vertices, named, from 85d04f6:
+## + 2/30 vertices, named, from 959cc79:
 ## [1] Apache Creek          Pueblo de los Muertos
 ## 
 ## $distance
@@ -599,9 +599,9 @@ careful.
 
 <span class="va">components</span></code></pre></div>
 <pre><code>## [[1]]
-## IGRAPH 884630f UN-- 30 167 -- 
+## IGRAPH 980a918 UN-- 30 167 -- 
 ## + attr: name (v/c)
-## + edges from 884630f (vertex names):
+## + edges from 980a918 (vertex names):
 ##  [1] Apache.Creek--Casa.Malpais          Apache.Creek--Coyote.Creek         
 ##  [3] Apache.Creek--Hooper.Ranch          Apache.Creek--Horse.Camp.Mill      
 ##  [5] Apache.Creek--Hubble.Corner         Apache.Creek--Mineral.Creek.Pueblo 
@@ -613,9 +613,9 @@ careful.
 ## + ... omitted several edges
 ## 
 ## [[2]]
-## IGRAPH 8846335 UN-- 1 0 -- 
+## IGRAPH 980a93a UN-- 1 0 -- 
 ## + attr: name (v/c)
-## + edges from 8846335 (vertex names):</code></pre>
+## + edges from 980a93a (vertex names):</code></pre>
 <div class="sourceCode" id="cb380"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html">V</a></span><span class="op">(</span><span class="va">components</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">$</span><span class="va">name</span></code></pre></div>
 <pre><code>## [1] "WS.Ranch"</code></pre>
@@ -651,15 +651,15 @@ careful.
 ## [1] 1
 ## 
 ## $cut
-## + 1/167 edge from 85cfbd4 (vertex names):
+## + 1/167 edge from 959c0f2 (vertex names):
 ## [1] Ojo Bonito--Baca Pueblo
 ## 
 ## $partition1
-## + 1/30 vertex, named, from 85cfbd4:
+## + 1/30 vertex, named, from 959c0f2:
 ## [1] Baca Pueblo
 ## 
 ## $partition2
-## + 29/30 vertices, named, from 85cfbd4:
+## + 29/30 vertices, named, from 959c0f2:
 ##  [1] Apache Creek          Casa Malpais          Coyote Creek         
 ##  [4] Hooper Ranch          Horse Camp Mill       Hubble Corner        
 ##  [7] Mineral Creek Pueblo  Rudd Creek Ruin       Techado Springs      
@@ -685,7 +685,7 @@ careful.
 <p>A clique as a network science concept is arguably the strictest method of defining a cohesive subgroup. It is any set of three or more nodes in which each node is directly connected to all other nodes. It can be alternatively defined as a completely connected subnetwork, or a subnetwork with maximum density. The function <code><a href="https://rdrr.io/pkg/igraph/man/cliques.html">igraph::max_cliques</a></code> finds all maximal cliques in a network and outputs a list object with nodes in each set indicated. For the sake of space here we only output one clique of the 24 that were defined by this function call.</p>
 <div class="sourceCode" id="cb389"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/cliques.html">max_cliques</a></span><span class="op">(</span><span class="va">simple_net</span>, min <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">[[</span><span class="fl">24</span><span class="op">]</span><span class="op">]</span></code></pre></div>
-<pre><code>## + 9/31 vertices, named, from 85cf5f8:
+<pre><code>## + 9/31 vertices, named, from 959baa5:
 ## [1] Los.Gigantes    Cienega         Tinaja          Spier.170      
 ## [5] Scribe.S        Pescado.Cluster Mirabal         Heshotauthla   
 ## [9] Yellowhouse</code></pre>
@@ -1122,7 +1122,7 @@ Open Triad Count
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-06-26.</p>
+    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-07-05.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

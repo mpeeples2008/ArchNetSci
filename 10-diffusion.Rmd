@@ -85,7 +85,7 @@ We can also plot the adoption curve across all time steps using the `plot_adopte
 plot_adopters(net_test1)
 ```
 
-This result shows the classic S-shaped curve for cumulative adoption with the parameters we've provided where adoption is at first slow, followed by a period of rapid adoption, and then a gradual slowdown as adoptions reaches saturation.
+These results show the classic S-shaped curve for cumulative adoption with the parameters we've provided where adoption is at first slow, followed by a period of rapid adoption, and then a gradual slowdown as adoptions reaches saturation.
 
 We can also plot a network that shows the time step at which each node adopted the contagion:
 
@@ -270,7 +270,7 @@ ggmap(my_map) +
   theme_void()
 ```
 
-As this map illustrates, and as we would expect, nodes closest to the initial adopters are the earliest adopters. Further the area in the southern portion of the study area shows a dense collection of nodes colored gray indicating they did not adopt in the 20 time steps we assessed.
+As this map illustrates, nodes closest to the initial adopters are the earliest adopters. Further the area in the southern portion of the study area shows a dense collection of nodes colored gray indicating they did not adopt in the 20 time steps we assessed.
 
 Let's now create another adopter plot and map color coded by time of adoption. In the next example, we leave everything alone but this time set the initial adopters as nodes 6 and 7 in the northwestern portion of the study area:
 
@@ -444,6 +444,6 @@ ggplot(data = df) +
   theme_bw()
 ```
 
-As this boxplot illustrates, sites that were in the "Early Adopter" or "Early Majority" category generally have earlier starting dates than those in the other categories. This may suggest that network distance from Chaco Canyon (where we originated our "contagion" and where the earliest Great Houses are found) may have been a factor in the establishment of Chacoan complexes outside of Chaco. Of Course, if wanted to take this further we would need to assess the variable roles of spatial distance, network distance, and perhaps could even consider material cultural similarity data. At this point, however, this brief example at least points out that there is an interesting pattern worth investigation. Further, this example demonstrates one simple approach that could be used to compare diffusion models to other archaeological data.
+As this boxplot illustrates, sites that were in the "Early Adopter" or "Early Majority" category include the vast majority of sites that have earlier starting dates though the median is the same across groups. This may suggest that network distance from Chaco Canyon (where we originated our "contagion" and where the earliest Great Houses are found) may have been a factor in the establishment of Chacoan complexes outside of Chaco. Of Course, if wanted to take this further we would need to assess the variable roles of spatial distance, network distance, and perhaps could even consider material cultural similarity data. At this point, however, this brief example at least points out that there is an interesting pattern worth investigation. Further, this example demonstrates one simple approach that could be used to compare diffusion models to other archaeological data.
 
 We have only scratched the surface on the network methods that can be used to study diffusion here. There are many other advanced models that may be relevant for archaeological analysis including many interesting [Epidemiological Models](http://www.epimodel.org/tut.html) that would likely work well in archaeological context for considerations of all sorts of contagions (social or biological). We hope these brief examples will promote further exploration of such approaches. 

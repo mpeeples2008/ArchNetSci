@@ -255,16 +255,19 @@ This version of the book was built with R version 4.2.0 (2022-04-22 ucrt) and th
 |ggrepel        |0.9.1   |CRAN (R 4.2.0) |
 |ggsn           |0.5.0   |CRAN (R 4.2.0) |
 |GISTools       |0.7-4   |CRAN (R 4.2.0) |
+|graphkernels   |1.6.1   |CRAN (R 4.2.0) |
 |igraph         |1.3.1   |CRAN (R 4.2.0) |
 |intergraph     |2.0-2   |CRAN (R 4.2.0) |
 |knitr          |1.39    |CRAN (R 4.2.0) |
 |latticeExtra   |0.6-29  |CRAN (R 4.2.0) |
 |maptools       |1.1-4   |CRAN (R 4.2.0) |
+|Matrix         |1.4-1   |CRAN (R 4.2.0) |
 |multinet       |4.0.1   |CRAN (R 4.2.0) |
 |netdiffuseR    |1.22.3  |CRAN (R 4.2.0) |
 |networkD3      |0.4     |CRAN (R 4.2.0) |
 |networkDynamic |0.11.2  |CRAN (R 4.2.0) |
 |patchwork      |1.1.1   |CRAN (R 4.2.0) |
+|pracma         |2.3.8   |CRAN (R 4.2.0) |
 |RColorBrewer   |1.1-3   |CRAN (R 4.2.0) |
 |Rcpp           |1.0.8.3 |CRAN (R 4.2.0) |
 |reshape2       |1.4.4   |CRAN (R 4.2.0) |
@@ -274,6 +277,7 @@ This version of the book was built with R version 4.2.0 (2022-04-22 ucrt) and th
 |rmarkdown      |2.14    |CRAN (R 4.2.0) |
 |scatterplot3d  |0.3-41  |CRAN (R 4.2.0) |
 |sf             |1.0-7   |CRAN (R 4.2.0) |
+|SparseM        |1.81    |CRAN (R 4.2.0) |
 |statnet        |2019.6  |CRAN (R 4.2.0) |
 |superheat      |0.1.0   |CRAN (R 4.2.0) |
 |tidyverse      |1.3.1   |CRAN (R 4.2.0) |

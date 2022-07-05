@@ -242,7 +242,7 @@ starting point.
 <div class="sourceCode" id="cb682"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://USCCANA.github.io/netdiffuseR/reference/plot_adopters.html">plot_adopters</a></span><span class="op">(</span><span class="va">net_test1</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="10-diffusion_files/figure-html/unnamed-chunk-4-1.png" width="672"></div>
-<p>This result shows the classic S-shaped curve for cumulative adoption with the parameters we’ve provided where adoption is at first slow, followed by a period of rapid adoption, and then a gradual slowdown as adoptions reaches saturation.</p>
+<p>These results show the classic S-shaped curve for cumulative adoption with the parameters we’ve provided where adoption is at first slow, followed by a period of rapid adoption, and then a gradual slowdown as adoptions reaches saturation.</p>
 <p>We can also plot a network that shows the time step at which each node adopted the contagion:</p>
 <div class="sourceCode" id="cb683"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://USCCANA.github.io/netdiffuseR/reference/plot_diffnet2.html">plot_diffnet2</a></span><span class="op">(</span><span class="va">net_test1</span><span class="op">)</span></code></pre></div>
@@ -527,7 +527,7 @@ starting point.
                   size <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_void</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="10-diffusion_files/figure-html/unnamed-chunk-10-1.png" width="672"></div>
-<p>As this map illustrates, and as we would expect, nodes closest to the initial adopters are the earliest adopters. Further the area in the southern portion of the study area shows a dense collection of nodes colored gray indicating they did not adopt in the 20 time steps we assessed.</p>
+<p>As this map illustrates, nodes closest to the initial adopters are the earliest adopters. Further the area in the southern portion of the study area shows a dense collection of nodes colored gray indicating they did not adopt in the 20 time steps we assessed.</p>
 <p>Let’s now create another adopter plot and map color coded by time of adoption. In the next example, we leave everything alone but this time set the initial adopters as nodes 6 and 7 in the northwestern portion of the study area:</p>
 <div class="sourceCode" id="cb699"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">44336</span><span class="op">)</span>
@@ -719,7 +719,7 @@ starting point.
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">BeginDate</span>, fill <span class="op">=</span> <span class="va">Category</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="10-diffusion_files/figure-html/unnamed-chunk-16-1.png" width="672"></div>
-<p>As this boxplot illustrates, sites that were in the “Early Adopter” or “Early Majority” category generally have earlier starting dates than those in the other categories. This may suggest that network distance from Chaco Canyon (where we originated our “contagion” and where the earliest Great Houses are found) may have been a factor in the establishment of Chacoan complexes outside of Chaco. Of Course, if wanted to take this further we would need to assess the variable roles of spatial distance, network distance, and perhaps could even consider material cultural similarity data. At this point, however, this brief example at least points out that there is an interesting pattern worth investigation. Further, this example demonstrates one simple approach that could be used to compare diffusion models to other archaeological data.</p>
+<p>As this boxplot illustrates, sites that were in the “Early Adopter” or “Early Majority” category include the vast majority of sites that have earlier starting dates though the median is the same across groups. This may suggest that network distance from Chaco Canyon (where we originated our “contagion” and where the earliest Great Houses are found) may have been a factor in the establishment of Chacoan complexes outside of Chaco. Of Course, if wanted to take this further we would need to assess the variable roles of spatial distance, network distance, and perhaps could even consider material cultural similarity data. At this point, however, this brief example at least points out that there is an interesting pattern worth investigation. Further, this example demonstrates one simple approach that could be used to compare diffusion models to other archaeological data.</p>
 <p>We have only scratched the surface on the network methods that can be used to study diffusion here. There are many other advanced models that may be relevant for archaeological analysis including many interesting <a href="http://www.epimodel.org/tut.html">Epidemiological Models</a> that would likely work well in archaeological context for considerations of all sorts of contagions (social or biological). We hope these brief examples will promote further exploration of such approaches.</p>
 
 </div>
@@ -759,7 +759,7 @@ starting point.
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-06-26.</p>
+    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-07-05.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

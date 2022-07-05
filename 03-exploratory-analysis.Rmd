@@ -263,7 +263,7 @@ names <- c("003", "012", "102", "021D", "021U", "021C",
 for (i in 0:15) {
   g_temp <- graph_from_isomorphism_class(size = 3,
                                          number = i,
-                                         directed = T)
+                                         directed = TRUE)
   g[[i + 1]] <- ggraph(g_temp,
                        layout = "manual",
                        x = xy[, 1],
