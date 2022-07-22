@@ -37,12 +37,12 @@ refers to the probability that an event occurs divided by the
 probability that an event does not occur (1 minus the probability that
 it occurs). This can be written formally as:</p>
 <p><span class="math inline">\(\text{log}(A) =
-\frac{\text{log}(P(A)}{(1-P(A))}\)</span></p>
+\frac{\text{log}(P(A))}{(1-P(A))}\)</span></p>
 <p>where</p>
 <ul>
 <li><span class="math inline">\(\text{log}(A)\)</span> is the log odds
 of event A</li>
-<li><span class="math inline">\(\text{log}(P(A)\)</span> is the
+<li><span class="math inline">\(\text{log}(P(A))\)</span> is the
 probability of event A occurring</li>
 <li><span class="math inline">\(\text{log}(1-(P(A))\)</span> is the
 probability of event A not occurring</li>

@@ -174,3 +174,15 @@ SimNetworkR
 DiffuseSimulatedNetworks
 DiffuseEmpiricalNetworks
 EvaluatingDiffusion
+ComparingNetworks
+KnownNode
+CompareAdjacencyMatrices
+QAP
+DeltaCon
+UnknownNode
+ComparingStatistics
+NetworkKernel
+SpectralMethods
+PortraitDivergence
+GraphletMethods
+alignment-based-methods

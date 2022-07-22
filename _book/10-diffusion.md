@@ -279,7 +279,7 @@ plot_diffnet2(net_test2)
 
 <img src="10-diffusion_files/figure-html/unnamed-chunk-7-2.png" width="672" />
 
-AS the figures above show, the scale-free network model generates an adoption curve that is slow to grow and then shows a rapid cascade across the network and quick saturation in just a few time steps. As this suggests, these different forms of network topology likely lead to different kinds of adoption/infection processes. We could potentially use these curves and assessments of rates of uptakes from other empirical analyses to determine which sorts of network generative process are more or less plausible given our data.
+As the figures above show, the scale-free network model generates an adoption curve that is slow to grow and then shows a rapid cascade across the network and quick saturation in just a few time steps. As this suggests, these different forms of network topology likely lead to different kinds of adoption/infection processes. We could potentially use these curves and assessments of rates of uptakes from other empirical analyses to determine which sorts of network generative process are more or less plausible given our data.
 
 ### Empirical Networks{#DiffuseEmpiricalNetworks}
 

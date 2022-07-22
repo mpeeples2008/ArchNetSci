@@ -34,12 +34,12 @@ The coefficient estimates in ERGM models are returned in log odds which indicate
 ```{block, type="rmdtip"}
 The log odds is the logarithm of the odds ratio. The odds ratio refers to the probability that an event occurs divided by the probability that an event does not occur (1 minus the probability that it occurs). This can be written formally as:
 
-$\text{log}(A) = \frac{\text{log}(P(A)}{(1-P(A))}$
+$\text{log}(A) = \frac{\text{log}(P(A))}{(1-P(A))}$
 
 where
 
 * $\text{log}(A)$ is the log odds of event A
-* $\text{log}(P(A)$ is the probability of event A occurring
+* $\text{log}(P(A))$ is the probability of event A occurring
 * $\text{log}(1-(P(A))$ is the probability of event A not occurring
 
 Negative log odds values indicate that probability of an event occurring is < 0.5 and positive log odds values indicate that the probability of an event occurring is > 0.5. Log odds will be exactly 0 when the probability of an event occurring is 0.5.

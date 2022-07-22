@@ -11,6 +11,7 @@ rmd_files:
   - "08-spatial-interaction.Rmd"
   - "09-affiliation.Rmd"
   - "10-diffusion.Rmd"
+  - "11-comparing-networks.Rmd"
   - "lookup.Rmd"
   - "references.Rmd"
 new_session: true
