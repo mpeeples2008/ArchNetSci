@@ -203,7 +203,7 @@
   <span class="fu"><a href="https://rdrr.io/r/base/diag.html">diag</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fl">0</span>
   <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
-<p>Now let’s try an example using the Wankarani data. For this first example we will set <code>B</code> to <code>1</code>. We’ll take a look at the results by first, creating a heatmap of the gravity model for every pair of nodes using the <code>superheat</code> package. We will then plot the site size against the estimated flow from our model with both axes transformed to base-10 logarithms to see how those variables relate. We use the packages <code>scales</code> to provide exponential notation for the axis labels.</p>
+<p>Now let’s try an example using the Wankarani data. For this first example we will set <code>B</code> to <code>1</code>. We’ll take a look at the results by first, creating a heat map of the gravity model for every pair of nodes using the <code>superheat</code> package. We will then plot the site size against the estimated flow from our model with both axes transformed to base-10 logarithms to see how those variables relate. We use the packages <code>scales</code> to provide exponential notation for the axis labels.</p>
 <div class="sourceCode" id="cb616"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># First calculate a distance matrix. We divide by</span>
 <span class="co"># 1000 so results are in kilometers.</span>
@@ -249,10 +249,10 @@
   <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/graph_from_adjacency_matrix.html">graph_from_adjacency_matrix</a></span><span class="op">(</span><span class="va">test1_plot</span>, mode <span class="op">=</span> <span class="st">"undirected"</span>,
                               weighted <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 
-<span class="co"># Extract edgelist from network object</span>
+<span class="co"># Extract edge list from network object</span>
 <span class="va">edgelist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/as_edgelist.html">get.edgelist</a></span><span class="op">(</span><span class="va">net</span><span class="op">)</span>
 
-<span class="co"># Create dataframe of beginning and ending points of edges</span>
+<span class="co"># Create data frame of beginning and ending points of edges</span>
 <span class="va">edges</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">xy</span><span class="op">[</span><span class="va">edgelist</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span>, <span class="op">]</span>, <span class="va">xy</span><span class="op">[</span><span class="va">edgelist</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span>, <span class="op">]</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">edges</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"X1"</span>, <span class="st">"Y1"</span>, <span class="st">"X2"</span>, <span class="st">"Y2"</span><span class="op">)</span>
 
@@ -283,7 +283,7 @@
   <span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_void</a></span><span class="op">(</span><span class="op">)</span> </code></pre></div>
 <div class="inline-figure"><img src="08-spatial-interaction_files/figure-html/unnamed-chunk-4-1.png" width="672"></div>
-<p>As this plot shows, there are areas characterized by higher and lower flow throughout this study area. The largest site in the study area (shown in the first map above) is characterized by a high weighted degree but there are other smaller sites that also have high weighted degree, especialy in the eastern half of the study area.</p>
+<p>As this plot shows, there are areas characterized by higher and lower flow throughout this study area. The largest site in the study area (shown in the first map above) is characterized by a high weighted degree but there are other smaller sites that also have high weighted degree, especially in the eastern half of the study area.</p>
 <p>Let’s now take a look at the same data again, this time we set <code>B</code> or <span class="math inline">\(\beta\)</span> to <code>0.1</code>.</p>
 <div class="sourceCode" id="cb619"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># First calculate a distance matrix. We divide by</span>
@@ -324,10 +324,10 @@
   <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/graph_from_adjacency_matrix.html">graph_from_adjacency_matrix</a></span><span class="op">(</span><span class="va">test2_plot</span>, mode <span class="op">=</span> <span class="st">"undirected"</span>,
                               weighted <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 
-<span class="co"># Extract edgelist from network object</span>
+<span class="co"># Extract edge list from network object</span>
 <span class="va">edgelist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/as_edgelist.html">get.edgelist</a></span><span class="op">(</span><span class="va">net2</span><span class="op">)</span>
 
-<span class="co"># Create dataframe of beginning and ending points of edges</span>
+<span class="co"># Create data frame of beginning and ending points of edges</span>
 <span class="va">edges</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">xy</span><span class="op">[</span><span class="va">edgelist</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span>, <span class="op">]</span>, <span class="va">xy</span><span class="op">[</span><span class="va">edgelist</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span>, <span class="op">]</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">edges</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"X1"</span>, <span class="st">"Y1"</span>, <span class="st">"X2"</span>, <span class="st">"Y2"</span><span class="op">)</span>
 
@@ -472,7 +472,7 @@
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">geosphere</span><span class="op">)</span>
 <span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/geosphere/man/distm.html">distm</a></span><span class="op">(</span><span class="va">dat</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">7</span>, <span class="fl">6</span><span class="op">)</span><span class="op">]</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span> <span class="fl">1000</span>
 
-<span class="co"># Dj is ineitial set as a vector of 1s like Wj</span>
+<span class="co"># Dj is initial set as a vector of 1s like Wj</span>
 <span class="va">Dj</span> <span class="op">&lt;-</span> <span class="va">Wj</span>
 
 <span class="co"># Create objects for keeping track of the number</span>
@@ -1058,7 +1058,7 @@ while to complete.
       <span class="op">)</span>
   <span class="op">}</span>
 <span class="op">}</span></code></pre></div>
-<p>In case you want to see the data but don’t want to wait for the above chunk to run, we have created an Rdata object with the output. Let’s load those data and plot them as a heatmap/tile plot:</p>
+<p>In case you want to see the data but don’t want to wait for the above chunk to run, we have created an Rdata object with the output. Let’s load those data and plot them as a heat map/tile plot:</p>
 <div class="sourceCode" id="cb632"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"data/retail_pars.Rdata"</span><span class="op">)</span>
 
@@ -1097,7 +1097,7 @@ while to complete.
 <li>
 <span class="math inline">\(\beta\)</span> is the physical distance across which distance decay should be considered (defined in units of <span class="math inline">\(d\)</span>).</li>
 <li>
-<span class="math inline">\(\gamma\)</span> is used to define the importance of <span class="math inline">\(V\)</span> on interaction where values above 1 suggest incresing returns on scale.</li>
+<span class="math inline">\(\gamma\)</span> is used to define the importance of <span class="math inline">\(V\)</span> on interaction where values above 1 suggest increasing returns to scale.</li>
 </ul>
 <p>The model output <span class="math inline">\(E_{ij}\)</span> is, according to Menze and Ur, meant to approximate the movement of people among nodes across the landscape. In order to evaluate this function, we replicate the results of the Menze and Ur paper with one small change. We drop the bottom 50% smallest sites from consideration due to the large sample size to keep run times manageable (but this could certainly be changed in the code below). We use the replication data set provided by Menze and Ur online <a href="https://dataverse.harvard.edu/dataset.xhtml;jsessionid=adeb8ff43c833f1efe447dc9e8ba?persistentId=hdl%3A1902.1%2F17731&amp;version=&amp;q=&amp;fileTypeGroupFacet=%22Text%22&amp;fileAccess=&amp;fileTag=&amp;fileSortField=type&amp;fileSortOrder=">here</a>.</p>
 <p>Let’s read in the data, omit the rows without site volume estimates, and then remove the lowest 50% of sites in terms of volume values. We then plot the sites with points scaled by site volume. <a href="data/menze_ur_sites.csv">Download the data here to follow along</a>.</p>
@@ -1267,10 +1267,10 @@ Note that the block below takes several minutes to run.
   <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/graph_from_adjacency_matrix.html">graph_from_adjacency_matrix</a></span><span class="op">(</span><span class="va">rad_test</span>, mode <span class="op">=</span> <span class="st">"undirected"</span>,
                               weighted <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 
-<span class="co"># Extract edgelist from network object</span>
+<span class="co"># Extract edge list from network object</span>
 <span class="va">edgelist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/as_edgelist.html">get.edgelist</a></span><span class="op">(</span><span class="va">net</span><span class="op">)</span>
 
-<span class="co"># Create dataframe of beginning and ending points of edges</span>
+<span class="co"># Create data frame of beginning and ending points of edges</span>
 <span class="va">edges</span> <span class="op">&lt;-</span>
   <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">xy</span><span class="op">[</span><span class="va">edgelist</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span>, <span class="op">]</span>,
              <span class="va">xy</span><span class="op">[</span><span class="va">edgelist</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span>, <span class="op">]</span><span class="op">)</span>
@@ -1376,7 +1376,7 @@ Note that the block below takes several minutes to run.
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-07-21.</p>
+    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-07-22.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

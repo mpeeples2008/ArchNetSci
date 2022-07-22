@@ -216,7 +216,7 @@
 <span class="op">}</span> <span class="co"># repeat for all values of props, nsim times each</span>
 
 
-<span class="co"># Visuzlize the results as a boxplot using ggplot.</span>
+<span class="co"># Visualize the results as a box plot using ggplot.</span>
 <span class="co"># Melt wide data format into long data format first.</span>
 <span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/reshape2/man/melt.html">melt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="va">output</span><span class="op">)</span><span class="op">)</span>
 
@@ -325,7 +325,7 @@
           <span class="op">}</span>
         <span class="op">}</span>
       <span class="op">}</span>
-      <span class="co"># Record output for row and column by calculating spearman's rho between</span>
+      <span class="co"># Record output for row and column by calculating Spearman's rho between</span>
       <span class="co"># met_orig and each temp_stats iteration.</span>
       <span class="va">output</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/warning.html">suppressWarnings</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">temp_stats</span>,
                                            <span class="va">met_orig</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/sort.html">sort</a></span><span class="op">(</span><span class="va">sub_samp</span><span class="op">)</span><span class="op">]</span>,
@@ -384,7 +384,7 @@ will return an error.
                                              <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va">sub_samp</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>Let’s call our new function and assess the impact of edges missing at random on degree centrality to give this a try. We use the same default arguments for <code>nsim</code> and <code>props</code> as we did above. Since we have saved our function as a .R file, we can initialize it using the <code>source</code> function which lets you run all code in a specified .R file.</p>
 <div class="sourceCode" id="cb421"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># First initilze the function using the .R script</span>
+<code class="sourceCode R"><span class="co"># First initialize the function using the .R script</span>
 <span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"scripts/sim_missing_edges.R"</span><span class="op">)</span>
 
 <span class="co"># Run the function</span>
@@ -431,7 +431,7 @@ will return an error.
 <p>Let’s take a look at an example. <a href="data/Cibola_edgelist.csv">Use these data</a> to follow along. You can download the <a href="scripts/sim_target_node.R">sim_target_node.R script here</a></p>
 <p>First we read in the data:</p>
 <div class="sourceCode" id="cb422"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Read in edgelist file as dataframe and create network object</span>
+<code class="sourceCode R"><span class="co"># Read in edge list file as data frame and create network object</span>
 <span class="va">cibola_edgelist</span> <span class="op">&lt;-</span>
   <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"data/Cibola_edgelist.csv"</span>, header <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="va">cibola_net</span> <span class="op">&lt;-</span>
@@ -490,7 +490,7 @@ or you’ll get an error.
 <span class="co"># Biased sampling process</span>
 <span class="va">sub_samp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/gorder.html">vcount</a></span><span class="op">(</span><span class="va">net</span><span class="op">)</span><span class="op">)</span>, prob <span class="op">=</span> <span class="va">missing_probs</span>,
                    size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/gorder.html">vcount</a></span><span class="op">(</span><span class="va">net</span><span class="op">)</span> <span class="op">*</span> <span class="va">props</span><span class="op">[</span><span class="va">j</span><span class="op">]</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p>Now, let’s try a real example using the <code>chaco_net</code> data again by creating a random variable to stand in for <code>missing_probs</code> here. We will test the impact on missing nodes. We simply create a vector of 223 random uniform numbers using the <code>runif</code> function to simulate probabilties associated with the 223 nodes. In practice, these probabilities could be based on site size, visibility, or any other feature you choose.</p>
+<p>Now, let’s try a real example using the <code>chaco_net</code> data again by creating a random variable to stand in for <code>missing_probs</code> here. We will test the impact on missing nodes. We simply create a vector of 223 random uniform numbers using the <code>runif</code> function to simulate probabilities associated with the 223 nodes. In practice, these probabilities could be based on site size, visibility, or any other feature you choose.</p>
 <div class="sourceCode" id="cb425"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Create 233 random numbers between 0 and 1 to stand in for</span>
 <span class="co"># node probabilities</span>
@@ -594,7 +594,7 @@ transpose function to place columns in the target position.
 </p>
 </div>
 <div class="sourceCode" id="cb431"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Create a dataframe of all unique combinations of publication code</span>
+<code class="sourceCode R"><span class="co"># Create a data frame of all unique combinations of publication code</span>
 <span class="co"># and year from attributes data</span>
 <span class="va">lookup</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">bib</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">4</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>
 <span class="co"># Assign a probability for a publication to be retained inverse to</span>
@@ -662,7 +662,7 @@ transpose function to place columns in the target position.
 <span class="va">bib_rand</span><span class="op">$</span><span class="va">treatment</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"Random"</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">bib_rand</span><span class="op">)</span><span class="op">)</span>
 <span class="va">bib_bias</span><span class="op">$</span><span class="va">treatment</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"Biased"</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">bib_bias</span><span class="op">)</span><span class="op">)</span>
 
-<span class="co"># Bind into a single dataframe, convert sampling faction to factor</span>
+<span class="co"># Bind into a single data frame, convert sampling faction to factor</span>
 <span class="co"># and change order of levels for plotting</span>
 <span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span><span class="va">bib_rand</span>, <span class="va">bib_bias</span><span class="op">)</span>
 <span class="va">df</span><span class="op">$</span><span class="va">variable</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">variable</span><span class="op">)</span>
@@ -907,7 +907,7 @@ transpose function to place columns in the target position.
 <span class="header-section-number">5.8</span> Uncertainty Due to Small or Variable Sample Size<a class="anchor" aria-label="anchor" href="#SampleSize"><i class="fas fa-link"></i></a>
 </h2>
 <p>This section follows Brughmans and Peeples (2022) Chapter 5.3.5 to provide an example of how you can use the simulation approach outlined here to assess sampling variability in the frequency data underlying archaeological networks. In this example, we use apportioned ceramic frequency data from the Chaco World portion of the <a href="DataAndWorkspace.html#SWSN">Southwest Social Networks database</a>. You can <a href="data/AD1050cer.csv">download the data here</a> to follow along.</p>
-<p>The goal of this sub-section is to illustrate how you can use a bootstrappping approach to assess variability in network properties based on sampling error in the raw data underlying archaeological networks. In our example based on ceramic similarity networks here this involves creating a large number of random replicates of each row of our raw ceramic data with sample size held constant (as the observed sample size for that site) and with the probabilities that a given sherd will be a given type determined by the underlying multinomial frequency distribution of types at that site. In other words, we pull a bunch of random samples from the site with the probability that a given sample is a given type determined by the relative frequency of that type in the actual data. Once this procedure has been completed, we can then assess centrality metrics or any other graph, node, or edge level property and determine the degree to which absolute values and relative ranks are potentially influenced by sampling error.</p>
+<p>The goal of this sub-section is to illustrate how you can use a bootstrapping approach to assess variability in network properties based on sampling error in the raw data underlying archaeological networks. In our example based on ceramic similarity networks here this involves creating a large number of random replicates of each row of our raw ceramic data with sample size held constant (as the observed sample size for that site) and with the probabilities that a given sherd will be a given type determined by the underlying multinomial frequency distribution of types at that site. In other words, we pull a bunch of random samples from the site with the probability that a given sample is a given type determined by the relative frequency of that type in the actual data. Once this procedure has been completed, we can then assess centrality metrics or any other graph, node, or edge level property and determine the degree to which absolute values and relative ranks are potentially influenced by sampling error.</p>
 <p>There are many ways to set up such a resampling procedure and many complications (for example, how do we deal with limited diversity of small samples?). For the purposes of illustration here, we will implement a very simple procedure where we simply generate new samples of a fixed size based on our observed data and determine the degree to which our network measures are robust to this perturbation. In the chunk of code below we create 1000 replicates based on our original ceramic data.</p>
 <p>The following chunk of code first reads in the ceramic data, converts it to a Brainerd-Robinson similarity matrix and then defines a function called <code>sim_samp_error</code> which creates <code>nsim</code> random replicates of the ceramic data, converts them to similarity matrices, and outputs those results as a list object. You can <a href="scripts/sim_samp_error.R">download the script for the fucnction below here</a>.</p>
 <div class="sourceCode" id="cb447"><pre class="downlit sourceCode r">
@@ -942,7 +942,7 @@ transpose function to place columns in the target position.
   <span class="op">}</span>
   <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">sim_list</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
-<p>The following chunk of code runs the <code>sim_samp_error</code> function defined above for our Chaco ceramic data and then defines a new function called <code>sim_cor</code> which takes the output of <code>sim_samp_error</code> and the original ceramic similarity matrix (<code>ceramic_BR</code>) and calculates weighted degree centrality and the Speraman’s <span class="math inline">\(\rho\)</span> correlations between the original similarity matrix and each random replicate. This <code>sim_cor</code> script could be modified to use any network metric that outputs a vector. Once these results are returned we visualize the results as a histogram.</p>
+<p>The following chunk of code runs the <code>sim_samp_error</code> function defined above for our Chaco ceramic data and then defines a new function called <code>sim_cor</code> which takes the output of <code>sim_samp_error</code> and the original ceramic similarity matrix (<code>ceramic_BR</code>) and calculates weighted degree centrality and the Spearman’s <span class="math inline">\(\rho\)</span> correlations between the original similarity matrix and each random replicate. This <code>sim_cor</code> script could be modified to use any network metric that outputs a vector. Once these results are returned we visualize the results as a histogram.</p>
 <p>Note that this could take several seconds to a few minutes depending on your computer.</p>
 <div class="sourceCode" id="cb448"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">4634</span><span class="op">)</span>
@@ -1007,7 +1007,7 @@ transpose function to place columns in the target position.
 <span class="va">out</span><span class="op">$</span><span class="va">site</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">out</span><span class="op">$</span><span class="va">site</span><span class="op">)</span>
 <span class="va">out</span> <span class="op">&lt;-</span> <span class="va">out</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html">order</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html">rowSums</a></span><span class="op">(</span><span class="va">ceramic_br</span><span class="op">)</span><span class="op">)</span>, <span class="op">]</span>
 
-<span class="co"># Create dataframe of degree centrality for the original ceramic</span>
+<span class="co"># Create data frame of degree centrality for the original ceramic</span>
 <span class="co"># similarity matrix</span>
 <span class="va">dg_wt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html">rowSums</a></span><span class="op">(</span><span class="va">ceramic_br</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">dg_wt</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"dg.wt"</span>
@@ -1088,7 +1088,7 @@ transpose function to place columns in the target position.
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-07-21.</p>
+    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-07-22.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

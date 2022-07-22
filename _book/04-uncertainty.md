@@ -109,7 +109,7 @@ for (j in seq_len(length(props))) {
 } # repeat for all values of props, nsim times each
 
 
-# Visuzlize the results as a boxplot using ggplot.
+# Visualize the results as a box plot using ggplot.
 # Melt wide data format into long data format first.
 df <- melt(as.data.frame(output))
 
@@ -219,7 +219,7 @@ sim_missing_nodes <- function(net,
           }
         }
       }
-      # Record output for row and column by calculating spearman's rho between
+      # Record output for row and column by calculating Spearman's rho between
       # met_orig and each temp_stats iteration.
       output[i, j] <- suppressWarnings(cor(temp_stats,
                                            met_orig[sort(sub_samp)],
@@ -290,7 +290,7 @@ Let's call our new function and assess the impact of edges missing at random on 
 
 
 ```r
-# First initilze the function using the .R script
+# First initialize the function using the .R script
 source("scripts/sim_missing_edges.R")
 
 # Run the function
@@ -337,7 +337,7 @@ First we read in the data:
 
 
 ```r
-# Read in edgelist file as dataframe and create network object
+# Read in edge list file as data frame and create network object
 cibola_edgelist <-
   read.csv(file = "data/Cibola_edgelist.csv", header = TRUE)
 cibola_net <-
@@ -407,7 +407,7 @@ sub_samp <- sample(seq(1, vcount(net)), prob = missing_probs,
 ```
 
 
-Now, let's try a real example using the `chaco_net` data again by creating a random variable to stand in for `missing_probs` here. We will test the impact on missing nodes. We simply create a vector of 223 random uniform numbers using the `runif` function to simulate probabilties associated with the 223 nodes. In practice, these probabilities could be based on site size, visibility, or any other feature you choose.
+Now, let's try a real example using the `chaco_net` data again by creating a random variable to stand in for `missing_probs` here. We will test the impact on missing nodes. We simply create a vector of 223 random uniform numbers using the `runif` function to simulate probabilities associated with the 223 nodes. In practice, these probabilities could be based on site size, visibility, or any other feature you choose.
 
 
 ```r
@@ -528,7 +528,7 @@ transpose function to place columns in the target position.</p>
 
 
 ```r
-# Create a dataframe of all unique combinations of publication code
+# Create a data frame of all unique combinations of publication code
 # and year from attributes data
 lookup <- unique(bib[, c(1, 4)])
 # Assign a probability for a publication to be retained inverse to
@@ -617,7 +617,7 @@ Now we can combine the results into a single data frame and plot them as paired 
 bib_rand$treatment <- rep("Random", nrow(bib_rand))
 bib_bias$treatment <- rep("Biased", nrow(bib_bias))
 
-# Bind into a single dataframe, convert sampling faction to factor
+# Bind into a single data frame, convert sampling faction to factor
 # and change order of levels for plotting
 df <- rbind(bib_rand, bib_bias)
 df$variable <- as.factor(df$variable)
@@ -899,7 +899,7 @@ ggplot(bw_10, aes(val)) +
 
 This section follows Brughmans and Peeples (2022) Chapter 5.3.5 to provide an example of how you can use the simulation approach outlined here to assess sampling variability in the frequency data underlying archaeological networks. In this example, we use apportioned ceramic frequency data from the Chaco World portion of the [Southwest Social Networks database](#SWSN). You can [download the data here](data/AD1050cer.csv) to follow along.
 
-The goal of this sub-section is to illustrate how you can use a bootstrappping approach to assess variability in network properties based on sampling error in the raw data underlying archaeological networks. In our example based on ceramic similarity networks here this involves creating a large number of random replicates of each row of our raw ceramic data with sample size held constant (as the observed sample size for that site) and with the probabilities that a given sherd will be a given type determined by the underlying multinomial frequency distribution of types at that site. In other words, we pull a bunch of random samples from the site with the probability that a given sample is a given type determined by the relative frequency of that type in the actual data. Once this procedure has been completed, we can then assess centrality metrics or any other graph, node, or edge level property and determine the degree to which absolute values and relative ranks are potentially influenced by sampling error.
+The goal of this sub-section is to illustrate how you can use a bootstrapping approach to assess variability in network properties based on sampling error in the raw data underlying archaeological networks. In our example based on ceramic similarity networks here this involves creating a large number of random replicates of each row of our raw ceramic data with sample size held constant (as the observed sample size for that site) and with the probabilities that a given sherd will be a given type determined by the underlying multinomial frequency distribution of types at that site. In other words, we pull a bunch of random samples from the site with the probability that a given sample is a given type determined by the relative frequency of that type in the actual data. Once this procedure has been completed, we can then assess centrality metrics or any other graph, node, or edge level property and determine the degree to which absolute values and relative ranks are potentially influenced by sampling error.
 
 There are many ways to set up such a resampling procedure and many complications (for example, how do we deal with limited diversity of small samples?). For the purposes of illustration here, we will implement a very simple procedure where we simply generate new samples of a fixed size based on our observed data and determine the degree to which our network measures are robust to this perturbation. In the chunk of code below we create 1000 replicates based on our original ceramic data.
 
@@ -940,7 +940,7 @@ sim_samp_error <- function(cer, nsim = 1000) {
 }
 ```
 
-The following chunk of code runs the `sim_samp_error` function defined above for our Chaco ceramic data and then defines a new function called `sim_cor` which takes the output of `sim_samp_error` and the original ceramic similarity matrix (`ceramic_BR`) and calculates weighted degree centrality and the Speraman's $\rho$ correlations between the original similarity matrix and each random replicate. This `sim_cor` script could be modified to use any network metric that outputs a vector. Once these results are returned we visualize the results as a histogram.
+The following chunk of code runs the `sim_samp_error` function defined above for our Chaco ceramic data and then defines a new function called `sim_cor` which takes the output of `sim_samp_error` and the original ceramic similarity matrix (`ceramic_BR`) and calculates weighted degree centrality and the Spearman's $\rho$ correlations between the original similarity matrix and each random replicate. This `sim_cor` script could be modified to use any network metric that outputs a vector. Once these results are returned we visualize the results as a histogram.
 
 Note that this could take several seconds to a few minutes depending on your computer.
 
@@ -1015,7 +1015,7 @@ out <- df %>%
 out$site <- as.numeric(out$site)
 out <- out[order(rowSums(ceramic_br)), ]
 
-# Create dataframe of degree centrality for the original ceramic
+# Create data frame of degree centrality for the original ceramic
 # similarity matrix
 dg_wt <- as.data.frame(rowSums(ceramic_br))
 colnames(dg_wt) <- "dg.wt"

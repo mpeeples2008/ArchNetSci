@@ -24,7 +24,7 @@ The primary packages include:
 
 The spatial data we use in this document consists of vector data. This simply means that our mapping data re not images or pixels representing space but instead spatial coordinates that define locations and distances. One key aspect of spatial data in R, especially at large scales, is that we often need to define a projection or coordinate reference system to produce accurate maps. 
 
-A coordinate reference system (CRS) is a formal definition of how spatial points relate to the surface of the globe. CRS typically fall into two categories: geographic coordinate systems and projected coordinate systems. The most common geographic coordinate system is the latitude/longitude system which describes locations on the surface of the Earth in terms of angular coordinates from the Prime Meridian and Equator. A projected data set refers to the process through which map makers take a spherical Earth and create a flat map. Projections distort and move the area, distance, and shape to varying degrees and provide xy location coordinates in linear units. The advantages and disadvantages of these systems are beyond the scope of this document but it is important to note that R often requires us to defined our coordinate reference system when working with spatial data.
+A coordinate reference system (CRS) is a formal definition of how spatial points relate to the surface of the globe. CRS typically fall into two categories: geographic coordinate systems and projected coordinate systems. The most common geographic coordinate system is the latitude/longitude system which describes locations on the surface of the Earth in terms of angular coordinates from the Prime Meridian and Equator. A projected data set refers to the process through which map makers take a spherical Earth and create a flat map. Projections distort and move the area, distance, and shape to varying degrees and provide xy location coordinates in linear units. The advantages and disadvantages of these systems are beyond the scope of this document but it is important to note that R often requires us to define our coordinate reference system when working with spatial data.
 
 In the code below and in several other sections of the book you have seen function calls that include an argument called `crs`. This is the coordinate reference system object used by R which provides a numeric code denoting the CRS used by a given data set. Just like we take external .csv data and covert them into network objects R understands, we need to import spatial data and convert to an object R recognizes. We do this in the `sf` package using the `st_as_sf` function.
 
@@ -59,7 +59,7 @@ locs
 ## 10 n9                               "Toletum" POINT (-4.0245 39.8567)
 ```
 
-Another feature used throughout this guide that needs further explanation is the `ggmap` funtion `get_stamenmap`. This function automatically retrieves a background map for you using a few arguments:
+Another feature used throughout this guide that needs further explanation is the `ggmap` function `get_stamenmap`. This function automatically retrieves a background map for you using a few arguments:
 
 * **`bbox`** - the bounding box which represents the decimal degrees longitude and latitude coordinates of the lower left and upper right area you wish to map.
 * **`maptype`** - a name that indicates the style of map to use ([check here for options](https://rdrr.io/cran/ggmap/man/get_stamenmap.html)).
@@ -90,7 +90,7 @@ library(igraph)
 library(ggmap)
 library(sf)
 
-# Read in edgelist and node location data and covert to network object
+# Read in edge list and node location data and covert to network object
 edges1 <- read.csv("data/Hispania_roads.csv", header = TRUE)
 nodes <- read.csv("data/Hispania_nodes.csv", header = TRUE)
 road_net <-
@@ -103,13 +103,13 @@ locations_sf <-
 # by the geom_point function
 xy <- data.frame(x = nodes$long, y = nodes$lat)
 
-# Extract edgelist from network object
+# Extract edge list from network object
 edgelist <- get.edgelist(road_net)
 
 # Create data frame of beginning and ending points of edges
 edges <- as.data.frame(matrix(NA, nrow(edgelist), 4))
 colnames(edges) <- c("X1", "Y1", "X2", "Y2")
-# Iterate across each edge and assoign lat and long values to
+# Iterate across each edge and assign lat and long values to
 # X1, Y1, X2, and Y2
 for (i in seq_len(nrow(edgelist))) {
   edges[i, ] <- c(nodes[which(nodes$Id == edgelist[i, 1]), 3],
@@ -277,9 +277,9 @@ tree1
 ```
 
 ```
-## IGRAPH 933060b U--- 50 49 -- Tree
+## IGRAPH 88fdb01 U--- 50 49 -- Tree
 ## + attr: name (g/c), children (g/n), mode (g/c)
-## + edges from 933060b:
+## + edges from 88fdb01:
 ##  [1]  1-- 2  1-- 3  1-- 4  1-- 5  1-- 6  2-- 7  2-- 8  2-- 9  2--10  2--11
 ## [11]  3--12  3--13  3--14  3--15  3--16  4--17  4--18  4--19  4--20  4--21
 ## [21]  5--22  5--23  5--24  5--25  5--26  6--27  6--28  6--29  6--30  6--31
@@ -295,7 +295,7 @@ plot(tree1)
 
 In the example here you can see the branch and leaf structure of the network where there are central nodes that are hubs to a number of other nodes and so on, but there are no cycles back to the previous nodes. Thus, such a tree is inherently hierarchical.In the next sub-section, we will discuss the use of minimum spanning trees.
 
-It is also possible plot trees with a heirarchical network layout where nodes are arranged at levels of the hierarchy. In this case you need to specify the node or nodes that represent the first layer using the `root` call within the `ggraph` call. 
+It is also possible plot trees with a hierarchical network layout where nodes are arranged at levels of the hierarchy. In this case you need to specify the node or nodes that represent the first layer using the `root` call within the `ggraph` call. 
 
 
 ```r
@@ -426,9 +426,9 @@ ggraph(mst_net, layout = "kk") +
 <img src="06-spatial-networks_files/figure-html/unnamed-chunk-17-1.png" width="672" />
 
 ```r
-# Extract edgelist from network object
+# Extract edge list from network object
 edgelist <- get.edgelist(mst_net)
-# Create dataframe of beginning and ending points of edges
+# Create data frame of beginning and ending points of edges
 edges <- as.data.frame(matrix(NA, nrow(edgelist), 4))
 colnames(edges) <- c("X1", "Y1", "X2", "Y2")
 for (i in seq_len(nrow(edgelist))) {
@@ -826,7 +826,7 @@ nn2 <- nng(x = guad[, 2:3], k = 2)
 nn3 <- nng(x = guad[, 2:3], k = 3)
 nn4 <- nng(x = guad[, 2:3], k = 4)
 nn6 <- nng(x = guad[, 2:3], k = 6)
-# Initialiize network graph for each k value
+# Initialize network graph for each k value
 g_nn2 <- ggraph(nn2,
                 layout = "manual",
                 x = guad[, 2],
@@ -855,7 +855,7 @@ g_nn6 <- ggraph(nn6,
   geom_edge_link() +
   geom_node_point(size = 2) +
   theme_graph()
-# Set up dataframes of degree distribution for each network
+# Set up data frames of degree distribution for each network
 nn2_deg <- as.data.frame(igraph::degree(nn2))
 colnames(nn2_deg) <- "degree"
 nn3_deg <- as.data.frame(igraph::degree(nn3))
@@ -1038,9 +1038,9 @@ base <- get_stamenmap(
   maptype = "terrain-background",
   color = "bw"
 )
-# Extract edgelist from network object
+# Extract edge list from network object
 edgelist <- get.edgelist(g36_net)
-# Create dataframe of beginning and ending points of edges
+# Create data frame of beginning and ending points of edges
 edges <- as.data.frame(matrix(NA, nrow(edgelist), 4))
 colnames(edges) <- c("X1", "Y1", "X2", "Y2")
 for (i in seq_len(nrow(edgelist))) {

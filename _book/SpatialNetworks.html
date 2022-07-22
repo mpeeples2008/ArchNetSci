@@ -145,7 +145,7 @@ data analysis in R.
 <strong><code>RBGL</code></strong> - This is an R implementation of a package called the Boost Graph Library. This package has a number of functions but we use it here as it provides a function to test for graph planarity.</li>
 </ul>
 <p>The spatial data we use in this document consists of vector data. This simply means that our mapping data re not images or pixels representing space but instead spatial coordinates that define locations and distances. One key aspect of spatial data in R, especially at large scales, is that we often need to define a projection or coordinate reference system to produce accurate maps.</p>
-<p>A coordinate reference system (CRS) is a formal definition of how spatial points relate to the surface of the globe. CRS typically fall into two categories: geographic coordinate systems and projected coordinate systems. The most common geographic coordinate system is the latitude/longitude system which describes locations on the surface of the Earth in terms of angular coordinates from the Prime Meridian and Equator. A projected data set refers to the process through which map makers take a spherical Earth and create a flat map. Projections distort and move the area, distance, and shape to varying degrees and provide xy location coordinates in linear units. The advantages and disadvantages of these systems are beyond the scope of this document but it is important to note that R often requires us to defined our coordinate reference system when working with spatial data.</p>
+<p>A coordinate reference system (CRS) is a formal definition of how spatial points relate to the surface of the globe. CRS typically fall into two categories: geographic coordinate systems and projected coordinate systems. The most common geographic coordinate system is the latitude/longitude system which describes locations on the surface of the Earth in terms of angular coordinates from the Prime Meridian and Equator. A projected data set refers to the process through which map makers take a spherical Earth and create a flat map. Projections distort and move the area, distance, and shape to varying degrees and provide xy location coordinates in linear units. The advantages and disadvantages of these systems are beyond the scope of this document but it is important to note that R often requires us to define our coordinate reference system when working with spatial data.</p>
 <p>In the code below and in several other sections of the book you have seen function calls that include an argument called <code>crs</code>. This is the coordinate reference system object used by R which provides a numeric code denoting the CRS used by a given data set. Just like we take external .csv data and covert them into network objects R understands, we need to import spatial data and convert to an object R recognizes. We do this in the <code>sf</code> package using the <code>st_as_sf</code> function.</p>
 <p>To use this function you take a data frame which includes location xy information, you use the <code>coords</code> argument to specify which fields are the x and y coordinates, and then use the <code>crs</code> code to specify the coordinate reference system used. In this example we use code <code>4326</code> which refers to the WGS84 World Geodetic System of geographic coordinates. <a href="https://epsg.io/">See this website</a> to look up many common <code>crs</code> code options.</p>
 <div class="sourceCode" id="cb521"><pre class="downlit sourceCode r">
@@ -171,7 +171,7 @@ data analysis in R.
 ## 8  n7                               "Italica" POINT (-6.0449 37.4411)
 ## 9  n8               "Acci/Col. Iulia Gemella" POINT (-3.1346 37.3003)
 ## 10 n9                               "Toletum" POINT (-4.0245 39.8567)</code></pre>
-<p>Another feature used throughout this guide that needs further explanation is the <code>ggmap</code> funtion <code>get_stamenmap</code>. This function automatically retrieves a background map for you using a few arguments:</p>
+<p>Another feature used throughout this guide that needs further explanation is the <code>ggmap</code> function <code>get_stamenmap</code>. This function automatically retrieves a background map for you using a few arguments:</p>
 <ul>
 <li>
 <strong><code>bbox</code></strong> - the bounding box which represents the decimal degrees longitude and latitude coordinates of the lower left and upper right area you wish to map.</li>
@@ -200,7 +200,7 @@ data analysis in R.
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/dkahle/ggmap">ggmap</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span>
 
-<span class="co"># Read in edgelist and node location data and covert to network object</span>
+<span class="co"># Read in edge list and node location data and covert to network object</span>
 <span class="va">edges1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"data/Hispania_roads.csv"</span>, header <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="va">nodes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"data/Hispania_nodes.csv"</span>, header <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="va">road_net</span> <span class="op">&lt;-</span>
@@ -213,13 +213,13 @@ data analysis in R.
 <span class="co"># by the geom_point function</span>
 <span class="va">xy</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">nodes</span><span class="op">$</span><span class="va">long</span>, y <span class="op">=</span> <span class="va">nodes</span><span class="op">$</span><span class="va">lat</span><span class="op">)</span>
 
-<span class="co"># Extract edgelist from network object</span>
+<span class="co"># Extract edge list from network object</span>
 <span class="va">edgelist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/as_edgelist.html">get.edgelist</a></span><span class="op">(</span><span class="va">road_net</span><span class="op">)</span>
 
 <span class="co"># Create data frame of beginning and ending points of edges</span>
 <span class="va">edges</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">edgelist</span><span class="op">)</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">edges</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"X1"</span>, <span class="st">"Y1"</span>, <span class="st">"X2"</span>, <span class="st">"Y2"</span><span class="op">)</span>
-<span class="co"># Iterate across each edge and assoign lat and long values to</span>
+<span class="co"># Iterate across each edge and assign lat and long values to</span>
 <span class="co"># X1, Y1, X2, and Y2</span>
 <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">edgelist</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
   <span class="va">edges</span><span class="op">[</span><span class="va">i</span>, <span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">nodes</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">nodes</span><span class="op">$</span><span class="va">Id</span> <span class="op">==</span> <span class="va">edgelist</span><span class="op">[</span><span class="va">i</span>, <span class="fl">1</span><span class="op">]</span><span class="op">)</span>, <span class="fl">3</span><span class="op">]</span>,
@@ -349,9 +349,9 @@ to be installed from another archive called Bioconductor.
 <div class="sourceCode" id="cb535"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">tree1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/make_tree.html">make_tree</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">50</span>, children <span class="op">=</span> <span class="fl">5</span>, mode <span class="op">=</span> <span class="st">"undirected"</span><span class="op">)</span>
 <span class="va">tree1</span></code></pre></div>
-<pre><code>## IGRAPH 933060b U--- 50 49 -- Tree
+<pre><code>## IGRAPH 88fdb01 U--- 50 49 -- Tree
 ## + attr: name (g/c), children (g/n), mode (g/c)
-## + edges from 933060b:
+## + edges from 88fdb01:
 ##  [1]  1-- 2  1-- 3  1-- 4  1-- 5  1-- 6  2-- 7  2-- 8  2-- 9  2--10  2--11
 ## [11]  3--12  3--13  3--14  3--15  3--16  4--17  4--18  4--19  4--20  4--21
 ## [21]  5--22  5--23  5--24  5--25  5--26  6--27  6--28  6--29  6--30  6--31
@@ -361,7 +361,7 @@ to be installed from another archive called Bioconductor.
 <code class="sourceCode R"><span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">tree1</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-10-1.png" width="672"></div>
 <p>In the example here you can see the branch and leaf structure of the network where there are central nodes that are hubs to a number of other nodes and so on, but there are no cycles back to the previous nodes. Thus, such a tree is inherently hierarchical.In the next sub-section, we will discuss the use of minimum spanning trees.</p>
-<p>It is also possible plot trees with a heirarchical network layout where nodes are arranged at levels of the hierarchy. In this case you need to specify the node or nodes that represent the first layer using the <code>root</code> call within the <code>ggraph</code> call.</p>
+<p>It is also possible plot trees with a hierarchical network layout where nodes are arranged at levels of the hierarchy. In this case you need to specify the node or nodes that represent the first layer using the <code>root</code> call within the <code>ggraph</code> call.</p>
 <div class="sourceCode" id="cb538"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://ggraph.data-imaginist.com/reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">tree1</span>,
        layout <span class="op">=</span> <span class="st">"igraph"</span>,
@@ -469,9 +469,9 @@ graphs it is also possible to limit the search for possible neighbors to
   <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/theme_graph.html">theme_graph</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-17-1.png" width="672"></div>
 <div class="sourceCode" id="cb545"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Extract edgelist from network object</span>
+<code class="sourceCode R"><span class="co"># Extract edge list from network object</span>
 <span class="va">edgelist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/as_edgelist.html">get.edgelist</a></span><span class="op">(</span><span class="va">mst_net</span><span class="op">)</span>
-<span class="co"># Create dataframe of beginning and ending points of edges</span>
+<span class="co"># Create data frame of beginning and ending points of edges</span>
 <span class="va">edges</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">edgelist</span><span class="op">)</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">edges</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"X1"</span>, <span class="st">"Y1"</span>, <span class="st">"X2"</span>, <span class="st">"Y2"</span><span class="op">)</span>
 <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">edgelist</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
@@ -816,7 +816,7 @@ plot inside another in the <code>ggplot2</code> format.
 <span class="va">nn3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/cccd/man/nng.html">nng</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">guad</span><span class="op">[</span>, <span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>, k <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>
 <span class="va">nn4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/cccd/man/nng.html">nng</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">guad</span><span class="op">[</span>, <span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>, k <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
 <span class="va">nn6</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/cccd/man/nng.html">nng</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">guad</span><span class="op">[</span>, <span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>, k <span class="op">=</span> <span class="fl">6</span><span class="op">)</span>
-<span class="co"># Initialiize network graph for each k value</span>
+<span class="co"># Initialize network graph for each k value</span>
 <span class="va">g_nn2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">nn2</span>,
                 layout <span class="op">=</span> <span class="st">"manual"</span>,
                 x <span class="op">=</span> <span class="va">guad</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span>,
@@ -845,7 +845,7 @@ plot inside another in the <code>ggplot2</code> format.
   <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/theme_graph.html">theme_graph</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co"># Set up dataframes of degree distribution for each network</span>
+<span class="co"># Set up data frames of degree distribution for each network</span>
 <span class="va">nn2_deg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/degree.html">degree</a></span><span class="op">(</span><span class="va">nn2</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">nn2_deg</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"degree"</span>
 <span class="va">nn3_deg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/degree.html">degree</a></span><span class="op">(</span><span class="va">nn3</span><span class="op">)</span><span class="op">)</span>
@@ -1001,9 +1001,9 @@ plot inside another in the <code>ggplot2</code> format.
   maptype <span class="op">=</span> <span class="st">"terrain-background"</span>,
   color <span class="op">=</span> <span class="st">"bw"</span>
 <span class="op">)</span>
-<span class="co"># Extract edgelist from network object</span>
+<span class="co"># Extract edge list from network object</span>
 <span class="va">edgelist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/as_edgelist.html">get.edgelist</a></span><span class="op">(</span><span class="va">g36_net</span><span class="op">)</span>
-<span class="co"># Create dataframe of beginning and ending points of edges</span>
+<span class="co"># Create data frame of beginning and ending points of edges</span>
 <span class="va">edges</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">edgelist</span><span class="op">)</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">edges</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"X1"</span>, <span class="st">"Y1"</span>, <span class="st">"X2"</span>, <span class="st">"Y2"</span><span class="op">)</span>
 <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">edgelist</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
@@ -1092,7 +1092,7 @@ plot inside another in the <code>ggplot2</code> format.
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-07-21.</p>
+    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-07-22.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

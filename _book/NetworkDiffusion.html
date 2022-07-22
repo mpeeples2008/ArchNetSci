@@ -164,7 +164,7 @@ starting point.
 <strong>exposure.args</strong> - This argument contains options passed to the <code>exposure</code> function which defines adoption rates for various kinds of network edge weighting schema.</li>
 </ul>
 <p>As we will see below, we do not need to use all of these arguments in every network simulation. Reading the documentation of the <code>rdiffnet</code> package provides additional details on options described briefly here.</p>
-<p>One important concept that needs to be formally defined before we move on is the network threshold (defined in relationship to <span class="math inline">\(\tau\)</span> or <code>threshold.dist</code>). This can be formallly written as:</p>
+<p>One important concept that needs to be formally defined before we move on is the network threshold (defined in relationship to <span class="math inline">\(\tau\)</span> or <code>threshold.dist</code>). This can be formally written as:</p>
 <p><span class="math display">\[
     a_i = \left\{\begin{array}{ll}
     1 &amp;\mbox{if } \tau_i\leq E_i \\
@@ -392,10 +392,10 @@ starting point.
                 maptype <span class="op">=</span> <span class="st">"watercolor"</span>,
                 zoom <span class="op">=</span> <span class="fl">6</span><span class="op">)</span>
 
-<span class="co"># Extract edgelist from network object for road_net</span>
+<span class="co"># Extract edge list from network object for road_net</span>
 <span class="va">edgelist1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/as_edgelist.html">get.edgelist</a></span><span class="op">(</span><span class="va">road_net3</span><span class="op">)</span>
 
-<span class="co"># Create dataframe of beginning and ending points of edges</span>
+<span class="co"># Create data frame of beginning and ending points of edges</span>
 <span class="va">edges1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">edgelist1</span><span class="op">)</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">edges1</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"X1"</span>, <span class="st">"Y1"</span>, <span class="st">"X2"</span>, <span class="st">"Y2"</span><span class="op">)</span>
 <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">edgelist1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
@@ -664,7 +664,7 @@ starting point.
 <div class="sourceCode" id="cb704"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://USCCANA.github.io/netdiffuseR/reference/plot_adopters.html">plot_adopters</a></span><span class="op">(</span><span class="va">diffnet_chaco</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="10-diffusion_files/figure-html/unnamed-chunk-13-1.png" width="672"></div>
-<p>As this shows, the parameters provide lead to relatively quick adoptions followed by a leveling off. Notably, not all nodes adopt as there are some disconnected components within this network.</p>
+<p>As this shows, the parameters provided lead to relatively quick adoptions followed by a leveling off. Notably, not all nodes adopt as there are some disconnected components within this network.</p>
 <p>Now let’s take a look at a map color coded by time of adoption:</p>
 <div class="sourceCode" id="cb705"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">chaco_map2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ggmap/man/ggmap.html">ggmap</a></span><span class="op">(</span><span class="va">base</span>, darken <span class="op">=</span> <span class="fl">0.15</span><span class="op">)</span> <span class="op">+</span>
@@ -710,7 +710,7 @@ starting point.
 <pre><code>## toa_class
 ## Early Adopters Early Majority  Late Majority       Laggards   Non-Adopters 
 ##             50             65             33             51             24</code></pre>
-<p>Next, in order to investigate how these different adopters related to other node attributes we will create a data frame containing these <code>toa_class</code> values as well as the beginning dates of each site and then create boxplot of beginning date by <code>toa_class</code>.</p>
+<p>Next, in order to investigate how these different adopters related to other node attributes we will create a data frame containing these <code>toa_class</code> values as well as the beginning dates of each site and then create box plot of beginning date by <code>toa_class</code>.</p>
 <div class="sourceCode" id="cb708"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>BeginDate <span class="op">=</span> <span class="va">attr</span><span class="op">$</span><span class="va">Begin</span>, Category <span class="op">=</span> <span class="va">toa_class</span><span class="op">)</span>
 
@@ -720,7 +720,7 @@ starting point.
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">BeginDate</span>, fill <span class="op">=</span> <span class="va">Category</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="10-diffusion_files/figure-html/unnamed-chunk-16-1.png" width="672"></div>
-<p>As this boxplot illustrates, sites that were in the “Early Adopter” or “Early Majority” category include the vast majority of sites that have earlier starting dates though the median is the same across groups. This may suggest that network distance from Chaco Canyon (where we originated our “contagion” and where the earliest Great Houses are found) may have been a factor in the establishment of Chacoan complexes outside of Chaco. Of Course, if wanted to take this further we would need to assess the variable roles of spatial distance, network distance, and perhaps could even consider material cultural similarity data. At this point, however, this brief example at least points out that there is an interesting pattern worth investigation. Further, this example demonstrates one simple approach that could be used to compare diffusion models to other archaeological data.</p>
+<p>As this box plot illustrates, sites that were in the “Early Adopter” or “Early Majority” category include the vast majority of sites that have earlier starting dates though the median is the same across groups. This may suggest that network distance from Chaco Canyon (where we originated our “contagion” and where the earliest Great Houses are found) may have been a factor in the establishment of Chacoan complexes outside of Chaco. Of Course, if wanted to take this further we would need to assess the variable roles of spatial distance, network distance, and perhaps could even consider material cultural similarity data. At this point, however, this brief example at least points out that there is an interesting pattern worth investigation. Further, this example demonstrates one simple approach that could be used to compare diffusion models to other archaeological data.</p>
 <p>We have only scratched the surface on the network methods that can be used to study diffusion here. There are many other advanced models that may be relevant for archaeological analysis including many interesting <a href="http://www.epimodel.org/tut.html">Epidemiological Models</a> that would likely work well in archaeological context for considerations of all sorts of contagions (social or biological). We hope these brief examples will promote further exploration of such approaches.</p>
 
 </div>
@@ -757,7 +757,7 @@ starting point.
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-07-21.</p>
+    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-07-22.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

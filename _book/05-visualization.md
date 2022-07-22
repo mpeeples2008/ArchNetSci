@@ -56,9 +56,9 @@ cibola_i
 ```
 
 ```
-## IGRAPH 664596d UN-- 31 167 -- 
+## IGRAPH 5b312ba UN-- 31 167 -- 
 ## + attr: name (v/c)
-## + edges from 664596d (vertex names):
+## + edges from 5b312ba (vertex names):
 ##  [1] Apache.Creek--Casa.Malpais          Apache.Creek--Coyote.Creek         
 ##  [3] Apache.Creek--Hooper.Ranch          Apache.Creek--Horse.Camp.Mill      
 ##  [5] Apache.Creek--Hubble.Corner         Apache.Creek--Mineral.Creek.Pueblo 
@@ -297,10 +297,10 @@ base_cibola <- get_stamenmap(
   color = "bw"
 )
 
-# Extract edgelist from network object
+# Extract edge list from network object
 edgelist <- get.edgelist(net)
 
-# Create dataframe of beginning and ending points of edges
+# Create data frame of beginning and ending points of edges
 edges <- data.frame(xy[edgelist[, 1], ], xy[edgelist[, 2], ])
 colnames(edges) <- c("X1", "Y1", "X2", "Y2")
 
@@ -412,7 +412,7 @@ ggpubr::show_point_shapes()
 
 There are many options for selecting colors for nodes and edges. These can be assigned using standard color names or can be assigned using rgb or hex codes. It is also possible to use standard palettes in packages like `RColorBrewer` or `scales` to specify categorical or continuous color schemes. This is often done using either the `scale_fill_brewer` or `scale_color_brewer` calls from `RColorBrewer`. Here are a couple of examples. In these examples, colors are grouped by site region, node size is scaled to degree centrality, and node and edge color and shape are specified in each call. Note the `alpha` command which controls the transparency of the relevant part of the plot. The scale_size call specifies the maximum and minimum size of points in the plot.
 
-The [R Graph Gallery](https://www.r-graph-gallery.com/38-rcolorbrewers-palettes.html) has a good overview of the available color palettes in `RColorBrewer` and when the can be used. The "Set2" palette used here is a good one for people with many kinds of color vision deficencies. 
+The [R Graph Gallery](https://www.r-graph-gallery.com/38-rcolorbrewers-palettes.html) has a good overview of the available color palettes in `RColorBrewer` and when the can be used. The "Set2" palette used here is a good one for people with many kinds of color vision deficiencies. 
 
 
 ```r
@@ -903,7 +903,7 @@ Fig. 6.3c - Network plot with sites in geographic locations and edges bundled us
 
 <div class="rmdwarning">
 <p>This function requires the <code>edgebundle</code> package be
-installed along with <code>reticulate</code> and Python 3.7 (see <a
+installed along with <code>reticulate</code> and Python 3.8 (see <a
 href="#Packages">Packages</a>) and uses the <a
 href="data/Peeples2018.Rdata">Cibola technological similarity data</a>.
 Check <a href="#ShouldIInstall">Data and Workspace Setup</a> section for
@@ -919,7 +919,7 @@ depending on your processing power and RAM.</p>
 library(edgebundle)
 load("data/Peeples2018.Rdata")
 
-# Create attribute file with rquired data
+# Create attribute file with required data
 xy <- as.data.frame(site_info[, 1:2])
 xy <- cbind(xy, site_info$Region)
 colnames(xy) <- c("x", "y", "Region")
@@ -1080,7 +1080,7 @@ Now let's look at all of the figures together.
 
 ### Figure 6.4: Simple Network with Clusters {- #Figure_6_4}
 
-Figure 6.4. A network among Clovis era sites in the Western U.S. with connections based on shared lithic raw material sources. Nodes are scaled based on betweenness centrality with the top seven sites labelled. Colour-coded clusters were defined using the Louvain algorithm. 
+Figure 6.4. A network among Clovis era sites in the Western U.S. with connections based on shared lithic raw material sources. Nodes are scaled based on betweenness centrality with the top seven sites labelled. Color-coded clusters were defined using the Louvain algorithm. 
  
 <div class="rmdtip">
 <p>This example shows how to define and indicate groups and label points
@@ -1153,7 +1153,7 @@ Figure 6.5 was produced in [NetDraw](https://sites.google.com/site/netdrawsoftwa
 <p>Note that if you are running this package in your browser via binder,
 the function below will not work as you do not have permission to open
 the tkplot on the virtual server. To follow along with the plotting of
-this figure you can use the pre-determined locatoins by reading in this
+this figure you can use the pre-determined locations by reading in this
 file <code>load(file="data/Coords.Rdata")</code></p>
 </div>
 
@@ -1212,10 +1212,10 @@ coord1 <- do.call(rbind, st_geometry(locations_sf)) %>%
 xy <- as.data.frame(coord1)
 colnames(xy) <- c("x", "y")
 
-# Extract edgelist from network object
+# Extract edge list from network object
 edgelist <- get.edgelist(road_net)
 
-# Create dataframe of beginning and ending points of edges
+# Create data frame of beginning and ending points of edges
 edges <- as.data.frame(matrix(NA, nrow(edgelist), 4))
 colnames(edges) <- c("X1", "Y1", "X2", "Y2")
 for (i in seq_len(nrow(edgelist))) {
@@ -1325,10 +1325,10 @@ base3 <- get_stamenmap(
   color = "bw"
 )
 
-# Extract edgelist from network object
+# Extract edge list from network object
 edgelist <- get.edgelist(g.net)
 
-# Create dataframe of beginning and ending points of edges
+# Create data frame of beginning and ending points of edges
 edges2 <- data.frame(zz[edgelist[, 1], ], zz[edgelist[, 2], ])
 colnames(edges2) <- c("X1", "Y1", "X2", "Y2")
 
@@ -1388,7 +1388,7 @@ library(graphlayouts)
 library(sf)
 library(ggmap)
 
-# Load igraph aegean_net data
+# Load igraph Aegean_net data
 
 aegean <- read.csv("data/aegean.csv", row.names = 1, header = T)
 aegean_dist <- aegean
@@ -1419,10 +1419,10 @@ my_map <- get_stamenmap(bbox = c(22, 34.5, 29, 38.8),
                        zoom = 8,
                        maptype = "terrain-background")
 
-# Extract edgelist from network object for road_net
+# Extract edge list from network object for road_net
 edgelist1 <- get.edgelist(aegean_net)
 
-# Create dataframe of beginning and ending points of edges
+# Create data frame of beginning and ending points of edges
 edges1 <- as.data.frame(matrix(NA, nrow(edgelist1), 4))
 colnames(edges1) <- c("X1", "Y1", "X2", "Y2")
 for (i in seq_len(nrow(edgelist1))) {
@@ -2127,7 +2127,7 @@ library(ggpubr)
 
 load("data/Figure6_19.Rdata")
 # graph6.18 - graph object in igraph format
-# node_list - dataframe with node details
+# node_list - data frame with node details
 # edge_list - edge_list which contains information on groups
 # and edge weight
 
@@ -2228,7 +2228,7 @@ write(dj, "network.json")
 
 ### Figure 6.21: The Filmstrip Approach {- #Figure_6_21}
 
-Fig. 6.21. A demonstration of the flimstrip approach to plotting longitudinal network data. These data represent networks of ceramic similarity in the San Pedro Valley of Arizona for three consecutive 50-year intervals. 
+Fig. 6.21. A demonstration of the filmstrip approach to plotting longitudinal network data. These data represent networks of ceramic similarity in the San Pedro Valley of Arizona for three consecutive 50-year intervals. 
 
 [Use these data](data/Figure6_21.Rdata) to replicate the figures shown here.
 
@@ -11268,11 +11268,11 @@ coord1 <- do.call(rbind, st_geometry(z)) %>%
   tibble::as_tibble() %>%
   setNames(c("lon", "lat"))
 
-# output coordinates in dataframe
+# output coordinates in data frame
 xy <- as.data.frame(coord1)
 colnames(xy) <- c("x", "y")
 
-# Create edgelist with xy coordinates for each source and target
+# Create edge list with xy coordinates for each source and target
 edgelist2 <- get.edgelist(r_net)
 edges2 <- data.frame(xy[edgelist2[, 1], ], xy[edgelist2[, 2], ])
 colnames(edges2) <- c("X1", "Y1", "X2", "Y2")
@@ -11285,7 +11285,7 @@ for (i in seq_len(nrow(edges2))) {
   dist_meas[i] <- distm(temp[1, 1:2], temp[1, 3:4])
 }
 
-# Order edges so shorest will plot last
+# Order edges so shortest will plot last
 net_dat <- as.data.frame(cbind(edges2, dist_meas))
 net_dat <- net_dat[order(net_dat$dist_meas, decreasing = TRUE), ]
 

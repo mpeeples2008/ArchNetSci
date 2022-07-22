@@ -37,7 +37,7 @@ Let's get started by initializing our library and exploring the primary function
 
 As we will see below, we do not need to use all of these arguments in every network simulation. Reading the documentation of the `rdiffnet` package provides additional details on options described briefly here.
 
-One important concept that needs to be formally defined before we move on is the network threshold (defined in relationship to $\tau$ or `threshold.dist`). This can be formallly written as:
+One important concept that needs to be formally defined before we move on is the network threshold (defined in relationship to $\tau$ or `threshold.dist`). This can be formally written as:
 
   $$
     a_i = \left\{\begin{array}{ll}
@@ -318,10 +318,10 @@ my_map <-
                 maptype = "watercolor",
                 zoom = 6)
 
-# Extract edgelist from network object for road_net
+# Extract edge list from network object for road_net
 edgelist1 <- get.edgelist(road_net3)
 
-# Create dataframe of beginning and ending points of edges
+# Create data frame of beginning and ending points of edges
 edges1 <- as.data.frame(matrix(NA, nrow(edgelist1), 4))
 colnames(edges1) <- c("X1", "Y1", "X2", "Y2")
 for (i in seq_len(nrow(edgelist1))) {
@@ -640,7 +640,7 @@ plot_adopters(diffnet_chaco)
 
 <img src="10-diffusion_files/figure-html/unnamed-chunk-13-1.png" width="672" />
 
-As this shows, the parameters provide lead to relatively quick adoptions followed by a leveling off. Notably, not all nodes adopt as there are some disconnected components within this network. 
+As this shows, the parameters provided lead to relatively quick adoptions followed by a leveling off. Notably, not all nodes adopt as there are some disconnected components within this network. 
 
 Now let's take a look at a map color coded by time of adoption:
 
@@ -700,7 +700,7 @@ table(toa_class)
 ##             50             65             33             51             24
 ```
 
-Next, in order to investigate how these different adopters related to other node attributes we will create a data frame containing these `toa_class` values as well as the beginning dates of each site and then create boxplot of beginning date by `toa_class`.
+Next, in order to investigate how these different adopters related to other node attributes we will create a data frame containing these `toa_class` values as well as the beginning dates of each site and then create box plot of beginning date by `toa_class`.
 
 
 ```r
@@ -715,6 +715,6 @@ ggplot(data = df) +
 
 <img src="10-diffusion_files/figure-html/unnamed-chunk-16-1.png" width="672" />
 
-As this boxplot illustrates, sites that were in the "Early Adopter" or "Early Majority" category include the vast majority of sites that have earlier starting dates though the median is the same across groups. This may suggest that network distance from Chaco Canyon (where we originated our "contagion" and where the earliest Great Houses are found) may have been a factor in the establishment of Chacoan complexes outside of Chaco. Of Course, if wanted to take this further we would need to assess the variable roles of spatial distance, network distance, and perhaps could even consider material cultural similarity data. At this point, however, this brief example at least points out that there is an interesting pattern worth investigation. Further, this example demonstrates one simple approach that could be used to compare diffusion models to other archaeological data.
+As this box plot illustrates, sites that were in the "Early Adopter" or "Early Majority" category include the vast majority of sites that have earlier starting dates though the median is the same across groups. This may suggest that network distance from Chaco Canyon (where we originated our "contagion" and where the earliest Great Houses are found) may have been a factor in the establishment of Chacoan complexes outside of Chaco. Of Course, if wanted to take this further we would need to assess the variable roles of spatial distance, network distance, and perhaps could even consider material cultural similarity data. At this point, however, this brief example at least points out that there is an interesting pattern worth investigation. Further, this example demonstrates one simple approach that could be used to compare diffusion models to other archaeological data.
 
 We have only scratched the surface on the network methods that can be used to study diffusion here. There are many other advanced models that may be relevant for archaeological analysis including many interesting [Epidemiological Models](http://www.epimodel.org/tut.html) that would likely work well in archaeological context for considerations of all sorts of contagions (social or biological). We hope these brief examples will promote further exploration of such approaches. 

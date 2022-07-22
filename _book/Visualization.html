@@ -162,9 +162,9 @@ These will be the basis for all examples in this section.
 <span class="va">cibola_i</span> <span class="op">&lt;-</span> <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/graph_from_adjacency_matrix.html">graph_from_adjacency_matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">cibola</span><span class="op">)</span>,
                                                 mode <span class="op">=</span> <span class="st">"undirected"</span><span class="op">)</span>
 <span class="va">cibola_i</span></code></pre></div>
-<pre><code>## IGRAPH 664596d UN-- 31 167 -- 
+<pre><code>## IGRAPH 5b312ba UN-- 31 167 -- 
 ## + attr: name (v/c)
-## + edges from 664596d (vertex names):
+## + edges from 5b312ba (vertex names):
 ##  [1] Apache.Creek--Casa.Malpais          Apache.Creek--Coyote.Creek         
 ##  [3] Apache.Creek--Hooper.Ranch          Apache.Creek--Horse.Camp.Mill      
 ##  [5] Apache.Creek--Hubble.Corner         Apache.Creek--Mineral.Creek.Pueblo 
@@ -368,10 +368,10 @@ full description and how R deals with geographic information.
   color <span class="op">=</span> <span class="st">"bw"</span>
 <span class="op">)</span>
 
-<span class="co"># Extract edgelist from network object</span>
+<span class="co"># Extract edge list from network object</span>
 <span class="va">edgelist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/as_edgelist.html">get.edgelist</a></span><span class="op">(</span><span class="va">net</span><span class="op">)</span>
 
-<span class="co"># Create dataframe of beginning and ending points of edges</span>
+<span class="co"># Create data frame of beginning and ending points of edges</span>
 <span class="va">edges</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">xy</span><span class="op">[</span><span class="va">edgelist</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span>, <span class="op">]</span>, <span class="va">xy</span><span class="op">[</span><span class="va">edgelist</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span>, <span class="op">]</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">edges</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"X1"</span>, <span class="st">"Y1"</span>, <span class="st">"X2"</span>, <span class="st">"Y2"</span><span class="op">)</span>
 
@@ -477,7 +477,7 @@ using the <code>ggarrange</code> function you can use the
 <span class="fu">ggpubr</span><span class="fu">::</span><span class="fu"><a href="https://rpkgs.datanovia.com/ggpubr/reference/show_point_shapes.html">show_point_shapes</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="05-visualization_files/figure-html/pch_points-1.png" width="672"></div>
 <p>There are many options for selecting colors for nodes and edges. These can be assigned using standard color names or can be assigned using rgb or hex codes. It is also possible to use standard palettes in packages like <code>RColorBrewer</code> or <code>scales</code> to specify categorical or continuous color schemes. This is often done using either the <code>scale_fill_brewer</code> or <code>scale_color_brewer</code> calls from <code>RColorBrewer</code>. Here are a couple of examples. In these examples, colors are grouped by site region, node size is scaled to degree centrality, and node and edge color and shape are specified in each call. Note the <code>alpha</code> command which controls the transparency of the relevant part of the plot. The scale_size call specifies the maximum and minimum size of points in the plot.</p>
-<p>The <a href="https://www.r-graph-gallery.com/38-rcolorbrewers-palettes.html">R Graph Gallery</a> has a good overview of the available color palettes in <code>RColorBrewer</code> and when the can be used. The “Set2” palette used here is a good one for people with many kinds of color vision deficencies.</p>
+<p>The <a href="https://www.r-graph-gallery.com/38-rcolorbrewers-palettes.html">R Graph Gallery</a> has a good overview of the available color palettes in <code>RColorBrewer</code> and when the can be used. The “Set2” palette used here is a good one for people with many kinds of color vision deficiencies.</p>
 <div class="sourceCode" id="cb467"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">RColorBrewer</span><span class="op">)</span>
 
@@ -889,7 +889,7 @@ and <code>colorblindr</code>.
 <div class="rmdwarning">
 <p>
 This function requires the <code>edgebundle</code> package be
-installed along with <code>reticulate</code> and Python 3.7 (see <a href="#Packages">Packages</a>) and uses the <a href="data/Peeples2018.Rdata">Cibola technological similarity data</a>.
+installed along with <code>reticulate</code> and Python 3.8 (see <a href="#Packages">Packages</a>) and uses the <a href="data/Peeples2018.Rdata">Cibola technological similarity data</a>.
 Check <a href="DataAndWorkspace.html#ShouldIInstall">Data and Workspace Setup</a> section for
 more details on getting the edge bundling package and Python up and
 running.
@@ -903,7 +903,7 @@ depending on your processing power and RAM.
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://edgebundle.schochastics.net/">edgebundle</a></span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span><span class="op">(</span><span class="st">"data/Peeples2018.Rdata"</span><span class="op">)</span>
 
-<span class="co"># Create attribute file with rquired data</span>
+<span class="co"># Create attribute file with required data</span>
 <span class="va">xy</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="va">site_info</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>
 <span class="va">xy</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">xy</span>, <span class="va">site_info</span><span class="op">$</span><span class="va">Region</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">xy</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"Region"</span><span class="op">)</span>
@@ -1052,7 +1052,7 @@ for more details.
 <div id="Figure_6_4" class="section level3 unnumbered">
 <h3>Figure 6.4: Simple Network with Clusters<a class="anchor" aria-label="anchor" href="#Figure_6_4"><i class="fas fa-link"></i></a>
 </h3>
-<p>Figure 6.4. A network among Clovis era sites in the Western U.S. with connections based on shared lithic raw material sources. Nodes are scaled based on betweenness centrality with the top seven sites labelled. Colour-coded clusters were defined using the Louvain algorithm.</p>
+<p>Figure 6.4. A network among Clovis era sites in the Western U.S. with connections based on shared lithic raw material sources. Nodes are scaled based on betweenness centrality with the top seven sites labelled. Color-coded clusters were defined using the Louvain algorithm.</p>
 <div class="rmdtip">
 <p>
 This example shows how to define and indicate groups and label points
@@ -1121,7 +1121,7 @@ the <code>geom_node_text</code> portion of the plot. See <a href="#Conditionals"
 Note that if you are running this package in your browser via binder,
 the function below will not work as you do not have permission to open
 the tkplot on the virtual server. To follow along with the plotting of
-this figure you can use the pre-determined locatoins by reading in this
+this figure you can use the pre-determined locations by reading in this
 file <code>load(file=“data/Coords.Rdata”)</code>
 </p>
 </div>
@@ -1169,10 +1169,10 @@ The figure that appears in the book was originally created using GIS software bu
 <span class="va">xy</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="va">coord1</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">xy</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span><span class="op">)</span>
 
-<span class="co"># Extract edgelist from network object</span>
+<span class="co"># Extract edge list from network object</span>
 <span class="va">edgelist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/as_edgelist.html">get.edgelist</a></span><span class="op">(</span><span class="va">road_net</span><span class="op">)</span>
 
-<span class="co"># Create dataframe of beginning and ending points of edges</span>
+<span class="co"># Create data frame of beginning and ending points of edges</span>
 <span class="va">edges</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">edgelist</span><span class="op">)</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">edges</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"X1"</span>, <span class="st">"Y1"</span>, <span class="st">"X2"</span>, <span class="st">"Y2"</span><span class="op">)</span>
 <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">edgelist</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
@@ -1278,10 +1278,10 @@ function in the same package that lets you generate north arrows.
   color <span class="op">=</span> <span class="st">"bw"</span>
 <span class="op">)</span>
 
-<span class="co"># Extract edgelist from network object</span>
+<span class="co"># Extract edge list from network object</span>
 <span class="va">edgelist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/as_edgelist.html">get.edgelist</a></span><span class="op">(</span><span class="va">g.net</span><span class="op">)</span>
 
-<span class="co"># Create dataframe of beginning and ending points of edges</span>
+<span class="co"># Create data frame of beginning and ending points of edges</span>
 <span class="va">edges2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">zz</span><span class="op">[</span><span class="va">edgelist</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span>, <span class="op">]</span>, <span class="va">zz</span><span class="op">[</span><span class="va">edgelist</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span>, <span class="op">]</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">edges2</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"X1"</span>, <span class="st">"Y1"</span>, <span class="st">"X2"</span>, <span class="st">"Y2"</span><span class="op">)</span>
 
@@ -1337,7 +1337,7 @@ function in the same package that lets you generate north arrows.
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/dkahle/ggmap">ggmap</a></span><span class="op">)</span>
 
-<span class="co"># Load igraph aegean_net data</span>
+<span class="co"># Load igraph Aegean_net data</span>
 
 <span class="va">aegean</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"data/aegean.csv"</span>, row.names <span class="op">=</span> <span class="fl">1</span>, header <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>
 <span class="va">aegean_dist</span> <span class="op">&lt;-</span> <span class="va">aegean</span>
@@ -1368,10 +1368,10 @@ function in the same package that lets you generate north arrows.
                        zoom <span class="op">=</span> <span class="fl">8</span>,
                        maptype <span class="op">=</span> <span class="st">"terrain-background"</span><span class="op">)</span>
 
-<span class="co"># Extract edgelist from network object for road_net</span>
+<span class="co"># Extract edge list from network object for road_net</span>
 <span class="va">edgelist1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/as_edgelist.html">get.edgelist</a></span><span class="op">(</span><span class="va">aegean_net</span><span class="op">)</span>
 
-<span class="co"># Create dataframe of beginning and ending points of edges</span>
+<span class="co"># Create data frame of beginning and ending points of edges</span>
 <span class="va">edges1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">edgelist1</span><span class="op">)</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">edges1</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"X1"</span>, <span class="st">"Y1"</span>, <span class="st">"X2"</span>, <span class="st">"Y2"</span><span class="op">)</span>
 <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">edgelist1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
@@ -2022,7 +2022,7 @@ beginning.
 
 <span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span><span class="op">(</span><span class="st">"data/Figure6_19.Rdata"</span><span class="op">)</span>
 <span class="co"># graph6.18 - graph object in igraph format</span>
-<span class="co"># node_list - dataframe with node details</span>
+<span class="co"># node_list - data frame with node details</span>
 <span class="co"># edge_list - edge_list which contains information on groups</span>
 <span class="co"># and edge weight</span>
 
@@ -2118,7 +2118,7 @@ before you run the code below.
 <div id="Figure_6_21" class="section level3 unnumbered">
 <h3>Figure 6.21: The Filmstrip Approach<a class="anchor" aria-label="anchor" href="#Figure_6_21"><i class="fas fa-link"></i></a>
 </h3>
-<p>Fig. 6.21. A demonstration of the flimstrip approach to plotting longitudinal network data. These data represent networks of ceramic similarity in the San Pedro Valley of Arizona for three consecutive 50-year intervals.</p>
+<p>Fig. 6.21. A demonstration of the filmstrip approach to plotting longitudinal network data. These data represent networks of ceramic similarity in the San Pedro Valley of Arizona for three consecutive 50-year intervals.</p>
 <p><a href="data/Figure6_21.Rdata">Use these data</a> to replicate the figures shown here.</p>
 <div class="sourceCode" id="cb507"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://igraph.org">igraph</a></span><span class="op">)</span>
@@ -2446,11 +2446,11 @@ edge list is the order that edges will be plotted.
   <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/igraph/man/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://rdrr.io/r/stats/setNames.html">setNames</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"lon"</span>, <span class="st">"lat"</span><span class="op">)</span><span class="op">)</span>
 
-<span class="co"># output coordinates in dataframe</span>
+<span class="co"># output coordinates in data frame</span>
 <span class="va">xy</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="va">coord1</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">xy</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span><span class="op">)</span>
 
-<span class="co"># Create edgelist with xy coordinates for each source and target</span>
+<span class="co"># Create edge list with xy coordinates for each source and target</span>
 <span class="va">edgelist2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/as_edgelist.html">get.edgelist</a></span><span class="op">(</span><span class="va">r_net</span><span class="op">)</span>
 <span class="va">edges2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">xy</span><span class="op">[</span><span class="va">edgelist2</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span>, <span class="op">]</span>, <span class="va">xy</span><span class="op">[</span><span class="va">edgelist2</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span>, <span class="op">]</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">edges2</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"X1"</span>, <span class="st">"Y1"</span>, <span class="st">"X2"</span>, <span class="st">"Y2"</span><span class="op">)</span>
@@ -2463,7 +2463,7 @@ edge list is the order that edges will be plotted.
   <span class="va">dist_meas</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/geosphere/man/distm.html">distm</a></span><span class="op">(</span><span class="va">temp</span><span class="op">[</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span>, <span class="va">temp</span><span class="op">[</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span>
 <span class="op">}</span>
 
-<span class="co"># Order edges so shorest will plot last</span>
+<span class="co"># Order edges so shortest will plot last</span>
 <span class="va">net_dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">edges2</span>, <span class="va">dist_meas</span><span class="op">)</span><span class="op">)</span>
 <span class="va">net_dat</span> <span class="op">&lt;-</span> <span class="va">net_dat</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html">order</a></span><span class="op">(</span><span class="va">net_dat</span><span class="op">$</span><span class="va">dist_meas</span>, decreasing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, <span class="op">]</span>
 
@@ -2566,7 +2566,7 @@ edge list is the order that edges will be plotted.
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-07-21.</p>
+    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-07-22.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

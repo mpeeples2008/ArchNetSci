@@ -274,6 +274,22 @@ The purpose of this section is to provide a quick index of topics covered in thi
   + [Empirical Networks](#DiffuseEmpiricalNetworks)
 * [Evaluating Diffusion Models](#EvaluatingDiffusion)
 
+## Section 12: Comparing Networks{-}
+
+[Comparing Networks](#ComparingNetworks)
+
+* [Known Node Correspondence](#KnownNode)
+  + [Direct Comparison of Adjacency Matrices](#CompareAdjacencyMatrices)
+  + [Quadratic Assignment Procedure](#QAP)
+  + [DeltaCon](#DeltaCon)
+* [Unknown Node Correspondence](#UnknownNode)
+  + [Comparing Network Global and Local Statistics](#ComparingStatistics)
+  + [Graph Kernel Methods](#NetworkKernel)
+  + [Spectral Methods](#SpectralMethods)
+  + [Portrait Divergence](#PortraitDivergence)
+  + [Graphlet-based Methods](#GraphletMethods)
+  + [Alignment-based Methods](#Alignment)
+
 ## ADDITIONAL INFORMATION AND MATERIALS{-}
 
 

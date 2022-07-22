@@ -178,7 +178,7 @@ QAP is potentially useful for identifying whether or not a given similarity or o
 
 ### DeltaCon{#DeltaCon}
 
-Another method for comparing networks with a common node-set that has more recently gained popularity is the DeltaCon approach (Koutra et al. 2016). This method is similar to the direct comparison of adjacency matrices except that it is based on the commonality in paths between networks rather than just specific edges. The underlying assumption here is that simple matching first degree connections doesn't capture the true similarities and differences in networks and capturing paths of various lengths will likely provide a better assessment of structural similarities and differences among networks. Much like the adjacency matrix methods above DeltaCon ranges from 0 to 1 and provides and indication of the strength of association between the two networks.
+Another method for comparing networks with a common node-set that has more recently gained popularity is the DeltaCon approach (Koutra et al. 2016). This method is similar to the direct comparison of adjacency matrices except that it is based on the commonality in paths between networks rather than just specific edges. The underlying assumption here is that simply matching first degree connections doesn't capture the true similarities and differences in networks and capturing paths of various lengths will likely provide a better assessment of structural similarities and differences among networks. Much like the adjacency matrix methods above DeltaCon ranges from 0 to 1 and provides and indication of the strength of association between the two networks.
 
 The analytical details and justification of DeltaCon are beyond the scope of this guide and we direct you [to the original paper](https://dl.acm.org/doi/abs/10.1145/2824443) where this method was defined for more details. Luckily, GitHub user [Baoxu "Dash" Shi](https://github.com/bxshi) has already created an R function to calculate DeltaCon that is [available here](https://github.com/bxshi/rdsg). We have ported that function into a script in this repository and use that here. Note that this function relies on three packages which must be installed to use this function: `Matrix`, `SparseM`, and `pracma`.
 
@@ -455,12 +455,12 @@ $$d(G_1,G_2) = \sqrt{\Sigma_i(s_i^{(1)}-s_i^{(2)})^2} $$
 
 where
 
-* s_i^{(1)} is the spectrum for graph 1 ($G_1$) ordered from largest to smallest
-* s_i^{(2)} is the spectrum for graph 2 ($G_2$) ordered from longest to smallest.
+* $s_i^{(1)}$ is the spectrum for graph 1 ($G_1$) ordered from largest to smallest
+* $s_i^{(2)}$ is the spectrum for graph 2 ($G_2$) ordered from longest to smallest.
 
 If one spectrum vector is longer than the other the vector can be padded with zeros while maintaining the ordering.
 
-Spectral comparisons are useful for comparing graphs of different sizes but there are noted issues such as different graphs can have the same spectra and small changes in graph structure can sometimes result in large changes in spectra. Despite these potential problems these methods are still common, especially for comparisons of large graphs as they can be calculated efficiently.
+Spectral comparisons are useful for comparing graphs of different sizes but there are some issues including the fact that different graphs can have the same spectra and small changes in graph structure can sometimes result in large changes in spectra. Despite these potential problems these methods are still common, especially for comparisons of large graphs as they can be calculated efficiently.
 
 To take this one step further, many graph-based spectral comparison methods are not based on the adjacency matrix directly, but instead further derivations of that matrix that highlight special features. For example, many methods are based on what is called the Laplacian matrix. A Laplacian matrix is the degree matrix of a graph minus the adjacency matrix of the same graph. The degree matrix is defined as a $n$ x $n$ matrix where all entries outside of the diagonal are 0 and the values along the diagonal represent the degree of the network for each node. The same methods described above can be used to find eigenvector and eigenvalues of a Laplacian matrix by simply replacing that matrix for the adjacency matrix ($A$) in the equation above.
 
@@ -499,7 +499,7 @@ In any R Markdown document in R-Studio you can create a block and specify it as 
 
 Now that we've created our objects in R, we can run our functions in Python. The following chunk of code is actually in Python rather than R although it looks relatively similar. The first few lines consist of import commands which tell Python to initialize the required packages we will use (this is much like the `library()` function in R).
 
-Next, we create Python objects from our R objects. Any object that is in the R global environment can be called within Python in R-Studio by using the prefix `r.` before the name of the object. Son in the code below, we define a Python object called `graph1` that is based on the R object called `g1` using the `r.g1` command.
+Next, we create Python objects from our R objects. Any object that is in the R global environment can be called within Python in R-Studio by using the prefix `r.` before the name of the object. In the code below, we define a Python object called `graph1` that is based on the R object called `g1` using the `r.g1` command.
 
 The next line of codes represent functions that are within the Python package we installed. First we call a function called `heat` within the `netlsd` package by adding `netlst.heat()` and then providing the object to which this function should be calculated in the parentheses. Next we then calculate the Laplacian spectral distance between two graphs using a function in the `numpy` package (which we imported with the shortened name `np`) by typing `np.linalg.norm`. Just like in R, we can assign the result to an object and then type the name of that object to report the output on the screen.
 
@@ -550,7 +550,7 @@ We have certainly not exhausted the possibilities for spectral graph comparison 
 
 ### Portrait Divergence{#PortraitDivergence}
 
-Another recently developed method which attempts to provide an overall metric of graph distance is referred to as the *portrait divergence* approach (Bagrow et al. 2018). This approach defines divergence among two networks of non-overlapping nodes based on the distribution of shortest path lengths in the network. Specifically, this method creates a network "portrait" which is a matrix $B_{lk}$ where $l$ is an integer vector from $0$ to the network diameter $d$ and $k$ is a vector from $0$ to $N-1$ where $N$ is the number of nodes encoding the number of nodes with $k$ shortest path at each distance $l$. This metric can also be used for weighted and directed networks. Using this matrix $B_{lk}$ portrait divergence is defined as:
+Another recently developed method which attempts to provide an overall metric of network relationships is referred to as the *portrait divergence* approach (Bagrow et al. 2018). This approach defines divergence among two networks of non-overlapping nodes based on the distribution of shortest path lengths in the network. Specifically, this method creates a network "portrait" which is a matrix $B_{lk}$ where $l$ is an integer vector from $0$ to the network diameter $d$ and $k$ is a vector from $0$ to $N-1$ where $N$ is the number of nodes with $k$ shortest path at each distance $l$. This metric can also be used for weighted and directed networks. Using this matrix $B_{lk}$ portrait divergence is defined as:
 
 $$P(k,l) = P(k|l)P(l) = \frac {1}{N}B_{lk} \frac {1}{\Sigma_c n^2_c}\Sigma_k k'B_{lk'}$$
 
@@ -620,7 +620,7 @@ As this shows, we get a somewhat lower value when considering random weightings.
 
 Another set of methods that have proven quite useful are referred to as graphlet-based measures. There are a few different specific models but in general these methods are grouped in that they define similarity in terms of the distribution of non-isomorphic sub-graphs of larger networks (typically ranging from 3 to 5 nodes). Experimental research has shown that these graphlet approaches do a good job of recovering information about the structure of networks, the individual positions of nodes and edges, and overall network topology as well as generative processes. Indeed, in their comparison of many network comparison methods, Tantardini et al. (2019) found graphlet-based methods generally performed the best under most common circumstances (although these methods have yet to be extended to weighted/valued networks). 
 
-The basic premise is that for a set number of nodes there are limited numbers of unique graph motifs that are possible and by tallying the distribution of these and comparing between networks, we can get an idea of how similar networks are in terms of both local and global structural properties. The image below shows all of the possible undirected graphlet configurations for 2, 3, 4, and 5 nodes. The colored shading in this figure shows nodes that have structurally equivalent positions within the graphlet (so all nodes that are the same color in a given graphlet have the same structural position in that graphlet). The graphlets are further numbered (starting with 0) as they typically are in recent publications ($G_0$ to $G_29$) and nodes in unique "orbits" are further labeled $O_0$ to $O_72$. An orbit in this case refers to a unique structural position within a unique graphlet. 
+The basic premise is that for a set number of nodes there are limited numbers of unique graph motifs that are possible and by tallying the distribution of these and comparing between networks, we can get an idea of how similar networks are in terms of both local and global structural properties. The image below shows all of the possible undirected graphlet configurations for 2, 3, 4, and 5 nodes. The colored shading in this figure shows nodes that have structurally equivalent positions within the graphlet (so all nodes that are the same color in a given graphlet have the same structural position in that graphlet). The graphlets are further numbered (starting with 0) as they typically are in recent publications ($G_0$ to $G_{29}$) and nodes in unique "orbits" are further labeled $O_0$ to $O_{72}$. An orbit in this case refers to a unique structural position within a unique graphlet. 
 
 ![Graphlet automorphisms for 2, 3, 4, and 5 nodes (from Miglio et al. 2021: Figure 1)](images/graphlets.jpg){width=100%}
 
@@ -784,15 +784,16 @@ netODA(road_net2, road_net3, mean = "geometric")
 netODA(road_net, cibola_net, mean = "geometric")
 ```
 
-Notice that the geometric mean (which is the $i_{th}$ root for a set of $i$ numbers) is quite similar for the Roman Road comparisons but is `NA` for the comparisons of the Roman Road and the Cibola ceramic network. This is because geometric means are undefined if any value in the set of numbers considered is 0 or negative. In this case, this indicates that at least one Agreement value for one orbit configuration was 0 in this comparison. You should be aware that such cases exist and may even be fairly common when comparing very different networks.
+Notice that the geometric mean (which is the $i_{th}$ root for the product of a set of $i$ numbers) is quite similar for the Roman Road comparisons but is `NA` for the comparisons of the Roman Road and the Cibola ceramic network. This is because geometric means are undefined if any value in the set of numbers considered is 0 or negative. In this case, this indicates that at least one Agreement value for one orbit configuration was 0 in this comparison. You should be aware that such cases exist and may even be fairly common when comparing very different networks.
 
 #### Graphlet Correlation Distance{-}
 
 One final graphlet-based measure that has shown considerable promise is the Graphlet Correlation Distance (GCD). This measure compares a correlation matrix based on orbit counts for one network to the correlation matrix based on orbit counts for a second network. Exploration focused on this measure has shown that some of the orbits defined above are actually redundant, meaning that counts of that orbit are perfectly correlated with some other orbit (Yaveroglu et al. 2015). Thus, when such measures are calculated those redundant orbits are discarded to avoid double counting particular structural positions. For the case of orbits for $k=4$ the redundant orbits are those indexed {3, 12, 13, 14} in the figure above. The remaining 11 orbits with the redundant orbits removed is used to calculated a measure called GCD-11 which is based on the remaining 11 non-redundant orbits. Work by Tantardini and others (2019) suggest that this measure performs better at recognizing different network generative models than either the GCD-15 measure (which includes redundant orbits for $k=4$) or GCD-73 and GCD-56 which represent the full and non-redundant orbit counts for the $k=5$ case. In the example here we will thus work with the GCD-11 measure.
 
 The GCD-11 measure is calculated by:
+
 * first defining $k=4$ orbit counts by node for two networks and then removing the four columns associated with the redundant orbits
-* calculating an 11 x 11 correlation matrix using the rank order Spearman's $\rho$ measure of correlations for the data frame of orbit counts by node for both networks
+* calculating an 11 x 11 correlation matrix using the rank order Spearman's $\rho$ measure of correlation for the data frame of orbit counts by node for both networks
 * finally, GCD-11 is defined as the Euclidean distance between the upper triangle (excluding the diagonal) of both correlation matrices.
 
 This measure, as it is based on Euclidean distance will be 0 when two networks are identical and has no upper bound.
@@ -866,7 +867,7 @@ netGCD(sw1, er1)
 
 As this shows, there is a considerably smaller distance between our random small world network and the Roman Road network than there is between our Erdos-Renyi network and the Roman Road network. Indeed, the comparisons between the Erdos-Renyi model and the Roman Roads produces a similar high distance to a comparison of our random small world and Erdos-Renyi networks. This is not, of course, proof that our Roman Network network has small world structure but such a comparison could be part of an analytical path to evaluate that possibility.
 
-### Alignment-based Methods
+### Alignment-based Methods{#Alignment}
 
 There are a number of additional methods of Unknown Node Correspondence approaches to network comparison we haven't covered here. Many of these are simply slight alterations of the approaches we have already outlined but one set of methods known as alignment-based methods are somewhat different. These approaches come from computational biology and attempt to create mappings of ordered pairs of nodes in two networks that are in similar positions in both networks and various functions that assess the quality of matching. Most approaches to alignment-based methods do not simply rely on network information but other biological information (such as information based on the functions of particular genes or proteins) and thus can't be generalized to other areas. There are alignment based approaches which rely solely on topology which attempt to align networks based on graphlet degree distributions (similar to GCD discussed above). We have experimented with this method (GRAAL or GRAph ALigner) but found that it is more computationally intensive and tends to produce less useful results than other methods we have outlined. This doesn't mean such approaches aren't useful in any archaeological cases but we leave further experimentation to others.
 

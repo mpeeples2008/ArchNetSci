@@ -1,7 +1,7 @@
 ---
 title: "Online Companion to *Archaeological Network Science*"
 author: "Matthew A. Peeples and Tom Brughmans"
-date: "2022-07-21"
+date: "2022-07-22"
 site: bookdown::bookdown_site
 output: bookdown::bs4_book
 documentclass: book
@@ -33,7 +33,7 @@ For more information on the book and the authors check out the project website h
 
 **Cite this document as:**
 
-> Peeples, Matthew A. and Tom Brughmans (2022). Online Companion to Archaeological Network Science by Brughmans and Peeples. <https://archnetworks.net>, Accessed 2022-07-21.
+> Peeples, Matthew A. and Tom Brughmans (2022). Online Companion to Archaeological Network Science by Brughmans and Peeples. <https://archnetworks.net>, Accessed 2022-07-22.
 
 **The associated book can be cited as**
 

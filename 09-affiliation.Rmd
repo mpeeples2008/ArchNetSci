@@ -190,7 +190,7 @@ where
 * $\text {div}$ refers to integer division where any numbers past the decimal point are dropped after the division operation
 * $\text {mod}$ refers to modulo where only numbers beyond the decimal point are retained after the division operation
 
-Using these equations we can then calculate normalized betweennes for two-modes as:
+Using these equations we can then calculate normalized betweenness for two-modes as:
 
 $$\begin{aligned}
 b^*_i =& \frac{b_i}b_{v_1\text{max}} \text {, for } i \in V_1\\
@@ -415,7 +415,7 @@ col_net <- graph_from_adjacency_matrix(crossprod(as.matrix(cibola_clust)),
                                        mode = "undirected",
                                        diag = FALSE)
 
-# Combine both edgelists into a single frame
+# Combine both edge lists into a single frame
 el_com <-  rbind(get.edgelist(cibola_om_reduced), get.edgelist(col_net))
 
 # Define composite network object and add Edge and Vertex attributes

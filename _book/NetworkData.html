@@ -174,9 +174,9 @@ Finally, we provide a brief example at the end of this section using
 <span class="header-section-number">3.1.2</span> Edge List<a class="anchor" aria-label="anchor" href="#Edgelist"><i class="fas fa-link"></i></a>
 </h3>
 <p>The edge list is a very quick and easy way to capture network data. It simply lists the edges in the network one by one by node id: <em>E=((n1,n2),(n1,n3),(n1,n4),…,(ni,nj))</em>. For the purposes of data management it is usually easiest to create an edge list as a data frame or matrix where each row represents a pair of nodes with connections going from the node in one column to the node in the second column (additional columns can be used for edge weight or other edge attributes).</p>
-<p>In this example, we import the Cibola data set in this format as a data frame and then convert it to an <code>igraph</code> network object for further analysis. You can download the <a href="data/Cibola_edgelist.csv">edgelist file here</a> to follow along on your own. Since the edges in this network are undirected this will be a simple binary network, and we will use the <code>directed = FALSE</code> argument in the <code><a href="https://rdrr.io/pkg/igraph/man/graph_from_edgelist.html">igraph::graph_from_edgelist</a></code> function call. This function simply takes a edge list in tabular format and converts it to a network object R recognizes that can further be used for analysis and visualization.</p>
+<p>In this example, we import the Cibola data set in this format as a data frame and then convert it to an <code>igraph</code> network object for further analysis. You can download the <a href="data/Cibola_edgelist.csv">edge list file here</a> to follow along on your own. Since the edges in this network are undirected this will be a simple binary network, and we will use the <code>directed = FALSE</code> argument in the <code><a href="https://rdrr.io/pkg/igraph/man/graph_from_edgelist.html">igraph::graph_from_edgelist</a></code> function call. This function simply takes a edge list in tabular format and converts it to a network object R recognizes that can further be used for analysis and visualization.</p>
 <div class="sourceCode" id="cb197"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Read in edgelist file as dataframe</span>
+<code class="sourceCode R"><span class="co"># Read in edge list file as data frame</span>
 <span class="va">cibola_edgelist</span> <span class="op">&lt;-</span>
   <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"data/Cibola_edgelist.csv"</span>, header <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 
@@ -190,7 +190,7 @@ Finally, we provide a brief example at the end of this section using
 ## 5 Apache Creek        Hubble Corner
 ## 6 Apache Creek Mineral Creek Pueblo</code></pre>
 <div class="sourceCode" id="cb199"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Create graph object. The dataframe is converted to a matrix as that</span>
+<code class="sourceCode R"><span class="co"># Create graph object. The data frame is converted to a matrix as that</span>
 <span class="co">#is required by this specific function. Since this is an undirected</span>
 <span class="co"># network directed = FALSE.</span>
 <span class="va">cibola_net</span> <span class="op">&lt;-</span>
@@ -199,9 +199,9 @@ Finally, we provide a brief example at the end of this section using
 
 <span class="co"># Display igraph network object and then plot a simple node-link diagram</span>
 <span class="va">cibola_net</span></code></pre></div>
-<pre><code>## IGRAPH 5142fae UN-- 30 167 -- 
+<pre><code>## IGRAPH 45609cc UN-- 30 167 -- 
 ## + attr: name (v/c)
-## + edges from 5142fae (vertex names):
+## + edges from 45609cc (vertex names):
 ##  [1] Apache Creek--Casa Malpais          Apache Creek--Coyote Creek         
 ##  [3] Apache Creek--Hooper Ranch          Apache Creek--Horse Camp Mill      
 ##  [5] Apache Creek--Hubble Corner         Apache Creek--Mineral Creek Pueblo 
@@ -229,7 +229,7 @@ Finally, we provide a brief example at the end of this section using
 
 <span class="co"># examine adjacency list for the site Apache Creek</span>
 <span class="va">adj_list</span><span class="op">$</span><span class="va">`Apache Creek`</span></code></pre></div>
-<pre><code>## + 11/167 edges from 5142fae (vertex names):
+<pre><code>## + 11/167 edges from 45609cc (vertex names):
 ##  [1] Apache Creek--Casa Malpais         Apache Creek--Coyote Creek        
 ##  [3] Apache Creek--Hooper Ranch         Apache Creek--Horse Camp Mill     
 ##  [5] Apache Creek--Hubble Corner        Apache Creek--Mineral Creek Pueblo
@@ -240,7 +240,7 @@ Finally, we provide a brief example at the end of this section using
 <code class="sourceCode R"><span class="co"># It is also possible to call specific nodes by number. In this case,</span>
 <span class="co"># site 2 is Casa Malpais</span>
 <span class="va">adj_list</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></code></pre></div>
-<pre><code>## + 11/167 edges from 5142fae (vertex names):
+<pre><code>## + 11/167 edges from 45609cc (vertex names):
 ##  [1] Apache Creek--Casa Malpais    Casa Malpais--Coyote Creek   
 ##  [3] Casa Malpais--Hooper Ranch    Casa Malpais--Horse Camp Mill
 ##  [5] Casa Malpais--Hubble Corner   Casa Malpais--Rudd Creek Ruin
@@ -391,9 +391,9 @@ Finally, we provide a brief example at the end of this section using
 <code class="sourceCode R"><span class="co"># Note that "region" is now listed as an attribute when we view</span>
 <span class="co"># the network object</span>
 <span class="va">cibola_net2</span></code></pre></div>
-<pre><code>## IGRAPH 5177a17 UN-- 31 167 -- 
+<pre><code>## IGRAPH 4596489 UN-- 31 167 -- 
 ## + attr: name (v/c), region (v/c)
-## + edges from 5177a17 (vertex names):
+## + edges from 4596489 (vertex names):
 ##  [1] Apache.Creek--Casa.Malpais          Apache.Creek--Coyote.Creek         
 ##  [3] Apache.Creek--Hooper.Ranch          Apache.Creek--Horse.Camp.Mill      
 ##  [5] Apache.Creek--Hubble.Corner         Apache.Creek--Mineral.Creek.Pueblo 
@@ -449,9 +449,9 @@ Finally, we provide a brief example at the end of this section using
   <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/graph_from_adjacency_matrix.html">graph_from_adjacency_matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">adj_mat2</span><span class="op">)</span>,
                                       mode <span class="op">=</span> <span class="st">"undirected"</span><span class="op">)</span>
 <span class="va">simple_net_i</span></code></pre></div>
-<pre><code>## IGRAPH 526ede0 UN-- 31 167 -- 
+<pre><code>## IGRAPH 468cb6e UN-- 31 167 -- 
 ## + attr: name (v/c)
-## + edges from 526ede0 (vertex names):
+## + edges from 468cb6e (vertex names):
 ##  [1] Apache.Creek--Casa.Malpais          Apache.Creek--Coyote.Creek         
 ##  [3] Apache.Creek--Hooper.Ranch          Apache.Creek--Horse.Camp.Mill      
 ##  [5] Apache.Creek--Hubble.Corner         Apache.Creek--Mineral.Creek.Pueblo 
@@ -490,7 +490,7 @@ Finally, we provide a brief example at the end of this section using
 <p>Sometimes relationships are directional, meaning they have an orientation. For example, the flow of a river is directed downstream. In such cases we can incorporate this information in our network data by distinguishing between the source and the target of an edge.</p>
 <p>By way of example here we will modify the Cibola network edge list to remove some number of edges at random to simulate directed network data. We will then convert these data into various network and matrix formats to illustrate how directed networks are stored and used in R. We first use the <code>sample</code> function to define a sub-sample of our network nodes and then we create a network object from that random sub-sample. By randomly removing some edges from the edge list we are left with a directed network where not all edges will be reciprocated.</p>
 <div class="sourceCode" id="cb227"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Read in edgelist file as dataframe</span>
+<code class="sourceCode R"><span class="co"># Read in edge list file as data frame</span>
 <span class="va">cibola_edgelist</span> <span class="op">&lt;-</span>
   <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"data/Cibola_edgelist.csv"</span>, header <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 
@@ -505,9 +505,9 @@ Finally, we provide a brief example at the end of this section using
 <span class="va">directed_net</span> <span class="op">&lt;-</span>
   <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/graph_from_edgelist.html">graph_from_edgelist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">el2</span><span class="op">)</span>, directed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="va">directed_net</span></code></pre></div>
-<pre><code>## IGRAPH 5276bc1 DN-- 30 125 -- 
+<pre><code>## IGRAPH 469511c DN-- 30 125 -- 
 ## + attr: name (v/c)
-## + edges from 5276bc1 (vertex names):
+## + edges from 469511c (vertex names):
 ##  [1] Coyote Creek   -&gt;Techado Springs      
 ##  [2] Hubble Corner  -&gt;Tri-R Pueblo         
 ##  [3] Hubble Corner  -&gt;Techado Springs      
@@ -518,7 +518,7 @@ Finally, we provide a brief example at the end of this section using
 ##  [8] Los Gigantes   -&gt;Pueblo de los Muertos
 ## + ... omitted several edges</code></pre>
 <div class="sourceCode" id="cb229"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># View as adjacency matrix of direted network object</span>
+<code class="sourceCode R"><span class="co"># View as adjacency matrix of directed network object</span>
 <span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/as_adjacency_matrix.html">as_adjacency_matrix</a></span><span class="op">(</span><span class="va">directed_net</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></code></pre></div>
 <pre><code>## 5 x 5 sparse Matrix of class "dgCMatrix"
 ##                 Coyote Creek Techado Springs Hubble Corner Tri-R Pueblo
@@ -612,9 +612,9 @@ Finally, we provide a brief example at the end of this section using
                                                   directed <span class="op">=</span> <span class="cn">FALSE</span>,
                                                   multiple <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="va">cibola_inc</span></code></pre></div>
-<pre><code>## IGRAPH 52bdf8c UN-B 41 2214 -- 
+<pre><code>## IGRAPH 46dc6fc UN-B 41 2214 -- 
 ## + attr: type (v/l), name (v/c)
-## + edges from 52bdf8c (vertex names):
+## + edges from 46dc6fc (vertex names):
 ##  [1] Apache Creek--Clust1 Apache Creek--Clust1 Apache Creek--Clust1
 ##  [4] Apache Creek--Clust1 Apache Creek--Clust1 Apache Creek--Clust1
 ##  [7] Apache Creek--Clust1 Apache Creek--Clust2 Apache Creek--Clust2
@@ -732,7 +732,7 @@ Finally, we provide a brief example at the end of this section using
 <span class="va">clust_p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/proportions.html">prop.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">cibola_clust</span><span class="op">)</span>, margin <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
 
 <span class="co"># The following line uses the vegdist function in the vegan package</span>
-<span class="co"># to calculate the Brainard-Robinson similarity score. Since vegdist</span>
+<span class="co"># to calculate the Brainerd-Robinson similarity score. Since vegdist</span>
 <span class="co"># by default defines an unscaled distance we must subtract the results</span>
 <span class="co"># from 2 and then divide by 2 to get a similarity scaled from 0 to 1.</span>
 <span class="va">cibola_br</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="op">(</span><span class="fl">2</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="fu">vegan</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/vegan/man/vegdist.html">vegdist</a></span><span class="op">(</span><span class="va">clust_p</span>,
@@ -747,9 +747,9 @@ Finally, we provide a brief example at the end of this section using
 ## Casa Malpais    0.7050691 0.3740804   0.5608953    1.0000000</code></pre>
 <p>At this point we could simply define this as a weighted network object where weights are equal to the similarity scores, or we could define a threshold for defining edges as present or absent. We will discuss these options in detail after presenting other similarity/distance metrics.</p>
 </div>
-<div id="morisitas-overlap-index---morisita" class="section level4" number="3.2.5.1">
+<div id="Morisita" class="section level4" number="3.2.5.1">
 <h4>
-<span class="header-section-number">3.2.5.1</span> Morisita’s Overlap Index {- ?#Morisita}<a class="anchor" aria-label="anchor" href="#morisitas-overlap-index---morisita"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.2.5.1</span> Morisita’s Overlap Index<a class="anchor" aria-label="anchor" href="#Morisita"><i class="fas fa-link"></i></a>
 </h4>
 <p>Another measure that has been used for defining similarities among assemblages for archaeological similarity networks is Morisita’s overlap index. This measure is a measure of the overlap of individual assemblages within a larger population that takes the size of samples into account. Specifically, the approach assumes that as sample size increases diversity will likely increase. This measure produces results that are very similar to the Brainerd-Robinson metric in practice in most cases but this measure may be preferred where there are dramatic differences in assemblage sizes among observations.</p>
 <p>Morisita’s index is calculated as:</p>
@@ -830,7 +830,7 @@ Finally, we provide a brief example at the end of this section using
   <span class="va">union</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">a</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">b</span><span class="op">)</span> <span class="op">-</span> <span class="va">intersection</span>
   <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">intersection</span> <span class="op">/</span> <span class="va">union</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
-<p>In order to try this function out, we will create three simple vectors of values and then compare them. Note that this function compares matches for the position of each item in the vector. So if <code>vec1[1] = 1</code> and <code>vec2[1] = 1</code> that is condisered a match:</p>
+<p>In order to try this function out, we will create three simple vectors of values and then compare them. Note that this function compares matches for the position of each item in the vector. So if <code>vec1[1] = 1</code> and <code>vec2[1] = 1</code> that is considered a match:</p>
 <div class="sourceCode" id="cb254"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">vec1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span>
 <span class="va">vec2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>
@@ -865,7 +865,7 @@ Finally, we provide a brief example at the end of this section using
 ## [2,] 0.4285714 1.0000000 0.6666667 0.5384615
 ## [3,] 0.4285714 0.6666667 1.0000000 0.5384615
 ## [4,] 0.8181818 0.5384615 0.5384615 1.0000000</code></pre>
-<p>Note that we have created R scripts with the two functions above as separate files. If you would like to initialize those functions without copying and pasting the code above, you can use the <code><a href="https://rdrr.io/r/base/source.html">source()</a></code> function to call a function straight from a file. These are both located in the “scripts” folder so we add that sub-folder to the file name in the argument.</p>
+<p>Note that we have created R scripts with the two functions above as separate files. If you would like to initialize those functions without copying and pasting the code above, you can use the <code><a href="https://rdrr.io/r/base/source.html">source()</a></code> function to call a function straight from a file. These are both located in the “scripts” folder so we add that sub-folder to the file name in the argument. <a href="scripts/jaccard.R">Click here to download jaccard.R</a> and <a href="scripts/jaccard_inc.R">here for jaccard_inc.R</a>.</p>
 <div class="sourceCode" id="cb262"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"scripts/jaccard.R"</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"scripts/jaccard_inc.R"</span><span class="op">)</span></code></pre></div>
@@ -920,7 +920,7 @@ Finally, we provide a brief example at the end of this section using
                        method <span class="op">=</span> <span class="st">"quantile"</span>,
                        thresh <span class="op">=</span> <span class="fl">0.80</span><span class="op">)</span>,
                        directed <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-<span class="co"># Once again add vertext names as row names of data frame</span>
+<span class="co"># Once again add vertex names as row names of data frame</span>
 <span class="va">xnet</span> <span class="op">%v%</span> <span class="st">"vertex.names"</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/row.names.html">row.names</a></span><span class="op">(</span><span class="va">cibola_clust</span><span class="op">)</span>
 <span class="co"># look at the results</span>
 <span class="va">xnet</span></code></pre></div>
@@ -1024,11 +1024,11 @@ Finally, we provide a brief example at the end of this section using
 <p>When we aim to understand the relational environment within which an entity is embedded, because it is relevant for our research questions or because data collection challenges dictate this focus, archaeological network research can make use of so-called ego-networks: a type of network that includes a focal node (the so-called ego), the set of nodes the ego is connected to by an edge (the so-called alters) and the edges between this set of nodes.</p>
 <p>Extracting an ego-network from an existing igraph network object in R is very easy. Here we will extract and plot the ego-network for Apache Creek, the first site in the network files we created above. First we read in data and create a network object and then we apply the <code><a href="https://rdrr.io/pkg/igraph/man/ego.html">igraph::make_ego_graph</a></code> function to the network object we created.</p>
 <div class="sourceCode" id="cb275"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Read in edgelist file as dataframe</span>
+<code class="sourceCode R"><span class="co"># Read in edge list file as data frame</span>
 <span class="va">cibola_edgelist</span> <span class="op">&lt;-</span>
   <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"data/Cibola_edgelist.csv"</span>, header <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 
-<span class="co"># Create graph object. The dataframe is converted to a matrix as</span>
+<span class="co"># Create graph object. The data frame is converted to a matrix as</span>
 <span class="co"># that is required by this specific function. Since this is an</span>
 <span class="co"># undirected network, directed = FALSE.</span>
 <span class="va">cibola_net</span> <span class="op">&lt;-</span>
@@ -1040,9 +1040,9 @@ Finally, we provide a brief example at the end of this section using
 
 <span class="co"># Examine the first ego-network</span>
 <span class="va">ego_nets</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></code></pre></div>
-<pre><code>## IGRAPH 550e749 UN-- 12 59 -- 
+<pre><code>## IGRAPH 4940363 UN-- 12 59 -- 
 ## + attr: name (v/c)
-## + edges from 550e749 (vertex names):
+## + edges from 4940363 (vertex names):
 ##  [1] Apache Creek   --Casa Malpais         Apache Creek   --Coyote Creek        
 ##  [3] Casa Malpais   --Coyote Creek         Apache Creek   --Hooper Ranch        
 ##  [5] Casa Malpais   --Hooper Ranch         Coyote Creek   --Hooper Ranch        
@@ -1098,38 +1098,38 @@ Finally, we provide a brief example at the end of this section using
 <span class="co"># multilayer network, the multinet package can help us do that directly</span>
 <span class="co"># and quite simply.</span>
 <span class="fu">multinet</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/multinet/man/ActorMeasures.html">degree_ml</a></span><span class="op">(</span><span class="va">florentine</span><span class="op">)</span></code></pre></div>
-<pre><code>##  [1]  6  7  4  4  3  3 11  2  6  3  6  6  3  1  5</code></pre>
+<pre><code>##  [1]  6  5  6  6  1  4  3  6  3  4  3  7  2  3 11</code></pre>
 <div class="sourceCode" id="cb288"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Similarly, we could apply cluster detection algorithms to all layers</span>
 <span class="co"># of a multilayer network simultaneously.</span>
 <span class="fu">multinet</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/multinet/man/Communities.html">glouvain_ml</a></span><span class="op">(</span><span class="va">florentine</span><span class="op">)</span></code></pre></div>
 <pre><code>##           actor    layer cid
-## 1    Tornabuoni business   0
+## 1    Acciaiuoli marriage   0
 ## 2    Tornabuoni marriage   0
-## 3       Ridolfi marriage   0
-## 4      Salviati business   0
+## 3    Tornabuoni business   0
+## 4       Ridolfi marriage   0
 ## 5      Salviati marriage   0
-## 6        Medici business   0
-## 7        Medici marriage   0
+## 6      Salviati business   0
+## 7         Pazzi marriage   0
 ## 8         Pazzi business   0
-## 9         Pazzi marriage   0
-## 10   Acciaiuoli marriage   0
-## 11       Ginori business   1
-## 12       Ginori marriage   1
+## 9        Medici marriage   0
+## 10       Medici business   0
+## 11    Barbadori marriage   1
+## 12    Barbadori business   1
 ## 13      Albizzi marriage   1
-## 14    Barbadori business   2
-## 15    Barbadori marriage   2
-## 16      Peruzzi business   2
-## 17      Peruzzi marriage   2
-## 18      Strozzi marriage   2
-## 19   Castellani business   2
+## 14       Ginori marriage   1
+## 15       Ginori business   1
+## 16     Guadagni marriage   2
+## 17     Guadagni business   2
+## 18 Lamberteschi marriage   2
+## 19 Lamberteschi business   2
 ## 20   Castellani marriage   2
-## 21     Guadagni business   3
-## 22     Guadagni marriage   3
-## 23     Bischeri business   3
-## 24     Bischeri marriage   3
-## 25 Lamberteschi business   3
-## 26 Lamberteschi marriage   3</code></pre>
+## 21   Castellani business   2
+## 22     Bischeri marriage   2
+## 23     Bischeri business   2
+## 24      Strozzi marriage   2
+## 25      Peruzzi marriage   2
+## 26      Peruzzi business   2</code></pre>
 <p>For an archaeological example of multilevel network analysis <a href="https://github.com/ajupton/archy-multilayer-nets">this GitHub project</a> by Andy Upton.</p>
 </div>
 </div>
@@ -1157,9 +1157,9 @@ would instead use <code>asNetwrok</code>.
 <div class="sourceCode" id="cb290"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mor_wt_i</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/intergraph/man/asIgraph.html">asIgraph</a></span><span class="op">(</span><span class="va">mor_wt</span><span class="op">)</span>
 <span class="va">mor_wt_i</span></code></pre></div>
-<pre><code>## IGRAPH 5585d48 U-W- 31 465 -- 
+<pre><code>## IGRAPH 49bb1db U-W- 31 465 -- 
 ## + attr: na (v/l), vertex.names (v/c), na (e/l), weight (e/n)
-## + edges from 5585d48:
+## + edges from 49bb1db:
 ##   [1] 1-- 2 1-- 3 1-- 4 1-- 5 1-- 6 1-- 7 1-- 8 1-- 9 1--10 1--11 1--12 1--13
 ##  [13] 1--14 1--15 1--16 1--17 1--18 1--19 1--20 1--21 1--22 1--23 1--24 1--25
 ##  [25] 1--26 1--27 1--28 1--29 1--30 1--31 2-- 3 2-- 4 2-- 5 2-- 6 2-- 7 2-- 8
@@ -1247,7 +1247,7 @@ would instead use <code>asNetwrok</code>.
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-07-21.</p>
+    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-07-22.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

@@ -59,7 +59,7 @@ DirectedNetworks
 WeightedNetworks
 TwoMode
 SimilarityNetworks
-morisitas-overlap-index---morisita
+Morisita
 EgoNetworks
 Multinet
 ConvertingNetworkFormats
@@ -185,4 +185,4 @@ NetworkKernel
 SpectralMethods
 PortraitDivergence
 GraphletMethods
-alignment-based-methods
+Alignment

@@ -39,6 +39,17 @@
       "Hash": "b1a93bed5debda5775636086fdca017b",
       "Requirements": []
     },
+    "BiocVersion": {
+      "Package": "BiocVersion",
+      "Version": "3.15.2",
+      "Source": "Bioconductor",
+      "git_url": "https://git.bioconductor.org/packages/BiocVersion",
+      "git_branch": "master",
+      "git_last_commit": "818ab03",
+      "git_last_commit_date": "2022-03-29",
+      "Hash": "48e545a2fa24a967de72b1114bfe96ac",
+      "Requirements": []
+    },
     "DBI": {
       "Package": "DBI",
       "Version": "1.1.2",
@@ -93,6 +104,18 @@
       "Hash": "71476c1d88d1ebdf31580e5a257d5d31",
       "Requirements": []
     },
+    "MatchIt": {
+      "Package": "MatchIt",
+      "Version": "4.4.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "e527e54a519487cc3bd8e144ee14a6cb",
+      "Requirements": [
+        "Rcpp",
+        "RcppProgress",
+        "backports"
+      ]
+    },
     "Matrix": {
       "Package": "Matrix",
       "Version": "1.4-1",
@@ -111,6 +134,22 @@
       "Hash": "366a8838782928e398b8762c932a42a3",
       "Requirements": [
         "Matrix"
+      ]
+    },
+    "NetworkSim": {
+      "Package": "NetworkSim",
+      "Version": "1.1.1",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "NetworkSim",
+      "RemoteUsername": "QiliShi",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "c950be31fdeeb3de45db4bac03c194b96935f730",
+      "Hash": "84404edb8cdc361dd794e41b3858a9f3",
+      "Requirements": [
+        "igraph",
+        "orca"
       ]
     },
     "R6": {
@@ -171,6 +210,14 @@
         "Matrix",
         "Rcpp"
       ]
+    },
+    "RcppProgress": {
+      "Package": "RcppProgress",
+      "Version": "0.4.2",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "1c0aa18b97e6aaa17f93b8b866c0ace5",
+      "Requirements": []
     },
     "RcppTOML": {
       "Package": "RcppTOML",
@@ -1248,6 +1295,18 @@
         "BiocGenerics"
       ]
     },
+    "graphkernels": {
+      "Package": "graphkernels",
+      "Version": "1.6.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "5b0b80eb4ee6350955ea248ba6c0ad64",
+      "Requirements": [
+        "Rcpp",
+        "RcppEigen",
+        "igraph"
+      ]
+    },
     "graphlayouts": {
       "Package": "graphlayouts",
       "Version": "0.8.0",
@@ -1717,6 +1776,27 @@
         "statnet.common"
       ]
     },
+    "netdiffuseR": {
+      "Package": "netdiffuseR",
+      "Version": "1.22.3",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "29064bd494624f5519596fa67877ad75",
+      "Requirements": [
+        "MASS",
+        "MatchIt",
+        "Matrix",
+        "Rcpp",
+        "RcppArmadillo",
+        "SparseM",
+        "boot",
+        "igraph",
+        "network",
+        "networkDynamic",
+        "sna",
+        "viridisLite"
+      ]
+    },
     "network": {
       "Package": "network",
       "Version": "1.17.2",
@@ -1797,6 +1877,14 @@
       "Requirements": [
         "askpass"
       ]
+    },
+    "orca": {
+      "Package": "orca",
+      "Version": "1.1-1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "7410de67c10d3837216b533c9c25818c",
+      "Requirements": []
     },
     "patchwork": {
       "Package": "patchwork",
@@ -1925,6 +2013,14 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "ceb5c2a59ba33d42d051285a3e8a5118",
+      "Requirements": []
+    },
+    "pracma": {
+      "Package": "pracma",
+      "Version": "2.3.8",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "faa74cd75851e12b13b353ba33f939f5",
       "Requirements": []
     },
     "praise": {

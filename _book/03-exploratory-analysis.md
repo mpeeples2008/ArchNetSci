@@ -53,7 +53,7 @@ simple_net_noiso <-
   igraph::graph_from_edgelist(as.matrix(cibola_edgelist),
                               directed = FALSE)
 
-#Create a directed network by subsampling edgelist
+#Create a directed network by sub-sampling edge list
 set.seed(45325)
 el2 <- cibola_edgelist[sample(seq(1, nrow(cibola_edgelist)), 125,
                               replace = FALSE), ]
@@ -62,7 +62,7 @@ directed_net <- igraph::graph_from_edgelist(as.matrix(el2),
                                             directed = TRUE)
 
 # Create a weighted undirected network by adding column of random
-# weights to edgelist
+# weights to edge list
 cibola_edgelist$weight <- sample(seq(1, 4), nrow(cibola_edgelist),
                                  replace = TRUE)
 weighted_net <-
@@ -100,7 +100,7 @@ One of the most common kinds of exploratory network analysis involves calculatin
 
 ### Degree Centrality{#Degree}
 
-Degree centrality can be calculated using the `igraph::degree` function for simple networks with or without isolates as well as simple directed networks. This method is not, however, appropriate for weighted networks or similarity networks (because it expects binary values). If you apply the `igraph::degree` function to a weighted network object you will simply get the binary network degree centrality values. The alternative for calculating weighted degree for weighted and similarity networks is to simply calculate the row sums of the underlying similarity matrix (minus 1 to account for self loops) or adjacency matrix. For the degree function the returned output is a vector of values representing degree centrality which can further be assigned to an R object, plotted, or otherwise used. We provide a few examples here to illustrate. Note that for directed graphs you can also specify the mode as `in` for indegree or `out` for outdegree or `all` for the sum of both.
+Degree centrality can be calculated using the `igraph::degree` function for simple networks with or without isolates as well as simple directed networks. This method is not, however, appropriate for weighted networks or similarity networks (because it expects binary values). If you apply the `igraph::degree` function to a weighted network object you will simply get the binary network degree centrality values. The alternative for calculating weighted degree for weighted and similarity networks is to simply calculate the row sums of the underlying similarity matrix (minus 1 to account for self loops) or adjacency matrix. For the degree function the returned output is a vector of values representing degree centrality which can further be assigned to an R object, plotted, or otherwise used. We provide a few examples here to illustrate. Note that for directed graphs you can also specify the mode as `in` for in-degree or `out` for out-degree or `all` for the sum of both.
 
 Graph level degree centralization is equally simple to call using the `centr_degree` function. This function returns an object with multiple parts including a vector of degree centrality scores, the graph level centralization metric, and the theoretical maximum number of edges (n \* [n-1]). This metric can be normalized such that the maximum centralization value would be 1 using the `normalize = TRUE` argument as we demonstrate below. See the comments in the code chunk below to follow along with which type of network object is used in each call. In most cases we only display the first 5 values to prevent long lists of output (using the `[1:5]` command).
 
@@ -127,7 +127,7 @@ igraph::degree(simple_net_noiso)[1:5]
 
 ```r
 # directed network
-igraph::degree(directed_net, mode = "in")[1:5] # indegree
+igraph::degree(directed_net, mode = "in")[1:5] # in-degree
 ```
 
 ```
@@ -136,7 +136,7 @@ igraph::degree(directed_net, mode = "in")[1:5] # indegree
 ```
 
 ```r
-igraph::degree(directed_net, mode = "out")[1:5] # outdegree
+igraph::degree(directed_net, mode = "out")[1:5] # out-degree
 ```
 
 ```
@@ -403,7 +403,7 @@ igraph::closeness(directed_net, mode = "in")[1:5]
 
 ### Hubs and Authorities {#HubsAndAuthorities}
 
-In directed networks it is possible to calculate hub and authority scores to identify nodes that are characterized by high indegree and high outdegree in particular. Because this is a measure that depends on direction it is only appropriate for directed network objects. If you run this function for an undirected network hub scores and authority scores will be identical. These functions can also be applied networks that are both directed and weighted. If you do not want all options printed you can use the atomic vector \$vector call as well.
+In directed networks it is possible to calculate hub and authority scores to identify nodes that are characterized by high in-degree and high out-degree in particular. Because this is a measure that depends on direction it is only appropriate for directed network objects. If you run this function for an undirected network hub scores and authority scores will be identical. These functions can also be applied networks that are both directed and weighted. If you do not want all options printed you can use the atomic vector \$vector call as well.
 
 
 ```r
@@ -588,7 +588,7 @@ igraph::shortest_paths(simple_net, from = 1, to = 21)
 ```
 ## $vpath
 ## $vpath[[1]]
-## + 5/31 vertices, named, from 593536e:
+## + 5/31 vertices, named, from 4d4e3b6:
 ## [1] Apache.Creek          Casa.Malpais          Garcia.Ranch         
 ## [4] Heshotauthla          Pueblo.de.los.Muertos
 ## 
@@ -624,7 +624,7 @@ igraph::farthest_vertices(directed_net, directed = TRUE)
 
 ```
 ## $vertices
-## + 2/30 vertices, named, from 593623f:
+## + 2/30 vertices, named, from 4d4f3cf:
 ## [1] Apache Creek          Pueblo de los Muertos
 ## 
 ## $distance
@@ -676,9 +676,9 @@ components
 
 ```
 ## [[1]]
-## IGRAPH 5b962e7 UN-- 30 167 -- 
+## IGRAPH 4fc37d7 UN-- 30 167 -- 
 ## + attr: name (v/c)
-## + edges from 5b962e7 (vertex names):
+## + edges from 4fc37d7 (vertex names):
 ##  [1] Apache.Creek--Casa.Malpais          Apache.Creek--Coyote.Creek         
 ##  [3] Apache.Creek--Hooper.Ranch          Apache.Creek--Horse.Camp.Mill      
 ##  [5] Apache.Creek--Hubble.Corner         Apache.Creek--Mineral.Creek.Pueblo 
@@ -690,9 +690,9 @@ components
 ## + ... omitted several edges
 ## 
 ## [[2]]
-## IGRAPH 5b9630f UN-- 1 0 -- 
+## IGRAPH 4fc37fb UN-- 1 0 -- 
 ## + attr: name (v/c)
-## + edges from 5b9630f (vertex names):
+## + edges from 4fc37fb (vertex names):
 ```
 
 ```r
@@ -752,15 +752,15 @@ min_cut(simple_net_noiso, value.only = FALSE)
 ## [1] 1
 ## 
 ## $cut
-## + 1/167 edge from 5935935 (vertex names):
+## + 1/167 edge from 4d4e9ec (vertex names):
 ## [1] Ojo Bonito--Baca Pueblo
 ## 
 ## $partition1
-## + 1/30 vertex, named, from 5935935:
+## + 1/30 vertex, named, from 4d4e9ec:
 ## [1] Baca Pueblo
 ## 
 ## $partition2
-## + 29/30 vertices, named, from 5935935:
+## + 29/30 vertices, named, from 4d4e9ec:
 ##  [1] Apache Creek          Casa Malpais          Coyote Creek         
 ##  [4] Hooper Ranch          Horse Camp Mill       Hubble Corner        
 ##  [7] Mineral Creek Pueblo  Rudd Creek Ruin       Techado Springs      
@@ -789,7 +789,7 @@ max_cliques(simple_net, min = 1)[[24]]
 ```
 
 ```
-## + 9/31 vertices, named, from 593536e:
+## + 9/31 vertices, named, from 4d4e3b6:
 ## [1] Los.Gigantes    Cienega         Tinaja          Spier.170      
 ## [5] Scribe.S        Pescado.Cluster Mirabal         Heshotauthla   
 ## [9] Yellowhouse
@@ -814,7 +814,7 @@ kcore[1:6]
 ```
 
 ```r
-# set up colorscale
+# set up color scale
 col_set <- heat.colors(max(kcore), rev = TRUE)
 set.seed(2509)
 plot(simple_net, vertex.color = col_set[kcore])

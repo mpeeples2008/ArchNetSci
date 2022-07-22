@@ -47,17 +47,17 @@ where `**DataType**` is replaced with the appropriate format such as `edgelist`,
 
 The edge list is a very quick and easy way to capture network data. It simply lists the edges in the network one by one by node id: *E=((n1,n2),(n1,n3),(n1,n4),...,(ni,nj))*. For the purposes of data management it is usually easiest to create an edge list as a data frame or matrix where each row represents a pair of nodes with connections going from the node in one column to the node in the second column (additional columns can be used for edge weight or other edge attributes).
 
-In this example, we import the Cibola data set in this format as a data frame and then convert it to an `igraph` network object for further analysis. You can download the [edgelist file here](data/Cibola_edgelist.csv) to follow along on your own. Since the edges in this network are undirected this will be a simple binary network, and we will use the `directed = FALSE` argument in the `igraph::graph_from_edgelist` function call. This function simply takes a edge list in tabular format and converts it to a network object R recognizes that can further be used for analysis and visualization.
+In this example, we import the Cibola data set in this format as a data frame and then convert it to an `igraph` network object for further analysis. You can download the [edge list file here](data/Cibola_edgelist.csv) to follow along on your own. Since the edges in this network are undirected this will be a simple binary network, and we will use the `directed = FALSE` argument in the `igraph::graph_from_edgelist` function call. This function simply takes a edge list in tabular format and converts it to a network object R recognizes that can further be used for analysis and visualization.
 
 ```{r, warning=F, message=F}
-# Read in edgelist file as dataframe
+# Read in edge list file as data frame
 cibola_edgelist <-
   read.csv(file = "data/Cibola_edgelist.csv", header = TRUE)
 
 # Examine the first several rows
 head(cibola_edgelist)
 
-# Create graph object. The dataframe is converted to a matrix as that
+# Create graph object. The data frame is converted to a matrix as that
 #is required by this specific function. Since this is an undirected
 # network directed = FALSE.
 cibola_net <-
@@ -229,7 +229,7 @@ Sometimes relationships are directional, meaning they have an orientation. For e
 By way of example here we will modify the Cibola network edge list to remove some number of edges at random to simulate directed network data. We will then convert these data into various network and matrix formats to illustrate how directed networks are stored and used in R. We first use the `sample` function to define a sub-sample of our network nodes and then we create a network object from that random sub-sample. By randomly removing some edges from the edge list we are left with a directed network where not all edges will be reciprocated. 
 
 ```{r, message=F, warning=F}
-# Read in edgelist file as dataframe
+# Read in edge list file as data frame
 cibola_edgelist <-
   read.csv(file = "data/Cibola_edgelist.csv", header = TRUE)
 
@@ -245,7 +245,7 @@ directed_net <-
   igraph::graph_from_edgelist(as.matrix(el2), directed = TRUE)
 directed_net
 
-# View as adjacency matrix of direted network object
+# View as adjacency matrix of directed network object
 (as_adjacency_matrix(directed_net))[1:5, 1:5]
 
 # Plot network
@@ -400,7 +400,7 @@ cibola_clust <-
 clust_p <- prop.table(as.matrix(cibola_clust), margin = 1)
 
 # The following line uses the vegdist function in the vegan package
-# to calculate the Brainard-Robinson similarity score. Since vegdist
+# to calculate the Brainerd-Robinson similarity score. Since vegdist
 # by default defines an unscaled distance we must subtract the results
 # from 2 and then divide by 2 to get a similarity scaled from 0 to 1.
 cibola_br <- ((2 - as.matrix(vegan::vegdist(clust_p,
@@ -412,7 +412,7 @@ cibola_br[1:4, 1:4]
 
 At this point we could simply define this as a weighted network object where weights are equal to the similarity scores, or we could define a threshold for defining edges as present or absent. We will discuss these options in detail after presenting other similarity/distance metrics.
 
-#### Morisita's Overlap Index {- ?#Morisita}
+#### Morisita's Overlap Index {#Morisita}
 
 Another measure that has been used for defining similarities among assemblages for archaeological similarity networks is Morisita's overlap index. This measure is a measure of the overlap of individual assemblages within a larger population that takes the size of samples into account. Specifically, the approach assumes that as sample size increases diversity will likely increase. This measure produces results that are very similar to the Brainerd-Robinson metric in practice in most cases but this measure may be preferred where there are dramatic differences in assemblage sizes among observations. 
 
@@ -490,7 +490,7 @@ jaccard <- function(a, b) {
 }
 ```
 
-In order to try this function out, we will create three simple vectors of values and then compare them. Note that this function compares matches for the position of each item in the vector. So if `vec1[1] = 1` and `vec2[1] = 1` that is condisered a match:
+In order to try this function out, we will create three simple vectors of values and then compare them. Note that this function compares matches for the position of each item in the vector. So if `vec1[1] = 1` and `vec2[1] = 1` that is considered a match:
 
 ```{r}
 vec1 <- c(0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 0)
@@ -524,7 +524,7 @@ cibola_j[1:4, 1:4]
 
 ```
 
-Note that we have created R scripts with the two functions above as separate files. If you would like to initialize those functions without copying and pasting the code above, you can use the `source()` function to call a function straight from a file. These are both located in the "scripts" folder so we add that sub-folder to the file name in the argument.
+Note that we have created R scripts with the two functions above as separate files. If you would like to initialize those functions without copying and pasting the code above, you can use the `source()` function to call a function straight from a file. These are both located in the "scripts" folder so we add that sub-folder to the file name in the argument. [Click here to download jaccard.R](scripts/jaccard.R) and [here for jaccard_inc.R](scripts/jaccard_inc.R).
 
 ```{r}
 source("scripts/jaccard.R")
@@ -570,7 +570,7 @@ xnet <-
                        method = "quantile",
                        thresh = 0.80),
                        directed = FALSE)
-# Once again add vertext names as row names of data frame
+# Once again add vertex names as row names of data frame
 xnet %v% "vertex.names" <- row.names(cibola_clust)
 # look at the results
 xnet
@@ -630,11 +630,11 @@ When we aim to understand the relational environment within which an entity is e
 Extracting an ego-network from an existing igraph network object in R is very easy. Here we will extract and plot the ego-network for Apache Creek, the first site in the network files we created above. First we read in data and create a network object and then we apply the `igraph::make_ego_graph` function to the network object we created.
 
 ```{r, warning=F, message=F}
-# Read in edgelist file as dataframe
+# Read in edge list file as data frame
 cibola_edgelist <-
   read.csv(file = "data/Cibola_edgelist.csv", header = TRUE)
 
-# Create graph object. The dataframe is converted to a matrix as
+# Create graph object. The data frame is converted to a matrix as
 # that is required by this specific function. Since this is an
 # undirected network, directed = FALSE.
 cibola_net <-

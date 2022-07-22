@@ -52,7 +52,7 @@ In these networks, individual settlements are treated as nodes and edges are def
 * **[The Chaco World Attribute Data AD 1050-1100](data/AD1050attr.csv)** - Attribute data for sites with Chacoan architectural features dating between AD 1050 and 1100 including site IDs, site names, site sub-regions, counts of different kinds of public architectural features, and jittered easting and northing UTM site locations (Zone 12N). 
 * **[The Chaco World Ceramic Data AD 1050-1100](data/AD1050cer.csv)** - Ceramic count data by ware for sites with Chacoan architectural features dating between AD 1050 and 1100.
 * **[The Chaco World Network AD 1050-1100](data/AD1050net.csv)** - Adjacency matrix of binarized network of ceramic similarity for sites with Chacoan architectural features dating between AD 1050 and 1100.
-* **[San Pedro Networks throgh Time](data/Figure6_20.Rdata)** - An .RData file that contains `igraph` network objects for the San Pedro region ceramic similarity networks for AD1250-1300, AD1300-1350, and AD1350-1400.
+* **[San Pedro Networks through Time](data/Figure6_20.Rdata)** - An .RData file that contains `igraph` network objects for the San Pedro region ceramic similarity networks for AD1250-1300, AD1300-1350, and AD1350-1400.
 
 ![Map of the cyberSW project study area showing all sites in the database with the San Pedro and Chaco World subsets of the database shaded.](images/Fig.2.5.png){width=100%}
 
@@ -66,7 +66,7 @@ Ceramic technological data from Peeples (2018): Additional data and documentatio
 
 * **[Cibola Ceramic Technological Clusters](data/Cibola_clust.csv)** - Counts of ceramic technological clusters for sites in the Cibola region sample.
 * **[Cibola Site Attributes](data/Cibola_attr.csv)** - Site location, public architectural feature types, and sub-region designations for sites in the Cibola region sample.
-* **[Cibola Binary Network Edge List](data/Cibola_edgelist.csv)** - Binary edge list of Cibola technological similarity network.
+* **[Cibola Binary Network Edge List](data/Cibola_edge list.csv)** - Binary edge list of Cibola technological similarity network.
 * **[Cibola Binary Network Adjacency Matrix](data/Cibola_adj.csv)** - Binary adjacency matrix of Cibola technological similarity network.
 * **[Peeples2018.Rdata](data/Peeples2018.Rdata)** - This file contains a number of objects in R format including the site attributes (`site_info`), a symmetric Brainerd-Robinson similarity matrix (`ceramic_br`), a binary network object in the `statnet/network` format (`brnet`), and a weighted network object in the `network` format (`brnet_w`) 
 
@@ -79,7 +79,7 @@ Hundreds of forts and small fortified structures are located on mountain tops an
 In the book we use this research context as an example of spatial networks and more specifically visibility networks.This is made possible thanks to the survey of forts in the region performed in the context of the PhD project by Dr Nagendra Singh Rawat (2017). We use a catalog of 193 sites (Rawat et al. 2020, Appendix S1), and use the case of Chaundkot fort and its surroundings as a particular case study. Chaundkot fort is theorized to have been one of the key strongholds in the region and is also the only one to have been partly excavated (Rawat and Nautiyal 2020). In these case studies we represent strongholds as nodes, and the ability for a line-of-sight to exist between observers located at a pair of strongholds is represented by a directed edge. The length of each line-of-sight is represented by an edge attribute.
 
 * **[Himalayan Node data](data/Himalaya_nodes.csv)** - Node attribute data for the Himalayan sites including locations in lat/long, elevation, site name/type, and descriptions of landscape features.
-* **[Himalayan Edge List](data/Himalaya_visiblity.csv)** - Edge list data with information on connections among nodes within 25kms of each other with information on the distance and whether or not the target site is visible from the source. Note that only edges with `Visible = TRUE` should be included as activated edges.
+* **[Himalayan Edge List](data/Himalaya_visibility.csv)** - Edge list data with information on connections among nodes within 25kms of each other with information on the distance and whether or not the target site is visible from the source. Note that only edges with `Visible = TRUE` should be included as activated edges.
 
 ![The 193 strongholds (nodes) connected by lines-of-sight up to 25km in length (at which distance large fire and smoke signals would have been visible). Node colours represent communities of nodes identified through the Louvain modularity method (see section 4.4.6) only for lines-of-sight up to 15km (see Rawat et al. 2021).](images/Fig.2.7.png){width=100%}
 
@@ -180,7 +180,7 @@ install.packages(setdiff(packages, rownames(installed.packages())))
 
 If you have plenty of disk space and time and don't wont to worry about installing packages piecemeal, you can install everything at the same time using the code below. Note that there are a large number of packages and dependencies here and many are only used in one or two places in this Online Companion. Most of the packages are used in the [network visualization](#Visualization) section for making plots with very specific features. We generally recommend that you install packages as you need them while you work through this document but you do you. 
 
-If you choose to install everything, however, you can simply run the chunk of code below. Note that the code below will not reinstall packages already installed in your current version of R. Note if you are familiar with Git and R Environments, it will be much faster to just use the `renv::restore()` function to build an environment from the repository. See the [Reproducibility section](#Repro) in the introduction for more information.
+If you choose to install everything, however, you can simply run the chunk of code below. Note that the code below will not re-install packages already installed in your current version of R. Note if you are familiar with Git and R Environments, it will be much faster to just use the `renv::restore()` function to build an environment from the repository. See the [Reproducibility section](#Repro) in the introduction for more information.
 
 
 ```r
@@ -190,11 +190,13 @@ packages <- c("ape", "devtools", "igraph", "statnet", "intergraph",
   "ggsn", "tidyverse", "superheat", "ggplotify", "ggforce", "colorspace",
   "ggmap", "dplyr", "ggpubr", "ggraph", "reshape2", "multinet",
   "RColorBrewer", "Rcpp", "deldir", "vegan", "geosphere", "networkDynamic",
-  "scatterplot3d", "patchwork", "concaveman", "latticeExtra")
+  "scatterplot3d", "patchwork", "concaveman", "latticeExtra",
+  "orca", "pracma", "netdiffuseR", "graphkernels")
 
 install.packages(setdiff(packages, rownames(installed.packages())))
 
 devtools::install_github("liamgilbey/ggwaffle")
+devtools::install_github("QiliShi/NetworkSim")
 
 if (!requireNamespace("BiocManager", quietly = TRUE))
   install.packages("BiocManager")
@@ -203,19 +205,22 @@ BiocManager::install("RBGL")
 
 
 <div class="rmdwarning">
-<p>In addition to the R packages listed above, there is one procedure
-used in this Online Companion that requires you to have an installation
-of Python 3.7 or 3.8 with particular packages associated with it. In
-order to implement these sections of code, you will need to also run the
+<p>In addition to the R packages listed above, there are a couple of
+procedures used in this Online Companion (especially in the “Going
+Beyond the Book” section) that require you to have an installation of
+Python 3.8 with particular packages associated with it. In order to
+implement these sections of code, you will need to also run the
 following lines of code. Note that this is a large install that takes
 about about 1.4 GB of hard drive space so only do this if you have the
 space and REALLY want to explore edge bundling (<a
-href="#Figure_6_17">see Edge Bundling Visualizations</a>). You will be
+href="#Figure_6_17">see Edge Bundling Visualizations</a>) or <a
+href="#ComparingNetworks">network comparison methods</a>. You will be
 able to reproduce everything in this document except for two chunks of
-code without this so feel free to sit this one out.</p>
+code in the main section and a few procedures in the Comparing Networks
+section without this so feel free to sit this one out.</p>
 </div>
 
-To install Python with the required libraries, run the following chunk of code. Keep in mind this will take seeral minutes and about 1.4 GB of disk space:
+To install Python with the required libraries, run the following chunk of code. Keep in mind this will take several minutes and about 1.4 GB of disk space:
 
 
 ```r
@@ -289,7 +294,7 @@ This version of the book was built with R version 4.2.0 (2022-04-22 ucrt) and th
 
 In order to follow along with the examples in this Online Companion it will be easiest if you set up your R working directory in a similar format to that used in creating it. Specifically, we suggest you create a new working directory and create an R studio project tied to that specific directory. 
 
-In order to do this, open R-Studio and go to "File > New Project" and click on "New Directory > New Project" in the dialog and then give it an appropriate name and location on your disk. Next, navigate to that location on your disk and create two sub-folders: one called "data" and one called "scripts" (directory names are case sensitive). Place any of the data files you downloaded above or in any other section of this Online Companion in the "data" folder and any R script files you download in the "scripts" folder. 
+In order to do this, open R-Studio and go to "File > New Project" and click on "New Directory > New Project" in the dialog and then give it an appropriate name and location on your computer. Next, navigate to that location on your computer and create two sub-folders: one called "data" and one called "scripts" (directory names are case sensitive). Place any of the data files you downloaded above or in any other section of this Online Companion in the "data" folder and any R script files you download in the "scripts" folder. 
 
 <div class="rmdwarning">
 <p>Note that if you chose the “Just Give Me Everything” download you
@@ -298,6 +303,6 @@ so be sure you’re not double nesting your folders (you want
 “working_directory/data” not “working_directory/data/data”).</p>
 </div>
 
-When you close R you will see a dialog that asks if you want to save your workspace image. If you do this and provide a name, you can reopen the .RData file at a later time and pick up exactly where your previous session left off.
+When you close R you will see a dialog that asks if you want to save your work space image. If you do this and provide a name, you can reopen the .RData file at a later time and pick up exactly where your previous session left off.
 
 If you are new to the R environment and file structures, we suggest you review the [Getting Started with R](#GettingStarted) section for more information.

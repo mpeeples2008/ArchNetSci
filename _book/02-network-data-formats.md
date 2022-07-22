@@ -65,11 +65,11 @@ where `**DataType**` is replaced with the appropriate format such as `edgelist`,
 
 The edge list is a very quick and easy way to capture network data. It simply lists the edges in the network one by one by node id: *E=((n1,n2),(n1,n3),(n1,n4),...,(ni,nj))*. For the purposes of data management it is usually easiest to create an edge list as a data frame or matrix where each row represents a pair of nodes with connections going from the node in one column to the node in the second column (additional columns can be used for edge weight or other edge attributes).
 
-In this example, we import the Cibola data set in this format as a data frame and then convert it to an `igraph` network object for further analysis. You can download the [edgelist file here](data/Cibola_edgelist.csv) to follow along on your own. Since the edges in this network are undirected this will be a simple binary network, and we will use the `directed = FALSE` argument in the `igraph::graph_from_edgelist` function call. This function simply takes a edge list in tabular format and converts it to a network object R recognizes that can further be used for analysis and visualization.
+In this example, we import the Cibola data set in this format as a data frame and then convert it to an `igraph` network object for further analysis. You can download the [edge list file here](data/Cibola_edgelist.csv) to follow along on your own. Since the edges in this network are undirected this will be a simple binary network, and we will use the `directed = FALSE` argument in the `igraph::graph_from_edgelist` function call. This function simply takes a edge list in tabular format and converts it to a network object R recognizes that can further be used for analysis and visualization.
 
 
 ```r
-# Read in edgelist file as dataframe
+# Read in edge list file as data frame
 cibola_edgelist <-
   read.csv(file = "data/Cibola_edgelist.csv", header = TRUE)
 
@@ -88,7 +88,7 @@ head(cibola_edgelist)
 ```
 
 ```r
-# Create graph object. The dataframe is converted to a matrix as that
+# Create graph object. The data frame is converted to a matrix as that
 #is required by this specific function. Since this is an undirected
 # network directed = FALSE.
 cibola_net <-
@@ -100,9 +100,9 @@ cibola_net
 ```
 
 ```
-## IGRAPH 5142fae UN-- 30 167 -- 
+## IGRAPH 45609cc UN-- 30 167 -- 
 ## + attr: name (v/c)
-## + edges from 5142fae (vertex names):
+## + edges from 45609cc (vertex names):
 ##  [1] Apache Creek--Casa Malpais          Apache Creek--Coyote Creek         
 ##  [3] Apache Creek--Hooper Ranch          Apache Creek--Horse Camp Mill      
 ##  [5] Apache Creek--Hubble Corner         Apache Creek--Mineral Creek Pueblo 
@@ -138,7 +138,7 @@ adj_list$`Apache Creek`
 ```
 
 ```
-## + 11/167 edges from 5142fae (vertex names):
+## + 11/167 edges from 45609cc (vertex names):
 ##  [1] Apache Creek--Casa Malpais         Apache Creek--Coyote Creek        
 ##  [3] Apache Creek--Hooper Ranch         Apache Creek--Horse Camp Mill     
 ##  [5] Apache Creek--Hubble Corner        Apache Creek--Mineral Creek Pueblo
@@ -154,7 +154,7 @@ adj_list[[2]]
 ```
 
 ```
-## + 11/167 edges from 5142fae (vertex names):
+## + 11/167 edges from 45609cc (vertex names):
 ##  [1] Apache Creek--Casa Malpais    Casa Malpais--Coyote Creek   
 ##  [3] Casa Malpais--Hooper Ranch    Casa Malpais--Horse Camp Mill
 ##  [5] Casa Malpais--Hubble Corner   Casa Malpais--Rudd Creek Ruin
@@ -351,9 +351,9 @@ cibola_net2
 ```
 
 ```
-## IGRAPH 5177a17 UN-- 31 167 -- 
+## IGRAPH 4596489 UN-- 31 167 -- 
 ## + attr: name (v/c), region (v/c)
-## + edges from 5177a17 (vertex names):
+## + edges from 4596489 (vertex names):
 ##  [1] Apache.Creek--Casa.Malpais          Apache.Creek--Coyote.Creek         
 ##  [3] Apache.Creek--Hooper.Ranch          Apache.Creek--Horse.Camp.Mill      
 ##  [5] Apache.Creek--Hubble.Corner         Apache.Creek--Mineral.Creek.Pueblo 
@@ -409,9 +409,9 @@ simple_net_i
 ```
 
 ```
-## IGRAPH 526ede0 UN-- 31 167 -- 
+## IGRAPH 468cb6e UN-- 31 167 -- 
 ## + attr: name (v/c)
-## + edges from 526ede0 (vertex names):
+## + edges from 468cb6e (vertex names):
 ##  [1] Apache.Creek--Casa.Malpais          Apache.Creek--Coyote.Creek         
 ##  [3] Apache.Creek--Hooper.Ranch          Apache.Creek--Horse.Camp.Mill      
 ##  [5] Apache.Creek--Hubble.Corner         Apache.Creek--Mineral.Creek.Pueblo 
@@ -458,7 +458,7 @@ By way of example here we will modify the Cibola network edge list to remove som
 
 
 ```r
-# Read in edgelist file as dataframe
+# Read in edge list file as data frame
 cibola_edgelist <-
   read.csv(file = "data/Cibola_edgelist.csv", header = TRUE)
 
@@ -476,9 +476,9 @@ directed_net
 ```
 
 ```
-## IGRAPH 5276bc1 DN-- 30 125 -- 
+## IGRAPH 469511c DN-- 30 125 -- 
 ## + attr: name (v/c)
-## + edges from 5276bc1 (vertex names):
+## + edges from 469511c (vertex names):
 ##  [1] Coyote Creek   ->Techado Springs      
 ##  [2] Hubble Corner  ->Tri-R Pueblo         
 ##  [3] Hubble Corner  ->Techado Springs      
@@ -491,7 +491,7 @@ directed_net
 ```
 
 ```r
-# View as adjacency matrix of direted network object
+# View as adjacency matrix of directed network object
 (as_adjacency_matrix(directed_net))[1:5, 1:5]
 ```
 
@@ -611,9 +611,9 @@ cibola_inc
 ```
 
 ```
-## IGRAPH 52bdf8c UN-B 41 2214 -- 
+## IGRAPH 46dc6fc UN-B 41 2214 -- 
 ## + attr: type (v/l), name (v/c)
-## + edges from 52bdf8c (vertex names):
+## + edges from 46dc6fc (vertex names):
 ##  [1] Apache Creek--Clust1 Apache Creek--Clust1 Apache Creek--Clust1
 ##  [4] Apache Creek--Clust1 Apache Creek--Clust1 Apache Creek--Clust1
 ##  [7] Apache Creek--Clust1 Apache Creek--Clust2 Apache Creek--Clust2
@@ -763,7 +763,7 @@ cibola_clust <-
 clust_p <- prop.table(as.matrix(cibola_clust), margin = 1)
 
 # The following line uses the vegdist function in the vegan package
-# to calculate the Brainard-Robinson similarity score. Since vegdist
+# to calculate the Brainerd-Robinson similarity score. Since vegdist
 # by default defines an unscaled distance we must subtract the results
 # from 2 and then divide by 2 to get a similarity scaled from 0 to 1.
 cibola_br <- ((2 - as.matrix(vegan::vegdist(clust_p,
@@ -783,7 +783,7 @@ cibola_br[1:4, 1:4]
 
 At this point we could simply define this as a weighted network object where weights are equal to the similarity scores, or we could define a threshold for defining edges as present or absent. We will discuss these options in detail after presenting other similarity/distance metrics.
 
-#### Morisita's Overlap Index {- ?#Morisita}
+#### Morisita's Overlap Index {#Morisita}
 
 Another measure that has been used for defining similarities among assemblages for archaeological similarity networks is Morisita's overlap index. This measure is a measure of the overlap of individual assemblages within a larger population that takes the size of samples into account. Specifically, the approach assumes that as sample size increases diversity will likely increase. This measure produces results that are very similar to the Brainerd-Robinson metric in practice in most cases but this measure may be preferred where there are dramatic differences in assemblage sizes among observations. 
 
@@ -880,7 +880,7 @@ jaccard <- function(a, b) {
 }
 ```
 
-In order to try this function out, we will create three simple vectors of values and then compare them. Note that this function compares matches for the position of each item in the vector. So if `vec1[1] = 1` and `vec2[1] = 1` that is condisered a match:
+In order to try this function out, we will create three simple vectors of values and then compare them. Note that this function compares matches for the position of each item in the vector. So if `vec1[1] = 1` and `vec2[1] = 1` that is considered a match:
 
 
 ```r
@@ -939,7 +939,7 @@ cibola_j[1:4, 1:4]
 ## [4,] 0.8181818 0.5384615 0.5384615 1.0000000
 ```
 
-Note that we have created R scripts with the two functions above as separate files. If you would like to initialize those functions without copying and pasting the code above, you can use the `source()` function to call a function straight from a file. These are both located in the "scripts" folder so we add that sub-folder to the file name in the argument.
+Note that we have created R scripts with the two functions above as separate files. If you would like to initialize those functions without copying and pasting the code above, you can use the `source()` function to call a function straight from a file. These are both located in the "scripts" folder so we add that sub-folder to the file name in the argument. [Click here to download jaccard.R](scripts/jaccard.R) and [here for jaccard_inc.R](scripts/jaccard_inc.R).
 
 
 ```r
@@ -1009,7 +1009,7 @@ xnet <-
                        method = "quantile",
                        thresh = 0.80),
                        directed = FALSE)
-# Once again add vertext names as row names of data frame
+# Once again add vertex names as row names of data frame
 xnet %v% "vertex.names" <- row.names(cibola_clust)
 # look at the results
 xnet
@@ -1139,11 +1139,11 @@ Extracting an ego-network from an existing igraph network object in R is very ea
 
 
 ```r
-# Read in edgelist file as dataframe
+# Read in edge list file as data frame
 cibola_edgelist <-
   read.csv(file = "data/Cibola_edgelist.csv", header = TRUE)
 
-# Create graph object. The dataframe is converted to a matrix as
+# Create graph object. The data frame is converted to a matrix as
 # that is required by this specific function. Since this is an
 # undirected network, directed = FALSE.
 cibola_net <-
@@ -1158,9 +1158,9 @@ ego_nets[[1]]
 ```
 
 ```
-## IGRAPH 550e749 UN-- 12 59 -- 
+## IGRAPH 4940363 UN-- 12 59 -- 
 ## + attr: name (v/c)
-## + edges from 550e749 (vertex names):
+## + edges from 4940363 (vertex names):
 ##  [1] Apache Creek   --Casa Malpais         Apache Creek   --Coyote Creek        
 ##  [3] Casa Malpais   --Coyote Creek         Apache Creek   --Hooper Ranch        
 ##  [5] Casa Malpais   --Hooper Ranch         Coyote Creek   --Hooper Ranch        
@@ -1250,7 +1250,7 @@ multinet::degree_ml(florentine)
 ```
 
 ```
-##  [1]  6  7  4  4  3  3 11  2  6  3  6  6  3  1  5
+##  [1]  6  5  6  6  1  4  3  6  3  4  3  7  2  3 11
 ```
 
 ```r
@@ -1261,32 +1261,32 @@ multinet::glouvain_ml(florentine)
 
 ```
 ##           actor    layer cid
-## 1    Tornabuoni business   0
+## 1    Acciaiuoli marriage   0
 ## 2    Tornabuoni marriage   0
-## 3       Ridolfi marriage   0
-## 4      Salviati business   0
+## 3    Tornabuoni business   0
+## 4       Ridolfi marriage   0
 ## 5      Salviati marriage   0
-## 6        Medici business   0
-## 7        Medici marriage   0
+## 6      Salviati business   0
+## 7         Pazzi marriage   0
 ## 8         Pazzi business   0
-## 9         Pazzi marriage   0
-## 10   Acciaiuoli marriage   0
-## 11       Ginori business   1
-## 12       Ginori marriage   1
+## 9        Medici marriage   0
+## 10       Medici business   0
+## 11    Barbadori marriage   1
+## 12    Barbadori business   1
 ## 13      Albizzi marriage   1
-## 14    Barbadori business   2
-## 15    Barbadori marriage   2
-## 16      Peruzzi business   2
-## 17      Peruzzi marriage   2
-## 18      Strozzi marriage   2
-## 19   Castellani business   2
+## 14       Ginori marriage   1
+## 15       Ginori business   1
+## 16     Guadagni marriage   2
+## 17     Guadagni business   2
+## 18 Lamberteschi marriage   2
+## 19 Lamberteschi business   2
 ## 20   Castellani marriage   2
-## 21     Guadagni business   3
-## 22     Guadagni marriage   3
-## 23     Bischeri business   3
-## 24     Bischeri marriage   3
-## 25 Lamberteschi business   3
-## 26 Lamberteschi marriage   3
+## 21   Castellani business   2
+## 22     Bischeri marriage   2
+## 23     Bischeri business   2
+## 24      Strozzi marriage   2
+## 25      Peruzzi marriage   2
+## 26      Peruzzi business   2
 ```
 
 For an archaeological example of multilevel network analysis [this GitHub project](https://github.com/ajupton/archy-multilayer-nets) by Andy Upton.
@@ -1317,9 +1317,9 @@ mor_wt_i
 ```
 
 ```
-## IGRAPH 5585d48 U-W- 31 465 -- 
+## IGRAPH 49bb1db U-W- 31 465 -- 
 ## + attr: na (v/l), vertex.names (v/c), na (e/l), weight (e/n)
-## + edges from 5585d48:
+## + edges from 49bb1db:
 ##   [1] 1-- 2 1-- 3 1-- 4 1-- 5 1-- 6 1-- 7 1-- 8 1-- 9 1--10 1--11 1--12 1--13
 ##  [13] 1--14 1--15 1--16 1--17 1--18 1--19 1--20 1--21 1--22 1--23 1--24 1--25
 ##  [25] 1--26 1--27 1--28 1--29 1--30 1--31 2-- 3 2-- 4 2-- 5 2-- 6 2-- 7 2-- 8

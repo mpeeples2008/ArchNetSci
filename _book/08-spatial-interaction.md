@@ -96,7 +96,7 @@ grav_mod <- function(attract, B, d) {
 }
 ```
 
-Now let's try an example using the Wankarani data. For this first example we will set `B` to `1`. We'll take a look at the results by first, creating a heatmap of the gravity model for every pair of nodes using the `superheat` package. We will then plot the site size against the estimated flow from our model with both axes transformed to base-10 logarithms to see how those variables relate. We use the packages `scales` to provide exponential notation for the axis labels.
+Now let's try an example using the Wankarani data. For this first example we will set `B` to `1`. We'll take a look at the results by first, creating a heat map of the gravity model for every pair of nodes using the `superheat` package. We will then plot the site size against the estimated flow from our model with both axes transformed to base-10 logarithms to see how those variables relate. We use the packages `scales` to provide exponential notation for the axis labels.
 
 
 ```r
@@ -153,10 +153,10 @@ net <-
   graph_from_adjacency_matrix(test1_plot, mode = "undirected",
                               weighted = TRUE)
 
-# Extract edgelist from network object
+# Extract edge list from network object
 edgelist <- get.edgelist(net)
 
-# Create dataframe of beginning and ending points of edges
+# Create data frame of beginning and ending points of edges
 edges <- data.frame(xy[edgelist[, 1], ], xy[edgelist[, 2], ])
 colnames(edges) <- c("X1", "Y1", "X2", "Y2")
 
@@ -190,7 +190,7 @@ ggmap(base_bolivia, darken = 0.35) +
 
 <img src="08-spatial-interaction_files/figure-html/unnamed-chunk-4-1.png" width="672" />
 
-As this plot shows, there are areas characterized by higher and lower flow throughout this study area. The largest site in the study area (shown in the first map above) is characterized by a high weighted degree but there are other smaller sites that also have high weighted degree, especialy in the eastern half of the study area.
+As this plot shows, there are areas characterized by higher and lower flow throughout this study area. The largest site in the study area (shown in the first map above) is characterized by a high weighted degree but there are other smaller sites that also have high weighted degree, especially in the eastern half of the study area.
 
 Let's now take a look at the same data again, this time we set `B` or $\beta$ to `0.1`.
 
@@ -241,10 +241,10 @@ net2 <-
   graph_from_adjacency_matrix(test2_plot, mode = "undirected",
                               weighted = TRUE)
 
-# Extract edgelist from network object
+# Extract edge list from network object
 edgelist <- get.edgelist(net2)
 
-# Create dataframe of beginning and ending points of edges
+# Create data frame of beginning and ending points of edges
 edges <- data.frame(xy[edgelist[, 1], ], xy[edgelist[, 2], ])
 colnames(edges) <- c("X1", "Y1", "X2", "Y2")
 
@@ -396,7 +396,7 @@ K <- 1
 library(geosphere)
 d <- as.matrix(distm(dat[, c(7, 6)])) / 1000
 
-# Dj is ineitial set as a vector of 1s like Wj
+# Dj is initial set as a vector of 1s like Wj
 Dj <- Wj
 
 # Create objects for keeping track of the number
@@ -619,7 +619,7 @@ for (i in seq_len(length(alpha_ls))) {
 }
 ```
 
-In case you want to see the data but don't want to wait for the above chunk to run, we have created an Rdata object with the output. Let's load those data and plot them as a heatmap/tile plot:
+In case you want to see the data but don't want to wait for the above chunk to run, we have created an Rdata object with the output. Let's load those data and plot them as a heat map/tile plot:
 
 
 ```r
@@ -662,7 +662,7 @@ where
 * $d_{ij}$ is the distance between nodes $i$ and $j$. Again, this can use measures of distance other than simple Euclidean distances.
 * $\alpha$ is a constraint on the distance between nodes.
 * $\beta$ is the physical distance across which distance decay should be considered (defined in units of $d$).
-* $\gamma$ is used to define the importance of $V$ on interaction where values above 1 suggest incresing returns on scale.
+* $\gamma$ is used to define the importance of $V$ on interaction where values above 1 suggest increasing returns to scale.
 
 The model output $E_{ij}$ is, according to Menze and Ur, meant to approximate the movement of people among nodes across the landscape. In order to evaluate this function, we replicate the results of the Menze and Ur paper with one small change. We drop the bottom 50% smallest sites from consideration due to the large sample size to keep run times manageable (but this could certainly be changed in the code below). We use the replication data set provided by Menze and Ur online [here](https://dataverse.harvard.edu/dataset.xhtml;jsessionid=adeb8ff43c833f1efe447dc9e8ba?persistentId=hdl%3A1902.1%2F17731&version=&q=&fileTypeGroupFacet=%22Text%22&fileAccess=&fileTag=&fileSortField=type&fileSortOrder=). 
 
@@ -858,10 +858,10 @@ net <-
   graph_from_adjacency_matrix(rad_test, mode = "undirected",
                               weighted = TRUE)
 
-# Extract edgelist from network object
+# Extract edge list from network object
 edgelist <- get.edgelist(net)
 
-# Create dataframe of beginning and ending points of edges
+# Create data frame of beginning and ending points of edges
 edges <-
   data.frame(xy[edgelist[, 1], ],
              xy[edgelist[, 2], ])

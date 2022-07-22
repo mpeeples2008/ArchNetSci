@@ -150,7 +150,7 @@ probability that an event does not occur (1 minus the probability that
 it occurs). This can be written formally as:
 </p>
 <p>
-<span class="math inline"><span class="math inline">\(\text{log}(A) = \frac{\text{log}(P(A))}{(1-P(A))}\)</span></span>
+<span class="math inline"><span class="math inline">\(\text{log}(A) = \text{log} \frac{(P(A))}{(1-P(A))}\)</span></span>
 </p>
 <p>
 where
@@ -161,12 +161,12 @@ where
 of event A
 </li>
 <li>
-<span class="math inline"><span class="math inline">\(\text{log}(P(A))\)</span></span> is the
-probability of event A occurring
+<span class="math inline"><span class="math inline">\((P(A))\)</span></span> is the probability of
+event A occurring
 </li>
 <li>
-<span class="math inline"><span class="math inline">\(\text{log}(1-(P(A))\)</span></span> is the
-probability of event A not occurring
+<span class="math inline"><span class="math inline">\((1-(P(A))\)</span></span> is the probability of
+event A not occurring
 </li>
 </ul>
 <p>
@@ -237,7 +237,7 @@ in the <code>network</code> format to be analysed using the
 ##     vertex.names 
 ## 
 ## No edge attributes</code></pre>
-<p>This network is an undirected, unweighted network object with 32 nodes and 46 edges. Let’s look at a few properties of the network including density, mean degree, degree centralization, and number of isolates.</p>
+<p>This network is an undirected, unweighted network object with 32 nodes and 49 edges. Let’s look at a few properties of the network including density, mean degree, degree centralization, and number of isolates.</p>
 <div class="sourceCode" id="cb573"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">sna</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sna/man/gden.html">gden</a></span><span class="op">(</span><span class="va">cranborne</span><span class="op">)</span> <span class="co"># density</span></code></pre></div>
 <pre><code>## [1] 0.09879032</code></pre>
@@ -248,7 +248,7 @@ in the <code>network</code> format to be analysed using the
 <code class="sourceCode R"><span class="fu">sna</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sna/man/centralization.html">centralization</a></span><span class="op">(</span><span class="va">cranborne</span>, g <span class="op">=</span> <span class="fl">1</span>, <span class="va">degree</span><span class="op">)</span> <span class="co"># degree centralization</span></code></pre></div>
 <pre><code>## [1] 0.2043011</code></pre>
 <div class="sourceCode" id="cb579"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu">sna</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sna/man/isolates.html">isolates</a></span><span class="op">(</span><span class="va">cranborne</span><span class="op">)</span><span class="op">)</span> <span class="co"># numbe of isolates</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu">sna</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sna/man/isolates.html">isolates</a></span><span class="op">(</span><span class="va">cranborne</span><span class="op">)</span><span class="op">)</span> <span class="co"># number of isolates</span></code></pre></div>
 <pre><code>## [1] 3</code></pre>
 <p>This is a fairly sparse network with few isolates and a low degree centralization.</p>
 <p>Let’s plot it with nodes scaled by degree:</p>
@@ -346,7 +346,7 @@ size per chain and a relatively large interval between samples. As we
 will see further below, this will help with our coefficient estimates
 and model fit but the trade off is time. If you want to simply run the
 models in the examples below quickly, you simply remove these three
-arguements within the <code>control.ergm</code> function call:
+arguments within the <code>control.ergm</code> function call:
 <code>MCMC.burnin</code>, <code>MCMC.interval</code>, and
 <code>MCMC.samplesize</code>.
 </p>
@@ -425,7 +425,7 @@ arguements within the <code>control.ergm</code> function call:
 <span class="header-section-number">8.2.4</span> Assessing Goodness-of-Fit<a class="anchor" aria-label="anchor" href="#GOF"><i class="fas fa-link"></i></a>
 </h3>
 <p>If we compare model fit statistics we can see that the AIC for model 2 is slightly lower than for model 1. Further, the difference between the Null and residual deviance is slightly greater for model 2. At the same time, the BIC for model 2 is slightly higher than for model 1. Overall this suggests that the two models are quite similar in terms of their improvement over a model with no predictors but we don’t have strong statistical argument from these terms alone for picking one over the other (and thus it probably makes sense to evaluate fit statistics as we show here or theoretical arguments for preferring one model or the other).</p>
-<p>To take this further we can use the <code>gof</code> or goodness-of-fit function in <code>ergm</code> to assess the degree to which our models provide reasonable descriptions of our observations. We can start by running the <code>gof</code> function for both models. This function provides visualizations and other statistics to help assess the degree to which model statistics, node degree, edge-wise shared partners, and geodesic distance between nodes are preserved in the networks simulated in the ERGM. If you run this function on a directed network, you additionally get assessmess of indegree and outdegree.</p>
+<p>To take this further we can use the <code>gof</code> or goodness-of-fit function in <code>ergm</code> to assess the degree to which our models provide reasonable descriptions of our observations. We can start by running the <code>gof</code> function for both models. This function provides visualizations and other statistics to help assess the degree to which model statistics, node degree, edge-wise shared partners, and geodesic distance between nodes are preserved in the networks simulated in the ERGM. If you run this function on a directed network, you additionally get assessments of in-degree and out-degree.</p>
 <div class="sourceCode" id="cb593"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mod1_gof</span> <span class="op">&lt;-</span> <span class="fu">gof</span><span class="op">(</span><span class="va">mod1</span><span class="op">)</span>
 <span class="va">mod2_gof</span> <span class="op">&lt;-</span> <span class="fu">gof</span><span class="op">(</span><span class="va">mod2</span><span class="op">)</span>
@@ -453,13 +453,13 @@ arguements within the <code>control.ergm</code> function call:
 <div class="sourceCode" id="cb598"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">mod2_gof</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="07-ergm_files/figure-html/unnamed-chunk-15-2.png" width="672"></div>
-<p>In each of these plots the solid black line represents the values for a given property in our observed network and the boxplots represent the distribution of values obtained in our randomly generated networks. As both plots show the median model statistics are quite similar to the observed in both models. In general we want to see the observed values to fall within the densest portion of the values for our randomly generated networks (i.e., near the middle of the boxplots and certainly within the range). In our example here, both the observed degree distribution and edge-wise shared partners (the number of nodes with a specific number of partners) are quite similar to the simulated range of values. Importantly, we did not include terms for degree or edge-wise shared partners in our model but it still generated networks that closely match our observed in terms of these properties. This is evidence of a good fit. For minimum geodesic distance (length of shortest paths) however, we see that both models consistently over-estimated the geodesic distance for nodes for middling values. Overall, this suggests a fairly good (but not perfect) match between our simulated and observed network properties despite these properties not be directly included in our models. Importantly, our interpretation of our network doesn’t hinge on geodesic distance so this mismatch is not a huge problem. No model is perfect but these results suggest that that model we tested here at least approximates the features of our observed network most relevant to our theoretical model.</p>
+<p>In each of these plots the solid black line represents the values for a given property in our observed network and the box plots represent the distribution of values obtained in our randomly generated networks. As both plots show the median model statistics are quite similar to the observed in both models. In general we want to see the observed values to fall within the densest portion of the values for our randomly generated networks (i.e., near the middle of the box plots and certainly within the range). In our example here, both the observed degree distribution and edge-wise shared partners (the number of nodes with a specific number of partners) are quite similar to the simulated range of values. Importantly, we did not include terms for degree or edge-wise shared partners in our model but it still generated networks that closely match our observed in terms of these properties. This is evidence of a good fit. For minimum geodesic distance (length of shortest paths) however, we see that both models consistently over-estimated the geodesic distance for nodes for middling values. Overall, this suggests a fairly good (but not perfect) match between our simulated and observed network properties despite these properties not be directly included in our models. Importantly, our interpretation of our network doesn’t hinge on geodesic distance so this mismatch is not a huge problem. No model is perfect but these results suggest that that model we tested here at least approximates the features of our observed network most relevant to our theoretical model.</p>
 </div>
 <div id="Diagnostics" class="section level3" number="8.2.5">
 <h3>
 <span class="header-section-number">8.2.5</span> Assessing Models and MCMC Diagnostics<a class="anchor" aria-label="anchor" href="#Diagnostics"><i class="fas fa-link"></i></a>
 </h3>
-<p>Another important consideration we have not yet discussed is the need to assess the diagnostics of our model generating process to evalute if it operated as expected. The <code>ergm</code> package generates our random networks using a <a href="https://en.wikipedia.org/wiki/Markov_chain_Monte_Carlo">Markov Chain Monte Carlo (MCMC)</a> process. MCMC is a means for efficiently randomly sampling from a high-dimensional probability distribution. We want to ensure that as our MCMC process explores the parameter space fully and that it does not generate problematic data such as temporally correlated estimates or highly skewed distributions of coefficient estimates. Problems like these would be an indication of poor model specification (the inappropriate inclusion or exclusion of relevant terms for predicting our network).</p>
+<p>Another important consideration we have not yet discussed is the need to assess the diagnostics of our model generating process to evaluate if it operated as expected. The <code>ergm</code> package generates our random networks using a <a href="https://en.wikipedia.org/wiki/Markov_chain_Monte_Carlo">Markov Chain Monte Carlo (MCMC)</a> process. MCMC is a means for efficiently randomly sampling from a high-dimensional probability distribution. We want to ensure that as our MCMC process explores the parameter space fully and that it does not generate problematic data such as temporally correlated estimates or highly skewed distributions of coefficient estimates. Problems like these would be an indication of poor model specification (the inappropriate inclusion or exclusion of relevant terms for predicting our network).</p>
 <p>In order to assess our models, we can use the <code>mcmc.diagnostics</code> function. Here we run it for model 2 and look at the results. We also call the <code>latticeExtra</code> package here as that helps make the visual output look a bit better.</p>
 <div class="sourceCode" id="cb599"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://latticeextra.r-forge.r-project.org/">latticeExtra</a></span><span class="op">)</span>
@@ -621,7 +621,7 @@ term.
 
 <span class="co"># matrix of distances among settlements</span>
 <span class="va">d_mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/dist.html">dist</a></span><span class="op">(</span><span class="va">cibola_attr</span><span class="op">[</span>, <span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p>In many cases we want to use attributes of nodes or edges as predictors in our ERGMs rather than simply network structures. This can be done a few different ways but in the example below we use the <code>nodematch</code> term which calculates a coefficient for nodes that share values for a given attribute. We can also set an additional argument in <code>nodematch</code> which specifies coefficient for each unique value in the node attribute (<code>diff = TRUE</code>). Finally, we use a matrix of geographic distances of edges as a <code>edgecov</code> (edge covariate) term. This term expects a square matrix of <code>n x n</code> for where <code>n</code> is the number of nodes in the network and helps us assess the degree to which the distance between settlemetns is predictive of the presence or absence of an edge.</p>
+<p>In many cases we want to use attributes of nodes or edges as predictors in our ERGMs rather than simply network structures. This can be done a few different ways but in the example below we use the <code>nodematch</code> term which calculates a coefficient for nodes that share values for a given attribute. We can also set an additional argument in <code>nodematch</code> which specifies coefficient for each unique value in the node attribute (<code>diff = TRUE</code>). Finally, we use a matrix of geographic distances of edges as a <code>edgecov</code> (edge co-variate) term. This term expects a square matrix of <code>n x n</code> for where <code>n</code> is the number of nodes in the network and helps us assess the degree to which the distance between settlements is predictive of the presence or absence of an edge.</p>
 <p>Let’s take a look at an example using all three of these terms:</p>
 <div class="sourceCode" id="cb605"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mod_cibola</span> <span class="op">&lt;-</span> <span class="fu">ergm</span><span class="op">(</span><span class="va">cibola_n</span> <span class="op">~</span> <span class="va">edges</span> <span class="op">+</span> <span class="fu">nodematch</span><span class="op">(</span><span class="st">"region"</span><span class="op">)</span> <span class="op">+</span>
@@ -655,8 +655,8 @@ term.
 ##  Residual Deviance: 489.2  on 459  degrees of freedom
 ##  
 ## AIC: 501.2  BIC: 526.1  (Smaller is better. MC Std. Err. = 0)</code></pre>
-<p>This creates output just like our example above and this gives you a sense of how categorical and covariate ERGM terms work. In this example we have a positive coefficient for <code>edges</code> suggesting that there more edges are active than are not. Further, we have a positive coefficient for <code>nodematch.region</code> indicating that there are more edges between pairs of sites in the same region than would be expected by chance. If we skip down to <code>edgecov.d_mat</code> we can see the impact of distance on edges. We have a negative coefficient (which is very close to zero: <code>-2.323e-05</code>)which suggests that there are slight more longer distance connections than shorter ones in this network (because although there is a tendency for connections within regions there are also many connections between regions). Finally, we have the <code>nodematch.pubarch</code> variables for each value in <code>pubarch</code>. The only term that is statistically significant here is <code>nodematch.pubarch.none</code> which is negative suggesting that sites without public architecture have fewer connections than we would expect by chance.</p>
-<p>The examples above basically cover all of the common applications of <code>ergm</code> terms. There are terms that are specific to directed networks, weighted networks, bipartite networks, and even multilayers networks but the basic procedures of using them are covered in the examples above. Everything else is finding the right model to fit your data (and this really is the hard part). There is no magic bullet here but in general we suggest you carefully read the <a href="https://zalmquist.github.io/ERGM_Lab/ergm-terms.html#:~:text=ergm%20functions%20such%20as%20ergm,valued%20mode%20and%20vice%20versa.">ERGM term descriptions</a> and consider how these different terms relate to your data and network theories. Your efforts will be better spent when your model is designed in relation to a specific and well-described network theory/hypothesis. We suggest reading the archaeological examples of ERGMs cited in this document and in the broader networks literature to get a sense of what is possible before diving into your own ERGM project.</p>
+<p>This creates output just like our example above and this gives you a sense of how categorical and co-variate ERGM terms work. In this example we have a positive coefficient for <code>edges</code> suggesting that there more edges are active than are not. Further, we have a positive coefficient for <code>nodematch.region</code> indicating that there are more edges between pairs of sites in the same region than would be expected by chance. If we skip down to <code>edgecov.d_mat</code> we can see the impact of distance on edges. We have a negative coefficient (which is very close to zero: <code>-2.323e-05</code>)which suggests that there are slight more longer distance connections than shorter ones in this network (because although there is a tendency for connections within regions there are also many connections between regions). Finally, we have the <code>nodematch.pubarch</code> variables for each value in <code>pubarch</code>. The only term that is statistically significant here is <code>nodematch.pubarch.none</code> which is negative suggesting that sites without public architecture have fewer connections than we would expect by chance.</p>
+<p>The examples above basically cover all of the common applications of <code>ergm</code> terms. There are terms that are specific to directed networks, weighted networks, bipartite networks, and even multilayer networks but the basic procedures of using them are covered in the examples above. Everything else is finding the right model to fit your data (and this really is the hard part). There is no magic bullet here but in general we suggest you carefully read the <a href="https://zalmquist.github.io/ERGM_Lab/ergm-terms.html#:~:text=ergm%20functions%20such%20as%20ergm,valued%20mode%20and%20vice%20versa.">ERGM term descriptions</a> and consider how these different terms relate to your data and network theories. Your efforts will be better spent when your model is designed in relation to a specific and well-described network theory/hypothesis. We suggest reading the archaeological examples of ERGMs cited in this document and in the broader networks literature to get a sense of what is possible before diving into your own ERGM project.</p>
 <div id="Degeneracy" class="section level3" number="8.4.1">
 <h3>
 <span class="header-section-number">8.4.1</span> Avoiding Model Degeneracy<a class="anchor" aria-label="anchor" href="#Degeneracy"><i class="fas fa-link"></i></a>
@@ -787,7 +787,7 @@ anywhere and will just waste your time.
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-07-21.</p>
+    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-07-22.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
