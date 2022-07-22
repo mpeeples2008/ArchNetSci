@@ -4,13 +4,4 @@
 .Ruserdata
 .DS_Store
 _bookdown_files
-11-comparing-networks.Rmd
-_book/11-comparing-networks.md
-_book/11-comparing-networks_files
-_book/ComparingNetworks.html
-scripts/delta_con.R
-scripts/network_motifs.R
-scripts/portrait_divergence.py
-images/graphlets.jpg
-images/reticlated_python.png
 __pycache__
