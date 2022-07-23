@@ -122,7 +122,7 @@
 <p>For more information on the book and the authors check out the project website here: <a href="https://archnetworks.net">archnetworks.net</a>.</p>
 <p><strong>Cite this document as:</strong></p>
 <blockquote>
-<p>Peeples, Matthew A. and Tom Brughmans (2022). Online Companion to Archaeological Network Science by Brughmans and Peeples. <a href="https://archnetworks.net" class="uri">https://archnetworks.net</a>, Accessed 2022-07-22.</p>
+<p>Peeples, Matthew A. and Tom Brughmans (2022). Online Companion to Archaeological Network Science by Brughmans and Peeples. <a href="https://archnetworks.net" class="uri">https://archnetworks.net</a>, Accessed 2022-07-23.</p>
 </blockquote>
 <p><strong>The associated book can be cited as</strong></p>
 <blockquote>
@@ -136,15 +136,16 @@
 <ul>
 <li>If you are new to network analysis and R, we would suggest going through each section of this document, starting with Part I: Getting Started with R and then going through Part II in order as you following along with the corresponding chapters in the book.</li>
 <li>If you are already familiar with R but new to network analysis, you can start with Section 2 in Part II to set up your data and work space, and then follow along with the remaining numbered sections and associated book chapters as you read.</li>
-<li>If you are already a network analyst and confident R user and are just looking for code chunks to implement something in particular, feel free to skip around. We have tried to make each section as independent as possible so that you can pick and choose what you want to work on. Use the <a href="TableOfContents.html#TableOfContents">Table of Contents</a> to find topics quickly.</li>
+<li>If you are already a confident network analyst and R user and are just looking for code chunks to implement something in particular, feel free to skip around. We have tried to make each section as independent as possible so that you can pick and choose what you want to work on. Use the <a href="TableOfContents.html#TableOfContents">Table of Contents</a> to find topics quickly.</li>
 <li>If you’re a real pro and are designing your own network analyses or visualizations, we would love it if you contributed to the project to help this document grow.</li>
 </ul>
 <p>Throughout this document we use a few icons to call-out special information or concerns. Keep an eye out for the symbols below:</p>
 <div class="rmdnote">
 <p>
-We use this icon to highlight our discussions of R packages used in
-this project. Check here for brief overviews and instructions on how to
-use and configure these packages.
+We use this icon to highlight our discussions of R packages, Python
+packages, and other software used in this project. Check here for brief
+overviews and instructions on how to use and configure these
+packages.
 </p>
 </div>
 <div class="rmdwarning">
@@ -157,8 +158,9 @@ or network methods.
 </div>
 <div class="rmdtip">
 <p>
-We use this icon to highlight helpful tips for using R and R-Studio
-or for hints on the use of particular network methods.
+We use this icon to highlight helpful tips for using particular
+software packages or for hints on the use of particular network
+methods.
 </p>
 </div>
 </div>
@@ -171,11 +173,11 @@ or for hints on the use of particular network methods.
 <p>The content of this document is designed to be as accessible and reproducible as possible. The source code used to produce this document along with all of the data used in analyses are available on <a href="https://github.com/mpeeples2008/ArchNetSci">GitHub</a>. This GitHub repository allows users to open issues, contribute to the document, or help fix typos or other errors (see information about <a href="index.html#Contributing">contributing</a> below). We have also opened a GitHub discussion board with this repository where users can ask questions about any data or code in the repository without making edits or issue requests directly.</p>
 <p>The easiest way to reproduce this document is to launch the project directly in your browser using <a href="https://mybinder.org/">Binder</a>. When you click on the link below it will open a browser based instance of R studio with all of the required packages and files. From there you can test and evaluate the code directly.</p>
 <p><a href="https://mybinder.org/v2/gh/mpeeples2008/ArchNetSci/main"><img src="https://mybinder.org/badge_logo.svg" alt="Binder"></a></p>
-<p>When you open Binder you will see a window with the Binder logo and a spinning progress wheel. It will typically only take a minute or so to get up and running and then you will see the screen below. Click on the “R-Studio” link under “Notebook” and it will open a new window with an R-Studio instance that you can use just like you would on your own computer. If you click on the Binder link and it is taking a long time, click to “show” the build logs. If you are “lucky” enough to be the first to initialize Binder after a new build of the GitHub project it will take quite a bit longer to get started. Grab a coffee, tea, Dr. Pepper, or other beverage of choice as it will be approximately 30-35 minutes before R-Studio loads.</p>
+<p>When you open Binder you will see a window with the Binder logo and a spinning progress wheel. It will typically only take a minute or so to get up and running and then you will see the screen below. Click on the “R-Studio” link under “Notebook” and it will open a new window with an R-Studio instance that you can use just like you would on your own computer. If you click on the Binder link and it is taking a long time, click to “show” the build logs. If you are “lucky” enough to be the first to initialize Binder after a new build of the GitHub project it will take quite a bit longer to get started. Grab a coffee, tea, Dr. Pepper, or other beverage of choice as it may be approximately 15-20 minutes before R-Studio loads. Note that we have only installed the most common R packages used in this project as installing all takes considerable time. Thus, if you encounter a function or chunk of code that tells you to install a required package, you can do that directly from your Binder instance of R-Studio just as you would on your own computer.</p>
 <div class="figure">
 <img src="images/binder.jpg" style="width:100.0%" alt=""><p class="caption">Binder Notebook Page</p>
 </div>
-<p>You can also install this repository as an R package directly from GitHub using the folloiwng code:</p>
+<p>You can also install this repository as an R package directly from GitHub using the following code:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="st"><a href="https://devtools.r-lib.org/">"devtools"</a></span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span>
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"mpeeples2008/ArchNetSci"</span><span class="op">)</span></code></pre></div>
@@ -192,7 +194,7 @@ or for hints on the use of particular network methods.
 <div id="Discord" class="section level2 unnumbered">
 <h2>Computational Archaeology Discord Community<a class="anchor" aria-label="anchor" href="#Discord"><i class="fas fa-link"></i></a>
 </h2>
-<p>We have created an <a href="https://discord.gg/Z9UXwjASM5">Archaeological Network Science Channel on the Computational Archaeology Discord Server</a>, which we hope will provide an additional venue for archaeological network practitioners to collaborate, interact, and ask for help with this document or with archaeological networks (and other computational methods) in general. We invite you to use this as a place to ask questions of the authors and the community at large. Note that this Discord is subject to the same <a href="https://github.com/mpeeples2008/ArchNetSci/blob/main/CODE_OF_CONDUCT.md">code of conduct</a> we use for the GitHub repository and you must abide by that agreement to participate. We require that you have a Discord account with a verified email address.</p>
+<p>We have created an <a href="https://discord.gg/Z9UXwjASM5">Archaeological Network Science Channel on the Computational Archaeology Discord Server</a>, which we hope will provide an additional venue for archaeological network practitioners to collaborate, interact, and ask for help with this document or with archaeological networks (and other computational methods) in general. We invite you to use this as a place to ask questions of the authors, to the community at large, or just to chat to other like-minded researchers. Note that this Discord is subject to the same <a href="https://github.com/mpeeples2008/ArchNetSci/blob/main/CODE_OF_CONDUCT.md">code of conduct</a> we use for the GitHub repository and you must abide by that agreement to participate. We require that you have a Discord account with a verified email address.</p>
 <p><a href="https://discord.gg/Z9UXwjASM5"><img src="images/Discord_Logo.png" width="300" alt="Discord Logo" style="margin: 0 1em 0 1em"></a></p>
 <p><a href="https://discord.gg/Z9UXwjASM5">Join the Computational Archaeology Discord</a>       <img src="https://discordapp.com/api/guilds/975267909012189184/widget.png?style=shield"></p>
 </div>
@@ -200,7 +202,7 @@ or for hints on the use of particular network methods.
 <h2>New to R and R Studio?<a class="anchor" aria-label="anchor" href="#NewToR"><i class="fas fa-link"></i></a>
 </h2>
 <p>The network tutorials in this document are built for users with a basic familiarity with R and R-studio but if you’re just getting started, don’t worry. We have created a detailed guide to <a href="GettingStarted.html#GettingStarted">Getting started with R</a>. This document covers the installation of the required software and provides a basic introduction to the R programming environment that we hope will be enough to get you started.</p>
-<p>If you already have a basic familiarity with R and want to go further, there are numerous additional resources (most are completely free) to help you learn. Some resources we would recommend include <em>R for Data Science</em> <a href="https://r4ds.had.co.nz/">(Wickham and Grolemund 2017)</a>, <em>Advanced R</em> <a href="https://adv-r.hadley.nz/">(Wickham 2019)</a>, <em>the R Cookbook, 2nd edition</em> <a href="https://rc2e.com/somebasics">(Long and Teetor 2019)</a>, and <em>R in Action</em> and the associated <em>Quick-R</em> website <a href="https://www.statmethods.net/">(Kabacoff 2015)</a>. In addition to this <a href="https://anthropology.washington.edu/people/ben-marwick">Ben Marwick</a> has created an excellent repository of <a href="https://github.com/benmarwick/ctv-archaeology">resources for using R in archaeology</a> as well as an ever-growing list of archaeological publications that include R code. The website associated with this book <a href="https://www.archnetworks.net">(archnetworks.net)</a> also includes a list of archaeological articles focused on network research that include data and code. Reproducing published results is, in our experience, one of the best ways to learn advanced techniques and data management in R so we suggest you give it a try.</p>
+<p>If you already have a basic familiarity with R and want to go further, there are numerous additional resources (most are completely free) to help you learn. Some resources we would recommend include <em>R for Data Science</em> <a href="https://r4ds.had.co.nz/">(Wickham and Grolemund 2017)</a>, <em>Advanced R</em> <a href="https://adv-r.hadley.nz/">(Wickham 2019)</a>, <em>the R Cookbook, 2nd edition</em> <a href="https://rc2e.com/somebasics">(Long and Teetor 2019)</a>, and <em>R in Action</em> and the associated <em>Quick-R</em> website <a href="https://www.statmethods.net/">(Kabacoff 2015)</a>. In addition to this <a href="https://anthropology.washington.edu/people/ben-marwick">Ben Marwick</a> has created an excellent repository of <a href="https://github.com/benmarwick/ctv-archaeology">resources for using R in archaeology</a> as well as an ever-growing list of archaeological publications that include R code. The website associated with this book <a href="https://www.archnetworks.net">(archnetworks.net)</a> includes a list of archaeological articles focused on network research that include data and code. Reproducing published results is, in our experience, one of the best ways to learn advanced techniques and data management in R so we suggest you give it a try.</p>
 </div>
 <div id="Contributing" class="section level2 unnumbered">
 <h2>Contribute To the Project<a class="anchor" aria-label="anchor" href="#Contributing"><i class="fas fa-link"></i></a>
@@ -273,7 +275,7 @@ or for hints on the use of particular network methods.
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-07-22.</p>
+    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-07-23.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

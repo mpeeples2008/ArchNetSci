@@ -307,13 +307,13 @@ console by simply typing
 <p>No matter how you plan on working with these documents, you should install the packages in the following chunk at a minimum by running the code below. These packages will get you through everything in Sections 1 through 4 and much of the Sections 5 and 6.</p>
 <div class="sourceCode" id="cb191"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">packages</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"igraph"</span>, <span class="st">"statnet"</span>, <span class="st">"intergraph"</span>, <span class="st">"ggraph"</span>,
-              <span class="st">"reshape2"</span>, <span class="st">"ggmap"</span>, <span class="st">"vegan"</span>, <span class="st">"sf"</span>, <span class="st">"tidyverse"</span><span class="op">)</span>
+              <span class="st">"reshape2"</span>, <span class="st">"ggmap"</span>, <span class="st">"vegan"</span>, <span class="st">"sf"</span><span class="op">)</span>
 
 <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sets.html">setdiff</a></span><span class="op">(</span><span class="va">packages</span>, <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/installed.packages.html">installed.packages</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>If you have plenty of disk space and time and don’t wont to worry about installing packages piecemeal, you can install everything at the same time using the code below. Note that there are a large number of packages and dependencies here and many are only used in one or two places in this Online Companion. Most of the packages are used in the <a href="Visualization.html#Visualization">network visualization</a> section for making plots with very specific features. We generally recommend that you install packages as you need them while you work through this document but you do you.</p>
 <p>If you choose to install everything, however, you can simply run the chunk of code below. Note that the code below will not re-install packages already installed in your current version of R. Note if you are familiar with Git and R Environments, it will be much faster to just use the <code><a href="https://rstudio.github.io/renv/reference/restore.html">renv::restore()</a></code> function to build an environment from the repository. See the <a href="index.html#Repro">Reproducibility section</a> in the introduction for more information.</p>
 <div class="sourceCode" id="cb192"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">packages</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"ape"</span>, <span class="st">"devtools"</span>, <span class="st">"igraph"</span>, <span class="st">"statnet"</span>, <span class="st">"intergraph"</span>,
+<code class="sourceCode R"><span class="va">packages</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"tidyverse"</span>, <span class="st">"ape"</span>, <span class="st">"devtools"</span>, <span class="st">"igraph"</span>, <span class="st">"statnet"</span>, <span class="st">"intergraph"</span>,
   <span class="st">"tnet"</span>, <span class="st">"ggplot2"</span>, <span class="st">"rjson"</span>, <span class="st">"d3r"</span>, <span class="st">"cccd"</span>, <span class="st">"networkD3"</span>, <span class="st">"visNetwork"</span>,
   <span class="st">"GISTools"</span>, <span class="st">"rgeos"</span>, <span class="st">"maptools"</span>, <span class="st">"sf"</span>, <span class="st">"igraphdata"</span>, <span class="st">"ggrepel"</span>,
   <span class="st">"ggsn"</span>, <span class="st">"tidyverse"</span>, <span class="st">"superheat"</span>, <span class="st">"ggplotify"</span>, <span class="st">"ggforce"</span>, <span class="st">"colorspace"</span>,
@@ -690,7 +690,7 @@ so be sure you’re not double nesting your folders (you want
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-07-22.</p>
+    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-07-23.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

@@ -1,3 +1,36 @@
+#' Rihll and Wilson "Retail" Gravity Model
+#'
+#' This function implements the "Retail" gravity model made popular in
+#' archaeology by Rihll and Wilson (1987). This procedure assesses flows of
+#' resources between geographic locations using a matrix of distances based on
+#' some e measure of the cost of travel between those locations.
+#'
+#' @param Oi The estimate3d weight of flow or interactions out of the origins i.
+#' @param Wj The estimated weight of flow or interaction into destinations j.
+#' In most archaeological applications, this is used to represent some measure
+#' of settlement size.
+#' @param alpha This parameter defines the importance of resource flow into
+#' destinations. Values greater than 1 indicate increasing returns to scale for
+#' every unit of flow.
+#' @param beta The decay parameter that describes the rate of decay in
+#' interaction at increasing distance.
+#' @param dist_mat A symmetric matrix of distances between all locations
+#' considered in map units.
+#' @param K This is the factor used to convert size W to the sum of flows Dj.
+#' By default this is set to 1.
+#' @param eps This is a control parameter that determines how quickly W can
+#' change at each iterative step. The default value is 0.01
+#'
+#' @return This function returns a list which contains Wj or the final estimated
+#' weights incident on each location; Tij which is the measure of flow between
+#' all locations; iter which is the number of iterations the function went
+#' through; and terminal_sites which includes the data for sites where the
+#' total flow of inputs into the site Wj is bigger than the largest flow out.
+#'
+#'
+#' @export
+#'
+
 rihll_wilson <-
   function(Oi = 0,
            Wj = 0,

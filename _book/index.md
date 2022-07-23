@@ -1,7 +1,7 @@
 ---
 title: "Online Companion to *Archaeological Network Science*"
 author: "Matthew A. Peeples and Tom Brughmans"
-date: "2022-07-22"
+date: "2022-07-23"
 site: bookdown::bookdown_site
 output: bookdown::bs4_book
 documentclass: book
@@ -33,7 +33,7 @@ For more information on the book and the authors check out the project website h
 
 **Cite this document as:**
 
-> Peeples, Matthew A. and Tom Brughmans (2022). Online Companion to Archaeological Network Science by Brughmans and Peeples. <https://archnetworks.net>, Accessed 2022-07-22.
+> Peeples, Matthew A. and Tom Brughmans (2022). Online Companion to Archaeological Network Science by Brughmans and Peeples. <https://archnetworks.net>, Accessed 2022-07-23.
 
 **The associated book can be cited as**
 
@@ -48,15 +48,16 @@ A few suggestions on where to start:
 
 * If you are new to network analysis and R, we would suggest going through each section of this document, starting with Part I: Getting Started with R and then going through Part II in order as you following along with the corresponding chapters in the book.
 * If you are already familiar with R but new to network analysis, you can start with Section 2 in Part II to set up your data and work space, and then follow along with the remaining numbered sections and associated book chapters as you read.
-* If you are already a network analyst and confident R user and are just looking for code chunks to implement something in particular, feel free to skip around. We have tried to make each section as independent as possible so that you can pick and choose what you want to work on. Use the [Table of Contents](#TableOfContents) to find topics quickly.
+* If you are already a confident network analyst and R user and are just looking for code chunks to implement something in particular, feel free to skip around. We have tried to make each section as independent as possible so that you can pick and choose what you want to work on. Use the [Table of Contents](#TableOfContents) to find topics quickly.
 * If you're a real pro and are designing your own network analyses or visualizations, we would love it if you contributed to the project to help this document grow.
 
 Throughout this document we use a few icons to call-out special information or concerns. Keep an eye out for the symbols below:
 
 <div class="rmdnote">
-<p>We use this icon to highlight our discussions of R packages used in
-this project. Check here for brief overviews and instructions on how to
-use and configure these packages.</p>
+<p>We use this icon to highlight our discussions of R packages, Python
+packages, and other software used in this project. Check here for brief
+overviews and instructions on how to use and configure these
+packages.</p>
 </div>
 
 <div class="rmdwarning">
@@ -67,8 +68,9 @@ or network methods.</p>
 </div>
 
 <div class="rmdtip">
-<p>We use this icon to highlight helpful tips for using R and R-Studio
-or for hints on the use of particular network methods.</p>
+<p>We use this icon to highlight helpful tips for using particular
+software packages or for hints on the use of particular network
+methods.</p>
 </div>
 
 
@@ -85,11 +87,11 @@ The easiest way to reproduce this document is to launch the project directly in 
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/mpeeples2008/ArchNetSci/main)
 
-When you open Binder you will see a window with the Binder logo and a spinning progress wheel. It will typically only take a minute or so to get up and running and then you will see the screen below. Click on the "R-Studio" link under "Notebook" and it will open a new window with an R-Studio instance that you can use just like you would on your own computer. If you click on the Binder link and it is taking a long time, click to "show" the build logs. If you are "lucky" enough to be the first to initialize Binder after a new build of the GitHub project it will take quite a bit longer to get started. Grab a coffee, tea, Dr. Pepper, or other beverage of choice as it will be approximately 30-35 minutes before R-Studio loads.
+When you open Binder you will see a window with the Binder logo and a spinning progress wheel. It will typically only take a minute or so to get up and running and then you will see the screen below. Click on the "R-Studio" link under "Notebook" and it will open a new window with an R-Studio instance that you can use just like you would on your own computer. If you click on the Binder link and it is taking a long time, click to "show" the build logs. If you are "lucky" enough to be the first to initialize Binder after a new build of the GitHub project it will take quite a bit longer to get started. Grab a coffee, tea, Dr. Pepper, or other beverage of choice as it may be approximately 15-20 minutes before R-Studio loads. Note that we have only installed the most common R packages used in this project as installing all takes considerable time. Thus, if you encounter a function or chunk of code that tells you to install a required package, you can do that directly from your Binder instance of R-Studio just as you would on your own computer.
 
 ![Binder Notebook Page](images/binder.jpg){width=100%}
 
-You can also install this repository as an R package directly from GitHub using the folloiwng code:
+You can also install this repository as an R package directly from GitHub using the following code:
 
 
 ```r
@@ -111,7 +113,7 @@ This online bookdown document has been deployed using the Netlify platform and t
 
 ## Computational Archaeology Discord Community{- #Discord}
 
-We have created an [Archaeological Network Science Channel on the Computational Archaeology Discord Server](https://discord.gg/Z9UXwjASM5), which we hope will provide an additional venue for archaeological network practitioners to collaborate, interact, and ask for help with this document or with archaeological networks (and other computational methods) in general. We invite you to use this as a place to ask questions of the authors and the community at large. Note that this Discord is subject to the same [code of conduct](https://github.com/mpeeples2008/ArchNetSci/blob/main/CODE_OF_CONDUCT.md) we use for the GitHub repository and you must abide by that agreement to participate. We require that you have a Discord account with a verified email address.
+We have created an [Archaeological Network Science Channel on the Computational Archaeology Discord Server](https://discord.gg/Z9UXwjASM5), which we hope will provide an additional venue for archaeological network practitioners to collaborate, interact, and ask for help with this document or with archaeological networks (and other computational methods) in general. We invite you to use this as a place to ask questions of the authors, to the community at large, or just to chat to other like-minded researchers. Note that this Discord is subject to the same [code of conduct](https://github.com/mpeeples2008/ArchNetSci/blob/main/CODE_OF_CONDUCT.md) we use for the GitHub repository and you must abide by that agreement to participate. We require that you have a Discord account with a verified email address.
 
 <a href="https://discord.gg/Z9UXwjASM5"><img src="images/Discord_Logo.png" width="300" alt="Discord Logo" style="margin: 0 1em 0 1em" /></a>
 
@@ -121,7 +123,7 @@ We have created an [Archaeological Network Science Channel on the Computational 
 
 The network tutorials in this document are built for users with a basic familiarity with R and R-studio but if you're just getting started, don't worry. We have created a detailed guide to [Getting started with R](#GettingStarted). This document covers the installation of the required software and provides a basic introduction to the R programming environment that we hope will be enough to get you started. 
 
-If you already have a basic familiarity with R and want to go further, there are numerous additional resources (most are completely free) to help you learn. Some resources we would recommend include *R for Data Science* [(Wickham and Grolemund 2017)](https://r4ds.had.co.nz/), *Advanced R* [(Wickham 2019)](https://adv-r.hadley.nz/), *the R Cookbook, 2nd edition* [(Long and Teetor 2019)](https://rc2e.com/somebasics), and *R in Action* and the associated *Quick-R* website [(Kabacoff 2015)](https://www.statmethods.net/). In addition to this [Ben Marwick](https://anthropology.washington.edu/people/ben-marwick) has created an excellent repository of [resources for using R in archaeology](https://github.com/benmarwick/ctv-archaeology) as well as an ever-growing list of archaeological publications that include R code. The website associated with this book [(archnetworks.net)](https://www.archnetworks.net) also includes a list of archaeological articles focused on network research that include data and code. Reproducing published results is, in our experience, one of the best ways to learn advanced techniques and data management in R so we suggest you give it a try.
+If you already have a basic familiarity with R and want to go further, there are numerous additional resources (most are completely free) to help you learn. Some resources we would recommend include *R for Data Science* [(Wickham and Grolemund 2017)](https://r4ds.had.co.nz/), *Advanced R* [(Wickham 2019)](https://adv-r.hadley.nz/), *the R Cookbook, 2nd edition* [(Long and Teetor 2019)](https://rc2e.com/somebasics), and *R in Action* and the associated *Quick-R* website [(Kabacoff 2015)](https://www.statmethods.net/). In addition to this [Ben Marwick](https://anthropology.washington.edu/people/ben-marwick) has created an excellent repository of [resources for using R in archaeology](https://github.com/benmarwick/ctv-archaeology) as well as an ever-growing list of archaeological publications that include R code. The website associated with this book [(archnetworks.net)](https://www.archnetworks.net) includes a list of archaeological articles focused on network research that include data and code. Reproducing published results is, in our experience, one of the best ways to learn advanced techniques and data management in R so we suggest you give it a try.
 
 ## Contribute To the Project{- #Contributing}
 

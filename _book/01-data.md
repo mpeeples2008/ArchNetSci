@@ -173,7 +173,7 @@ No matter how you plan on working with these documents, you should install the p
 
 ```r
 packages <- c("igraph", "statnet", "intergraph", "ggraph",
-              "reshape2", "ggmap", "vegan", "sf", "tidyverse")
+              "reshape2", "ggmap", "vegan", "sf")
 
 install.packages(setdiff(packages, rownames(installed.packages())))
 ```
@@ -184,7 +184,7 @@ If you choose to install everything, however, you can simply run the chunk of co
 
 
 ```r
-packages <- c("ape", "devtools", "igraph", "statnet", "intergraph",
+packages <- c("tidyverse", "ape", "devtools", "igraph", "statnet", "intergraph",
   "tnet", "ggplot2", "rjson", "d3r", "cccd", "networkD3", "visNetwork",
   "GISTools", "rgeos", "maptools", "sf", "igraphdata", "ggrepel",
   "ggsn", "tidyverse", "superheat", "ggplotify", "ggforce", "colorspace",
