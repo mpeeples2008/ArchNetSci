@@ -45,7 +45,6 @@ Imports:
   geosphere
 Remotes:
   liamgilbey/ggwaffle
-  QiliShi/NetworkSim
 Suggests:
   networkD3,
   visNetwork,
