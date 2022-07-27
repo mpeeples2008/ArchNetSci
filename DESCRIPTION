@@ -55,7 +55,6 @@ Suggests:
   scatterplot3d,
   patchwork,
   concaveman,
-  multinet,
   rjson,
   d3r,
   edgebundle,
