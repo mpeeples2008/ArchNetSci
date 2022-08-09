@@ -1,5 +1,7 @@
 # Quantifying Uncertainty{#Uncertainty}
 
+![](images/image_break.png){width=100%}
+
 In almost any archaeological network study, the networks we create are incomplete (i.e., we know that we are missing nodes or edges for various reasons: site destruction, lack of survey coverage, looting, etc.). How might the fact that our networks are samples of a larger and typically unobtainable “total network” influence our interpretations of network structure and node position? In this section, we take inspiration from recent research in other areas of network research (Borgatti et al. 2006; Costenbader and Valente 2003; Smith and Moody 2013; Smith et al. 2017; Smith et al. 2022) and develop a means for assessing the impact of missing and poor quality information in our networks. This accompanies Chapter 5 of Brughmans and Peeples (2022) and we recommend that you read Chapter 5 as you work through the examples below. 
 
 For most of the other analyses presented in the book it is possible to use a number of different network software packages to conduct similar analyses. The analyses presented in Chapter 5, however, require the creation of custom scripts and procedures that are only possible in a programming language environment like R. We attempt here to not only provide information on how to replicate the examples in the book but also provide guidance on how you might modify the functions and code provided here for your own purposes. 

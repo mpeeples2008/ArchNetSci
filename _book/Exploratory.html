@@ -4,17 +4,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Section 4 Exploratory Network Analysis | Online Companion to Archaeological Network Science</title>
+<title>Section 4 Exploratory Network Analysis | Online Companion to Network Science in Archaeology</title>
 <meta name="author" content="Matthew A. Peeples and Tom Brughmans">
 <meta name="description" content="Exploratory network analysis is simply exploratory data analysis applied to network data. This covers a range of statistical and visual techniques designed to explore the structure of networks as...">
 <meta name="generator" content="bookdown 0.26 with bs4_book()">
-<meta property="og:title" content="Section 4 Exploratory Network Analysis | Online Companion to Archaeological Network Science">
+<meta property="og:title" content="Section 4 Exploratory Network Analysis | Online Companion to Network Science in Archaeology">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://book.archnetworks.net/Exploratory.html">
 <meta property="og:image" content="https://book.archnetworks.net/images/cover.png">
 <meta property="og:description" content="Exploratory network analysis is simply exploratory data analysis applied to network data. This covers a range of statistical and visual techniques designed to explore the structure of networks as...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Section 4 Exploratory Network Analysis | Online Companion to Archaeological Network Science">
+<meta name="twitter:title" content="Section 4 Exploratory Network Analysis | Online Companion to Network Science in Archaeology">
 <meta name="twitter:description" content="Exploratory network analysis is simply exploratory data analysis applied to network data. This covers a range of statistical and visual techniques designed to explore the structure of networks as...">
 <meta name="twitter:image" content="https://book.archnetworks.net/images/cover.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -72,7 +72,7 @@
 
     <div class="d-flex align-items-start justify-content-between">
       <h1>
-        <a href="index.html" title="">Online Companion to <em>Archaeological Network Science</em></a>
+        <a href="index.html" title="">Online Companion to <em>Network Science in Archaeology</em></a>
       </h1>
       <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
     </div>
@@ -114,6 +114,7 @@
 <h1>
 <span class="header-section-number">Section 4</span> Exploratory Network Analysis<a class="anchor" aria-label="anchor" href="#Exploratory"><i class="fas fa-link"></i></a>
 </h1>
+<div class="inline-figure"><img src="images/image_break.png" style="width:100.0%"></div>
 <p>Exploratory network analysis is simply exploratory data analysis applied to network data. This covers a range of statistical and visual techniques designed to explore the structure of networks as well as the relative positions of nodes and edges. These methods can be used to look for particular structures or patterning of interest, such as the most central nodes, or to summarize and describe the structure of the network to paint a general picture of it before further analysis. This section serves as a companion to Chapter 4 in the Brughmans and Peeples book (2022) and provides basic examples of the exploratory network analysis methods outlined in the book as well as a few others.</p>
 <p>Note that we have created a distinct section on <a href="ERGM.html#ERGM">exponential random graph models (ERGM)</a> in the “Going Beyond the Book” section of this document as that approach necessitates extended discussion. We replicate the boxed example from Chapter 4 of the book in that section.</p>
 <div id="ExampleNetworkObjects" class="section level2" number="4.1">
@@ -542,7 +543,7 @@ careful.
 <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/distances.html">shortest_paths</a></span><span class="op">(</span><span class="va">simple_net</span>, from <span class="op">=</span> <span class="fl">1</span>, to <span class="op">=</span> <span class="fl">21</span><span class="op">)</span></code></pre></div>
 <pre><code>## $vpath
 ## $vpath[[1]]
-## + 5/31 vertices, named, from 64b4286:
+## + 5/31 vertices, named, from dafa47e:
 ## [1] Apache.Creek          Casa.Malpais          Garcia.Ranch         
 ## [4] Heshotauthla          Pueblo.de.los.Muertos
 ## 
@@ -568,7 +569,7 @@ careful.
 <div class="sourceCode" id="cb370"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/diameter.html">farthest_vertices</a></span><span class="op">(</span><span class="va">directed_net</span>, directed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <pre><code>## $vertices
-## + 2/30 vertices, named, from 64b5254:
+## + 2/30 vertices, named, from dafb3f2:
 ## [1] Apache Creek          Pueblo de los Muertos
 ## 
 ## $distance
@@ -600,9 +601,9 @@ careful.
 
 <span class="va">components</span></code></pre></div>
 <pre><code>## [[1]]
-## IGRAPH 675ac27 UN-- 30 167 -- 
+## IGRAPH dd5e805 UN-- 30 167 -- 
 ## + attr: name (v/c)
-## + edges from 675ac27 (vertex names):
+## + edges from dd5e805 (vertex names):
 ##  [1] Apache.Creek--Casa.Malpais          Apache.Creek--Coyote.Creek         
 ##  [3] Apache.Creek--Hooper.Ranch          Apache.Creek--Horse.Camp.Mill      
 ##  [5] Apache.Creek--Hubble.Corner         Apache.Creek--Mineral.Creek.Pueblo 
@@ -614,9 +615,9 @@ careful.
 ## + ... omitted several edges
 ## 
 ## [[2]]
-## IGRAPH 675ac4c UN-- 1 0 -- 
+## IGRAPH dd5e82b UN-- 1 0 -- 
 ## + attr: name (v/c)
-## + edges from 675ac4c (vertex names):</code></pre>
+## + edges from dd5e82b (vertex names):</code></pre>
 <div class="sourceCode" id="cb380"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html">V</a></span><span class="op">(</span><span class="va">components</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">$</span><span class="va">name</span></code></pre></div>
 <pre><code>## [1] "WS.Ranch"</code></pre>
@@ -652,15 +653,15 @@ careful.
 ## [1] 1
 ## 
 ## $cut
-## + 1/167 edge from 64b48aa (vertex names):
+## + 1/167 edge from dafaa9f (vertex names):
 ## [1] Ojo Bonito--Baca Pueblo
 ## 
 ## $partition1
-## + 1/30 vertex, named, from 64b48aa:
+## + 1/30 vertex, named, from dafaa9f:
 ## [1] Baca Pueblo
 ## 
 ## $partition2
-## + 29/30 vertices, named, from 64b48aa:
+## + 29/30 vertices, named, from dafaa9f:
 ##  [1] Apache Creek          Casa Malpais          Coyote Creek         
 ##  [4] Hooper Ranch          Horse Camp Mill       Hubble Corner        
 ##  [7] Mineral Creek Pueblo  Rudd Creek Ruin       Techado Springs      
@@ -686,7 +687,7 @@ careful.
 <p>A clique as a network science concept is arguably the strictest method of defining a cohesive subgroup. It is any set of three or more nodes in which each node is directly connected to all other nodes. It can be alternatively defined as a completely connected subnetwork, or a subnetwork with maximum density. The function <code><a href="https://rdrr.io/pkg/igraph/man/cliques.html">igraph::max_cliques</a></code> finds all maximal cliques in a network and outputs a list object with nodes in each set indicated. For the sake of space here we only output one clique of the 24 that were defined by this function call.</p>
 <div class="sourceCode" id="cb389"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/cliques.html">max_cliques</a></span><span class="op">(</span><span class="va">simple_net</span>, min <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">[[</span><span class="fl">24</span><span class="op">]</span><span class="op">]</span></code></pre></div>
-<pre><code>## + 9/31 vertices, named, from 64b4286:
+<pre><code>## + 9/31 vertices, named, from dafa47e:
 ## [1] Los.Gigantes    Cienega         Tinaja          Spier.170      
 ## [5] Scribe.S        Pescado.Cluster Mirabal         Heshotauthla   
 ## [9] Yellowhouse</code></pre>
@@ -1123,7 +1124,7 @@ Open Triad Count
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-07-23.</p>
+    <p>"<strong>Online Companion to <em>Network Science in Archaeology</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-08-09.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

@@ -1,5 +1,7 @@
 # Comparing Networks{#ComparingNetworks}
 
+![](images/image_break.png){width=100%}
+
 How can we systematically and quantitatively compare network configurations and node/edge structural positions? Can we compare networks even if they represent different kinds of phenomena and have vastly different numbers of nodes and edges? What are the best metrics to use in our comparisons (i.e., graph level vs. node/edge level metrics)? Can we capture both global network properties and local structures in our comparisons? These have all been common questions in the world of network research in recent years. This is not surprising as one of the most exciting aspects of networks in general is the realization that many networked systems share common properties and dynamics despite representing wholly different kinds of relations and social or biological systems. Identifying and specifying the relative similarity or distance among different networks, thus, would likely get us quite far.
 
 There has been increased interest in developing models for directly comparing networks in recent years (see Tantardini et al. 2019). This work is quite variable but can generally be grouped into two sets of approaches:
@@ -622,10 +624,12 @@ Another set of methods that have proven quite useful are referred to as graphlet
 
 The basic premise is that for a set number of nodes there are limited numbers of unique graph motifs that are possible and by tallying the distribution of these and comparing between networks, we can get an idea of how similar networks are in terms of both local and global structural properties. The image below shows all of the possible undirected graphlet configurations for 2, 3, 4, and 5 nodes. The colored shading in this figure shows nodes that have structurally equivalent positions within the graphlet (so all nodes that are the same color in a given graphlet have the same structural position in that graphlet). The graphlets are further numbered (starting with 0) as they typically are in recent publications ($G_0$ to $G_{29}$) and nodes in unique "orbits" are further labeled $O_0$ to $O_{72}$. An orbit in this case refers to a unique structural position within a unique graphlet. 
 
-![Graphlet automorphisms for 2, 3, 4, and 5 nodes (from Miglio et al. 2021: Figure 1)](images/graphlets.jpg){width=100%}
+![Graphlet automorphisms for 2, 3, 4, and 5 nodes (from Melckenbeeck et al. 2019)](images/orbits.png){width=100%}
+
+The graphlet automorphisms figure above comes from [Melckenbeeck et al. 2019](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-018-2483-9) in *BMC Bioinformatics* and was originally published with a [CC-by-4.0 licence](https://creativecommons.org/licenses/by/4.0/) and reused here without alteration.
 
 ```{block, type="rmdwarning"}
-Importantly, the quantification of graphlets for graphlet-based methods discussed here and the graphlet kernel described above are not exactly the same as general graphlet methods do not count graphlets of size $k$ with any unconnected nodes. For example, in graphlet-based methods for $k=3$ only graphlets are considered where all three nodes have at least one connection (unlike graphlet kernel methods which also considered an empty triad and a triad with one unconnected node).
+Importantly, the quantification of graphlets for graphlet-based methods discussed here and the graphlet kernel described above are not exactly the same as the methods outlined in this section do not count graphlets of size $k$ with any unconnected nodes. For example, in graphlet-based methods for $k=3$ only graphlets are considered where all three nodes have at least one connection (unlike graphlet kernel methods which also considered an empty triad and a triad with one unconnected node).
 ```
 
 

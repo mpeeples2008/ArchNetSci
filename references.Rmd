@@ -4,4 +4,7 @@ nocite: '@*'
 
 `r if (knitr::is_html_output()) '
 # References and R Packages {-}
+
+![](images/image_break.png){width=100%}
+
 '`

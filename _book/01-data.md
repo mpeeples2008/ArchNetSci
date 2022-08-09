@@ -2,6 +2,8 @@
 
 # Data and Workspace Setup{#DataAndWorkspace}
 
+![](images/image_break.png){width=100%}
+
 This section provides downloadable files for the network data sets used in this online companion and in the book as well as information on the primary R packages used for analysis and visualization throughout the tutorials in this document. We provide very brief instructions for importing these data into R using R-studio and some guidance on setting up your R-studio working environment. For additional guidance see [Getting Started in R](#GettingStarted). 
 
 ## Data Sets{#DataSets}
@@ -267,7 +269,6 @@ This version of the book was built with R version 4.2.0 (2022-04-22 ucrt) and th
 |latticeExtra   |0.6-29  |CRAN (R 4.2.0) |
 |maptools       |1.1-4   |CRAN (R 4.2.0) |
 |Matrix         |1.4-1   |CRAN (R 4.2.0) |
-|multinet       |4.0.1   |CRAN (R 4.2.0) |
 |netdiffuseR    |1.22.3  |CRAN (R 4.2.0) |
 |networkD3      |0.4     |CRAN (R 4.2.0) |
 |networkDynamic |0.11.2  |CRAN (R 4.2.0) |

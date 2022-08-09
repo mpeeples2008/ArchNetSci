@@ -1,5 +1,7 @@
 # Network Data in R {#NetworkData}
 
+![](images/image_break.png){width=100%}
+
 A network is simply a set of entities and the formally defined relationships among them. There are, however, many different ways that networks can be encoded and displayed. This section provides examples of many of the most common network formats and data types discussed in Chapter 3 of Brughmans and Peeples 2022. For most of the examples below we use the Cibola technological similarity network data set (described in Chapter 2.8.3 and [here](#Cibola)) because it is relatively small and easy to display in a variety of formats.
 
 Throughout this document, we refer to the unique bounded entities connected in a formal network as **nodes** and the connections between them as **edges** but note that there are many other terms used in the literature and in the documentation for the R packages used here. Nodes are often referred to as **vertices** or **actors** and edges are often referred to as **ties** or **links**. Note that we use **network** to refer to the formal system of interdependent pairwise relationships (edges) among a set of entities (nodes) but the term **graph** is often used equivalently in mathematics and other fields.

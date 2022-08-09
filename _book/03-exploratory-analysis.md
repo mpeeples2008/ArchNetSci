@@ -1,5 +1,7 @@
 # Exploratory Network Analysis{#Exploratory}
 
+![](images/image_break.png){width=100%}
+
 Exploratory network analysis is simply exploratory data analysis applied to network data. This covers a range of statistical and visual techniques designed to explore the structure of networks as well as the relative positions of nodes and edges. These methods can be used to look for particular structures or patterning of interest, such as the most central nodes, or to summarize and describe the structure of the network to paint a general picture of it before further analysis. This section serves as a companion to Chapter 4 in the Brughmans and Peeples book (2022) and provides basic examples of the exploratory network analysis methods outlined in the book as well as a few others.
 
 Note that we have created a distinct section on [exponential random graph models (ERGM)](#ERGM) in the "Going Beyond the Book" section of this document as that approach necessitates extended discussion. We replicate the boxed example from Chapter 4 of the book in that section.
@@ -588,7 +590,7 @@ igraph::shortest_paths(simple_net, from = 1, to = 21)
 ```
 ## $vpath
 ## $vpath[[1]]
-## + 5/31 vertices, named, from 64b4286:
+## + 5/31 vertices, named, from dafa47e:
 ## [1] Apache.Creek          Casa.Malpais          Garcia.Ranch         
 ## [4] Heshotauthla          Pueblo.de.los.Muertos
 ## 
@@ -624,7 +626,7 @@ igraph::farthest_vertices(directed_net, directed = TRUE)
 
 ```
 ## $vertices
-## + 2/30 vertices, named, from 64b5254:
+## + 2/30 vertices, named, from dafb3f2:
 ## [1] Apache Creek          Pueblo de los Muertos
 ## 
 ## $distance
@@ -676,9 +678,9 @@ components
 
 ```
 ## [[1]]
-## IGRAPH 675ac27 UN-- 30 167 -- 
+## IGRAPH dd5e805 UN-- 30 167 -- 
 ## + attr: name (v/c)
-## + edges from 675ac27 (vertex names):
+## + edges from dd5e805 (vertex names):
 ##  [1] Apache.Creek--Casa.Malpais          Apache.Creek--Coyote.Creek         
 ##  [3] Apache.Creek--Hooper.Ranch          Apache.Creek--Horse.Camp.Mill      
 ##  [5] Apache.Creek--Hubble.Corner         Apache.Creek--Mineral.Creek.Pueblo 
@@ -690,9 +692,9 @@ components
 ## + ... omitted several edges
 ## 
 ## [[2]]
-## IGRAPH 675ac4c UN-- 1 0 -- 
+## IGRAPH dd5e82b UN-- 1 0 -- 
 ## + attr: name (v/c)
-## + edges from 675ac4c (vertex names):
+## + edges from dd5e82b (vertex names):
 ```
 
 ```r
@@ -752,15 +754,15 @@ min_cut(simple_net_noiso, value.only = FALSE)
 ## [1] 1
 ## 
 ## $cut
-## + 1/167 edge from 64b48aa (vertex names):
+## + 1/167 edge from dafaa9f (vertex names):
 ## [1] Ojo Bonito--Baca Pueblo
 ## 
 ## $partition1
-## + 1/30 vertex, named, from 64b48aa:
+## + 1/30 vertex, named, from dafaa9f:
 ## [1] Baca Pueblo
 ## 
 ## $partition2
-## + 29/30 vertices, named, from 64b48aa:
+## + 29/30 vertices, named, from dafaa9f:
 ##  [1] Apache Creek          Casa Malpais          Coyote Creek         
 ##  [4] Hooper Ranch          Horse Camp Mill       Hubble Corner        
 ##  [7] Mineral Creek Pueblo  Rudd Creek Ruin       Techado Springs      
@@ -789,7 +791,7 @@ max_cliques(simple_net, min = 1)[[24]]
 ```
 
 ```
-## + 9/31 vertices, named, from 64b4286:
+## + 9/31 vertices, named, from dafa47e:
 ## [1] Los.Gigantes    Cienega         Tinaja          Spier.170      
 ## [5] Scribe.S        Pescado.Cluster Mirabal         Heshotauthla   
 ## [9] Yellowhouse

@@ -4,17 +4,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Section 6 Network Visualization | Online Companion to Archaeological Network Science</title>
+<title>Section 6 Network Visualization | Online Companion to Network Science in Archaeology</title>
 <meta name="author" content="Matthew A. Peeples and Tom Brughmans">
 <meta name="description" content="This section follows along with Brughmans and Peeples (2022) chapter 6 to illustrate the wide variety of techniques which can be used for network visualization. We begin with some general examples...">
 <meta name="generator" content="bookdown 0.26 with bs4_book()">
-<meta property="og:title" content="Section 6 Network Visualization | Online Companion to Archaeological Network Science">
+<meta property="og:title" content="Section 6 Network Visualization | Online Companion to Network Science in Archaeology">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://book.archnetworks.net/Visualization.html">
 <meta property="og:image" content="https://book.archnetworks.net/images/cover.png">
 <meta property="og:description" content="This section follows along with Brughmans and Peeples (2022) chapter 6 to illustrate the wide variety of techniques which can be used for network visualization. We begin with some general examples...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Section 6 Network Visualization | Online Companion to Archaeological Network Science">
+<meta name="twitter:title" content="Section 6 Network Visualization | Online Companion to Network Science in Archaeology">
 <meta name="twitter:description" content="This section follows along with Brughmans and Peeples (2022) chapter 6 to illustrate the wide variety of techniques which can be used for network visualization. We begin with some general examples...">
 <meta name="twitter:image" content="https://book.archnetworks.net/images/cover.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -72,7 +72,7 @@
 
     <div class="d-flex align-items-start justify-content-between">
       <h1>
-        <a href="index.html" title="">Online Companion to <em>Archaeological Network Science</em></a>
+        <a href="index.html" title="">Online Companion to <em>Network Science in Archaeology</em></a>
       </h1>
       <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
     </div>
@@ -114,6 +114,7 @@
 <h1>
 <span class="header-section-number">Section 6</span> Network Visualization<a class="anchor" aria-label="anchor" href="#Visualization"><i class="fas fa-link"></i></a>
 </h1>
+<div class="inline-figure"><img src="images/image_break.png" style="width:100.0%"></div>
 <p>This section follows along with Brughmans and Peeples (2022) chapter 6 to illustrate the wide variety of techniques which can be used for network visualization. We begin with some general examples of network plotting and then demonstrate how to replicate all of the specific examples that appear in the book. For most of the examples below we rely on R but in a few cases we use other software and provide additional details and data formats.</p>
 <p>There are already some excellent resources online for learning how to create beautiful and informative network visuals. We recommend the excellent online materials produced by Dr. Katherine Ognyanova <a href="https://kateto.net/">available on her website</a> and her <a href="https://kateto.net/network-visualization">Static and dynamic network visualization with R</a> workshop materials in particular. Many of the examples here and in the book take inspiration from her work. In addition to this, the <a href="https://www.r-graph-gallery.com/">R Graph Gallery</a> website created by <a href="https://github.com/holtzy">Holtz Yan</a> provides numerous excellent examples of plots in R using the <code>ggplot2</code> and <code>ggraph</code> packages among many others. If you are new to R, it will probably be helpful for you to read a bit about basic graphic functions (including in the tutorials listed here) before getting started.</p>
 <div id="VizDatasets" class="section level2" number="6.1">
@@ -162,9 +163,9 @@ These will be the basis for all examples in this section.
 <span class="va">cibola_i</span> <span class="op">&lt;-</span> <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/graph_from_adjacency_matrix.html">graph_from_adjacency_matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">cibola</span><span class="op">)</span>,
                                                 mode <span class="op">=</span> <span class="st">"undirected"</span><span class="op">)</span>
 <span class="va">cibola_i</span></code></pre></div>
-<pre><code>## IGRAPH 725cfd7 UN-- 31 167 -- 
+<pre><code>## IGRAPH e842706 UN-- 31 167 -- 
 ## + attr: name (v/c)
-## + edges from 725cfd7 (vertex names):
+## + edges from e842706 (vertex names):
 ##  [1] Apache.Creek--Casa.Malpais          Apache.Creek--Coyote.Creek         
 ##  [3] Apache.Creek--Hooper.Ranch          Apache.Creek--Horse.Camp.Mill      
 ##  [5] Apache.Creek--Hubble.Corner         Apache.Creek--Mineral.Creek.Pueblo 
@@ -2566,7 +2567,7 @@ edge list is the order that edges will be plotted.
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-07-23.</p>
+    <p>"<strong>Online Companion to <em>Network Science in Archaeology</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-08-09.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

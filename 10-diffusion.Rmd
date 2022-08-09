@@ -1,5 +1,7 @@
 # Network Diffusion{#NetworkDiffusion}
 
+![](images/image_break.png){width=100%}
+
 In the social and behavioral sciences, network models and empirical networks have frequently been used to investigate diffusion processes. Diffusion in this contexts refers to the spread of social or biological contagions (diseases, technological innovations, memes, rumors, etc.) among individuals or larger groups in a given a social context. Work in this realm has shown that social networks with different topological properties can lead to very different kinds of diffusion trajectories in terms of the speed and completeness with which such contagions spread. In this section, we introduce a few simple network diffusion models and demonstrate how they can be used with common forms of archaeological network data or to address general archaeological questions.
 
 ## Diffusion Processes{#DiffusionProcesses}

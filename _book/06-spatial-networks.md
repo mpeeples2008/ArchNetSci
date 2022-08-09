@@ -1,5 +1,7 @@
 # Spatial Networks{#SpatialNetworks}
 
+![](images/image_break.png){width=100%}
+
 This section follows along with Chapter 7 of Brughmans and Peeples (2022) to provide information on how to implement spatial network models and analyses in R. Spatial networks are one of the most common kinds of networks used in archaeological research. Many network studies rely on GIS tools to conduct spatial network research, but R is quite capable of spatial analysis. Note that we have created a separate section on [spatial interaction models](#SpatialInteraction) in the "Going Beyond the Book" section of this document as those approaches in particular require extended discussion.
 
 Working with geographic data in R can be a bit complicated and we cannot cover all aspects in this brief tutorial. If you are interested in exploring geospatial networks more, we suggest you take a look at the excellent and free [*Geocomputation With R*](https://geocompr.robinlovelace.net/) book by Robin Lovelace, Jakob Nowosad, and Jannes Muenchow. The book is a bookdown document just like this tutorial and provides excellent and up to date coverage of spatial operations and the management of spatial data in R. 
@@ -277,9 +279,9 @@ tree1
 ```
 
 ```
-## IGRAPH 9e8a3e8 U--- 50 49 -- Tree
+## IGRAPH 13d2481 U--- 50 49 -- Tree
 ## + attr: name (g/c), children (g/n), mode (g/c)
-## + edges from 9e8a3e8:
+## + edges from 13d2481:
 ##  [1]  1-- 2  1-- 3  1-- 4  1-- 5  1-- 6  2-- 7  2-- 8  2-- 9  2--10  2--11
 ## [11]  3--12  3--13  3--14  3--15  3--16  4--17  4--18  4--19  4--20  4--21
 ## [21]  5--22  5--23  5--24  5--25  5--26  6--27  6--28  6--29  6--30  6--31

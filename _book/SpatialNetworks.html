@@ -4,17 +4,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Section 7 Spatial Networks | Online Companion to Archaeological Network Science</title>
+<title>Section 7 Spatial Networks | Online Companion to Network Science in Archaeology</title>
 <meta name="author" content="Matthew A. Peeples and Tom Brughmans">
 <meta name="description" content="This section follows along with Chapter 7 of Brughmans and Peeples (2022) to provide information on how to implement spatial network models and analyses in R. Spatial networks are one of the most...">
 <meta name="generator" content="bookdown 0.26 with bs4_book()">
-<meta property="og:title" content="Section 7 Spatial Networks | Online Companion to Archaeological Network Science">
+<meta property="og:title" content="Section 7 Spatial Networks | Online Companion to Network Science in Archaeology">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://book.archnetworks.net/SpatialNetworks.html">
 <meta property="og:image" content="https://book.archnetworks.net/images/cover.png">
 <meta property="og:description" content="This section follows along with Chapter 7 of Brughmans and Peeples (2022) to provide information on how to implement spatial network models and analyses in R. Spatial networks are one of the most...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Section 7 Spatial Networks | Online Companion to Archaeological Network Science">
+<meta name="twitter:title" content="Section 7 Spatial Networks | Online Companion to Network Science in Archaeology">
 <meta name="twitter:description" content="This section follows along with Chapter 7 of Brughmans and Peeples (2022) to provide information on how to implement spatial network models and analyses in R. Spatial networks are one of the most...">
 <meta name="twitter:image" content="https://book.archnetworks.net/images/cover.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -72,7 +72,7 @@
 
     <div class="d-flex align-items-start justify-content-between">
       <h1>
-        <a href="index.html" title="">Online Companion to <em>Archaeological Network Science</em></a>
+        <a href="index.html" title="">Online Companion to <em>Network Science in Archaeology</em></a>
       </h1>
       <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
     </div>
@@ -114,6 +114,7 @@
 <h1>
 <span class="header-section-number">Section 7</span> Spatial Networks<a class="anchor" aria-label="anchor" href="#SpatialNetworks"><i class="fas fa-link"></i></a>
 </h1>
+<div class="inline-figure"><img src="images/image_break.png" style="width:100.0%"></div>
 <p>This section follows along with Chapter 7 of Brughmans and Peeples (2022) to provide information on how to implement spatial network models and analyses in R. Spatial networks are one of the most common kinds of networks used in archaeological research. Many network studies rely on GIS tools to conduct spatial network research, but R is quite capable of spatial analysis. Note that we have created a separate section on <a href="SpatialInteraction.html#SpatialInteraction">spatial interaction models</a> in the “Going Beyond the Book” section of this document as those approaches in particular require extended discussion.</p>
 <p>Working with geographic data in R can be a bit complicated and we cannot cover all aspects in this brief tutorial. If you are interested in exploring geospatial networks more, we suggest you take a look at the excellent and free <a href="https://geocompr.robinlovelace.net/"><em>Geocomputation With R</em></a> book by Robin Lovelace, Jakob Nowosad, and Jannes Muenchow. The book is a bookdown document just like this tutorial and provides excellent and up to date coverage of spatial operations and the management of spatial data in R.</p>
 <div id="GeoData" class="section level2" number="7.1">
@@ -349,9 +350,9 @@ to be installed from another archive called Bioconductor.
 <div class="sourceCode" id="cb535"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">tree1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/make_tree.html">make_tree</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">50</span>, children <span class="op">=</span> <span class="fl">5</span>, mode <span class="op">=</span> <span class="st">"undirected"</span><span class="op">)</span>
 <span class="va">tree1</span></code></pre></div>
-<pre><code>## IGRAPH 9e8a3e8 U--- 50 49 -- Tree
+<pre><code>## IGRAPH 13d2481 U--- 50 49 -- Tree
 ## + attr: name (g/c), children (g/n), mode (g/c)
-## + edges from 9e8a3e8:
+## + edges from 13d2481:
 ##  [1]  1-- 2  1-- 3  1-- 4  1-- 5  1-- 6  2-- 7  2-- 8  2-- 9  2--10  2--11
 ## [11]  3--12  3--13  3--14  3--15  3--16  4--17  4--18  4--19  4--20  4--21
 ## [21]  5--22  5--23  5--24  5--25  5--26  6--27  6--28  6--29  6--30  6--31
@@ -1092,7 +1093,7 @@ plot inside another in the <code>ggplot2</code> format.
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-07-23.</p>
+    <p>"<strong>Online Companion to <em>Network Science in Archaeology</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-08-09.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

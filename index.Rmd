@@ -1,5 +1,5 @@
 ---
-title: "Online Companion to *Archaeological Network Science*"
+title: "Online Companion to *Network Science in Archaeology*"
 author: "Matthew A. Peeples and Tom Brughmans"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
@@ -12,7 +12,7 @@ csl: assets/society-for-american-archaeology.csl
 url: https://book.archnetworks.net
 description: |
   This online bookdown document accompanies the Cambridge Manuals in Archaeology book
-  *Archaeological Network Science* by Tom Brughmans and Matthew A. Peeples.
+  *Network Science in Archaeology* by Tom Brughmans and Matthew A. Peeples.
 link-citations: yes
 colorlinks: yes
 github-repo: "mpeeples2008/ArchNetSci"
@@ -21,12 +21,14 @@ cover-image: images/cover.png
 
 # Welcome{- #Welcome}
 
+![](images/image_break.png){width=100%}
+
 ```{r index-1, echo=FALSE}
 is_html <- knitr::is_html_output()
 ```
 
 ```{asis index-2, echo=is_html}
-This project serves as a companion to the Cambridge Manuals in Archaeology book *Archaeological Network Science* by Tom Brughmans and Matthew A. Peeples (2022). 
+This project serves as a companion to the Cambridge Manuals in Archaeology book *Network Science in Archaeology* by Tom Brughmans and Matthew A. Peeples (2022). 
 
 <a href="https://book.archnetworks.net"><img src="images/cover.png" width="250" height="375" alt="Brughmans and Peeples Book Cover" align="right" style="margin: 0 1em 0 1em" /></a>
 
@@ -37,11 +39,11 @@ For more information on the book and the authors check out the project website h
 
 **Cite this document as:**
 
-> Peeples, Matthew A. and Tom Brughmans (2022). Online Companion to Archaeological Network Science by Brughmans and Peeples. <https://archnetworks.net>, Accessed `r Sys.Date()`.
+> Peeples, Matthew A. and Tom Brughmans (2022). Online Companion to Network Science in Archaeology by Brughmans and Peeples. <https://archnetworks.net>, Accessed `r Sys.Date()`.
 
 **The associated book can be cited as**
 
-> Brughmans, Tom and Matthew A. Peeples (in press). *Archaeological Network Science.* Cambridge Manuals in Archaeology. Cambridge University Press, Cambridge, UK.
+> Brughmans, Tom and Matthew A. Peeples (in press). *Network Science in Archaeology.* Cambridge Manuals in Archaeology. Cambridge University Press, Cambridge, UK.
 
 
 ## How Should I Use This Online Companion?{- #HowTo}
@@ -156,6 +158,8 @@ This online bookdown project and the associated book were made possible thanks t
 # (PART) **PART I: Getting Started** {-}
 
 # Getting Started with R{#GettingStarted}
+
+![](images/image_break.png){width=100%}
 
 In order to follow along with the code and examples in this document, you will need recent installations of both R and R-Studio on your computer. R and R-studio are available for Windows, MacOS, and Linux. This section provides a very brief overview of how to get up and running. Following this, we introduce the basics of R and R-Studio to get you ready for the tutorials in the remainder of this document. If you follow this tutorial here we are confident you will be able to engage with the examples and code in this Online Companion.
 

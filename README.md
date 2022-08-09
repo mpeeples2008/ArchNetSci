@@ -1,17 +1,17 @@
-# Welcome to the Online Companion for Archaeological Network Science
+# Welcome to the Online Companion for Network Science in Archaeology
 
 To visit the rendered bookdown version of this project [click here](https://book.archnetworks.net)
 
 [![Docker Image CI](https://github.com/mpeeples2008/ArchNetSci/actions/workflows/docker-image.yml/badge.svg)](https://github.com/mpeeples2008/ArchNetSci/actions/workflows/docker-image.yml)   [![HitCount](https://hits.dwyl.com/mpeeples2008/ArchNetSci.svg)](http://hits.dwyl.com/mpeeples2008/ArchNetSci)
 
-This project serves as a companion to the Cambridge Manuals in Archaeology book *Archaeological Network Science* by Tom Brughmans and Matthew A. Peeples (2022). This document contains a series of tutorials that outline methods for managing, analyzing, and visualizing network data, primarily using the R programming language. We provide code and examples to replicate the analyses presented in the book as well as many other useful tools. The bulk of this Online Companion is designed to be used with the book in hand to expand on topics covered in the published version. Part I of this document (see the Table of Contents) is focused on helping you get started in R and R-Studio. Part II which includes sections 2 through 7 corresponds to the topics and information covered in Chapters 2 through 7 of the Brughmans and Peeples book. Part III (Going Beyond the Book) includes tutorials beyond the scope of the published book including "advanced" topics that require additional detailed description and knowledge of the methods presented in Parts I and II. We plan to continue to add to and expand Part III in the future. You can use the table of contents on the left-hand side of your screen to jump directly to a particular section and the table and contents on the right to navigate within each section. We have also created a quick TOC reference if you are seeking something in particular. 
+This project serves as a companion to the Cambridge Manuals in Archaeology book *Network Science in Archaeology* by Tom Brughmans and Matthew A. Peeples (2022). This document contains a series of tutorials that outline methods for managing, analyzing, and visualizing network data, primarily using the R programming language. We provide code and examples to replicate the analyses presented in the book as well as many other useful tools. The bulk of this Online Companion is designed to be used with the book in hand to expand on topics covered in the published version. Part I of this document (see the Table of Contents) is focused on helping you get started in R and R-Studio. Part II which includes sections 2 through 7 corresponds to the topics and information covered in Chapters 2 through 7 of the Brughmans and Peeples book. Part III (Going Beyond the Book) includes tutorials beyond the scope of the published book including "advanced" topics that require additional detailed description and knowledge of the methods presented in Parts I and II. We plan to continue to add to and expand Part III in the future. You can use the table of contents on the left-hand side of your screen to jump directly to a particular section and the table and contents on the right to navigate within each section. We have also created a quick TOC reference if you are seeking something in particular. 
 
 
 For more information on the book and the authors check out the project website here: [archnetworks.net](https://archnetworks.net).
 
 **Cite this document as:**
 
-> Peeples, Matthew A. and Tom Brughmans (2022). Online Companion to Archaeological Network Science by Brughmans and Peeples. <https://archnetworks.net>, Accessed 19 May 2022.
+> Peeples, Matthew A. and Tom Brughmans (2022). Online Companion to *Network Science in Archaeology* by Brughmans and Peeples. <https://archnetworks.net>, Accessed 9 August 2022.
 
 **The associated book can be cited as**
 
@@ -46,7 +46,7 @@ You can also run the code and generate documents locally using R and R Studio. D
 * Use the `renv::restore()` command to install the required packages and dependencies. Not that this is a large document that uses many packages so this may take some time.
 * You will then be able to browse the files and execute all of the code in the repository.
 
-This online bookdown document has been deployed using the Netlify platform and the badge below shows the current status of the build hosted at [https://book.archnetworks.net](book.archnetworks.net).
+This online bookdown document has been deployed using the Netlify platform and the badge below shows the current status of the build hosted at [https://book.archnetworks.net](https://book.archnetworks.net).
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/266d5736-f13a-4de4-b812-141c023f3a09/deploy-status)](https://app.netlify.com/sites/archnetworks/deploys)
 

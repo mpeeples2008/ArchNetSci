@@ -2,6 +2,8 @@
 
 # Table of Contents Quick Reference{- #TableOfContents}
 
+![](images/image_break.png){width=100%}
+
 The purpose of this section is to provide a quick index of topics covered in this document so that you can easily identify and work on specific things. Use the cross-reference links below to find what you are looking for.
 
 ## Welcome{-}

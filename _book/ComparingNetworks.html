@@ -4,17 +4,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Section 12 Comparing Networks | Online Companion to Archaeological Network Science</title>
+<title>Section 12 Comparing Networks | Online Companion to Network Science in Archaeology</title>
 <meta name="author" content="Matthew A. Peeples and Tom Brughmans">
 <meta name="description" content="How can we systematically and quantitatively compare network configurations and node/edge structural positions? Can we compare networks even if they represent different kinds of phenomena and have...">
 <meta name="generator" content="bookdown 0.26 with bs4_book()">
-<meta property="og:title" content="Section 12 Comparing Networks | Online Companion to Archaeological Network Science">
+<meta property="og:title" content="Section 12 Comparing Networks | Online Companion to Network Science in Archaeology">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://book.archnetworks.net/ComparingNetworks.html">
 <meta property="og:image" content="https://book.archnetworks.net/images/cover.png">
 <meta property="og:description" content="How can we systematically and quantitatively compare network configurations and node/edge structural positions? Can we compare networks even if they represent different kinds of phenomena and have...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Section 12 Comparing Networks | Online Companion to Archaeological Network Science">
+<meta name="twitter:title" content="Section 12 Comparing Networks | Online Companion to Network Science in Archaeology">
 <meta name="twitter:description" content="How can we systematically and quantitatively compare network configurations and node/edge structural positions? Can we compare networks even if they represent different kinds of phenomena and have...">
 <meta name="twitter:image" content="https://book.archnetworks.net/images/cover.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -72,7 +72,7 @@
 
     <div class="d-flex align-items-start justify-content-between">
       <h1>
-        <a href="index.html" title="">Online Companion to <em>Archaeological Network Science</em></a>
+        <a href="index.html" title="">Online Companion to <em>Network Science in Archaeology</em></a>
       </h1>
       <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
     </div>
@@ -114,6 +114,7 @@
 <h1>
 <span class="header-section-number">Section 12</span> Comparing Networks<a class="anchor" aria-label="anchor" href="#ComparingNetworks"><i class="fas fa-link"></i></a>
 </h1>
+<div class="inline-figure"><img src="images/image_break.png" style="width:100.0%"></div>
 <p>How can we systematically and quantitatively compare network configurations and node/edge structural positions? Can we compare networks even if they represent different kinds of phenomena and have vastly different numbers of nodes and edges? What are the best metrics to use in our comparisons (i.e., graph level vs. node/edge level metrics)? Can we capture both global network properties and local structures in our comparisons? These have all been common questions in the world of network research in recent years. This is not surprising as one of the most exciting aspects of networks in general is the realization that many networked systems share common properties and dynamics despite representing wholly different kinds of relations and social or biological systems. Identifying and specifying the relative similarity or distance among different networks, thus, would likely get us quite far.</p>
 <p>There has been increased interest in developing models for directly comparing networks in recent years (see Tantardini et al. 2019). This work is quite variable but can generally be grouped into two sets of approaches:</p>
 <ul>
@@ -889,15 +890,16 @@ inside the <code>{r}</code> to <code>{python}</code>.
 <p>Another set of methods that have proven quite useful are referred to as graphlet-based measures. There are a few different specific models but in general these methods are grouped in that they define similarity in terms of the distribution of non-isomorphic sub-graphs of larger networks (typically ranging from 3 to 5 nodes). Experimental research has shown that these graphlet approaches do a good job of recovering information about the structure of networks, the individual positions of nodes and edges, and overall network topology as well as generative processes. Indeed, in their comparison of many network comparison methods, Tantardini et al. (2019) found graphlet-based methods generally performed the best under most common circumstances (although these methods have yet to be extended to weighted/valued networks).</p>
 <p>The basic premise is that for a set number of nodes there are limited numbers of unique graph motifs that are possible and by tallying the distribution of these and comparing between networks, we can get an idea of how similar networks are in terms of both local and global structural properties. The image below shows all of the possible undirected graphlet configurations for 2, 3, 4, and 5 nodes. The colored shading in this figure shows nodes that have structurally equivalent positions within the graphlet (so all nodes that are the same color in a given graphlet have the same structural position in that graphlet). The graphlets are further numbered (starting with 0) as they typically are in recent publications (<span class="math inline">\(G_0\)</span> to <span class="math inline">\(G_{29}\)</span>) and nodes in unique “orbits” are further labeled <span class="math inline">\(O_0\)</span> to <span class="math inline">\(O_{72}\)</span>. An orbit in this case refers to a unique structural position within a unique graphlet.</p>
 <div class="figure">
-<img src="images/graphlets.jpg" style="width:100.0%" alt=""><p class="caption">Graphlet automorphisms for 2, 3, 4, and 5 nodes (from Miglio et al. 2021: Figure 1)</p>
+<img src="images/orbits.png" style="width:100.0%" alt=""><p class="caption">Graphlet automorphisms for 2, 3, 4, and 5 nodes (from Melckenbeeck et al. 2019)</p>
 </div>
+<p>The graphlet automorphisms figure above comes from <a href="https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-018-2483-9">Melckenbeeck et al. 2019</a> in <em>BMC Bioinformatics</em> and was originally published with a <a href="https://creativecommons.org/licenses/by/4.0/">CC-by-4.0 licence</a> and reused here without alteration.</p>
 <div class="rmdwarning">
 <p>
 Importantly, the quantification of graphlets for graphlet-based
 methods discussed here and the graphlet kernel described above are not
-exactly the same as general graphlet methods do not count graphlets of
-size <span class="math inline"><span class="math inline">\(k\)</span></span> with any unconnected nodes.
-For example, in graphlet-based methods for <span class="math inline"><span class="math inline">\(k=3\)</span></span> only graphlets are considered where
+exactly the same as the methods outlined in this section do not count
+graphlets of size <span class="math inline"><span class="math inline">\(k\)</span></span> with any
+unconnected nodes. For example, in graphlet-based methods for <span class="math inline"><span class="math inline">\(k=3\)</span></span> only graphlets are considered where
 all three nodes have at least one connection (unlike graphlet kernel
 methods which also considered an empty triad and a triad with one
 unconnected node).
@@ -1272,7 +1274,7 @@ graphlet framework starts the index at 0.
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Online Companion to <em>Archaeological Network Science</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-07-23.</p>
+    <p>"<strong>Online Companion to <em>Network Science in Archaeology</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-08-09.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

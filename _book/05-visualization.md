@@ -1,5 +1,7 @@
 # Network Visualization{#Visualization}
 
+![](images/image_break.png){width=100%}
+
 This section follows along with Brughmans and Peeples (2022) chapter 6 to illustrate the wide variety of techniques which can be used for network visualization. We begin with some general examples of network plotting and then demonstrate how to replicate all of the specific examples that appear in the book. For most of the examples below we rely on R but in a few cases we use other software and provide additional details and data formats. 
 
 There are already some excellent resources online for learning how to create beautiful and informative network visuals. We recommend the excellent online materials produced by Dr. Katherine Ognyanova [available on her website](https://kateto.net/) and her [Static and dynamic network visualization with R](https://kateto.net/network-visualization) workshop materials in particular. Many of the examples here and in the book take inspiration from her work. In addition to this, the [R Graph Gallery](https://www.r-graph-gallery.com/) website created by [Holtz Yan](https://github.com/holtzy) provides numerous excellent examples of plots in R using the `ggplot2` and `ggraph` packages among many others. If you are new to R, it will probably be helpful for you to read a bit about basic graphic functions (including in the tutorials listed here) before getting started.
@@ -56,9 +58,9 @@ cibola_i
 ```
 
 ```
-## IGRAPH 725cfd7 UN-- 31 167 -- 
+## IGRAPH e842706 UN-- 31 167 -- 
 ## + attr: name (v/c)
-## + edges from 725cfd7 (vertex names):
+## + edges from e842706 (vertex names):
 ##  [1] Apache.Creek--Casa.Malpais          Apache.Creek--Coyote.Creek         
 ##  [3] Apache.Creek--Hooper.Ranch          Apache.Creek--Horse.Camp.Mill      
 ##  [5] Apache.Creek--Hubble.Corner         Apache.Creek--Mineral.Creek.Pueblo 
