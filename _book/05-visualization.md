@@ -32,14 +32,6 @@ Let's start by reading in our example data and then we describe each package in 
 ```r
 library(igraph)
 library(statnet)
-```
-
-```
-##       Installed ReposVer Built  
-## tergm "4.0.2"   "4.1.0"  "4.2.0"
-```
-
-```r
 library(ggraph)
 library(intergraph)
 
@@ -58,9 +50,9 @@ cibola_i
 ```
 
 ```
-## IGRAPH e842706 UN-- 31 167 -- 
+## IGRAPH 82f669b UN-- 31 167 -- 
 ## + attr: name (v/c)
-## + edges from e842706 (vertex names):
+## + edges from 82f669b (vertex names):
 ##  [1] Apache.Creek--Casa.Malpais          Apache.Creek--Coyote.Creek         
 ##  [3] Apache.Creek--Hooper.Ranch          Apache.Creek--Horse.Camp.Mill      
 ##  [5] Apache.Creek--Hubble.Corner         Apache.Creek--Mineral.Creek.Pueblo 

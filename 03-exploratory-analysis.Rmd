@@ -22,7 +22,7 @@ Each of these will be used as appropriate to illustrate particular methods.
 
 In the following chunk of code we initialize all of the packages that we will use in this section and define all of the network objects that we will use (using the object names above). In these examples we will once again use the [Cibola technological similarity data](#Cibola) we used in the [Network Data Formats](#NetworkData) section previously.
 
-```{r, warning=F, message=F}
+```{r, warning=F, message=F, results=F}
 # initialize packages
 library(igraph)
 library(statnet)

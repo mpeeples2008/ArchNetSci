@@ -1,7 +1,7 @@
 ---
 title: "Online Companion to *Network Science in Archaeology*"
 author: "Matthew A. Peeples and Tom Brughmans"
-date: "2022-08-09"
+date: "2022-08-13"
 site: bookdown::bookdown_site
 output: bookdown::bs4_book
 documentclass: book
@@ -35,7 +35,7 @@ For more information on the book and the authors check out the project website h
 
 **Cite this document as:**
 
-> Peeples, Matthew A. and Tom Brughmans (2022). Online Companion to Network Science in Archaeology by Brughmans and Peeples. <https://archnetworks.net>, Accessed 2022-08-09.
+> Peeples, Matthew A. and Tom Brughmans (2022). *Online Companion to Network Science in Archaeology*. <https://archnetworks.net>, Accessed 2022-08-13.
 
 **The associated book can be cited as**
 
@@ -89,7 +89,7 @@ The easiest way to reproduce this document is to launch the project directly in 
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/mpeeples2008/ArchNetSci/main)
 
-When you open Binder you will see a window with the Binder logo and a spinning progress wheel. It will typically only take a minute or so to get up and running and then you will see the screen below. Click on the "R-Studio" link under "Notebook" and it will open a new window with an R-Studio instance that you can use just like you would on your own computer. If you click on the Binder link and it is taking a long time, click to "show" the build logs. If you are "lucky" enough to be the first to initialize Binder after a new build of the GitHub project it will take quite a bit longer to get started. Grab a coffee, tea, Dr. Pepper, or other beverage of choice as it may be approximately 15-20 minutes before R-Studio loads. Note that we have only installed the most common R packages used in this project as installing all takes considerable time. Thus, if you encounter a function or chunk of code that tells you to install a required package, you can do that directly from your Binder instance of R-Studio just as you would on your own computer.
+When you open Binder you will see a window with the Binder logo and a spinning progress wheel. It will typically only take a minute or so to get up and running and then you will see the screen below. Click on the "R-Studio" link under "Notebook" and it will open a new window with an R-Studio instance that you can use just like you would on your own computer. If you click on the Binder link and it is taking a long time, click to "show" the build logs. If you are "lucky" enough to be the first to initialize Binder after a new build of the GitHub project it will take quite a bit longer to get started. Grab a coffee, tea, Dr. Pepper, or other beverage of choice as it may be approximately 30+ minutes before R-Studio loads. 
 
 ![Binder Notebook Page](images/binder.jpg){width=100%}
 

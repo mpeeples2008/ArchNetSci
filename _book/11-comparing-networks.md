@@ -37,14 +37,7 @@ For the example here we will use three time slices of a ceramic similarity netwo
 
 ```r
 library(statnet)
-```
 
-```
-##       Installed ReposVer Built  
-## tergm "4.0.2"   "4.1.0"  "4.2.0"
-```
-
-```r
 load("data/SanPedro_nets.Rdata")
 
 network_subset_common <-
@@ -912,7 +905,7 @@ The basic premise is that for a set number of nodes there are limited numbers of
 
 ![Graphlet automorphisms for 2, 3, 4, and 5 nodes (from Melckenbeeck et al. 2019)](images/orbits.png){width=100%}
 
-The graphlet automorphisms figure above comes from [Melckenbeeck et al. 2019](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-018-2483-9) in *BMC Bioinformatics* and was originally published with a [CC-by-4.0 licence](https://creativecommons.org/licenses/by/4.0/) and reused here without alteration.
+The graphlet automorphisms figure above comes from [Melckenbeeck et al. 2019](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-018-2483-9) in *BMC Bioinformatics* and was originally published with a [CC-by-4.0 licence](https://creativecommons.org/licenses/by/4.0/) and reused here with altered colors.
 
 <div class="rmdwarning">
 <p>Importantly, the quantification of graphlets for graphlet-based

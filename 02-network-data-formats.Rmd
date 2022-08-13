@@ -19,7 +19,7 @@ The network data formats we discuss in this section include:
 
 Let's first get started by initializing all of the packages we will use in this section.
 
-```{r, warning=F, message=F}
+```{r, warning=F, message=F, results = F}
 # initialize packages
 library(igraph)
 library(statnet)

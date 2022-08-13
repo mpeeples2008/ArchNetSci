@@ -51,7 +51,7 @@ One important concept that needs to be formally defined before we move on is the
   
 where
 
-* $\tau$ is the proportion of neighbors who are adopters that leads the target not to adopt.
+* $\tau$ is the proportion of neighbors who need to be adopters for the target to adopt.
 * $E_i$ is exposure where $\mathbf{X}$ is the adjacency matrix of the network.
 
 In other words, node $i$ will adopt at a given time step if exposure is greater than or equal to $\tau$.

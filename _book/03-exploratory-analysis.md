@@ -27,14 +27,6 @@ In the following chunk of code we initialize all of the packages that we will us
 # initialize packages
 library(igraph)
 library(statnet)
-```
-
-```
-##       Installed ReposVer Built  
-## tergm "4.0.2"   "4.1.0"  "4.2.0"
-```
-
-```r
 library(intergraph)
 library(vegan)
 
@@ -590,7 +582,7 @@ igraph::shortest_paths(simple_net, from = 1, to = 21)
 ```
 ## $vpath
 ## $vpath[[1]]
-## + 5/31 vertices, named, from dafa47e:
+## + 5/31 vertices, named, from 7549308:
 ## [1] Apache.Creek          Casa.Malpais          Garcia.Ranch         
 ## [4] Heshotauthla          Pueblo.de.los.Muertos
 ## 
@@ -626,7 +618,7 @@ igraph::farthest_vertices(directed_net, directed = TRUE)
 
 ```
 ## $vertices
-## + 2/30 vertices, named, from dafb3f2:
+## + 2/30 vertices, named, from 754a2f4:
 ## [1] Apache Creek          Pueblo de los Muertos
 ## 
 ## $distance
@@ -678,9 +670,9 @@ components
 
 ```
 ## [[1]]
-## IGRAPH dd5e805 UN-- 30 167 -- 
+## IGRAPH 77c14d9 UN-- 30 167 -- 
 ## + attr: name (v/c)
-## + edges from dd5e805 (vertex names):
+## + edges from 77c14d9 (vertex names):
 ##  [1] Apache.Creek--Casa.Malpais          Apache.Creek--Coyote.Creek         
 ##  [3] Apache.Creek--Hooper.Ranch          Apache.Creek--Horse.Camp.Mill      
 ##  [5] Apache.Creek--Hubble.Corner         Apache.Creek--Mineral.Creek.Pueblo 
@@ -692,9 +684,9 @@ components
 ## + ... omitted several edges
 ## 
 ## [[2]]
-## IGRAPH dd5e82b UN-- 1 0 -- 
+## IGRAPH 77c1505 UN-- 1 0 -- 
 ## + attr: name (v/c)
-## + edges from dd5e82b (vertex names):
+## + edges from 77c1505 (vertex names):
 ```
 
 ```r
@@ -754,15 +746,15 @@ min_cut(simple_net_noiso, value.only = FALSE)
 ## [1] 1
 ## 
 ## $cut
-## + 1/167 edge from dafaa9f (vertex names):
+## + 1/167 edge from 7549940 (vertex names):
 ## [1] Ojo Bonito--Baca Pueblo
 ## 
 ## $partition1
-## + 1/30 vertex, named, from dafaa9f:
+## + 1/30 vertex, named, from 7549940:
 ## [1] Baca Pueblo
 ## 
 ## $partition2
-## + 29/30 vertices, named, from dafaa9f:
+## + 29/30 vertices, named, from 7549940:
 ##  [1] Apache Creek          Casa Malpais          Coyote Creek         
 ##  [4] Hooper Ranch          Horse Camp Mill       Hubble Corner        
 ##  [7] Mineral Creek Pueblo  Rudd Creek Ruin       Techado Springs      
@@ -791,7 +783,7 @@ max_cliques(simple_net, min = 1)[[24]]
 ```
 
 ```
-## + 9/31 vertices, named, from dafa47e:
+## + 9/31 vertices, named, from 7549308:
 ## [1] Los.Gigantes    Cienega         Tinaja          Spier.170      
 ## [5] Scribe.S        Pescado.Cluster Mirabal         Heshotauthla   
 ## [9] Yellowhouse

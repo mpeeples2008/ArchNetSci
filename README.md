@@ -11,11 +11,11 @@ For more information on the book and the authors check out the project website h
 
 **Cite this document as:**
 
-> Peeples, Matthew A. and Tom Brughmans (2022). Online Companion to *Network Science in Archaeology* by Brughmans and Peeples. <https://archnetworks.net>, Accessed 9 August 2022.
+> Peeples, Matthew A. and Tom Brughmans (2022). *Online Companion to Network Science in Archaeology*. <https://archnetworks.net>, Accessed 13 August 2022.
 
 **The associated book can be cited as**
 
-> Brughmans, Tom and Matthew A. Peeples (in press). *Archaeological Network Science.* Cambridge Manuals in Archaeology. Cambridge University Press, Cambridge, UK.
+> Brughmans, Tom and Matthew A. Peeples (in press). *Network Science in Archaeology.* Cambridge Manuals in Archaeology. Cambridge University Press, Cambridge, UK.
 
 ## How Should I Use This Online Companion?
 
