@@ -1,2 +1,2 @@
-install.packages(c('remotes','renv','igraph','statnet','intergraph','ggraph'))
+install.packages(c('remotes','renv'))
 renv::restore()
