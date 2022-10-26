@@ -51,7 +51,7 @@ A few suggestions on where to start:
 * If you are new to network analysis and R, we would suggest going through each section of this document, starting with Part I: Getting Started with R and then going through Part II in order as you following along with the corresponding chapters in the book.
 * If you are already familiar with R but new to network analysis, you can start with Section 2 in Part II to set up your data and work space, and then follow along with the remaining numbered sections and associated book chapters as you read.
 * If you are already a confident network analyst and R user and are just looking for code chunks to implement something in particular, feel free to skip around. We have tried to make each section as independent as possible so that you can pick and choose what you want to work on. Use the [Table of Contents](#TableOfContents) to find topics quickly.
-* If you're a real pro and are designing your own network analyses or visualizations, we would love it if you contributed to the project to help this document grow.
+* If you are a real pro and are designing your own network analyses or visualizations, we would love it if you contributed to the project to help this document grow.
 
 Throughout this document we use a few icons to call-out special information or concerns. Keep an eye out for the symbols below:
 
