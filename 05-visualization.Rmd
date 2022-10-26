@@ -2,7 +2,7 @@
 
 ![](images/image_break.png){width=100%}
 
-This section follows along with Brughmans and Peeples (2022) chapter 6 to illustrate the wide variety of techniques which can be used for network visualization. We begin with some general examples of network plotting and then demonstrate how to replicate all of the specific examples that appear in the book. For most of the examples below we rely on R but in a few cases we use other software and provide additional details and data formats. 
+This section follows along with Brughmans and Peeples (2023) chapter 6 to illustrate the wide variety of techniques which can be used for network visualization. We begin with some general examples of network plotting and then demonstrate how to replicate all of the specific examples that appear in the book. For most of the examples below we rely on R but in a few cases we use other software and provide additional details and data formats. 
 
 There are already some excellent resources online for learning how to create beautiful and informative network visuals. We recommend the excellent online materials produced by Dr. Katherine Ognyanova [available on her website](https://kateto.net/) and her [Static and dynamic network visualization with R](https://kateto.net/network-visualization) workshop materials in particular. Many of the examples here and in the book take inspiration from her work. In addition to this, the [R Graph Gallery](https://www.r-graph-gallery.com/) website created by [Holtz Yan](https://github.com/holtzy) provides numerous excellent examples of plots in R using the `ggplot2` and `ggraph` packages among many others. If you are new to R, it will probably be helpful for you to read a bit about basic graphic functions (including in the tutorials listed here) before getting started.
 
@@ -508,7 +508,7 @@ The discussion of [Figure 6.4](#Figure_6_4) below provides another similar examp
 
 ## Replicating the Book Figures{#ReplicatingBookFigures}
 
-In this section we go through each figure in Chapter 6 of Brughmans and Peeples (2022) and detail how the final graph was created for all figures that were created using R. For those figures not created in R we describe what software and data were used and provide additional resources where available. We hope these examples will serve as inspiration for your own network visualization experiments. Some of these figures are relatively simple while others are quite complex. They are presented in the order they appear in the book. 
+In this section we go through each figure in Chapter 6 of Brughmans and Peeples (2023) and detail how the final graph was created for all figures that were created using R. For those figures not created in R we describe what software and data were used and provide additional resources where available. We hope these examples will serve as inspiration for your own network visualization experiments. Some of these figures are relatively simple while others are quite complex. They are presented in the order they appear in the book. 
 
 ### Figure 6.1: Manual Layout {- #Figure_6_1}
 
@@ -1584,7 +1584,7 @@ Figure 6.12 was used with permission by Angus Mol and the original was produced 
 
 Fig. 6.13. Two-mode network of ceramics and sites in the San Pedro Valley with ceramic ware categories represented by a graphic example of each type.
 
-The version of Figure 6.13 in the Brughmans and Peeples (2022) book was originally created in NetDraw and modified to add the node pictures in Adobe Photoshop. This approach was preferred as it produced higher resolution and more consistent images than the graphics we could produce directly in R for this particular feature. It is, however, possible to use images in the place of nodes in R networks as the example below illustrates. 
+The version of Figure 6.13 in the Brughmans and Peeples (2023) book was originally created in NetDraw and modified to add the node pictures in Adobe Photoshop. This approach was preferred as it produced higher resolution and more consistent images than the graphics we could produce directly in R for this particular feature. It is, however, possible to use images in the place of nodes in R networks as the example below illustrates. 
 
 We have found in practice that this feature in R works best for simple icons. If you are using high resolution images or lots of color or detail in your images it works better to create an initial image format in something like R or NetDraw and then to modify the network in a graphical editing software after the fact. 
 

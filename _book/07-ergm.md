@@ -82,11 +82,18 @@ Let's initialize our `statnet` suite to get started:
 library(statnet) # initialize statnet library
 ```
 
+```
+##                Installed ReposVer Built  
+## ergm           "4.2.2"   "4.2.3"  "4.2.0"
+## network        "1.17.2"  "1.18.0" "4.2.0"
+## statnet.common "4.6.0"   "4.7.0"  "4.2.0"
+```
+
 In many ways it is easiest to describe what ERGMs do and how they work by example. In the next sections we provide a couple of archaeological examples that highlight some of the ways ERGMs have or could be used in archaeology. We further provide additional resources for taking these methods further.
 
 ## Cranborne Chase Visibility Network Example{#CranborneChase}
 
-We start with an example that was described briefly in the Brughmans and Peeples (2022) book in Chapter 4, but not covered in detail. Specifically, we explore the potential generative processes involved in the development of the intervisibility network among long barrows in the Cranborne Chase area in southern England. As this example is only briefly described in the Brughmans and Peeples (2022) book, you may also want to read and follow along with the original article where that analyses first appeared ([Brughmans and Brandes 2017](https://www.frontiersin.org/articles/10.3389/fdigh.2017.00017/)).
+We start with an example that was described briefly in the Brughmans and Peeples (2023) book in Chapter 4, but not covered in detail. Specifically, we explore the potential generative processes involved in the development of the intervisibility network among long barrows in the Cranborne Chase area in southern England. As this example is only briefly described in the Brughmans and Peeples (2023) book, you may also want to read and follow along with the original article where that analyses first appeared ([Brughmans and Brandes 2017](https://www.frontiersin.org/articles/10.3389/fdigh.2017.00017/)).
 
 Briefly, the network consists of a set of nodes which represent long barrows and edges among them which represent ground-truthed ties of intervisbility between pairs of barrows. The original data came from work by Chris Tilley (1994). These data were used by Brughmans and Brandes (2017) to formally test the notion put forth by Tilley that highly visible barrows "attracted" others over time. In network terms this could be characterized as a "preferential attachment" process. Brughmans and Brandes created an ERGM model with particular properties drawn from Tilley's theoretical model of network development and found that networks simulated with those properties using ERGMs had substantially similar properties to the observed network. Based on this, they considered Tilley's theoretical model plausible.
 

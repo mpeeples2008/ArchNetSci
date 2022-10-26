@@ -10,7 +10,7 @@ This section provides downloadable files for the network data sets used in this 
 
 In the analyses illustrated in this document we use a number of real and simulated archaeological data sets to serve as examples for particular data types and techniques. Most of the data sets used here are provided in .csv (comma separated value) or .RData formats and can be downloaded so that you can follow along with these analyses on your own computer. We encourage you to explore these files and see how they are formatted as a guide for setting up your own data sets.
 
-The data used here include a range of different network data formats and types. The primary data sets are described in detail in Brughmans and Peeples (2022) Chapter 2.8. Note that where spatial locations for archaeological sites are provided the locations have been randomly jittered up to 10 kilometers from their actual locations to maintain data security.
+The data used here include a range of different network data formats and types. The primary data sets are described in detail in Brughmans and Peeples (2023) Chapter 2.8. Note that where spatial locations for archaeological sites are provided the locations have been randomly jittered up to 10 kilometers from their actual locations to maintain data security.
 
 For the files below you can right click and "save as" to save them for use locally. Note that there are many additional data sets relating to the replication of particular figures in the book that are provided where the code for that particular figure occurs. If you'd like to just download everything at once [see the next section](#Everything)
 

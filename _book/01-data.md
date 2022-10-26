@@ -10,7 +10,7 @@ This section provides downloadable files for the network data sets used in this 
 
 In the analyses illustrated in this document we use a number of real and simulated archaeological data sets to serve as examples for particular data types and techniques. Most of the data sets used here are provided in .csv (comma separated value) or .RData formats and can be downloaded so that you can follow along with these analyses on your own computer. We encourage you to explore these files and see how they are formatted as a guide for setting up your own data sets.
 
-The data used here include a range of different network data formats and types. The primary data sets are described in detail in Brughmans and Peeples (2022) Chapter 2.8. Note that where spatial locations for archaeological sites are provided the locations have been randomly jittered up to 10 kilometers from their actual locations to maintain data security.
+The data used here include a range of different network data formats and types. The primary data sets are described in detail in Brughmans and Peeples (2023) Chapter 2.8. Note that where spatial locations for archaeological sites are provided the locations have been randomly jittered up to 10 kilometers from their actual locations to maintain data security.
 
 For the files below you can right click and "save as" to save them for use locally. Note that there are many additional data sets relating to the replication of particular figures in the book that are provided where the code for that particular figure occurs. If you'd like to just download everything at once [see the next section](#Everything)
 
@@ -253,7 +253,7 @@ This version of the book was built with R version 4.2.0 (2022-04-22 ucrt) and th
 |dplyr          |1.0.9   |CRAN (R 4.2.0) |
 |edgebundle     |0.4.0   |CRAN (R 4.2.1) |
 |geosphere      |1.5-14  |CRAN (R 4.2.0) |
-|ggforce        |0.3.3   |CRAN (R 4.2.0) |
+|ggforce        |0.3.4   |CRAN (R 4.2.0) |
 |ggmap          |3.0.0   |CRAN (R 4.2.0) |
 |ggplot2        |3.3.6   |CRAN (R 4.2.0) |
 |ggplotify      |0.1.0   |CRAN (R 4.2.0) |
@@ -262,25 +262,25 @@ This version of the book was built with R version 4.2.0 (2022-04-22 ucrt) and th
 |ggrepel        |0.9.1   |CRAN (R 4.2.0) |
 |ggsn           |0.5.0   |CRAN (R 4.2.0) |
 |GISTools       |0.7-4   |CRAN (R 4.2.0) |
-|graphkernels   |1.6.1   |CRAN (R 4.2.0) |
+|graphkernels   |1.6.1   |CRAN (R 4.2.1) |
 |igraph         |1.3.4   |CRAN (R 4.2.1) |
 |intergraph     |2.0-2   |CRAN (R 4.2.0) |
 |knitr          |1.39    |CRAN (R 4.2.0) |
 |latticeExtra   |0.6-30  |CRAN (R 4.2.1) |
 |maptools       |1.1-4   |CRAN (R 4.2.0) |
 |Matrix         |1.4-1   |CRAN (R 4.2.0) |
-|netdiffuseR    |1.22.3  |CRAN (R 4.2.0) |
+|netdiffuseR    |1.22.3  |CRAN (R 4.2.1) |
 |networkD3      |0.4     |CRAN (R 4.2.0) |
 |networkDynamic |0.11.2  |CRAN (R 4.2.0) |
 |patchwork      |1.1.1   |CRAN (R 4.2.0) |
-|pracma         |2.3.8   |CRAN (R 4.2.0) |
+|pracma         |2.3.8   |CRAN (R 4.2.1) |
 |RColorBrewer   |1.1-3   |CRAN (R 4.2.0) |
 |Rcpp           |1.0.9   |CRAN (R 4.2.1) |
 |reshape2       |1.4.4   |CRAN (R 4.2.0) |
 |reticulate     |1.25    |CRAN (R 4.2.0) |
 |rgeos          |0.5-9   |CRAN (R 4.2.0) |
 |rjson          |0.2.21  |CRAN (R 4.2.0) |
-|rmarkdown      |2.14    |CRAN (R 4.2.0) |
+|rmarkdown      |2.15    |CRAN (R 4.2.1) |
 |scatterplot3d  |0.3-41  |CRAN (R 4.2.0) |
 |sf             |1.0-8   |CRAN (R 4.2.1) |
 |SparseM        |1.81    |CRAN (R 4.2.0) |

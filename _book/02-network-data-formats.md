@@ -2,13 +2,13 @@
 
 ![](images/image_break.png){width=100%}
 
-A network is simply a set of entities and the formally defined relationships among them. There are, however, many different ways that networks can be encoded and displayed. This section provides examples of many of the most common network formats and data types discussed in Chapter 3 of Brughmans and Peeples 2022. For most of the examples below we use the Cibola technological similarity network data set (described in Chapter 2.8.3 and [here](#Cibola)) because it is relatively small and easy to display in a variety of formats.
+A network is simply a set of entities and the formally defined relationships among them. There are, however, many different ways that networks can be encoded and displayed. This section provides examples of many of the most common network formats and data types discussed in Chapter 3 of Brughmans and Peeples 2023. For most of the examples below we use the Cibola technological similarity network data set (described in Chapter 2.8.3 and [here](#Cibola)) because it is relatively small and easy to display in a variety of formats.
 
 Throughout this document, we refer to the unique bounded entities connected in a formal network as **nodes** and the connections between them as **edges** but note that there are many other terms used in the literature and in the documentation for the R packages used here. Nodes are often referred to as **vertices** or **actors** and edges are often referred to as **ties** or **links**. Note that we use **network** to refer to the formal system of interdependent pairwise relationships (edges) among a set of entities (nodes) but the term **graph** is often used equivalently in mathematics and other fields.
 
 ## Network Data Formats{#NetworkDataFormats}
 
-This section follows Chapter 3.2 in Brughmans and Peeples (2022) to provide examples of the same network and attribute data in a variety of different data formats as well as code for converting among these formats in R. 
+This section follows Chapter 3.2 in Brughmans and Peeples (2023) to provide examples of the same network and attribute data in a variety of different data formats as well as code for converting among these formats in R. 
 
 The network data formats we discuss in this section include:
 
@@ -94,9 +94,9 @@ cibola_net
 ```
 
 ```
-## IGRAPH 6d1aab4 UN-- 30 167 -- 
+## IGRAPH 6b2e601 UN-- 30 167 -- 
 ## + attr: name (v/c)
-## + edges from 6d1aab4 (vertex names):
+## + edges from 6b2e601 (vertex names):
 ##  [1] Apache Creek--Casa Malpais          Apache Creek--Coyote Creek         
 ##  [3] Apache Creek--Hooper Ranch          Apache Creek--Horse Camp Mill      
 ##  [5] Apache Creek--Hubble Corner         Apache Creek--Mineral Creek Pueblo 
@@ -132,7 +132,7 @@ adj_list$`Apache Creek`
 ```
 
 ```
-## + 11/167 edges from 6d1aab4 (vertex names):
+## + 11/167 edges from 6b2e601 (vertex names):
 ##  [1] Apache Creek--Casa Malpais         Apache Creek--Coyote Creek        
 ##  [3] Apache Creek--Hooper Ranch         Apache Creek--Horse Camp Mill     
 ##  [5] Apache Creek--Hubble Corner        Apache Creek--Mineral Creek Pueblo
@@ -148,7 +148,7 @@ adj_list[[2]]
 ```
 
 ```
-## + 11/167 edges from 6d1aab4 (vertex names):
+## + 11/167 edges from 6b2e601 (vertex names):
 ##  [1] Apache Creek--Casa Malpais    Casa Malpais--Coyote Creek   
 ##  [3] Casa Malpais--Hooper Ranch    Casa Malpais--Horse Camp Mill
 ##  [5] Casa Malpais--Hubble Corner   Casa Malpais--Rudd Creek Ruin
@@ -345,9 +345,9 @@ cibola_net2
 ```
 
 ```
-## IGRAPH 6d50ad7 UN-- 31 167 -- 
+## IGRAPH 6b59b58 UN-- 31 167 -- 
 ## + attr: name (v/c), region (v/c)
-## + edges from 6d50ad7 (vertex names):
+## + edges from 6b59b58 (vertex names):
 ##  [1] Apache.Creek--Casa.Malpais          Apache.Creek--Coyote.Creek         
 ##  [3] Apache.Creek--Hooper.Ranch          Apache.Creek--Horse.Camp.Mill      
 ##  [5] Apache.Creek--Hubble.Corner         Apache.Creek--Mineral.Creek.Pueblo 
@@ -371,7 +371,7 @@ plot(cibola_net2, vertex.color = as.factor(V(cibola_net2)$region))
 
 ## Types of Networks{#TypesOfNetworks}
 
-This section roughly follows Brughmans and Peeples (2022) Chapter 3.3 to describe and provide examples in R format of many of the most common types of networks. In the examples below we will use the `igraph` R package but we also show how to use the `statnet` and `network` packages where applicable.
+This section roughly follows Brughmans and Peeples (2023) Chapter 3.3 to describe and provide examples in R format of many of the most common types of networks. In the examples below we will use the `igraph` R package but we also show how to use the `statnet` and `network` packages where applicable.
 
 In this section, we cover:
 
@@ -403,9 +403,9 @@ simple_net_i
 ```
 
 ```
-## IGRAPH 6e4dce2 UN-- 31 167 -- 
+## IGRAPH 6c1dac7 UN-- 31 167 -- 
 ## + attr: name (v/c)
-## + edges from 6e4dce2 (vertex names):
+## + edges from 6c1dac7 (vertex names):
 ##  [1] Apache.Creek--Casa.Malpais          Apache.Creek--Coyote.Creek         
 ##  [3] Apache.Creek--Hooper.Ranch          Apache.Creek--Horse.Camp.Mill      
 ##  [5] Apache.Creek--Hubble.Corner         Apache.Creek--Mineral.Creek.Pueblo 
@@ -470,9 +470,9 @@ directed_net
 ```
 
 ```
-## IGRAPH 6e566df DN-- 30 125 -- 
+## IGRAPH 6c24ba7 DN-- 30 125 -- 
 ## + attr: name (v/c)
-## + edges from 6e566df (vertex names):
+## + edges from 6c24ba7 (vertex names):
 ##  [1] Coyote Creek   ->Techado Springs      
 ##  [2] Hubble Corner  ->Tri-R Pueblo         
 ##  [3] Hubble Corner  ->Techado Springs      
@@ -605,9 +605,9 @@ cibola_inc
 ```
 
 ```
-## IGRAPH 6ea9d34 UN-B 41 2214 -- 
+## IGRAPH 6c61699 UN-B 41 2214 -- 
 ## + attr: type (v/l), name (v/c)
-## + edges from 6ea9d34 (vertex names):
+## + edges from 6c61699 (vertex names):
 ##  [1] Apache Creek--Clust1 Apache Creek--Clust1 Apache Creek--Clust1
 ##  [4] Apache Creek--Clust1 Apache Creek--Clust1 Apache Creek--Clust1
 ##  [7] Apache Creek--Clust1 Apache Creek--Clust2 Apache Creek--Clust2
@@ -1152,9 +1152,9 @@ ego_nets[[1]]
 ```
 
 ```
-## IGRAPH 70e7a40 UN-- 12 59 -- 
+## IGRAPH 6e2909a UN-- 12 59 -- 
 ## + attr: name (v/c)
-## + edges from 70e7a40 (vertex names):
+## + edges from 6e2909a (vertex names):
 ##  [1] Apache Creek   --Casa Malpais         Apache Creek   --Coyote Creek        
 ##  [3] Casa Malpais   --Coyote Creek         Apache Creek   --Hooper Ranch        
 ##  [5] Casa Malpais   --Hooper Ranch         Coyote Creek   --Hooper Ranch        
@@ -1244,7 +1244,7 @@ multinet::degree_ml(florentine)
 ```
 
 ```
-##  [1]  5  6 11  1  6  3  6  6  3  4  3  4  3  7  2
+##  [1]  3  4  6  3  6  5  3  6  6  1  2  3  4  7 11
 ```
 
 ```r
@@ -1255,32 +1255,32 @@ multinet::glouvain_ml(florentine)
 
 ```
 ##           actor    layer cid
-## 1        Medici marriage   0
-## 2        Medici business   0
-## 3    Acciaiuoli marriage   0
-## 4        Ginori marriage   0
-## 5        Ginori business   0
-## 6       Albizzi marriage   0
-## 7       Ridolfi marriage   0
-## 8    Tornabuoni marriage   0
-## 9    Tornabuoni business   0
-## 10     Salviati marriage   0
-## 11     Salviati business   0
-## 12        Pazzi marriage   0
-## 13        Pazzi business   0
-## 14 Lamberteschi marriage   1
-## 15 Lamberteschi business   1
-## 16     Guadagni marriage   1
-## 17     Guadagni business   1
-## 18     Bischeri marriage   1
-## 19     Bischeri business   1
-## 20   Castellani marriage   2
-## 21   Castellani business   2
-## 22    Barbadori marriage   2
-## 23    Barbadori business   2
+## 1       Ridolfi marriage   0
+## 2    Tornabuoni business   0
+## 3    Tornabuoni marriage   0
+## 4    Acciaiuoli marriage   0
+## 5         Pazzi business   0
+## 6         Pazzi marriage   0
+## 7      Salviati business   0
+## 8      Salviati marriage   0
+## 9        Medici business   0
+## 10       Medici marriage   0
+## 11    Barbadori business   1
+## 12    Barbadori marriage   1
+## 13      Albizzi marriage   1
+## 14       Ginori business   1
+## 15       Ginori marriage   1
+## 16     Guadagni business   2
+## 17     Guadagni marriage   2
+## 18 Lamberteschi business   2
+## 19 Lamberteschi marriage   2
+## 20   Castellani business   2
+## 21   Castellani marriage   2
+## 22     Bischeri business   2
+## 23     Bischeri marriage   2
 ## 24      Strozzi marriage   2
-## 25      Peruzzi marriage   2
-## 26      Peruzzi business   2
+## 25      Peruzzi business   2
+## 26      Peruzzi marriage   2
 ```
 
 For an archaeological example of multilevel network analysis [this GitHub project](https://github.com/ajupton/archy-multilayer-nets) by Andy Upton.
@@ -1311,9 +1311,9 @@ mor_wt_i
 ```
 
 ```
-## IGRAPH 715d8b4 U-W- 31 465 -- 
+## IGRAPH 6e8aae7 U-W- 31 465 -- 
 ## + attr: na (v/l), vertex.names (v/c), na (e/l), weight (e/n)
-## + edges from 715d8b4:
+## + edges from 6e8aae7:
 ##   [1] 1-- 2 1-- 3 1-- 4 1-- 5 1-- 6 1-- 7 1-- 8 1-- 9 1--10 1--11 1--12 1--13
 ##  [13] 1--14 1--15 1--16 1--17 1--18 1--19 1--20 1--21 1--22 1--23 1--24 1--25
 ##  [25] 1--26 1--27 1--28 1--29 1--30 1--31 2-- 3 2-- 4 2-- 5 2-- 6 2-- 7 2-- 8

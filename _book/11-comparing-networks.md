@@ -37,7 +37,16 @@ For the example here we will use three time slices of a ceramic similarity netwo
 
 ```r
 library(statnet)
+```
 
+```
+##                Installed ReposVer Built  
+## ergm           "4.2.2"   "4.2.3"  "4.2.0"
+## network        "1.17.2"  "1.18.0" "4.2.0"
+## statnet.common "4.6.0"   "4.7.0"  "4.2.0"
+```
+
+```r
 load("data/SanPedro_nets.Rdata")
 
 network_subset_common <-
@@ -796,7 +805,7 @@ distance_new
 ```
 
 ```
-## 1.6539482068506204
+## 1.6539482068506197
 ```
 
 We have certainly not exhausted the possibilities for spectral graph comparison here. In particular, it is currently unclear how such network summaries work for networks with features like common archaeological networks (for example, similarity networks with very high degrees of closure). As spectral methods perform differently for networks with different structural tendencies, such evaluation of archaeological networks with this in mind would be useful.

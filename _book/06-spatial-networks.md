@@ -2,7 +2,7 @@
 
 ![](images/image_break.png){width=100%}
 
-This section follows along with Chapter 7 of Brughmans and Peeples (2022) to provide information on how to implement spatial network models and analyses in R. Spatial networks are one of the most common kinds of networks used in archaeological research. Many network studies rely on GIS tools to conduct spatial network research, but R is quite capable of spatial analysis. Note that we have created a separate section on [spatial interaction models](#SpatialInteraction) in the "Going Beyond the Book" section of this document as those approaches in particular require extended discussion.
+This section follows along with Chapter 7 of Brughmans and Peeples (2023) to provide information on how to implement spatial network models and analyses in R. Spatial networks are one of the most common kinds of networks used in archaeological research. Many network studies rely on GIS tools to conduct spatial network research, but R is quite capable of spatial analysis. Note that we have created a separate section on [spatial interaction models](#SpatialInteraction) in the "Going Beyond the Book" section of this document as those approaches in particular require extended discussion.
 
 Working with geographic data in R can be a bit complicated and we cannot cover all aspects in this brief tutorial. If you are interested in exploring geospatial networks more, we suggest you take a look at the excellent and free [*Geocomputation With R*](https://geocompr.robinlovelace.net/) book by Robin Lovelace, Jakob Nowosad, and Jannes Muenchow. The book is a bookdown document just like this tutorial and provides excellent and up to date coverage of spatial operations and the management of spatial data in R. 
 
@@ -279,9 +279,9 @@ tree1
 ```
 
 ```
-## IGRAPH ae4becf U--- 50 49 -- Tree
+## IGRAPH a169a0f U--- 50 49 -- Tree
 ## + attr: name (g/c), children (g/n), mode (g/c)
-## + edges from ae4becf:
+## + edges from a169a0f:
 ##  [1]  1-- 2  1-- 3  1-- 4  1-- 5  1-- 6  2-- 7  2-- 8  2-- 9  2--10  2--11
 ## [11]  3--12  3--13  3--14  3--15  3--16  4--17  4--18  4--19  4--20  4--21
 ## [21]  5--22  5--23  5--24  5--25  5--26  6--27  6--28  6--29  6--30  6--31
@@ -314,7 +314,7 @@ ggraph(tree1,
 
 ## Spatial Network Models {#SpatialNetworkModels}
 
-In Chapter 7.5 in Brughmans and Peeples (2022) we go over a series of spatial network models that provide a number of different ways of defining networks from spatial data. In this sub-section we demonstrate how to define and analyze networks using these approaches. 
+In Chapter 7.5 in Brughmans and Peeples (2023) we go over a series of spatial network models that provide a number of different ways of defining networks from spatial data. In this sub-section we demonstrate how to define and analyze networks using these approaches. 
 
 ### Relative Neighborhood Networks {#RelativeNeighborhoods}
 
@@ -588,6 +588,16 @@ Next, in order to define a minimum distance network we simply binarize this matr
 
 ```r
 library(statnet)
+```
+
+```
+##                Installed ReposVer Built  
+## ergm           "4.2.2"   "4.2.3"  "4.2.0"
+## network        "1.17.2"  "1.18.0" "4.2.0"
+## statnet.common "4.6.0"   "4.7.0"  "4.2.0"
+```
+
+```r
 library(geosphere)
 d1 <- distm(nodes[, c(3, 2)])
 # Note we use the leq=TRUE argument here as we want nodes less than
@@ -635,7 +645,7 @@ ggraph(net250,
 
 ### Proximity of Iron Age sites in Southern Spain{#IronAgeSpain}
 
-The first case study in Chapter 7 of Brughmans and Peeples (2022) is an example of several of the methods for defining networks using spatial data outlined above using the locations of 86 sites in the Guadalquivir river valley in Southern Spain. In the code chunks below, we replicate the analyses presented in the book.
+The first case study in Chapter 7 of Brughmans and Peeples (2023) is an example of several of the methods for defining networks using spatial data outlined above using the locations of 86 sites in the Guadalquivir river valley in Southern Spain. In the code chunks below, we replicate the analyses presented in the book.
 
 First we read in the data which represents site location information in lat/long decimal degrees.
 
@@ -925,7 +935,7 @@ plot_d
 
 ### Networks in Space in the U.S. Southwest{#SpaceSW}
 
-The second case study in Chapter 7 of Brughmans and Peeples (2022) provides an example of how we can use spatial network methods to analyze material cultural network data. We use the Chaco World data here and you can download the [map data](data/map.RData), [the site attribute data](data/AD1050attr.csv), and [the ceramic frequency data](data/AD1050cer.csv) to follow along.
+The second case study in Chapter 7 of Brughmans and Peeples (2023) provides an example of how we can use spatial network methods to analyze material cultural network data. We use the Chaco World data here and you can download the [map data](data/map.RData), [the site attribute data](data/AD1050attr.csv), and [the ceramic frequency data](data/AD1050cer.csv) to follow along.
 
 The first analysis explores the degree to which similarities in ceramics (in terms of Brainerd-Robinson similarity based on wares) can be explained by spatial distance. To do this we simply define a ceramic similarity matrix, a Euclidean distance matrix, and the fit a model using distance to explain ceramic similarity using a general additive model (`gam`) approach. The `gam` function we use here is in the `mgcv` package. Note that the object `dmat` is created using the `dist` function as the data we started with are already projected site locations using UTM coordinates. 
 
