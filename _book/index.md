@@ -78,7 +78,7 @@ methods.</p>
 
 ## Reproducibility{- #Repro}
 
-The most recent version of this document was built with R version 4.2.0 (2022-04-22 ucrt). We suggest you use a recent version of R when attempting to use the code in this document. 
+The most recent version of this document was built with R version 4.2.0 (2022-04-22 ucrt). We suggest you use a recent version of R when attempting to use the code in this document (version 4.2 recommended).
 
 ![Github last-commit](https://img.shields.io/github/last-commit/mpeeples2008/ArchNetSci)&nbsp; &nbsp;
 [![Docker Image CI](https://github.com/mpeeples2008/ArchNetSci/actions/workflows/docker-image.yml/badge.svg)](https://github.com/mpeeples2008/ArchNetSci/actions/workflows/docker-image.yml) 
