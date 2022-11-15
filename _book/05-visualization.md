@@ -36,9 +36,10 @@ library(statnet)
 
 ```
 ##                Installed ReposVer Built  
-## ergm           "4.2.2"   "4.2.3"  "4.2.0"
+## ergm           "4.2.2"   "4.3.1"  "4.2.0"
 ## network        "1.17.2"  "1.18.0" "4.2.0"
 ## statnet.common "4.6.0"   "4.7.0"  "4.2.0"
+## tergm          "4.1.0"   "4.1.1"  "4.2.1"
 ```
 
 ```r
@@ -60,9 +61,9 @@ cibola_i
 ```
 
 ```
-## IGRAPH 3b9f424 UN-- 31 167 -- 
+## IGRAPH 9cf087b UN-- 31 167 -- 
 ## + attr: name (v/c)
-## + edges from 3b9f424 (vertex names):
+## + edges from 9cf087b (vertex names):
 ##  [1] Apache.Creek--Casa.Malpais          Apache.Creek--Coyote.Creek         
 ##  [3] Apache.Creek--Hooper.Ranch          Apache.Creek--Horse.Camp.Mill      
 ##  [5] Apache.Creek--Hubble.Corner         Apache.Creek--Mineral.Creek.Pueblo 
