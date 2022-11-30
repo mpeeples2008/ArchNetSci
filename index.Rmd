@@ -27,6 +27,7 @@ cover-image: images/cover.png
 is_html <- knitr::is_html_output()
 ```
 
+
 ```{asis index-2, echo=is_html}
 This project serves as a companion to the Cambridge Manuals in Archaeology book *Network Science in Archaeology* by Tom Brughmans and Matthew A. Peeples (2023). 
 
