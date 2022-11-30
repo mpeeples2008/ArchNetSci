@@ -2,13 +2,13 @@
 
 ![](images/image_break.png){width=100%}
 
-A network is simply a set of entities and the formally defined relationships among them. There are, however, many different ways that networks can be encoded and displayed. This section provides examples of many of the most common network formats and data types discussed in Chapter 3 of Brughmans and Peeples 2022. For most of the examples below we use the Cibola technological similarity network data set (described in Chapter 2.8.3 and [here](#Cibola)) because it is relatively small and easy to display in a variety of formats.
+A network is simply a set of entities and the formally defined relationships among them. There are, however, many different ways that networks can be encoded and displayed. This section provides examples of many of the most common network formats and data types discussed in Chapter 3 of Brughmans and Peeples 2023. For most of the examples below we use the Cibola technological similarity network data set (described in Chapter 2.8.3 and [here](#Cibola)) because it is relatively small and easy to display in a variety of formats.
 
 Throughout this document, we refer to the unique bounded entities connected in a formal network as **nodes** and the connections between them as **edges** but note that there are many other terms used in the literature and in the documentation for the R packages used here. Nodes are often referred to as **vertices** or **actors** and edges are often referred to as **ties** or **links**. Note that we use **network** to refer to the formal system of interdependent pairwise relationships (edges) among a set of entities (nodes) but the term **graph** is often used equivalently in mathematics and other fields.
 
 ## Network Data Formats{#NetworkDataFormats}
 
-This section follows Chapter 3.2 in Brughmans and Peeples (2022) to provide examples of the same network and attribute data in a variety of different data formats as well as code for converting among these formats in R. 
+This section follows Chapter 3.2 in Brughmans and Peeples (2023) to provide examples of the same network and attribute data in a variety of different data formats as well as code for converting among these formats in R. 
 
 The network data formats we discuss in this section include:
 
@@ -187,7 +187,7 @@ plot(cibola_net2, vertex.color = as.factor(V(cibola_net2)$region))
 
 ## Types of Networks{#TypesOfNetworks}
 
-This section roughly follows Brughmans and Peeples (2022) Chapter 3.3 to describe and provide examples in R format of many of the most common types of networks. In the examples below we will use the `igraph` R package but we also show how to use the `statnet` and `network` packages where applicable.
+This section roughly follows Brughmans and Peeples (2023) Chapter 3.3 to describe and provide examples in R format of many of the most common types of networks. In the examples below we will use the `igraph` R package but we also show how to use the `statnet` and `network` packages where applicable.
 
 In this section, we cover:
 

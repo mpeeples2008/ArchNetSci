@@ -2,7 +2,7 @@
 
 ![](images/image_break.png){width=100%}
 
-Exploratory network analysis is simply exploratory data analysis applied to network data. This covers a range of statistical and visual techniques designed to explore the structure of networks as well as the relative positions of nodes and edges. These methods can be used to look for particular structures or patterning of interest, such as the most central nodes, or to summarize and describe the structure of the network to paint a general picture of it before further analysis. This section serves as a companion to Chapter 4 in the Brughmans and Peeples book (2022) and provides basic examples of the exploratory network analysis methods outlined in the book as well as a few others.
+Exploratory network analysis is simply exploratory data analysis applied to network data. This covers a range of statistical and visual techniques designed to explore the structure of networks as well as the relative positions of nodes and edges. These methods can be used to look for particular structures or patterning of interest, such as the most central nodes, or to summarize and describe the structure of the network to paint a general picture of it before further analysis. This section serves as a companion to Chapter 4 in the Brughmans and Peeples book (2023) and provides basic examples of the exploratory network analysis methods outlined in the book as well as a few others.
 
 Note that we have created a distinct section on [exponential random graph models (ERGM)](#ERGM) in the "Going Beyond the Book" section of this document as that approach necessitates extended discussion. We replicate the boxed example from Chapter 4 of the book in that section.
 
@@ -424,7 +424,7 @@ Another important topic in network science concerns considerations of the overal
 
 ### Triads{#Triads}
 
-A triad is simply a set of three nodes and a description of the configuration of edges among them. For undirected graphs, there are four possibilities for describing the connections among those nodes (empty graph, 1 connection, 2 connections, 3 connections). For directed graphs the situation is considerably more complicated because ties can be considered in both directions and an edge in one direction isn't necessarily reciprocated. Thus there are 16 different configurations that can exist (see Brughmans and Peeples 2022: Figure 4.4).
+A triad is simply a set of three nodes and a description of the configuration of edges among them. For undirected graphs, there are four possibilities for describing the connections among those nodes (empty graph, 1 connection, 2 connections, 3 connections). For directed graphs the situation is considerably more complicated because ties can be considered in both directions and an edge in one direction isn't necessarily reciprocated. Thus there are 16 different configurations that can exist (see Brughmans and Peeples 2023: Figure 4.4).
 
 One common method for outlining the overall structural properties of a network is to conduct a "triad census" which counts each of the 4 or 16 possible triads for a given network. Although a triad census can be conducted on an undirected network using the `igraph::triad_census` function, a warning will be returned along with 0 results for all impossible triad configurations so be aware. The results are returned as a vector of counts of each possible node configuration in an order outlined in the help document associated with the function (see `?triad_census` for more).
 
@@ -582,7 +582,7 @@ igraph::shortest_paths(simple_net, from = 1, to = 21)
 ```
 ## $vpath
 ## $vpath[[1]]
-## + 5/31 vertices, named, from 7549308:
+## + 5/31 vertices, named, from eb1d87a:
 ## [1] Apache.Creek          Casa.Malpais          Garcia.Ranch         
 ## [4] Heshotauthla          Pueblo.de.los.Muertos
 ## 
@@ -618,7 +618,7 @@ igraph::farthest_vertices(directed_net, directed = TRUE)
 
 ```
 ## $vertices
-## + 2/30 vertices, named, from 754a2f4:
+## + 2/30 vertices, named, from eb1e803:
 ## [1] Apache Creek          Pueblo de los Muertos
 ## 
 ## $distance
@@ -670,9 +670,9 @@ components
 
 ```
 ## [[1]]
-## IGRAPH 77c14d9 UN-- 30 167 -- 
+## IGRAPH edb9800 UN-- 30 167 -- 
 ## + attr: name (v/c)
-## + edges from 77c14d9 (vertex names):
+## + edges from edb9800 (vertex names):
 ##  [1] Apache.Creek--Casa.Malpais          Apache.Creek--Coyote.Creek         
 ##  [3] Apache.Creek--Hooper.Ranch          Apache.Creek--Horse.Camp.Mill      
 ##  [5] Apache.Creek--Hubble.Corner         Apache.Creek--Mineral.Creek.Pueblo 
@@ -684,9 +684,9 @@ components
 ## + ... omitted several edges
 ## 
 ## [[2]]
-## IGRAPH 77c1505 UN-- 1 0 -- 
+## IGRAPH edb9826 UN-- 1 0 -- 
 ## + attr: name (v/c)
-## + edges from 77c1505 (vertex names):
+## + edges from edb9826 (vertex names):
 ```
 
 ```r
@@ -746,15 +746,15 @@ min_cut(simple_net_noiso, value.only = FALSE)
 ## [1] 1
 ## 
 ## $cut
-## + 1/167 edge from 7549940 (vertex names):
+## + 1/167 edge from eb1de9a (vertex names):
 ## [1] Ojo Bonito--Baca Pueblo
 ## 
 ## $partition1
-## + 1/30 vertex, named, from 7549940:
+## + 1/30 vertex, named, from eb1de9a:
 ## [1] Baca Pueblo
 ## 
 ## $partition2
-## + 29/30 vertices, named, from 7549940:
+## + 29/30 vertices, named, from eb1de9a:
 ##  [1] Apache Creek          Casa Malpais          Coyote Creek         
 ##  [4] Hooper Ranch          Horse Camp Mill       Hubble Corner        
 ##  [7] Mineral Creek Pueblo  Rudd Creek Ruin       Techado Springs      
@@ -783,7 +783,7 @@ max_cliques(simple_net, min = 1)[[24]]
 ```
 
 ```
-## + 9/31 vertices, named, from 7549308:
+## + 9/31 vertices, named, from eb1d87a:
 ## [1] Los.Gigantes    Cienega         Tinaja          Spier.170      
 ## [5] Scribe.S        Pescado.Cluster Mirabal         Heshotauthla   
 ## [9] Yellowhouse
@@ -824,7 +824,7 @@ R allows you to use a variety of common cluster detection algorithms to define g
 
 #### Girvan-Newman Clustering{#GirvanNewman}
 
-Girvan-Newman clustering is a divisive algorithm based on betweenness that defines a partition of network that maximizes modularity by removing nodes with high betweenness iteratively (see discussion in Brughmans and Peeples 2022 Chapter 4.6). In R this is referred to as the `igraph::edge.betweenness.community` function. This function can be used on directed or undirected networks with or without edge weights. This function outputs a variety of information including individual edge betweenness scores, modularity information, and partition membership. See the help documents for more information
+Girvan-Newman clustering is a divisive algorithm based on betweenness that defines a partition of network that maximizes modularity by removing nodes with high betweenness iteratively (see discussion in Brughmans and Peeples 2023 Chapter 4.6). In R this is referred to as the `igraph::edge.betweenness.community` function. This function can be used on directed or undirected networks with or without edge weights. This function outputs a variety of information including individual edge betweenness scores, modularity information, and partition membership. See the help documents for more information
 
 
 ```r
@@ -935,7 +935,7 @@ plot(lv, simple_net)
 
 ## Case Study: Roman Roads{#ExploratoryRomanRoads}
 
-In the case study provided at the end of Chapter 4 of Brughmans and Peeples (2022) we take a simple network based on [Roman era roads](#RomanRoads) and spatial proximity of settlements in the Iberian Peninsula and calculate some basic exploratory network statistics. As described in the book, we can create different definitions and criteria for network edges and these can have impacts on the network and node level properties. In this case, we define three different networks as follows:
+In the case study provided at the end of Chapter 4 of Brughmans and Peeples (2023) we take a simple network based on [Roman era roads](#RomanRoads) and spatial proximity of settlements in the Iberian Peninsula and calculate some basic exploratory network statistics. As described in the book, we can create different definitions and criteria for network edges and these can have impacts on the network and node level properties. In this case, we define three different networks as follows:
 
 * **`road_net`** - A basic network where every road connecting two settlements is an edge
 * **`road_net2`** - A network that retains all of the ties of the above network but also connects isolated nodes that are within 50 Kms of one of the road network settlements

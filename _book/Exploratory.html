@@ -115,7 +115,7 @@
 <span class="header-section-number">Section 4</span> Exploratory Network Analysis<a class="anchor" aria-label="anchor" href="#Exploratory"><i class="fas fa-link"></i></a>
 </h1>
 <div class="inline-figure"><img src="images/image_break.png" style="width:100.0%"></div>
-<p>Exploratory network analysis is simply exploratory data analysis applied to network data. This covers a range of statistical and visual techniques designed to explore the structure of networks as well as the relative positions of nodes and edges. These methods can be used to look for particular structures or patterning of interest, such as the most central nodes, or to summarize and describe the structure of the network to paint a general picture of it before further analysis. This section serves as a companion to Chapter 4 in the Brughmans and Peeples book (2022) and provides basic examples of the exploratory network analysis methods outlined in the book as well as a few others.</p>
+<p>Exploratory network analysis is simply exploratory data analysis applied to network data. This covers a range of statistical and visual techniques designed to explore the structure of networks as well as the relative positions of nodes and edges. These methods can be used to look for particular structures or patterning of interest, such as the most central nodes, or to summarize and describe the structure of the network to paint a general picture of it before further analysis. This section serves as a companion to Chapter 4 in the Brughmans and Peeples book (2023) and provides basic examples of the exploratory network analysis methods outlined in the book as well as a few others.</p>
 <p>Note that we have created a distinct section on <a href="ERGM.html#ERGM">exponential random graph models (ERGM)</a> in the “Going Beyond the Book” section of this document as that approach necessitates extended discussion. We replicate the boxed example from Chapter 4 of the book in that section.</p>
 <div id="ExampleNetworkObjects" class="section level2" number="4.1">
 <h2>
@@ -421,7 +421,7 @@ careful.
 <h3>
 <span class="header-section-number">4.4.1</span> Triads<a class="anchor" aria-label="anchor" href="#Triads"><i class="fas fa-link"></i></a>
 </h3>
-<p>A triad is simply a set of three nodes and a description of the configuration of edges among them. For undirected graphs, there are four possibilities for describing the connections among those nodes (empty graph, 1 connection, 2 connections, 3 connections). For directed graphs the situation is considerably more complicated because ties can be considered in both directions and an edge in one direction isn’t necessarily reciprocated. Thus there are 16 different configurations that can exist (see Brughmans and Peeples 2022: Figure 4.4).</p>
+<p>A triad is simply a set of three nodes and a description of the configuration of edges among them. For undirected graphs, there are four possibilities for describing the connections among those nodes (empty graph, 1 connection, 2 connections, 3 connections). For directed graphs the situation is considerably more complicated because ties can be considered in both directions and an edge in one direction isn’t necessarily reciprocated. Thus there are 16 different configurations that can exist (see Brughmans and Peeples 2023: Figure 4.4).</p>
 <p>One common method for outlining the overall structural properties of a network is to conduct a “triad census” which counts each of the 4 or 16 possible triads for a given network. Although a triad census can be conducted on an undirected network using the <code><a href="https://rdrr.io/pkg/igraph/man/triad_census.html">igraph::triad_census</a></code> function, a warning will be returned along with 0 results for all impossible triad configurations so be aware. The results are returned as a vector of counts of each possible node configuration in an order outlined in the help document associated with the function (see <code><a href="https://rdrr.io/pkg/igraph/man/triad_census.html">?triad_census</a></code> for more).</p>
 <div class="sourceCode" id="cb348"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/triad_census.html">triad_census</a></span><span class="op">(</span><span class="va">directed_net</span><span class="op">)</span></span></code></pre></div>
@@ -540,7 +540,7 @@ careful.
 <span><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/distances.html">shortest_paths</a></span><span class="op">(</span><span class="va">simple_net</span>, from <span class="op">=</span> <span class="fl">1</span>, to <span class="op">=</span> <span class="fl">21</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## $vpath
 ## $vpath[[1]]
-## + 5/31 vertices, named, from 7549308:
+## + 5/31 vertices, named, from eb1d87a:
 ## [1] Apache.Creek          Casa.Malpais          Garcia.Ranch         
 ## [4] Heshotauthla          Pueblo.de.los.Muertos
 ## 
@@ -566,7 +566,7 @@ careful.
 <div class="sourceCode" id="cb366"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/diameter.html">farthest_vertices</a></span><span class="op">(</span><span class="va">directed_net</span>, directed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## $vertices
-## + 2/30 vertices, named, from 754a2f4:
+## + 2/30 vertices, named, from eb1e803:
 ## [1] Apache Creek          Pueblo de los Muertos
 ## 
 ## $distance
@@ -598,9 +598,9 @@ careful.
 <span></span>
 <span><span class="va">components</span></span></code></pre></div>
 <pre><code>## [[1]]
-## IGRAPH 77c14d9 UN-- 30 167 -- 
+## IGRAPH edb9800 UN-- 30 167 -- 
 ## + attr: name (v/c)
-## + edges from 77c14d9 (vertex names):
+## + edges from edb9800 (vertex names):
 ##  [1] Apache.Creek--Casa.Malpais          Apache.Creek--Coyote.Creek         
 ##  [3] Apache.Creek--Hooper.Ranch          Apache.Creek--Horse.Camp.Mill      
 ##  [5] Apache.Creek--Hubble.Corner         Apache.Creek--Mineral.Creek.Pueblo 
@@ -612,9 +612,9 @@ careful.
 ## + ... omitted several edges
 ## 
 ## [[2]]
-## IGRAPH 77c1505 UN-- 1 0 -- 
+## IGRAPH edb9826 UN-- 1 0 -- 
 ## + attr: name (v/c)
-## + edges from 77c1505 (vertex names):</code></pre>
+## + edges from edb9826 (vertex names):</code></pre>
 <div class="sourceCode" id="cb376"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html">V</a></span><span class="op">(</span><span class="va">components</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">$</span><span class="va">name</span></span></code></pre></div>
 <pre><code>## [1] "WS.Ranch"</code></pre>
@@ -650,15 +650,15 @@ careful.
 ## [1] 1
 ## 
 ## $cut
-## + 1/167 edge from 7549940 (vertex names):
+## + 1/167 edge from eb1de9a (vertex names):
 ## [1] Ojo Bonito--Baca Pueblo
 ## 
 ## $partition1
-## + 1/30 vertex, named, from 7549940:
+## + 1/30 vertex, named, from eb1de9a:
 ## [1] Baca Pueblo
 ## 
 ## $partition2
-## + 29/30 vertices, named, from 7549940:
+## + 29/30 vertices, named, from eb1de9a:
 ##  [1] Apache Creek          Casa Malpais          Coyote Creek         
 ##  [4] Hooper Ranch          Horse Camp Mill       Hubble Corner        
 ##  [7] Mineral Creek Pueblo  Rudd Creek Ruin       Techado Springs      
@@ -684,7 +684,7 @@ careful.
 <p>A clique as a network science concept is arguably the strictest method of defining a cohesive subgroup. It is any set of three or more nodes in which each node is directly connected to all other nodes. It can be alternatively defined as a completely connected subnetwork, or a subnetwork with maximum density. The function <code><a href="https://rdrr.io/pkg/igraph/man/cliques.html">igraph::max_cliques</a></code> finds all maximal cliques in a network and outputs a list object with nodes in each set indicated. For the sake of space here we only output one clique of the 24 that were defined by this function call.</p>
 <div class="sourceCode" id="cb385"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/cliques.html">max_cliques</a></span><span class="op">(</span><span class="va">simple_net</span>, min <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">[[</span><span class="fl">24</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
-<pre><code>## + 9/31 vertices, named, from 7549308:
+<pre><code>## + 9/31 vertices, named, from eb1d87a:
 ## [1] Los.Gigantes    Cienega         Tinaja          Spier.170      
 ## [5] Scribe.S        Pescado.Cluster Mirabal         Heshotauthla   
 ## [9] Yellowhouse</code></pre>
@@ -718,7 +718,7 @@ careful.
 <h4>
 <span class="header-section-number">4.7.3.1</span> Girvan-Newman Clustering<a class="anchor" aria-label="anchor" href="#GirvanNewman"><i class="fas fa-link"></i></a>
 </h4>
-<p>Girvan-Newman clustering is a divisive algorithm based on betweenness that defines a partition of network that maximizes modularity by removing nodes with high betweenness iteratively (see discussion in Brughmans and Peeples 2022 Chapter 4.6). In R this is referred to as the <code><a href="https://rdrr.io/pkg/igraph/man/cluster_edge_betweenness.html">igraph::edge.betweenness.community</a></code> function. This function can be used on directed or undirected networks with or without edge weights. This function outputs a variety of information including individual edge betweenness scores, modularity information, and partition membership. See the help documents for more information</p>
+<p>Girvan-Newman clustering is a divisive algorithm based on betweenness that defines a partition of network that maximizes modularity by removing nodes with high betweenness iteratively (see discussion in Brughmans and Peeples 2023 Chapter 4.6). In R this is referred to as the <code><a href="https://rdrr.io/pkg/igraph/man/cluster_edge_betweenness.html">igraph::edge.betweenness.community</a></code> function. This function can be used on directed or undirected networks with or without edge weights. This function outputs a variety of information including individual edge betweenness scores, modularity information, and partition membership. See the help documents for more information</p>
 <div class="sourceCode" id="cb390"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gn</span> <span class="op">&lt;-</span> <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/cluster_edge_betweenness.html">edge.betweenness.community</a></span><span class="op">(</span><span class="va">simple_net</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">4353</span><span class="op">)</span></span>
@@ -796,7 +796,7 @@ careful.
 <h2>
 <span class="header-section-number">4.8</span> Case Study: Roman Roads<a class="anchor" aria-label="anchor" href="#ExploratoryRomanRoads"><i class="fas fa-link"></i></a>
 </h2>
-<p>In the case study provided at the end of Chapter 4 of Brughmans and Peeples (2022) we take a simple network based on <a href="#RomanRoads">Roman era roads</a> and spatial proximity of settlements in the Iberian Peninsula and calculate some basic exploratory network statistics. As described in the book, we can create different definitions and criteria for network edges and these can have impacts on the network and node level properties. In this case, we define three different networks as follows:</p>
+<p>In the case study provided at the end of Chapter 4 of Brughmans and Peeples (2023) we take a simple network based on <a href="#RomanRoads">Roman era roads</a> and spatial proximity of settlements in the Iberian Peninsula and calculate some basic exploratory network statistics. As described in the book, we can create different definitions and criteria for network edges and these can have impacts on the network and node level properties. In this case, we define three different networks as follows:</p>
 <ul>
 <li>
 <strong><code>road_net</code></strong> - A basic network where every road connecting two settlements is an edge</li>
@@ -1121,7 +1121,7 @@ Open Triad Count
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Online Companion to <em>Network Science in Archaeology</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-08-13.</p>
+    <p>"<strong>Online Companion to <em>Network Science in Archaeology</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-11-30.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

@@ -199,15 +199,21 @@ in the <code>network</code> format to be analysed using the
 </p>
 </div>
 <p>Let’s initialize our <code>statnet</code> suite to get started:</p>
-<div class="sourceCode" id="cb559"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb565"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://statnet.org">statnet</a></span><span class="op">)</span> <span class="co"># initialize statnet library</span></span></code></pre></div>
+<pre><code>##                Installed ReposVer Built  
+## ergm           "4.2.2"   "4.3.2"  "4.2.0"
+## ndtv           "0.13.2"  "0.13.3" "4.2.0"
+## network        "1.17.2"  "1.18.0" "4.2.0"
+## statnet.common "4.6.0"   "4.7.0"  "4.2.0"
+## tergm          "4.1.0"   "4.1.1"  "4.2.1"</code></pre>
 <p>In many ways it is easiest to describe what ERGMs do and how they work by example. In the next sections we provide a couple of archaeological examples that highlight some of the ways ERGMs have or could be used in archaeology. We further provide additional resources for taking these methods further.</p>
 </div>
 <div id="CranborneChase" class="section level2" number="8.2">
 <h2>
 <span class="header-section-number">8.2</span> Cranborne Chase Visibility Network Example<a class="anchor" aria-label="anchor" href="#CranborneChase"><i class="fas fa-link"></i></a>
 </h2>
-<p>We start with an example that was described briefly in the Brughmans and Peeples (2022) book in Chapter 4, but not covered in detail. Specifically, we explore the potential generative processes involved in the development of the intervisibility network among long barrows in the Cranborne Chase area in southern England. As this example is only briefly described in the Brughmans and Peeples (2022) book, you may also want to read and follow along with the original article where that analyses first appeared (<a href="https://www.frontiersin.org/articles/10.3389/fdigh.2017.00017/">Brughmans and Brandes 2017</a>).</p>
+<p>We start with an example that was described briefly in the Brughmans and Peeples (2023) book in Chapter 4, but not covered in detail. Specifically, we explore the potential generative processes involved in the development of the intervisibility network among long barrows in the Cranborne Chase area in southern England. As this example is only briefly described in the Brughmans and Peeples (2022) book, you may also want to read and follow along with the original article where that analyses first appeared (<a href="https://www.frontiersin.org/articles/10.3389/fdigh.2017.00017/">Brughmans and Brandes 2017</a>).</p>
 <p>Briefly, the network consists of a set of nodes which represent long barrows and edges among them which represent ground-truthed ties of intervisbility between pairs of barrows. The original data came from work by Chris Tilley (1994). These data were used by Brughmans and Brandes (2017) to formally test the notion put forth by Tilley that highly visible barrows “attracted” others over time. In network terms this could be characterized as a “preferential attachment” process. Brughmans and Brandes created an ERGM model with particular properties drawn from Tilley’s theoretical model of network development and found that networks simulated with those properties using ERGMs had substantially similar properties to the observed network. Based on this, they considered Tilley’s theoretical model plausible.</p>
 <div class="figure">
 <img src="images/long_barrow.jpg" style="width:100.0%" alt=""><p class="caption">Photograph of a long barrow at Cranborne Chase. <a href="https://commons.wikimedia.org/wiki/File:Gussage_down_long_barrow.jpg">Original image by Jim Champion: CC 3.0</a></p>
@@ -218,7 +224,7 @@ in the <code>network</code> format to be analysed using the
 <span class="header-section-number">8.2.1</span> Assessments of Network Properties<a class="anchor" aria-label="anchor" href="#NetProperties"><i class="fas fa-link"></i></a>
 </h3>
 <p>Let’s start by bringing in our Cranborne Chase network data (as a <code>network</code> object) and looking at the general properties of the network object. To follow along you can download the data <a href="data/cranborne.Rdata">by clicking here</a>.</p>
-<div class="sourceCode" id="cb560"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb567"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span><span class="op">(</span><span class="st">"data/cranborne.Rdata"</span><span class="op">)</span></span>
 <span><span class="va">cranborne</span></span></code></pre></div>
 <pre><code>##  Network attributes:
@@ -237,26 +243,26 @@ in the <code>network</code> format to be analysed using the
 ## 
 ## No edge attributes</code></pre>
 <p>This network is an undirected, unweighted network object with 32 nodes and 49 edges. Let’s look at a few properties of the network including density, mean degree, degree centralization, and number of isolates.</p>
-<div class="sourceCode" id="cb562"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb569"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">sna</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sna/man/gden.html">gden</a></span><span class="op">(</span><span class="va">cranborne</span><span class="op">)</span> <span class="co"># density</span></span></code></pre></div>
 <pre><code>## [1] 0.09879032</code></pre>
-<div class="sourceCode" id="cb564"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb571"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="fu">sna</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sna/man/degree.html">degree</a></span><span class="op">(</span><span class="va">cranborne</span><span class="op">)</span><span class="op">)</span> <span class="co"># mean degree</span></span></code></pre></div>
 <pre><code>## [1] 6.125</code></pre>
-<div class="sourceCode" id="cb566"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb573"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">sna</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sna/man/centralization.html">centralization</a></span><span class="op">(</span><span class="va">cranborne</span>, g <span class="op">=</span> <span class="fl">1</span>, <span class="va">degree</span><span class="op">)</span> <span class="co"># degree centralization</span></span></code></pre></div>
 <pre><code>## [1] 0.2043011</code></pre>
-<div class="sourceCode" id="cb568"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb575"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu">sna</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sna/man/isolates.html">isolates</a></span><span class="op">(</span><span class="va">cranborne</span><span class="op">)</span><span class="op">)</span> <span class="co"># number of isolates</span></span></code></pre></div>
 <pre><code>## [1] 3</code></pre>
 <p>This is a fairly sparse network with few isolates and a low degree centralization.</p>
 <p>Let’s plot it with nodes scaled by degree:</p>
-<div class="sourceCode" id="cb570"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb577"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">4367</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">cranborne</span>, vertex.cex <span class="op">=</span> <span class="op">(</span><span class="fu">sna</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sna/man/degree.html">degree</a></span><span class="op">(</span><span class="va">cranborne</span><span class="op">)</span> <span class="op">/</span> <span class="fl">4</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="07-ergm_files/figure-html/unnamed-chunk-6-1.png" width="672"></div>
 <p>This network has 3 components and a few isolates. In general many of the nodes have similar degree centrality values but there are a few nodes which appear to have higher degree. We can look at a histogram of degree centrality to further assess the distribution.</p>
-<div class="sourceCode" id="cb571"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb578"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="fu">sna</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sna/man/degree.html">degree</a></span><span class="op">(</span><span class="va">cranborne</span><span class="op">)</span>,</span>
 <span>     breaks <span class="op">=</span> <span class="fl">10</span>,</span>
 <span>     main <span class="op">=</span> <span class="st">"Degree Distribution"</span>,</span>
@@ -269,7 +275,7 @@ in the <code>network</code> format to be analysed using the
 </h3>
 <p>Now that we’ve explored some of the basic properties of our network, the next step is to begin to fit ERGMs to our observed network. The first thing we are going to do is fit a very simple model with only one term. In the <code>ergm</code> package “terms” refer to the specific constraints placed on our randomly generated networks (see <code>?ergm.terms</code> for a list of the many built-in terms). The most basic term that is included in many models is <code>edges</code> which simply refers to the number of edges in a network. An ERGM with a single <code>edges</code> term is conceptually equivalent to a typical GLM regression model where the only predictor is the intercept.</p>
 <p>In the chunk of code below we see the form that <code>ergm</code> model objects take in R. Inside the <code>ergm</code> call we have our network on the left hand size <code>cranborne</code> followed by <code>~</code> and then followed by <code>edges</code> which is a built-in “term” in the <code>ergm</code> package. As we will see below, when we use multiple terms we separate them by a <code>+</code>. Once we have crated our <code>ergm</code> model object we then explore the output using the <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> function.</p>
-<div class="sourceCode" id="cb572"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb579"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mod_null</span> <span class="op">&lt;-</span> <span class="fu">ergm</span><span class="op">(</span><span class="va">cranborne</span> <span class="op">~</span> <span class="va">edges</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">mod_null</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## Call:
@@ -301,11 +307,11 @@ in the <code>network</code> format to be analysed using the
 &amp; = -2.2107
 \end{aligned}\]</span></p>
 <p>So in this example, the likelihood of an edge between two particular nodes is <code>2.2107</code> times <em>less</em> likely for every additional increase in the number of network by 1 edge in the network as a whole. So for every edge added the probability that a particular edge is present decreases. What this negative coefficient means is that an edge is more likely absent than present (and a positive coefficient would suggest the opposite) and thus, if we add an edge elsewhere in the network it is even less likely that our target edge will be active. We can calculate the probability of that an edge is present by taking the inverse logit of <span class="math inline">\(\theta\)</span>:</p>
-<div class="sourceCode" id="cb574"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb581"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="op">-</span><span class="fl">2.2107</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="op">-</span><span class="fl">2.2107</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 0.09879373</code></pre>
 <p>As we would expect, this number is very close to the density of the network which is what the <code>edges</code> term uses as a constraint (number of edges is a function of density):</p>
-<div class="sourceCode" id="cb576"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb583"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">sna</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sna/man/gden.html">gden</a></span><span class="op">(</span><span class="va">cranborne</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 0.09879032</code></pre>
 <p>What this indicates is that if we are trying to predict a given network state (a given set of present an absent edges) and the only information we know is the network density, the probability that a particular edge is present is roughly equal to the network density. As the coefficient is statistically significant, this means that there is a low probability (p-value) of obtaining a model with no terms at random that provides as good or better predictions of the observed than the model including the <code>edges</code> term.</p>
@@ -351,7 +357,7 @@ arguments within the <code>control.ergm</code> function call:
 </p>
 </div>
 <p>Let’s fit the model and look at the summary. Note when you run this on your own computer you will see additional verbose output on the console as the sampling process proceeds. We have eliminated that here to avoid visual clutter:</p>
-<div class="sourceCode" id="cb578"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb585"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mod1</span> <span class="op">&lt;-</span> <span class="fu">ergm</span><span class="op">(</span></span>
 <span>  <span class="va">cranborne</span> <span class="op">~</span> <span class="va">edges</span> <span class="op">+</span> <span class="va">triangle</span> <span class="op">+</span> <span class="va">threetrail</span> <span class="op">+</span></span>
 <span>    <span class="fu">altkstar</span><span class="op">(</span>lambda <span class="op">=</span> <span class="fl">2</span>, fixed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
@@ -385,7 +391,7 @@ arguments within the <code>control.ergm</code> function call:
 <p>As our results show, we have three significant predictors: <code>edges</code>, <code>triangle</code>, and <code>threetrail</code> and <code>altkstar</code> is not significant (at <span class="math inline">\(\alpha = 0.05\)</span>) just as Brughmans and Brandes (2017) found. Looking at our coefficients, our negative <code>edges</code> term suggests that edges are more likely absent than present in our model as we would expect given the density. For <code>triangle</code> we have a positive coefficient suggesting that <code>triangles</code> are more likely than we would expect by chance. Finally, <code>threetrails</code> are slightly less common than we would expect in a random network. The difference is small but statistically significant.</p>
 <p>Brughmans and Brandes (2017) generated similar results but their assessments of the goodness of fit of their model (see discussion below) caused them to create a second model with an additional term to capture the tendency for nodes to be connected to other nodes (and thus not be <code>isolates</code>).</p>
 <p>Let’s run the second model and look at the results:</p>
-<div class="sourceCode" id="cb580"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb587"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mod2</span> <span class="op">&lt;-</span> <span class="fu">ergm</span><span class="op">(</span></span>
 <span>  <span class="va">cranborne</span> <span class="op">~</span> <span class="va">edges</span> <span class="op">+</span> <span class="va">triangle</span> <span class="op">+</span> <span class="va">threetrail</span> <span class="op">+</span></span>
 <span>    <span class="fu">altkstar</span><span class="op">(</span><span class="fl">2</span>, fixed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span> <span class="va">isolates</span>,</span>
@@ -425,7 +431,7 @@ arguments within the <code>control.ergm</code> function call:
 </h3>
 <p>If we compare model fit statistics we can see that the AIC for model 2 is slightly lower than for model 1. Further, the difference between the Null and residual deviance is slightly greater for model 2. At the same time, the BIC for model 2 is slightly higher than for model 1. Overall this suggests that the two models are quite similar in terms of their improvement over a model with no predictors but we don’t have strong statistical argument from these terms alone for picking one over the other (and thus it probably makes sense to evaluate fit statistics as we show here or theoretical arguments for preferring one model or the other).</p>
 <p>To take this further we can use the <code>gof</code> or goodness-of-fit function in <code>ergm</code> to assess the degree to which our models provide reasonable descriptions of our observations. We can start by running the <code>gof</code> function for both models. This function provides visualizations and other statistics to help assess the degree to which model statistics, node degree, edge-wise shared partners, and geodesic distance between nodes are preserved in the networks simulated in the ERGM. If you run this function on a directed network, you additionally get assessments of in-degree and out-degree.</p>
-<div class="sourceCode" id="cb582"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb589"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mod1_gof</span> <span class="op">&lt;-</span> <span class="fu">gof</span><span class="op">(</span><span class="va">mod1</span><span class="op">)</span></span>
 <span><span class="va">mod2_gof</span> <span class="op">&lt;-</span> <span class="fu">gof</span><span class="op">(</span><span class="va">mod2</span><span class="op">)</span></span>
 <span></span>
@@ -435,7 +441,7 @@ arguments within the <code>control.ergm</code> function call:
 ## triangle    22.0000   5.00  24.2100  143.0000       0.80
 ## threetrail 628.0000 224.00 689.5200 3028.0000       0.80
 ## altkstar.2 102.7891  59.25 106.3128  206.5781       0.98</code></pre>
-<div class="sourceCode" id="cb584"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb591"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mod2_gof</span><span class="op">$</span><span class="va">summary.model</span></span></code></pre></div>
 <pre><code>##                 obs     min    mean       max MC p-value
 ## edges       49.0000  31.000  50.140   63.0000       0.86
@@ -445,11 +451,11 @@ arguments within the <code>control.ergm</code> function call:
 ## isolates     3.0000   0.000   2.780   11.0000       0.98</code></pre>
 <p>The summary output for each model shows the observed feature value for a given term and then the min, max, and mean value in the simulated networks. In general, we want the mean values to match closely with relatively small ranges around them. The MC p-value (Markov Chain p-value) provides and indication of fit here where higher numbers generally indicate a better fit. This is essentially the proportion of the steps in the chain where a given term met certain criteria. In general the results here suggest that the model terms generally provide a better fit for model 2 than model 1 (as Brughmans and Brandes also suggested using somewhat different goodness-of-fit statistics not directly calculated in <code>ergm</code>).</p>
 <p>It is also instructive to compare the properties of our randomly generated networks under each model to the observed network for properties that weren’t directly included in our model. The <code>gof</code> function can be plotted directly to provide this information. Let’s look at the four plots provided for both models:</p>
-<div class="sourceCode" id="cb586"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb593"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">mod1_gof</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="07-ergm_files/figure-html/unnamed-chunk-15-1.png" width="672"></div>
-<div class="sourceCode" id="cb587"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb594"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">mod2_gof</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="07-ergm_files/figure-html/unnamed-chunk-15-2.png" width="672"></div>
 <p>In each of these plots the solid black line represents the values for a given property in our observed network and the box plots represent the distribution of values obtained in our randomly generated networks. As both plots show the median model statistics are quite similar to the observed in both models. In general we want to see the observed values to fall within the densest portion of the values for our randomly generated networks (i.e., near the middle of the box plots and certainly within the range). In our example here, both the observed degree distribution and edge-wise shared partners (the number of nodes with a specific number of partners) are quite similar to the simulated range of values. Importantly, we did not include terms for degree or edge-wise shared partners in our model but it still generated networks that closely match our observed in terms of these properties. This is evidence of a good fit. For minimum geodesic distance (length of shortest paths) however, we see that both models consistently over-estimated the geodesic distance for nodes for middling values. Overall, this suggests a fairly good (but not perfect) match between our simulated and observed network properties despite these properties not be directly included in our models. Importantly, our interpretation of our network doesn’t hinge on geodesic distance so this mismatch is not a huge problem. No model is perfect but these results suggest that that model we tested here at least approximates the features of our observed network most relevant to our theoretical model.</p>
@@ -460,7 +466,7 @@ arguments within the <code>control.ergm</code> function call:
 </h3>
 <p>Another important consideration we have not yet discussed is the need to assess the diagnostics of our model generating process to evaluate if it operated as expected. The <code>ergm</code> package generates our random networks using a <a href="https://en.wikipedia.org/wiki/Markov_chain_Monte_Carlo">Markov Chain Monte Carlo (MCMC)</a> process. MCMC is a means for efficiently randomly sampling from a high-dimensional probability distribution. We want to ensure that as our MCMC process explores the parameter space fully and that it does not generate problematic data such as temporally correlated estimates or highly skewed distributions of coefficient estimates. Problems like these would be an indication of poor model specification (the inappropriate inclusion or exclusion of relevant terms for predicting our network).</p>
 <p>In order to assess our models, we can use the <code>mcmc.diagnostics</code> function. Here we run it for model 2 and look at the results. We also call the <code>latticeExtra</code> package here as that helps make the visual output look a bit better.</p>
-<div class="sourceCode" id="cb588"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb595"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://latticeextra.r-forge.r-project.org/">latticeExtra</a></span><span class="op">)</span></span>
 <span><span class="fu">mcmc.diagnostics</span><span class="op">(</span><span class="va">mod2</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## Sample statistics summary:
@@ -577,7 +583,7 @@ term.
 </h2>
 <p>It is possible to generate and explore network simulated using a particular ERGM using the <code>simulate</code> function. Let’s generate some random networks from model 2 used above and then look at them along with the original network.</p>
 <p>In the code below we simply run a single <code>simulate</code> function with the model object, the argument <code>nsim</code> representing the number of networks we wish to generate, and <code>seed</code> which is the random seed for reproducability. The output is a <code><a href="https://rdrr.io/r/base/list.html">list()</a></code> object containing multiple <code>network</code> format objects.</p>
-<div class="sourceCode" id="cb591"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb598"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sim_nets</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/simulate.html">simulate</a></span><span class="op">(</span><span class="va">mod2</span>, nsim <span class="op">=</span> <span class="fl">9</span>, seed <span class="op">=</span> <span class="fl">3464524</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span> <span class="co"># set up for multipanel plotting</span></span>
@@ -586,7 +592,7 @@ term.
 <span>       vertex.cex <span class="op">=</span> <span class="op">(</span><span class="fu">sna</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sna/man/degree.html">degree</a></span><span class="op">(</span><span class="va">sim_nets</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">)</span> <span class="op">/</span> <span class="fl">4</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <div class="inline-figure"><img src="07-ergm_files/figure-html/unnamed-chunk-19-1.png" width="672"></div>
-<div class="sourceCode" id="cb592"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb599"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="co"># return to single panel</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">cranborne</span>,</span>
 <span>     vertex.cex <span class="op">=</span> <span class="op">(</span><span class="fu">sna</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sna/man/degree.html">degree</a></span><span class="op">(</span><span class="va">cranborne</span><span class="op">)</span> <span class="op">/</span> <span class="fl">4</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
@@ -608,7 +614,7 @@ term.
 <li>
 <strong>d_mat</strong> - An edge attribute which is defined by a distance matrix among all settlements in meters.</li>
 </ul>
-<div class="sourceCode" id="cb593"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb600"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span><span class="op">(</span><span class="st">"data/Cibola_n.RData"</span><span class="op">)</span></span>
 <span><span class="co"># Cibola_n network object</span></span>
 <span><span class="co"># Cibola_attr - attribute data frame</span></span>
@@ -622,7 +628,7 @@ term.
 <span><span class="va">d_mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/dist.html">dist</a></span><span class="op">(</span><span class="va">cibola_attr</span><span class="op">[</span>, <span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>In many cases we want to use attributes of nodes or edges as predictors in our ERGMs rather than simply network structures. This can be done a few different ways but in the example below we use the <code>nodematch</code> term which calculates a coefficient for nodes that share values for a given attribute. We can also set an additional argument in <code>nodematch</code> which specifies coefficient for each unique value in the node attribute (<code>diff = TRUE</code>). Finally, we use a matrix of geographic distances of edges as a <code>edgecov</code> (edge co-variate) term. This term expects a square matrix of <code>n x n</code> for where <code>n</code> is the number of nodes in the network and helps us assess the degree to which the distance between settlements is predictive of the presence or absence of an edge.</p>
 <p>Let’s take a look at an example using all three of these terms:</p>
-<div class="sourceCode" id="cb594"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb601"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mod_cibola</span> <span class="op">&lt;-</span> <span class="fu">ergm</span><span class="op">(</span><span class="va">cibola_n</span> <span class="op">~</span> <span class="va">edges</span> <span class="op">+</span> <span class="fu">nodematch</span><span class="op">(</span><span class="st">"region"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>                     <span class="fu">nodematch</span><span class="op">(</span><span class="st">"pubarch"</span>, diff <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span></span>
 <span>                     <span class="fu">edgecov</span><span class="op">(</span><span class="va">d_mat</span><span class="op">)</span><span class="op">)</span></span>
@@ -660,7 +666,7 @@ term.
 <h3>
 <span class="header-section-number">8.4.1</span> Avoiding Model Degeneracy and Poor Convergence<a class="anchor" aria-label="anchor" href="#Degeneracy"><i class="fas fa-link"></i></a>
 </h3>
-<p>Model degeneracy refers to when a specified ERGM never converges or exhibits unrealistic behavior. What this means is there is some term or combination of terms in the model that have created a situation where no networks with the given properties can be obtained (or can only be obtained in very rare combinations of circumstances). What this typically looks like when this happens in R is that you enter your <code>ergm</code> call at the command line and things appear to be going okay but then you eventually get hung up with something like “Estimating equations are not within tolerance region. Iteration 2 of at most 60” and nothing happens for a long time.</p>
+<p>Model degeneracy refers to when a specified ERGM never converges. What this means is there is some term or combination of terms in the model that have created a situation where no networks with the given properties can be obtained. What this typically looks like when this happens in R is that you enter your <code>ergm</code> call at the command line and things appear to be going okay but then you eventually get hung up with something like “Estimating equations are not within tolerance region. Iteration 2 of at most 60” and nothing happens for a long time.</p>
 <p>As described above in our assessment of MCMC diagnostics, this can sometimes happen because you have specified a term that essentially does not allow for for simulated networks that approximate the observed. A classic example is a network with terms for <code>edges</code> and <code>triangle</code> for triadic closure and no other terms.</p>
 <p>If you were to run a model using our Cranborne data using on the <code>edges</code> and <code>triangle</code> term, it would never converge despite the fact that the <code>triangle</code> term was included in the successful model above. As this suggests, poorly specified models are not just about the presence or absence of a single term but about the combination of terms used.</p>
 <div class="rmdwarning">
@@ -669,11 +675,11 @@ Do not run the chunk of code below. We promise, it doesn’t go
 anywhere and will just waste your time.
 </p>
 </div>
-<div class="sourceCode" id="cb596"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb603"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mod_fail</span> <span class="op">&lt;-</span> <span class="fu">ergm</span><span class="op">(</span><span class="va">cranborne</span> <span class="op">~</span> <span class="va">edges</span> <span class="op">+</span> <span class="va">triangle</span><span class="op">)</span></span></code></pre></div>
 <p>What then, can we do in the place of including terms that cause model degeneracy? Luckily there are a number of additional terms that have been designed to deal with exactly this issue. These include the “geometrically weighted” terms that are already built right into the <code>ergm</code> package. For example, the term <code>gwesp</code> or geometrically weighted shared partners is a measure of triadic closure that doesn’t rely on the specific count of triangles, but instead on the tendency towards closing individual triads in the network.</p>
 <p>Let’s try our model again substituting the <code>gwesp</code> term in the place of <code>triangle</code>.</p>
-<div class="sourceCode" id="cb597"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb604"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mod_win</span> <span class="op">&lt;-</span> <span class="fu">ergm</span><span class="op">(</span><span class="va">cranborne</span> <span class="op">~</span> <span class="va">edges</span> <span class="op">+</span> <span class="fu">gwesp</span><span class="op">(</span><span class="fl">0.25</span>, fixed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
 <span>                control <span class="op">=</span> <span class="fu">control.ergm</span><span class="op">(</span>seed <span class="op">=</span> <span class="fl">2362</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">mod_win</span><span class="op">)</span></span></code></pre></div>
@@ -694,7 +700,7 @@ anywhere and will just waste your time.
 ##  
 ## AIC: 293.1  BIC: 301.5  (Smaller is better. MC Std. Err. = 0.2945)</code></pre>
 <p>So the model converges and we get <code>gwesp</code> as a statistically significant predictor with a positive coefficient estimate just as we saw with <code>triangle</code> in the complete model. Indeed if we include <code>gwesp</code> in the complete model we get results that largely mirror those above suggesting that this term is playing a similar role.</p>
-<div class="sourceCode" id="cb599"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb606"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mod_win2</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu">ergm</span><span class="op">(</span></span>
 <span>    <span class="va">cranborne</span> <span class="op">~</span> <span class="va">edges</span> <span class="op">+</span> <span class="fu">gwesp</span><span class="op">(</span><span class="fl">0.25</span>, fixed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span> <span class="va">threetrail</span> <span class="op">+</span></span>
@@ -723,7 +729,7 @@ anywhere and will just waste your time.
 ## AIC: 294.6  BIC: 315.6  (Smaller is better. MC Std. Err. = 0.4782)</code></pre>
 <p>What about the numbers we’re providing to the <code>gwesp</code> term argument <code>(0.25, fixed = TRUE)</code>. These number specify the so-called decay parameter in the model and whether or not that parameter should be fixed or allowed to vary across steps in the MCMC process. The details of this are well beyond the scope of this tutorial but suffice it to say that the general advice is to select the decay value that produces the best fit model in your given analysis. If you run your model without <code>fixed = TRUE</code> the model will attempt to estimate the decay parameter and you will get an additional result in our output the specifies the coefficient for that decay term as well. Keep in mind that this is essentially adding a term to the model so it may then be harder or take longer to fit your models.</p>
 <p>Here is an example:</p>
-<div class="sourceCode" id="cb601"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb608"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mod_nofix</span> <span class="op">&lt;-</span> <span class="fu">ergm</span><span class="op">(</span><span class="va">cranborne</span> <span class="op">~</span> <span class="va">edges</span> <span class="op">+</span> <span class="va">gwesp</span>,</span>
 <span>                  control <span class="op">=</span> <span class="fu">control.ergm</span><span class="op">(</span>seed <span class="op">=</span> <span class="fl">23642</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">mod_nofix</span><span class="op">)</span></span></code></pre></div>
@@ -786,7 +792,7 @@ anywhere and will just waste your time.
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Online Companion to <em>Network Science in Archaeology</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-08-13.</p>
+    <p>"<strong>Online Companion to <em>Network Science in Archaeology</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-11-30.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

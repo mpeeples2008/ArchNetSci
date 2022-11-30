@@ -530,7 +530,7 @@ plot(E(proj_net)$weight, E(cibola_onemode)$weight, pch = 16, col = "blue",
 
 <img src="09-affiliation_files/figure-html/unnamed-chunk-12-1.png" width="672" />
 
-AS this shows, edge weights are highly correlated with an $r^2 = 0.95$ but there are also some subtle differences that distinguish these two projection methods. Via experimentation we have found the Newman model to be particularly useful in situations where there are a mix of common and rare artifact (mode 2) categories as this produces networks that account for relative frequency via context-to-context co-associations.
+As this shows, edge weights are highly correlated with an $r^2 = 0.95$ but there are also some subtle differences that distinguish these two projection methods. Via experimentation we have found the Newman model to be particularly useful in situations where there are a mix of common and rare artifact (mode 2) categories as this produces networks that account for relative frequency via context-to-context co-associations.
 
 ## Correspondence Analysis{#CorrespondenceAnalysis}
 

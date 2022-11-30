@@ -1,7 +1,7 @@
 ---
 title: "Online Companion to *Network Science in Archaeology*"
 author: "Matthew A. Peeples and Tom Brughmans"
-date: "2022-08-13"
+date: "2022-11-30"
 site: bookdown::bookdown_site
 output: bookdown::bs4_book
 documentclass: book
@@ -25,7 +25,7 @@ cover-image: images/cover.png
 
 
 
-This project serves as a companion to the Cambridge Manuals in Archaeology book *Network Science in Archaeology* by Tom Brughmans and Matthew A. Peeples (2022). 
+This project serves as a companion to the Cambridge Manuals in Archaeology book *Network Science in Archaeology* by Tom Brughmans and Matthew A. Peeples (2023). 
 
 <a href="https://book.archnetworks.net"><img src="images/cover.png" width="250" height="375" alt="Brughmans and Peeples Book Cover" align="right" style="margin: 0 1em 0 1em" /></a>
 
@@ -35,16 +35,16 @@ For more information on the book and the authors check out the project website h
 
 **Cite this document as:**
 
-> Peeples, Matthew A. and Tom Brughmans (2022). *Online Companion to Network Science in Archaeology*. <https://archnetworks.net>, Accessed 2022-08-13.
+> Peeples, Matthew A. and Tom Brughmans (2023). *Online Companion to Network Science in Archaeology*. <https://archnetworks.net>, Accessed 2022-11-30.
 
 **The associated book can be cited as**
 
-> Brughmans, Tom and Matthew A. Peeples (in press). *Network Science in Archaeology.* Cambridge Manuals in Archaeology. Cambridge University Press, Cambridge, UK.
+> Brughmans, Tom and Matthew A. Peeples (2023). *Network Science in Archaeology.* Cambridge Manuals in Archaeology. Cambridge University Press, Cambridge, UK.
 
 
 ## How Should I Use This Online Companion?{- #HowTo}
 
-The tutorials here are designed to complement the text of the associated book (Brughmans and Peeples 2022) but can also stand alone as a guide to implementation of network analyses in R if you have a basic background in network methods and terminology. Although each section of this guide builds upon the previous sections in terms of network concepts and R methods, the sections are each independent in terms of data, examples, and code and can be run out of order if you choose.
+The tutorials here are designed to complement the text of the associated book (Brughmans and Peeples 2023) but can also stand alone as a guide to implementation of network analyses in R if you have a basic background in network methods and terminology. Although each section of this guide builds upon the previous sections in terms of network concepts and R methods, the sections are each independent in terms of data, examples, and code and can be run out of order if you choose.
 
 A few suggestions on where to start:
 

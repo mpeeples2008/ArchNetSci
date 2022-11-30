@@ -115,7 +115,7 @@
 <span class="header-section-number">Section 5</span> Quantifying Uncertainty<a class="anchor" aria-label="anchor" href="#Uncertainty"><i class="fas fa-link"></i></a>
 </h1>
 <div class="inline-figure"><img src="images/image_break.png" style="width:100.0%"></div>
-<p>In almost any archaeological network study, the networks we create are incomplete (i.e., we know that we are missing nodes or edges for various reasons: site destruction, lack of survey coverage, looting, etc.). How might the fact that our networks are samples of a larger and typically unobtainable “total network” influence our interpretations of network structure and node position? In this section, we take inspiration from recent research in other areas of network research (Borgatti et al. 2006; Costenbader and Valente 2003; Smith and Moody 2013; Smith et al. 2017; Smith et al. 2022) and develop a means for assessing the impact of missing and poor quality information in our networks. This accompanies Chapter 5 of Brughmans and Peeples (2022) and we recommend that you read Chapter 5 as you work through the examples below.</p>
+<p>In almost any archaeological network study, the networks we create are incomplete (i.e., we know that we are missing nodes or edges for various reasons: site destruction, lack of survey coverage, looting, etc.). How might the fact that our networks are samples of a larger and typically unobtainable “total network” influence our interpretations of network structure and node position? In this section, we take inspiration from recent research in other areas of network research (Borgatti et al. 2006; Costenbader and Valente 2003; Smith and Moody 2013; Smith et al. 2017; Smith et al. 2022) and develop a means for assessing the impact of missing and poor quality information in our networks. This accompanies Chapter 5 of Brughmans and Peeples (2023) and we recommend that you read Chapter 5 as you work through the examples below.</p>
 <p>For most of the other analyses presented in the book it is possible to use a number of different network software packages to conduct similar analyses. The analyses presented in Chapter 5, however, require the creation of custom scripts and procedures that are only possible in a programming language environment like R. We attempt here to not only provide information on how to replicate the examples in the book but also provide guidance on how you might modify the functions and code provided here for your own purposes.</p>
 <div id="UncertaintyScripts" class="section level2" number="5.1">
 <h2>
@@ -159,16 +159,22 @@
 <h2>
 <span class="header-section-number">5.3</span> Nodes Missing at Random<a class="anchor" aria-label="anchor" href="#NodesAtRandom"><i class="fas fa-link"></i></a>
 </h2>
-<p>This sub-section accompanies the discussion of nodes or edges missing at random in Brughmans and Peeples (2022) Chapter 5.3.1. Here we take one interval of the Chaco World ceramic similarity network (ca. A.D. 1050-1100) and simulate the impact of nodes missing at random on network centrality statistics. Download the <a href="data/AD1050net.csv">ceramic similarity adjacency matrix</a> to follow along.</p>
+<p>This sub-section accompanies the discussion of nodes or edges missing at random in Brughmans and Peeples (2023) Chapter 5.3.1. Here we take one interval of the Chaco World ceramic similarity network (ca. A.D. 1050-1100) and simulate the impact of nodes missing at random on network centrality statistics. Download the <a href="data/AD1050net.csv">ceramic similarity adjacency matrix</a> to follow along.</p>
 <p>The first thing we need to do is initialize our required libraries, import the network adjacency matrix, and convert it into a <code>igraph</code> network object. For several of the examples in this section we are using a simple undirected network though the code would also work for weighted or directed networks as well.</p>
 <div class="sourceCode" id="cb410"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://igraph.org">igraph</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hadley/reshape">reshape2</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggraph.data-imaginist.com">ggraph</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rpkgs.datanovia.com/ggpubr/">ggpubr</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://statnet.org">statnet</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Import adjacency matrix and covert to network</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://statnet.org">statnet</a></span><span class="op">)</span></span></code></pre></div>
+<pre><code>##                Installed ReposVer Built  
+## ergm           "4.2.2"   "4.3.2"  "4.2.0"
+## ndtv           "0.13.2"  "0.13.3" "4.2.0"
+## network        "1.17.2"  "1.18.0" "4.2.0"
+## statnet.common "4.6.0"   "4.7.0"  "4.2.0"
+## tergm          "4.1.0"   "4.1.1"  "4.2.1"</code></pre>
+<div class="sourceCode" id="cb412"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Import adjacency matrix and covert to network</span></span>
 <span><span class="va">chaco</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"data/AD1050net.csv"</span>, row.names <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">chaco_net</span> <span class="op">&lt;-</span> <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/graph_from_adjacency_matrix.html">graph_from_adjacency_matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">chaco</span><span class="op">)</span>,</span>
@@ -182,7 +188,7 @@
 <li>
 <code>props</code> which is a vector of sampling proportions to be test (0 &gt; value &lt; 1).</li>
 </ul>
-<div class="sourceCode" id="cb411"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb413"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Calculate node level metric of interest (betweenness in this case)</span></span>
 <span><span class="co"># in the original network object</span></span>
 <span><span class="va">met_orig</span> <span class="op">&lt;-</span> <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/betweenness.html">betweenness</a></span><span class="op">(</span><span class="va">chaco_net</span><span class="op">)</span></span>
@@ -250,7 +256,7 @@
 <strong><code>missing_probs</code></strong> - This argument expects a vector that has as many values as there are nodes in the network. Each value should be a probability value between 0 and 1 (inclusive) that a node will be retained in a sub-sample of the network. The default for this argument is <code>NA</code>. If the argument isn’t specified the function assumes you are testing nodes missing at random.</li>
 </ul>
 <p>Let’s take a look at the code. You can also download <a href="scripts/sim_missing_nodes.R">the script</a> to use it on your own data.</p>
-<div class="sourceCode" id="cb412"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb414"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sim_missing_nodes</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">net</span>,</span>
 <span>                              <span class="va">nsim</span> <span class="op">=</span> <span class="fl">1000</span>,</span>
 <span>                              <span class="va">props</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.9</span>, <span class="fl">0.8</span>, <span class="fl">0.7</span>, <span class="fl">0.6</span>, <span class="fl">0.5</span>,</span>
@@ -337,7 +343,7 @@
 <span><span class="op">}</span></span></code></pre></div>
 <p>The script is long, but it largely consists of a series of <code>if...else</code> statements that select the appropriate analyses based on the user supplied arguments.</p>
 <p>Let’s give this new function a try and calculate eigenvector centrality on the same <code>chaco_net</code> network object. Note that the function above has the <code>melt</code> function built in so the data returned are in a format required to create the plot.</p>
-<div class="sourceCode" id="cb413"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb415"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Run the function</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">5609</span><span class="op">)</span></span>
 <span><span class="va">ev_test</span> <span class="op">&lt;-</span> <span class="fu">sim_missing_nodes</span><span class="op">(</span>net <span class="op">=</span> <span class="va">chaco_net</span>, met <span class="op">=</span> <span class="st">"eigenvector"</span><span class="op">)</span></span>
@@ -370,7 +376,7 @@ it contains only portions of the larger functions described here and
 will return an error.
 </p>
 </div>
-<div class="sourceCode" id="cb414"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb416"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Code from sim_missing_nodes</span></span>
 <span><span class="va">sub_samp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/gorder.html">vcount</a></span><span class="op">(</span><span class="va">net</span><span class="op">)</span>, prob <span class="op">=</span> <span class="va">missing_probs</span><span class="op">)</span>,</span>
 <span>                   size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/gorder.html">vcount</a></span><span class="op">(</span><span class="va">net</span><span class="op">)</span> <span class="op">*</span> <span class="va">props</span><span class="op">[</span><span class="va">j</span><span class="op">]</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
@@ -382,7 +388,7 @@ will return an error.
 <span><span class="va">sub_net</span> <span class="op">&lt;-</span> <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/delete_edges.html">delete_edges</a></span><span class="op">(</span><span class="va">net</span>, <span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="op">!</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/gsize.html">ecount</a></span><span class="op">(</span><span class="va">net</span><span class="op">)</span><span class="op">)</span></span>
 <span>                                             <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va">sub_samp</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>Let’s call our new function and assess the impact of edges missing at random on degree centrality to give this a try. We use the same default arguments for <code>nsim</code> and <code>props</code> as we did above. Since we have saved our function as a .R file, we can initialize it using the <code>source</code> function which lets you run all code in a specified .R file.</p>
-<div class="sourceCode" id="cb415"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb417"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># First initialize the function using the .R script</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"scripts/sim_missing_edges.R"</span><span class="op">)</span></span>
 <span></span>
@@ -409,7 +415,7 @@ will return an error.
 <h2>
 <span class="header-section-number">5.5</span> Assessing Indivdiual Nodes/Edges<a class="anchor" aria-label="anchor" href="#IndNodesAtRandom"><i class="fas fa-link"></i></a>
 </h2>
-<p>This sub-section follows along with Chapter 5.3.2 in Brughmans and Peeples (2022). In some cases we may be interested not simply in the robustness of a particular network metric to a specific kind of perturbation across all nodes or edges, but instead in the potential variability of the position or characteristics of a single node (or group of nodes) due to such perturbations. In order to explore individual nodes, we can employ similar procedures to those outlined above with a few additional modifications to our function. In this example we will use the <a href="DataAndWorkspace.html#Cibola">Cibola technological similarity network</a>. As we describe in the book, we want to assess the stability of the position of the Garcia Ranch site. Specifically, we want to know the whether or not the high betweenness centrality value of Garcia Ranch is robust to nodes missing at random in this network.</p>
+<p>This sub-section follows along with Chapter 5.3.2 in Brughmans and Peeples (2023). In some cases we may be interested not simply in the robustness of a particular network metric to a specific kind of perturbation across all nodes or edges, but instead in the potential variability of the position or characteristics of a single node (or group of nodes) due to such perturbations. In order to explore individual nodes, we can employ similar procedures to those outlined above with a few additional modifications to our function. In this example we will use the <a href="DataAndWorkspace.html#Cibola">Cibola technological similarity network</a>. As we describe in the book, we want to assess the stability of the position of the Garcia Ranch site. Specifically, we want to know the whether or not the high betweenness centrality value of Garcia Ranch is robust to nodes missing at random in this network.</p>
 <p>We define a new function to conduct these analyses below. This function is similar to those used above but instead of providing Spearman’s <span class="math inline">\(/rho\)</span> values it outputs the specific rank order of the node in question across each simulation.</p>
 <p>The function requires six pieces of information from the user:</p>
 <ul>
@@ -429,7 +435,7 @@ will return an error.
 <p>Briefly how this function works is it first determines which node number corresponds with the <code>target</code> you wish to assess and creates <code>nsim</code> subgraphs that retain that target. The metric of interest is then calculated in each network and the rank order position of the target node in every network is returned. This function can be calculated either as a “missing at random” process by leaving <code>missing_probs</code> set to the default <code>NA</code>.</p>
 <p>Let’s take a look at an example. <a href="data/Cibola_edgelist.csv">Use these data</a> to follow along. You can download the <a href="scripts/sim_target_node.R">sim_target_node.R script here</a></p>
 <p>First we read in the data:</p>
-<div class="sourceCode" id="cb416"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb418"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Read in edge list file as data frame and create network object</span></span>
 <span><span class="va">cibola_edgelist</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"data/Cibola_edgelist.csv"</span>, header <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
@@ -437,7 +443,7 @@ will return an error.
 <span>  <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/graph_from_edgelist.html">graph_from_edgelist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">cibola_edgelist</span><span class="op">)</span>,</span>
 <span>                              directed <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p>Now lets initialize our function from our script using the <code><a href="https://rdrr.io/r/base/source.html">source()</a></code> function, run the function, and create a bar plot to visualize the results. Following the example in the book, we are assessing the robustness of the rank order position of Garcia Ranch in terms of betweenness centrality to nodes missing at random. Note that Garcia Ranch has the second highest centrality score in the original network:</p>
-<div class="sourceCode" id="cb417"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb419"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"scripts/sim_target_node.R"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Run the function</span></span>
@@ -471,7 +477,7 @@ will return an error.
 <h2>
 <span class="header-section-number">5.6</span> Nodes/Edges Missing Due to Biased Sampling<a class="anchor" aria-label="anchor" href="#MissingBiased"><i class="fas fa-link"></i></a>
 </h2>
-<p>This sub-section follows along with Brughmans and Peeples (2022) Chapter 5.3.3. There are many contexts where we are interested in modeling data that are not missing at random but instead are influenced by some biased sampling process. For example, say we have a study area where there have been lots of general reconnaissance surveys that have recorded most of the large sites but few full coverage surveys that have captured smaller sites. In that case, we may wish to model missingness such that small sites would more likely be missing than large sites.</p>
+<p>This sub-section follows along with Brughmans and Peeples (2023) Chapter 5.3.3. There are many contexts where we are interested in modeling data that are not missing at random but instead are influenced by some biased sampling process. For example, say we have a study area where there have been lots of general reconnaissance surveys that have recorded most of the large sites but few full coverage surveys that have captured smaller sites. In that case, we may wish to model missingness such that small sites would more likely be missing than large sites.</p>
 <p>The <code>sim_missing_nodes</code> and <code>sime_missing_edges</code> functions we created above can both help us test the impacts of biased sampling processes. In order to do this we simply use the additional argument <code>missing_probs</code>. This argument requires a vector the same length as the number of nodes or edges, depending on which function you are using. This vector should contain numeric values between 0 and 1 that denote the probabilities that a node or edge will be retained in the sub-sampling effort (and must be in the same order that nodes or edges are recorded in the network object).</p>
 <p>Let’s look under the hood to see how this change is implemented in the code. We only need to modify one line of code to include biased sampling processes. In the chunk of code below we have two lines that use the <code>sample</code> function. This function takes a vector of numbers and selects a sample (without replacement by default) of the specified size. If you add the argument <code>prob</code> it will use the vector or probabilities provided to weight the sample. That’s all there is to it.</p>
 <div class="rmdwarning">
@@ -481,7 +487,7 @@ only represents part of the function so don’t try to evaluate this chunk
 or you’ll get an error.
 </p>
 </div>
-<div class="sourceCode" id="cb418"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb420"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Random sampling process</span></span>
 <span><span class="va">sub_samp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/gorder.html">vcount</a></span><span class="op">(</span><span class="va">net</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>                   size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/gorder.html">vcount</a></span><span class="op">(</span><span class="va">net</span><span class="op">)</span> <span class="op">*</span> <span class="va">props</span><span class="op">[</span><span class="va">j</span><span class="op">]</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
@@ -490,7 +496,7 @@ or you’ll get an error.
 <span><span class="va">sub_samp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/gorder.html">vcount</a></span><span class="op">(</span><span class="va">net</span><span class="op">)</span><span class="op">)</span>, prob <span class="op">=</span> <span class="va">missing_probs</span>,</span>
 <span>                   size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/gorder.html">vcount</a></span><span class="op">(</span><span class="va">net</span><span class="op">)</span> <span class="op">*</span> <span class="va">props</span><span class="op">[</span><span class="va">j</span><span class="op">]</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>Now, let’s try a real example using the <code>chaco_net</code> data again by creating a random variable to stand in for <code>missing_probs</code> here. We will test the impact on missing nodes. We simply create a vector of 223 random uniform numbers using the <code>runif</code> function to simulate probabilities associated with the 223 nodes. In practice, these probabilities could be based on site size, visibility, or any other feature you choose.</p>
-<div class="sourceCode" id="cb419"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb421"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create 233 random numbers between 0 and 1 to stand in for</span></span>
 <span><span class="co"># node probabilities</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">4463</span><span class="op">)</span></span>
@@ -498,7 +504,7 @@ or you’ll get an error.
 <span><span class="va">mis</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span></span></code></pre></div>
 <pre><code>##  [1] 0.6903157 0.9895447 0.3810867 0.2849476 0.2689112 0.9784197 0.8042309
 ##  [8] 0.5805580 0.8660900 0.6179489</code></pre>
-<div class="sourceCode" id="cb421"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb423"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Run the function</span></span>
 <span><span class="va">dg_test</span> <span class="op">&lt;-</span> <span class="fu">sim_missing_nodes</span><span class="op">(</span><span class="va">chaco_net</span>, met <span class="op">=</span> <span class="st">"degree"</span>, missing_probs <span class="op">=</span> <span class="va">mis</span><span class="op">)</span></span>
 <span></span>
@@ -522,7 +528,7 @@ or you’ll get an error.
 </h3>
 <p>In the book, we illustrate our approach to biased sampling using the <a href="DataAndWorkspace.html#ArchPubs">co-authorship network</a> data. In this case we start with an incidence matrix of publications and authors and we want to assess the potential impact of missing publications on the network of authors. Since we gathered these data from digital repositories and citations, it is likely that we are missing some publications and it is reasonable to assume that we would be more likely to miss older publications than newer ones given the inclusion of newer publications in searchable digital indexes. Thus, in this example we want to assess missingness such that newer publications are more likely to be retained than older ones in our sample. We compare this to missing at random to assess how these results relate to one another.</p>
 <p>First we need to provide two data files. The first is the <a href="data/biblio_attr.csv">bibliographic attribute data</a> which includes date, publication type, and other information on each publication designated by a unique identifier. The second is an <a href="data/biblio_dat2.csv">incidence matrix</a> of publications denoted by unique identifier (rows) and authors (columns). We read this into R and then create an adjacency matrix of author to author connections using matrix algebra (multiply the incidence matrix by the transpose of the incidence matrix), convert it into a <code>igraph</code> network object and then calculate betweenness centrality for all nodes. We plot a simple network node link diagram to visualize these data.</p>
-<div class="sourceCode" id="cb422"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb424"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Read in publication and author attribute data</span></span>
 <span><span class="va">bib</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"data/biblio_attr.csv"</span><span class="op">)</span></span>
 <span><span class="va">bib</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="op">]</span></span></code></pre></div>
@@ -538,7 +544,7 @@ or you’ll get an error.
 ## 1             2014       Stoner, Jo
 ## 2             2013    Isaksen, Leif
 ## 3             1991 Peregrine, Peter</code></pre>
-<div class="sourceCode" id="cb424"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb426"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Read in incidence matrix of publication and author data</span></span>
 <span><span class="va">bib_dat</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.table</a></span><span class="op">(</span></span>
@@ -592,7 +598,7 @@ matrix where rows or your target or simply use the <code><a href="https://rdrr.i
 transpose function to place columns in the target position.
 </p>
 </div>
-<div class="sourceCode" id="cb425"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb427"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create a data frame of all unique combinations of publication code</span></span>
 <span><span class="co"># and year from attributes data</span></span>
 <span><span class="va">lookup</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">bib</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">4</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
@@ -616,7 +622,7 @@ transpose function to place columns in the target position.
 ## 126 2T8HPW5E 0.9583333
 ## 18  37TC37D2 1.0000000</code></pre>
 <p>With the probabilities of retention for <code>missing_probs</code> in place, we can then call source code for our <a href="scripts/sim_missing_inc.R">sim_missing_inc.R script</a> and run the function. Following the example in the book we run the function for <code>nsim = 1000</code> and for 3 sampling fractions <code>(0.9, 0.8, 0.7)</code> with the metric of interest as <code>betweenness</code>. Let’s first run the function for our “probability by date” biased sampling process.</p>
-<div class="sourceCode" id="cb427"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb429"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"scripts/sim_missing_inc.R"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Run function</span></span>
@@ -637,7 +643,7 @@ transpose function to place columns in the target position.
 ## 5      0.9 0.9760737
 ## 6      0.9 0.9999803</code></pre>
 <p>Next we want to run the function again to simulate nodes missing at random. All we need to do is change the <code>missing_probs</code> argument to <code>NA</code> (or exclude that argument altogether). Let’s run it:</p>
-<div class="sourceCode" id="cb429"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb431"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Run the function</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">4363</span><span class="op">)</span></span>
 <span><span class="va">bib_rand</span> <span class="op">&lt;-</span> <span class="fu">sim_missing_inc</span><span class="op">(</span></span>
@@ -656,7 +662,7 @@ transpose function to place columns in the target position.
 ## 5      0.9 0.8733779
 ## 6      0.9 1.0000000</code></pre>
 <p>Now we can combine the results into a single data frame and plot them as paired box plots for comparison. In order to create paired box plots it is easiest to create a single data frame that contains the results of both runs above. We combine these and add a new column called “Treatment” that specifies for each row in the data frame whether it was part of the Random or Biased sample.</p>
-<div class="sourceCode" id="cb431"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb433"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Add a variable denoting which sample design it came from</span></span>
 <span><span class="va">bib_rand</span><span class="op">$</span><span class="va">treatment</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"Random"</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">bib_rand</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">bib_bias</span><span class="op">$</span><span class="va">treatment</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"Biased"</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">bib_bias</span><span class="op">)</span><span class="op">)</span></span>
@@ -692,7 +698,7 @@ transpose function to place columns in the target position.
 <p>We are not aware of any archaeological examples where edges have been formally qualitatively assigned “confidence levels” in exactly this way, but we think there are potential applications of this method. For example, we could define a network where we assign a low probability of a tie between two archaeological sites if they share an import from a third site/region and a higher probability for a tie between two sites if they share imports from each others’ region. Importantly, such methods can be used to combine information from different sources into a single assessment of the probability of connection.</p>
 <p>Since we do not have any data structured in exactly this way, we will use a small simulated data set that consists of and edge list with weights. <a href="data/sim_edge.csv">Use this file</a> to follow along. This is a simple edge list with probability values assigned to each edge at values of 0.2, 0.4, 0.6, 0.8, and 1.0.</p>
 <p>Let’s read in the data and plot it:</p>
-<div class="sourceCode" id="cb432"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb434"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Read in edge_list</span></span>
 <span><span class="va">sim_edge</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"data/sim_edge.csv"</span>,</span>
 <span>                     header <span class="op">=</span> <span class="cn">T</span>, row.names <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
@@ -724,7 +730,7 @@ transpose function to place columns in the target position.
 <div class="inline-figure"><img src="04-uncertainty_files/figure-html/unnamed-chunk-20-1.png" width="672"></div>
 <p>In the next chunk of code we define a function that iterates over every edge in the simulated network we just created and defines each edge as either present or absent using a simple random binomial with the probability set by the edge weight as described above. The output of this function (<code>edge_prob</code>) is a list object that contains <code>nsim</code> <code>igraph</code> network objects that are candidate networks of the original.</p>
 <p>In order to extract values of interest from these candidate networks, we created another function called <code>compile_stat</code>. This function iterates over all <code>nsim</code> networks in the <code>net_list</code> list object and calculates the centrality metric of interest in this case returning the results as a simple matrix. It is then possible to compare things like average degree or the distribution of degree for particular nodes across all of the candidate networks. We have placed these two functions in an additional script file called <a href="scripts/edge_prob">edge_prob.R</a> which you can download to use and modify on your own.</p>
-<div class="sourceCode" id="cb433"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb435"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Define function for assessing and retaining edges based on edge</span></span>
 <span><span class="co"># weight probabilities</span></span>
 <span><span class="va">edge_prob</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">net</span>, <span class="va">nsim</span> <span class="op">=</span> <span class="fl">1000</span>, <span class="va">probs</span><span class="op">)</span> <span class="op">{</span></span>
@@ -768,7 +774,7 @@ transpose function to place columns in the target position.
 <span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>Now we run the edge_prob function for <code>nsim = 1000</code> and display a few candidate networks.</p>
-<div class="sourceCode" id="cb434"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb436"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">el_test</span> <span class="op">&lt;-</span> <span class="fu">edge_prob</span><span class="op">(</span><span class="va">sim_net</span>, nsim <span class="op">=</span> <span class="fl">1000</span>, probs <span class="op">=</span> <span class="va">sim_edge</span><span class="op">[</span>, <span class="fl">3</span><span class="op">]</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">9651</span><span class="op">)</span></span>
@@ -820,7 +826,7 @@ transpose function to place columns in the target position.
 <span><span class="fu"><a href="https://rpkgs.datanovia.com/ggpubr/reference/ggarrange.html">ggarrange</a></span><span class="op">(</span><span class="va">comp1</span>, <span class="va">comp2</span>, <span class="va">comp3</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="04-uncertainty_files/figure-html/unnamed-chunk-22-1.png" width="672"></div>
 <p>We then use the <code>compile_stat</code> function to assess degree centrality for one particular node, displaying a histogram of values with mean indicated.</p>
-<div class="sourceCode" id="cb435"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb437"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dg_stat</span> <span class="op">&lt;-</span> <span class="fu">compile_stat</span><span class="op">(</span><span class="va">el_test</span>, met <span class="op">=</span> <span class="st">"degree"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">dg_20</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>val <span class="op">=</span> <span class="va">dg_stat</span><span class="op">[</span><span class="fl">20</span>, <span class="op">]</span><span class="op">)</span></span>
@@ -837,18 +843,18 @@ transpose function to place columns in the target position.
 </h3>
 <p>One area of archaeological network research where the edge probability modeling approach outlined above may be of use relates to similarity networks. Many similarity networks used in archaeology are built such that the edge weights are scaled between 0 and 1. These edge weights could be thought of as “probabilities” just as we saw with the simulated example above. Indeed, this conforms with the frequent interpretation of similarity values as relating to probabilities of interaction in numerous network studies (e.g., Mills et al. 2013a, 2013b, 2015; Golitko and Feinman 2015; Golitko et al. 2012, etc.).</p>
 <p>Let’s take a look at an example using a weighted similarity network generated using the <a href="DataAndWorkspace.html#Cibola">Cibola technological similarity data</a> used above. Download the <a href="data/Cibola_wt.RData">RData file here</a> to follow along.</p>
-<div class="sourceCode" id="cb436"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb438"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span><span class="op">(</span><span class="st">"data/Cibola_wt.RData"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># View first few edge weights in network object</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/E.html">E</a></span><span class="op">(</span><span class="va">cibola_wt</span><span class="op">)</span><span class="op">$</span><span class="va">weight</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span></span></code></pre></div>
 <pre><code>##  [1] 0.7050691 0.7757143 0.8348214 0.8656783 0.8028571 0.7329193 0.7509158
 ##  [8] 0.8441558 0.7857143 0.8102919</code></pre>
-<div class="sourceCode" id="cb438"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb440"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">4446347</span><span class="op">)</span></span>
 <span><span class="va">sim_nets</span> <span class="op">&lt;-</span> <span class="fu">edge_prob</span><span class="op">(</span><span class="va">cibola_wt</span>, nsim <span class="op">=</span> <span class="fl">1000</span>, probs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/E.html">E</a></span><span class="op">(</span><span class="va">cibola_wt</span><span class="op">)</span><span class="op">$</span><span class="va">weight</span><span class="op">)</span></span></code></pre></div>
 <p>Now let’s plot a couple of the candidate networks:</p>
-<div class="sourceCode" id="cb439"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb441"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Precompute layout</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">9631</span><span class="op">)</span></span>
 <span><span class="va">xy</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/layout_with_fr.html">layout_with_fr</a></span><span class="op">(</span><span class="va">cibola_wt</span><span class="op">)</span></span>
@@ -888,7 +894,7 @@ transpose function to place columns in the target position.
 <span></span>
 <span><span class="fu"><a href="https://rpkgs.datanovia.com/ggpubr/reference/ggarrange.html">ggarrange</a></span><span class="op">(</span><span class="va">comp1</span>, <span class="va">comp2</span>, <span class="va">comp3</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="04-uncertainty_files/figure-html/unnamed-chunk-25-1.png" width="672"></div>
-<div class="sourceCode" id="cb440"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb442"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bw_test</span> <span class="op">&lt;-</span> <span class="fu">compile_stat</span><span class="op">(</span><span class="va">sim_nets</span>, met <span class="op">=</span> <span class="st">"betweenness"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">bw_10</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>val <span class="op">=</span> <span class="va">bw_test</span><span class="op">[</span><span class="fl">10</span>, <span class="op">]</span><span class="op">)</span></span>
@@ -905,11 +911,11 @@ transpose function to place columns in the target position.
 <h2>
 <span class="header-section-number">5.8</span> Uncertainty Due to Small or Variable Sample Size<a class="anchor" aria-label="anchor" href="#SampleSize"><i class="fas fa-link"></i></a>
 </h2>
-<p>This section follows Brughmans and Peeples (2022) Chapter 5.3.5 to provide an example of how you can use the simulation approach outlined here to assess sampling variability in the frequency data underlying archaeological networks. In this example, we use apportioned ceramic frequency data from the Chaco World portion of the <a href="DataAndWorkspace.html#SWSN">Southwest Social Networks database</a>. You can <a href="data/AD1050cer.csv">download the data here</a> to follow along.</p>
+<p>This section follows Brughmans and Peeples (2023) Chapter 5.3.5 to provide an example of how you can use the simulation approach outlined here to assess sampling variability in the frequency data underlying archaeological networks. In this example, we use apportioned ceramic frequency data from the Chaco World portion of the <a href="DataAndWorkspace.html#SWSN">Southwest Social Networks database</a>. You can <a href="data/AD1050cer.csv">download the data here</a> to follow along.</p>
 <p>The goal of this sub-section is to illustrate how you can use a bootstrapping approach to assess variability in network properties based on sampling error in the raw data underlying archaeological networks. In our example based on ceramic similarity networks here this involves creating a large number of random replicates of each row of our raw ceramic data with sample size held constant (as the observed sample size for that site) and with the probabilities that a given sherd will be a given type determined by the underlying multinomial frequency distribution of types at that site. In other words, we pull a bunch of random samples from the site with the probability that a given sample is a given type determined by the relative frequency of that type in the actual data. Once this procedure has been completed, we can then assess centrality metrics or any other graph, node, or edge level property and determine the degree to which absolute values and relative ranks are potentially influenced by sampling error.</p>
 <p>There are many ways to set up such a resampling procedure and many complications (for example, how do we deal with limited diversity of small samples?). For the purposes of illustration here, we will implement a very simple procedure where we simply generate new samples of a fixed size based on our observed data and determine the degree to which our network measures are robust to this perturbation. In the chunk of code below we create 1000 replicates based on our original ceramic data.</p>
 <p>The following chunk of code first reads in the ceramic data, converts it to a Brainerd-Robinson similarity matrix and then defines a function called <code>sim_samp_error</code> which creates <code>nsim</code> random replicates of the ceramic data, converts them to similarity matrices, and outputs those results as a list object. You can <a href="scripts/sim_samp_error.R">download the script for the fucnction below here</a>.</p>
-<div class="sourceCode" id="cb441"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb443"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Read in raw ceramic data</span></span>
 <span><span class="va">ceramic</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"data/AD1050cer.csv"</span>,</span>
@@ -943,7 +949,7 @@ transpose function to place columns in the target position.
 <span><span class="op">}</span></span></code></pre></div>
 <p>The following chunk of code runs the <code>sim_samp_error</code> function defined above for our Chaco ceramic data and then defines a new function called <code>sim_cor</code> which takes the output of <code>sim_samp_error</code> and the original ceramic similarity matrix (<code>ceramic_BR</code>) and calculates weighted degree centrality and the Spearman’s <span class="math inline">\(\rho\)</span> correlations between the original similarity matrix and each random replicate. This <code>sim_cor</code> script could be modified to use any network metric that outputs a vector. Once these results are returned we visualize the results as a histogram.</p>
 <p>Note that this could take several seconds to a few minutes depending on your computer.</p>
-<div class="sourceCode" id="cb442"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb444"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">4634</span><span class="op">)</span></span>
 <span><span class="va">sim_nets</span> <span class="op">&lt;-</span> <span class="fu">sim_samp_error</span><span class="op">(</span>cer <span class="op">=</span> <span class="va">ceramic</span>, nsim <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span></span>
 <span></span>
@@ -977,9 +983,9 @@ transpose function to place columns in the target position.
 <span>    legend.text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">rel</a></span><span class="op">(</span><span class="fl">1.5</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="04-uncertainty_files/figure-html/unnamed-chunk-28-1.png" width="672"></div>
-<p>As described in Chapter 5.3.5, in some cases we want to observe patterns of variation due to sampling error for individual sites or sets of sites. In the next chunk of code we illustrate how to produce figure 5.14 from the Brughmans and Peeples (2022) book. Specifically, this plot consists of a series of line plots where the x axis represents each node in the network ordered by degree centrality in the original observed network. For each node there is a vertical line which represents the 95% confidence interval around degree across the <code>nsim</code> random replicates produced to evaluate sampling error. The blue line represents degree in the original network and the red line represents median degree in the resampled networks.</p>
+<p>As described in Chapter 5.3.5, in some cases we want to observe patterns of variation due to sampling error for individual sites or sets of sites. In the next chunk of code we illustrate how to produce figure 5.14 from the Brughmans and Peeples (2023) book. Specifically, this plot consists of a series of line plots where the x axis represents each node in the network ordered by degree centrality in the original observed network. For each node there is a vertical line which represents the 95% confidence interval around degree across the <code>nsim</code> random replicates produced to evaluate sampling error. The blue line represents degree in the original network and the red line represents median degree in the resampled networks.</p>
 <p>To create this plot, we first iterate through every object in <code>sim_nets</code> and calculate weighted degree centrality and then add that to a two-column matrix along with a node id. Once we have done this for all simulations, we use the <code>summarise</code> function to calculate the mean, median, max, min, and confidence interval (95%). We then plot the observed values of degree in blue, the mean values in red, and the confidence intervals as black vertical bars for each node. The nodes are sorted from low to high degree centrality in the original network.</p>
-<div class="sourceCode" id="cb443"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb445"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create data frame containing degree and site id for nsim random</span></span>
 <span><span class="co"># similarity matrices</span></span>
 <span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span> <span class="co"># define empty matrix</span></span>
@@ -1087,7 +1093,7 @@ transpose function to place columns in the target position.
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Online Companion to <em>Network Science in Archaeology</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-08-13.</p>
+    <p>"<strong>Online Companion to <em>Network Science in Archaeology</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-11-30.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
