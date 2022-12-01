@@ -234,61 +234,61 @@ install_bundle_py(method = "auto", conda = "auto")
 
 ### R Environment{#Environment}
 
-This version of the book was built with R version 4.2.0 (2022-04-22 ucrt) and the following packages:
+This version of the book was built with R version 4.2.2 (2022-10-31 ucrt) and the following packages:
 
 
 |package        |version |source         |
 |:--------------|:-------|:--------------|
 |ape            |5.6-2   |CRAN (R 4.2.0) |
-|bookdown       |0.28    |CRAN (R 4.2.1) |
-|bslib          |0.4.0   |CRAN (R 4.2.1) |
+|bookdown       |0.30    |CRAN (R 4.2.2) |
+|bslib          |0.4.1   |CRAN (R 4.2.2) |
 |ca             |0.71.1  |CRAN (R 4.2.0) |
 |cccd           |1.6     |CRAN (R 4.2.0) |
 |colorspace     |2.0-3   |CRAN (R 4.2.0) |
 |concaveman     |1.1.0   |CRAN (R 4.2.0) |
 |d3r            |1.0.0   |CRAN (R 4.2.0) |
 |deldir         |1.0-6   |CRAN (R 4.2.0) |
-|devtools       |2.4.4   |CRAN (R 4.2.1) |
+|devtools       |2.4.5   |CRAN (R 4.2.2) |
 |downlit        |0.4.2   |CRAN (R 4.2.1) |
-|dplyr          |1.0.9   |CRAN (R 4.2.0) |
-|edgebundle     |0.4.0   |CRAN (R 4.2.1) |
-|geosphere      |1.5-14  |CRAN (R 4.2.0) |
-|ggforce        |0.3.3   |CRAN (R 4.2.0) |
-|ggmap          |3.0.0   |CRAN (R 4.2.0) |
-|ggplot2        |3.3.6   |CRAN (R 4.2.0) |
+|dplyr          |1.0.10  |CRAN (R 4.2.1) |
+|edgebundle     |0.4.1   |CRAN (R 4.2.2) |
+|geosphere      |1.5-18  |CRAN (R 4.2.2) |
+|ggforce        |0.4.1   |CRAN (R 4.2.2) |
+|ggmap          |3.0.1   |CRAN (R 4.2.2) |
+|ggplot2        |3.4.0   |CRAN (R 4.2.2) |
 |ggplotify      |0.1.0   |CRAN (R 4.2.0) |
-|ggpubr         |0.4.0   |CRAN (R 4.2.0) |
-|ggraph         |2.0.6   |CRAN (R 4.2.1) |
-|ggrepel        |0.9.1   |CRAN (R 4.2.0) |
+|ggpubr         |0.5.0   |CRAN (R 4.2.2) |
+|ggraph         |2.1.0   |CRAN (R 4.2.2) |
+|ggrepel        |0.9.2   |CRAN (R 4.2.2) |
 |ggsn           |0.5.0   |CRAN (R 4.2.0) |
 |GISTools       |0.7-4   |CRAN (R 4.2.0) |
 |graphkernels   |1.6.1   |CRAN (R 4.2.0) |
-|igraph         |1.3.4   |CRAN (R 4.2.1) |
+|igraph         |1.3.5   |CRAN (R 4.2.2) |
 |intergraph     |2.0-2   |CRAN (R 4.2.0) |
-|knitr          |1.39    |CRAN (R 4.2.0) |
+|knitr          |1.41    |CRAN (R 4.2.2) |
 |latticeExtra   |0.6-30  |CRAN (R 4.2.1) |
-|maptools       |1.1-4   |CRAN (R 4.2.0) |
-|Matrix         |1.4-1   |CRAN (R 4.2.0) |
+|maptools       |1.1-5   |CRAN (R 4.2.2) |
+|Matrix         |1.5-3   |CRAN (R 4.2.2) |
 |netdiffuseR    |1.22.3  |CRAN (R 4.2.0) |
 |networkD3      |0.4     |CRAN (R 4.2.0) |
 |networkDynamic |0.11.2  |CRAN (R 4.2.0) |
-|patchwork      |1.1.1   |CRAN (R 4.2.0) |
-|pracma         |2.3.8   |CRAN (R 4.2.0) |
+|patchwork      |1.1.2   |CRAN (R 4.2.2) |
+|pracma         |2.4.2   |CRAN (R 4.2.2) |
 |RColorBrewer   |1.1-3   |CRAN (R 4.2.0) |
 |Rcpp           |1.0.9   |CRAN (R 4.2.1) |
 |reshape2       |1.4.4   |CRAN (R 4.2.0) |
-|reticulate     |1.25    |CRAN (R 4.2.0) |
+|reticulate     |1.26    |CRAN (R 4.2.2) |
 |rgeos          |0.5-9   |CRAN (R 4.2.0) |
 |rjson          |0.2.21  |CRAN (R 4.2.0) |
-|rmarkdown      |2.14    |CRAN (R 4.2.0) |
-|scatterplot3d  |0.3-41  |CRAN (R 4.2.0) |
-|sf             |1.0-8   |CRAN (R 4.2.1) |
+|rmarkdown      |2.18    |CRAN (R 4.2.2) |
+|scatterplot3d  |0.3-42  |CRAN (R 4.2.1) |
+|sf             |1.0-9   |CRAN (R 4.2.2) |
 |SparseM        |1.81    |CRAN (R 4.2.0) |
 |statnet        |2019.6  |CRAN (R 4.2.0) |
 |superheat      |0.1.0   |CRAN (R 4.2.0) |
 |tidyverse      |1.3.2   |CRAN (R 4.2.1) |
-|vegan          |2.6-2   |CRAN (R 4.2.0) |
-|visNetwork     |2.1.0   |CRAN (R 4.2.0) |
+|vegan          |2.6-4   |CRAN (R 4.2.2) |
+|visNetwork     |2.1.2   |CRAN (R 4.2.2) |
 |xml2           |1.3.3   |CRAN (R 4.2.0) |
 
 ## Suggested Workspace Setup{#WorkspaceSetup}

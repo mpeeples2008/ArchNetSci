@@ -629,19 +629,6 @@ load(file = "data/retail_pars.Rdata")
 
 library(reshape2)
 library(ggraph)
-```
-
-```
-## Warning: package 'ggraph' was built under R version 4.2.1
-```
-
-```
-## Registered S3 method overwritten by 'ggforce':
-##   method           from 
-##   scale_type.units units
-```
-
-```r
 res_df <- melt(res)
 
 ggplot(data = res_df) +

@@ -406,7 +406,7 @@ ggraph(cibola_onemode) +
   geom_edge_link(aes(alpha = weight, color = weight),
                  width = 1, show.legend = FALSE) +
   scale_edge_alpha_continuous(range = c(0, 0.5)) +
-  scale_edge_color_viridis() +
+  scale_edge_color_continuous() + 
   geom_node_point(aes(size = igraph::degree(cibola_onemode)),
                   show.legend = FALSE) +
   geom_node_text(aes(label = name), size = 3, repel = TRUE) +
@@ -443,7 +443,7 @@ ggraph(cibola_om_reduced) +
   geom_edge_link(aes(alpha = weight, color = weight),
                  width = 1, show.legend = FALSE) +
   scale_edge_alpha_continuous(range = c(0.1, 1)) +
-  scale_edge_color_viridis() +
+  scale_edge_color_gradient() +
   geom_node_point(aes(size = igraph::degree(cibola_om_reduced)),
                   show.legend = FALSE) +
   geom_node_text(aes(label = name), size = 3, repel = TRUE) +
@@ -503,7 +503,7 @@ ggraph(proj_net) +
   geom_edge_link(aes(color = weight),
                  width = 1, show.legend = FALSE) +
   scale_edge_alpha_continuous(range = c(0, 0.5)) +
-  scale_edge_color_viridis() +
+  scale_edge_color_continuous() +
   geom_node_point(aes(size = igraph::degree(proj_net)),
                   show.legend = FALSE) +
   geom_node_text(aes(label = name), size = 3, repel = TRUE) +

@@ -79,7 +79,7 @@ methods.</p>
 
 ## Reproducibility{- #Repro}
 
-The most recent version of this document was built with R version 4.2.0 (2022-04-22 ucrt). We suggest you use a recent version of R when attempting to use the code in this document (version 4.2 recommended).
+The most recent version of this document was built with R version 4.2.2 (2022-10-31 ucrt). We suggest you use a recent version of R when attempting to use the code in this document (version 4.2 recommended).
 
 ![Github last-commit](https://img.shields.io/github/last-commit/mpeeples2008/ArchNetSci)&nbsp; &nbsp;
 [![Docker Image CI](https://github.com/mpeeples2008/ArchNetSci/actions/workflows/docker-image.yml/badge.svg)](https://github.com/mpeeples2008/ArchNetSci/actions/workflows/docker-image.yml) 
@@ -1005,7 +1005,7 @@ library(vegan)
 ```
 
 ```
-## This is vegan 2.6-2
+## This is vegan 2.6-4
 ```
 
 Now we can use not just the base R functions, but also the functions within the `vegan` package. Within this package one particularly useful function is called `diversity()` which allows us to calculate all manner of common diversity measures. Remember to check `?diversity` if you want to learn more about the package and its arguments. Let's give it a try by creating a vector and then calculating two different diversity indices on that vector:

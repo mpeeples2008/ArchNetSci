@@ -32,18 +32,6 @@ Let's start by reading in our example data and then we describe each package in 
 ```r
 library(igraph)
 library(statnet)
-```
-
-```
-##                Installed ReposVer Built  
-## ergm           "4.2.2"   "4.3.2"  "4.2.0"
-## ndtv           "0.13.2"  "0.13.3" "4.2.0"
-## network        "1.17.2"  "1.18.0" "4.2.0"
-## statnet.common "4.6.0"   "4.7.0"  "4.2.0"
-## tergm          "4.1.0"   "4.1.1"  "4.2.1"
-```
-
-```r
 library(ggraph)
 library(intergraph)
 
@@ -62,9 +50,9 @@ cibola_i
 ```
 
 ```
-## IGRAPH 66f6f0b UN-- 31 167 -- 
+## IGRAPH 1a4edad UN-- 31 167 -- 
 ## + attr: name (v/c)
-## + edges from 66f6f0b (vertex names):
+## + edges from 1a4edad (vertex names):
 ##  [1] Apache.Creek--Casa.Malpais          Apache.Creek--Coyote.Creek         
 ##  [3] Apache.Creek--Hooper.Ranch          Apache.Creek--Horse.Camp.Mill      
 ##  [5] Apache.Creek--Hubble.Corner         Apache.Creek--Mineral.Creek.Pueblo 
@@ -188,6 +176,11 @@ ggraph(cibola_i, layout = "fr") +
   scale_size(range = c(1, 4)) +
   # Set the theme "theme_graph" is the default theme for networks
   theme_graph()
+```
+
+```
+## Warning: Using the `size` aesthetic in this geom was deprecated in ggplot2 3.4.0.
+## ℹ Please use `linewidth` in the `default_aes` field and elsewhere instead.
 ```
 
 <img src="05-visualization_files/figure-html/Fig_ggraph-1.png" width="672" />
@@ -461,7 +454,7 @@ There are also a number of more advanced methods for displaying nodes including 
 
 Edges can be modified in terms of color, line type, thickness and many other features just like nodes and this is typically done using the `geom_edge_link` call within `ggraph`. Let"s take a look at a couple of additional examples. In this case we"re going to use a weighted network object in the original [Peeples2018.Rdata](data/Peeples2018.Rdata) file to show how we can vary edges in relation to edge attributes like weight. 
 
-In the example here we plot both the line thickness and transparency using the edge weights associated with the network object. We also are using the `scale_edge_color_viridis` to specify a continuous edge color scheme. For more details see `?scale_edge_color`
+In the example here we plot both the line thickness and transparency using the edge weights associated with the network object. We also are using the `scale_edge_color_gradient2` to specify a continuous edge color scheme with three anchors. For more details see `?scale_edge_color`
 
 
 ```r
@@ -471,7 +464,12 @@ net2 <- asIgraph(brnet_w)
 set.seed(436)
 ggraph(net2, "stress") +
   geom_edge_link(aes(width = weight, alpha = weight, col = weight)) +
-  scale_edge_color_viridis() +
+  scale_edge_color_gradient2(
+    low = "#440154FF",
+    mid = "#238A8DFF",
+    high = "#FDE725FF",
+    midpoint = 0.8
+  ) +
   scale_edge_width(range = c(1, 5)) +
   geom_node_point(size = 4, col = "blue") +
   labs(edge_color = "Edge Weight Color Scale") +
@@ -619,12 +617,10 @@ ggraph(net2, layout = "fr") +
       y,
       group = grp,
       fill = grp,
-      label = grp
     ),
     concavity = 4,
-    expand = unit(2, "mm"),
+    expand = ggplot2::unit(2, "mm"),
     alpha = 0.25,
-    label.fontsize = 10
   ) +
   scale_fill_brewer(palette = "Set2") +
   theme_graph()
@@ -1126,7 +1122,6 @@ ggraph(graph, layout = "fr") +
       y,
       group = grp,
       fill = grp,
-      label = grp,
       color = NA
     ),
     concavity = 4,
@@ -11123,8 +11118,8 @@ NzksMjExXSxbXSxbNzkwLDc4OSw3ODgsNzg3LDc4Niw3ODUsOTAsODksODgsODcs
 ODZdLFtdLFs5NCw5Myw5Miw5MV0sWzc5NSw3OTQsNzkzLDc5Miw3OTFdLFtdLFtd
 LFsyMTIsNzk4LDc5Nyw3OTZdLFs5Nyw5Niw5NV0sWzgwMSw4MDAsNzk5XSxbXSxb
 XSxbODAzLDgwMl0sW10sWzk5LDk4XSxbODA0XSxbXSxbMTAwXSxbXSxbXV19fTsN
-CiAgdmFyIG9wdGlvbnMgPSB7Im5kdHYudmVyc2lvbiI6IjAuMTMuMiwyMDIxLTEw
-LTI3In07DQogIC8vRU5EIEdSQVBIIERBVEEgSU5JVA0KICANCiAgLy9JbnNlcnQg
+CiAgdmFyIG9wdGlvbnMgPSB7Im5kdHYudmVyc2lvbiI6IjAuMTMuMywyMDIyLTEx
+LTIwIn07DQogIC8vRU5EIEdSQVBIIERBVEEgSU5JVA0KICANCiAgLy9JbnNlcnQg
 aW5pdCBKUyBIZXJlDQogICQoZnVuY3Rpb24oKSB7DQogICAgb3B0aW9ucy5ncmFw
 aERhdGEgPSBncmFwaERhdGE7DQogICAgdmFyIGdyYXBoID0gbmV3IG5kdHZfZDMo
 b3B0aW9ucyk7ICAgICAgICANCiAgfSkNCiAgPC9zY3JpcHQ+PC9ib2R5Pg0KPC9o

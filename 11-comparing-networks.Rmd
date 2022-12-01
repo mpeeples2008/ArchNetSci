@@ -186,7 +186,14 @@ The analytical details and justification of DeltaCon are beyond the scope of thi
 
 This function expects two numeric edge lists representing networks with the same node set and you also must indicate the number of nodes in each (so that unconnected nodes/isolates can also be considered). Let's give this a try with the same San Pedro network data we imported above. [Click here](scripts/delta_con.R) to download our modified version of the script used here:
 
-```{r, warning=F, message=F}
+
+```{block, type="rmdwarning"}
+Note that the DeltaCon function was broken by a recent update to the Matrix package. I have left this example here in the meantime and it will run and update once a solution has been found. In the meantime, you can run this in older verison of the Matrix package.
+```
+
+
+
+```{r, warning=F, message=F, eval=F}
 source("scripts/delta_con.R")
 
 el1 <- as.data.frame(as.edgelist(net1250_1300[[1]]))
@@ -197,7 +204,7 @@ delta_con(el1, el2, nnodes = 13)
 
 We get a value of `0.86` which is just a little higher than our adjacency matrix comparison. Now let's try it for the other interval comparisons:
 
-```{r}
+```{r, eval=F}
 el1 <- as.data.frame(as.edgelist(net1300_1350[[1]]))
 el2 <- as.data.frame(as.edgelist(net1300_1350[[2]]))
 

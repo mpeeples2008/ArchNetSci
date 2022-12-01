@@ -7,7 +7,7 @@
 <title>Section 11 Network Diffusion | Online Companion to Network Science in Archaeology</title>
 <meta name="author" content="Matthew A. Peeples and Tom Brughmans">
 <meta name="description" content="In the social and behavioral sciences, network models and empirical networks have frequently been used to investigate diffusion processes. Diffusion in this contexts refers to the spread of social...">
-<meta name="generator" content="bookdown 0.28 with bs4_book()">
+<meta name="generator" content="bookdown 0.30 with bs4_book()">
 <meta property="og:title" content="Section 11 Network Diffusion | Online Companion to Network Science in Archaeology">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://book.archnetworks.net/NetworkDiffusion.html">
@@ -19,12 +19,12 @@
 <meta name="twitter:image" content="https://book.archnetworks.net/images/cover.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/Lato-0.4.2/font.css" rel="stylesheet">
-<link href="libs/Source_Code_Pro-0.4.2/font.css" rel="stylesheet">
-<link href="libs/News_Cycle-0.4.2/font.css" rel="stylesheet">
-<script src="libs/bs3compat-0.4.0/transition.js"></script><script src="libs/bs3compat-0.4.0/tabs.js"></script><script src="libs/bs3compat-0.4.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/Lato-0.4.4/font.css" rel="stylesheet">
+<link href="libs/Source_Code_Pro-0.4.4/font.css" rel="stylesheet">
+<link href="libs/News_Cycle-0.4.4/font.css" rel="stylesheet">
+<script src="libs/bs3compat-0.4.1/transition.js"></script><script src="libs/bs3compat-0.4.1/tabs.js"></script><script src="libs/bs3compat-0.4.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="libs/vis-9.1.0/vis-network.min.css" rel="stylesheet">
-<script src="libs/vis-9.1.0/vis-network.min.js"></script><script src="libs/visNetwork-binding-2.1.0/visNetwork.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script type="text/javascript" src="https://www.mattpeeples.net/book/particles.min.js"></script><script type="text/javascript" src="https://www.mattpeeples.net/book/custom.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MHX9HQF2BQ"></script><script>
+<script src="libs/vis-9.1.0/vis-network.min.js"></script><script src="libs/visNetwork-binding-2.1.2/visNetwork.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script type="text/javascript" src="https://www.mattpeeples.net/book/particles.min.js"></script><script type="text/javascript" src="https://www.mattpeeples.net/book/custom.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MHX9HQF2BQ"></script><script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
@@ -186,7 +186,7 @@ starting point.
 <span class="header-section-number">11.2.1</span> Simulated Networks<a class="anchor" aria-label="anchor" href="#DiffuseSimulatedNetworks"><i class="fas fa-link"></i></a>
 </h3>
 <p>We start with a simple random small-world network simulation to show how this function works. Let’s run the code and then we’ll explain what is happening:</p>
-<div class="sourceCode" id="cb676"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb667"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/USCCANA/netdiffuseR">netdiffuseR</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">4436</span><span class="op">)</span></span>
@@ -237,20 +237,20 @@ starting point.
 <p>In this example, we have created a random network with 1000 nodes and <a href="https://en.wikipedia.org/wiki/Small-world_network#:~:text=A%20small%2Dworld%20network%20is,number%20of%20hops%20or%20steps.">small world</a> structure. We examine the network across 20 time steps. We send a value of <code>0.1</code> to the <code>rgraph.args</code> argument meaning that proportion of ties will be rewired in the random graph to generate “small-world” structure (see <code>rgaph_ws</code> for more info) in the initial network configuration. We set the initial adopters in the network to <code>0.001</code> or a single node in this 1000 node network. Finally, we set the <code>threshold.dist</code> to be a random uniform number (using the <code>runif</code> function) between <code>0.1</code> and <code>0.5</code> meaning that a node will adopt the contagion at a given time step if between 10% and 50% of it’s neighbors have adopted. Note that we have not set a value for <code>rewire</code> so by default this is <code>TRUE</code> and a small proportion of edges will be rewired at each time step.</p>
 <p>The summary output provides information on the number of adopters and the cumulative adoption percent at each time step. We also have information on the hazard rate, which is the probability that a given node will be infected/adopt at each step. The Moran’s I is a measure of autocorrelation which here is sued to indicate whether infected nodes/adopters are concentrated among neighbors in the network (nodes that share an edge). Not surprisingly, we see they are across all but the first time step.</p>
 <p>The <code>netdiffuseR</code> package also has built in functions for plotting. First, let’s plot our simulated network at a few different time steps to see the distributions of adopters and non-adopters. Here we plot the 1st, 10th, and 15th time steps:</p>
-<div class="sourceCode" id="cb678"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb669"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://USCCANA.github.io/netdiffuseR/reference/plot_diffnet.html">plot_diffnet</a></span><span class="op">(</span><span class="va">net_test1</span>, slices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">10</span>, <span class="fl">15</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="10-diffusion_files/figure-html/unnamed-chunk-3-1.png" width="672"></div>
 <p>We can also plot the adoption curve across all time steps using the <code>plot_adopters</code> function:</p>
-<div class="sourceCode" id="cb679"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb670"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://USCCANA.github.io/netdiffuseR/reference/plot_adopters.html">plot_adopters</a></span><span class="op">(</span><span class="va">net_test1</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="10-diffusion_files/figure-html/unnamed-chunk-4-1.png" width="672"></div>
 <p>These results show the classic S-shaped curve for cumulative adoption with the parameters we’ve provided where adoption is at first slow, followed by a period of rapid adoption, and then a gradual slowdown as adoptions reaches saturation.</p>
 <p>We can also plot a network that shows the time step at which each node adopted the contagion:</p>
-<div class="sourceCode" id="cb680"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb671"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://USCCANA.github.io/netdiffuseR/reference/plot_diffnet2.html">plot_diffnet2</a></span><span class="op">(</span><span class="va">net_test1</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="10-diffusion_files/figure-html/unnamed-chunk-5-1.png" width="672"></div>
 <p>Using the <code>rdiffnet</code> function and altering the arguments, we can experiment with how different configurations of parameters change the rate or completeness of adoption. For example, in the chunk of code below we replicate the model above exactly except that we allow for some nodes to have a higher threshold required for adoption (70% of nodes as the max instead of 50%). Let’s see how that changes our results:</p>
-<div class="sourceCode" id="cb681"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb672"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">4436</span><span class="op">)</span></span>
 <span><span class="va">net_test2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://USCCANA.github.io/netdiffuseR/reference/rdiffnet.html">rdiffnet</a></span><span class="op">(</span></span>
 <span>  n <span class="op">=</span> <span class="fl">1000</span>,</span>
@@ -296,15 +296,15 @@ starting point.
 ## 
 ##  Moran's I was computed on contemporaneous autocorrelation using 1/geodesic
 ##  values. Significane levels  *** &lt;= .01, ** &lt;= .05, * &lt;= .1.</code></pre>
-<div class="sourceCode" id="cb683"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb674"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://USCCANA.github.io/netdiffuseR/reference/plot_adopters.html">plot_adopters</a></span><span class="op">(</span><span class="va">net_test2</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="10-diffusion_files/figure-html/unnamed-chunk-6-1.png" width="672"></div>
-<div class="sourceCode" id="cb684"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb675"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://USCCANA.github.io/netdiffuseR/reference/plot_diffnet2.html">plot_diffnet2</a></span><span class="op">(</span><span class="va">net_test2</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="10-diffusion_files/figure-html/unnamed-chunk-6-2.png" width="672"></div>
 <p>As this shows, by changing that simple parameter to allow for a higher adoption threshold for some nodes, we no longer get saturation within the same 20 time steps and we see a generally slower rate of adoption.</p>
 <p>We could also explore alternate graph generation models using this approach. In the example below, we generate a <a href="https://en.wikipedia.org/wiki/Scale-free_network">scale-free</a> network using the <code>rgraph_ba</code> function (ba for Barabasi and Albert who defined this model). We set the parameter <code>m = 4</code> which means that 4 edges will be created for each node in the initial network. We leave all other parameters as they were in our initial example.</p>
-<div class="sourceCode" id="cb685"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb676"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">4436</span><span class="op">)</span></span>
 <span><span class="va">net_test2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://USCCANA.github.io/netdiffuseR/reference/rdiffnet.html">rdiffnet</a></span><span class="op">(</span></span>
 <span>  n <span class="op">=</span> <span class="fl">1000</span>,</span>
@@ -350,10 +350,10 @@ starting point.
 ## 
 ##  Moran's I was computed on contemporaneous autocorrelation using 1/geodesic
 ##  values. Significane levels  *** &lt;= .01, ** &lt;= .05, * &lt;= .1.</code></pre>
-<div class="sourceCode" id="cb687"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb678"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://USCCANA.github.io/netdiffuseR/reference/plot_adopters.html">plot_adopters</a></span><span class="op">(</span><span class="va">net_test2</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="10-diffusion_files/figure-html/unnamed-chunk-7-1.png" width="672"></div>
-<div class="sourceCode" id="cb688"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb679"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://USCCANA.github.io/netdiffuseR/reference/plot_diffnet2.html">plot_diffnet2</a></span><span class="op">(</span><span class="va">net_test2</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="10-diffusion_files/figure-html/unnamed-chunk-7-2.png" width="672"></div>
 <p>As the figures above show, the scale-free network model generates an adoption curve that is slow to grow and then shows a rapid cascade across the network and quick saturation in just a few time steps. As this suggests, these different forms of network topology likely lead to different kinds of adoption/infection processes. We could potentially use these curves and assessments of rates of uptakes from other empirical analyses to determine which sorts of network generative process are more or less plausible given our data.</p>
@@ -364,7 +364,7 @@ starting point.
 </h3>
 <p>The <code>rdiffnet</code> function described above can also be applied to empirical networks. By way of example, let’s take a look at the Iberian <a href="#RomanRoads">Roman Roads</a> data set we’ve used in several places in this document. Here we define sites as nodes and connect them with edges when there is a documented road between them. We draw additional edges to nearest neighbors for all remaining unconnected nodes to create a single fully connected network. <a href="data/road_networks.Rdata">Download the data here to follow along</a>.</p>
 <p>First, let’s map the network labeling the nodes by number:</p>
-<div class="sourceCode" id="cb689"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb680"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://igraph.org">igraph</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/dkahle/ggmap">ggmap</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span></span>
@@ -430,7 +430,7 @@ starting point.
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_void</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="10-diffusion_files/figure-html/spatial_networks_diffusion-1.png" width="672"></div>
 <p>In order to use this network to model diffusion process, we simply have to supply it as the <code>seed.graph</code> within the <code>rdiffnet</code> function. In the following chunk of code, we supply the network shown above as the seed and model 20 time steps with the initial “adopters” in this case defined as nodes 72 and 77 in the far eastern portion of the study area. We define the <code>threshold.dist</code> as a vector where all values are <code>0.25</code> indicating that a node will adopt if a quarter of its connections have already adopted. Further, we set <code>rewire = FALSE</code> so that our edges will remain the same across all time steps. Let’s take a look at the network and the adopter plot:</p>
-<div class="sourceCode" id="cb690"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb681"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">4435436</span><span class="op">)</span></span>
 <span><span class="va">diffnet_road</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://USCCANA.github.io/netdiffuseR/reference/rdiffnet.html">rdiffnet</a></span><span class="op">(</span></span>
 <span>  seed.graph <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">road_net3</span><span class="op">)</span>,</span>
@@ -474,11 +474,11 @@ starting point.
 ## 
 ##  Moran's I was computed on contemporaneous autocorrelation using 1/geodesic
 ##  values. Significane levels  *** &lt;= .01, ** &lt;= .05, * &lt;= .1.</code></pre>
-<div class="sourceCode" id="cb692"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb683"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://USCCANA.github.io/netdiffuseR/reference/plot_adopters.html">plot_adopters</a></span><span class="op">(</span><span class="va">diffnet_road</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="10-diffusion_files/figure-html/unnamed-chunk-8-1.png" width="672"></div>
 <p>As the plot above shows, this network doesn’t reach saturation of adoption in the 20 time steps we give it but it is on an upward trajectory that is about the same slope from beginning to end. Let’s now consider the time of adoption for individual nodes. To do this, we can look at an object appended to the output of the <code>rdiffnet</code> function called <code>toa</code> or “time of adoption” which indicates which time step the node adopted.</p>
-<div class="sourceCode" id="cb693"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb684"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">diffnet_road</span><span class="op">$</span><span class="va">toa</span></span></code></pre></div>
 <pre><code>##   n0  n73  n27  n77  n59   n1  n20  n70   n2  n64  n57  n46  n88   n3  n28   n4 
 ##   14   15   13   14   15   15   15   14    8    8   13    7    7    8    9   18 
@@ -497,7 +497,7 @@ starting point.
 ## n112 n113 n114 n115 n116 n117 n118 n119 n120 n121 
 ##   10   10   13   12   12   16   13    8    2   14</code></pre>
 <p>Let’s now plot a map of the network color coding nodes by this variable:</p>
-<div class="sourceCode" id="cb695"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb686"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/dkahle/ggmap">ggmap</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/slowkow/ggrepel">ggrepel</a></span><span class="op">)</span></span>
 <span></span>
@@ -531,7 +531,7 @@ starting point.
 <div class="inline-figure"><img src="10-diffusion_files/figure-html/unnamed-chunk-10-1.png" width="672"></div>
 <p>As this map illustrates, nodes closest to the initial adopters are the earliest adopters. Further the area in the southern portion of the study area shows a dense collection of nodes colored gray indicating they did not adopt in the 20 time steps we assessed.</p>
 <p>Let’s now create another adopter plot and map color coded by time of adoption. In the next example, we leave everything alone but this time set the initial adopters as nodes 6 and 7 in the northwestern portion of the study area:</p>
-<div class="sourceCode" id="cb696"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb687"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">44336</span><span class="op">)</span></span>
 <span><span class="va">diffnet_road</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://USCCANA.github.io/netdiffuseR/reference/rdiffnet.html">rdiffnet</a></span><span class="op">(</span></span>
 <span>  seed.graph <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">road_net3</span><span class="op">)</span>,</span>
@@ -543,7 +543,7 @@ starting point.
 <span></span>
 <span><span class="fu"><a href="https://USCCANA.github.io/netdiffuseR/reference/plot_adopters.html">plot_adopters</a></span><span class="op">(</span><span class="va">diffnet_road</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="10-diffusion_files/figure-html/unnamed-chunk-11-1.png" width="672"></div>
-<div class="sourceCode" id="cb697"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb688"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/ggmap/man/ggmap.html">ggmap</a></span><span class="op">(</span><span class="va">my_map</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="co"># geom_segment plots lines by the beginning and ending</span></span>
 <span>  <span class="co"># coordinates like the edges object we created above</span></span>
@@ -581,7 +581,7 @@ starting point.
 </h2>
 <p>Frequently, when evaluating diffusion processes in empirical networks, the goal is to compare a formal model or simulation of a diffusion process to other empirical information we have regarding nodes, edges, or network level metrics. To provide an example of what this can look like, we use the <a href="#ChacoWorld">Chaco World</a> data and specifically the minimum distance network created in the <a href="SpatialNetworks.html#SpaceSW">Spatial Networks section</a> which defined edges among Chacoan architectural complexes (ca. A.D. 1050-1150) within 36 kilometers of each other (which represents a one day walk on foot). The period in question is the peak distribution of Chacoan complexes across the region. We have added one additional attribute to this data set which is the beginning and ending date of each Chacoan complex. We will use this information to evaluate our diffusion models below. <a href="data/Chaco_net.Rdata">Download the data here to follow along</a>.</p>
 <p>Let’s start by loading in the data and mapping it:</p>
-<div class="sourceCode" id="cb698"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb689"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://igraph.org">igraph</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/dkahle/ggmap">ggmap</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span></span>
@@ -615,7 +615,7 @@ starting point.
 <div class="inline-figure"><img src="10-diffusion_files/figure-html/unnamed-chunk-12-1.png" width="672"></div>
 <p>Next, we will create a diffusion network object using the <code>rdiffnet</code> function. In this plot we use the maximum distance network matrix (36 kilometers) called <code>d36</code> as our <code>seed.graph</code> and we set our initial nodes to include all of the architectural complexes within Chaco Canyon, which is the core of the Chaco World and the location of the earliest formal Great Houses. We set the threshold distance such that nodes will adopt when they have at least one neighbor that has adopted and set <code>rewire = FALSE</code>. We run this model for 20 time steps.</p>
 <p>Let’s run this function and take a look at the adopter plot:</p>
-<div class="sourceCode" id="cb699"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb690"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">chaco</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">attr</span><span class="op">$</span><span class="va">CSN_macro_group</span> <span class="op">==</span> <span class="st">"Chaco Canyon"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">443</span><span class="op">)</span></span>
@@ -662,12 +662,12 @@ starting point.
 ## 
 ##  Moran's I was computed on contemporaneous autocorrelation using 1/geodesic
 ##  values. Significane levels  *** &lt;= .01, ** &lt;= .05, * &lt;= .1.</code></pre>
-<div class="sourceCode" id="cb701"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb692"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://USCCANA.github.io/netdiffuseR/reference/plot_adopters.html">plot_adopters</a></span><span class="op">(</span><span class="va">diffnet_chaco</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="10-diffusion_files/figure-html/unnamed-chunk-13-1.png" width="672"></div>
 <p>As this shows, the parameters provided lead to relatively quick adoptions followed by a leveling off. Notably, not all nodes adopt as there are some disconnected components within this network.</p>
 <p>Now let’s take a look at a map color coded by time of adoption:</p>
-<div class="sourceCode" id="cb702"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb693"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">chaco_map2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ggmap/man/ggmap.html">ggmap</a></span><span class="op">(</span><span class="va">base</span>, darken <span class="op">=</span> <span class="fl">0.15</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_segment.html">geom_segment</a></span><span class="op">(</span></span>
 <span>    data <span class="op">=</span> <span class="va">edges</span>,</span>
@@ -694,7 +694,7 @@ starting point.
 <div class="inline-figure"><img src="10-diffusion_files/figure-html/unnamed-chunk-14-1.png" width="672"></div>
 <p>This map clearly shows a spatial pattern where sites to the south of Chaco Canyon are early adopters and then sites further to the north are relatively late adopters.</p>
 <p>In order to evaluate this further we next want to assess the time of adoption for nodes in relation to other attribute data. one approach we can take is to use the <code>classify</code> function built into <code>netdiffuseR</code> to place nodes into a set of categories based on their time of adoption. These categories are: <code>Early Adopters</code>, <code>Early Majority</code>, <code>Late Majority</code>, <code>Laggards</code> and <code>Non-Adopters</code>.</p>
-<div class="sourceCode" id="cb703"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb694"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">toa_class</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://USCCANA.github.io/netdiffuseR/reference/classify_adopters.html">classify</a></span><span class="op">(</span><span class="va">diffnet_chaco</span><span class="op">)</span><span class="op">$</span><span class="va">toa</span>,</span>
@@ -712,7 +712,7 @@ starting point.
 ## Early Adopters Early Majority  Late Majority       Laggards   Non-Adopters 
 ##             50             65             33             51             24</code></pre>
 <p>Next, in order to investigate how these different adopters related to other node attributes we will create a data frame containing these <code>toa_class</code> values as well as the beginning dates of each site and then create box plot of beginning date by <code>toa_class</code>.</p>
-<div class="sourceCode" id="cb705"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb696"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>BeginDate <span class="op">=</span> <span class="va">attr</span><span class="op">$</span><span class="va">Begin</span>, Category <span class="op">=</span> <span class="va">toa_class</span><span class="op">)</span></span>
 <span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>

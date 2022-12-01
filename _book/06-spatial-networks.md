@@ -279,9 +279,9 @@ tree1
 ```
 
 ```
-## IGRAPH 938ca06 U--- 50 49 -- Tree
+## IGRAPH 47573ac U--- 50 49 -- Tree
 ## + attr: name (g/c), children (g/n), mode (g/c)
-## + edges from 938ca06:
+## + edges from 47573ac:
 ##  [1]  1-- 2  1-- 3  1-- 4  1-- 5  1-- 6  2-- 7  2-- 8  2-- 9  2--10  2--11
 ## [11]  3--12  3--13  3--14  3--15  3--16  4--17  4--18  4--19  4--20  4--21
 ## [21]  5--22  5--23  5--24  5--25  5--26  6--27  6--28  6--29  6--30  6--31
@@ -588,18 +588,6 @@ Next, in order to define a minimum distance network we simply binarize this matr
 
 ```r
 library(statnet)
-```
-
-```
-##                Installed ReposVer Built  
-## ergm           "4.2.2"   "4.3.2"  "4.2.0"
-## ndtv           "0.13.2"  "0.13.3" "4.2.0"
-## network        "1.17.2"  "1.18.0" "4.2.0"
-## statnet.common "4.6.0"   "4.7.0"  "4.2.0"
-## tergm          "4.1.0"   "4.1.1"  "4.2.1"
-```
-
-```r
 library(geosphere)
 d1 <- distm(nodes[, c(3, 2)])
 # Note we use the leq=TRUE argument here as we want nodes less than

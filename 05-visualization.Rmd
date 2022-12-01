@@ -359,7 +359,7 @@ There are also a number of more advanced methods for displaying nodes including 
 
 Edges can be modified in terms of color, line type, thickness and many other features just like nodes and this is typically done using the `geom_edge_link` call within `ggraph`. Let"s take a look at a couple of additional examples. In this case we"re going to use a weighted network object in the original [Peeples2018.Rdata](data/Peeples2018.Rdata) file to show how we can vary edges in relation to edge attributes like weight. 
 
-In the example here we plot both the line thickness and transparency using the edge weights associated with the network object. We also are using the `scale_edge_color_viridis` to specify a continuous edge color scheme. For more details see `?scale_edge_color`
+In the example here we plot both the line thickness and transparency using the edge weights associated with the network object. We also are using the `scale_edge_color_gradient2` to specify a continuous edge color scheme with three anchors. For more details see `?scale_edge_color`
 
 ```{r edge_options1, message=F, warning=F}
 library(intergraph)
@@ -368,7 +368,12 @@ net2 <- asIgraph(brnet_w)
 set.seed(436)
 ggraph(net2, "stress") +
   geom_edge_link(aes(width = weight, alpha = weight, col = weight)) +
-  scale_edge_color_viridis() +
+  scale_edge_color_gradient2(
+    low = "#440154FF",
+    mid = "#238A8DFF",
+    high = "#FDE725FF",
+    midpoint = 0.8
+  ) +
   scale_edge_width(range = c(1, 5)) +
   geom_node_point(size = 4, col = "blue") +
   labs(edge_color = "Edge Weight Color Scale") +
@@ -406,7 +411,7 @@ ggraph(net, "kk") +
 
 It is also possible to not show edges at all but instead just a gradient scale representing the density of edges using the `geom_edge_density` call. This could be useful in very large and complex networks.
 
-```{r edge_density}
+```{r edge_density, warning=F}
 set.seed(436)
 ggraph(net2, "kk") +
   geom_edge_density() +
@@ -493,12 +498,10 @@ ggraph(net2, layout = "fr") +
       y,
       group = grp,
       fill = grp,
-      label = grp
     ),
     concavity = 4,
-    expand = unit(2, "mm"),
+    expand = ggplot2::unit(2, "mm"),
     alpha = 0.25,
-    label.fontsize = 10
   ) +
   scale_fill_brewer(palette = "Set2") +
   theme_graph()
@@ -939,7 +942,6 @@ ggraph(graph, layout = "fr") +
       y,
       group = grp,
       fill = grp,
-      label = grp,
       color = NA
     ),
     concavity = 4,
