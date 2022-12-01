@@ -50,9 +50,9 @@ cibola_i
 ```
 
 ```
-## IGRAPH 1a4edad UN-- 31 167 -- 
+## IGRAPH 4ed2d66 UN-- 31 167 -- 
 ## + attr: name (v/c)
-## + edges from 1a4edad (vertex names):
+## + edges from 4ed2d66 (vertex names):
 ##  [1] Apache.Creek--Casa.Malpais          Apache.Creek--Coyote.Creek         
 ##  [3] Apache.Creek--Hooper.Ranch          Apache.Creek--Horse.Camp.Mill      
 ##  [5] Apache.Creek--Hubble.Corner         Apache.Creek--Mineral.Creek.Pueblo 
@@ -170,10 +170,11 @@ ggraph(cibola_i, layout = "fr") +
     color = "red",
     alpha = 0.5,
     shape = 22,
-    size = igraph::degree(cibola_i)
+    aes(size = igraph::degree(cibola_i)),
+    show.legend = FALSE
   ) +
   # Set the upper and lower limit of the "size" variable
-  scale_size(range = c(1, 4)) +
+  scale_size(range = c(1, 10)) +
   # Set the theme "theme_graph" is the default theme for networks
   theme_graph()
 ```
@@ -1025,7 +1026,7 @@ bar_list <- lapply(1:vcount(g), function(i) {
   gt_plot <- ggplotGrob(
     ggplot(waffle_iron(nodes_out[nodes_out$id == i, ],
                        aes_d(group = attr))) +
-      geom_waffle(aes(x, y, fill = group), size = 0.1) +
+      geom_waffle(aes(x, y, fill = group), size = 10) +
       coord_equal() +
       labs(x = NULL, y = NULL) +
       theme(
@@ -1041,10 +1042,10 @@ bar_list <- lapply(1:vcount(g), function(i) {
 
 # Convert the results above into custom annotation
 annot_list <- lapply(1:vcount(g), function(i) {
-  xmin <- nodes_wide$x[i] - .2
-  xmax <- nodes_wide$x[i] + .2
-  ymin <- nodes_wide$y[i] - .2
-  ymax <- nodes_wide$y[i] + .2
+  xmin <- nodes_wide$x[i] - .25
+  xmax <- nodes_wide$x[i] + .25
+  ymin <- nodes_wide$y[i] - .25
+  ymax <- nodes_wide$y[i] + .25
   annotation_custom(
     bar_list[[i]],
     xmin = xmin,
@@ -1065,7 +1066,7 @@ f6_3d <- Reduce("+", annot_list, p)
 f6_3d
 ```
 
-<img src="05-visualization_files/figure-html/Fig6_3d-1.png" width="576" />
+<img src="05-visualization_files/figure-html/Fig6_3d-1.png" width="960" />
 
 <div class="rmdtip">
 <p>The inspiration for the example above came from a <a

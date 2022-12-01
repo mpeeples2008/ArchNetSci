@@ -287,44 +287,48 @@ QAP is potentially useful for identifying whether or not a given similarity or o
 
 Another method for comparing networks with a common node-set that has more recently gained popularity is the DeltaCon approach (Koutra et al. 2016). This method is similar to the direct comparison of adjacency matrices except that it is based on the commonality in paths between networks rather than just specific edges. The underlying assumption here is that simply matching first degree connections doesn't capture the true similarities and differences in networks and capturing paths of various lengths will likely provide a better assessment of structural similarities and differences among networks. Much like the adjacency matrix methods above DeltaCon ranges from 0 to 1 and provides and indication of the strength of association between the two networks.
 
-The analytical details and justification of DeltaCon are beyond the scope of this guide and we direct you [to the original paper](https://dl.acm.org/doi/abs/10.1145/2824443) where this method was defined for more details. Luckily, GitHub user [Baoxu "Dash" Shi](https://github.com/bxshi) has already created an R function to calculate DeltaCon that is [available here](https://github.com/bxshi/rdsg). We have ported that function into a script in this repository and use that here. Note that this function relies on three packages which must be installed to use this function: `Matrix`, `SparseM`, and `pracma`.
+The analytical details and justification of DeltaCon are beyond the scope of this guide and we direct you [to the original paper](https://dl.acm.org/doi/abs/10.1145/2824443) where this method was defined for more details. Luckily, GitHub user [Baoxu "Dash" Shi](https://github.com/bxshi) has already created an R function to calculate DeltaCon that is [available here](https://github.com/bxshi/rdsg). We have ported that function into a script and simplified it somewhat in this repository and use that simplified version here. Note that this function relies on three packages which must be installed to use this function: `Matrix`, `SparseM`, and `pracma`.
 
-This function expects two numeric edge lists representing networks with the same node set and you also must indicate the number of nodes in each (so that unconnected nodes/isolates can also be considered). Let's give this a try with the same San Pedro network data we imported above. [Click here](scripts/delta_con.R) to download our modified version of the script used here:
-
-
-<div class="rmdwarning">
-<p>Note that the DeltaCon function was broken by a recent update to the
-Matrix package. I have left this example here in the meantime and it
-will run and update once a solution has been found. In the meantime, you
-can run this in older verison of the Matrix package.</p>
-</div>
-
+This function expects two numeric edge lists representing networks with the same node set and you also must indicate the number of nodes in each (so that unconnected nodes/isolates can also be considered). Let's give this a try with the same San Pedro network data we imported above. [Click here](scripts/delta_con.R) to download our modified version of the script used here. The input expected is two matrix objects in the form of an adjaency matrix with the same set of nodes:
 
 
 
 ```r
 source("scripts/delta_con.R")
 
-el1 <- as.data.frame(as.edgelist(net1250_1300[[1]]))
-el2 <- as.data.frame(as.edgelist(net1250_1300[[2]]))
+el1 <- as.matrix(net1250_1300[[1]])
+el2 <- as.matrix(net1250_1300[[2]])
 
-delta_con(el1, el2, nnodes = 13)
+delta_con(el1, el2)
+```
+
+```
+## [1] 0.8639706
 ```
 
 We get a value of `0.86` which is just a little higher than our adjacency matrix comparison. Now let's try it for the other interval comparisons:
 
 
 ```r
-el1 <- as.data.frame(as.edgelist(net1300_1350[[1]]))
-el2 <- as.data.frame(as.edgelist(net1300_1350[[2]]))
+el1 <- as.matrix(net1300_1350[[1]])
+el2 <- as.matrix(net1300_1350[[2]])
 
-delta_con(el1, el2, nnodes = 19)
+delta_con(el1, el2)
+```
 
+```
+## [1] 0.6645235
+```
 
-el1 <- as.data.frame(as.edgelist(net1250_1350[[1]]))
-el2 <- as.data.frame(as.edgelist(net1250_1350[[2]]))
+```r
+el1 <- as.matrix(net1250_1350[[1]])
+el2 <- as.matrix(net1250_1350[[2]])
 
-delta_con(el1, el2, nnodes = 13)
+delta_con(el1, el2)
+```
+
+```
+## [1] 0.6992425
 ```
 
 Interestingly, when we compare these results to the simple adjacency matrix comparison above we see some pretty big differences. In the adjacency matrix comparison the non-consecutive intervals were the least similar of the three comparisons with an overlap proportion of about `0.47`. Here the DeltaCon for that comparison is actually higher than that for the AD1300-1350 and AD1350-1400 comparison. This suggests that, although there may be first order differences in nodes between the non-sequential networks, there are perhaps slightly greater similarities in longer paths between the two. This example illustrates how making multiple comparisons with different approaches can sometimes reveal unexpected insights.
@@ -479,7 +483,7 @@ hist(
 )
 ```
 
-<img src="11-comparing-networks_files/figure-html/unnamed-chunk-16-1.png" width="672" />
+<img src="11-comparing-networks_files/figure-html/unnamed-chunk-15-1.png" width="672" />
 
 ```r
 hist(
@@ -489,7 +493,7 @@ hist(
 )
 ```
 
-<img src="11-comparing-networks_files/figure-html/unnamed-chunk-16-2.png" width="672" />
+<img src="11-comparing-networks_files/figure-html/unnamed-chunk-15-2.png" width="672" />
 
 ```r
 hist(
@@ -499,7 +503,7 @@ hist(
 )
 ```
 
-<img src="11-comparing-networks_files/figure-html/unnamed-chunk-16-3.png" width="672" />
+<img src="11-comparing-networks_files/figure-html/unnamed-chunk-15-3.png" width="672" />
 
 A quick glance at these three plots shows that the degree distributions differ in magnitude and the direction of skew among our three intervals. We could take this further by examining features of these distributions in detail and this may provide additional information about differences in the network structures and potential generative processes.
 
@@ -511,7 +515,7 @@ A network (or graph) kernel is a function that measures the similarity of a pair
 
 Let's start with a relatively simple example. Let's say we are interested in defining a kernel for comparing two networks based on their "graphlet" representation. A graphlet is simply a set of possible configurations that a set of nodes can take for a given $k$ number of nodes. For example, for 3 nodes the following graphlets are possible configurations:
 
-<img src="11-comparing-networks_files/figure-html/unnamed-chunk-17-1.png" width="480" />
+<img src="11-comparing-networks_files/figure-html/unnamed-chunk-16-1.png" width="480" />
 
 So for two graphs, we could then compare the number of times each of these configurations appears. Let's make a couple of small random graphs and try it out:
 
@@ -524,13 +528,13 @@ g2 <- erdos.renyi.game(5, 0.4)
 plot(g1)
 ```
 
-<img src="11-comparing-networks_files/figure-html/unnamed-chunk-18-1.png" width="672" />
+<img src="11-comparing-networks_files/figure-html/unnamed-chunk-17-1.png" width="672" />
 
 ```r
 plot(g2)
 ```
 
-<img src="11-comparing-networks_files/figure-html/unnamed-chunk-18-2.png" width="672" />
+<img src="11-comparing-networks_files/figure-html/unnamed-chunk-17-2.png" width="672" />
 
 Now we can tabulate the number of graphets of each configuration from 0 to 3 as denoted above for each graph as a vector:
 

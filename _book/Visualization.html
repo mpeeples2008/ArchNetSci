@@ -160,9 +160,9 @@ These will be the basis for all examples in this section.
 <span><span class="va">cibola_i</span> <span class="op">&lt;-</span> <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/graph_from_adjacency_matrix.html">graph_from_adjacency_matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">cibola</span><span class="op">)</span>,</span>
 <span>                                                mode <span class="op">=</span> <span class="st">"undirected"</span><span class="op">)</span></span>
 <span><span class="va">cibola_i</span></span></code></pre></div>
-<pre><code>## IGRAPH 1a4edad UN-- 31 167 -- 
+<pre><code>## IGRAPH 4ed2d66 UN-- 31 167 -- 
 ## + attr: name (v/c)
-## + edges from 1a4edad (vertex names):
+## + edges from 4ed2d66 (vertex names):
 ##  [1] Apache.Creek--Casa.Malpais          Apache.Creek--Coyote.Creek         
 ##  [3] Apache.Creek--Hooper.Ranch          Apache.Creek--Horse.Camp.Mill      
 ##  [5] Apache.Creek--Hubble.Corner         Apache.Creek--Mineral.Creek.Pueblo 
@@ -256,10 +256,11 @@ These will be the basis for all examples in this section.
 <span>    color <span class="op">=</span> <span class="st">"red"</span>,</span>
 <span>    alpha <span class="op">=</span> <span class="fl">0.5</span>,</span>
 <span>    shape <span class="op">=</span> <span class="fl">22</span>,</span>
-<span>    size <span class="op">=</span> <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/degree.html">degree</a></span><span class="op">(</span><span class="va">cibola_i</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/degree.html">degree</a></span><span class="op">(</span><span class="va">cibola_i</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    show.legend <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="co"># Set the upper and lower limit of the "size" variable</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_size.html">scale_size</a></span><span class="op">(</span>range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_size.html">scale_size</a></span><span class="op">(</span>range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="co"># Set the theme "theme_graph" is the default theme for networks</span></span>
 <span>  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/theme_graph.html">theme_graph</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## Warning: Using the `size` aesthetic in this geom was deprecated in ggplot2 3.4.0.
@@ -1001,7 +1002,7 @@ GitHub, you type supply “username/packagename” inside the
 <span>  <span class="va">gt_plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplotGrob.html">ggplotGrob</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/ggwaffle/man/waffle_iron.html">waffle_iron</a></span><span class="op">(</span><span class="va">nodes_out</span><span class="op">[</span><span class="va">nodes_out</span><span class="op">$</span><span class="va">id</span> <span class="op">==</span> <span class="va">i</span>, <span class="op">]</span>,</span>
 <span>                       <span class="fu"><a href="https://rdrr.io/pkg/ggwaffle/man/aes_d.html">aes_d</a></span><span class="op">(</span>group <span class="op">=</span> <span class="va">attr</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/pkg/ggwaffle/man/geom_waffle.html">geom_waffle</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, fill <span class="op">=</span> <span class="va">group</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/pkg/ggwaffle/man/geom_waffle.html">geom_waffle</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, fill <span class="op">=</span> <span class="va">group</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op">+</span></span>
 <span>      <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html">coord_equal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>      <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="cn">NULL</span>, y <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">+</span></span>
 <span>      <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span></span>
@@ -1017,10 +1018,10 @@ GitHub, you type supply “username/packagename” inside the
 <span></span>
 <span><span class="co"># Convert the results above into custom annotation</span></span>
 <span><span class="va">annot_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/gorder.html">vcount</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">xmin</span> <span class="op">&lt;-</span> <span class="va">nodes_wide</span><span class="op">$</span><span class="va">x</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">-</span> <span class="fl">.2</span></span>
-<span>  <span class="va">xmax</span> <span class="op">&lt;-</span> <span class="va">nodes_wide</span><span class="op">$</span><span class="va">x</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">+</span> <span class="fl">.2</span></span>
-<span>  <span class="va">ymin</span> <span class="op">&lt;-</span> <span class="va">nodes_wide</span><span class="op">$</span><span class="va">y</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">-</span> <span class="fl">.2</span></span>
-<span>  <span class="va">ymax</span> <span class="op">&lt;-</span> <span class="va">nodes_wide</span><span class="op">$</span><span class="va">y</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">+</span> <span class="fl">.2</span></span>
+<span>  <span class="va">xmin</span> <span class="op">&lt;-</span> <span class="va">nodes_wide</span><span class="op">$</span><span class="va">x</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">-</span> <span class="fl">.25</span></span>
+<span>  <span class="va">xmax</span> <span class="op">&lt;-</span> <span class="va">nodes_wide</span><span class="op">$</span><span class="va">x</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">+</span> <span class="fl">.25</span></span>
+<span>  <span class="va">ymin</span> <span class="op">&lt;-</span> <span class="va">nodes_wide</span><span class="op">$</span><span class="va">y</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">-</span> <span class="fl">.25</span></span>
+<span>  <span class="va">ymax</span> <span class="op">&lt;-</span> <span class="va">nodes_wide</span><span class="op">$</span><span class="va">y</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">+</span> <span class="fl">.25</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotation_custom.html">annotation_custom</a></span><span class="op">(</span></span>
 <span>    <span class="va">bar_list</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span>,</span>
 <span>    xmin <span class="op">=</span> <span class="va">xmin</span>,</span>
@@ -1039,7 +1040,7 @@ GitHub, you type supply “username/packagename” inside the
 <span><span class="co"># put everything together by combining with the annotation (bar plots + network)</span></span>
 <span><span class="va">f6_3d</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/funprog.html">Reduce</a></span><span class="op">(</span><span class="st">"+"</span>, <span class="va">annot_list</span>, <span class="va">p</span><span class="op">)</span></span>
 <span><span class="va">f6_3d</span></span></code></pre></div>
-<div class="inline-figure"><img src="05-visualization_files/figure-html/Fig6_3d-1.png" width="576"></div>
+<div class="inline-figure"><img src="05-visualization_files/figure-html/Fig6_3d-1.png" width="960"></div>
 <div class="rmdtip">
 <p>
 The inspiration for the example above came from a <a href="https://www.r-bloggers.com/2020/03/ggraph-tricks-for-common-problems/">R
@@ -2568,7 +2569,7 @@ edge list is the order that edges will be plotted.
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Online Companion to <em>Network Science in Archaeology</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-11-30.</p>
+    <p>"<strong>Online Companion to <em>Network Science in Archaeology</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-12-01.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
