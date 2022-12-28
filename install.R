@@ -1,5 +1,5 @@
 packages <- c("igraph", "statnet", "intergraph", "ggraph",
-              "reshape2", "ggmap", "vegan", "sf")
+              "reshape2", "ggmap", "vegan", "sf", "devtools")
 
 install.packages(setdiff(packages, rownames(installed.packages())))
 devtools::install_github("liamgilbey/ggwaffle")
