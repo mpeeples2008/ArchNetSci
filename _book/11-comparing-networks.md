@@ -738,6 +738,16 @@ Next, we create Python objects from our R objects. Any object that is in the R g
 The next line of codes represent functions that are within the Python package we installed. First we call a function called `heat` within the `netlsd` package by adding `netlst.heat()` and then providing the object to which this function should be calculated in the parentheses. Next we then calculate the Laplacian spectral distance between two graphs using a function in the `numpy` package (which we imported with the shortened name `np`) by typing `np.linalg.norm`. Just like in R, we can assign the result to an object and then type the name of that object to report the output on the screen.
 
 
+```
+## [1] TRUE
+```
+
+```
+## [1] TRUE
+```
+
+
+
 
 ```python
 
@@ -766,7 +776,7 @@ distance2_3
 ```
 
 ```
-## 0.2568554438667859
+## 0.2568554438667868
 ```
 
 ```python
@@ -775,7 +785,7 @@ distance1_3
 ```
 
 ```
-## 1.1791128279165433
+## 1.1791128279165486
 ```
 
 The results above show the Laplacian spectral distance between our three temporal networks. Smaller numbers indicate less distance and these numbers are not bounded on the upper end. Our results here show that the distance between AD1300-1350 and AD1350-1400 is the smallest (meaning those graphs are most similar by this measure) and the comparison between non-consecutive intervals is the greatest. 
@@ -785,8 +795,13 @@ The advantage of this spectral method is that is a comparison of a summary of th
 Importantly, this metric could also be used to compare graphs that differ dramatically in size and scale as well. In the next chunk of code we import the `networkx` package as `nx` and then create a random graph with 1000 nodes using the Barabasi-Albert algorithm. We then compare that to our original 13 node network from AD1250-1300 to show how we can compare networks of dramatically different sizes. Note that all eigenvalues after the first 13 for the San Pedro network will be defined as 0.
 
 
+
+
+
+
 ```python
 import networkx
+import netlsd
 
 # create a random graph with 1000 nodes
 g4 = networkx.barabasi_albert_graph(1000, m = 20, seed = 13) 
@@ -797,7 +812,7 @@ distance_new
 ```
 
 ```
-## 1.6539482068506204
+## 1.6540115009419776
 ```
 
 We have certainly not exhausted the possibilities for spectral graph comparison here. In particular, it is currently unclear how such network summaries work for networks with features like common archaeological networks (for example, similarity networks with very high degrees of closure). As spectral methods perform differently for networks with different structural tendencies, such evaluation of archaeological networks with this in mind would be useful.

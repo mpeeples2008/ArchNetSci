@@ -370,10 +370,10 @@
     },
     "bookdown": {
       "Package": "bookdown",
-      "Version": "0.30",
+      "Version": "0.31",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "495825e93c065417044a3dd5ba08b9dd",
+      "Hash": "c82b3e63de8c679339feaef9df19d624",
       "Requirements": [
         "htmltools",
         "jquerylib",
@@ -430,16 +430,18 @@
     },
     "bslib": {
       "Package": "bslib",
-      "Version": "0.4.1",
+      "Version": "0.4.2",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "89a0cd0c45161e3bd1c1e74a2d65e516",
+      "Hash": "a7fbf03946ad741129dc81098722fca1",
       "Requirements": [
+        "base64enc",
         "cachem",
         "htmltools",
         "jquerylib",
         "jsonlite",
         "memoise",
+        "mime",
         "rlang",
         "sass"
       ]
@@ -1431,13 +1433,14 @@
     },
     "htmltools": {
       "Package": "htmltools",
-      "Version": "0.5.3",
+      "Version": "0.5.4",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "6496090a9e00f8354b811d1a2d47b566",
+      "Hash": "9d27e99cc90bd701c0a7a63e5923f9b7",
       "Requirements": [
         "base64enc",
         "digest",
+        "ellipsis",
         "fastmap",
         "rlang"
       ]
@@ -1705,10 +1708,10 @@
     },
     "maptools": {
       "Package": "maptools",
-      "Version": "1.1-5",
+      "Version": "1.1-6",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "fc60ed5a80198b1d049f5209322c875e",
+      "Hash": "cd65b7fe71f03fca368a1e93db5ed91b",
       "Requirements": [
         "foreign",
         "lattice",
@@ -1824,10 +1827,10 @@
     },
     "netdiffuseR": {
       "Package": "netdiffuseR",
-      "Version": "1.22.3",
+      "Version": "1.22.5",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "29064bd494624f5519596fa67877ad75",
+      "Hash": "1b97cdc4844f63b29bcd4eb0b5fb354e",
       "Requirements": [
         "MASS",
         "MatchIt",
@@ -2362,10 +2365,10 @@
     },
     "rgeos": {
       "Package": "rgeos",
-      "Version": "0.5-9",
+      "Version": "0.6-1",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "7cfa4f73a070042ecf141d5c1d1bfcae",
+      "Hash": "07df8c444f11dac661779efe0df80705",
       "Requirements": [
         "sp"
       ]
@@ -2388,10 +2391,10 @@
     },
     "rmarkdown": {
       "Package": "rmarkdown",
-      "Version": "2.18",
+      "Version": "2.19",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "8063c4e953cefb651e8cd58c82c82d2d",
+      "Hash": "4e29299e1f4c7eabb0b8365b338adf3c",
       "Requirements": [
         "bslib",
         "evaluate",
@@ -2417,10 +2420,10 @@
     },
     "roxygen2": {
       "Package": "roxygen2",
-      "Version": "7.2.2",
+      "Version": "7.2.3",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "d0dbb227bab26a4b8af658d81bfb6b36",
+      "Hash": "7b153c746193b143c14baa072bae4e27",
       "Requirements": [
         "R6",
         "brew",
@@ -2428,7 +2431,6 @@
         "commonmark",
         "cpp11",
         "desc",
-        "digest",
         "knitr",
         "pkgload",
         "purrr",

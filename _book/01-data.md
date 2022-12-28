@@ -240,8 +240,8 @@ This version of the book was built with R version 4.2.2 (2022-10-31 ucrt) and th
 |package        |version |source         |
 |:--------------|:-------|:--------------|
 |ape            |5.6-2   |CRAN (R 4.2.0) |
-|bookdown       |0.30    |CRAN (R 4.2.2) |
-|bslib          |0.4.1   |CRAN (R 4.2.2) |
+|bookdown       |0.31    |CRAN (R 4.2.2) |
+|bslib          |0.4.2   |CRAN (R 4.2.2) |
 |ca             |0.71.1  |CRAN (R 4.2.0) |
 |cccd           |1.6     |CRAN (R 4.2.0) |
 |colorspace     |2.0-3   |CRAN (R 4.2.0) |
@@ -267,9 +267,9 @@ This version of the book was built with R version 4.2.2 (2022-10-31 ucrt) and th
 |intergraph     |2.0-2   |CRAN (R 4.2.0) |
 |knitr          |1.41    |CRAN (R 4.2.2) |
 |latticeExtra   |0.6-30  |CRAN (R 4.2.1) |
-|maptools       |1.1-5   |CRAN (R 4.2.2) |
+|maptools       |1.1-6   |CRAN (R 4.2.2) |
 |Matrix         |1.5-3   |CRAN (R 4.2.2) |
-|netdiffuseR    |1.22.3  |CRAN (R 4.2.0) |
+|netdiffuseR    |1.22.5  |CRAN (R 4.2.2) |
 |networkD3      |0.4     |CRAN (R 4.2.0) |
 |networkDynamic |0.11.2  |CRAN (R 4.2.0) |
 |patchwork      |1.1.2   |CRAN (R 4.2.2) |
@@ -278,9 +278,9 @@ This version of the book was built with R version 4.2.2 (2022-10-31 ucrt) and th
 |Rcpp           |1.0.9   |CRAN (R 4.2.1) |
 |reshape2       |1.4.4   |CRAN (R 4.2.0) |
 |reticulate     |1.26    |CRAN (R 4.2.2) |
-|rgeos          |0.5-9   |CRAN (R 4.2.0) |
+|rgeos          |0.6-1   |CRAN (R 4.2.2) |
 |rjson          |0.2.21  |CRAN (R 4.2.0) |
-|rmarkdown      |2.18    |CRAN (R 4.2.2) |
+|rmarkdown      |2.19    |CRAN (R 4.2.2) |
 |scatterplot3d  |0.3-42  |CRAN (R 4.2.1) |
 |sf             |1.0-9   |CRAN (R 4.2.2) |
 |SparseM        |1.81    |CRAN (R 4.2.0) |

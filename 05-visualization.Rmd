@@ -1003,6 +1003,7 @@ plot(cibola_i, layout = coords)
 ### Figure 6.6: Absolute Geographic Layout {- #Figure_6_6}
 
 Fig. 6.6. Map of major Roman roads and major settlements on the Iberian Peninsula, (a) with roads mapped along their actual geographic paths and (b) roads shown as simple line segments between nodes. 
+
 The figure that appears in the book was originally created using GIS software but it is possible to prepare a quite similar figure in R using the tools we outlined above. To reproduce the results presented here you will need to download [the node information file](data/Hispania_nodes.csv) and the [road edge list](data/Hispania_roads.csv). We have created a script called [map_net.R](scripts/map_net.R) which will produce similar maps when supplied with a network object and a file with node locations in lat/long coordinates. For more information on how R works with geographic data see the [spatial networks](#SpatialNetworks) section of this document.
 
 ```{r Fig6_6, warning=F, message=F, cache=T}
@@ -1180,7 +1181,7 @@ figure_6_7
 
 ### Figure 6.8: Graph Layout Algorithms {- #Figure_6_8}
 
-Fig. 6.8. Several different graph layouts all using the Bronze Age Aegean geographic network (Evans et al. 2011). In each graph, nodes are scaled based on betweenness centrality and colour-coded based on clusters defined using modularity maximisation.
+Fig. 6.8. Several different graph layouts all using the Bronze Age Aegean geographic network (Evans et al. 2011). In each graph, nodes are scaled based on betweenness centrality and color-coded based on clusters defined using modularity maximisation.
 
 In the code below the only thing we change between each plot is the `layout` argument in `ggraph`. See [the CRAN project page on ggraph](https://cran.r-project.org/web/packages/ggraph/vignettes/Layouts.html) for more information on available layouts. We plot clusters by color here to make it easier to track differences between the layout options.
 
@@ -1375,7 +1376,7 @@ figure_6_8
 
 ### Figure 6.9: Heirarchical Graph Layouts {- #Figure_6_9}
 
-Fig. 6.9. Examples of visualisations based on hierarchical graph data. (a) Graph with nodes colour-coded by hierarchical level. (b) Bubble plot where nodes are scaled proportional to the sub-group size. (c) Dendrogram of hierarchical cluster data. (d) Radial graph with edges bundled based on similarity in relations. Edges are colour-coded such that they are red at the origin and purple at the destination to help visualise direction.
+Fig. 6.9. Examples of visualisations based on hierarchical graph data. (a) Graph with nodes color-coded by hierarchical level. (b) Bubble plot where nodes are scaled proportional to the sub-group size. (c) Dendrogram of hierarchical cluster data. (d) Radial graph with edges bundled based on similarity in relations. Edges are colour-coded such that they are red at the origin and purple at the destination to help visualise direction.
 
 These graphs are based on a hierarchical graph that was created by assigning nodes to the leaves of a hierarchical cluster analysis performed on the Cibola ceramic technological cluster data. The data for 6.9d were randomly generated following an example on the R Graph Gallery. [Use these data](data/Figure6_9.Rdata) to follow along.
 
@@ -1450,7 +1451,7 @@ figure_6_9
 
 ### Figure 6.10: Be kind to the color blind {- #Figure_6_10}
 
-Fig. 6.10. Examples of a simple network graph with colour-coded clusters. The top left example shows the unmodified figure and the remaining examples simulate what such a figure might look like to people with various kinds of colour vision deficiencies. 
+Fig. 6.10. Examples of a simple network graph with color-coded clusters. The top left example shows the unmodified figure and the remaining examples simulate what such a figure might look like to people with various kinds of colour vision deficiencies. 
 
 This function calls a script that we modified from the `colorblindr` package by [Claus Wilke](https://github.com/clauswilke/colorblindr) which is available here. The function `cv2_grid` take any ggplot object and outputs a 2 x 2 grid with the original figure and examples of what the figure might look like to people with three of the most common forms of color vision deficiency. Use [these data](data/Peeples2018) and [this script](scripts/colorblindr.R) to follow along.
 
@@ -1489,7 +1490,7 @@ cvd_grid2(g1)
 
 ### Figure 6.11: Node Symbol and Color Schemes {- #Figure_6_11}
 
-Fig. 6.11. Examples of different node colour and symbol schemes. Note how adding colour and size eases the identification of particular values, in particular with closely spaced points. Using transparency can similarly aid in showing multiple overlapping nodes.
+Fig. 6.11. Examples of different node color and symbol schemes. Note how adding color and size eases the identification of particular values, in particular with closely spaced points. Using transparency can similarly aid in showing multiple overlapping nodes.
 
 The version that appears in the book was compiled and labeled in Adobe Illustrator using the output created here.
 
@@ -1687,7 +1688,7 @@ ggraph(g_net, layout = "fr") +
 
 ### Figure 6.15: Edge Direction {- #Figure_6_15}
 
-Fig. 6.15. Two methods of displaying directed ties using arrows (left) and arcs (right). Both of these simple networks represent the same relationships shown in the adjacency matrix in the centre.
+Fig. 6.15. Two methods of displaying directed ties using arrows (left) and arcs (right). Both of these simple networks represent the same relationships shown in the adjacency matrix in the center.
 
 See the tutorial on [edges](#EdgeOptions) above for more details on using arrows in `ggraph`. We use the `grid.table` function here from the `gridExtra` package to plot tabular data as a figure.
 
@@ -2049,7 +2050,7 @@ figure6_21
 
 ### Figure 6.22: Similtaneous Display {- #Figure_6_22}
 
-Fig. 6.22. Examples of simultaneous display of two consecutive intervals for the San Pedro valley ceramic similarity network. (a) A network using the Kamada-Kawai algorithm with edges colour-coded based on time period. (b) An arc plot showing ties in consecutive intervals above and below the line.
+Fig. 6.22. Examples of simultaneous display of two consecutive intervals for the San Pedro valley ceramic similarity network. (a) A network using the Kamada-Kawai algorithm with edges color-coded based on time period. (b) An arc plot showing ties in consecutive intervals above and below the line.
 
 [Use these data](data/Figure6_22.Rdata) to follow along. Note in the first plot we add the `colour` argument to the `aes()` statement to include our period designation.
 

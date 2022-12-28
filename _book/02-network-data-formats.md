@@ -94,9 +94,9 @@ cibola_net
 ```
 
 ```
-## IGRAPH cbe3a6a UN-- 30 167 -- 
+## IGRAPH a68c4d1 UN-- 30 167 -- 
 ## + attr: name (v/c)
-## + edges from cbe3a6a (vertex names):
+## + edges from a68c4d1 (vertex names):
 ##  [1] Apache Creek--Casa Malpais          Apache Creek--Coyote Creek         
 ##  [3] Apache Creek--Hooper Ranch          Apache Creek--Horse Camp Mill      
 ##  [5] Apache Creek--Hubble Corner         Apache Creek--Mineral Creek Pueblo 
@@ -132,7 +132,7 @@ adj_list$`Apache Creek`
 ```
 
 ```
-## + 11/167 edges from cbe3a6a (vertex names):
+## + 11/167 edges from a68c4d1 (vertex names):
 ##  [1] Apache Creek--Casa Malpais         Apache Creek--Coyote Creek        
 ##  [3] Apache Creek--Hooper Ranch         Apache Creek--Horse Camp Mill     
 ##  [5] Apache Creek--Hubble Corner        Apache Creek--Mineral Creek Pueblo
@@ -148,7 +148,7 @@ adj_list[[2]]
 ```
 
 ```
-## + 11/167 edges from cbe3a6a (vertex names):
+## + 11/167 edges from a68c4d1 (vertex names):
 ##  [1] Apache Creek--Casa Malpais    Casa Malpais--Coyote Creek   
 ##  [3] Casa Malpais--Hooper Ranch    Casa Malpais--Horse Camp Mill
 ##  [5] Casa Malpais--Hubble Corner   Casa Malpais--Rudd Creek Ruin
@@ -345,9 +345,9 @@ cibola_net2
 ```
 
 ```
-## IGRAPH cc1721b UN-- 31 167 -- 
+## IGRAPH a6c0ca1 UN-- 31 167 -- 
 ## + attr: name (v/c), region (v/c)
-## + edges from cc1721b (vertex names):
+## + edges from a6c0ca1 (vertex names):
 ##  [1] Apache.Creek--Casa.Malpais          Apache.Creek--Coyote.Creek         
 ##  [3] Apache.Creek--Hooper.Ranch          Apache.Creek--Horse.Camp.Mill      
 ##  [5] Apache.Creek--Hubble.Corner         Apache.Creek--Mineral.Creek.Pueblo 
@@ -403,9 +403,9 @@ simple_net_i
 ```
 
 ```
-## IGRAPH cd2cc53 UN-- 31 167 -- 
+## IGRAPH a7bcbe1 UN-- 31 167 -- 
 ## + attr: name (v/c)
-## + edges from cd2cc53 (vertex names):
+## + edges from a7bcbe1 (vertex names):
 ##  [1] Apache.Creek--Casa.Malpais          Apache.Creek--Coyote.Creek         
 ##  [3] Apache.Creek--Hooper.Ranch          Apache.Creek--Horse.Camp.Mill      
 ##  [5] Apache.Creek--Hubble.Corner         Apache.Creek--Mineral.Creek.Pueblo 
@@ -470,9 +470,9 @@ directed_net
 ```
 
 ```
-## IGRAPH cd34947 DN-- 30 125 -- 
+## IGRAPH a7c5d82 DN-- 30 125 -- 
 ## + attr: name (v/c)
-## + edges from cd34947 (vertex names):
+## + edges from a7c5d82 (vertex names):
 ##  [1] Coyote Creek   ->Techado Springs      
 ##  [2] Hubble Corner  ->Tri-R Pueblo         
 ##  [3] Hubble Corner  ->Techado Springs      
@@ -605,9 +605,9 @@ cibola_inc
 ```
 
 ```
-## IGRAPH cd7b07f UN-B 41 2214 -- 
+## IGRAPH a80e848 UN-B 41 2214 -- 
 ## + attr: type (v/l), name (v/c)
-## + edges from cd7b07f (vertex names):
+## + edges from a80e848 (vertex names):
 ##  [1] Apache Creek--Clust1 Apache Creek--Clust1 Apache Creek--Clust1
 ##  [4] Apache Creek--Clust1 Apache Creek--Clust1 Apache Creek--Clust1
 ##  [7] Apache Creek--Clust1 Apache Creek--Clust2 Apache Creek--Clust2
@@ -1152,9 +1152,9 @@ ego_nets[[1]]
 ```
 
 ```
-## IGRAPH cfc354a UN-- 12 59 -- 
+## IGRAPH aa928ef UN-- 12 59 -- 
 ## + attr: name (v/c)
-## + edges from cfc354a (vertex names):
+## + edges from aa928ef (vertex names):
 ##  [1] Apache Creek   --Casa Malpais         Apache Creek   --Coyote Creek        
 ##  [3] Casa Malpais   --Coyote Creek         Apache Creek   --Hooper Ranch        
 ##  [5] Casa Malpais   --Hooper Ranch         Coyote Creek   --Hooper Ranch        
@@ -1244,7 +1244,7 @@ multinet::degree_ml(florentine)
 ```
 
 ```
-##  [1]  3  4  4  6  3  5  6  1  7  3  2 11  6  3  6
+##  [1]  4  3  4  6  5  1  6  3  6  3  6  2  7  3 11
 ```
 
 ```r
@@ -1255,32 +1255,32 @@ multinet::glouvain_ml(florentine)
 
 ```
 ##           actor    layer cid
-## 1       Strozzi marriage   0
-## 2  Lamberteschi business   0
-## 3  Lamberteschi marriage   0
-## 4      Guadagni business   0
-## 5      Guadagni marriage   0
-## 6       Peruzzi business   0
-## 7       Peruzzi marriage   0
-## 8    Castellani business   0
-## 9    Castellani marriage   0
-## 10     Bischeri business   0
-## 11     Bischeri marriage   0
-## 12      Ridolfi marriage   1
-## 13   Tornabuoni business   1
-## 14   Tornabuoni marriage   1
-## 15    Barbadori business   1
-## 16    Barbadori marriage   1
-## 17      Albizzi marriage   1
-## 18   Acciaiuoli marriage   1
-## 19     Salviati business   1
-## 20     Salviati marriage   1
-## 21        Pazzi business   1
-## 22        Pazzi marriage   1
-## 23       Medici business   1
-## 24       Medici marriage   1
-## 25       Ginori business   1
-## 26       Ginori marriage   1
+## 1    Tornabuoni marriage   0
+## 2    Tornabuoni business   0
+## 3       Ridolfi marriage   0
+## 4    Acciaiuoli marriage   0
+## 5     Barbadori marriage   0
+## 6     Barbadori business   0
+## 7       Albizzi marriage   0
+## 8        Ginori marriage   0
+## 9        Ginori business   0
+## 10        Pazzi marriage   0
+## 11        Pazzi business   0
+## 12     Salviati marriage   0
+## 13     Salviati business   0
+## 14       Medici marriage   0
+## 15       Medici business   0
+## 16      Strozzi marriage   1
+## 17     Guadagni marriage   1
+## 18     Guadagni business   1
+## 19 Lamberteschi marriage   1
+## 20 Lamberteschi business   1
+## 21   Castellani marriage   1
+## 22   Castellani business   1
+## 23     Bischeri marriage   1
+## 24     Bischeri business   1
+## 25      Peruzzi marriage   1
+## 26      Peruzzi business   1
 ```
 
 For an archaeological example of multilevel network analysis [this GitHub project](https://github.com/ajupton/archy-multilayer-nets) by Andy Upton.
@@ -1311,9 +1311,9 @@ mor_wt_i
 ```
 
 ```
-## IGRAPH d03766c U-W- 31 465 -- 
+## IGRAPH ab143a2 U-W- 31 465 -- 
 ## + attr: na (v/l), vertex.names (v/c), na (e/l), weight (e/n)
-## + edges from d03766c:
+## + edges from ab143a2:
 ##   [1] 1-- 2 1-- 3 1-- 4 1-- 5 1-- 6 1-- 7 1-- 8 1-- 9 1--10 1--11 1--12 1--13
 ##  [13] 1--14 1--15 1--16 1--17 1--18 1--19 1--20 1--21 1--22 1--23 1--24 1--25
 ##  [25] 1--26 1--27 1--28 1--29 1--30 1--31 2-- 3 2-- 4 2-- 5 2-- 6 2-- 7 2-- 8

@@ -7,7 +7,7 @@
 <title>Section 4 Exploratory Network Analysis | Online Companion to Network Science in Archaeology</title>
 <meta name="author" content="Matthew A. Peeples and Tom Brughmans">
 <meta name="description" content="Exploratory network analysis is simply exploratory data analysis applied to network data. This covers a range of statistical and visual techniques designed to explore the structure of networks as...">
-<meta name="generator" content="bookdown 0.30 with bs4_book()">
+<meta name="generator" content="bookdown 0.31 with bs4_book()">
 <meta property="og:title" content="Section 4 Exploratory Network Analysis | Online Companion to Network Science in Archaeology">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://book.archnetworks.net/Exploratory.html">
@@ -22,7 +22,7 @@
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/Lato-0.4.4/font.css" rel="stylesheet">
 <link href="libs/Source_Code_Pro-0.4.4/font.css" rel="stylesheet">
 <link href="libs/News_Cycle-0.4.4/font.css" rel="stylesheet">
-<script src="libs/bs3compat-0.4.1/transition.js"></script><script src="libs/bs3compat-0.4.1/tabs.js"></script><script src="libs/bs3compat-0.4.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs3compat-0.4.2/transition.js"></script><script src="libs/bs3compat-0.4.2/tabs.js"></script><script src="libs/bs3compat-0.4.2/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="libs/vis-9.1.0/vis-network.min.css" rel="stylesheet">
 <script src="libs/vis-9.1.0/vis-network.min.js"></script><script src="libs/visNetwork-binding-2.1.2/visNetwork.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script type="text/javascript" src="https://www.mattpeeples.net/book/particles.min.js"></script><script type="text/javascript" src="https://www.mattpeeples.net/book/custom.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MHX9HQF2BQ"></script><script>
       window.dataLayer = window.dataLayer || [];
@@ -540,7 +540,7 @@ careful.
 <span><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/distances.html">shortest_paths</a></span><span class="op">(</span><span class="va">simple_net</span>, from <span class="op">=</span> <span class="fl">1</span>, to <span class="op">=</span> <span class="fl">21</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## $vpath
 ## $vpath[[1]]
-## + 5/31 vertices, named, from d3f6f24:
+## + 5/31 vertices, named, from aed08b0:
 ## [1] Apache.Creek          Casa.Malpais          Garcia.Ranch         
 ## [4] Heshotauthla          Pueblo.de.los.Muertos
 ## 
@@ -566,7 +566,7 @@ careful.
 <div class="sourceCode" id="cb366"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/diameter.html">farthest_vertices</a></span><span class="op">(</span><span class="va">directed_net</span>, directed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## $vertices
-## + 2/30 vertices, named, from d3fa065:
+## + 2/30 vertices, named, from aed1989:
 ## [1] Apache Creek          Pueblo de los Muertos
 ## 
 ## $distance
@@ -598,9 +598,9 @@ careful.
 <span></span>
 <span><span class="va">components</span></span></code></pre></div>
 <pre><code>## [[1]]
-## IGRAPH d756df3 UN-- 30 167 -- 
+## IGRAPH b1f0b5b UN-- 30 167 -- 
 ## + attr: name (v/c)
-## + edges from d756df3 (vertex names):
+## + edges from b1f0b5b (vertex names):
 ##  [1] Apache.Creek--Casa.Malpais          Apache.Creek--Coyote.Creek         
 ##  [3] Apache.Creek--Hooper.Ranch          Apache.Creek--Horse.Camp.Mill      
 ##  [5] Apache.Creek--Hubble.Corner         Apache.Creek--Mineral.Creek.Pueblo 
@@ -612,9 +612,9 @@ careful.
 ## + ... omitted several edges
 ## 
 ## [[2]]
-## IGRAPH d756e19 UN-- 1 0 -- 
+## IGRAPH b1f0b93 UN-- 1 0 -- 
 ## + attr: name (v/c)
-## + edges from d756e19 (vertex names):</code></pre>
+## + edges from b1f0b93 (vertex names):</code></pre>
 <div class="sourceCode" id="cb376"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html">V</a></span><span class="op">(</span><span class="va">components</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">$</span><span class="va">name</span></span></code></pre></div>
 <pre><code>## [1] "WS.Ranch"</code></pre>
@@ -650,15 +650,15 @@ careful.
 ## [1] 1
 ## 
 ## $cut
-## + 1/167 edge from d3f7531 (vertex names):
+## + 1/167 edge from aed0ef9 (vertex names):
 ## [1] Ojo Bonito--Baca Pueblo
 ## 
 ## $partition1
-## + 1/30 vertex, named, from d3f7531:
+## + 1/30 vertex, named, from aed0ef9:
 ## [1] Baca Pueblo
 ## 
 ## $partition2
-## + 29/30 vertices, named, from d3f7531:
+## + 29/30 vertices, named, from aed0ef9:
 ##  [1] Apache Creek          Casa Malpais          Coyote Creek         
 ##  [4] Hooper Ranch          Horse Camp Mill       Hubble Corner        
 ##  [7] Mineral Creek Pueblo  Rudd Creek Ruin       Techado Springs      
@@ -684,7 +684,7 @@ careful.
 <p>A clique as a network science concept is arguably the strictest method of defining a cohesive subgroup. It is any set of three or more nodes in which each node is directly connected to all other nodes. It can be alternatively defined as a completely connected subnetwork, or a subnetwork with maximum density. The function <code><a href="https://rdrr.io/pkg/igraph/man/cliques.html">igraph::max_cliques</a></code> finds all maximal cliques in a network and outputs a list object with nodes in each set indicated. For the sake of space here we only output one clique of the 24 that were defined by this function call.</p>
 <div class="sourceCode" id="cb385"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/cliques.html">max_cliques</a></span><span class="op">(</span><span class="va">simple_net</span>, min <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">[[</span><span class="fl">24</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
-<pre><code>## + 9/31 vertices, named, from d3f6f24:
+<pre><code>## + 9/31 vertices, named, from aed08b0:
 ## [1] Los.Gigantes    Cienega         Tinaja          Spier.170      
 ## [5] Scribe.S        Pescado.Cluster Mirabal         Heshotauthla   
 ## [9] Yellowhouse</code></pre>
@@ -1121,7 +1121,7 @@ Open Triad Count
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Online Companion to <em>Network Science in Archaeology</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-12-01.</p>
+    <p>"<strong>Online Companion to <em>Network Science in Archaeology</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2022-12-27.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
