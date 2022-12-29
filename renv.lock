@@ -2310,11 +2310,8 @@
       "Package": "renv",
       "Version": "0.16.0",
       "Source": "Repository",
-<<<<<<< HEAD
-=======
       "Repository": "CRAN",
       "Hash": "c9e8442ab69bc21c9697ecf856c1e6c7",
->>>>>>> f277c5d7d5cb75362f05c14affc120e0ca0b6642
       "Requirements": []
     },
     "reprex": {
