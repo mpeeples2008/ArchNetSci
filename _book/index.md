@@ -1,7 +1,7 @@
 ---
 title: "Online Companion to *Network Science in Archaeology*"
 author: "Matthew A. Peeples and Tom Brughmans"
-date: "2022-11-15"
+date: "2022-12-27"
 site: bookdown::bookdown_site
 output: bookdown::bs4_book
 documentclass: book
@@ -25,6 +25,7 @@ cover-image: images/cover.png
 
 
 
+
 This project serves as a companion to the Cambridge Manuals in Archaeology book *Network Science in Archaeology* by Tom Brughmans and Matthew A. Peeples (2023). 
 
 <a href="https://book.archnetworks.net"><img src="images/cover.png" width="250" height="375" alt="Brughmans and Peeples Book Cover" align="right" style="margin: 0 1em 0 1em" /></a>
@@ -35,7 +36,7 @@ For more information on the book and the authors check out the project website h
 
 **Cite this document as:**
 
-> Peeples, Matthew A. and Tom Brughmans (2022). *Online Companion to Network Science in Archaeology*. <https://archnetworks.net>, Accessed 2022-11-15.
+> Peeples, Matthew A. and Tom Brughmans (2023). *Online Companion to Network Science in Archaeology*. <https://archnetworks.net>, Accessed 2022-12-27.
 
 **The associated book can be cited as**
 
@@ -44,7 +45,7 @@ For more information on the book and the authors check out the project website h
 
 ## How Should I Use This Online Companion?{- #HowTo}
 
-The tutorials here are designed to complement the text of the associated book (Brughmans and Peeples 2022) but can also stand alone as a guide to implementation of network analyses in R if you have a basic background in network methods and terminology. Although each section of this guide builds upon the previous sections in terms of network concepts and R methods, the sections are each independent in terms of data, examples, and code and can be run out of order if you choose.
+The tutorials here are designed to complement the text of the associated book (Brughmans and Peeples 2023) but can also stand alone as a guide to implementation of network analyses in R if you have a basic background in network methods and terminology. Although each section of this guide builds upon the previous sections in terms of network concepts and R methods, the sections are each independent in terms of data, examples, and code and can be run out of order if you choose.
 
 A few suggestions on where to start:
 
@@ -78,7 +79,7 @@ methods.</p>
 
 ## Reproducibility{- #Repro}
 
-The most recent version of this document was built with R version 4.2.0 (2022-04-22 ucrt). We suggest you use a recent version of R when attempting to use the code in this document (version 4.2 recommended).
+The most recent version of this document was built with R version 4.2.2 (2022-10-31 ucrt). We suggest you use a recent version of R when attempting to use the code in this document (version 4.2 recommended).
 
 ![Github last-commit](https://img.shields.io/github/last-commit/mpeeples2008/ArchNetSci)&nbsp; &nbsp;
 [![Docker Image CI](https://github.com/mpeeples2008/ArchNetSci/actions/workflows/docker-image.yml/badge.svg)](https://github.com/mpeeples2008/ArchNetSci/actions/workflows/docker-image.yml) 
@@ -1004,7 +1005,7 @@ library(vegan)
 ```
 
 ```
-## This is vegan 2.6-2
+## This is vegan 2.6-4
 ```
 
 Now we can use not just the base R functions, but also the functions within the `vegan` package. Within this package one particularly useful function is called `diversity()` which allows us to calculate all manner of common diversity measures. Remember to check `?diversity` if you want to learn more about the package and its arguments. Let's give it a try by creating a vector and then calculating two different diversity indices on that vector:

@@ -27,6 +27,7 @@ cover-image: images/cover.png
 is_html <- knitr::is_html_output()
 ```
 
+
 ```{asis index-2, echo=is_html}
 This project serves as a companion to the Cambridge Manuals in Archaeology book *Network Science in Archaeology* by Tom Brughmans and Matthew A. Peeples (2023). 
 
@@ -39,7 +40,7 @@ For more information on the book and the authors check out the project website h
 
 **Cite this document as:**
 
-> Peeples, Matthew A. and Tom Brughmans (2022). *Online Companion to Network Science in Archaeology*. <https://archnetworks.net>, Accessed `r Sys.Date()`.
+> Peeples, Matthew A. and Tom Brughmans (2023). *Online Companion to Network Science in Archaeology*. <https://archnetworks.net>, Accessed `r Sys.Date()`.
 
 **The associated book can be cited as**
 
@@ -48,7 +49,7 @@ For more information on the book and the authors check out the project website h
 
 ## How Should I Use This Online Companion?{- #HowTo}
 
-The tutorials here are designed to complement the text of the associated book (Brughmans and Peeples 2022) but can also stand alone as a guide to implementation of network analyses in R if you have a basic background in network methods and terminology. Although each section of this guide builds upon the previous sections in terms of network concepts and R methods, the sections are each independent in terms of data, examples, and code and can be run out of order if you choose.
+The tutorials here are designed to complement the text of the associated book (Brughmans and Peeples 2023) but can also stand alone as a guide to implementation of network analyses in R if you have a basic background in network methods and terminology. Although each section of this guide builds upon the previous sections in terms of network concepts and R methods, the sections are each independent in terms of data, examples, and code and can be run out of order if you choose.
 
 A few suggestions on where to start:
 

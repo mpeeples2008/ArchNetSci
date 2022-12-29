@@ -82,14 +82,6 @@ Let's initialize our `statnet` suite to get started:
 library(statnet) # initialize statnet library
 ```
 
-```
-##                Installed ReposVer Built  
-## ergm           "4.2.2"   "4.3.1"  "4.2.0"
-## network        "1.17.2"  "1.18.0" "4.2.0"
-## statnet.common "4.6.0"   "4.7.0"  "4.2.0"
-## tergm          "4.1.0"   "4.1.1"  "4.2.1"
-```
-
 In many ways it is easiest to describe what ERGMs do and how they work by example. In the next sections we provide a couple of archaeological examples that highlight some of the ways ERGMs have or could be used in archaeology. We further provide additional resources for taking these methods further.
 
 ## Cranborne Chase Visibility Network Example{#CranborneChase}
@@ -661,7 +653,7 @@ The examples above basically cover all of the common applications of `ergm` term
 
 ### Avoiding Model Degeneracy and Poor Convergence{#Degeneracy}
 
-Model degeneracy refers to when a specified ERGM never converges or exhibits unrealistic behavior. What this means is there is some term or combination of terms in the model that have created a situation where no networks with the given properties can be obtained (or can only be obtained in very rare combinations of circumstances). What this typically looks like when this happens in R is that you enter your `ergm` call at the command line and things appear to be going okay but then you eventually get hung up with something like "Estimating equations are not within tolerance region. Iteration 2 of at most 60" and nothing happens for a long time. 
+Model degeneracy refers to when a specified ERGM never converges. What this means is there is some term or combination of terms in the model that have created a situation where no networks with the given properties can be obtained. What this typically looks like when this happens in R is that you enter your `ergm` call at the command line and things appear to be going okay but then you eventually get hung up with something like "Estimating equations are not within tolerance region. Iteration 2 of at most 60" and nothing happens for a long time. 
 
 As described above in our assessment of MCMC diagnostics, this can sometimes happen because you have specified a term that essentially does not allow for for simulated networks that approximate the observed. A classic example is a network with terms for `edges` and `triangle` for triadic closure and no other terms.
 

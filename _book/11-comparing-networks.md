@@ -37,17 +37,7 @@ For the example here we will use three time slices of a ceramic similarity netwo
 
 ```r
 library(statnet)
-```
 
-```
-##                Installed ReposVer Built  
-## ergm           "4.2.2"   "4.3.1"  "4.2.0"
-## network        "1.17.2"  "1.18.0" "4.2.0"
-## statnet.common "4.6.0"   "4.7.0"  "4.2.0"
-## tergm          "4.1.0"   "4.1.1"  "4.2.1"
-```
-
-```r
 load("data/SanPedro_nets.Rdata")
 
 network_subset_common <-
@@ -297,18 +287,19 @@ QAP is potentially useful for identifying whether or not a given similarity or o
 
 Another method for comparing networks with a common node-set that has more recently gained popularity is the DeltaCon approach (Koutra et al. 2016). This method is similar to the direct comparison of adjacency matrices except that it is based on the commonality in paths between networks rather than just specific edges. The underlying assumption here is that simply matching first degree connections doesn't capture the true similarities and differences in networks and capturing paths of various lengths will likely provide a better assessment of structural similarities and differences among networks. Much like the adjacency matrix methods above DeltaCon ranges from 0 to 1 and provides and indication of the strength of association between the two networks.
 
-The analytical details and justification of DeltaCon are beyond the scope of this guide and we direct you [to the original paper](https://dl.acm.org/doi/abs/10.1145/2824443) where this method was defined for more details. Luckily, GitHub user [Baoxu "Dash" Shi](https://github.com/bxshi) has already created an R function to calculate DeltaCon that is [available here](https://github.com/bxshi/rdsg). We have ported that function into a script in this repository and use that here. Note that this function relies on three packages which must be installed to use this function: `Matrix`, `SparseM`, and `pracma`.
+The analytical details and justification of DeltaCon are beyond the scope of this guide and we direct you [to the original paper](https://dl.acm.org/doi/abs/10.1145/2824443) where this method was defined for more details. Luckily, GitHub user [Baoxu "Dash" Shi](https://github.com/bxshi) has already created an R function to calculate DeltaCon that is [available here](https://github.com/bxshi/rdsg). We have ported that function into a script and simplified it somewhat in this repository and use that simplified version here. Note that this function relies on three packages which must be installed to use this function: `Matrix`, `SparseM`, and `pracma`.
 
-This function expects two numeric edge lists representing networks with the same node set and you also must indicate the number of nodes in each (so that unconnected nodes/isolates can also be considered). Let's give this a try with the same San Pedro network data we imported above. [Click here](scripts/delta_con.R) to download our modified version of the script used here:
+This function expects two numeric edge lists representing networks with the same node set and you also must indicate the number of nodes in each (so that unconnected nodes/isolates can also be considered). Let's give this a try with the same San Pedro network data we imported above. [Click here](scripts/delta_con.R) to download our modified version of the script used here. The input expected is two matrix objects in the form of an adjaency matrix with the same set of nodes:
+
 
 
 ```r
 source("scripts/delta_con.R")
 
-el1 <- as.data.frame(as.edgelist(net1250_1300[[1]]))
-el2 <- as.data.frame(as.edgelist(net1250_1300[[2]]))
+el1 <- as.matrix(net1250_1300[[1]])
+el2 <- as.matrix(net1250_1300[[2]])
 
-delta_con(el1, el2, nnodes = 13)
+delta_con(el1, el2)
 ```
 
 ```
@@ -319,10 +310,10 @@ We get a value of `0.86` which is just a little higher than our adjacency matrix
 
 
 ```r
-el1 <- as.data.frame(as.edgelist(net1300_1350[[1]]))
-el2 <- as.data.frame(as.edgelist(net1300_1350[[2]]))
+el1 <- as.matrix(net1300_1350[[1]])
+el2 <- as.matrix(net1300_1350[[2]])
 
-delta_con(el1, el2, nnodes = 19)
+delta_con(el1, el2)
 ```
 
 ```
@@ -330,10 +321,10 @@ delta_con(el1, el2, nnodes = 19)
 ```
 
 ```r
-el1 <- as.data.frame(as.edgelist(net1250_1350[[1]]))
-el2 <- as.data.frame(as.edgelist(net1250_1350[[2]]))
+el1 <- as.matrix(net1250_1350[[1]])
+el2 <- as.matrix(net1250_1350[[2]])
 
-delta_con(el1, el2, nnodes = 13)
+delta_con(el1, el2)
 ```
 
 ```
@@ -747,6 +738,16 @@ Next, we create Python objects from our R objects. Any object that is in the R g
 The next line of codes represent functions that are within the Python package we installed. First we call a function called `heat` within the `netlsd` package by adding `netlst.heat()` and then providing the object to which this function should be calculated in the parentheses. Next we then calculate the Laplacian spectral distance between two graphs using a function in the `numpy` package (which we imported with the shortened name `np`) by typing `np.linalg.norm`. Just like in R, we can assign the result to an object and then type the name of that object to report the output on the screen.
 
 
+```
+## [1] TRUE
+```
+
+```
+## [1] TRUE
+```
+
+
+
 
 ```python
 
@@ -775,7 +776,7 @@ distance2_3
 ```
 
 ```
-## 0.2568554438667859
+## 0.2568554438667868
 ```
 
 ```python
@@ -784,7 +785,7 @@ distance1_3
 ```
 
 ```
-## 1.1791128279165433
+## 1.1791128279165486
 ```
 
 The results above show the Laplacian spectral distance between our three temporal networks. Smaller numbers indicate less distance and these numbers are not bounded on the upper end. Our results here show that the distance between AD1300-1350 and AD1350-1400 is the smallest (meaning those graphs are most similar by this measure) and the comparison between non-consecutive intervals is the greatest. 
@@ -794,8 +795,13 @@ The advantage of this spectral method is that is a comparison of a summary of th
 Importantly, this metric could also be used to compare graphs that differ dramatically in size and scale as well. In the next chunk of code we import the `networkx` package as `nx` and then create a random graph with 1000 nodes using the Barabasi-Albert algorithm. We then compare that to our original 13 node network from AD1250-1300 to show how we can compare networks of dramatically different sizes. Note that all eigenvalues after the first 13 for the San Pedro network will be defined as 0.
 
 
+
+
+
+
 ```python
 import networkx
+import netlsd
 
 # create a random graph with 1000 nodes
 g4 = networkx.barabasi_albert_graph(1000, m = 20, seed = 13) 
@@ -806,7 +812,7 @@ distance_new
 ```
 
 ```
-## 1.6539482068506197
+## 1.6540115009419776
 ```
 
 We have certainly not exhausted the possibilities for spectral graph comparison here. In particular, it is currently unclear how such network summaries work for networks with features like common archaeological networks (for example, similarity networks with very high degrees of closure). As spectral methods perform differently for networks with different structural tendencies, such evaluation of archaeological networks with this in mind would be useful.

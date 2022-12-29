@@ -15,7 +15,7 @@ Description:   Package to install Online Companion to Archaeological Network Sci
 License: CC BY-NC-ND 4.0
 ByteCompile: true
 Depends: 
-  R (>= 4.1.0)
+  R (>= 4.2.0)
 Imports:
   ape,
   devtools,

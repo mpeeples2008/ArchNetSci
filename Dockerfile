@@ -15,9 +15,6 @@ RUN echo "Checking for 'apt.txt'..." \
         && apt-get clean > /dev/null \
         && rm -rf /var/lib/apt/lists/* \
         ; fi
-
-
-## Become normal user again
 USER ${NB_USER}
 
 ## Run an install.R script, if it exists.

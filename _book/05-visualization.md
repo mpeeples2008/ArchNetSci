@@ -32,17 +32,6 @@ Let's start by reading in our example data and then we describe each package in 
 ```r
 library(igraph)
 library(statnet)
-```
-
-```
-##                Installed ReposVer Built  
-## ergm           "4.2.2"   "4.3.1"  "4.2.0"
-## network        "1.17.2"  "1.18.0" "4.2.0"
-## statnet.common "4.6.0"   "4.7.0"  "4.2.0"
-## tergm          "4.1.0"   "4.1.1"  "4.2.1"
-```
-
-```r
 library(ggraph)
 library(intergraph)
 
@@ -61,9 +50,9 @@ cibola_i
 ```
 
 ```
-## IGRAPH 751eebf UN-- 31 167 -- 
+## IGRAPH bd453b2 UN-- 31 167 -- 
 ## + attr: name (v/c)
-## + edges from 751eebf (vertex names):
+## + edges from bd453b2 (vertex names):
 ##  [1] Apache.Creek--Casa.Malpais          Apache.Creek--Coyote.Creek         
 ##  [3] Apache.Creek--Hooper.Ranch          Apache.Creek--Horse.Camp.Mill      
 ##  [5] Apache.Creek--Hubble.Corner         Apache.Creek--Mineral.Creek.Pueblo 
@@ -181,12 +170,18 @@ ggraph(cibola_i, layout = "fr") +
     color = "red",
     alpha = 0.5,
     shape = 22,
-    size = igraph::degree(cibola_i)
+    aes(size = igraph::degree(cibola_i)),
+    show.legend = FALSE
   ) +
   # Set the upper and lower limit of the "size" variable
-  scale_size(range = c(1, 4)) +
+  scale_size(range = c(1, 10)) +
   # Set the theme "theme_graph" is the default theme for networks
   theme_graph()
+```
+
+```
+## Warning: Using the `size` aesthetic in this geom was deprecated in ggplot2 3.4.0.
+## ℹ Please use `linewidth` in the `default_aes` field and elsewhere instead.
 ```
 
 <img src="05-visualization_files/figure-html/Fig_ggraph-1.png" width="672" />
@@ -460,7 +455,7 @@ There are also a number of more advanced methods for displaying nodes including 
 
 Edges can be modified in terms of color, line type, thickness and many other features just like nodes and this is typically done using the `geom_edge_link` call within `ggraph`. Let"s take a look at a couple of additional examples. In this case we"re going to use a weighted network object in the original [Peeples2018.Rdata](data/Peeples2018.Rdata) file to show how we can vary edges in relation to edge attributes like weight. 
 
-In the example here we plot both the line thickness and transparency using the edge weights associated with the network object. We also are using the `scale_edge_color_viridis` to specify a continuous edge color scheme. For more details see `?scale_edge_color`
+In the example here we plot both the line thickness and transparency using the edge weights associated with the network object. We also are using the `scale_edge_color_gradient2` to specify a continuous edge color scheme with three anchors. For more details see `?scale_edge_color`
 
 
 ```r
@@ -470,7 +465,12 @@ net2 <- asIgraph(brnet_w)
 set.seed(436)
 ggraph(net2, "stress") +
   geom_edge_link(aes(width = weight, alpha = weight, col = weight)) +
-  scale_edge_color_viridis() +
+  scale_edge_color_gradient2(
+    low = "#440154FF",
+    mid = "#238A8DFF",
+    high = "#FDE725FF",
+    midpoint = 0.8
+  ) +
   scale_edge_width(range = c(1, 5)) +
   geom_node_point(size = 4, col = "blue") +
   labs(edge_color = "Edge Weight Color Scale") +
@@ -618,12 +618,10 @@ ggraph(net2, layout = "fr") +
       y,
       group = grp,
       fill = grp,
-      label = grp
     ),
     concavity = 4,
-    expand = unit(2, "mm"),
+    expand = ggplot2::unit(2, "mm"),
     alpha = 0.25,
-    label.fontsize = 10
   ) +
   scale_fill_brewer(palette = "Set2") +
   theme_graph()
@@ -1028,7 +1026,7 @@ bar_list <- lapply(1:vcount(g), function(i) {
   gt_plot <- ggplotGrob(
     ggplot(waffle_iron(nodes_out[nodes_out$id == i, ],
                        aes_d(group = attr))) +
-      geom_waffle(aes(x, y, fill = group), size = 0.1) +
+      geom_waffle(aes(x, y, fill = group), size = 10) +
       coord_equal() +
       labs(x = NULL, y = NULL) +
       theme(
@@ -1044,10 +1042,10 @@ bar_list <- lapply(1:vcount(g), function(i) {
 
 # Convert the results above into custom annotation
 annot_list <- lapply(1:vcount(g), function(i) {
-  xmin <- nodes_wide$x[i] - .2
-  xmax <- nodes_wide$x[i] + .2
-  ymin <- nodes_wide$y[i] - .2
-  ymax <- nodes_wide$y[i] + .2
+  xmin <- nodes_wide$x[i] - .25
+  xmax <- nodes_wide$x[i] + .25
+  ymin <- nodes_wide$y[i] - .25
+  ymax <- nodes_wide$y[i] + .25
   annotation_custom(
     bar_list[[i]],
     xmin = xmin,
@@ -1068,7 +1066,7 @@ f6_3d <- Reduce("+", annot_list, p)
 f6_3d
 ```
 
-<img src="05-visualization_files/figure-html/Fig6_3d-1.png" width="576" />
+<img src="05-visualization_files/figure-html/Fig6_3d-1.png" width="960" />
 
 <div class="rmdtip">
 <p>The inspiration for the example above came from a <a
@@ -1125,7 +1123,6 @@ ggraph(graph, layout = "fr") +
       y,
       group = grp,
       fill = grp,
-      label = grp,
       color = NA
     ),
     concavity = 4,
@@ -1191,6 +1188,7 @@ plot(cibola_i, layout = coords)
 ### Figure 6.6: Absolute Geographic Layout {- #Figure_6_6}
 
 Fig. 6.6. Map of major Roman roads and major settlements on the Iberian Peninsula, (a) with roads mapped along their actual geographic paths and (b) roads shown as simple line segments between nodes. 
+
 The figure that appears in the book was originally created using GIS software but it is possible to prepare a quite similar figure in R using the tools we outlined above. To reproduce the results presented here you will need to download [the node information file](data/Hispania_nodes.csv) and the [road edge list](data/Hispania_roads.csv). We have created a script called [map_net.R](scripts/map_net.R) which will produce similar maps when supplied with a network object and a file with node locations in lat/long coordinates. For more information on how R works with geographic data see the [spatial networks](#SpatialNetworks) section of this document.
 
 
@@ -1379,7 +1377,7 @@ figure_6_7
 
 ### Figure 6.8: Graph Layout Algorithms {- #Figure_6_8}
 
-Fig. 6.8. Several different graph layouts all using the Bronze Age Aegean geographic network (Evans et al. 2011). In each graph, nodes are scaled based on betweenness centrality and colour-coded based on clusters defined using modularity maximisation.
+Fig. 6.8. Several different graph layouts all using the Bronze Age Aegean geographic network (Evans et al. 2011). In each graph, nodes are scaled based on betweenness centrality and color-coded based on clusters defined using modularity maximisation.
 
 In the code below the only thing we change between each plot is the `layout` argument in `ggraph`. See [the CRAN project page on ggraph](https://cran.r-project.org/web/packages/ggraph/vignettes/Layouts.html) for more information on available layouts. We plot clusters by color here to make it easier to track differences between the layout options.
 
@@ -1575,7 +1573,7 @@ figure_6_8
 
 ### Figure 6.9: Heirarchical Graph Layouts {- #Figure_6_9}
 
-Fig. 6.9. Examples of visualisations based on hierarchical graph data. (a) Graph with nodes colour-coded by hierarchical level. (b) Bubble plot where nodes are scaled proportional to the sub-group size. (c) Dendrogram of hierarchical cluster data. (d) Radial graph with edges bundled based on similarity in relations. Edges are colour-coded such that they are red at the origin and purple at the destination to help visualise direction.
+Fig. 6.9. Examples of visualisations based on hierarchical graph data. (a) Graph with nodes color-coded by hierarchical level. (b) Bubble plot where nodes are scaled proportional to the sub-group size. (c) Dendrogram of hierarchical cluster data. (d) Radial graph with edges bundled based on similarity in relations. Edges are colour-coded such that they are red at the origin and purple at the destination to help visualise direction.
 
 These graphs are based on a hierarchical graph that was created by assigning nodes to the leaves of a hierarchical cluster analysis performed on the Cibola ceramic technological cluster data. The data for 6.9d were randomly generated following an example on the R Graph Gallery. [Use these data](data/Figure6_9.Rdata) to follow along.
 
@@ -1653,7 +1651,7 @@ figure_6_9
 
 ### Figure 6.10: Be kind to the color blind {- #Figure_6_10}
 
-Fig. 6.10. Examples of a simple network graph with colour-coded clusters. The top left example shows the unmodified figure and the remaining examples simulate what such a figure might look like to people with various kinds of colour vision deficiencies. 
+Fig. 6.10. Examples of a simple network graph with color-coded clusters. The top left example shows the unmodified figure and the remaining examples simulate what such a figure might look like to people with various kinds of colour vision deficiencies. 
 
 This function calls a script that we modified from the `colorblindr` package by [Claus Wilke](https://github.com/clauswilke/colorblindr) which is available here. The function `cv2_grid` take any ggplot object and outputs a 2 x 2 grid with the original figure and examples of what the figure might look like to people with three of the most common forms of color vision deficiency. Use [these data](data/Peeples2018) and [this script](scripts/colorblindr.R) to follow along.
 
@@ -1694,7 +1692,7 @@ cvd_grid2(g1)
 
 ### Figure 6.11: Node Symbol and Color Schemes {- #Figure_6_11}
 
-Fig. 6.11. Examples of different node colour and symbol schemes. Note how adding colour and size eases the identification of particular values, in particular with closely spaced points. Using transparency can similarly aid in showing multiple overlapping nodes.
+Fig. 6.11. Examples of different node color and symbol schemes. Note how adding color and size eases the identification of particular values, in particular with closely spaced points. Using transparency can similarly aid in showing multiple overlapping nodes.
 
 The version that appears in the book was compiled and labeled in Adobe Illustrator using the output created here.
 
@@ -1904,7 +1902,7 @@ ggraph(g_net, layout = "fr") +
 
 ### Figure 6.15: Edge Direction {- #Figure_6_15}
 
-Fig. 6.15. Two methods of displaying directed ties using arrows (left) and arcs (right). Both of these simple networks represent the same relationships shown in the adjacency matrix in the centre.
+Fig. 6.15. Two methods of displaying directed ties using arrows (left) and arcs (right). Both of these simple networks represent the same relationships shown in the adjacency matrix in the center.
 
 See the tutorial on [edges](#EdgeOptions) above for more details on using arrows in `ggraph`. We use the `grid.table` function here from the `gridExtra` package to plot tabular data as a figure.
 
@@ -2285,7 +2283,7 @@ figure6_21
 
 ### Figure 6.22: Similtaneous Display {- #Figure_6_22}
 
-Fig. 6.22. Examples of simultaneous display of two consecutive intervals for the San Pedro valley ceramic similarity network. (a) A network using the Kamada-Kawai algorithm with edges colour-coded based on time period. (b) An arc plot showing ties in consecutive intervals above and below the line.
+Fig. 6.22. Examples of simultaneous display of two consecutive intervals for the San Pedro valley ceramic similarity network. (a) A network using the Kamada-Kawai algorithm with edges color-coded based on time period. (b) An arc plot showing ties in consecutive intervals above and below the line.
 
 [Use these data](data/Figure6_22.Rdata) to follow along. Note in the first plot we add the `colour` argument to the `aes()` statement to include our period designation.
 
@@ -11122,8 +11120,8 @@ NzksMjExXSxbXSxbNzkwLDc4OSw3ODgsNzg3LDc4Niw3ODUsOTAsODksODgsODcs
 ODZdLFtdLFs5NCw5Myw5Miw5MV0sWzc5NSw3OTQsNzkzLDc5Miw3OTFdLFtdLFtd
 LFsyMTIsNzk4LDc5Nyw3OTZdLFs5Nyw5Niw5NV0sWzgwMSw4MDAsNzk5XSxbXSxb
 XSxbODAzLDgwMl0sW10sWzk5LDk4XSxbODA0XSxbXSxbMTAwXSxbXSxbXV19fTsN
-CiAgdmFyIG9wdGlvbnMgPSB7Im5kdHYudmVyc2lvbiI6IjAuMTMuMiwyMDIxLTEw
-LTI3In07DQogIC8vRU5EIEdSQVBIIERBVEEgSU5JVA0KICANCiAgLy9JbnNlcnQg
+CiAgdmFyIG9wdGlvbnMgPSB7Im5kdHYudmVyc2lvbiI6IjAuMTMuMywyMDIyLTEx
+LTIwIn07DQogIC8vRU5EIEdSQVBIIERBVEEgSU5JVA0KICANCiAgLy9JbnNlcnQg
 aW5pdCBKUyBIZXJlDQogICQoZnVuY3Rpb24oKSB7DQogICAgb3B0aW9ucy5ncmFw
 aERhdGEgPSBncmFwaERhdGE7DQogICAgdmFyIGdyYXBoID0gbmV3IG5kdHZfZDMo
 b3B0aW9ucyk7ICAgICAgICANCiAgfSkNCiAgPC9zY3JpcHQ+PC9ib2R5Pg0KPC9o
