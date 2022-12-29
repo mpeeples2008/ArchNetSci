@@ -4,7 +4,7 @@ To visit the rendered bookdown version of this project [click here](https://book
 
 [![Docker Image CI](https://github.com/mpeeples2008/ArchNetSci/actions/workflows/docker-image.yml/badge.svg)](https://github.com/mpeeples2008/ArchNetSci/actions/workflows/docker-image.yml)   [![HitCount](https://hits.dwyl.com/mpeeples2008/ArchNetSci.svg)](http://hits.dwyl.com/mpeeples2008/ArchNetSci)
 
-This project serves as a companion to the Cambridge Manuals in Archaeology book *Network Science in Archaeology* by Tom Brughmans and Matthew A. Peeples (2022). This document contains a series of tutorials that outline methods for managing, analyzing, and visualizing network data, primarily using the R programming language. We provide code and examples to replicate the analyses presented in the book as well as many other useful tools. The bulk of this Online Companion is designed to be used with the book in hand to expand on topics covered in the published version. Part I of this document (see the Table of Contents) is focused on helping you get started in R and R-Studio. Part II which includes sections 2 through 7 corresponds to the topics and information covered in Chapters 2 through 7 of the Brughmans and Peeples book. Part III (Going Beyond the Book) includes tutorials beyond the scope of the published book including "advanced" topics that require additional detailed description and knowledge of the methods presented in Parts I and II. We plan to continue to add to and expand Part III in the future. You can use the table of contents on the left-hand side of your screen to jump directly to a particular section and the table and contents on the right to navigate within each section. We have also created a quick TOC reference if you are seeking something in particular. 
+This project serves as a companion to the Cambridge Manuals in Archaeology book *Network Science in Archaeology* by Tom Brughmans and Matthew A. Peeples (2023). This document contains a series of tutorials that outline methods for managing, analyzing, and visualizing network data, primarily using the R programming language. We provide code and examples to replicate the analyses presented in the book as well as many other useful tools. The bulk of this Online Companion is designed to be used with the book in hand to expand on topics covered in the published version. Part I of this document (see the Table of Contents) is focused on helping you get started in R and R-Studio. Part II which includes sections 2 through 7 corresponds to the topics and information covered in Chapters 2 through 7 of the Brughmans and Peeples book. Part III (Going Beyond the Book) includes tutorials beyond the scope of the published book including "advanced" topics that require additional detailed description and knowledge of the methods presented in Parts I and II. We plan to continue to add to and expand Part III in the future. You can use the table of contents on the left-hand side of your screen to jump directly to a particular section and the table and contents on the right to navigate within each section. We have also created a quick TOC reference if you are seeking something in particular. 
 
 
 For more information on the book and the authors check out the project website here: [archnetworks.net](https://archnetworks.net).
@@ -15,13 +15,13 @@ For more information on the book and the authors check out the project website h
 
 **The associated book can be cited as**
 
-> Brughmans, Tom and Matthew A. Peeples (in press). *Network Science in Archaeology.* Cambridge Manuals in Archaeology. Cambridge University Press, Cambridge, UK.
+> Brughmans, Tom and Matthew A. Peeples (2023). *Network Science in Archaeology.* Cambridge Manuals in Archaeology. Cambridge University Press, Cambridge, UK.
 
 ## How Should I Use This Online Companion?
 
 Check the bookdown [Online Companion](https://book.archnetworks.net) to get started.
 
-The tutorials here are designed to complement the text of the associated book (Brughmans and Peeples 2022) but can also stand alone as a guide to implementation of network analyses in R if you have a basic background in network methods and terminology. Although each section of this guide builds upon the previous sections in terms of network concepts and R methods, the sections are each independent in terms of data, examples, and code and can be run out of order if you choose.
+The tutorials here are designed to complement the text of the associated book (Brughmans and Peeples 2023) but can also stand alone as a guide to implementation of network analyses in R if you have a basic background in network methods and terminology. Although each section of this guide builds upon the previous sections in terms of network concepts and R methods, the sections are each independent in terms of data, examples, and code and can be run out of order if you choose.
 
 A few suggestions on where to start:
 
@@ -32,7 +32,7 @@ A few suggestions on where to start:
 
 ## Reproducibility
 
-The most recent version of this document was built with R 4.2. We suggest you use a recent version of R when attempting to use the code in this document. 
+The most recent version of this document was built with R 4.2.2 and Python 3.8. We suggest you use a recent version of R (>= 4.2) and Python (>= 3.8) when attempting to use the code in this document. 
 
 The content of this document is meant to be as accessible and reproducible as possible. The source code used to produce this document along with all of the data used in analyses are available on [GitHub](https://github.com/mpeeples2008/ArchNetSci). This GitHub repository allows users to open issues, contribute to the document, or help fix typos or other errors (see information about contributing below). We have also opened a GitHub discussion board with this repository where users can ask questions about any data or code in the repository without making edits or issue requests directly. 
 
@@ -43,7 +43,7 @@ The easiest way to reproduce this document is to launch the project directly in 
 You can also run the code and generate documents locally using R and R Studio. Download the entire R repository here: [main.zip](https://github.com/mpeeples2008/ArchNetSci/archive/refs/heads/main.zip). Unzip the files and then:
 
 * Open the "ArchNetSci.Rproj" file in R studio.
-* Use the `renv::restore()` command to install the required packages and dependencies. Not that this is a large document that uses many packages so this may take some time.
+* Use the `renv::restore()` command to install the required packages and dependencies. Note that this is a large document that uses many packages so this may take some time.
 * You will then be able to browse the files and execute all of the code in the repository.
 
 This online bookdown document has been deployed using the Netlify platform and the badge below shows the current status of the build hosted at [https://book.archnetworks.net](https://book.archnetworks.net).
