@@ -767,7 +767,7 @@ distance1_2
 ```
 
 ```
-## 0.9955321810540249
+## 0.9955321810540247
 ```
 
 ```python
@@ -776,7 +776,7 @@ distance2_3
 ```
 
 ```
-## 0.2568554438667868
+## 0.25685544386678594
 ```
 
 ```python
@@ -785,7 +785,7 @@ distance1_3
 ```
 
 ```
-## 1.1791128279165486
+## 1.1791128279165433
 ```
 
 The results above show the Laplacian spectral distance between our three temporal networks. Smaller numbers indicate less distance and these numbers are not bounded on the upper end. Our results here show that the distance between AD1300-1350 and AD1350-1400 is the smallest (meaning those graphs are most similar by this measure) and the comparison between non-consecutive intervals is the greatest. 
@@ -812,7 +812,7 @@ distance_new
 ```
 
 ```
-## 1.6540115009419776
+## 1.6540273254767195
 ```
 
 We have certainly not exhausted the possibilities for spectral graph comparison here. In particular, it is currently unclear how such network summaries work for networks with features like common archaeological networks (for example, similarity networks with very high degrees of closure). As spectral methods perform differently for networks with different structural tendencies, such evaluation of archaeological networks with this in mind would be useful.

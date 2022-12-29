@@ -262,7 +262,7 @@ This version of the book was built with R version 4.2.2 (2022-10-31 ucrt) and th
 |ggrepel        |0.9.2   |CRAN (R 4.2.2) |
 |ggsn           |0.5.0   |CRAN (R 4.2.0) |
 |GISTools       |0.7-4   |CRAN (R 4.2.0) |
-|graphkernels   |1.6.1   |CRAN (R 4.2.0) |
+|graphkernels   |1.6.1   |CRAN (R 4.2.1) |
 |igraph         |1.3.5   |CRAN (R 4.2.2) |
 |intergraph     |2.0-2   |CRAN (R 4.2.0) |
 |knitr          |1.41    |CRAN (R 4.2.2) |
@@ -281,7 +281,7 @@ This version of the book was built with R version 4.2.2 (2022-10-31 ucrt) and th
 |rgeos          |0.6-1   |CRAN (R 4.2.2) |
 |rjson          |0.2.21  |CRAN (R 4.2.0) |
 |rmarkdown      |2.19    |CRAN (R 4.2.2) |
-|scatterplot3d  |0.3-42  |CRAN (R 4.2.1) |
+|scatterplot3d  |0.3-41  |CRAN (R 4.2.0) |
 |sf             |1.0-9   |CRAN (R 4.2.2) |
 |SparseM        |1.81    |CRAN (R 4.2.0) |
 |statnet        |2019.6  |CRAN (R 4.2.0) |
