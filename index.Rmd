@@ -517,7 +517,7 @@ dim(mat1)
 As the brief definitions above suggest, data frames are very similar to matrices but can include mixed data types in the same rectangular table. Each row and column must, however, have the same number of entries. A data frame can be created by combining a set of vectors. For example:
 
 ```{r}
-col1 <- c("mammoth", "mastadon", "bison")
+col1 <- c("mammoth", "mastodon", "bison")
 col2 <- c(50L, 52L, 14L)
 col3 <- c(11.14, 22.23, 656.34)
 col4 <- as.factor(c("type1", "type1", "type2"))

@@ -37,7 +37,17 @@ For the example here we will use three time slices of a ceramic similarity netwo
 
 ```r
 library(statnet)
+```
 
+```
+##                Installed ReposVer Built  
+## ergm           "4.3.2"   "4.4.0"  "4.2.2"
+## network        "1.18.0"  "1.18.1" "4.2.2"
+## sna            "2.7"     "2.7-1"  "4.2.0"
+## statnet.common "4.7.0"   "4.8.0"  "4.2.1"
+```
+
+```r
 load("data/SanPedro_nets.Rdata")
 
 network_subset_common <-

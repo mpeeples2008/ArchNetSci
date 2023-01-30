@@ -82,6 +82,14 @@ Let's initialize our `statnet` suite to get started:
 library(statnet) # initialize statnet library
 ```
 
+```
+##                Installed ReposVer Built  
+## ergm           "4.3.2"   "4.4.0"  "4.2.2"
+## network        "1.18.0"  "1.18.1" "4.2.2"
+## sna            "2.7"     "2.7-1"  "4.2.0"
+## statnet.common "4.7.0"   "4.8.0"  "4.2.1"
+```
+
 In many ways it is easiest to describe what ERGMs do and how they work by example. In the next sections we provide a couple of archaeological examples that highlight some of the ways ERGMs have or could be used in archaeology. We further provide additional resources for taking these methods further.
 
 ## Cranborne Chase Visibility Network Example{#CranborneChase}

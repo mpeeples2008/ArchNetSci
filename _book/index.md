@@ -1,7 +1,7 @@
 ---
 title: "Online Companion to *Network Science in Archaeology*"
 author: "Matthew A. Peeples and Tom Brughmans"
-date: "2022-12-29"
+date: "2023-01-30"
 site: bookdown::bookdown_site
 output: bookdown::bs4_book
 documentclass: book
@@ -36,7 +36,7 @@ For more information on the book and the authors check out the project website h
 
 **Cite this document as:**
 
-> Peeples, Matthew A. and Tom Brughmans (2023). *Online Companion to Network Science in Archaeology*. <https://archnetworks.net>, Accessed 2022-12-29.
+> Peeples, Matthew A. and Tom Brughmans (2023). *Online Companion to Network Science in Archaeology*. <https://archnetworks.net>, Accessed 2023-01-30.
 
 **The associated book can be cited as**
 
@@ -825,7 +825,7 @@ As the brief definitions above suggest, data frames are very similar to matrices
 
 
 ```r
-col1 <- c("mammoth", "mastadon", "bison")
+col1 <- c("mammoth", "mastodon", "bison")
 col2 <- c(50L, 52L, 14L)
 col3 <- c(11.14, 22.23, 656.34)
 col4 <- as.factor(c("type1", "type1", "type2"))
@@ -838,7 +838,7 @@ dat
 ```
 ##       col1 col2   col3  col4  col5
 ## 1  mammoth   50  11.14 type1  TRUE
-## 2 mastadon   52  22.23 type1 FALSE
+## 2 mastodon   52  22.23 type1 FALSE
 ## 3    bison   14 656.34 type2  TRUE
 ```
 
@@ -851,7 +851,7 @@ str(dat)
 
 ```
 ## 'data.frame':	3 obs. of  5 variables:
-##  $ col1: chr  "mammoth" "mastadon" "bison"
+##  $ col1: chr  "mammoth" "mastodon" "bison"
 ##  $ col2: int  50 52 14
 ##  $ col3: num  11.1 22.2 656.3
 ##  $ col4: Factor w/ 2 levels "type1","type2": 1 1 2
@@ -868,7 +868,7 @@ dat
 ```
 ##       col1 col2   col3  col4  col5
 ## 1  mammoth   50  11.14 type1  TRUE
-## 2 mastadon   52  22.23 type1 FALSE
+## 2 mastodon   52  22.23 type1 FALSE
 ## 3    bison   14 656.34 type2  TRUE
 ```
 
@@ -885,7 +885,7 @@ dat[2, 1]
 ```
 
 ```
-## [1] "mastadon"
+## [1] "mastodon"
 ```
 
 #### Lists{ #List}
@@ -908,7 +908,7 @@ out1
 ## [[2]]
 ##       col1 col2   col3  col4  col5
 ## 1  mammoth   50  11.14 type1  TRUE
-## 2 mastadon   52  22.23 type1 FALSE
+## 2 mastodon   52  22.23 type1 FALSE
 ## 3    bison   14 656.34 type2  TRUE
 ## 
 ## [[3]]
@@ -942,7 +942,7 @@ out1[[2]][2, 1] # row 2 column 1 in list object 2
 ```
 
 ```
-## [1] "mastadon"
+## [1] "mastodon"
 ```
 
 
