@@ -1,4 +1,4 @@
-FROM rocker/binder:4.2.1
+FROM rocker/binder:4.2.2
 
 ## Declares build arguments
 ARG NB_USER
