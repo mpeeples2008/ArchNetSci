@@ -69,7 +69,7 @@ We use this icon to highlight particular areas of concern in our discussion of n
 ```
 
 ```{block, type="rmdtip"}
-We use this icon to highlight helpful tips for using particular software packages or for hints on the use of particular network methods.
+We use this icon to highlight helpful tips for the use of particular network methods or tools.
 ```
 
 

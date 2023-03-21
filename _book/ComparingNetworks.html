@@ -158,6 +158,7 @@ relatively easy to move back and forth between R and Python.
 <pre><code>##                Installed ReposVer Built  
 ## ergm           "4.3.2"   "4.4.0"  "4.2.2"
 ## network        "1.18.0"  "1.18.1" "4.2.2"
+## networkDynamic "0.11.2"  "0.11.3" "4.2.0"
 ## sna            "2.7"     "2.7-1"  "4.2.0"
 ## statnet.common "4.7.0"   "4.8.0"  "4.2.1"</code></pre>
 <div class="sourceCode" id="cb706"><pre class="downlit sourceCode r">
@@ -806,13 +807,13 @@ inside the <code>{r}</code> to <code>{python}</code>.
 <span id="cb755-12"><a href="ComparingNetworks.html#cb755-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb755-13"><a href="ComparingNetworks.html#cb755-13" aria-hidden="true" tabindex="-1"></a>distance1_2 <span class="op">=</span> np.linalg.norm(desc1 <span class="op">-</span> desc2) </span>
 <span id="cb755-14"><a href="ComparingNetworks.html#cb755-14" aria-hidden="true" tabindex="-1"></a>distance1_2</span></code></pre></div>
-<pre><code>## 0.9955321810540247</code></pre>
+<pre><code>## 0.9955321810540249</code></pre>
 <div class="sourceCode" id="cb757"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb757-1"><a href="ComparingNetworks.html#cb757-1" aria-hidden="true" tabindex="-1"></a>distance2_3 <span class="op">=</span> np.linalg.norm(desc2 <span class="op">-</span> desc3) </span>
 <span id="cb757-2"><a href="ComparingNetworks.html#cb757-2" aria-hidden="true" tabindex="-1"></a>distance2_3</span></code></pre></div>
-<pre><code>## 0.25685544386678594</code></pre>
+<pre><code>## 0.2568554438667868</code></pre>
 <div class="sourceCode" id="cb759"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb759-1"><a href="ComparingNetworks.html#cb759-1" aria-hidden="true" tabindex="-1"></a>distance1_3 <span class="op">=</span> np.linalg.norm(desc1 <span class="op">-</span> desc3) </span>
 <span id="cb759-2"><a href="ComparingNetworks.html#cb759-2" aria-hidden="true" tabindex="-1"></a>distance1_3</span></code></pre></div>
-<pre><code>## 1.1791128279165433</code></pre>
+<pre><code>## 1.1791128279165486</code></pre>
 <p>The results above show the Laplacian spectral distance between our three temporal networks. Smaller numbers indicate less distance and these numbers are not bounded on the upper end. Our results here show that the distance between AD1300-1350 and AD1350-1400 is the smallest (meaning those graphs are most similar by this measure) and the comparison between non-consecutive intervals is the greatest.</p>
 <p>The advantage of this spectral method is that is a comparison of a summary of the overall structural properties of a network rather than a particular feature as we saw with the graph kernel methods.</p>
 <p>Importantly, this metric could also be used to compare graphs that differ dramatically in size and scale as well. In the next chunk of code we import the <code>networkx</code> package as <code>nx</code> and then create a random graph with 1000 nodes using the Barabasi-Albert algorithm. We then compare that to our original 13 node network from AD1250-1300 to show how we can compare networks of dramatically different sizes. Note that all eigenvalues after the first 13 for the San Pedro network will be defined as 0.</p>
@@ -825,7 +826,7 @@ inside the <code>{r}</code> to <code>{python}</code>.
 <span id="cb761-7"><a href="ComparingNetworks.html#cb761-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb761-8"><a href="ComparingNetworks.html#cb761-8" aria-hidden="true" tabindex="-1"></a>distance_new <span class="op">=</span> np.linalg.norm(desc1 <span class="op">-</span> desc4) </span>
 <span id="cb761-9"><a href="ComparingNetworks.html#cb761-9" aria-hidden="true" tabindex="-1"></a>distance_new</span></code></pre></div>
-<pre><code>## 1.6540273254767195</code></pre>
+<pre><code>## 1.6540115009419776</code></pre>
 <p>We have certainly not exhausted the possibilities for spectral graph comparison here. In particular, it is currently unclear how such network summaries work for networks with features like common archaeological networks (for example, similarity networks with very high degrees of closure). As spectral methods perform differently for networks with different structural tendencies, such evaluation of archaeological networks with this in mind would be useful.</p>
 </div>
 <div id="PortraitDivergence" class="section level3" number="12.2.4">
@@ -1282,7 +1283,7 @@ graphlet framework starts the index at 0.
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Online Companion to <em>Network Science in Archaeology</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2023-01-30.</p>
+    <p>"<strong>Online Companion to <em>Network Science in Archaeology</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2023-03-21.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

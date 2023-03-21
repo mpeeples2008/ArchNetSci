@@ -11,7 +11,7 @@ For more information on the book and the authors check out the project website h
 
 **Cite this document as:**
 
-> Peeples, Matthew A. and Tom Brughmans (2023). *Online Companion to Network Science in Archaeology*. <https://archnetworks.net>, Accessed 15 March 2023.
+> Peeples, Matthew A. and Tom Brughmans (2023). *Online Companion to Network Science in Archaeology*. <https://archnetworks.net>, Accessed 21 March 2023.
 
 **The associated book can be cited as**
 
