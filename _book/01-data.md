@@ -246,7 +246,7 @@ This version of the book was built with R version 4.2.2 (2022-10-31 ucrt) and th
 |cccd           |1.6     |CRAN (R 4.2.0) |
 |colorspace     |2.0-3   |CRAN (R 4.2.0) |
 |concaveman     |1.1.0   |CRAN (R 4.2.0) |
-|d3r            |1.0.0   |CRAN (R 4.2.0) |
+|d3r            |NA      |NA             |
 |deldir         |1.0-6   |CRAN (R 4.2.0) |
 |devtools       |2.4.5   |CRAN (R 4.2.2) |
 |downlit        |0.4.2   |CRAN (R 4.2.1) |
@@ -279,9 +279,9 @@ This version of the book was built with R version 4.2.2 (2022-10-31 ucrt) and th
 |reshape2       |1.4.4   |CRAN (R 4.2.0) |
 |reticulate     |1.26    |CRAN (R 4.2.2) |
 |rgeos          |0.6-1   |CRAN (R 4.2.2) |
-|rjson          |0.2.21  |CRAN (R 4.2.0) |
+|rjson          |NA      |NA             |
 |rmarkdown      |2.19    |CRAN (R 4.2.2) |
-|scatterplot3d  |0.3-42  |CRAN (R 4.2.1) |
+|scatterplot3d  |0.3-43  |CRAN (R 4.2.2) |
 |sf             |1.0-9   |CRAN (R 4.2.2) |
 |SparseM        |1.81    |CRAN (R 4.2.0) |
 |statnet        |2019.6  |CRAN (R 4.2.0) |

@@ -39,7 +39,7 @@ library(statnet)
 ## ergm           "4.3.2"   "4.4.0"  "4.2.2"
 ## network        "1.18.0"  "1.18.1" "4.2.2"
 ## networkDynamic "0.11.2"  "0.11.3" "4.2.0"
-## sna            "2.7"     "2.7-1"  "4.2.0"
+## sna            "2.7"     "2.7-1"  "4.2.1"
 ## statnet.common "4.7.0"   "4.8.0"  "4.2.1"
 ```
 
@@ -62,9 +62,9 @@ cibola_i
 ```
 
 ```
-## IGRAPH e884675 UN-- 31 167 -- 
+## IGRAPH 737717d UN-- 31 167 -- 
 ## + attr: name (v/c)
-## + edges from e884675 (vertex names):
+## + edges from 737717d (vertex names):
 ##  [1] Apache.Creek--Casa.Malpais          Apache.Creek--Coyote.Creek         
 ##  [3] Apache.Creek--Hooper.Ranch          Apache.Creek--Horse.Camp.Mill      
 ##  [5] Apache.Creek--Hubble.Corner         Apache.Creek--Mineral.Creek.Pueblo 
@@ -1385,7 +1385,7 @@ figure_6_7 <- ggmap(base3, darken = 0.35) +
 figure_6_7
 ```
 
-<img src="05-visualization_files/figure-html/unnamed-chunk-14-1.png" width="672" />
+<img src="05-visualization_files/figure-html/unnamed-chunk-15-1.png" width="672" />
 
 ### Figure 6.8: Graph Layout Algorithms {- #Figure_6_8}
 
@@ -2347,13 +2347,13 @@ lin_net <- ggraph(spgraph, layout = "linear") +
 similt_net
 ```
 
-<img src="05-visualization_files/figure-html/unnamed-chunk-18-1.png" width="672" />
+<img src="05-visualization_files/figure-html/unnamed-chunk-19-1.png" width="672" />
 
 ```r
 lin_net
 ```
 
-<img src="05-visualization_files/figure-html/unnamed-chunk-18-2.png" width="672" />
+<img src="05-visualization_files/figure-html/unnamed-chunk-19-2.png" width="672" />
 
 ### Figure 6:23: Timelines and Time Prisms {- #Figure_6_23}
 
@@ -11235,7 +11235,7 @@ ggraph(net, layout = "fr") +
   theme_graph()
 ```
 
-<img src="05-visualization_files/figure-html/unnamed-chunk-20-1.png" width="672" />
+<img src="05-visualization_files/figure-html/unnamed-chunk-21-1.png" width="672" />
 
 ### Figure 6.27: SWSN Example 2{- #Figure_6_27}
 

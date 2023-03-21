@@ -207,7 +207,7 @@ in the <code>network</code> format to be analysed using the
 ## ergm           "4.3.2"   "4.4.0"  "4.2.2"
 ## network        "1.18.0"  "1.18.1" "4.2.2"
 ## networkDynamic "0.11.2"  "0.11.3" "4.2.0"
-## sna            "2.7"     "2.7-1"  "4.2.0"
+## sna            "2.7"     "2.7-1"  "4.2.1"
 ## statnet.common "4.7.0"   "4.8.0"  "4.2.1"</code></pre>
 <p>In many ways it is easiest to describe what ERGMs do and how they work by example. In the next sections we provide a couple of archaeological examples that highlight some of the ways ERGMs have or could be used in archaeology. We further provide additional resources for taking these methods further.</p>
 </div>
@@ -473,8 +473,8 @@ arguments within the <code>control.ergm</code> function call:
 <span><span class="fu">mcmc.diagnostics</span><span class="op">(</span><span class="va">mod2</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## Sample statistics summary:
 ## 
-## Iterations = 3127500:62500000
-## Thinning interval = 2500 
+## Iterations = 4691250:93750000
+## Thinning interval = 3750 
 ## Number of chains = 1 
 ## Sample size per chain = 23750 
 ## 
@@ -482,49 +482,49 @@ arguments within the <code>control.ergm</code> function call:
 ##    plus standard error of the mean:
 ## 
 ##                 Mean      SD Naive SE Time-series SE
-## edges      4.961e-01   5.810  0.03770        0.03936
-## triangle   1.505e+00   8.300  0.05386        0.06611
-## threetrail 2.358e+01 149.343  0.96906        1.07973
-## altkstar.2 1.796e+00  17.066  0.11074        0.11878
-## isolates   5.895e-04   1.799  0.01167        0.01167
+## edges       0.588884   7.270  0.04717        0.05341
+## triangle    2.057432  13.549  0.08792        0.12730
+## threetrail 39.252379 277.517  1.80077        2.37599
+## altkstar.2  2.187350  23.019  0.14936        0.17658
+## isolates    0.002484   1.797  0.01166        0.01166
 ## 
 ## 2. Quantiles for each variable:
 ## 
 ##               2.5%     25%    50%    75%  97.5%
-## edges       -11.00  -3.000  1.000   4.00  12.00
-## triangle    -11.00  -4.000  0.000   6.00  22.00
-## threetrail -232.00 -81.000 11.000 114.00 357.00
-## altkstar.2  -31.01  -9.656  1.595  13.08  35.78
-## isolates     -3.00  -1.000  0.000   1.00   4.00
+## edges       -14.00   -4.00  1.000   5.00  15.00
+## triangle    -15.00   -7.00 -1.000   8.00  37.00
+## threetrail -385.00 -154.00  0.000 187.00 699.55
+## altkstar.2  -40.91  -13.45  1.492  17.15  49.18
+## isolates     -3.00   -1.00  0.000   1.00   4.00
 ## 
 ## 
 ## Are sample statistics significantly different from observed?
-##                   edges      triangle    threetrail   altkstar.2     isolates
-## diff.      4.961263e-01  1.505432e+00  2.358029e+01 1.795793e+00 0.0005894737
-## test stat. 1.260538e+01  2.277319e+01  2.183906e+01 1.511878e+01 0.0505052519
-## P-val.     1.972186e-36 8.456534e-115 9.875989e-106 1.217728e-51 0.9597197643
+##                   edges     triangle   threetrail   altkstar.2    isolates
+## diff.      5.888842e-01 2.057432e+00 3.925238e+01 2.187350e+00 0.002484211
+## test stat. 1.102595e+01 1.616264e+01 1.652041e+01 1.238741e+01 0.213042093
+## P-val.     2.864748e-28 9.250718e-59 2.616016e-61 3.057549e-35 0.831294131
 ##            Overall (Chi^2)
 ## diff.                   NA
-## test stat.    8.728784e+02
-## P-val.       1.031866e-182
+## test stat.    4.955497e+02
+## P-val.       1.409253e-103
 ## 
 ## Sample statistics cross-correlations:
 ##                 edges    triangle threetrail altkstar.2    isolates
-## edges       1.0000000  0.66456994  0.8629153  0.9781116 -0.54320356
-## triangle    0.6645699  1.00000000  0.8495920  0.7523098 -0.05753382
-## threetrail  0.8629153  0.84959205  1.0000000  0.9371681 -0.20534272
-## altkstar.2  0.9781116  0.75230982  0.9371681  1.0000000 -0.38032908
-## isolates   -0.5432036 -0.05753382 -0.2053427 -0.3803291  1.00000000
+## edges       1.0000000  0.70006251  0.8524932  0.9819884 -0.46616202
+## triangle    0.7000625  1.00000000  0.9173600  0.7880199 -0.00547061
+## threetrail  0.8524932  0.91736005  1.0000000  0.9235087 -0.12593569
+## altkstar.2  0.9819884  0.78801991  0.9235087  1.0000000 -0.31447708
+## isolates   -0.4661620 -0.00547061 -0.1259357 -0.3144771  1.00000000
 ## 
 ## Sample statistics auto-correlation:
 ## Chain 1 
-##                   edges     triangle   threetrail   altkstar.2     isolates
-## Lag 0      1.0000000000 1.000000e+00  1.000000000  1.000000000  1.000000000
-## Lag 2500   0.0429091833 1.923780e-01  0.095528809  0.059569304  0.004099518
-## Lag 5000   0.0097481059 4.664168e-02  0.021285573  0.013925158 -0.006208182
-## Lag 7500  -0.0004124377 8.484439e-03 -0.004538084 -0.003439839  0.009006027
-## Lag 10000  0.0013139749 3.333200e-03  0.002856167  0.002174916  0.003930273
-## Lag 12500  0.0049697502 1.209685e-05  0.006275546  0.007192035 -0.006963082
+##                 edges   triangle threetrail  altkstar.2      isolates
+## Lag 0     1.000000000 1.00000000 1.00000000 1.000000000  1.0000000000
+## Lag 3750  0.085340699 0.31786885 0.21199338 0.117841859  0.0073520339
+## Lag 7500  0.033623075 0.13767396 0.09207368 0.048711928 -0.0041480619
+## Lag 11250 0.016956139 0.05867687 0.04091841 0.023084030  0.0009372223
+## Lag 15000 0.007187236 0.03343025 0.02176044 0.011433312 -0.0033657854
+## Lag 18750 0.002499737 0.01580210 0.01242620 0.004931155 -0.0080207497
 ## 
 ## Sample statistics burn-in diagnostic (Geweke):
 ## Chain 1 
@@ -533,12 +533,12 @@ arguments within the <code>control.ergm</code> function call:
 ## Fraction in 2nd window = 0.5 
 ## 
 ##      edges   triangle threetrail altkstar.2   isolates 
-##    -0.3864     0.6796     0.2605    -0.1335     0.7546 
+##    0.41483    1.28439    1.17775    0.67169   -0.01661 
 ## 
 ## Individual P-values (lower = worse):
 ##      edges   triangle threetrail altkstar.2   isolates 
-##  0.6991902  0.4967317  0.7944651  0.8938198  0.4504707 
-## Joint P-value (lower = worse):  0.7725547 .</code></pre>
+##  0.6782670  0.1990056  0.2388968  0.5017826  0.9867500 
+## Joint P-value (lower = worse):  0.0832968 .</code></pre>
 <p><img src="07-ergm_files/figure-html/unnamed-chunk-17-1.png" width="672"><img src="07-ergm_files/figure-html/unnamed-chunk-17-2.png" width="672"></p>
 <pre><code>## 
 ## MCMC diagnostics shown here are from the last round of simulation, prior to computation of final parameter estimates. Because the final estimates are refinements of those used for this simulation run, these diagnostics may understate model performance. To directly assess the performance of the final model on in-model statistics, please use the GOF command: gof(ergmFitObject, GOF=~model).</code></pre>

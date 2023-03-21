@@ -761,7 +761,10 @@ This function requires the `edgebundle` package be installed along with `reticul
 
 Be aware that this function may take a long time on your computer depending on your processing power and RAM.
 ```
-
+```{r, echo=F, message=F, warning=F}
+library(reticulate)
+use_condaenv("r-reticulate")
+```
 
 ```{r Fig6_3c, message=F, warning=F, fig.width=7, fig.height=7, cache=T}
 library(edgebundle)
