@@ -1,19 +1,21 @@
-FROM rocker/r-ver:4.2.2
+FROM rocker/binder:4.2.2
 
-LABEL org.opencontainers.image.licenses="GPL-2.0-or-later" \
-      org.opencontainers.image.source="https://github.com/rocker-org/rocker-versioned2" \
-      org.opencontainers.image.vendor="Rocker Project" \
-      org.opencontainers.image.authors="Carl Boettiger <cboettig@ropensci.org>"
+## Declares build arguments
+ARG NB_USER
+ARG NB_UID
 
-ENV S6_VERSION=v2.1.0.2
-ENV RSTUDIO_VERSION=2023.03.0+386
-ENV DEFAULT_USER=rstudio
+COPY --chown=${NB_USER} . ${HOME}
 
-RUN /rocker_scripts/install_rstudio.sh
-
-EXPOSE 8787
-
-CMD ["/init"]
+ENV DEBIAN_FRONTEND=noninteractive
+USER root
+RUN echo "Checking for 'apt.txt'..." \
+        ; if test -f "apt.txt" ; then \
+        apt-get update --fix-missing > /dev/null\
+        && xargs -a apt.txt apt-get install --yes \
+        && apt-get clean > /dev/null \
+        && rm -rf /var/lib/apt/lists/* \
+        ; fi
+USER ${NB_USER}
 
 ## Run an install.R script, if it exists.
 RUN if [ -f install.R ]; then R --quiet -f install.R; fi
