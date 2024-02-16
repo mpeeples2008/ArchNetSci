@@ -50,9 +50,9 @@ cibola_i
 ```
 
 ```
-## IGRAPH a067609 UN-- 31 167 -- 
+## IGRAPH bd87d74 UN-- 31 167 -- 
 ## + attr: name (v/c)
-## + edges from a067609 (vertex names):
+## + edges from bd87d74 (vertex names):
 ##  [1] Apache.Creek--Casa.Malpais          Apache.Creek--Coyote.Creek         
 ##  [3] Apache.Creek--Hooper.Ranch          Apache.Creek--Horse.Camp.Mill      
 ##  [5] Apache.Creek--Hubble.Corner         Apache.Creek--Mineral.Creek.Pueblo 
@@ -275,11 +275,19 @@ As of early 2024 the `get_stadiamap` function also requires that you sign up for
 
 1) First, you need to sign up for a free account at Stadiamaps.
 
-2) Once you sign in, you will be asked to great a Property Name, designating where you will be using data. You can simply call it "R analysis" or anything you'd like.
+2) Once you sign in, you will be asked to create a Property Name, designating where you will be using data. You can simply call it "R analysis" or anything you'd like.
 
 3) Once you create this property you'll be able to assign an API key to it by clicking the "Add API" button.
 
 4) Now you simply need to let R know your API to allow map download access. In order to do this copy the API key that is visible on the stadiamaps page from the property you created and then run the following line of code adding your actual API key in the place of [YOUR KEY HERE]
+
+
+```r
+library(ggmap)
+activate(key="[YOUR KEY HERE]")
+```
+
+Note, for the ease of demonstration, in the remainder of this online guide (other than the code chunk below) we pre-download the maps and provide them as a file instead of using the `get_stadiamap` function.
 
 <div class="rmdtip">
 <p>We describe the specifics of spatial data handling, geographic
@@ -288,12 +296,6 @@ href="#SpatialNetworks">Spatial Networks</a>. See that section for a
 full description and how R deals with geographic information.</p>
 </div>
 
-Note, for the ease of demonstration, in the remainder of this online guide (other than the code chunk below) we pre-download the maps and provide them as a file instead of using the `get_stadiamap` function.
-
-
-```
-## Warning: package 'ggmap' was built under R version 4.2.3
-```
 
 ```
 ## ℹ Google's Terms of Service: <https://mapsplatform.google.com>
@@ -1379,7 +1381,7 @@ figure_6_7 <- ggmap(base3, darken = 0.35) +
 figure_6_7
 ```
 
-<img src="05-visualization_files/figure-html/unnamed-chunk-15-1.png" width="672" />
+<img src="05-visualization_files/figure-html/unnamed-chunk-16-1.png" width="672" />
 
 ### Figure 6.8: Graph Layout Algorithms {- #Figure_6_8}
 
@@ -2339,13 +2341,13 @@ lin_net <- ggraph(spgraph, layout = "linear") +
 similt_net
 ```
 
-<img src="05-visualization_files/figure-html/unnamed-chunk-19-1.png" width="672" />
+<img src="05-visualization_files/figure-html/unnamed-chunk-20-1.png" width="672" />
 
 ```r
 lin_net
 ```
 
-<img src="05-visualization_files/figure-html/unnamed-chunk-19-2.png" width="672" />
+<img src="05-visualization_files/figure-html/unnamed-chunk-20-2.png" width="672" />
 
 ### Figure 6:23: Timelines and Time Prisms {- #Figure_6_23}
 
@@ -11228,7 +11230,7 @@ ggraph(net, layout = "fr") +
   theme_graph()
 ```
 
-<img src="05-visualization_files/figure-html/unnamed-chunk-21-1.png" width="672" />
+<img src="05-visualization_files/figure-html/unnamed-chunk-22-1.png" width="672" />
 
 ### Figure 6.27: SWSN Example 2{- #Figure_6_27}
 

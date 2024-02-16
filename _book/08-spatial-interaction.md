@@ -355,7 +355,7 @@ where
 
 For the purposes of our examples here, we set $K$ to 1 to assume that sum of flows and size are in equal units and we set $\epsilon$ to 0.01 so that the model does not converge too rapidly. 
 
-By way of example, we will use the original Greek city states data used by Rihll and Wilson (1987) and [put online](https://figshare.com/articles/dataset/Locations_of_108_Archaeic_Greek_settlements_used_in_Rihll_and_Wilson_1987_/868961) by Tim Evans based on his own work using these data and related spatial interaction models. [Download the data here to follow along](data/Rihll_Wilson.csv). [Download the Greece basemap here to following along]("data/greece.Rdata").
+By way of example, we will use the original Greek city states data used by Rihll and Wilson (1987) and [put online](https://figshare.com/articles/dataset/Locations_of_108_Archaeic_Greek_settlements_used_in_Rihll_and_Wilson_1987_/868961) by Tim Evans based on his own work using these data and related spatial interaction models. [Download the data here to follow along](data/Rihll_Wilson.csv) and [download the Greece basemap here]("data/greece.Rdata").
 
 Let's first map the Greek city states data.
 
@@ -783,7 +783,7 @@ radiation <- function(pop, d_mat) {
   out <-
     matrix(0, length(pop), length(pop))
   for (i in seq_len(length(pop))) {
-    # start loop on rows
+    #  start loop on rows
     for (j in seq_len(length(pop))) {
       # start loop on columns
       if (i == j)

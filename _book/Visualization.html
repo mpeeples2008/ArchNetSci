@@ -162,9 +162,9 @@ These will be the basis for all examples in this section.
 <span><span class="va">cibola_i</span> <span class="op">&lt;-</span> <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://r.igraph.org/reference/graph_from_adjacency_matrix.html">graph_from_adjacency_matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">cibola</span><span class="op">)</span>,</span>
 <span>                                                mode <span class="op">=</span> <span class="st">"undirected"</span><span class="op">)</span></span>
 <span><span class="va">cibola_i</span></span></code></pre></div>
-<pre><code>## IGRAPH a067609 UN-- 31 167 -- 
+<pre><code>## IGRAPH bd87d74 UN-- 31 167 -- 
 ## + attr: name (v/c)
-## + edges from a067609 (vertex names):
+## + edges from bd87d74 (vertex names):
 ##  [1] Apache.Creek--Casa.Malpais          Apache.Creek--Coyote.Creek         
 ##  [3] Apache.Creek--Hooper.Ranch          Apache.Creek--Horse.Camp.Mill      
 ##  [5] Apache.Creek--Hubble.Corner         Apache.Creek--Mineral.Creek.Pueblo 
@@ -353,10 +353,14 @@ These will be the basis for all examples in this section.
 <p>As of early 2024 the <code>get_stadiamap</code> function also requires that you sign up for an account at <a href="https://stadiamaps.com">stadiamaps.com</a>. This account is free and allows you to download a large number of background maps in R per month (likely FAR more than an individual would ever use). There are a few setup steps required to get this to work. You can follow the steps below or <a href="https://www.youtube-nocookie.com/embed/6jUSyI6x3xg">click here for a YouTube video outlining steps 1 thorugh 3 below</a>.</p>
 <ol style="list-style-type: decimal">
 <li><p>First, you need to sign up for a free account at Stadiamaps.</p></li>
-<li><p>Once you sign in, you will be asked to great a Property Name, designating where you will be using data. You can simply call it “R analysis” or anything you’d like.</p></li>
+<li><p>Once you sign in, you will be asked to create a Property Name, designating where you will be using data. You can simply call it “R analysis” or anything you’d like.</p></li>
 <li><p>Once you create this property you’ll be able to assign an API key to it by clicking the “Add API” button.</p></li>
 <li><p>Now you simply need to let R know your API to allow map download access. In order to do this copy the API key that is visible on the stadiamaps page from the property you created and then run the following line of code adding your actual API key in the place of [YOUR KEY HERE]</p></li>
 </ol>
+<div class="sourceCode" id="cb464"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/dkahle/ggmap">ggmap</a></span><span class="op">)</span></span>
+<span><span class="fu">activate</span><span class="op">(</span>key<span class="op">=</span><span class="st">"[YOUR KEY HERE]"</span><span class="op">)</span></span></code></pre></div>
+<p>Note, for the ease of demonstration, in the remainder of this online guide (other than the code chunk below) we pre-download the maps and provide them as a file instead of using the <code>get_stadiamap</code> function.</p>
 <div class="rmdtip">
 <p>
 We describe the specifics of spatial data handling, geographic
@@ -364,8 +368,6 @@ coordinates, and projection in the section on <a href="#SpatialNetworks">Spatial
 full description and how R deals with geographic information.
 </p>
 </div>
-<p>Note, for the ease of demonstration, in the remainder of this online guide (other than the code chunk below) we pre-download the maps and provide them as a file instead of using the <code>get_stadiamap</code> function.</p>
-<pre><code>## Warning: package 'ggmap' was built under R version 4.2.3</code></pre>
 <pre><code>## ℹ Google's Terms of Service: &lt;https://mapsplatform.google.com&gt;
 ##   Stadia Maps' Terms of Service: &lt;https://stadiamaps.com/terms-of-service/&gt;
 ##   OpenStreetMap's Tile Usage Policy: &lt;https://operations.osmfoundation.org/policies/tiles/&gt;
@@ -1321,7 +1323,7 @@ file <code>load(file=“data/Coords.Rdata”)</code>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_void</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">figure_6_7</span></span></code></pre></div>
-<div class="inline-figure"><img src="05-visualization_files/figure-html/unnamed-chunk-15-1.png" width="672"></div>
+<div class="inline-figure"><img src="05-visualization_files/figure-html/unnamed-chunk-16-1.png" width="672"></div>
 </div>
 <div id="Figure_6_8" class="section level3 unnumbered">
 <h3>Figure 6.8: Graph Layout Algorithms<a class="anchor" aria-label="anchor" href="#Figure_6_8"><i class="fas fa-link"></i></a>
@@ -2211,10 +2213,10 @@ before you run the code below.
 <span>           size <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">similt_net</span></span></code></pre></div>
-<div class="inline-figure"><img src="05-visualization_files/figure-html/unnamed-chunk-19-1.png" width="672"></div>
+<div class="inline-figure"><img src="05-visualization_files/figure-html/unnamed-chunk-20-1.png" width="672"></div>
 <div class="sourceCode" id="cb511"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">lin_net</span></span></code></pre></div>
-<div class="inline-figure"><img src="05-visualization_files/figure-html/unnamed-chunk-19-2.png" width="672"></div>
+<div class="inline-figure"><img src="05-visualization_files/figure-html/unnamed-chunk-20-2.png" width="672"></div>
 </div>
 <div id="Figure_6_23" class="section level3 unnumbered">
 <h3>Figure 6:23: Timelines and Time Prisms<a class="anchor" aria-label="anchor" href="#Figure_6_23"><i class="fas fa-link"></i></a>
@@ -2400,7 +2402,7 @@ network in the list.
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_size.html">scale_size</a></span><span class="op">(</span>range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1.5</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="va">mycols</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/theme_graph.html">theme_graph</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="05-visualization_files/figure-html/unnamed-chunk-21-1.png" width="672"></div>
+<div class="inline-figure"><img src="05-visualization_files/figure-html/unnamed-chunk-22-1.png" width="672"></div>
 </div>
 <div id="Figure_6_27" class="section level3 unnumbered">
 <h3>Figure 6.27: SWSN Example 2<a class="anchor" aria-label="anchor" href="#Figure_6_27"><i class="fas fa-link"></i></a>

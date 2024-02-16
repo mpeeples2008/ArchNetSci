@@ -285,7 +285,7 @@ As the figures above show, the scale-free network model generates an adoption cu
 
 ### Empirical Networks{#DiffuseEmpiricalNetworks}
 
-The `rdiffnet` function described above can also be applied to empirical networks. By way of example, let's take a look at the Iberian [Roman Roads](#RomanRoads) data set we've used in several places in this document. Here we define sites as nodes and connect them with edges when there is a documented road between them. We draw additional edges to nearest neighbors for all remaining unconnected nodes to create a single fully connected network. [Download the data here to follow along](data/road_networks.Rdata). [Download the basemap here]("data/road_base.Rdata").
+The `rdiffnet` function described above can also be applied to empirical networks. By way of example, let's take a look at the Iberian [Roman Roads](#RomanRoads) data set we've used in several places in this document. Here we define sites as nodes and connect them with edges when there is a documented road between them. We draw additional edges to nearest neighbors for all remaining unconnected nodes to create a single fully connected network. [Download the network data here to follow along](data/road_networks.Rdata) and [download the basemap here]("data/road_base.Rdata").
 
 First, let's map the network labeling the nodes by number:
 

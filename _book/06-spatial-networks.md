@@ -73,18 +73,19 @@ As of early 2024 the `get_stadiamap` function also requires that you sign up for
 
 1) First, you need to sign up for a free account at Stadiamaps.
 
-2) Once you sign in, you will be asked to great a Property Name, designating where you will be using data. You can simply call it "R analysis" or anything you'd like.
+2) Once you sign in, you will be asked to create a Property Name, designating where you will be using data. You can simply call it "R analysis" or anything you'd like.
 
 3) Once you create this property you'll be able to assign an API key to it by clicking the "Add API" button.
 
 4) Now you simply need to let R know your API to allow map download access. In order to do this copy the API key that is visible on the stadiamaps page from the property you created and then run the following line of code adding your actual API key in the place of [YOUR KEY HERE]
 
-<div class="rmdtip">
-<p>We describe the specifics of spatial data handling, geographic
-coordinates, and projection in the section on <a
-href="#SpatialNetworks">Spatial Networks</a>. See that section for a
-full description and how R deals with geographic information.</p>
-</div>
+
+
+```r
+library(ggmap)
+activate(key="[YOUR KEY HERE]")
+```
+
 
 Note, for the ease of demonstration, in the remainder of this online guide we pre-download the maps and provide them as a file instead of using the `get_stadiamap` function.
 
@@ -307,9 +308,9 @@ tree1
 ```
 
 ```
-## IGRAPH e16a79d U--- 50 49 -- Tree
+## IGRAPH d5f44db U--- 50 49 -- Tree
 ## + attr: name (g/c), children (g/n), mode (g/c)
-## + edges from e16a79d:
+## + edges from d5f44db:
 ##  [1]  1-- 2  1-- 3  1-- 4  1-- 5  1-- 6  2-- 7  2-- 8  2-- 9  2--10  2--11
 ## [11]  3--12  3--13  3--14  3--15  3--16  4--17  4--18  4--19  4--20  4--21
 ## [21]  5--22  5--23  5--24  5--25  5--26  6--27  6--28  6--29  6--30  6--31
