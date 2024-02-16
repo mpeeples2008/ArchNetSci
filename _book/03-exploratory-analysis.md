@@ -86,7 +86,7 @@ sim_net_i <- asIgraph(sim_net)
 
 Although the calculations behind the scenes for centrality metrics, clustering algorithms, and other network measures may be somewhat complicated, calculating these measures in R using network objects is usually quite straight forward and typically only involves a single function and a couple of arguments within it. There are, however, some things that need to be kept in mind when applying these methods to network data. In this document, we provide examples of some of the most common functions you may use as well as a few caveats and potential problems.
 
-Certain network metrics require networks with specific properties and may produce unexpected results if the wrong kind of network is used. For example, closeness centrality is only well defined for binary networks that have no isolates. If you were to use the `igraph::closeness` command to calculate closeness centrality on a network with isolates, you would get results but you would also get a warning telling you "closeness centrality is not well-defined for disconnected graphs." For other functions if you provide data that does not meet the criteria required by that function you my instead get an error and have no results returned. In some cases, however, a function may simply return results and not provide any warning so it is important that you are careful when selecting methods to avoid providing data that violates assumptions of the method provided. Remember, that if you have questions about how a function works or what it requires you can type `?function_name` at the console with the function in question and you will get the help document that should provide more information. You can also include package names in the help call to ensure you get the correct function (i.e., `?igraph::degree`)
+Certain network metrics require networks with specific properties and may produce unexpected results if the wrong kind of network is used. For example, closeness centrality is only well defined for binary networks that have no isolates. If you were to use the `igraph::closeness` command to calculate closeness centrality on a network with isolates, you would get results, but you would also get a warning telling you "closeness centrality is not well-defined for disconnected graphs." For other functions if you provide data that does not meet the criteria required by that function you may instead get an error and have no results returned. In some cases, however, a function may simply return results and not provide any warning, so it is important that you are careful when selecting methods to avoid providing data that violates assumptions of the method provided. Remember, if you have questions about how a function works or what it requires you can type `?function_name` at the console with the function in question and you will get the help document that should provide more information. You can also include package names in the help call to ensure you get the correct function (i.e., `?igraph::degree`)
 
 ## Centrality{#Centrality}
 
@@ -443,8 +443,9 @@ igraph::triad_census(simple_net)
 ```
 
 ```
-## Warning in igraph::triad_census(simple_net): At core/misc/motifs.c:1165 : Triad
-## census called on an undirected graph.
+## Warning in igraph::triad_census(simple_net): At
+## vendor/cigraph/src/misc/motifs.c:1140 : Triad census called on an undirected
+## graph. All connections will be treated as mutual.
 ```
 
 ```
@@ -530,11 +531,28 @@ igraph::transitivity(simple_net, type = "local")
 ```
 
 ```
-##  [1] 0.8727273 1.0000000       NaN 0.8363636 0.8333333 0.8727273 0.8666667
-##  [8] 0.4358974 0.7252747 0.4183007 0.8727273 0.8333333 0.7435897 0.8000000
-## [15] 0.8787879 0.7272727 0.8333333 0.6703297 0.9272727 0.7000000 0.9555556
-## [22] 0.8333333 0.7692308 0.8333333 1.0000000 0.7582418 0.7435897 0.7142857
-## [29] 1.0000000       NaN 0.8222222
+##          Apache.Creek               Atsinna           Baca.Pueblo 
+##             0.8727273             1.0000000                   NaN 
+##          Casa.Malpais               Cienega          Coyote.Creek 
+##             0.8363636             0.8333333             0.8727273 
+##          Foote.Canyon          Garcia.Ranch          Heshotauthla 
+##             0.8666667             0.4358974             0.7252747 
+##               Hinkson          Hooper.Ranch       Horse.Camp.Mill 
+##             0.4183007             0.8727273             0.8333333 
+##         Hubble.Corner               Jarlosa          Los.Gigantes 
+##             0.7435897             0.8000000             0.8787879 
+##  Mineral.Creek.Pueblo               Mirabal            Ojo.Bonito 
+##             0.7272727             0.8333333             0.6703297 
+##       Pescado.Cluster           Platt.Ranch Pueblo.de.los.Muertos 
+##             0.9272727             0.7000000             0.9555556 
+##       Rudd.Creek.Ruin              Scribe.S             Spier.170 
+##             0.8333333             0.7692308             0.8333333 
+##       Techado.Springs                Tinaja          Tri.R.Pueblo 
+##             1.0000000             0.7582418             0.7435897 
+##                 UG481                 UG494              WS.Ranch 
+##             0.7142857             1.0000000                   NaN 
+##           Yellowhouse 
+##             0.8222222
 ```
 
 ## Walks, Paths, and Distance{#WalksPathsDistance}
@@ -582,7 +600,7 @@ igraph::shortest_paths(simple_net, from = 1, to = 21)
 ```
 ## $vpath
 ## $vpath[[1]]
-## + 5/31 vertices, named, from 6558fb7:
+## + 5/31 vertices, named, from 57e8d35:
 ## [1] Apache.Creek          Casa.Malpais          Garcia.Ranch         
 ## [4] Heshotauthla          Pueblo.de.los.Muertos
 ## 
@@ -618,7 +636,7 @@ igraph::farthest_vertices(directed_net, directed = TRUE)
 
 ```
 ## $vertices
-## + 2/30 vertices, named, from 655bed1:
+## + 2/30 vertices, named, from 57e9551:
 ## [1] Apache Creek          Pueblo de los Muertos
 ## 
 ## $distance
@@ -670,9 +688,9 @@ components
 
 ```
 ## [[1]]
-## IGRAPH 6852d04 UN-- 30 167 -- 
+## IGRAPH 5922dce UN-- 30 167 -- 
 ## + attr: name (v/c)
-## + edges from 6852d04 (vertex names):
+## + edges from 5922dce (vertex names):
 ##  [1] Apache.Creek--Casa.Malpais          Apache.Creek--Coyote.Creek         
 ##  [3] Apache.Creek--Hooper.Ranch          Apache.Creek--Horse.Camp.Mill      
 ##  [5] Apache.Creek--Hubble.Corner         Apache.Creek--Mineral.Creek.Pueblo 
@@ -684,9 +702,9 @@ components
 ## + ... omitted several edges
 ## 
 ## [[2]]
-## IGRAPH 6852d2c UN-- 1 0 -- 
+## IGRAPH 5922de1 UN-- 1 0 -- 
 ## + attr: name (v/c)
-## + edges from 6852d2c (vertex names):
+## + edges from 5922de1 (vertex names):
 ```
 
 ```r
@@ -746,15 +764,15 @@ min_cut(simple_net_noiso, value.only = FALSE)
 ## [1] 1
 ## 
 ## $cut
-## + 1/167 edge from 655b5cf (vertex names):
+## + 1/167 edge from 57e9112 (vertex names):
 ## [1] Ojo Bonito--Baca Pueblo
 ## 
 ## $partition1
-## + 1/30 vertex, named, from 655b5cf:
+## + 1/30 vertex, named, from 57e9112:
 ## [1] Baca Pueblo
 ## 
 ## $partition2
-## + 29/30 vertices, named, from 655b5cf:
+## + 29/30 vertices, named, from 57e9112:
 ##  [1] Apache Creek          Casa Malpais          Coyote Creek         
 ##  [4] Hooper Ranch          Horse Camp Mill       Hubble Corner        
 ##  [7] Mineral Creek Pueblo  Rudd Creek Ruin       Techado Springs      
@@ -783,7 +801,7 @@ max_cliques(simple_net, min = 1)[[24]]
 ```
 
 ```
-## + 9/31 vertices, named, from 6558fb7:
+## + 9/31 vertices, named, from 57e8d35:
 ## [1] Los.Gigantes    Cienega         Tinaja          Spier.170      
 ## [5] Scribe.S        Pescado.Cluster Mirabal         Heshotauthla   
 ## [9] Yellowhouse
@@ -829,6 +847,17 @@ Girvan-Newman clustering is a divisive algorithm based on betweenness that defin
 
 ```r
 gn <- igraph::edge.betweenness.community(simple_net)
+```
+
+```
+## Warning: `edge.betweenness.community()` was deprecated in igraph 2.0.0.
+## ℹ Please use `cluster_edge_betweenness()` instead.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+## generated.
+```
+
+```r
 set.seed(4353)
 plot(simple_net, vertex.color = gn$membership)
 ```
@@ -890,7 +919,7 @@ modularity(simple_net, membership = membership(lv))
 ```
 
 ```
-## [1] 0.4157195
+## [1] 0.4131378
 ```
 
 ```r

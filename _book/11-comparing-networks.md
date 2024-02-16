@@ -37,18 +37,7 @@ For the example here we will use three time slices of a ceramic similarity netwo
 
 ```r
 library(statnet)
-```
 
-```
-##                Installed ReposVer Built  
-## ergm           "4.3.2"   "4.4.0"  "4.2.2"
-## network        "1.18.0"  "1.18.1" "4.2.2"
-## networkDynamic "0.11.2"  "0.11.3" "4.2.0"
-## sna            "2.7"     "2.7-1"  "4.2.1"
-## statnet.common "4.7.0"   "4.8.0"  "4.2.1"
-```
-
-```r
 load("data/SanPedro_nets.Rdata")
 
 network_subset_common <-
@@ -717,6 +706,10 @@ Let's first initialize the `reticulate` package:
 library(reticulate)
 ```
 
+```
+## Warning: package 'reticulate' was built under R version 4.2.3
+```
+
 At this point install Python if you have not already done that using the `reticulate::install_miniconda()` command. Once Python in installed you will then need to install a Python package called [NetLSD (Network Laplacian Spectral Descriptors)](https://github.com/xgfs/NetLSD). The easiest way to do this is to click on the "Terminal" panel in your R-Studio instance and then type the following command directly at the terminal (you only need to do this once in an instance of R-Studio):
 
 
@@ -761,7 +754,6 @@ The next line of codes represent functions that are within the Python package we
 
 
 ```python
-
 import netlsd
 import numpy as np
 
@@ -823,7 +815,7 @@ distance_new
 ```
 
 ```
-## 1.6540115009419776
+## 1.6539873180732085
 ```
 
 We have certainly not exhausted the possibilities for spectral graph comparison here. In particular, it is currently unclear how such network summaries work for networks with features like common archaeological networks (for example, similarity networks with very high degrees of closure). As spectral methods perform differently for networks with different structural tendencies, such evaluation of archaeological networks with this in mind would be useful.
@@ -901,6 +893,12 @@ py$portrait_divergence(g1, as_edgelist(road_net, names = FALSE))
 ```
 
 ```
+## This graph was created by an old(er) igraph version.
+##   Call upgrade_graph() on it to use with the current igraph version
+##   For now we convert it on the fly...
+```
+
+```
 ## [1] 0.8242969
 ```
 
@@ -952,7 +950,13 @@ Let's start by using learning how to use the `orca` package in R to calculate al
 
 ```r
 library(orca)
+```
 
+```
+## Warning: package 'orca' was built under R version 4.2.3
+```
+
+```r
 # Read in data
 load("data/road_networks.RData")
 cibola <-
@@ -961,11 +965,38 @@ cibola <-
            row.names = 1)
 cibola_net <- igraph::graph_from_adjacency_matrix(as.matrix(cibola),
                                                 mode = "undirected")
+```
 
+```
+## Warning: The `adjmatrix` argument of `graph_from_adjacency_matrix()` must be symmetric
+## with mode = "undirected" as of igraph 1.6.0.
+## ℹ Use mode = "max" to achieve the original behavior.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+## generated.
+```
+
+```r
 # Calculate orbits for k = 4 and 5 for the Roman road network
 road_net_int <-
   t(apply(igraph::get.edgelist(road_net, names = F), 1, as.integer))
+```
 
+```
+## Warning: `get.edgelist()` was deprecated in igraph 2.0.0.
+## ℹ Please use `as_edgelist()` instead.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+## generated.
+```
+
+```
+## This graph was created by an old(er) igraph version.
+##   Call upgrade_graph() on it to use with the current igraph version
+##   For now we convert it on the fly...
+```
+
+```r
 road_orb4 <- orca::count4(road_net_int)
 road_orb5 <- orca::count5(road_net_int)
 
@@ -1227,11 +1258,23 @@ netODA(road_net, road_net2, mean = "arithmetic")
 ```
 
 ```
+## This graph was created by an old(er) igraph version.
+##   Call upgrade_graph() on it to use with the current igraph version
+##   For now we convert it on the fly...
+```
+
+```
 ## [1] 0.9307024
 ```
 
 ```r
 netODA(road_net, road_net3, mean = "arithmetic")
+```
+
+```
+## This graph was created by an old(er) igraph version.
+##   Call upgrade_graph() on it to use with the current igraph version
+##   For now we convert it on the fly...
 ```
 
 ```
@@ -1394,7 +1437,7 @@ netGCD(road_net, sw1)
 ```
 
 ```
-## [1] 1.471473
+## [1] 1.528994
 ```
 
 ```r
@@ -1402,7 +1445,7 @@ netGCD(road_net, er1)
 ```
 
 ```
-## [1] 4.746792
+## [1] 4.746963
 ```
 
 ```r
@@ -1410,7 +1453,7 @@ netGCD(sw1, er1)
 ```
 
 ```
-## [1] 5.012386
+## [1] 5.077361
 ```
 
 As this shows, there is a considerably smaller distance between our random small world network and the Roman Road network than there is between our Erdos-Renyi network and the Roman Road network. Indeed, the comparisons between the Erdos-Renyi model and the Roman Roads produces a similar high distance to a comparison of our random small world and Erdos-Renyi networks. This is not, of course, proof that our Roman Network network has small world structure but such a comparison could be part of an analytical path to evaluate that possibility.

@@ -603,7 +603,7 @@ plot(jnet)
 
 It is also possible to use R to create weighted networks where individual edges are valued. We have found that this works reasonably well with networks of co-presence or something similar (counts of mentions in texts or monuments for example) but this does not perform well when applied to large similarity or distance matrices (because every possible link has a value, the network gets unwieldy very fast). In the latter case, we have found it is often better to just work directly with the underlying similarity/distance matrix.
 
-If you do, however, chose do create a weighted network object from a similarity matrix it only requires a slight modification from the procedure above. In the chunk of code below, we will simply add the arguments `ignore.eval = FALSE` and `names.eval = "weight"` to let the network function know we would like weights to be retained and we would like that attribute called 'weight'. We will apply this to the matrix of Morisita similarities defined above and then plot the result. 
+If you do, however, chose to create a weighted network object from a similarity matrix it only requires a slight modification from the procedure above. In the chunk of code below, we will simply add the arguments `ignore.eval = FALSE` and `names.eval = "weight"` to let the network function know we would like weights to be retained and we would like that attribute called 'weight'. We will apply this to the matrix of Morisita similarities defined above and then plot the result. 
 
 ```{r }
 # create weighted network object from co-occurrence matrix by

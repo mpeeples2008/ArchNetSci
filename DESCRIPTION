@@ -1,7 +1,7 @@
 Type: Compendium
 Package: ArchNetSci
 Title: Online Companion to Archaeological Network Science
-Version: 0.0.0.9000
+Version: 1.0.0.0000
 Authors@R: 
     c(person(given = "Matthew",
            family = "Peeples",
@@ -43,8 +43,8 @@ Imports:
   vegan,
   geosphere
 Remotes:
-  liamgilbey/ggwaffle,
-  QiliShi/NetworkSim
+ liamgilbey/ggwaffle,
+ QiliShi/NetworkSim
 Suggests:
   netdiffuseR,
   ca,

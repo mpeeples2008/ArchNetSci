@@ -256,7 +256,7 @@ The function we defined in the previous only needs to be modified slightly to he
 Note that you should not try to evaluate the chunk of code below as it contains only portions of the larger functions described here and will return an error.
 ```
 
-```{r, eval=F}
+```{r, eval=F, warning=F}
 # Code from sim_missing_nodes
 sub_samp <- sample(seq(1, vcount(net), prob = missing_probs),
                    size = round(vcount(net) * props[j], 0))
@@ -593,7 +593,7 @@ In the next chunk of code we define a function that iterates over every edge in 
 
 In order to extract values of interest from these candidate networks, we created another function called `compile_stat`. This function iterates over all `nsim` networks in the `net_list` list object and calculates the centrality metric of interest in this case returning the results as a simple matrix. It is then possible to compare things like average degree or the distribution of degree for particular nodes across all of the candidate networks. We have placed these two functions in an additional script file called [edge_prob.R](scripts/edge_prob) which you can download to use and modify on your own.
 
-```{r}
+```{r, warning=F}
 # Define function for assessing and retaining edges based on edge
 # weight probabilities
 edge_prob <- function(net, nsim = 1000, probs) {
@@ -641,7 +641,7 @@ compile_stat <- function(net_list, met) {
 
 Now we run the edge_prob function for `nsim = 1000` and display a few candidate networks. 
 
-```{r, fig.width=7, fig.height=7, cache=T}
+```{r, fig.width=7, fig.height=7, cache=T, warning=F}
 el_test <- edge_prob(sim_net, nsim = 1000, probs = sim_edge[, 3])
 
 set.seed(9651)
@@ -695,7 +695,7 @@ ggarrange(comp1, comp2, comp3)
 
 We then use the `compile_stat` function to assess degree centrality for one particular node, displaying a histogram of values with mean indicated.
 
-```{r}
+```{r, warning=F}
 dg_stat <- compile_stat(el_test, met = "degree")
 
 dg_20 <- data.frame(val = dg_stat[20, ])

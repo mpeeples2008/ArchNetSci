@@ -7,7 +7,7 @@
 <title>Section 7 Spatial Networks | Online Companion to Network Science in Archaeology</title>
 <meta name="author" content="Matthew A. Peeples and Tom Brughmans">
 <meta name="description" content="This section follows along with Chapter 7 of Brughmans and Peeples (2023) to provide information on how to implement spatial network models and analyses in R. Spatial networks are one of the most...">
-<meta name="generator" content="bookdown 0.31 with bs4_book()">
+<meta name="generator" content="bookdown 0.37 with bs4_book()">
 <meta property="og:title" content="Section 7 Spatial Networks | Online Companion to Network Science in Archaeology">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://book.archnetworks.net/SpatialNetworks.html">
@@ -19,11 +19,11 @@
 <meta name="twitter:image" content="https://book.archnetworks.net/images/cover.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/Lato-0.4.4/font.css" rel="stylesheet">
-<link href="libs/Source_Code_Pro-0.4.4/font.css" rel="stylesheet">
-<link href="libs/News_Cycle-0.4.4/font.css" rel="stylesheet">
-<script src="libs/bs3compat-0.4.2/transition.js"></script><script src="libs/bs3compat-0.4.2/tabs.js"></script><script src="libs/bs3compat-0.4.2/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
-<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="libs/vis-9.1.0/vis-network.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/Lato-0.4.8/font.css" rel="stylesheet">
+<link href="libs/Source_Code_Pro-0.4.8/font.css" rel="stylesheet">
+<link href="libs/News_Cycle-0.4.8/font.css" rel="stylesheet">
+<script src="libs/bs3compat-0.6.1/transition.js"></script><script src="libs/bs3compat-0.6.1/tabs.js"></script><script src="libs/bs3compat-0.6.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script><link href="libs/vis-9.1.0/vis-network.min.css" rel="stylesheet">
 <script src="libs/vis-9.1.0/vis-network.min.js"></script><script src="libs/visNetwork-binding-2.1.2/visNetwork.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script type="text/javascript" src="https://www.mattpeeples.net/book/particles.min.js"></script><script type="text/javascript" src="https://www.mattpeeples.net/book/custom.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-MHX9HQF2BQ"></script><script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
@@ -141,7 +141,7 @@ data analysis in R.
 <li>
 <strong><code>cccd</code></strong> - This is a package that is designed explicitly for working with spatial data and has a number of functions for defining networks based on relative neighborhoods and other spatial network definitions.</li>
 <li>
-<strong><code>deldir</code></strong> - This package package is designed to create spatial partitions including calculating Delaunay triangulation and Voronoi tessellations of spatial planes.</li>
+<strong><code>deldir</code></strong> - This package is designed to create spatial partitions including calculating Delaunay triangulation and Voronoi tessellations of spatial planes.</li>
 <li>
 <strong><code>geosphere</code></strong> - This is a package focused on spherical trigonometry and has functions which allow us to calculate distances between points in spherical geographic space across the globe.</li>
 <li>
@@ -151,7 +151,7 @@ data analysis in R.
 <p>A coordinate reference system (CRS) is a formal definition of how spatial points relate to the surface of the globe. CRS typically fall into two categories: geographic coordinate systems and projected coordinate systems. The most common geographic coordinate system is the latitude/longitude system which describes locations on the surface of the Earth in terms of angular coordinates from the Prime Meridian and Equator. A projected data set refers to the process through which map makers take a spherical Earth and create a flat map. Projections distort and move the area, distance, and shape to varying degrees and provide xy location coordinates in linear units. The advantages and disadvantages of these systems are beyond the scope of this document but it is important to note that R often requires us to define our coordinate reference system when working with spatial data.</p>
 <p>In the code below and in several other sections of the book you have seen function calls that include an argument called <code>crs</code>. This is the coordinate reference system object used by R which provides a numeric code denoting the CRS used by a given data set. Just like we take external .csv data and covert them into network objects R understands, we need to import spatial data and convert to an object R recognizes. We do this in the <code>sf</code> package using the <code>st_as_sf</code> function.</p>
 <p>To use this function you take a data frame which includes location xy information, you use the <code>coords</code> argument to specify which fields are the x and y coordinates, and then use the <code>crs</code> code to specify the coordinate reference system used. In this example we use code <code>4326</code> which refers to the WGS84 World Geodetic System of geographic coordinates. <a href="https://epsg.io/">See this website</a> to look up many common <code>crs</code> code options.</p>
-<div class="sourceCode" id="cb518"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb523"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span></span>
 <span><span class="va">nodes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"data/Hispania_nodes.csv"</span>, header <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
 <span><span class="va">locs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html">st_as_sf</a></span><span class="op">(</span><span class="va">nodes</span>, coords <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"long"</span>, <span class="st">"lat"</span><span class="op">)</span>, crs <span class="op">=</span> <span class="fl">4326</span><span class="op">)</span></span>
@@ -174,23 +174,44 @@ data analysis in R.
 ## 8  n7                               "Italica" POINT (-6.0449 37.4411)
 ## 9  n8               "Acci/Col. Iulia Gemella" POINT (-3.1346 37.3003)
 ## 10 n9                               "Toletum" POINT (-4.0245 39.8567)</code></pre>
-<p>Another feature used throughout this guide that needs further explanation is the <code>ggmap</code> function <code>get_stamenmap</code>. This function automatically retrieves a background map for you using a few arguments:</p>
+<p>When working with geographic data, it is also sometimes useful to plot directly on top of some sort of base map. There are many options for this but one of the most convenient is to use the <code>sf</code> and <code>ggmap</code> packages to directly download the relevant base map layer and plot directly on top of it. This first requires converting points to latitude and longitude in decimal degrees if they are not already in that format. See the details on the <a href="https://r-spatial.github.io/sf/">sf package</a> and <a href="https://github.com/dkahle/ggmap">ggmap package</a> for more details.</p>
+<p>Here we demonstrate the use of the <code>ggmap</code> and the <code>get_stadiamap</code> function which requires a bit of additional explanation. This function automatically retrieves a background map for you using a few arguments:</p>
 <ul>
 <li>
 <strong><code>bbox</code></strong> - the bounding box which represents the decimal degrees longitude and latitude coordinates of the lower left and upper right area you wish to map.</li>
 <li>
-<strong><code>maptype</code></strong> - a name that indicates the style of map to use (<a href="https://rdrr.io/cran/ggmap/man/get_stamenmap.html">check here for options</a>).</li>
+<strong><code>maptype</code></strong> - a name that indicates the style of map to use (<a href="https://rdrr.io/github/dkahle/ggmap/man/get_stadiamap.html">check here for options</a>).</li>
 <li>
 <strong><code>zoom</code></strong> - a variable denoting the detail or zoom level to be retrieved. Higher number give more detail but take longer to detail.</li>
 </ul>
-<p>With the <code>ggmap</code> package, these background maps can easily be incorporated into network graphics.</p>
-<div class="sourceCode" id="cb520"><pre class="downlit sourceCode r">
+<p>As of early 2024 the <code>get_stadiamap</code> function also requires that you sign up for an account at <a href="https://stadiamaps.com">stadiamaps.com</a>. This account is free and allows you to download a large number of background maps in R per month (likely FAR more than an individual would ever use). There are a few setup steps required to get this to work. You can follow the steps below or <a href="https://www.youtube-nocookie.com/embed/6jUSyI6x3xg">click here for a YouTube video outlining steps 1 thorugh 3 below</a>.</p>
+<ol style="list-style-type: decimal">
+<li><p>First, you need to sign up for a free account at Stadiamaps.</p></li>
+<li><p>Once you sign in, you will be asked to great a Property Name, designating where you will be using data. You can simply call it “R analysis” or anything you’d like.</p></li>
+<li><p>Once you create this property you’ll be able to assign an API key to it by clicking the “Add API” button.</p></li>
+<li><p>Now you simply need to let R know your API to allow map download access. In order to do this copy the API key that is visible on the stadiamaps page from the property you created and then run the following line of code adding your actual API key in the place of [YOUR KEY HERE]</p></li>
+</ol>
+<div class="rmdtip">
+<p>
+We describe the specifics of spatial data handling, geographic
+coordinates, and projection in the section on <a href="#SpatialNetworks">Spatial Networks</a>. See that section for a
+full description and how R deals with geographic information.
+</p>
+</div>
+<p>Note, for the ease of demonstration, in the remainder of this online guide we pre-download the maps and provide them as a file instead of using the <code>get_stadiamap</code> function.</p>
+<pre><code>## Loading required package: ggplot2</code></pre>
+<pre><code>## ℹ Google's Terms of Service: &lt;https://mapsplatform.google.com&gt;
+##   Stadia Maps' Terms of Service: &lt;https://stadiamaps.com/terms-of-service/&gt;
+##   OpenStreetMap's Tile Usage Policy: &lt;https://operations.osmfoundation.org/policies/tiles/&gt;
+## ℹ Please cite ggmap if you use it! Use `citation("ggmap")` for details.</code></pre>
+<p>Now you’re ready to run code that can download the stadia map backgrounds automatically:</p>
+<div class="sourceCode" id="cb527"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/dkahle/ggmap">ggmap</a></span><span class="op">)</span></span>
-<span><span class="va">map</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ggmap/man/get_stamenmap.html">get_stamenmap</a></span><span class="op">(</span>bbox <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">9.5</span>, <span class="fl">36</span>, <span class="fl">3</span>, <span class="fl">43.8</span><span class="op">)</span>,</span>
-<span>                       maptype <span class="op">=</span> <span class="st">"terrain"</span>,</span>
+<span><span class="va">map</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ggmap/man/get_stadiamap.html">get_stadiamap</a></span><span class="op">(</span>bbox <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">9.5</span>, <span class="fl">36</span>, <span class="fl">3</span>, <span class="fl">43.8</span><span class="op">)</span>,</span>
+<span>                       maptype <span class="op">=</span> <span class="st">"stamen_terrain_background"</span>,</span>
 <span>                       zoom <span class="op">=</span> <span class="fl">6</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/ggmap/man/ggmap.html">ggmap</a></span><span class="op">(</span><span class="va">map</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-3-1.png" width="672"></div>
+<div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-5-1.png" width="672"></div>
 </div>
 <div id="ExampleData" class="section level2" number="7.2">
 <h2>
@@ -198,8 +219,8 @@ data analysis in R.
 </h2>
 <p>For the initial examples in this section we will use the Roman Road data from the Iberian Peninsula. This data set consists of a <a href="data/Hispania_nodes.csv">csv file of a set of Roman settlements</a> and a <a href="data/Hispania_roads">csv file of an edge list</a> defining connections among those settlements in terms of roads.</p>
 <p>First we map the basic road network. We have commented the code below to explain what is happening at each stage.</p>
-<div class="sourceCode" id="cb521"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://igraph.org">igraph</a></span><span class="op">)</span></span>
+<div class="sourceCode" id="cb528"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r.igraph.org/">igraph</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/dkahle/ggmap">ggmap</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span></span>
 <span></span>
@@ -207,7 +228,7 @@ data analysis in R.
 <span><span class="va">edges1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"data/Hispania_roads.csv"</span>, header <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="va">nodes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"data/Hispania_nodes.csv"</span>, header <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="va">road_net</span> <span class="op">&lt;-</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/graph_from_edgelist.html">graph_from_edgelist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">edges1</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>, directed <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://r.igraph.org/reference/graph_from_edgelist.html">graph_from_edgelist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">edges1</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>, directed <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Convert attribute location data to sf coordinates</span></span>
 <span><span class="va">locations_sf</span> <span class="op">&lt;-</span></span>
@@ -217,7 +238,7 @@ data analysis in R.
 <span><span class="va">xy</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">nodes</span><span class="op">$</span><span class="va">long</span>, y <span class="op">=</span> <span class="va">nodes</span><span class="op">$</span><span class="va">lat</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Extract edge list from network object</span></span>
-<span><span class="va">edgelist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/as_edgelist.html">get.edgelist</a></span><span class="op">(</span><span class="va">road_net</span><span class="op">)</span></span>
+<span><span class="va">edgelist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r.igraph.org/reference/get.edgelist.html">get.edgelist</a></span><span class="op">(</span><span class="va">road_net</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Create data frame of beginning and ending points of edges</span></span>
 <span><span class="va">edges</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">edgelist</span><span class="op">)</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span>
@@ -232,8 +253,8 @@ data analysis in R.
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="co"># Download stamenmap background data.</span></span>
-<span><span class="va">my_map</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ggmap/man/get_stamenmap.html">get_stamenmap</a></span><span class="op">(</span>bbox <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">9.5</span>, <span class="fl">36</span>, <span class="fl">3</span>, <span class="fl">43.8</span><span class="op">)</span>,</span>
-<span>                       maptype <span class="op">=</span> <span class="st">"watercolor"</span>,</span>
+<span><span class="va">my_map</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ggmap/man/get_stadiamap.html">get_stadiamap</a></span><span class="op">(</span>bbox <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">9.5</span>, <span class="fl">36</span>, <span class="fl">3</span>, <span class="fl">43.8</span><span class="op">)</span>,</span>
+<span>                       maptype <span class="op">=</span> <span class="st">"stamen_terrain_background"</span>,</span>
 <span>                       zoom <span class="op">=</span> <span class="fl">6</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Produce map starting with background</span></span>
@@ -285,21 +306,21 @@ to be installed from another archive called Bioconductor.
 </p>
 </div>
 <p>In order to install the <code>RBGL</code> and <code>BiocManager</code> libraries (if required), run the following lines of code.</p>
-<div class="sourceCode" id="cb522"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb529"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html">requireNamespace</a></span><span class="op">(</span><span class="st">"BiocManager"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span></span>
-<span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html">install</a></span><span class="op">(</span><span class="st">"RBGL"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://bioconductor.github.io/BiocManager/reference/install.html">install</a></span><span class="op">(</span><span class="st">"RBGL"</span><span class="op">)</span></span></code></pre></div>
 <p>With this in place we can now preform an analysis called the Boyer-Myrvold planarity test (Boyer and Myrvold 2004). This analysis performs a set of operations on a graph structure to evaluate whether or not it can be defined as a planar graph (see publication for more details).</p>
 <p>Let’s take a look at our Roman Road data.</p>
-<div class="sourceCode" id="cb523"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb530"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://www.bioconductor.org">RBGL</a></span><span class="op">)</span></span>
 <span><span class="co"># First convert to a graphNEL object for planarity test</span></span>
-<span><span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/as_graphnel.html">as_graphnel</a></span><span class="op">(</span><span class="va">road_net</span><span class="op">)</span></span>
+<span><span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r.igraph.org/reference/as_graphnel.html">as_graphnel</a></span><span class="op">(</span><span class="va">road_net</span><span class="op">)</span></span>
 <span><span class="co"># Implement test</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/RBGL/man/boyerMyrvoldPlanarityTest.html">boyerMyrvoldPlanarityTest</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
 <p>This results suggests that our Roman Road data is not planar. We can plot the data to evaluate this and do see crossed edges that could not be re-positioned.</p>
-<div class="sourceCode" id="cb525"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb532"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggraph.data-imaginist.com">ggraph</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">5364</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://ggraph.data-imaginist.com/reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">road_net</span>, layout <span class="op">=</span> <span class="st">"kk"</span><span class="op">)</span> <span class="op">+</span></span>
@@ -307,33 +328,27 @@ to be installed from another archive called Bioconductor.
 <span>  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Network of Roman Roads"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/theme_graph.html">theme_graph</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-7-1.png" width="672"></div>
+<div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-9-1.png" width="672"></div>
 <p>Now, by way of example, we can generate a small random network that is planar and see the results of the test. Note that in the network graph that is produced the visual is not planar but could be a small number of nodes were moved. Unfortunately planar graph drawing is not currently implemented into <code>igraph</code> or other packages so you cannot automatically plot a graph as planar even if it meets the criteria of a planar graph.</p>
-<div class="sourceCode" id="cb526"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb533"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">49</span><span class="op">)</span></span>
-<span><span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/erdos.renyi.game.html">erdos.renyi.game</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">1</span> <span class="op">/</span> <span class="fl">8</span><span class="op">)</span></span>
+<span><span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r.igraph.org/reference/erdos.renyi.game.html">erdos.renyi.game</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">1</span> <span class="op">/</span> <span class="fl">8</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">939</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://ggraph.data-imaginist.com/reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">g</span>, layout <span class="op">=</span> <span class="st">"stress"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/theme_graph.html">theme_graph</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-8-1.png" width="672"></div>
-<div class="sourceCode" id="cb527"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/as_graphnel.html">as_graphnel</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-10-1.png" width="672"></div>
+<div class="sourceCode" id="cb534"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r.igraph.org/reference/as_graphnel.html">as_graphnel</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/RBGL/man/boyerMyrvoldPlanarityTest.html">boyerMyrvoldPlanarityTest</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <p>Here is another example where the graph layout algorithm happens to produce a planar graph.</p>
-<div class="sourceCode" id="cb529"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb536"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">4957</span><span class="op">)</span></span>
-<span><span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/erdos.renyi.game.html">erdos.renyi.game</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">1</span> <span class="op">/</span> <span class="fl">8</span><span class="op">)</span></span>
+<span><span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r.igraph.org/reference/erdos.renyi.game.html">erdos.renyi.game</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">1</span> <span class="op">/</span> <span class="fl">8</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">939</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://ggraph.data-imaginist.com/reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">g</span>, layout <span class="op">=</span> <span class="st">"stress"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/theme_graph.html">theme_graph</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-9-1.png" width="672"></div>
-<div class="sourceCode" id="cb530"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/as_graphnel.html">as_graphnel</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-11-1.png" width="672"></div>
+<div class="sourceCode" id="cb537"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r.igraph.org/reference/as_graphnel.html">as_graphnel</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/RBGL/man/boyerMyrvoldPlanarityTest.html">boyerMyrvoldPlanarityTest</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 </div>
@@ -349,31 +364,31 @@ to be installed from another archive called Bioconductor.
 </ul>
 <p>In R using the igraph package it is possible to both generate trees and also to take an existing network and define what is called the minimum spanning tree of that graph or the minimum acyclic component.</p>
 <p>Let’s create a simple tree using the <code>make_tree</code> function in igraph.</p>
-<div class="sourceCode" id="cb532"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tree1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/make_tree.html">make_tree</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">50</span>, children <span class="op">=</span> <span class="fl">5</span>, mode <span class="op">=</span> <span class="st">"undirected"</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb539"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">tree1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r.igraph.org/reference/make_tree.html">make_tree</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">50</span>, children <span class="op">=</span> <span class="fl">5</span>, mode <span class="op">=</span> <span class="st">"undirected"</span><span class="op">)</span></span>
 <span><span class="va">tree1</span></span></code></pre></div>
-<pre><code>## IGRAPH a38261d U--- 50 49 -- Tree
+<pre><code>## IGRAPH 9bccdff U--- 50 49 -- Tree
 ## + attr: name (g/c), children (g/n), mode (g/c)
-## + edges from a38261d:
+## + edges from 9bccdff:
 ##  [1]  1-- 2  1-- 3  1-- 4  1-- 5  1-- 6  2-- 7  2-- 8  2-- 9  2--10  2--11
 ## [11]  3--12  3--13  3--14  3--15  3--16  4--17  4--18  4--19  4--20  4--21
 ## [21]  5--22  5--23  5--24  5--25  5--26  6--27  6--28  6--29  6--30  6--31
 ## [31]  7--32  7--33  7--34  7--35  7--36  8--37  8--38  8--39  8--40  8--41
 ## [41]  9--42  9--43  9--44  9--45  9--46 10--47 10--48 10--49 10--50</code></pre>
-<div class="sourceCode" id="cb534"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb541"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">tree1</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-10-1.png" width="672"></div>
-<p>In the example here you can see the branch and leaf structure of the network where there are central nodes that are hubs to a number of other nodes and so on, but there are no cycles back to the previous nodes. Thus, such a tree is inherently hierarchical.In the next sub-section, we will discuss the use of minimum spanning trees.</p>
-<p>It is also possible plot trees with a hierarchical network layout where nodes are arranged at levels of the hierarchy. In this case you need to specify the node or nodes that represent the first layer using the <code>root</code> call within the <code>ggraph</code> call.</p>
-<div class="sourceCode" id="cb535"><pre class="downlit sourceCode r">
+<div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-12-1.png" width="672"></div>
+<p>In the example here you can see the branch and leaf structure of the network where there are central nodes that are hubs to a number of other nodes and so on, but there are no cycles back to the previous nodes. Thus, such a tree is inherently hierarchical. In the next sub-section, we will discuss the use of minimum spanning trees.</p>
+<p>It is also possible to plot trees with a hierarchical network layout where nodes are arranged at levels of the hierarchy. In this case you need to specify the node or nodes that represent the first layer using the <code>root</code> call within the <code>ggraph</code> call.</p>
+<div class="sourceCode" id="cb542"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggraph.data-imaginist.com/reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">tree1</span>,</span>
 <span>       layout <span class="op">=</span> <span class="st">"igraph"</span>,</span>
 <span>       algorithm <span class="op">=</span> <span class="st">"tree"</span>,</span>
 <span>       root <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_edge_diagonal.html">geom_edge_diagonal</a></span><span class="op">(</span>edge_width <span class="op">=</span> <span class="fl">0.5</span>, alpha <span class="op">=</span> <span class="fl">.4</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_node_text.html">geom_node_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html">V</a></span><span class="op">(</span><span class="va">tree1</span><span class="op">)</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">3.5</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_node_text.html">geom_node_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="fu"><a href="https://r.igraph.org/reference/V.html">V</a></span><span class="op">(</span><span class="va">tree1</span><span class="op">)</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">3.5</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_void</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-11-1.png" width="672"></div>
+<div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-13-1.png" width="672"></div>
 </div>
 </div>
 <div id="SpatialNetworkModels" class="section level2" number="7.4">
@@ -398,57 +413,17 @@ graphs it is also possible to limit the search for possible neighbors to
 </p>
 </div>
 <p>Let’s use our previously created distance matrix and plot the results.</p>
-<div class="sourceCode" id="cb536"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb543"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">cccd</span><span class="op">)</span></span>
 <span><span class="va">rng1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/cccd/man/rng.html">rng</a></span><span class="op">(</span><span class="va">nodes</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">2</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://ggraph.data-imaginist.com/reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">rng1</span>, layout <span class="op">=</span> <span class="st">"kk"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/theme_graph.html">theme_graph</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-13-1.png" width="672"></div>
-<p>We can also plot the results using geographic coordinates.</p>
-<div class="sourceCode" id="cb537"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://ggraph.data-imaginist.com/reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">rng1</span>,</span>
-<span>       layout <span class="op">=</span> <span class="st">"manual"</span>,</span>
-<span>       x <span class="op">=</span> <span class="va">nodes</span><span class="op">[</span>, <span class="fl">3</span><span class="op">]</span>,</span>
-<span>       y <span class="op">=</span> <span class="va">nodes</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/theme_graph.html">theme_graph</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-14-1.png" width="672"></div>
-</div>
-<div id="GabrialGraphs" class="section level3" number="7.4.2">
-<h3>
-<span class="header-section-number">7.4.2</span> Gabriel Graphs<a class="anchor" aria-label="anchor" href="#GabrialGraphs"><i class="fas fa-link"></i></a>
-</h3>
-<p>Gabriel graph: a pair of nodes are connected in a Gabriel graph if no other nodes lie within the circular region with a diameter equal to the distance between the pair of nodes.</p>
-<p>Again we can use a function in the <code>cccd</code> package to define Gabriel Graph igraph objects from x and y coordinates. Let’s take a look using the Roman Road data. See <code><a href="https://rdrr.io/pkg/cccd/man/gg.html">?gg</a></code> for details on the options including different algorithms for calculating Gabriel Graphs. We define a Gabriel graph here and plot it using an algorithmic layout and then geographic coordinates.</p>
-<div class="sourceCode" id="cb538"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">gg1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/cccd/man/gg.html">gg</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">nodes</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">2</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://ggraph.data-imaginist.com/reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">gg1</span>, layout <span class="op">=</span> <span class="st">"stress"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/theme_graph.html">theme_graph</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-15-1.png" width="672"></div>
-<div class="sourceCode" id="cb539"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://ggraph.data-imaginist.com/reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">gg1</span>,</span>
-<span>       layout <span class="op">=</span> <span class="st">"manual"</span>,</span>
-<span>       x <span class="op">=</span> <span class="va">nodes</span><span class="op">[</span>, <span class="fl">3</span><span class="op">]</span>,</span>
-<span>       y <span class="op">=</span> <span class="va">nodes</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/theme_graph.html">theme_graph</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-15-2.png" width="672"></div>
-</div>
-<div id="BetaSkeletons" class="section level3" number="7.4.3">
-<h3>
-<span class="header-section-number">7.4.3</span> Beta Skeletons<a class="anchor" aria-label="anchor" href="#BetaSkeletons"><i class="fas fa-link"></i></a>
-</h3>
-<p>Beta skeleton: a Gabriel graph in which the diameter of the circle is controlled by a parameter beta.</p>
-<p>In R the <code>gg</code> function for producing Gabriel Graphs has the procedure for beta skeletons built directly in. The argument r in the gg function controls the beta parameter. When r = 1 a traditional Gabriel graph is returned. When the parameter r &gt; 1 there is a stricter definition of connection resulting in fewer ties and when r &lt; 1 link criteria are loosened. See <code><a href="https://rdrr.io/pkg/cccd/man/gg.html">?gg</a></code> for more details.</p>
-<div class="sourceCode" id="cb540"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">beta_s</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/cccd/man/gg.html">gg</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">nodes</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">2</span><span class="op">)</span><span class="op">]</span>, r <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://ggraph.data-imaginist.com/reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">beta_s</span>,</span>
+<p>We can also plot the results using geographic coordinates.</p>
+<div class="sourceCode" id="cb544"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggraph.data-imaginist.com/reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">rng1</span>,</span>
 <span>       layout <span class="op">=</span> <span class="st">"manual"</span>,</span>
 <span>       x <span class="op">=</span> <span class="va">nodes</span><span class="op">[</span>, <span class="fl">3</span><span class="op">]</span>,</span>
 <span>       y <span class="op">=</span> <span class="va">nodes</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span></span>
@@ -457,23 +432,63 @@ graphs it is also possible to limit the search for possible neighbors to
 <span>  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/theme_graph.html">theme_graph</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-16-1.png" width="672"></div>
 </div>
+<div id="GabrialGraphs" class="section level3" number="7.4.2">
+<h3>
+<span class="header-section-number">7.4.2</span> Gabriel Graphs<a class="anchor" aria-label="anchor" href="#GabrialGraphs"><i class="fas fa-link"></i></a>
+</h3>
+<p>Gabriel graph: a pair of nodes are connected in a Gabriel graph if no other nodes lie within the circular region with a diameter equal to the distance between the pair of nodes.</p>
+<p>Again we can use a function in the <code>cccd</code> package to define Gabriel Graph igraph objects from x and y coordinates. Let’s take a look using the Roman Road data. See <code><a href="https://rdrr.io/pkg/cccd/man/gg.html">?gg</a></code> for details on the options including different algorithms for calculating Gabriel Graphs. We define a Gabriel graph here and plot it using an algorithmic layout and then geographic coordinates.</p>
+<div class="sourceCode" id="cb545"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">gg1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/cccd/man/gg.html">gg</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">nodes</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">2</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://ggraph.data-imaginist.com/reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">gg1</span>, layout <span class="op">=</span> <span class="st">"stress"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/theme_graph.html">theme_graph</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-17-1.png" width="672"></div>
+<div class="sourceCode" id="cb546"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggraph.data-imaginist.com/reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">gg1</span>,</span>
+<span>       layout <span class="op">=</span> <span class="st">"manual"</span>,</span>
+<span>       x <span class="op">=</span> <span class="va">nodes</span><span class="op">[</span>, <span class="fl">3</span><span class="op">]</span>,</span>
+<span>       y <span class="op">=</span> <span class="va">nodes</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/theme_graph.html">theme_graph</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-17-2.png" width="672"></div>
+</div>
+<div id="BetaSkeletons" class="section level3" number="7.4.3">
+<h3>
+<span class="header-section-number">7.4.3</span> Beta Skeletons<a class="anchor" aria-label="anchor" href="#BetaSkeletons"><i class="fas fa-link"></i></a>
+</h3>
+<p>Beta skeleton: a Gabriel graph in which the diameter of the circle is controlled by a parameter beta.</p>
+<p>In R the <code>gg</code> function for producing Gabriel Graphs has the procedure for beta skeletons built directly in. The argument r in the gg function controls the beta parameter. When r = 1 a traditional Gabriel graph is returned. When the parameter r &gt; 1 there is a stricter definition of connection resulting in fewer ties and when r &lt; 1 link criteria are loosened. See <code><a href="https://rdrr.io/pkg/cccd/man/gg.html">?gg</a></code> for more details.</p>
+<div class="sourceCode" id="cb547"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">beta_s</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/cccd/man/gg.html">gg</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">nodes</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">2</span><span class="op">)</span><span class="op">]</span>, r <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://ggraph.data-imaginist.com/reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">beta_s</span>,</span>
+<span>       layout <span class="op">=</span> <span class="st">"manual"</span>,</span>
+<span>       x <span class="op">=</span> <span class="va">nodes</span><span class="op">[</span>, <span class="fl">3</span><span class="op">]</span>,</span>
+<span>       y <span class="op">=</span> <span class="va">nodes</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/theme_graph.html">theme_graph</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-18-1.png" width="672"></div>
+</div>
 <div id="MinSpanningTrees" class="section level3" number="7.4.4">
 <h3>
 <span class="header-section-number">7.4.4</span> Minimum Spanning Trees<a class="anchor" aria-label="anchor" href="#MinSpanningTrees"><i class="fas fa-link"></i></a>
 </h3>
 <p>Minimum spanning tree: in a set of nodes in the Euclidean plane, edges are created between pairs of nodes to form a tree where each node can be reached by each other node, such that the sum of the Euclidean edge lengths is less than the sum for any other spanning tree.</p>
 <p>Perhaps the most common use-case for trees in archaeological networks is to define the minimum spanning tree of a given graph or the minimum set of nodes and edges required for a fully connected graph. The <code>igraph</code> package has a function called <code>mst</code> that defines the minimum spanning tree for a given graph. Let’s try this with the Roman Road and then plot it as a node-link diagram and a map.</p>
-<div class="sourceCode" id="cb541"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">mst_net</span> <span class="op">&lt;-</span> <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/mst.html">mst</a></span><span class="op">(</span><span class="va">road_net</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb548"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">mst_net</span> <span class="op">&lt;-</span> <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://r.igraph.org/reference/mst.html">mst</a></span><span class="op">(</span><span class="va">road_net</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">4643</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://ggraph.data-imaginist.com/reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">mst_net</span>, layout <span class="op">=</span> <span class="st">"kk"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">4</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/theme_graph.html">theme_graph</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-17-1.png" width="672"></div>
-<div class="sourceCode" id="cb542"><pre class="downlit sourceCode r">
+<div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-19-1.png" width="672"></div>
+<div class="sourceCode" id="cb549"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Extract edge list from network object</span></span>
-<span><span class="va">edgelist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/as_edgelist.html">get.edgelist</a></span><span class="op">(</span><span class="va">mst_net</span><span class="op">)</span></span>
+<span><span class="va">edgelist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r.igraph.org/reference/get.edgelist.html">get.edgelist</a></span><span class="op">(</span><span class="va">mst_net</span><span class="op">)</span></span>
 <span><span class="co"># Create data frame of beginning and ending points of edges</span></span>
 <span><span class="va">edges</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">edgelist</span><span class="op">)</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">edges</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"X1"</span>, <span class="st">"Y1"</span>, <span class="st">"X2"</span>, <span class="st">"Y2"</span><span class="op">)</span></span>
@@ -506,8 +521,8 @@ graphs it is also possible to limit the search for possible neighbors to
 <span>    show.legend <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_void</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-17-2.png" width="672"></div>
-<p>Note that minimum spanning trees can also be used for weighted graphs such that weighted connections will be preferred in defining tree structure. See <code><a href="https://rdrr.io/pkg/igraph/man/mst.html">?mst</a></code> for more details.</p>
+<div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-19-2.png" width="672"></div>
+<p>Note that minimum spanning trees can also be used for weighted graphs such that weighted connections will be preferred in defining tree structure. See <code><a href="https://r.igraph.org/reference/mst.html">?mst</a></code> for more details.</p>
 </div>
 <div id="DelaunayTri" class="section level3" number="7.4.5">
 <h3>
@@ -526,12 +541,12 @@ analysis. This boundary can also be specified within the call using the
 </p>
 </div>
 <p>The results of the <code>deldir</code> function can be directly plotted and the output also contains coordinates necessary to integrate the results into another type of figure like a <code>ggmap</code>. Let’s take a look.</p>
-<div class="sourceCode" id="cb543"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb550"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">deldir</span><span class="op">)</span></span>
 <span><span class="va">dt1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/deldir/man/deldir.html">deldir</a></span><span class="op">(</span><span class="va">nodes</span><span class="op">[</span>, <span class="fl">3</span><span class="op">]</span>, <span class="va">nodes</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">dt1</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-19-1.png" width="672"></div>
-<div class="sourceCode" id="cb544"><pre class="downlit sourceCode r">
+<div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-21-1.png" width="672"></div>
+<div class="sourceCode" id="cb551"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Extract Voronoi polygons for plotting</span></span>
 <span><span class="va">mapdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="va">dt1</span><span class="op">$</span><span class="va">dirsgs</span><span class="op">)</span></span>
 <span><span class="co"># Extract network for plotting</span></span>
@@ -570,7 +585,7 @@ analysis. This boundary can also be specified within the call using the
 <span>    show.legend <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_void</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-19-2.png" width="672"></div>
+<div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-21-2.png" width="672"></div>
 </div>
 <div id="KNN" class="section level3" number="7.4.6">
 <h3>
@@ -578,20 +593,20 @@ analysis. This boundary can also be specified within the call using the
 </h3>
 <p>K-nearest neighbor network: each node is connected to K other nodes closest to it.</p>
 <p>The <code>cccd</code> package has a routine that allows for the calculation of K-nearest neighbor graphs from geographic coordinates or a precomputed distance matrix. In this example we use the Roman Road data and calculate K=1 and K=6 nearest neighbor networks and plot the both simultaneously.</p>
-<div class="sourceCode" id="cb545"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb552"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Calculate k=1 nearest neighbor graph</span></span>
 <span><span class="va">nn1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/cccd/man/nng.html">nng</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">nodes</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">2</span><span class="op">)</span><span class="op">]</span>, k <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="co"># Calculate k=6 nearest neighbor graph</span></span>
 <span><span class="va">nn6</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/cccd/man/nng.html">nng</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">nodes</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">2</span><span class="op">)</span><span class="op">]</span>, k <span class="op">=</span> <span class="fl">6</span><span class="op">)</span></span>
 <span><span class="va">el1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/as_edgelist.html">get.edgelist</a></span><span class="op">(</span><span class="va">nn6</span><span class="op">)</span>,</span>
-<span>         <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"K=6"</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/as_edgelist.html">get.edgelist</a></span><span class="op">(</span><span class="va">nn1</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="fu"><a href="https://r.igraph.org/reference/get.edgelist.html">get.edgelist</a></span><span class="op">(</span><span class="va">nn6</span><span class="op">)</span>,</span>
+<span>         <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"K=6"</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="fu"><a href="https://r.igraph.org/reference/get.edgelist.html">get.edgelist</a></span><span class="op">(</span><span class="va">nn1</span><span class="op">)</span><span class="op">)</span></span>
 <span>             <span class="op">)</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/as_edgelist.html">get.edgelist</a></span><span class="op">(</span><span class="va">nn1</span><span class="op">)</span>,</span>
-<span>          <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"K=1"</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/as_edgelist.html">get.edgelist</a></span><span class="op">(</span><span class="va">nn1</span><span class="op">)</span><span class="op">)</span></span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="fu"><a href="https://r.igraph.org/reference/get.edgelist.html">get.edgelist</a></span><span class="op">(</span><span class="va">nn1</span><span class="op">)</span>,</span>
+<span>          <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"K=1"</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="fu"><a href="https://r.igraph.org/reference/get.edgelist.html">get.edgelist</a></span><span class="op">(</span><span class="va">nn1</span><span class="op">)</span><span class="op">)</span></span>
 <span>             <span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">el1</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"from"</span>, <span class="st">"to"</span>, <span class="st">"K"</span><span class="op">)</span></span>
-<span><span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/graph_from_data_frame.html">graph_from_data_frame</a></span><span class="op">(</span><span class="va">el1</span><span class="op">)</span></span>
+<span><span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r.igraph.org/reference/graph_from_data_frame.html">graph_from_data_frame</a></span><span class="op">(</span><span class="va">el1</span><span class="op">)</span></span>
 <span><span class="co"># Plot both graphs</span></span>
 <span><span class="fu"><a href="https://ggraph.data-imaginist.com/reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">g</span>, layout <span class="op">=</span> <span class="st">"manual"</span>,</span>
 <span>       x <span class="op">=</span> <span class="va">nodes</span><span class="op">[</span>, <span class="fl">3</span><span class="op">]</span>, y <span class="op">=</span> <span class="va">nodes</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span></span>
@@ -599,13 +614,13 @@ analysis. This boundary can also be specified within the call using the
 <span>  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>edge_color <span class="op">=</span> <span class="st">"K"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/theme_graph.html">theme_graph</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-20-1.png" width="672"></div>
+<div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-22-1.png" width="672"></div>
 </div>
 <div id="MaxDist" class="section level3" number="7.4.7">
 <h3>
 <span class="header-section-number">7.4.7</span> Maximum Distance Networks<a class="anchor" aria-label="anchor" href="#MaxDist"><i class="fas fa-link"></i></a>
 </h3>
-<p>Maximum distance network: each node is connected to all other nodes at a distance closer than or equal to a threshold value. In order define a maximum distance network we simply need to define a threshold distance and define all nodes greater than that distance as unconnected and nodes within that distance as connected. This can be done in base R using the dist function we used above.</p>
+<p>Maximum distance network: each node is connected to all other nodes at a distance closer than or equal to a threshold value. In order to define a maximum distance network we simply need to define a threshold distance and define all nodes greater than that distance as unconnected and nodes within that distance as connected. This can be done in base R using the dist function we used above.</p>
 <div class="rmdtip">
 <p>
 Since the coordinates we are using here are in decimal degrees we
@@ -618,16 +633,9 @@ can simply use the <code>dist</code> function in the place of
 </p>
 </div>
 <p>Next, in order to define a minimum distance network we simply binarize this matrix. We can do this using the <code>event2dichot</code> function within the <code>statnet</code> package and easily create an R network objects. Let’s try it out with the Roman Road data for thresholds of 100,000 and 250,000 meters.</p>
-<div class="sourceCode" id="cb546"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://statnet.org">statnet</a></span><span class="op">)</span></span></code></pre></div>
-<pre><code>##                Installed ReposVer Built  
-## ergm           "4.3.2"   "4.4.0"  "4.2.2"
-## network        "1.18.0"  "1.18.1" "4.2.2"
-## networkDynamic "0.11.2"  "0.11.3" "4.2.0"
-## sna            "2.7"     "2.7-1"  "4.2.1"
-## statnet.common "4.7.0"   "4.8.0"  "4.2.1"</code></pre>
-<div class="sourceCode" id="cb548"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">geosphere</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb553"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://statnet.org">statnet</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">geosphere</span><span class="op">)</span></span>
 <span><span class="va">d1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/geosphere/man/distm.html">distm</a></span><span class="op">(</span><span class="va">nodes</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">2</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="co"># Note we use the leq=TRUE argument here as we want nodes less than</span></span>
 <span><span class="co"># the threshold to count.</span></span>
@@ -653,8 +661,8 @@ can simply use the <code>dist</code> function in the place of
 <span>  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/theme_graph.html">theme_graph</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-22-1.png" width="672"></div>
-<div class="sourceCode" id="cb549"><pre class="downlit sourceCode r">
+<div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-24-1.png" width="672"></div>
+<div class="sourceCode" id="cb554"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Plot 250 Km network</span></span>
 <span><span class="fu"><a href="https://ggraph.data-imaginist.com/reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">net250</span>,</span>
 <span>       layout <span class="op">=</span> <span class="st">"manual"</span>,</span>
@@ -663,7 +671,7 @@ can simply use the <code>dist</code> function in the place of
 <span>  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/theme_graph.html">theme_graph</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-22-2.png" width="672"></div>
+<div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-24-2.png" width="672"></div>
 </div>
 </div>
 <div id="SpaceCaseStudies" class="section level2" number="7.5">
@@ -676,10 +684,10 @@ can simply use the <code>dist</code> function in the place of
 </h3>
 <p>The first case study in Chapter 7 of Brughmans and Peeples (2023) is an example of several of the methods for defining networks using spatial data outlined above using the locations of 86 sites in the Guadalquivir river valley in Southern Spain. In the code chunks below, we replicate the analyses presented in the book.</p>
 <p>First we read in the data which represents site location information in lat/long decimal degrees.</p>
-<div class="sourceCode" id="cb550"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb555"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">guad</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"data/Guadalquivir.csv"</span>, header <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p>Next we create a distance matrix based on the decimal degrees locations using the “distm” function.</p>
-<div class="sourceCode" id="cb551"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb556"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">geosphere</span><span class="op">)</span></span>
 <span><span class="va">g_dist1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/geosphere/man/distm.html">distm</a></span><span class="op">(</span><span class="va">guad</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">g_dist1</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span></span></code></pre></div>
@@ -689,8 +697,8 @@ can simply use the <code>dist</code> function in the place of
 ## [3,] 42265.58 28240.50     0.00 23692.10
 ## [4,] 51296.53 29202.84 23692.10     0.00</code></pre>
 <p>From here we can create maximum distance networks at both the 10km and 18km distance and plot it using the geographic location of nodes for node placement.</p>
-<div class="sourceCode" id="cb553"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://mbojan.github.io/intergraph">intergraph</a></span><span class="op">)</span></span>
+<div class="sourceCode" id="cb558"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://mbojan.github.io/intergraph/">intergraph</a></span><span class="op">)</span></span>
 <span><span class="co"># Note we use the leq=TRUE argument here as we want nodes</span></span>
 <span><span class="co"># less than the threshold to count.</span></span>
 <span><span class="va">net10</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/intergraph/man/asIgraph.html">asIgraph</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/network/man/network.html">network</a></span><span class="op">(</span></span>
@@ -711,9 +719,9 @@ can simply use the <code>dist</code> function in the place of
 <span>  <span class="op">)</span>,</span>
 <span>  directed <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">g10_deg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/degree.html">degree</a></span><span class="op">(</span><span class="va">net10</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">g10_deg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://r.igraph.org/reference/degree.html">degree</a></span><span class="op">(</span><span class="va">net10</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">g10_deg</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"degree"</span></span>
-<span><span class="va">g18_deg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/degree.html">degree</a></span><span class="op">(</span><span class="va">net18</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">g18_deg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://r.igraph.org/reference/degree.html">degree</a></span><span class="op">(</span><span class="va">net18</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">g18_deg</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"degree"</span></span>
 <span><span class="co"># Plot histogram of degree for 10km network</span></span>
 <span><span class="va">h10</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">g10_deg</span><span class="op">)</span> <span class="op">+</span></span>
@@ -738,7 +746,7 @@ can simply use the <code>dist</code> function in the place of
 <span>  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/theme_graph.html">theme_graph</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">g18</span></span></code></pre></div>
-<div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-25-1.png" width="672"></div>
+<div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-27-1.png" width="672"></div>
 <div class="rmdnote">
 <p>
 If we want to combine the degree distribution plot and the network
@@ -747,7 +755,7 @@ in the <code>patchwork</code> package. This function lets us place one
 plot inside another in the <code>ggplot2</code> format.
 </p>
 </div>
-<div class="sourceCode" id="cb554"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb559"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com">patchwork</a></span><span class="op">)</span></span>
 <span><span class="va">plot_a</span> <span class="op">&lt;-</span> <span class="va">g10</span> <span class="op">+</span> <span class="fu"><a href="https://patchwork.data-imaginist.com/reference/inset_element.html">inset_element</a></span><span class="op">(</span></span>
 <span>  <span class="va">h10</span>,</span>
@@ -764,12 +772,12 @@ plot inside another in the <code>ggplot2</code> format.
 <span>  top <span class="op">=</span> <span class="fl">0.99</span></span>
 <span><span class="op">)</span></span>
 <span><span class="va">plot_a</span></span></code></pre></div>
-<div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-27-1.png" width="672"></div>
-<div class="sourceCode" id="cb555"><pre class="downlit sourceCode r">
+<div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-29-1.png" width="672"></div>
+<div class="sourceCode" id="cb560"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">plot_b</span></span></code></pre></div>
-<div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-27-2.png" width="672"></div>
+<div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-29-2.png" width="672"></div>
 <p>Next, we calculate a relative neighborhood graph for the site locations and plot it with nodes positioned in geographic space.</p>
-<div class="sourceCode" id="cb556"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb561"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">rng1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/cccd/man/rng.html">rng</a></span><span class="op">(</span><span class="va">guad</span><span class="op">[</span>, <span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="va">g_rng</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">rng1</span>,</span>
 <span>                layout <span class="op">=</span> <span class="st">"manual"</span>,</span>
@@ -778,7 +786,7 @@ plot inside another in the <code>ggplot2</code> format.
 <span>  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/theme_graph.html">theme_graph</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">g_rng_deg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/degree.html">degree</a></span><span class="op">(</span><span class="va">rng1</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">g_rng_deg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://r.igraph.org/reference/degree.html">degree</a></span><span class="op">(</span><span class="va">rng1</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">g_rng_deg</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"degree"</span></span>
 <span><span class="co"># Plot histogram of degree for relative neighborhood network</span></span>
 <span><span class="va">h_rng</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">g_rng_deg</span><span class="op">)</span> <span class="op">+</span></span>
@@ -791,9 +799,9 @@ plot inside another in the <code>ggplot2</code> format.
 <span>  top <span class="op">=</span> <span class="fl">0.99</span></span>
 <span><span class="op">)</span></span>
 <span><span class="va">plot_c</span></span></code></pre></div>
-<div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-28-1.png" width="672"></div>
+<div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-30-1.png" width="672"></div>
 <p>The chunk of code below then calculates and plots the Gabrial graph with the associated degree distribution plot.</p>
-<div class="sourceCode" id="cb557"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb562"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gg1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/cccd/man/gg.html">gg</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">guad</span><span class="op">[</span>, <span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="va">g_gg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">gg1</span>,</span>
 <span>               layout <span class="op">=</span> <span class="st">"manual"</span>,</span>
@@ -802,7 +810,7 @@ plot inside another in the <code>ggplot2</code> format.
 <span>  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/theme_graph.html">theme_graph</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">g_gg_deg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/degree.html">degree</a></span><span class="op">(</span><span class="va">gg1</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">g_gg_deg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://r.igraph.org/reference/degree.html">degree</a></span><span class="op">(</span><span class="va">gg1</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">g_gg_deg</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"degree"</span></span>
 <span><span class="co"># Plot histogram of degree for relative neighborhood network</span></span>
 <span><span class="va">h_gg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">g_gg_deg</span><span class="op">)</span> <span class="op">+</span></span>
@@ -815,9 +823,9 @@ plot inside another in the <code>ggplot2</code> format.
 <span>  top <span class="op">=</span> <span class="fl">0.99</span></span>
 <span><span class="op">)</span></span>
 <span><span class="va">plot_d</span></span></code></pre></div>
-<div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-29-1.png" width="672"></div>
+<div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-31-1.png" width="672"></div>
 <p>Next, we’ll plot the K-nearest neighbors graphs for k= 2, 3, 4, and 6 with the associated degree distribution for each.</p>
-<div class="sourceCode" id="cb558"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb563"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Calculate k=2,3,4, and 6 nearest neighbor graphs</span></span>
 <span><span class="va">nn2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/cccd/man/nng.html">nng</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">guad</span><span class="op">[</span>, <span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>, k <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="va">nn3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/cccd/man/nng.html">nng</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">guad</span><span class="op">[</span>, <span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>, k <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
@@ -853,13 +861,13 @@ plot inside another in the <code>ggplot2</code> format.
 <span>  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/theme_graph.html">theme_graph</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co"># Set up data frames of degree distribution for each network</span></span>
-<span><span class="va">nn2_deg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/degree.html">degree</a></span><span class="op">(</span><span class="va">nn2</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">nn2_deg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://r.igraph.org/reference/degree.html">degree</a></span><span class="op">(</span><span class="va">nn2</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">nn2_deg</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"degree"</span></span>
-<span><span class="va">nn3_deg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/degree.html">degree</a></span><span class="op">(</span><span class="va">nn3</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">nn3_deg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://r.igraph.org/reference/degree.html">degree</a></span><span class="op">(</span><span class="va">nn3</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">nn3_deg</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"degree"</span></span>
-<span><span class="va">nn4_deg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/degree.html">degree</a></span><span class="op">(</span><span class="va">nn4</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">nn4_deg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://r.igraph.org/reference/degree.html">degree</a></span><span class="op">(</span><span class="va">nn4</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">nn4_deg</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"degree"</span></span>
-<span><span class="va">nn6_deg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/degree.html">degree</a></span><span class="op">(</span><span class="va">nn6</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">nn6_deg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://r.igraph.org/reference/degree.html">degree</a></span><span class="op">(</span><span class="va">nn6</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">nn6_deg</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"degree"</span></span>
 <span><span class="co"># Initialize histogram plot for each degree distribution</span></span>
 <span><span class="va">h_nn2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">nn2_deg</span><span class="op">)</span> <span class="op">+</span></span>
@@ -903,16 +911,16 @@ plot inside another in the <code>ggplot2</code> format.
 <span>  top <span class="op">=</span> <span class="fl">0.99</span></span>
 <span><span class="op">)</span></span>
 <span><span class="va">plot_a</span></span></code></pre></div>
-<div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-30-1.png" width="672"></div>
-<div class="sourceCode" id="cb559"><pre class="downlit sourceCode r">
+<div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-32-1.png" width="672"></div>
+<div class="sourceCode" id="cb564"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">plot_b</span></span></code></pre></div>
-<div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-30-2.png" width="672"></div>
-<div class="sourceCode" id="cb560"><pre class="downlit sourceCode r">
+<div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-32-2.png" width="672"></div>
+<div class="sourceCode" id="cb565"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">plot_c</span></span></code></pre></div>
-<div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-30-3.png" width="672"></div>
-<div class="sourceCode" id="cb561"><pre class="downlit sourceCode r">
+<div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-32-3.png" width="672"></div>
+<div class="sourceCode" id="cb566"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">plot_d</span></span></code></pre></div>
-<div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-30-4.png" width="672"></div>
+<div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-32-4.png" width="672"></div>
 </div>
 <div id="SpaceSW" class="section level3" number="7.5.2">
 <h3>
@@ -920,7 +928,7 @@ plot inside another in the <code>ggplot2</code> format.
 </h3>
 <p>The second case study in Chapter 7 of Brughmans and Peeples (2023) provides an example of how we can use spatial network methods to analyze material cultural network data. We use the Chaco World data here and you can download the <a href="data/map.RData">map data</a>, <a href="data/AD1050attr.csv">the site attribute data</a>, and <a href="data/AD1050cer.csv">the ceramic frequency data</a> to follow along.</p>
 <p>The first analysis explores the degree to which similarities in ceramics (in terms of Brainerd-Robinson similarity based on wares) can be explained by spatial distance. To do this we simply define a ceramic similarity matrix, a Euclidean distance matrix, and the fit a model using distance to explain ceramic similarity using a general additive model (<code>gam</code>) approach. The <code>gam</code> function we use here is in the <code>mgcv</code> package. Note that the object <code>dmat</code> is created using the <code>dist</code> function as the data we started with are already projected site locations using UTM coordinates.</p>
-<div class="sourceCode" id="cb562"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb567"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">mgcv</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span><span class="op">(</span><span class="st">"data/map.RData"</span><span class="op">)</span></span>
 <span><span class="va">attr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"data/AD1050attr.csv"</span>, row.names <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
@@ -953,7 +961,7 @@ plot inside another in the <code>ggplot2</code> format.
 ## GCV = 0.082702  Scale est. = 0.082699  n = 49729</code></pre>
 <p>As these results show and as described in the book, spatial distance is a statistically significant predictor of ceramic similarity and distance appear to explain about 37.2% of the variation in ceramic similarity.</p>
 <p>The next analysis presented the book creates a series of minimum distance networks from 36Kms all the way out to nearly 400Kms in concentric days travel (36Kms is about one day of travel on foot) and explore the proportion of variance explained by networks constrained on each distance.</p>
-<div class="sourceCode" id="cb564"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb569"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create a sequence of distances from 36km to 400kms by concentric</span></span>
 <span><span class="co"># days travel on foot</span></span>
 <span><span class="va">kms</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">36000</span>, <span class="fl">400000</span>, by <span class="op">=</span> <span class="fl">36000</span><span class="op">)</span></span>
@@ -986,13 +994,13 @@ plot inside another in the <code>ggplot2</code> format.
 <span>    axis.title.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">rel</a></span><span class="op">(</span><span class="fl">1.5</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>    axis.title.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">rel</a></span><span class="op">(</span><span class="fl">1.5</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-32-1.png" width="672"></div>
+<div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-34-1.png" width="672"></div>
 <p>Finally, let’s recreate figure 7.8 from the book to display the 36km minimum distance network for the Chaco region ca. AD 1050-1100. This follows the same basic format for plotting minimum distance networks we defined above.</p>
-<div class="sourceCode" id="cb565"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb570"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">d36</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/dist.html">dist</a></span><span class="op">(</span><span class="va">attr</span><span class="op">[</span>, <span class="fl">9</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">d36</span><span class="op">[</span><span class="va">d36</span> <span class="op">&lt;</span> <span class="fl">36001</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">1</span></span>
 <span><span class="va">d36</span><span class="op">[</span><span class="va">d36</span> <span class="op">&gt;</span> <span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">0</span></span>
-<span><span class="va">g36_net</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/graph_from_adjacency_matrix.html">graph_from_adjacency_matrix</a></span><span class="op">(</span><span class="va">d36</span>, mode <span class="op">=</span> <span class="st">"undirected"</span><span class="op">)</span></span>
+<span><span class="va">g36_net</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r.igraph.org/reference/graph_from_adjacency_matrix.html">graph_from_adjacency_matrix</a></span><span class="op">(</span><span class="va">d36</span>, mode <span class="op">=</span> <span class="st">"undirected"</span><span class="op">)</span></span>
 <span><span class="va">locations_sf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html">st_as_sf</a></span><span class="op">(</span><span class="va">attr</span>,</span>
 <span>                         coords <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"EASTING"</span>, <span class="st">"NORTHING"</span><span class="op">)</span>,</span>
 <span>                         crs <span class="op">=</span> <span class="fl">26912</span><span class="op">)</span></span>
@@ -1002,14 +1010,14 @@ plot inside another in the <code>ggplot2</code> format.
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/setNames.html">setNames</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"lon"</span>, <span class="st">"lat"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">xy</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">attr</span><span class="op">$</span><span class="va">SWSN_Site</span>, <span class="va">coord1</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">xy</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"site"</span>, <span class="st">"x"</span>, <span class="st">"y"</span><span class="op">)</span></span>
-<span><span class="va">base</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ggmap/man/get_stamenmap.html">get_stamenmap</a></span><span class="op">(</span></span>
+<span><span class="va">base</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ggmap/man/get_stadiamap.html">get_stadiamap</a></span><span class="op">(</span></span>
 <span>  bbox <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">110.75</span>, <span class="fl">33.5</span>, <span class="op">-</span><span class="fl">107</span>, <span class="fl">38</span><span class="op">)</span>,</span>
 <span>  zoom <span class="op">=</span> <span class="fl">8</span>,</span>
-<span>  maptype <span class="op">=</span> <span class="st">"terrain-background"</span>,</span>
+<span>  maptype <span class="op">=</span> <span class="st">"stamen_terrain_background"</span>,</span>
 <span>  color <span class="op">=</span> <span class="st">"bw"</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co"># Extract edge list from network object</span></span>
-<span><span class="va">edgelist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/as_edgelist.html">get.edgelist</a></span><span class="op">(</span><span class="va">g36_net</span><span class="op">)</span></span>
+<span><span class="va">edgelist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r.igraph.org/reference/get.edgelist.html">get.edgelist</a></span><span class="op">(</span><span class="va">g36_net</span><span class="op">)</span></span>
 <span><span class="co"># Create data frame of beginning and ending points of edges</span></span>
 <span><span class="va">edges</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">edgelist</span><span class="op">)</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">edges</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"X1"</span>, <span class="st">"Y1"</span>, <span class="st">"X2"</span>, <span class="st">"Y2"</span><span class="op">)</span></span>
@@ -1042,7 +1050,7 @@ plot inside another in the <code>ggplot2</code> format.
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_void</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">figure7_8</span></span></code></pre></div>
-<div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-33-1.png" width="672"></div>
+<div class="inline-figure"><img src="06-spatial-networks_files/figure-html/unnamed-chunk-35-1.png" width="672"></div>
 
 </div>
 </div>
@@ -1099,7 +1107,7 @@ plot inside another in the <code>ggplot2</code> format.
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Online Companion to <em>Network Science in Archaeology</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2023-03-21.</p>
+    <p>"<strong>Online Companion to <em>Network Science in Archaeology</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2024-02-15.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

@@ -94,9 +94,9 @@ cibola_net
 ```
 
 ```
-## IGRAPH 5d81d7a UN-- 30 167 -- 
+## IGRAPH 50cc7e5 UN-- 30 167 -- 
 ## + attr: name (v/c)
-## + edges from 5d81d7a (vertex names):
+## + edges from 50cc7e5 (vertex names):
 ##  [1] Apache Creek--Casa Malpais          Apache Creek--Coyote Creek         
 ##  [3] Apache Creek--Hooper Ranch          Apache Creek--Horse Camp Mill      
 ##  [5] Apache Creek--Hubble Corner         Apache Creek--Mineral Creek Pueblo 
@@ -132,7 +132,7 @@ adj_list$`Apache Creek`
 ```
 
 ```
-## + 11/167 edges from 5d81d7a (vertex names):
+## + 11/167 edges from 50cc7e5 (vertex names):
 ##  [1] Apache Creek--Casa Malpais         Apache Creek--Coyote Creek        
 ##  [3] Apache Creek--Hooper Ranch         Apache Creek--Horse Camp Mill     
 ##  [5] Apache Creek--Hubble Corner        Apache Creek--Mineral Creek Pueblo
@@ -148,7 +148,7 @@ adj_list[[2]]
 ```
 
 ```
-## + 11/167 edges from 5d81d7a (vertex names):
+## + 11/167 edges from 50cc7e5 (vertex names):
 ##  [1] Apache Creek--Casa Malpais    Casa Malpais--Coyote Creek   
 ##  [3] Casa Malpais--Hooper Ranch    Casa Malpais--Horse Camp Mill
 ##  [5] Casa Malpais--Hubble Corner   Casa Malpais--Rudd Creek Ruin
@@ -345,9 +345,9 @@ cibola_net2
 ```
 
 ```
-## IGRAPH 5db30e5 UN-- 31 167 -- 
+## IGRAPH 50eacb3 UN-- 31 167 -- 
 ## + attr: name (v/c), region (v/c)
-## + edges from 5db30e5 (vertex names):
+## + edges from 50eacb3 (vertex names):
 ##  [1] Apache.Creek--Casa.Malpais          Apache.Creek--Coyote.Creek         
 ##  [3] Apache.Creek--Hooper.Ranch          Apache.Creek--Horse.Camp.Mill      
 ##  [5] Apache.Creek--Hubble.Corner         Apache.Creek--Mineral.Creek.Pueblo 
@@ -403,9 +403,9 @@ simple_net_i
 ```
 
 ```
-## IGRAPH 5ea7bdf UN-- 31 167 -- 
+## IGRAPH 516a2c8 UN-- 31 167 -- 
 ## + attr: name (v/c)
-## + edges from 5ea7bdf (vertex names):
+## + edges from 516a2c8 (vertex names):
 ##  [1] Apache.Creek--Casa.Malpais          Apache.Creek--Coyote.Creek         
 ##  [3] Apache.Creek--Hooper.Ranch          Apache.Creek--Horse.Camp.Mill      
 ##  [5] Apache.Creek--Hubble.Corner         Apache.Creek--Mineral.Creek.Pueblo 
@@ -470,9 +470,9 @@ directed_net
 ```
 
 ```
-## IGRAPH 5eb23df DN-- 30 125 -- 
+## IGRAPH 516e0e0 DN-- 30 125 -- 
 ## + attr: name (v/c)
-## + edges from 5eb23df (vertex names):
+## + edges from 516e0e0 (vertex names):
 ##  [1] Coyote Creek   ->Techado Springs      
 ##  [2] Hubble Corner  ->Tri-R Pueblo         
 ##  [3] Hubble Corner  ->Techado Springs      
@@ -605,9 +605,9 @@ cibola_inc
 ```
 
 ```
-## IGRAPH 5ef749c UN-B 41 2214 -- 
+## IGRAPH 51936a0 UN-B 41 2214 -- 
 ## + attr: type (v/l), name (v/c)
-## + edges from 5ef749c (vertex names):
+## + edges from 51936a0 (vertex names):
 ##  [1] Apache Creek--Clust1 Apache Creek--Clust1 Apache Creek--Clust1
 ##  [4] Apache Creek--Clust1 Apache Creek--Clust1 Apache Creek--Clust1
 ##  [7] Apache Creek--Clust1 Apache Creek--Clust2 Apache Creek--Clust2
@@ -1079,7 +1079,7 @@ plot(jnet)
 
 It is also possible to use R to create weighted networks where individual edges are valued. We have found that this works reasonably well with networks of co-presence or something similar (counts of mentions in texts or monuments for example) but this does not perform well when applied to large similarity or distance matrices (because every possible link has a value, the network gets unwieldy very fast). In the latter case, we have found it is often better to just work directly with the underlying similarity/distance matrix.
 
-If you do, however, chose do create a weighted network object from a similarity matrix it only requires a slight modification from the procedure above. In the chunk of code below, we will simply add the arguments `ignore.eval = FALSE` and `names.eval = "weight"` to let the network function know we would like weights to be retained and we would like that attribute called 'weight'. We will apply this to the matrix of Morisita similarities defined above and then plot the result. 
+If you do, however, chose to create a weighted network object from a similarity matrix it only requires a slight modification from the procedure above. In the chunk of code below, we will simply add the arguments `ignore.eval = FALSE` and `names.eval = "weight"` to let the network function know we would like weights to be retained and we would like that attribute called 'weight'. We will apply this to the matrix of Morisita similarities defined above and then plot the result. 
 
 
 ```r
@@ -1152,9 +1152,9 @@ ego_nets[[1]]
 ```
 
 ```
-## IGRAPH 6144f46 UN-- 12 59 -- 
+## IGRAPH 52a623a UN-- 12 59 -- 
 ## + attr: name (v/c)
-## + edges from 6144f46 (vertex names):
+## + edges from 52a623a (vertex names):
 ##  [1] Apache Creek   --Casa Malpais         Apache Creek   --Coyote Creek        
 ##  [3] Casa Malpais   --Coyote Creek         Apache Creek   --Hooper Ranch        
 ##  [5] Casa Malpais   --Hooper Ranch         Coyote Creek   --Hooper Ranch        
@@ -1244,7 +1244,7 @@ multinet::degree_ml(florentine)
 ```
 
 ```
-##  [1]  3  2  7 11  1  6  3  6  3  4  4  3  6  6  5
+##  [1]  7  4  4  2  3  3  6  1  3  6  6  3 11  5  6
 ```
 
 ```r
@@ -1257,30 +1257,30 @@ multinet::glouvain_ml(florentine)
 ##           actor    layer cid
 ## 1       Peruzzi business   0
 ## 2       Peruzzi marriage   0
-## 3    Castellani business   0
-## 4    Castellani marriage   0
-## 5      Bischeri business   0
-## 6      Bischeri marriage   0
-## 7       Strozzi marriage   0
-## 8      Guadagni business   0
-## 9      Guadagni marriage   0
-## 10 Lamberteschi business   0
-## 11 Lamberteschi marriage   0
+## 3       Strozzi marriage   0
+## 4    Castellani business   0
+## 5    Castellani marriage   0
+## 6     Barbadori business   0
+## 7     Barbadori marriage   0
+## 8    Tornabuoni business   1
+## 9    Tornabuoni marriage   1
+## 10        Pazzi business   1
+## 11        Pazzi marriage   1
 ## 12     Salviati business   1
 ## 13     Salviati marriage   1
-## 14        Pazzi business   1
-## 15        Pazzi marriage   1
-## 16       Medici business   1
-## 17       Medici marriage   1
-## 18   Acciaiuoli marriage   1
-## 19       Ginori business   1
-## 20       Ginori marriage   1
-## 21      Ridolfi marriage   1
-## 22   Tornabuoni business   1
-## 23   Tornabuoni marriage   1
-## 24      Albizzi marriage   1
-## 25    Barbadori business   1
-## 26    Barbadori marriage   1
+## 14       Ginori business   1
+## 15       Ginori marriage   1
+## 16   Acciaiuoli marriage   1
+## 17      Albizzi marriage   1
+## 18      Ridolfi marriage   1
+## 19       Medici business   1
+## 20       Medici marriage   1
+## 21     Bischeri business   2
+## 22     Bischeri marriage   2
+## 23 Lamberteschi business   2
+## 24 Lamberteschi marriage   2
+## 25     Guadagni business   2
+## 26     Guadagni marriage   2
 ```
 
 For an archaeological example of multilevel network analysis [this GitHub project](https://github.com/ajupton/archy-multilayer-nets) by Andy Upton.
@@ -1311,9 +1311,9 @@ mor_wt_i
 ```
 
 ```
-## IGRAPH 61b64e6 U-W- 31 465 -- 
+## IGRAPH 52d9e6d U-W- 31 465 -- 
 ## + attr: na (v/l), vertex.names (v/c), na (e/l), weight (e/n)
-## + edges from 61b64e6:
+## + edges from 52d9e6d:
 ##   [1] 1-- 2 1-- 3 1-- 4 1-- 5 1-- 6 1-- 7 1-- 8 1-- 9 1--10 1--11 1--12 1--13
 ##  [13] 1--14 1--15 1--16 1--17 1--18 1--19 1--20 1--21 1--22 1--23 1--24 1--25
 ##  [25] 1--26 1--27 1--28 1--29 1--30 1--31 2-- 3 2-- 4 2-- 5 2-- 6 2-- 7 2-- 8

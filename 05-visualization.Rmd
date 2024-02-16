@@ -194,9 +194,32 @@ ggraph(net,
 
 When working with geographic data, it is also sometimes useful to plot directly on top of some sort of base map. There are many options for this but one of the most convenient is to use the `sf` and `ggmap` packages to directly download the relevant base map layer and plot directly on top of it. This first requires converting points to latitude and longitude in decimal degrees if they are not already in that format. See the details on the [sf package](https://r-spatial.github.io/sf/) and [ggmap package](https://github.com/dkahle/ggmap) for more details. 
 
+Here we demonstrate the use of the `ggmap` and the `get_stadiamap` function which requires a bit of additional explanation. This function automatically retrieves a background map for you using a few arguments:
+
+* **`bbox`** - the bounding box which represents the decimal degrees longitude and latitude coordinates of the lower left and upper right area you wish to map.
+* **`maptype`** - a name that indicates the style of map to use ([check here for options](https://rdrr.io/github/dkahle/ggmap/man/get_stadiamap.html)).
+* **`zoom`** - a variable denoting the detail or zoom level to be retrieved. Higher number give more detail but take longer to detail.
+
+As of early 2024 the `get_stadiamap` function also requires that you sign up for an account at [stadiamaps.com](https://stadiamaps.com). This account is free and allows you to download a large number of background maps in R per month (likely FAR more than an individual would ever use). There are a few setup steps required to get this to work. You can follow the steps below or [click here for a YouTube video outlining steps 1 thorugh 3 below](https://www.youtube-nocookie.com/embed/6jUSyI6x3xg).
+
+1) First, you need to sign up for a free account at Stadiamaps.
+
+2) Once you sign in, you will be asked to great a Property Name, designating where you will be using data. You can simply call it "R analysis" or anything you'd like.
+
+3) Once you create this property you'll be able to assign an API key to it by clicking the "Add API" button.
+
+4) Now you simply need to let R know your API to allow map download access. In order to do this copy the API key that is visible on the stadiamaps page from the property you created and then run the following line of code adding your actual API key in the place of [YOUR KEY HERE]
+
 ```{block, type="rmdtip"}
 We describe the specifics of spatial data handling, geographic coordinates, and projection in the section on [Spatial Networks](#SpatialNetworks). See that section for a full description and how R deals with geographic information. 
 ```
+
+Note, for the ease of demonstration, in the remainder of this online guide (other than the code chunk below) we pre-download the maps and provide them as a file instead of using the `get_stadiamap` function.
+
+```{r, echo=F}
+source("stadia_API.R")
+```
+
 
 
 ```{r geo_layout, warning=F, message=F, fig.heigh=7, fig.width=7, cache=T}
@@ -215,13 +238,13 @@ coord1 <- do.call(rbind, st_geometry(loc_trans)) %>%
 xy <- as.data.frame(coord1)
 colnames(xy) <- c("x", "y")
 
-# Get basemap "terrain-background" data for map in black and white
+# Get basemap "stamen_terrain_background" data for map in black and white
 # the bbox argument is used to specify the corners of the box to be
 # used and zoom determines the detail.
-base_cibola <- get_stamenmap(
+base_cibola <- get_stadiamap(
   bbox = c(-110.2, 33.4, -107.8, 35.3),
   zoom = 10,
-  maptype = "terrain-background",
+  maptype = "stamen_terrain_background",
   color = "bw"
 )
 
@@ -761,9 +784,10 @@ This function requires the `edgebundle` package be installed along with `reticul
 
 Be aware that this function may take a long time on your computer depending on your processing power and RAM.
 ```
+
 ```{r, echo=F, message=F, warning=F}
 library(reticulate)
-use_condaenv("r-reticulate")
+#use_condaenv("r-reticulate")
 ```
 
 ```{r Fig6_3c, message=F, warning=F, fig.width=7, fig.height=7, cache=T}
@@ -1016,6 +1040,9 @@ library(igraph)
 library(ggmap)
 library(sf)
 
+# Load my_map background map
+load("data/Figure6_6.Rdata")
+
 edges1 <- read.csv("data/Hispania_roads.csv", header = TRUE)
 edges1 <- edges1[which(edges1$Weight > 25), ]
 nodes <- read.csv("data/Hispania_nodes.csv", header = TRUE)
@@ -1047,9 +1074,6 @@ for (i in seq_len(nrow(edgelist))) {
                   nodes[which(nodes$Id == edgelist[i, 2]), 2])
 }
 
-my_map <- get_stamenmap(bbox = c(-9.5, 36, 3, 43.8),
-                       maptype = "watercolor",
-                       zoom = 6)
 
 ggmap(my_map) +
   geom_segment(
@@ -1082,22 +1106,18 @@ Figure 6.7. This ceramic similarity network of the San Pedro River Valley in Ari
 
 Unfortunately as the first map contains real site locations we cannot share those data here. The second map can still be reproduced given nothing but the code below. The only difference required to produce Figure 6.7a would be to replace the `coord` site coordinates with the actual site locations. the `coord` object used here was created by taking the original site locations and applying the `jitter` function, which jitters x and y coordinates by a specified amount.
 
-```{block, type="rmdnote"}
-In the code below we use the `scalebar` function within the `ggsn` package to draw a scale for the map. Note that we provide the coordinate locations in decimal degrees of the minimum values on the x and y axis where we want the scale to appear, the geographic transformation (see [Spatial Networks](#SpatialNetworks) for more details), and the style of scale. See `?scalebar` for options. There is also a `north` function in the same package that lets you generate north arrows.
-```
-
 
 ```{r, message=F, warning=F, fig.height=7, fig.width=7, cache=T}
 library(igraph)
 library(sf)
 library(ggmap)
-library(ggsn)
 library(ggrepel)
 library(ggpubr)
 
 load("data/Figure6_7.Rdata")
 # g.net - igraph network object of San Pedro sites based on
 # ceramic similarity
+# base3 - basemap background terrain
 
 # Define coordinates of "jittered" points
 # These points were originally created using the "jitter" function
@@ -1129,13 +1149,6 @@ attr <- c("Swingle's Sample", "Ash Terrace", "Lost Mound",
 zz <- as.data.frame(matrix(coord, nrow = 15, byrow = TRUE))
 colnames(zz) <- c("x", "y")
 
-# Get basemap "terrain-background" data for map in black and white
-base3 <- get_stamenmap(
-  bbox = c(-111, 32.2, -110, 33.1),
-  zoom = 10,
-  maptype = "terrain-background",
-  color = "bw"
-)
 
 # Extract edge list from network object
 edgelist <- get.edgelist(g.net)
@@ -1166,17 +1179,6 @@ figure_6_7 <- ggmap(base3, darken = 0.35) +
     show.legend = FALSE
   ) +
   geom_text_repel(aes(x = x, y = y, label = attr), data = zz, size = 3) +
-  scalebar(
-    x.min = -111,
-    x.max = -110.75,
-    y.min = 32.25,
-    y.max = 33,
-    dist = 10,
-    dist_unit = "km",
-    st.bottom = FALSE,
-    transform = TRUE,
-    model = "WGS84"
-  ) +
   theme_void()
 
 figure_6_7
@@ -1186,7 +1188,7 @@ figure_6_7
 
 Fig. 6.8. Several different graph layouts all using the Bronze Age Aegean geographic network (Evans et al. 2011). In each graph, nodes are scaled based on betweenness centrality and color-coded based on clusters defined using modularity maximisation.
 
-In the code below the only thing we change between each plot is the `layout` argument in `ggraph`. See [the CRAN project page on ggraph](https://cran.r-project.org/web/packages/ggraph/vignettes/Layouts.html) for more information on available layouts. We plot clusters by color here to make it easier to track differences between the layout options.
+In the code below the only thing we change between each plot is the `layout` argument in `ggraph`. See [the CRAN project page on ggraph](https://cran.r-project.org/web/packages/ggraph/vignettes/Layouts.html) for more information on available layouts. We plot clusters by color here to make it easier to track differences between the layout options. [Use these data](data/aegean.Rdata) to dowload the background map of the Aegean area.
 
 ```{r Fig6_8, warning=F, message=F, fig.width=7, fig.height=12}
 
@@ -1206,6 +1208,7 @@ aegean_dist <- aegean
 aegean_dist[aegean_dist > 124] <- 0
 aegean_dist[aegean_dist > 0] <- 1
 aegean_net <- graph_from_adjacency_matrix(as.matrix(aegean_dist))
+load("data/aegean_map.Rdata")
 
 # Define cluster membership and betweenness centrality for plotting
 grp <- as.factor(cluster_optimal(aegean_net)$membership)
@@ -1226,9 +1229,6 @@ coord1 <- do.call(rbind, st_geometry(locations_sf)) %>%
 xy <- as.data.frame(coord1)
 colnames(xy) <- c("x", "y")
 
-my_map <- get_stamenmap(bbox = c(22, 34.5, 29, 38.8),
-                       zoom = 8,
-                       maptype = "terrain-background")
 
 # Extract edge list from network object for road_net
 edgelist1 <- get.edgelist(aegean_net)
@@ -2125,7 +2125,8 @@ Note that the data required is a list object that contains multiple temporal sli
 
 library(networkDynamic)
 library(ndtv)
-library(GISTools)
+library(scatterplot3d)
+library(prettyGraphs)
 library(statnet)
 
 load("data/Figure6_23.Rdata")

@@ -27,12 +27,13 @@ There are numerous different configurations of the simple gravity model in the l
 
 In order to demonstrate simple gravity models, we're going to use a regional data set of Late Intermediate periods Wankarani sites in the Bolivian Altiplano provided online on the [Comparative Archaeology Database at the University of Pittsburgh](http://www.cadb.pitt.edu/mcandrews/index.html) (McAndrews 2005). The details of this database and all of the variables are described at the link provided. This data set has more variables than we will use here but this provides a good example to explore because it includes location and size information for all sites. 
 
-First, let's read in the data and create a quick plot showing site locations with points scaled by site area (as a measure of potential attractiveness and outflow potential). We will then select sites dating to the Late Intermediate period for analysis. We further limit consideration to habitation sites. [Download the data here to follow along](dta/Wankarani_siteinfo.csv)
+First, let's read in the data and create a quick plot showing site locations with points scaled by site area (as a measure of potential attractiveness and outflow potential). We will then select sites dating to the Late Intermediate period for analysis. We further limit consideration to habitation sites. [Download the data here to follow along](data/Wankarani_siteinfo.csv) and [download the base map here]("data/bolivia.Rdata).
 
 ```{r, fig.width=7, fig.height=3, warning=F, message=F}
 wankarani <- read.csv("data/Wankarani_siteinfo.csv")
 wankarani <- wankarani[which(wankarani$Period == "Late Intermediate"), ]
 wankarani <- wankarani[which(wankarani$Type == "habitation"), ]
+load("data/bolivia.Rdata")
 
 library(ggmap)
 library(sf)
@@ -49,15 +50,6 @@ coord1 <- do.call(rbind, st_geometry(loc_trans)) %>%
 xy <- as.data.frame(coord1)
 colnames(xy) <- c("x", "y")
 
-# Get basemap "terrain-background" data for map in black and white
-# the bbox argument is used to specify the corners of the box to be
-# used and zoom determines the detail.
-base_bolivia <- get_stamenmap(
-  bbox = c(-55.97, -17.92, -55.40, -17.70),
-  zoom = 10,
-  maptype = "terrain-background",
-  color = "bw"
-)
 
 # Plot original data on map
 ggmap(base_bolivia, darken = 0.35) +
@@ -326,26 +318,20 @@ where
 
 For the purposes of our examples here, we set $K$ to 1 to assume that sum of flows and size are in equal units and we set $\epsilon$ to 0.01 so that the model does not converge too rapidly. 
 
-By way of example, we will use the original Greek city states data used by Rihll and Wilson (1987) and [put online](https://figshare.com/articles/dataset/Locations_of_108_Archaeic_Greek_settlements_used_in_Rihll_and_Wilson_1987_/868961) by Tim Evans based on his own work using these data and related spatial interaction models. [Download the data here to follow along](data/Rihll_Wilson.csv).
+By way of example, we will use the original Greek city states data used by Rihll and Wilson (1987) and [put online](https://figshare.com/articles/dataset/Locations_of_108_Archaeic_Greek_settlements_used_in_Rihll_and_Wilson_1987_/868961) by Tim Evans based on his own work using these data and related spatial interaction models. [Download the data here to follow along](data/Rihll_Wilson.csv). [Download the Greece basemap here to following along]("data/greece.Rdata").
 
 Let's first map the Greek city states data.
 
 ```{r, fig.width = 7, warning=F, message=F, cache=T}
 library(sf)
 library(ggmap)
+load("data/greece.Rdata")
 
 dat <- read.csv(file = "data/Rihll_Wilson.csv")
 locs <-
   st_as_sf(dat,
            coords = c("Longitude_E", "Latitude_N"),
            crs = 4326)
-
-library(ggmap)
-map <- get_stamenmap(
-  bbox = c(22.45, 37.45, 24.1, 38.6),
-  maptype = "terrain-background",
-  zoom = 10
-)
 
 ggmap(map) +
   geom_point(data = dat, aes(x = Longitude_E, y = Latitude_N)) +
@@ -721,6 +707,8 @@ library(ggraph)
 library(sf)
 library(ggmap)
 
+load("data/bolivia.Rdata")
+
 locations_sf <-
   st_as_sf(wankarani, coords = c("Easting", "Northing"), crs = 32721)
 loc_trans <- st_transform(locations_sf, crs = 4326)
@@ -731,12 +719,6 @@ coord1 <- do.call(rbind, st_geometry(loc_trans)) %>%
 xy <- as.data.frame(coord1)
 colnames(xy) <- c("x", "y")
 
-base_bolivia <- get_stamenmap(
-  bbox = c(-55.97, -17.92, -55.40, -17.70),
-  zoom = 10,
-  maptype = "terrain-background",
-  color = "bw"
-)
 
 net <-
   graph_from_adjacency_matrix(rad_test, mode = "undirected",
