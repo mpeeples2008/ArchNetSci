@@ -50,9 +50,9 @@ cibola_i
 ```
 
 ```
-## IGRAPH bd87d74 UN-- 31 167 -- 
+## IGRAPH d3e510a UN-- 31 167 -- 
 ## + attr: name (v/c)
-## + edges from bd87d74 (vertex names):
+## + edges from d3e510a (vertex names):
 ##  [1] Apache.Creek--Casa.Malpais          Apache.Creek--Coyote.Creek         
 ##  [3] Apache.Creek--Hooper.Ranch          Apache.Creek--Horse.Camp.Mill      
 ##  [5] Apache.Creek--Hubble.Corner         Apache.Creek--Mineral.Creek.Pueblo 

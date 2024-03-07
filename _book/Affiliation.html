@@ -125,7 +125,7 @@
 </h2>
 <p>In the examples here we will be using the <a href="DataAndWorkspace.html#Cibola">Cibola data set</a> used throughout this document. The specific data we will use consist of a set of sites as the first mode and a set of ceramic technological clusters as the second mode. Our underlying assumption is that sites that share more ceramic technological clusters are more strongly connected than sites that share fewer. Further, ceramic technological clusters that are frequently co-associated in site assemblages are more closely connected than those that do not frequently co-occur. <a href="data/Cibola_clust.csv">Download the data here to follow along</a>.</p>
 <p>Let’s read in the data and create a simple two-mode network visualization to start by reading in the Cibola incidence matrix. We will be using the <code>igraph</code> package for most of the examples below so we initialize that as well as the <code>ggraph</code> package for plotting:</p>
-<div class="sourceCode" id="cb647"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb643"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r.igraph.org/">igraph</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggraph.data-imaginist.com">ggraph</a></span><span class="op">)</span></span>
 <span></span>
@@ -152,7 +152,7 @@
 <span class="header-section-number">10.1.1</span> Using Traditional Network Metrics<a class="anchor" aria-label="anchor" href="#TraditionalMetrics"><i class="fas fa-link"></i></a>
 </h3>
 <p>There are several possible approaches for analyzing two-mode network data. Perhaps the simplest approach is to analyze two-mode data using typical one-mode metrics like we’ve already seen throughout this guide. Essentially, this is akin to treating both modes as equivalent and evaluating relative positions and structures between node classes. If you send a bipartite network object to the typical network measures outlined in the <a href="Exploratory.html#Exploratory">Exploratory Analysis</a> section, you will get results returned as if it were a one-mode network. For example, here we apply two measures of centrality and plot the results.</p>
-<div class="sourceCode" id="cb648"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb644"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dg_bi</span> <span class="op">&lt;-</span> <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://r.igraph.org/reference/degree.html">degree</a></span><span class="op">(</span><span class="va">cibola_inc</span><span class="op">)</span></span>
 <span><span class="va">bw_bi</span> <span class="op">&lt;-</span> <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://r.igraph.org/reference/betweenness.html">betweenness</a></span><span class="op">(</span><span class="va">cibola_inc</span><span class="op">)</span></span>
 <span></span>
@@ -167,7 +167,7 @@
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Node Size by Degree"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/theme_graph.html">theme_graph</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="09-affiliation_files/figure-html/unnamed-chunk-2-1.png" width="672"></div>
-<div class="sourceCode" id="cb649"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb645"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">4643</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://ggraph.data-imaginist.com/reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">cibola_inc</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"gray"</span>, show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span></span>
@@ -192,22 +192,22 @@
 <p><span class="math display">\[\frac{n_1n_2}{(n_1+n_2)(n_1+n_2-1)}\]</span>
 where <span class="math inline">\(n_1\)</span> and <span class="math inline">\(n_2\)</span> represent the number of nodes in modes 1 and 2 respectively.</p>
 <p>Let’s give this a try by first calculating density the traditional (<code>den_init</code>) way and then correcting it (<code>den_corr</code>). Note that we divide our initial density by 2 because we only want density counted based on connections in one direction.</p>
-<div class="sourceCode" id="cb650"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb646"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># edge density divided by 2 because we only want edges counted in one direction</span></span>
 <span><span class="va">den_init</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r.igraph.org/reference/edge_density.html">edge_density</a></span><span class="op">(</span><span class="va">cibola_inc</span><span class="op">)</span> <span class="op">/</span> <span class="fl">2</span></span>
 <span><span class="va">den_init</span></span></code></pre></div>
 <pre><code>## [1] 0.145122</code></pre>
-<div class="sourceCode" id="cb652"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb648"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># number of nodes in first mode</span></span>
 <span><span class="va">n1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="fu"><a href="https://r.igraph.org/reference/V.html">V</a></span><span class="op">(</span><span class="va">cibola_inc</span><span class="op">)</span><span class="op">$</span><span class="va">type</span> <span class="op">==</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">n1</span></span></code></pre></div>
 <pre><code>## [1] 31</code></pre>
-<div class="sourceCode" id="cb654"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb650"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># number of nodes in second mode</span></span>
 <span><span class="va">n2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="fu"><a href="https://r.igraph.org/reference/V.html">V</a></span><span class="op">(</span><span class="va">cibola_inc</span><span class="op">)</span><span class="op">$</span><span class="va">type</span> <span class="op">==</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">n2</span></span></code></pre></div>
 <pre><code>## [1] 10</code></pre>
-<div class="sourceCode" id="cb656"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb652"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">den_corr</span> <span class="op">&lt;-</span> <span class="va">den_init</span> <span class="op">/</span> <span class="op">(</span><span class="op">(</span><span class="va">n1</span> <span class="op">*</span> <span class="va">n2</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="op">(</span><span class="va">n1</span> <span class="op">+</span> <span class="va">n2</span><span class="op">)</span> <span class="op">*</span> <span class="op">(</span><span class="va">n1</span> <span class="op">+</span> <span class="va">n2</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">den_corr</span></span></code></pre></div>
 <pre><code>## [1] 0.7677419</code></pre>
@@ -240,7 +240,7 @@ d^*_{j} =&amp; \frac {d_{j}}{n_1} \text{, for } j \in V_2
 </li>
 </ul>
 <p>Let’s give this a try with our Cibola ceramic technological clusters data. We roll this into a function for convenience:</p>
-<div class="sourceCode" id="cb658"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb654"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">degree_twomode</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">net</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">n1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="fu"><a href="https://r.igraph.org/reference/V.html">V</a></span><span class="op">(</span><span class="va">net</span><span class="op">)</span><span class="op">$</span><span class="va">type</span> <span class="op">==</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="va">n2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="fu"><a href="https://r.igraph.org/reference/V.html">V</a></span><span class="op">(</span><span class="va">net</span><span class="op">)</span><span class="op">$</span><span class="va">type</span> <span class="op">==</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
@@ -280,7 +280,7 @@ d^*_{j} =&amp; \frac {d_{j}}{n_1} \text{, for } j \in V_2
 ##             0.9354839             0.9032258             0.5161290 
 ##                Clust9               Clust10 
 ##             0.6774194             0.3548387</code></pre>
-<div class="sourceCode" id="cb660"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb656"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Plot as two-mode network with size by centrality</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">4643</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://ggraph.data-imaginist.com/reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">cibola_inc</span><span class="op">)</span> <span class="op">+</span></span>
@@ -293,7 +293,7 @@ d^*_{j} =&amp; \frac {d_{j}}{n_1} \text{, for } j \in V_2
 <span>  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/theme_graph.html">theme_graph</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="09-affiliation_files/figure-html/unnamed-chunk-4-1.png" width="672"></div>
 <p>As this shows, after normalization most of the nodes have similar degree values with a couple of low degree nodes. If we plot the normalized degree distributions for both the one-mode method and the two-mode normalization as density plots, the difference is even more obvious.</p>
-<div class="sourceCode" id="cb661"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb657"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dg_orig</span> <span class="op">&lt;-</span> <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://r.igraph.org/reference/degree.html">degree</a></span><span class="op">(</span><span class="va">cibola_inc</span>, mode <span class="op">=</span> <span class="st">"in"</span>, normalized <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">dg_all</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">dg_orig</span>, <span class="va">dg_tm</span><span class="op">)</span></span>
@@ -340,7 +340,7 @@ b^*_i =&amp; \frac{b_i}b_{v_1\text{max}} \text {, for } i \in V_1\\
 b^*_j =&amp; \frac{b_j}b_{v_2\text{max}} \text {, for } j \in V_2
 \end{aligned}\]</span></p>
 <p>In the following chunk of code, we roll these equations into a function and then calculate two-mode betweenness and plot it. For the sake of convenience, we have placed both of the functions for two-mode centrality created here into a <a href="scripts/twomode.R">script which you can download here</a>.</p>
-<div class="sourceCode" id="cb662"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb658"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">betweenness_twomode</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">net</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">n1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="fu"><a href="https://r.igraph.org/reference/V.html">V</a></span><span class="op">(</span><span class="va">net</span><span class="op">)</span><span class="op">$</span><span class="va">type</span> <span class="op">==</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="va">n2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="fu"><a href="https://r.igraph.org/reference/V.html">V</a></span><span class="op">(</span><span class="va">net</span><span class="op">)</span><span class="op">$</span><span class="va">type</span> <span class="op">==</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
@@ -390,7 +390,7 @@ b^*_j =&amp; \frac{b_j}b_{v_2\text{max}} \text {, for } j \in V_2
 ##          0.1134973990          0.0960766642          0.0224202375 
 ##                Clust9               Clust10 
 ##          0.0529783153          0.0102589547</code></pre>
-<div class="sourceCode" id="cb664"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb660"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Plot as two-mode network with size by centrality</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">4643</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://ggraph.data-imaginist.com/reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">cibola_inc</span><span class="op">)</span> <span class="op">+</span></span>
@@ -433,7 +433,7 @@ ca +db &amp; cc + dd
 \end{equation}\]</span></p>
 <p>If we assume the original matrix contains only 0s and 1s then we will end up with the intersection of the two network modes in the diagonal as describe above.</p>
 <p>There are a couple of ways to conduct this procedure in R. Previously we used the <code>%*%</code> operator for matrix multiplication and the <code><a href="https://rdrr.io/r/base/t.html">t()</a></code> transpose function to calculate a matrix multiplied by its transpose, but it is also possible to use an R built-in function called <code>crossprod</code> to do the same thing. Indeed, if you are working on large matrices, which can be computationally expensive, the <code>crossprod</code> function is considerably faster. In the chunk below we calculate a square matrix for the <code>cibola_clust</code> data set using both methods and then subtract the results from each other to ensure that they are identical.</p>
-<div class="sourceCode" id="cb665"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb661"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mat1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">cibola_clust</span><span class="op">)</span></span>
 <span><span class="va">mat1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">mat1</span> <span class="op">&gt;</span> <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span></span>
 <span></span>
@@ -446,7 +446,7 @@ ca +db &amp; cc + dd
 <span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">res1</span><span class="op">-</span><span class="va">res2</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 0</code></pre>
 <p>Another important feature of a one-mode network generated in this way is that it can be treated as a weighted network by simply including the <code>weighted = TRUE</code> argument in the call. For example:</p>
-<div class="sourceCode" id="cb667"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb663"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/diag.html">diag</a></span><span class="op">(</span><span class="va">res1</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fl">0</span></span>
 <span><span class="va">cibola_onemode</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r.igraph.org/reference/graph_from_adjacency_matrix.html">graph_from_adjacency_matrix</a></span><span class="op">(</span><span class="va">res1</span>, weighted <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
@@ -462,7 +462,7 @@ ca +db &amp; cc + dd
 <span>  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/theme_graph.html">theme_graph</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="09-affiliation_files/figure-html/unnamed-chunk-8-1.png" width="672"></div>
 <p>That produces a hairball that is fairly hard to visually interpret. To try to ameliorate that we can borrow a function we previously created in the <a href="NetworkData.html#TwoMode">two-mode networks</a> discussion in the Network Data section and only consider a ceramic cluster present at a site if it makes up at least 20% of the assemblage. Let’s try this:</p>
-<div class="sourceCode" id="cb668"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb664"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">two_mode</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">thresh</span> <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="co"># Create matrix of proportions from x input into function</span></span>
 <span>  <span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/proportions.html">prop.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span></span>
@@ -511,7 +511,7 @@ maintained.
 </p>
 </div>
 <p>Let’s take a look at Newman’s method using the <code>tnet</code> package. This package expects a simple two-column edge list with only integers for the node identifiers which we can generate using the <code>igraph</code> <code>get.edgelist</code> function and including the <code>names = FALSE</code> argument:</p>
-<div class="sourceCode" id="cb669"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb665"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://toreopsahl.com/tnet/">tnet</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">tm_el</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r.igraph.org/reference/get.edgelist.html">get.edgelist</a></span><span class="op">(</span><span class="va">cibola_inc</span>, names <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
@@ -523,7 +523,7 @@ maintained.
 ## [4,]    1   35
 ## [5,]    1   36
 ## [6,]    1   37</code></pre>
-<div class="sourceCode" id="cb671"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb667"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">proj_newman</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/tnet/man/projecting_tm.html">projecting_tm</a></span><span class="op">(</span><span class="va">tm_el</span>, method <span class="op">=</span> <span class="st">"Newman"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">proj_net</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r.igraph.org/reference/graph_from_edgelist.html">graph_from_edgelist</a></span><span class="op">(</span><span class="va">proj_newman</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
@@ -542,10 +542,10 @@ maintained.
 <span>  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/theme_graph.html">theme_graph</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="09-affiliation_files/figure-html/unnamed-chunk-11-1.png" width="672"></div>
 <p>As expected, we get another hairball here, but let’s take a look at the edge weights of this projection versus the original matrix multiplication projection:</p>
-<div class="sourceCode" id="cb672"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb668"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="fu"><a href="https://r.igraph.org/reference/E.html">E</a></span><span class="op">(</span><span class="va">proj_net</span><span class="op">)</span><span class="op">$</span><span class="va">weight</span>, <span class="fu"><a href="https://r.igraph.org/reference/E.html">E</a></span><span class="op">(</span><span class="va">cibola_onemode</span><span class="op">)</span><span class="op">$</span><span class="va">weight</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span></span></code></pre></div>
 <pre><code>## [1] 0.9454047</code></pre>
-<div class="sourceCode" id="cb674"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb670"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://r.igraph.org/reference/E.html">E</a></span><span class="op">(</span><span class="va">proj_net</span><span class="op">)</span><span class="op">$</span><span class="va">weight</span>, <span class="fu"><a href="https://r.igraph.org/reference/E.html">E</a></span><span class="op">(</span><span class="va">cibola_onemode</span><span class="op">)</span><span class="op">$</span><span class="va">weight</span>, pch <span class="op">=</span> <span class="fl">16</span>, col <span class="op">=</span> <span class="st">"blue"</span>,</span>
 <span>     xlab <span class="op">=</span> <span class="st">"Newman Weights"</span>, ylab <span class="op">=</span> <span class="st">"Matrix Multiplication Weights"</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="09-affiliation_files/figure-html/unnamed-chunk-12-1.png" width="672"></div>
@@ -572,7 +572,7 @@ useful.
 </p>
 </div>
 <p>Let’s start by applying the <code>ca</code> function to our <code>cibola_clust</code> incidence matrix data set:</p>
-<div class="sourceCode" id="cb675"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb671"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://www.carme-n.org/">ca</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">ca_cibola</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ca/man/ca.html">ca</a></span><span class="op">(</span><span class="va">cibola_clust</span><span class="op">)</span></span>
@@ -584,7 +584,7 @@ useful.
 <span class="header-section-number">10.2.1</span> Network Visuals Using Correspondence Analysis<a class="anchor" aria-label="anchor" href="#CAViz"><i class="fas fa-link"></i></a>
 </h3>
 <p>Correspondence analysis has frequently been used for plotting affiliation data like this in sociology, in particular using layouts generated through CA to plot networks with edges generated using some other mode of projection described above (see Borgatti and Halgin 2014; Faust 2005). In the chunk of code below we plot the reduced Cibola one-mode network edges as well as the one mode projection of the columns using the positions on the correspondence analysis axes as the point locations.</p>
-<div class="sourceCode" id="cb676"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb672"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create network object using crossprod function</span></span>
 <span><span class="va">col_net</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r.igraph.org/reference/graph_from_adjacency_matrix.html">graph_from_adjacency_matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/crossprod.html">crossprod</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">cibola_clust</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>                                       weighted <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -643,7 +643,7 @@ useful.
 </ul>
 <p>This measure provides an index of the number of co-occurrences observed in relation to expected given the overall frequency of each object class in Z-standardized units. That means that a value of 3 means that two object classes co-occur approximately 3 standard deviations more than we would expect given the frequency of occurrence for those object classes and the number of contexts for which we have data. Similarly a value of -2 means that two object classes are 2 standard deviations less associated than would be expected given their frequency of occurrence.</p>
 <p>Here is the function used by Giomi and Peeples (2019) and also available <a href="https://github.com/mpeeples2008/Giomi-and-Peeples-2019">on GitHub here</a>.</p>
-<div class="sourceCode" id="cb677"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb673"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Co-occurrence assessment script</span></span>
 <span><span class="co">## This function expects a binary data frame object that contains only 1s and 0s with the contexts under consideration as rows and the </span></span>
 <span><span class="co">## categories as columns and each cell represents the presence or absence of a particular category in a particular context</span></span>
@@ -671,7 +671,7 @@ useful.
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/diag.html">diag</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fl">0</span></span>
 <span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span><span class="op">}</span></span></code></pre></div>
 <p>To test this approach we’re going to use a partial inventory of artifacts from a site in west-central New Mexico called Techado Springs (Smith et al. 2009). This was an extensively excavated settlement with over 500 rooms and we have artifact inventory data for 198 of those rooms. For the example here, we’re using 9 categories of features/objects encountered in those rooms, all of which are related to the ceramic production process. You can <a href="data/Techado_artifacts.csv">download the artifact data here</a> to follow along.</p>
-<div class="sourceCode" id="cb678"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb674"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"data/Techado_artifacts.csv"</span>, header <span class="op">=</span> <span class="cn">TRUE</span>, row.names <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="va">tec</span> <span class="op">&lt;-</span> <span class="va">tec</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html">rowSums</a></span><span class="op">(</span><span class="va">tec</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span>, <span class="op">]</span></span>
 <span></span>
@@ -691,7 +691,7 @@ useful.
 ## UnfiredVessel             3.6918908     8.3227556  1.04664169  1.9422423</code></pre>
 <p>Looking at the first few columns of the output of our <code>cooccur</code> function we can see a few particularly high and low values. For example, polishing stones and pukis (tools used for supporting vessels while forming them) are much less associated than would be expected by chance (-5.15). On the other side, ceramic drying features and un-fired vessels are much more associated than we would expect by chance (3.69). There are also several <code>NaN</code> or <code>NA</code> indicating that those two categories never co-occur in this data set.</p>
 <p>Next, let’s plot all of the returned values as a histogram:</p>
-<div class="sourceCode" id="cb680"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb676"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="va">out</span>, breaks <span class="op">=</span> <span class="fl">10</span>, xlab <span class="op">=</span> <span class="st">"C_p"</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure">
 <img src="09-affiliation_files/figure-html/unnamed-chunk-17-1.png" width="672">
@@ -701,7 +701,7 @@ If we examine this histogram of all values returned from the analysis we see a d
 <span class="header-section-number">10.3.1</span> Alternative Methods for Visualizing Co-associations<a class="anchor" aria-label="anchor" href="#COViz"><i class="fas fa-link"></i></a>
 </h3>
 <p>Another way we can visualize these data is using a network graph as described by Giomi and Peeples (2019). First, we dichotomize the output created above. We are going to use an absolute threshold here and define a edge (connection) between any pair of object classes that are associated 2 standard deviations or greater more than expected by chance. There is nothing special about this 2 SD threshold and in practice it is a good idea to try a range of values and compare your results.</p>
-<div class="sourceCode" id="cb681"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb677"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">net_dat</span> <span class="op">&lt;-</span> <span class="va">out</span></span>
 <span><span class="va">net_dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">net_dat</span> <span class="op">&lt;</span> <span class="fl">2</span>, <span class="fl">0</span>, <span class="va">net_dat</span><span class="op">)</span></span>
 <span><span class="va">net_dat</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">net_dat</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">0</span></span>
@@ -720,7 +720,7 @@ If we examine this histogram of all values returned from the analysis we see a d
 <span>  <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/theme_graph.html">theme_graph</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="09-affiliation_files/figure-html/unnamed-chunk-18-1.png" width="672"></div>
 <p>This plot shows the strongest co-associations among categories and provides a nice distillation of important relationships in one mode of these data. It is also possible to do the reverse and explore the connections among rooms by virtue of the co-associations in their assemblages. Let’s give this a try using the <code><a href="https://rdrr.io/r/base/t.html">t()</a></code> transpose function to reverse the matrix for our analysis. In the plot below we have further defined clusters among nodes using the Louvain clustering method and color coded them to evaluate the potential for community structure in our results.</p>
-<div class="sourceCode" id="cb682"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb678"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">net_dat</span> <span class="op">&lt;-</span> <span class="fu">cooccur</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="va">tec</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">net_dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">net_dat</span> <span class="op">&gt;</span> <span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span></span>
 <span><span class="va">net_dat</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">net_dat</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">0</span></span>
@@ -783,7 +783,7 @@ If we examine this histogram of all values returned from the analysis we see a d
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Online Companion to <em>Network Science in Archaeology</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2024-02-15.</p>
+    <p>"<strong>Online Companion to <em>Network Science in Archaeology</em></strong>" was written by Matthew A. Peeples and Tom Brughmans. It was last built on 2024-03-07.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

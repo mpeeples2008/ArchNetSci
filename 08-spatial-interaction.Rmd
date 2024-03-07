@@ -27,7 +27,7 @@ There are numerous different configurations of the simple gravity model in the l
 
 In order to demonstrate simple gravity models, we're going to use a regional data set of Late Intermediate periods Wankarani sites in the Bolivian Altiplano provided online on the [Comparative Archaeology Database at the University of Pittsburgh](http://www.cadb.pitt.edu/mcandrews/index.html) (McAndrews 2005). The details of this database and all of the variables are described at the link provided. This data set has more variables than we will use here but this provides a good example to explore because it includes location and size information for all sites. 
 
-First, let's read in the data and create a quick plot showing site locations with points scaled by site area (as a measure of potential attractiveness and outflow potential). We will then select sites dating to the Late Intermediate period for analysis. We further limit consideration to habitation sites. [Download the data here to follow along](data/Wankarani_siteinfo.csv) and [download the base map here]("data/bolivia.Rdata).
+First, let's read in the data and create a quick plot showing site locations with points scaled by site area (as a measure of potential attractiveness and outflow potential). We will then select sites dating to the Late Intermediate period for analysis. We further limit consideration to habitation sites. [Download the data here to follow along](data/Wankarani_siteinfo.csv) and [download the base map here](data/bolivia.Rdata).
 
 ```{r, fig.width=7, fig.height=3, warning=F, message=F}
 wankarani <- read.csv("data/Wankarani_siteinfo.csv")
@@ -133,8 +133,7 @@ sel_edges <- event2dichot(test1, method = "quantile", thresh = 0.25)
 test1_plot <- test1 * sel_edges
 
 net <-
-  graph_from_adjacency_matrix(test1_plot, mode = "undirected",
-                              weighted = TRUE)
+  graph_from_adjacency_matrix(test1_plot, weighted = TRUE)
 
 # Extract edge list from network object
 edgelist <- get.edgelist(net)

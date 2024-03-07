@@ -27,7 +27,7 @@ There are numerous different configurations of the simple gravity model in the l
 
 In order to demonstrate simple gravity models, we're going to use a regional data set of Late Intermediate periods Wankarani sites in the Bolivian Altiplano provided online on the [Comparative Archaeology Database at the University of Pittsburgh](http://www.cadb.pitt.edu/mcandrews/index.html) (McAndrews 2005). The details of this database and all of the variables are described at the link provided. This data set has more variables than we will use here but this provides a good example to explore because it includes location and size information for all sites. 
 
-First, let's read in the data and create a quick plot showing site locations with points scaled by site area (as a measure of potential attractiveness and outflow potential). We will then select sites dating to the Late Intermediate period for analysis. We further limit consideration to habitation sites. [Download the data here to follow along](data/Wankarani_siteinfo.csv) and [download the base map here]("data/bolivia.Rdata).
+First, let's read in the data and create a quick plot showing site locations with points scaled by site area (as a measure of potential attractiveness and outflow potential). We will then select sites dating to the Late Intermediate period for analysis. We further limit consideration to habitation sites. [Download the data here to follow along](data/Wankarani_siteinfo.csv) and [download the base map here](data/bolivia.Rdata).
 
 
 ```r
@@ -137,18 +137,6 @@ Next, let's plot a network showing all connections scaled and colored based on t
 
 ```r
 library(statnet)
-```
-
-```
-##                Installed ReposVer Built  
-## ergm           "4.3.2"   "4.4.0"  "4.2.2"
-## network        "1.18.0"  "1.18.1" "4.2.2"
-## networkDynamic "0.11.2"  "0.11.3" "4.2.0"
-## sna            "2.7"     "2.7-1"  "4.2.1"
-## statnet.common "4.7.0"   "4.8.0"  "4.2.1"
-```
-
-```r
 library(igraph)
 library(ggraph)
 
@@ -156,8 +144,7 @@ sel_edges <- event2dichot(test1, method = "quantile", thresh = 0.25)
 test1_plot <- test1 * sel_edges
 
 net <-
-  graph_from_adjacency_matrix(test1_plot, mode = "undirected",
-                              weighted = TRUE)
+  graph_from_adjacency_matrix(test1_plot, weighted = TRUE)
 
 # Extract edge list from network object
 edgelist <- get.edgelist(net)
@@ -627,13 +614,6 @@ load(file = "data/retail_pars.Rdata")
 
 library(reshape2)
 library(ggraph)
-```
-
-```
-## Warning: package 'ggraph' was built under R version 4.2.3
-```
-
-```r
 res_df <- melt(res)
 
 ggplot(data = res_df) +
