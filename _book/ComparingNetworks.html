@@ -153,7 +153,7 @@ relatively easy to move back and forth between R and Python.
 </h3>
 <p>The simplest approach to comparing networks with a common set of nodes is to simply directly evaluate differences in the underlying adjacency matrices. For example, you can simply take the absolute difference of one matrix from the other and then normalize it based on some distance metric. Importantly this simple approach works on both simple binary networks, directed networks, as well as weighted networks.</p>
 <p>For the example here we will use three time slices of a ceramic similarity network from the <a href="DataAndWorkspace.html#SWSN">Southwest Social Networks Project</a> San Pedro region dating to AD1250-1300, AD1300-1350, and AD1350-1400 respectively. Each network object is named based on the first year in the 50 year interval it represents. These network slices have nodes in common but the nodes present in each interval are not identical. Thus, we first create a function below called <code>network_subset_common</code> which requires two network objects and the name attribute and outputs a list with two networks that include only those nodes where the two overlap. Let’s start by importing the data and finding the common networks for every combination of the three time slices. Our output objects are named <code>net</code> followed by the year indicating the first 50 year interval included, then <code>_</code>, and then the year indicating the second 50 year interval. Here we make lists for both the consecutive intervals and the non-consecutive intervals. Download the <a href="data/SanPedro_nets.Rdata">data here</a> to follow along:</p>
-<div class="sourceCode" id="cb709"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb711"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://statnet.org">statnet</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span><span class="op">(</span><span class="st">"data/SanPedro_nets.Rdata"</span><span class="op">)</span></span>
@@ -177,11 +177,11 @@ relatively easy to move back and forth between R and Python.
 <span><span class="va">net1250_1350</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu">network_subset_common</span><span class="op">(</span><span class="va">AD1250net</span>, <span class="va">AD1350net</span>, namevar <span class="op">=</span> <span class="st">"vertex.names"</span><span class="op">)</span></span></code></pre></div>
 <p>In order to make comparisons, we next extract the adjacency matrices from the network list objects of interest. Let’s start by comparing AD1250-1300 and AD1300-1350. First we extract the matrices:</p>
-<div class="sourceCode" id="cb710"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb712"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">net1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">net1250_1300</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="va">net2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">net1250_1300</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <p>Next, we find the absolute value of the difference between these two adjacency matrices:</p>
-<div class="sourceCode" id="cb711"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb713"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">net_diff</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span><span class="op">(</span><span class="va">net1</span><span class="op">-</span><span class="va">net2</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Let's look at the first 4 rows and columns</span></span>
@@ -201,12 +201,12 @@ relatively easy to move back and forth between R and Python.
 <span class="math inline">\(n\)</span> is the number of nodes</li>
 </ul>
 <p>Let’s take a look using the matrices we created above:</p>
-<div class="sourceCode" id="cb713"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb715"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fl">1</span> <span class="op">-</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">net_diff</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">net_diff</span><span class="op">)</span> <span class="op">*</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">net_diff</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 0.8205128</code></pre>
 <p>So this number let’s us know that the proportion of ties in common between our two networks is <code>0.82</code>.</p>
 <p>We can roll this whole process into a function for ease of use. The function we use here expects two adjacency matrices with the same node set.</p>
-<div class="sourceCode" id="cb715"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb717"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">adjacency_compare</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">net1</span>, <span class="va">net2</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">net_diff</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span><span class="op">(</span><span class="va">net1</span> <span class="op">-</span> <span class="va">net2</span><span class="op">)</span></span>
 <span>  <span class="va">out</span> <span class="op">&lt;-</span></span>
@@ -218,14 +218,14 @@ relatively easy to move back and forth between R and Python.
 <span><span class="fu">adjacency_compare</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">net1300_1350</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>,</span>
 <span>                  <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">net1300_1350</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 0.625731</code></pre>
-<div class="sourceCode" id="cb717"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb719"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Run function for comparing AD1250-1300 and AD1350-1400</span></span>
 <span><span class="fu">adjacency_compare</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">net1250_1350</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>,</span>
 <span>                  <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">net1250_1350</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 0.474359</code></pre>
 <p>As these results show, our comparison between AD1250-1300 and AD1300-1350 showed the most overlap, followed by the AD1300-1350 and AD1350-1400 interval with an overlap of <code>0.63</code> and then finally our non-sequential comparison between AD1250-1300 and AD1350-1400 with an overlap of <code>0.47</code>.</p>
 <p>This procedure also works on weighted networks, directed networks, or any other form of one-mode network. In the next chunk of code we create two random weighted networks, convert them to adjacency matrices and then compare them using our function:</p>
-<div class="sourceCode" id="cb719"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb721"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r.igraph.org/">igraph</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">3464</span><span class="op">)</span></span>
 <span><span class="va">rnet1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r.igraph.org/reference/erdos.renyi.game.html">erdos.renyi.game</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">40</span>, p.or.m <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
@@ -238,7 +238,7 @@ relatively easy to move back and forth between R and Python.
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">rnet1</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">rnet2</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="11-comparing-networks_files/figure-html/unnamed-chunk-7-1.png" width="672"></div>
-<div class="sourceCode" id="cb720"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb722"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">ra1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r.igraph.org/reference/as_adjacency_matrix.html">as_adjacency_matrix</a></span><span class="op">(</span><span class="va">rnet1</span>, sparse <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
@@ -254,19 +254,19 @@ relatively easy to move back and forth between R and Python.
 </h3>
 <p>The quadratic assignment procedure (QAP) is a method for evaluating network correlations or other network metrics among two networks with the same node-set using Monte Carlo simulation methods. In R, the QAP function and test are available in the <code>statnet</code> package through a function called <code>qaptest</code>.</p>
 <p>Using the lists of network objects with same node-set we defined in the last example, we can make further assessments of the similarity between them using the <code>gcor</code> or graph correlation function in the <code>sna</code> package. This function gives a number between -1 and 1 which indicates the degree and direction of similarity in edges between the two networks. If the two networks have all present and absent edges in common, they would get a value of 1 and if absence and presence are reversed (all active edges in net1 are inactive in net2 and all inactive edges in net1 are active in net2) they would get a value of -1.</p>
-<div class="sourceCode" id="cb722"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb724"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/sna/man/gcor.html">gcor</a></span><span class="op">(</span><span class="va">net1250_1300</span><span class="op">)</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
 <pre><code>## [1] 0.6266283</code></pre>
-<div class="sourceCode" id="cb724"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb726"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/sna/man/gcor.html">gcor</a></span><span class="op">(</span><span class="va">net1300_1350</span><span class="op">)</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
 <pre><code>## [1] 0.3873585</code></pre>
-<div class="sourceCode" id="cb726"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb728"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/sna/man/gcor.html">gcor</a></span><span class="op">(</span><span class="va">net1250_1350</span><span class="op">)</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
 <pre><code>## [1] 0.2070197</code></pre>
 <p>As the results here show, AD1250-1300 and AD1300-1350 are reasonably similar with a graph correlation of <code>0.63</code> and AD1300-1350 and AD1350-1400 is less similar with a correlation of <code>0.39</code>. When we compare the non-sequential intervals AD1250-1300 and AD1350-1400 we see even lower similarity at <code>0.21</code>. Notably all values are positive. The question that remains, however, is how we might interpret these values. For example, if we had two nearly complete or nearly empty networks we could potentially get a high graph correlation by chance. The QAP test is designed to deal specifically with this issue.</p>
 <p>The QAP test creates a large number of random versions of the two imported network objects (by randomly switching node label assignments while keeping the same network structure) and then calculates the graph correlation (or some other graph level function) between the random versions of the networks for every simulation (the number of simulations is set to 1000 by default). The logic behind this is that if randomly shuffling of the network labels generated new networks that frequently produced graph correlation values as high or higher than the observed, that would suggest that the correlation between our observed networks could be easily generated by chance given network size and density. If, on the other hand, few or no random network label shufflings produced correlations as high and higher than the observed correlation, that could be used to reject the null hypothesis that the relationship between our graphs is random.</p>
 <p>Let’s give it a shot for all three comparisons and then discuss the results:</p>
-<div class="sourceCode" id="cb728"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb730"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">43673</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">qap1250_1300</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/sna/man/qaptest.html">qaptest</a></span><span class="op">(</span><span class="va">net1250_1300</span>, <span class="va">gcor</span>, g1 <span class="op">=</span> <span class="fl">1</span>, g2 <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
@@ -277,7 +277,7 @@ relatively easy to move back and forth between R and Python.
 ## Estimated p-values:
 ##  p(f(perm) &gt;= f(d)): 0 
 ##  p(f(perm) &lt;= f(d)): 1</code></pre>
-<div class="sourceCode" id="cb730"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb732"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">qap1300_1350</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/sna/man/qaptest.html">qaptest</a></span><span class="op">(</span><span class="va">net1300_1350</span>, <span class="va">gcor</span>, g1 <span class="op">=</span> <span class="fl">1</span>, g2 <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="va">qap1300_1350</span></span></code></pre></div>
 <pre><code>## 
@@ -286,7 +286,7 @@ relatively easy to move back and forth between R and Python.
 ## Estimated p-values:
 ##  p(f(perm) &gt;= f(d)): 0.001 
 ##  p(f(perm) &lt;= f(d)): 1</code></pre>
-<div class="sourceCode" id="cb732"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb734"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">qap1250_1350</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/sna/man/qaptest.html">qaptest</a></span><span class="op">(</span><span class="va">net1250_1350</span>, <span class="va">gcor</span>, g1 <span class="op">=</span> <span class="fl">1</span>, g2 <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="va">qap1250_1350</span></span></code></pre></div>
 <pre><code>## 
@@ -297,13 +297,13 @@ relatively easy to move back and forth between R and Python.
 ##  p(f(perm) &lt;= f(d)): 0.967</code></pre>
 <p>The value we’re most interested in here is the top p-value which is the simulated probability of obtaining a correlation as high or higher than the observed from randomly shuffled versions of our network. The first two comparisons for temporally sequenced periods both show simulated p-values at or near <code>0</code> suggesting that there is a low probability of obtaining correlations as high as the observed in shuffled networks. For the comparison between the non-consecutive AD1250-1300 and AD1350-1400 intervals, however, we get a considerably higher probability with <code>p = 0.093</code>. Our results indicate that in 93 of the 1000 random network label shuffles a correlation value as high or higher than the observed was recorded. In light of this we would probably not put much weight behind the correlation between those periods. As the function documentation suggests, QAP results should not be interpreted as indicative of underlying structural differences between networks, but instead simply differences in a particular node labeling schema controlling for structural differences (as only labels are shuffled and not actual network structures).</p>
 <p>Finally, we can plot a visualization of the QAP test which provides a density plot of the correlation values produced in each random replication along with a dotted line representing the observed value:</p>
-<div class="sourceCode" id="cb734"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb736"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">qap1250_1300</span>, xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="11-comparing-networks_files/figure-html/unnamed-chunk-10-1.png" width="672"></div>
-<div class="sourceCode" id="cb735"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb737"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">qap1300_1350</span>, xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="11-comparing-networks_files/figure-html/unnamed-chunk-10-2.png" width="672"></div>
-<div class="sourceCode" id="cb736"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb738"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">qap1250_1350</span>, xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="11-comparing-networks_files/figure-html/unnamed-chunk-10-3.png" width="672"></div>
 <p>QAP is potentially useful for identifying whether or not a given similarity or other graph level metric between two graphs is statistically significant, but there are also problems with this method in that results can also vary in relation to the size and topological nature of the networks in question (see Anderson et al. 1999).</p>
@@ -315,7 +315,7 @@ relatively easy to move back and forth between R and Python.
 <p>Another method for comparing networks with a common node-set that has more recently gained popularity is the DeltaCon approach (Koutra et al. 2016). This method is similar to the direct comparison of adjacency matrices except that it is based on the commonality in paths between networks rather than just specific edges. The underlying assumption here is that simply matching first degree connections doesn’t capture the true similarities and differences in networks and capturing paths of various lengths will likely provide a better assessment of structural similarities and differences among networks. Much like the adjacency matrix methods above DeltaCon ranges from 0 to 1 and provides and indication of the strength of association between the two networks.</p>
 <p>The analytical details and justification of DeltaCon are beyond the scope of this guide and we direct you <a href="https://dl.acm.org/doi/abs/10.1145/2824443">to the original paper</a> where this method was defined for more details. Luckily, GitHub user <a href="https://github.com/bxshi">Baoxu “Dash” Shi</a> has already created an R function to calculate DeltaCon that is <a href="https://github.com/bxshi/rdsg">available here</a>. We have ported that function into a script and simplified it somewhat in this repository and use that simplified version here. Note that this function relies on three packages which must be installed to use this function: <code>Matrix</code>, <code>SparseM</code>, and <code>pracma</code>.</p>
 <p>This function expects two numeric edge lists representing networks with the same node set and you also must indicate the number of nodes in each (so that unconnected nodes/isolates can also be considered). Let’s give this a try with the same San Pedro network data we imported above. <a href="scripts/delta_con.R">Click here</a> to download our modified version of the script used here. The input expected is two matrix objects in the form of an adjaency matrix with the same set of nodes:</p>
-<div class="sourceCode" id="cb737"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb739"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"scripts/delta_con.R"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">el1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">net1250_1300</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
@@ -324,13 +324,13 @@ relatively easy to move back and forth between R and Python.
 <span><span class="fu">delta_con</span><span class="op">(</span><span class="va">el1</span>, <span class="va">el2</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 0.8639706</code></pre>
 <p>We get a value of <code>0.86</code> which is just a little higher than our adjacency matrix comparison. Now let’s try it for the other interval comparisons:</p>
-<div class="sourceCode" id="cb739"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb741"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">el1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">net1300_1350</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="va">el2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">net1300_1350</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">delta_con</span><span class="op">(</span><span class="va">el1</span>, <span class="va">el2</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 0.6645235</code></pre>
-<div class="sourceCode" id="cb741"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb743"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">el1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">net1250_1350</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="va">el2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">net1250_1350</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
 <span></span>
@@ -351,7 +351,7 @@ relatively easy to move back and forth between R and Python.
 <p>Perhaps the simplest and most common means for comparing networks is to simply compare different network metrics and properties of those networks (standardized by network size or type). For example, we could calculate the density of two networks and compare the values and get some sense of how they relate (at least in terms of that one feature). Alternatively, we could calculate node or edge based metrics like centrality and then compare the resulting distributions. We have already shown several examples of this type of comparison in the Exploratory Network Analysis section of this document with our <a href="Exploratory.html#ExploratoryRomanRoads">Roman Roads Case Study</a>. In that example, we happened to be using three networks with the same node-set but this is certainly not required.</p>
 <p>In the chunk of code below we reproduce our <code>net_stats</code> function for calculating a range of network metrics from the <a href="Exploratory.html#Exploratory">Exploratory
 Network Analysis</a> section and then calculate those stats for our San Pedro time-slice networks.</p>
-<div class="sourceCode" id="cb743"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb745"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r.igraph.org/">igraph</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">net_stats</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">net</span><span class="op">)</span> <span class="op">{</span></span>
@@ -383,7 +383,7 @@ Network Analysis</a> section and then calculate those stats for our San Pedro ti
 <span><span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>Since our San Pedro networks are <code>network</code> format objects we use the <code>intergraph</code> package to convert them to the <code>igraph</code> objects this function expects.</p>
-<div class="sourceCode" id="cb744"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb746"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://mbojan.github.io/intergraph/">intergraph</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">ns1</span> <span class="op">&lt;-</span> <span class="fu">net_stats</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/intergraph/man/asIgraph.html">asIgraph</a></span><span class="op">(</span><span class="va">AD1250net</span><span class="op">)</span><span class="op">)</span></span>
@@ -555,21 +555,21 @@ Open Triad Count
 </table></div>
 <p>Data like this can be useful for making general comparisons of networks. For example, we can see major differences in density among our time periods. Further the ratio of open to closed triads differs dramatically through time.</p>
 <p>Another simple approach that is frequently used for comparing networks is to compare distributions of node or edge level statistics. For example, we can compare degree distributions among our networks here using simple histogram visuals:</p>
-<div class="sourceCode" id="cb745"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb747"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span></span>
 <span>  <span class="fu">sna</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sna/man/degree.html">degree</a></span><span class="op">(</span><span class="va">AD1250net</span>, rescale <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
 <span>  main <span class="op">=</span> <span class="st">"AD1250-1300"</span>,</span>
 <span>  xlab <span class="op">=</span> <span class="st">"Degree"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="11-comparing-networks_files/figure-html/unnamed-chunk-15-1.png" width="672"></div>
-<div class="sourceCode" id="cb746"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb748"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span></span>
 <span>  <span class="fu">sna</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sna/man/degree.html">degree</a></span><span class="op">(</span><span class="va">AD1300net</span>, rescale <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
 <span>  main <span class="op">=</span> <span class="st">"AD1300-1350"</span>,</span>
 <span>  xlab <span class="op">=</span> <span class="st">"Degree"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="11-comparing-networks_files/figure-html/unnamed-chunk-15-2.png" width="672"></div>
-<div class="sourceCode" id="cb747"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb749"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span></span>
 <span>  <span class="fu">sna</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sna/man/degree.html">degree</a></span><span class="op">(</span><span class="va">AD1350net</span>, rescale <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
 <span>  main <span class="op">=</span> <span class="st">"AD1350-1400"</span>,</span>
@@ -587,14 +587,14 @@ Open Triad Count
 <p>Let’s start with a relatively simple example. Let’s say we are interested in defining a kernel for comparing two networks based on their “graphlet” representation. A graphlet is simply a set of possible configurations that a set of nodes can take for a given <span class="math inline">\(k\)</span> number of nodes. For example, for 3 nodes the following graphlets are possible configurations:</p>
 <div class="inline-figure"><img src="11-comparing-networks_files/figure-html/unnamed-chunk-16-1.png" width="480"></div>
 <p>So for two graphs, we could then compare the number of times each of these configurations appears. Let’s make a couple of small random graphs and try it out:</p>
-<div class="sourceCode" id="cb748"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb750"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">4354</span><span class="op">)</span></span>
 <span><span class="va">g1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r.igraph.org/reference/erdos.renyi.game.html">erdos.renyi.game</a></span><span class="op">(</span><span class="fl">6</span>, <span class="fl">0.6</span><span class="op">)</span></span>
 <span><span class="va">g2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r.igraph.org/reference/erdos.renyi.game.html">erdos.renyi.game</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">0.4</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">g1</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="11-comparing-networks_files/figure-html/unnamed-chunk-17-1.png" width="672"></div>
-<div class="sourceCode" id="cb749"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb751"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">g2</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="11-comparing-networks_files/figure-html/unnamed-chunk-17-2.png" width="672"></div>
 <p>Now we can tabulate the number of graphets of each configuration from 0 to 3 as denoted above for each graph as a vector:</p>
@@ -609,7 +609,7 @@ f_{G2} =&amp; (0, 3, 6, 1) / 10 = (0, 0.3, 0.6, 0.1)
 \end{aligned}\]</span></p>
 <p>Now to create we can create a kernel describing the relationship between these two graphs by calculating the inner product of the transpose of the vector for the first graph by the vector of the second graph:</p>
 <p><span class="math display">\[K(G1,G2) = F_{G1}^T \cdot F_{G2} = 0.34\]</span></p>
-<div class="sourceCode" id="cb750"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb752"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fg1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">4</span>, <span class="fl">8</span>, <span class="fl">8</span><span class="op">)</span></span>
 <span><span class="va">fg1</span> <span class="op">&lt;-</span> <span class="va">fg1</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">fg1</span><span class="op">)</span></span>
 <span></span>
@@ -632,7 +632,7 @@ implementation in our example here.
 </div>
 <p>In the chunk of code below, we convert our San Pedro <code>network</code> objects into the <code>igraph</code> network format and then calculate graphlet kernel for <span class="math inline">\(k=3\)</span>, a random walk kernel, and finally a shortest path kernel. The results are provided as a symmetric matrix and we can evaluate comparisons between networks by looking at the row and column corresponding to the item number in the list provided to the function. The values are in terms of whatever measure is provide (e.g., number or length of random walks, proportional overlap of graphlets, etc.) but in general, larger numbers indicate greater similarity between networks for a given feature.</p>
 <p>Let’s give it a try:</p>
-<div class="sourceCode" id="cb752"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb754"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">graphkernels</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://mbojan.github.io/intergraph/">intergraph</a></span><span class="op">)</span></span>
 <span><span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/intergraph/man/asIgraph.html">asIgraph</a></span><span class="op">(</span><span class="va">AD1250net</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/pkg/intergraph/man/asIgraph.html">asIgraph</a></span><span class="op">(</span><span class="va">AD1300net</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/pkg/intergraph/man/asIgraph.html">asIgraph</a></span><span class="op">(</span><span class="va">AD1350net</span><span class="op">)</span><span class="op">)</span></span>
@@ -765,14 +765,14 @@ details</a>.
 </p>
 </div>
 <p>Let’s first initialize the <code>reticulate</code> package:</p>
-<div class="sourceCode" id="cb753"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb755"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rstudio.github.io/reticulate/">reticulate</a></span><span class="op">)</span></span></code></pre></div>
 <pre><code>## Warning: package 'reticulate' was built under R version 4.2.3</code></pre>
 <p>At this point install Python if you have not already done that using the <code><a href="https://rstudio.github.io/reticulate/reference/install_miniconda.html">reticulate::install_miniconda()</a></code> command. Once Python in installed you will then need to install a Python package called <a href="https://github.com/xgfs/NetLSD">NetLSD (Network Laplacian Spectral Descriptors)</a>. The easiest way to do this is to click on the “Terminal” panel in your R-Studio instance and then type the following command directly at the terminal (you only need to do this once in an instance of R-Studio):</p>
-<div class="sourceCode" id="cb755"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb755-1"><a href="ComparingNetworks.html#cb755-1" tabindex="-1"></a>pip install netlsd</span></code></pre></div>
+<div class="sourceCode" id="cb757"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb757-1"><a href="ComparingNetworks.html#cb757-1" tabindex="-1"></a>pip install netlsd</span></code></pre></div>
 <p>If all goes well, that will install the NetLSD Python package in the instance of Python associated with your R-Studio installation and then you call Python commands either directly from the terminal or using special functions built into the <code>reticulate</code> package. This is a package that calculates spectral distance between networks using a version of the Laplacian matrix described above to define eigenvalues for each graph.</p>
 <p>First, let’s create a few network objects in R that we can use in a Python environment. In this case we need adjacency matrices for the NetLSD package:</p>
-<div class="sourceCode" id="cb756"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb758"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">g1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">AD1250net</span><span class="op">)</span></span>
 <span><span class="va">g2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">AD1300net</span><span class="op">)</span></span>
 <span><span class="va">g3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">AD1350net</span><span class="op">)</span></span></code></pre></div>
@@ -788,38 +788,38 @@ inside the <code>{r}</code> to <code>{python}</code>.
 <p>The next line of codes represent functions that are within the Python package we installed. First we call a function called <code>heat</code> within the <code>netlsd</code> package by adding <code>netlst.heat()</code> and then providing the object to which this function should be calculated in the parentheses. Next we then calculate the Laplacian spectral distance between two graphs using a function in the <code>numpy</code> package (which we imported with the shortened name <code>np</code>) by typing <code>np.linalg.norm</code>. Just like in R, we can assign the result to an object and then type the name of that object to report the output on the screen.</p>
 <pre><code>## [1] TRUE</code></pre>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb759"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb759-1"><a href="ComparingNetworks.html#cb759-1" tabindex="-1"></a><span class="im">import</span> netlsd</span>
-<span id="cb759-2"><a href="ComparingNetworks.html#cb759-2" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb759-3"><a href="ComparingNetworks.html#cb759-3" tabindex="-1"></a></span>
-<span id="cb759-4"><a href="ComparingNetworks.html#cb759-4" tabindex="-1"></a>graph1 <span class="op">=</span> r.g1</span>
-<span id="cb759-5"><a href="ComparingNetworks.html#cb759-5" tabindex="-1"></a>graph2 <span class="op">=</span> r.g2</span>
-<span id="cb759-6"><a href="ComparingNetworks.html#cb759-6" tabindex="-1"></a>graph3 <span class="op">=</span> r.g3</span>
-<span id="cb759-7"><a href="ComparingNetworks.html#cb759-7" tabindex="-1"></a></span>
-<span id="cb759-8"><a href="ComparingNetworks.html#cb759-8" tabindex="-1"></a>desc1 <span class="op">=</span> netlsd.heat(graph1)</span>
-<span id="cb759-9"><a href="ComparingNetworks.html#cb759-9" tabindex="-1"></a>desc2 <span class="op">=</span> netlsd.heat(graph2)</span>
-<span id="cb759-10"><a href="ComparingNetworks.html#cb759-10" tabindex="-1"></a>desc3 <span class="op">=</span> netlsd.heat(graph3)</span>
-<span id="cb759-11"><a href="ComparingNetworks.html#cb759-11" tabindex="-1"></a></span>
-<span id="cb759-12"><a href="ComparingNetworks.html#cb759-12" tabindex="-1"></a>distance1_2 <span class="op">=</span> np.linalg.norm(desc1 <span class="op">-</span> desc2) </span>
-<span id="cb759-13"><a href="ComparingNetworks.html#cb759-13" tabindex="-1"></a>distance1_2</span></code></pre></div>
+<div class="sourceCode" id="cb761"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb761-1"><a href="ComparingNetworks.html#cb761-1" tabindex="-1"></a><span class="im">import</span> netlsd</span>
+<span id="cb761-2"><a href="ComparingNetworks.html#cb761-2" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb761-3"><a href="ComparingNetworks.html#cb761-3" tabindex="-1"></a></span>
+<span id="cb761-4"><a href="ComparingNetworks.html#cb761-4" tabindex="-1"></a>graph1 <span class="op">=</span> r.g1</span>
+<span id="cb761-5"><a href="ComparingNetworks.html#cb761-5" tabindex="-1"></a>graph2 <span class="op">=</span> r.g2</span>
+<span id="cb761-6"><a href="ComparingNetworks.html#cb761-6" tabindex="-1"></a>graph3 <span class="op">=</span> r.g3</span>
+<span id="cb761-7"><a href="ComparingNetworks.html#cb761-7" tabindex="-1"></a></span>
+<span id="cb761-8"><a href="ComparingNetworks.html#cb761-8" tabindex="-1"></a>desc1 <span class="op">=</span> netlsd.heat(graph1)</span>
+<span id="cb761-9"><a href="ComparingNetworks.html#cb761-9" tabindex="-1"></a>desc2 <span class="op">=</span> netlsd.heat(graph2)</span>
+<span id="cb761-10"><a href="ComparingNetworks.html#cb761-10" tabindex="-1"></a>desc3 <span class="op">=</span> netlsd.heat(graph3)</span>
+<span id="cb761-11"><a href="ComparingNetworks.html#cb761-11" tabindex="-1"></a></span>
+<span id="cb761-12"><a href="ComparingNetworks.html#cb761-12" tabindex="-1"></a>distance1_2 <span class="op">=</span> np.linalg.norm(desc1 <span class="op">-</span> desc2) </span>
+<span id="cb761-13"><a href="ComparingNetworks.html#cb761-13" tabindex="-1"></a>distance1_2</span></code></pre></div>
 <pre><code>## 0.9955321810540249</code></pre>
-<div class="sourceCode" id="cb761"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb761-1"><a href="ComparingNetworks.html#cb761-1" tabindex="-1"></a>distance2_3 <span class="op">=</span> np.linalg.norm(desc2 <span class="op">-</span> desc3) </span>
-<span id="cb761-2"><a href="ComparingNetworks.html#cb761-2" tabindex="-1"></a>distance2_3</span></code></pre></div>
+<div class="sourceCode" id="cb763"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb763-1"><a href="ComparingNetworks.html#cb763-1" tabindex="-1"></a>distance2_3 <span class="op">=</span> np.linalg.norm(desc2 <span class="op">-</span> desc3) </span>
+<span id="cb763-2"><a href="ComparingNetworks.html#cb763-2" tabindex="-1"></a>distance2_3</span></code></pre></div>
 <pre><code>## 0.2568554438667868</code></pre>
-<div class="sourceCode" id="cb763"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb763-1"><a href="ComparingNetworks.html#cb763-1" tabindex="-1"></a>distance1_3 <span class="op">=</span> np.linalg.norm(desc1 <span class="op">-</span> desc3) </span>
-<span id="cb763-2"><a href="ComparingNetworks.html#cb763-2" tabindex="-1"></a>distance1_3</span></code></pre></div>
+<div class="sourceCode" id="cb765"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb765-1"><a href="ComparingNetworks.html#cb765-1" tabindex="-1"></a>distance1_3 <span class="op">=</span> np.linalg.norm(desc1 <span class="op">-</span> desc3) </span>
+<span id="cb765-2"><a href="ComparingNetworks.html#cb765-2" tabindex="-1"></a>distance1_3</span></code></pre></div>
 <pre><code>## 1.1791128279165486</code></pre>
 <p>The results above show the Laplacian spectral distance between our three temporal networks. Smaller numbers indicate less distance and these numbers are not bounded on the upper end. Our results here show that the distance between AD1300-1350 and AD1350-1400 is the smallest (meaning those graphs are most similar by this measure) and the comparison between non-consecutive intervals is the greatest.</p>
 <p>The advantage of this spectral method is that is a comparison of a summary of the overall structural properties of a network rather than a particular feature as we saw with the graph kernel methods.</p>
 <p>Importantly, this metric could also be used to compare graphs that differ dramatically in size and scale as well. In the next chunk of code we import the <code>networkx</code> package as <code>nx</code> and then create a random graph with 1000 nodes using the Barabasi-Albert algorithm. We then compare that to our original 13 node network from AD1250-1300 to show how we can compare networks of dramatically different sizes. Note that all eigenvalues after the first 13 for the San Pedro network will be defined as 0.</p>
-<div class="sourceCode" id="cb765"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb765-1"><a href="ComparingNetworks.html#cb765-1" tabindex="-1"></a><span class="im">import</span> networkx</span>
-<span id="cb765-2"><a href="ComparingNetworks.html#cb765-2" tabindex="-1"></a><span class="im">import</span> netlsd</span>
-<span id="cb765-3"><a href="ComparingNetworks.html#cb765-3" tabindex="-1"></a></span>
-<span id="cb765-4"><a href="ComparingNetworks.html#cb765-4" tabindex="-1"></a><span class="co"># create a random graph with 1000 nodes</span></span>
-<span id="cb765-5"><a href="ComparingNetworks.html#cb765-5" tabindex="-1"></a>g4 <span class="op">=</span> networkx.barabasi_albert_graph(<span class="dv">1000</span>, m <span class="op">=</span> <span class="dv">20</span>, seed <span class="op">=</span> <span class="dv">13</span>) </span>
-<span id="cb765-6"><a href="ComparingNetworks.html#cb765-6" tabindex="-1"></a>desc4 <span class="op">=</span> netlsd.heat(g4)</span>
-<span id="cb765-7"><a href="ComparingNetworks.html#cb765-7" tabindex="-1"></a></span>
-<span id="cb765-8"><a href="ComparingNetworks.html#cb765-8" tabindex="-1"></a>distance_new <span class="op">=</span> np.linalg.norm(desc1 <span class="op">-</span> desc4) </span>
-<span id="cb765-9"><a href="ComparingNetworks.html#cb765-9" tabindex="-1"></a>distance_new</span></code></pre></div>
+<div class="sourceCode" id="cb767"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb767-1"><a href="ComparingNetworks.html#cb767-1" tabindex="-1"></a><span class="im">import</span> networkx</span>
+<span id="cb767-2"><a href="ComparingNetworks.html#cb767-2" tabindex="-1"></a><span class="im">import</span> netlsd</span>
+<span id="cb767-3"><a href="ComparingNetworks.html#cb767-3" tabindex="-1"></a></span>
+<span id="cb767-4"><a href="ComparingNetworks.html#cb767-4" tabindex="-1"></a><span class="co"># create a random graph with 1000 nodes</span></span>
+<span id="cb767-5"><a href="ComparingNetworks.html#cb767-5" tabindex="-1"></a>g4 <span class="op">=</span> networkx.barabasi_albert_graph(<span class="dv">1000</span>, m <span class="op">=</span> <span class="dv">20</span>, seed <span class="op">=</span> <span class="dv">13</span>) </span>
+<span id="cb767-6"><a href="ComparingNetworks.html#cb767-6" tabindex="-1"></a>desc4 <span class="op">=</span> netlsd.heat(g4)</span>
+<span id="cb767-7"><a href="ComparingNetworks.html#cb767-7" tabindex="-1"></a></span>
+<span id="cb767-8"><a href="ComparingNetworks.html#cb767-8" tabindex="-1"></a>distance_new <span class="op">=</span> np.linalg.norm(desc1 <span class="op">-</span> desc4) </span>
+<span id="cb767-9"><a href="ComparingNetworks.html#cb767-9" tabindex="-1"></a>distance_new</span></code></pre></div>
 <pre><code>## 1.6539873180732085</code></pre>
 <p>We have certainly not exhausted the possibilities for spectral graph comparison here. In particular, it is currently unclear how such network summaries work for networks with features like common archaeological networks (for example, similarity networks with very high degrees of closure). As spectral methods perform differently for networks with different structural tendencies, such evaluation of archaeological networks with this in mind would be useful.</p>
 </div>
@@ -851,7 +851,7 @@ inside the <code>{r}</code> to <code>{python}</code>.
 <p>That’s a lot of math, we know but essentially what this metric does is it creates a matrix that characterizes shortest path lengths in relation to the total diameter of each graph and the compares them based on the resulting probability distributions of paths of various length using assessments of mutual information. The Kullback-Liebler divergence is a measure of information lost when using one probability distribution to estimate another. This measure is not symmetric in that <span class="math inline">\(KL(P||M)\)</span> is not the same as <span class="math inline">\(KL(M||P)\)</span>.</p>
 <p>To run this in R, we’re going to actually use a Python package/script and initialize it using the <code>reticulate</code> command <code><a href="https://rstudio.github.io/reticulate/reference/source_python.html">source_python()</a></code> which works essentially like <code><a href="https://rdrr.io/r/base/source.html">source()</a></code> for R scripts. Our Python script is a modified version of the script <a href="https://github.com/bagrow/network-portrait-divergence">placed on GitHub</a> by Bagrow (<a href="scripts/portrait_divergence.py">you can download our modified version here</a>).</p>
 <p>In the next chunk of code we show another way that you can run Python code in R-Studio. In this example we first initialize the <code>portrait_divergence</code> function and then create 3 edge list objects. We then run the <code>portrait_divergence</code> function using the <code>py$</code> prefix. Much like we used the <code>r.</code> prefix to call global R objects in Python we can use <code>py$</code> to call Python objects in R. Using the <code>py$portrait_divergence()</code> function and supplying two edge lists as R objects we can run the function.</p>
-<div class="sourceCode" id="cb767"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb769"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rstudio.github.io/reticulate/">reticulate</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rstudio.github.io/reticulate/reference/source_python.html">source_python</a></span><span class="op">(</span><span class="st">"scripts/portrait_divergence.py"</span><span class="op">)</span></span>
 <span></span>
@@ -861,15 +861,15 @@ inside the <code>{r}</code> to <code>{python}</code>.
 <span></span>
 <span><span class="va">py</span><span class="op">$</span><span class="fu">portrait_divergence</span><span class="op">(</span><span class="va">g1</span>, <span class="va">g2</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 0.5958473</code></pre>
-<div class="sourceCode" id="cb769"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb771"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">py</span><span class="op">$</span><span class="fu">portrait_divergence</span><span class="op">(</span><span class="va">g2</span>, <span class="va">g3</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 0.3720442</code></pre>
-<div class="sourceCode" id="cb771"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb773"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">py</span><span class="op">$</span><span class="fu">portrait_divergence</span><span class="op">(</span><span class="va">g1</span>, <span class="va">g3</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 0.7556229</code></pre>
 <p>Portrait divergence ranges from 0 to 1 where lower values indicate a closer relationship in terms of shortest path portrait structure and 1 represents no overlap in the probability distributions for both networks.</p>
 <p>Once again, this can also be used on networks of very different sizes and origins. In the next example we use the <a href="data/road_networks.Rdata">Roman Road networks</a> we used in Section 3 to compare our San Pedro ceramic network to the road network. This Roman Road network has very different properties from the San Pedro network and is much larger as well.</p>
-<div class="sourceCode" id="cb773"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb775"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span><span class="op">(</span><span class="st">"data/road_networks.RData"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">py</span><span class="op">$</span><span class="fu">portrait_divergence</span><span class="op">(</span><span class="va">g1</span>, <span class="fu"><a href="https://r.igraph.org/reference/as_edgelist.html">as_edgelist</a></span><span class="op">(</span><span class="va">road_net</span>, names <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -879,7 +879,7 @@ inside the <code>{r}</code> to <code>{python}</code>.
 <pre><code>## [1] 0.8242969</code></pre>
 <p>When we compare our two networks we see a relatively high portrait divergence value which we might expect given the drastically different nature of these two networks.</p>
 <p>Portrait divergence can also be calculated for weighted networks (based on a three column weighted network edge list) using the <code>portrait_divergence</code> function. In this example we add random weights to the same two networks we used in our last example to see how this effects the results. Note that the weighting schema can also have very different scales and this procedure will still work. In the example below weights in the AD1250-1300 ceramic similarity network range from 1-3 whereas values range from 1-100 in the road network.</p>
-<div class="sourceCode" id="cb776"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb778"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">46232</span><span class="op">)</span></span>
 <span><span class="va">g1w</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">g1</span>, <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">g1</span><span class="op">)</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">rnet</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r.igraph.org/reference/as_edgelist.html">as_edgelist</a></span><span class="op">(</span><span class="va">road_net</span>, names <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
@@ -912,10 +912,10 @@ unconnected node).
 </p>
 </div>
 <p>Let’s start by using learning how to use the <code>orca</code> package in R to calculate all orbits for a given <span class="math inline">\(k\)</span> for network objects. By way of example, we will once again use the <a href="data/road_networks.RData">Roman Roads network data</a> as the first network and the <a href="data/Cibola_adj.csv">Cibola ceramic similarity network</a> as the second (click on the links for each to download and follow along). To use the <code>orca</code> package, we need to convert our igraph network objects into edge list with all each column defined as integer data. We do this using the <code>apply</code> function with a <code>get.edgelist</code> function nested within it. After making this conversion we use the <code><a href="https://rdrr.io/pkg/orca/man/orca.html">orca::count4</a></code> and <code><a href="https://rdrr.io/pkg/orca/man/orca.html">orca::count5</a></code> functions to define counts of orbits for the <span class="math inline">\(k=4\)</span> and <span class="math inline">\(k=5\)</span> node configurations respectively. We then view the first few rows of each. These output data frames have a row for each node and the columns represent the counts of orbits of each configuration using the same numbering scheme shown in the figure above.</p>
-<div class="sourceCode" id="cb778"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb780"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">orca</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## Warning: package 'orca' was built under R version 4.2.3</code></pre>
-<div class="sourceCode" id="cb780"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb782"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Read in data</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span><span class="op">(</span><span class="st">"data/road_networks.RData"</span><span class="op">)</span></span>
 <span><span class="va">cibola</span> <span class="op">&lt;-</span></span>
@@ -930,7 +930,7 @@ unconnected node).
 ## This warning is displayed once every 8 hours.
 ## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
 ## generated.</code></pre>
-<div class="sourceCode" id="cb782"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb784"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Calculate orbits for k = 4 and 5 for the Roman road network</span></span>
 <span><span class="va">road_net_int</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span><span class="op">(</span><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://r.igraph.org/reference/get.edgelist.html">get.edgelist</a></span><span class="op">(</span><span class="va">road_net</span>, names <span class="op">=</span> <span class="cn">F</span><span class="op">)</span>, <span class="fl">1</span>, <span class="va">as.integer</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -942,7 +942,7 @@ unconnected node).
 <pre><code>## This graph was created by an old(er) igraph version.
 ##   Call upgrade_graph() on it to use with the current igraph version
 ##   For now we convert it on the fly...</code></pre>
-<div class="sourceCode" id="cb785"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb787"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">road_orb4</span> <span class="op">&lt;-</span> <span class="fu">orca</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/orca/man/orca.html">count4</a></span><span class="op">(</span><span class="va">road_net_int</span><span class="op">)</span></span>
 <span><span class="va">road_orb5</span> <span class="op">&lt;-</span> <span class="fu">orca</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/orca/man/orca.html">count5</a></span><span class="op">(</span><span class="va">road_net_int</span><span class="op">)</span></span>
 <span></span>
@@ -954,7 +954,7 @@ unconnected node).
 ## [4,]  2  4  1  0  9  4  3  0  0  0   0   0   0   0   0
 ## [5,]  2  4  1  0  7  4  3  0  0  0   0   0   0   0   0
 ## [6,]  3  2  1  2  5  2  0  0  0  0   2   0   0   1   0</code></pre>
-<div class="sourceCode" id="cb787"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb789"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">road_orb5</span><span class="op">)</span></span></code></pre></div>
 <pre><code>##      O0 O1 O2 O3 O4 O5 O6 O7 O8 O9 O10 O11 O12 O13 O14 O15 O16 O17 O18 O19 O20
 ## [1,]  4  6  6  0 10 18  1  4  0  1   0   0   0   0   0   9  24  10   5   6   3
@@ -984,7 +984,7 @@ unconnected node).
 ## [4,]   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
 ## [5,]   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
 ## [6,]   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0</code></pre>
-<div class="sourceCode" id="cb789"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb791"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Calculate orbits for k = 4 and 5 for the Cibola network</span></span>
 <span><span class="va">cibola_net_int</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span><span class="op">(</span><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://r.igraph.org/reference/get.edgelist.html">get.edgelist</a></span><span class="op">(</span><span class="va">cibola_net</span>, names <span class="op">=</span> <span class="cn">F</span><span class="op">)</span>, <span class="fl">1</span>, <span class="va">as.integer</span><span class="op">)</span><span class="op">)</span></span>
@@ -1000,7 +1000,7 @@ unconnected node).
 ## [4,] 11 34  9 46  84 76 41  0  9 46 124  19  61  43 103
 ## [5,] 13 18 13 65  65 60 15  3  1 32 124  24  15  86 173
 ## [6,] 11 24  7 48 106 40 16  0  5 17  94  12  48  39 114</code></pre>
-<div class="sourceCode" id="cb791"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb793"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">cibola_orb5</span><span class="op">)</span></span></code></pre></div>
 <pre><code>##      O0 O1 O2 O3  O4 O5 O6 O7 O8 O9 O10 O11 O12 O13 O14 O15 O16 O17 O18 O19 O20
 ## [1,] 11 17  7 48 105 11  0  0  2 11  75  13  40  37 115 496  69   0 122   0   0
@@ -1034,7 +1034,7 @@ unconnected node).
 <h4>Relative Graphlet Frequency Distribution<a class="anchor" aria-label="anchor" href="#relative-graphlet-frequency-distribution"><i class="fas fa-link"></i></a>
 </h4>
 <p>Once these orbits have been enumerated for a pair of networks, there are many options for comparing those networks. The simplest method is to simply calculate the absolute difference in the frequency of graphlets normalized for the total number of graphlets in each network. This is called the Relative Graphlet Frequency Distribution (RGFD). Before we can do this, however, we have to take one intermediate step. The <code><a href="https://rdrr.io/pkg/orca/man/orca.html">orca::count4</a></code> and <code><a href="https://rdrr.io/pkg/orca/man/orca.html">orca::count5</a></code> functions calculate orbit counts, but not graphlet counts. We have made a simple function here that assigns graphlet counts using the same schema shown in the figure above.</p>
-<div class="sourceCode" id="cb793"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb795"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">orbit_to_graphlet</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="fl">9</span><span class="op">)</span></span>
 <span>  <span class="va">out</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">x</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span></span>
@@ -1059,7 +1059,7 @@ unconnected node).
 ## [4,]  2  5  0 13  3  0  0  0  0
 ## [5,]  2  5  0 11  3  0  0  0  0
 ## [6,]  3  3  2  7  0  0  2  1  0</code></pre>
-<div class="sourceCode" id="cb795"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb797"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cibola_graphlet</span> <span class="op">&lt;-</span> <span class="fu">orbit_to_graphlet</span><span class="op">(</span><span class="va">cibola_orb4</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">cibola_graphlet</span><span class="op">)</span></span></code></pre></div>
 <pre><code>##      G0 G1 G2  G3 G4 G5  G6  G7  G8
@@ -1079,7 +1079,7 @@ unconnected node).
 <span class="math inline">\(F_i(G_2)\)</span> is the count of graphlet <span class="math inline">\(i\)</span> in network 2 divided by the total number of graphlets in network 2</li>
 </ul>
 <p>We can easily calculate this measure by dividing the column sums of graphlet counts for each network by the total number of graphlets in that network. Next we then find the sum of the absolute differences between the results. Note that in the version here we are using the 15 <span class="math inline">\(k=4\)</span> graphlets but we could also use the 73 <span class="math inline">\(k=5\)</span> graphlets or some other number (though larger numbers are computationally difficult to calculate and don’t typically provide better results). Because this measure is a comparisons of two vectors of proportions that sum to 1, possible values range from 0 where two graphlet distributions are identical to 2 when two graphlet distributions are the inverse of one another. We have rolled this into a function here for ease of use. This function expects matrices of graphlet counts:</p>
-<div class="sourceCode" id="cb797"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb799"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">rgfd</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">graphlet1</span>, <span class="va">graphlet2</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">graphlet1_sum</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html">colSums</a></span><span class="op">(</span><span class="va">graphlet1</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">graphlet1</span><span class="op">)</span></span>
 <span>  <span class="va">graphlet2_sum</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html">colSums</a></span><span class="op">(</span><span class="va">graphlet2</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">graphlet2</span><span class="op">)</span></span>
@@ -1091,10 +1091,10 @@ unconnected node).
 <pre><code>## [1] 1.09591</code></pre>
 <p>Our example here produced a distance of <code>1.0959</code> suggesting these networks share about half of their graphlet distributions in common.</p>
 <p>Importantly, it is also possible to run the function defined above for orbit counts directly instead of just graphlet counts for either <span class="math inline">\(k=4\)</span> or <span class="math inline">\(k=5\)</span>. Note that when we run the function for <span class="math inline">\(k=4\)</span> below for this example the results are identical to the graphlet counts above but this is by no means guaranteed.</p>
-<div class="sourceCode" id="cb799"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb801"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">rgfd</span><span class="op">(</span><span class="va">road_orb4</span>, <span class="va">cibola_orb4</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 1.09591</code></pre>
-<div class="sourceCode" id="cb801"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb803"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">rgfd</span><span class="op">(</span><span class="va">road_orb5</span>, <span class="va">cibola_orb5</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 1.273612</code></pre>
 <p>Our results here suggest that there is a a somewhat greater distance in the distribution of orbits for <span class="math inline">\(k=5\)</span> than for <span class="math inline">\(k=4\)</span>.</p>
@@ -1127,41 +1127,41 @@ needs to be installed directly from GitHub using the
 installed this package, run the next line of code.
 </p>
 </div>
-<div class="sourceCode" id="cb803"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb805"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"QiliShi/NetworkSim"</span><span class="op">)</span></span></code></pre></div>
 <p>The specific function within the <code>NetworkSim</code> package is called <code>netODA</code> for orbit distribution agreement. It expects either networks in igraph format or integer edge list objects to run. Let’s give it a try using the Roman Road and Cibola ceramic similarity data we imported above using an arithmetic means:</p>
-<div class="sourceCode" id="cb804"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb806"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">NetworkSim</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/NetworkSim/man/netODA.html">netODA</a></span><span class="op">(</span><span class="va">road_net</span>, <span class="va">cibola_net</span>, mean <span class="op">=</span> <span class="st">"arithmetic"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 0.3420875</code></pre>
 <p>Now let’s compare the three versions of the Roman Road network (see <a href="Exploratory.html#ExploratoryRomanRoads">the section on Exploratory Analysis for more details</a>) using the arithmetic mean.</p>
-<div class="sourceCode" id="cb806"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb808"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/NetworkSim/man/netODA.html">netODA</a></span><span class="op">(</span><span class="va">road_net</span>, <span class="va">road_net2</span>, mean <span class="op">=</span> <span class="st">"arithmetic"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## This graph was created by an old(er) igraph version.
 ##   Call upgrade_graph() on it to use with the current igraph version
 ##   For now we convert it on the fly...</code></pre>
 <pre><code>## [1] 0.9307024</code></pre>
-<div class="sourceCode" id="cb809"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb811"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/NetworkSim/man/netODA.html">netODA</a></span><span class="op">(</span><span class="va">road_net</span>, <span class="va">road_net3</span>, mean <span class="op">=</span> <span class="st">"arithmetic"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## This graph was created by an old(er) igraph version.
 ##   Call upgrade_graph() on it to use with the current igraph version
 ##   For now we convert it on the fly...</code></pre>
 <pre><code>## [1] 0.8732273</code></pre>
-<div class="sourceCode" id="cb812"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb814"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/NetworkSim/man/netODA.html">netODA</a></span><span class="op">(</span><span class="va">road_net2</span>, <span class="va">road_net3</span>, mean <span class="op">=</span> <span class="st">"arithmetic"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 0.8688872</code></pre>
 <p>As we might expect, these different versions of the Roman Road network are quite similar in graphlet degree distribution with values closer to 1. Now let’s try the same with the geometric mean. Here we will also include a comparison between the Cibola ceramic network and the first Roman Road network:</p>
-<div class="sourceCode" id="cb814"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb816"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/NetworkSim/man/netODA.html">netODA</a></span><span class="op">(</span><span class="va">road_net</span>, <span class="va">road_net2</span>, mean <span class="op">=</span> <span class="st">"geometric"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 0.9262988</code></pre>
-<div class="sourceCode" id="cb816"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb818"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/NetworkSim/man/netODA.html">netODA</a></span><span class="op">(</span><span class="va">road_net</span>, <span class="va">road_net3</span>, mean <span class="op">=</span> <span class="st">"geometric"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 0.8269154</code></pre>
-<div class="sourceCode" id="cb818"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb820"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/NetworkSim/man/netODA.html">netODA</a></span><span class="op">(</span><span class="va">road_net2</span>, <span class="va">road_net3</span>, mean <span class="op">=</span> <span class="st">"geometric"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 0.8243554</code></pre>
-<div class="sourceCode" id="cb820"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb822"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/NetworkSim/man/netODA.html">netODA</a></span><span class="op">(</span><span class="va">road_net</span>, <span class="va">cibola_net</span>, mean <span class="op">=</span> <span class="st">"geometric"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] NaN</code></pre>
 <p>Notice that the geometric mean (which is the <span class="math inline">\(i_{th}\)</span> root for the product of a set of <span class="math inline">\(i\)</span> numbers) is quite similar for the Roman Road comparisons but is <code>NA</code> for the comparisons of the Roman Road and the Cibola ceramic network. This is because geometric means are undefined if any value in the set of numbers considered is 0 or negative. In this case, this indicates that at least one Agreement value for one orbit configuration was 0 in this comparison. You should be aware that such cases exist and may even be fairly common when comparing very different networks.</p>
@@ -1178,7 +1178,7 @@ installed this package, run the next line of code.
 </ul>
 <p>This measure, as it is based on Euclidean distance will be 0 when two networks are identical and has no upper bound.</p>
 <p>We are unaware of any existing R package that calculates GCD-11 or any other derivation of Graphlet Correlation Distance, but it is relatively easy to create a function to obtain this measure. You can <a href="scripts/netGCD.R">download our GCD-11 script here</a> or follow along with the code below. This <code>netGCD()</code> function requires the <code>orca</code> package and expects two <code>igraph</code> network objects as input.</p>
-<div class="sourceCode" id="cb822"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb824"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="va">orca</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">### GCD-11 function</span></span>
@@ -1215,34 +1215,34 @@ graphlet framework starts the index at 0.
 </p>
 </div>
 <p>Now let’s give this a try using our Roman Road and Cibola ceramic networks:</p>
-<div class="sourceCode" id="cb823"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb825"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">netGCD</span><span class="op">(</span><span class="va">road_net</span>, <span class="va">cibola_net</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 3.126976</code></pre>
-<div class="sourceCode" id="cb825"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb827"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">netGCD</span><span class="op">(</span><span class="va">road_net</span>, <span class="va">road_net2</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 1.05689</code></pre>
-<div class="sourceCode" id="cb827"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb829"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">netGCD</span><span class="op">(</span><span class="va">road_net</span>, <span class="va">road_net3</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 0.658248</code></pre>
-<div class="sourceCode" id="cb829"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb831"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">netGCD</span><span class="op">(</span><span class="va">road_net2</span>, <span class="va">road_net3</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 0.9222939</code></pre>
-<div class="sourceCode" id="cb831"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb833"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">netGCD</span><span class="op">(</span><span class="va">road_net</span>, <span class="va">road_net</span><span class="op">)</span> <span class="co"># comparing identical networks</span></span></code></pre></div>
 <pre><code>## [1] 0</code></pre>
 <p>The GCD-11 values are higher for comparing networks generated through very different processes and, as we illustrate for the last example, 0 when we compare a network to itself. There is no upper bound on distance but by comparing sets of networks together and comparing the results we can get a better sense of how networks compare in structural properties.</p>
 <p>As mentioned briefly above, GCD-11 is particularly well suited to identifying networks generated through similar processes. Thus, if we expect a network was generated in a particular way, we could create random networks generated by that process (and other competing generative processes) and then compare the results to aid in our interpretation. For example, in the next chunk of code we create a random small world network with 1000 nodes and another network generated using the Erdos Renyi process and and compare them both our Roman Road network.</p>
-<div class="sourceCode" id="cb833"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb835"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">3256</span><span class="op">)</span></span>
 <span><span class="va">sw1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r.igraph.org/reference/sample_smallworld.html">sample_smallworld</a></span><span class="op">(</span>dim <span class="op">=</span> <span class="fl">1</span>, size <span class="op">=</span> <span class="fl">1000</span>, nei <span class="op">=</span> <span class="fl">2</span>, p <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span>
 <span><span class="va">er1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r.igraph.org/reference/erdos.renyi.game.html">erdos.renyi.game</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">1000</span>, p <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">netGCD</span><span class="op">(</span><span class="va">road_net</span>, <span class="va">sw1</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 1.528994</code></pre>
-<div class="sourceCode" id="cb835"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb837"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">netGCD</span><span class="op">(</span><span class="va">road_net</span>, <span class="va">er1</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 4.746963</code></pre>
-<div class="sourceCode" id="cb837"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb839"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">netGCD</span><span class="op">(</span><span class="va">sw1</span>, <span class="va">er1</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 5.077361</code></pre>
 <p>As this shows, there is a considerably smaller distance between our random small world network and the Roman Road network than there is between our Erdos-Renyi network and the Roman Road network. Indeed, the comparisons between the Erdos-Renyi model and the Roman Roads produces a similar high distance to a comparison of our random small world and Erdos-Renyi networks. This is not, of course, proof that our Roman Network network has small world structure but such a comparison could be part of an analytical path to evaluate that possibility.</p>

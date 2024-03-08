@@ -1051,8 +1051,10 @@ while to complete.
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"data/retail_pars.Rdata"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hadley/reshape">reshape2</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggraph.data-imaginist.com">ggraph</a></span><span class="op">)</span></span>
-<span><span class="va">res_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/reshape2/man/melt.html">melt</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggraph.data-imaginist.com">ggraph</a></span><span class="op">)</span></span></code></pre></div>
+<pre><code>## Warning: package 'ggraph' was built under R version 4.2.3</code></pre>
+<div class="sourceCode" id="cb636"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">res_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/reshape2/man/melt.html">melt</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">res_df</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html">geom_tile</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Var2</span>, y <span class="op">=</span> <span class="va">Var1</span>, fill <span class="op">=</span> <span class="va">value</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -1085,7 +1087,7 @@ while to complete.
 </ul>
 <p>The model output <span class="math inline">\(E_{ij}\)</span> is, according to Menze and Ur, meant to approximate the movement of people among nodes across the landscape. In order to evaluate this function, we replicate the results of the Menze and Ur paper with one small change. We drop the bottom 50% smallest sites from consideration due to the large sample size to keep run times manageable (but this could certainly be changed in the code below). We use the replication data set provided by Menze and Ur online <a href="https://dataverse.harvard.edu/dataset.xhtml;jsessionid=adeb8ff43c833f1efe447dc9e8ba?persistentId=hdl%3A1902.1%2F17731&amp;version=&amp;q=&amp;fileTypeGroupFacet=%22Text%22&amp;fileAccess=&amp;fileTag=&amp;fileSortField=type&amp;fileSortOrder=">here</a>.</p>
 <p>Let’s read in the data, omit the rows without site volume estimates, and then remove the lowest 50% of sites in terms of volume values. We then plot the sites with points scaled by site volume. <a href="data/menze_ur_sites.csv">Download the data here to follow along</a>.</p>
-<div class="sourceCode" id="cb635"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb637"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mesop</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"data/menze_ur_sites.csv"</span><span class="op">)</span></span>
 <span><span class="va">mesop</span> <span class="op">&lt;-</span> <span class="va">mesop</span><span class="op">[</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">mesop</span><span class="op">$</span><span class="va">volume</span><span class="op">)</span><span class="op">)</span>,<span class="op">]</span></span>
 <span><span class="va">mesop</span> <span class="op">&lt;-</span> <span class="va">mesop</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">mesop</span><span class="op">$</span><span class="va">volume</span> <span class="op">&gt;</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">mesop</span><span class="op">$</span><span class="va">volume</span>, <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span>,<span class="op">]</span></span>
@@ -1102,7 +1104,7 @@ while to complete.
 Note that the block below takes several minutes to run.
 </p>
 </div>
-<div class="sourceCode" id="cb636"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb638"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/dist.html">dist</a></span><span class="op">(</span><span class="va">mesop</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span> <span class="fl">1000</span></span>
 <span></span>
 <span><span class="va">truncated_power</span> <span class="op">&lt;-</span> <span class="kw">function</span> <span class="op">(</span><span class="va">V</span>, <span class="va">d</span>, <span class="va">a</span>, <span class="va">y</span>, <span class="va">B</span><span class="op">)</span> <span class="op">{</span></span>
@@ -1120,7 +1122,7 @@ Note that the block below takes several minutes to run.
 <span></span>
 <span><span class="va">res_mat</span> <span class="op">&lt;-</span> <span class="fu">truncated_power</span><span class="op">(</span>V <span class="op">=</span> <span class="va">mesop</span><span class="op">$</span><span class="va">volume</span>, d <span class="op">=</span> <span class="va">d</span>, a <span class="op">=</span> <span class="fl">1</span>, y <span class="op">=</span> <span class="fl">1</span>, B <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></code></pre></div>
 <p>We can now plot the sites again, this time with points scaled based on the total volume of flow incident on each node.</p>
-<div class="sourceCode" id="cb637"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb639"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">edge_flow</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html">rowSums</a></span><span class="op">(</span><span class="va">res_mat</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mesop</span><span class="op">)</span> <span class="op">+</span></span>
@@ -1135,7 +1137,7 @@ Note that the block below takes several minutes to run.
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_void</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="08-spatial-interaction_files/figure-html/unnamed-chunk-20-1.png" width="672"></div>
 <p>If we compare the plot above to figure 8 in Menze and Ur (2012) we see highly central sites in the same locations suggesting that we’ve reasonably approximated their results even though we are using a slightly different sample. Further, as the next plot shows, if we remove the few sites that are isolated in our sample (due to us removing the bottom 50% of sites) we also see the same strong linear correlation between the log of site volume and the log of our measure of interaction.</p>
-<div class="sourceCode" id="cb638"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb640"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">rem_low</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">edge_flow</span> <span class="op">&gt;</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">edge_flow</span>, <span class="fl">0.01</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
@@ -1181,7 +1183,7 @@ Note that the block below takes several minutes to run.
 <strong><code>d_mat</code></strong> is a distance matrix among all nodes.</li>
 </ul>
 <p>A script containing this function can also be downloaded <a href="scripts/radiation.R">here</a></p>
-<div class="sourceCode" id="cb639"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb641"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">radiation</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">pop</span>, <span class="va">d_mat</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="co">## create square matrix with rows and columns for every site</span></span>
 <span>  <span class="va">out</span> <span class="op">&lt;-</span></span>
@@ -1215,7 +1217,7 @@ Note that the block below takes several minutes to run.
 <span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>In order to test this model, we will use the same Wankarani settlement data we used above for the simple gravity model. We will use site area divided by 500 as our proxy for population here. Again we limit our sample to Late Intermediate period sites and habitations. <a href="data/Wankarani_siteinfo.csv">Download the data here to follow along</a>.</p>
-<div class="sourceCode" id="cb640"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb642"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">wankarani</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"data/Wankarani_siteinfo.csv"</span><span class="op">)</span></span>
 <span><span class="va">wankarani</span> <span class="op">&lt;-</span> <span class="va">wankarani</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">wankarani</span><span class="op">$</span><span class="va">Period</span> <span class="op">==</span> <span class="st">"Late Intermediate"</span><span class="op">)</span>, <span class="op">]</span></span>
 <span><span class="va">wankarani</span> <span class="op">&lt;-</span> <span class="va">wankarani</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">wankarani</span><span class="op">$</span><span class="va">Type</span> <span class="op">==</span> <span class="st">"habitation"</span><span class="op">)</span>, <span class="op">]</span></span>
@@ -1224,7 +1226,7 @@ Note that the block below takes several minutes to run.
 <span></span>
 <span><span class="va">rad_test</span> <span class="op">&lt;-</span> <span class="fu">radiation</span><span class="op">(</span>pop <span class="op">=</span> <span class="va">wankarani</span><span class="op">$</span><span class="va">Area</span> <span class="op">/</span> <span class="fl">500</span>, d_mat <span class="op">=</span> <span class="va">d</span><span class="op">)</span></span></code></pre></div>
 <p>Now let’s plot the resulting network with each node scaled by the total incident flow (row sums of the output of the function above). We plot network edges with weights indicated by color (blue indicates low weight and yellow indicates high weight).</p>
-<div class="sourceCode" id="cb641"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb643"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r.igraph.org/">igraph</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggraph.data-imaginist.com">ggraph</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span></span>
@@ -1285,7 +1287,7 @@ Note that the block below takes several minutes to run.
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_void</a></span><span class="op">(</span><span class="op">)</span> </span></code></pre></div>
 <div class="inline-figure"><img src="08-spatial-interaction_files/figure-html/unnamed-chunk-24-1.png" width="672"></div>
 <p>This map shows clusters of higher and lower edge weights and again variation in total weighted degree (with higher values in the east). The results are similar, but not identical to the output of the simple gravity model.</p>
-<div class="sourceCode" id="cb642"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb644"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dg_grav</span> <span class="op">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/r/base/colSums.html">rowSums</a></span><span class="op">(</span><span class="fu">grav_mod</span><span class="op">(</span></span>
 <span>  attract <span class="op">=</span> <span class="va">wankarani</span><span class="op">$</span><span class="va">Area</span> <span class="op">/</span> <span class="fl">1000</span>,</span>
 <span>  B <span class="op">=</span> <span class="fl">1</span>,</span>

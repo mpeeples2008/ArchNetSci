@@ -58,7 +58,7 @@ As of early 2024 the `get_stadiamap` function also requires that you sign up for
 
 ```{r, eval=F}
 library(ggmap)
-activate(key="[YOUR KEY HERE]")
+activate(key="YOUR KEY HERE")
 ```
 
 

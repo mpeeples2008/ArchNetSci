@@ -600,7 +600,7 @@ igraph::shortest_paths(simple_net, from = 1, to = 21)
 ```
 ## $vpath
 ## $vpath[[1]]
-## + 5/31 vertices, named, from c6d41c8:
+## + 5/31 vertices, named, from edc90a4:
 ## [1] Apache.Creek          Casa.Malpais          Garcia.Ranch         
 ## [4] Heshotauthla          Pueblo.de.los.Muertos
 ## 
@@ -636,7 +636,7 @@ igraph::farthest_vertices(directed_net, directed = TRUE)
 
 ```
 ## $vertices
-## + 2/30 vertices, named, from c6d4a50:
+## + 2/30 vertices, named, from edc98e6:
 ## [1] Apache Creek          Pueblo de los Muertos
 ## 
 ## $distance
@@ -688,9 +688,9 @@ components
 
 ```
 ## [[1]]
-## IGRAPH c8192ed UN-- 30 167 -- 
+## IGRAPH ef0c2ab UN-- 30 167 -- 
 ## + attr: name (v/c)
-## + edges from c8192ed (vertex names):
+## + edges from ef0c2ab (vertex names):
 ##  [1] Apache.Creek--Casa.Malpais          Apache.Creek--Coyote.Creek         
 ##  [3] Apache.Creek--Hooper.Ranch          Apache.Creek--Horse.Camp.Mill      
 ##  [5] Apache.Creek--Hubble.Corner         Apache.Creek--Mineral.Creek.Pueblo 
@@ -702,9 +702,9 @@ components
 ## + ... omitted several edges
 ## 
 ## [[2]]
-## IGRAPH c819302 UN-- 1 0 -- 
+## IGRAPH ef0c2bf UN-- 1 0 -- 
 ## + attr: name (v/c)
-## + edges from c819302 (vertex names):
+## + edges from ef0c2bf (vertex names):
 ```
 
 ```r
@@ -764,15 +764,15 @@ min_cut(simple_net_noiso, value.only = FALSE)
 ## [1] 1
 ## 
 ## $cut
-## + 1/167 edge from c6d45dd (vertex names):
+## + 1/167 edge from edc94c5 (vertex names):
 ## [1] Ojo Bonito--Baca Pueblo
 ## 
 ## $partition1
-## + 1/30 vertex, named, from c6d45dd:
+## + 1/30 vertex, named, from edc94c5:
 ## [1] Baca Pueblo
 ## 
 ## $partition2
-## + 29/30 vertices, named, from c6d45dd:
+## + 29/30 vertices, named, from edc94c5:
 ##  [1] Apache Creek          Casa Malpais          Coyote Creek         
 ##  [4] Hooper Ranch          Horse Camp Mill       Hubble Corner        
 ##  [7] Mineral Creek Pueblo  Rudd Creek Ruin       Techado Springs      
@@ -801,7 +801,7 @@ max_cliques(simple_net, min = 1)[[24]]
 ```
 
 ```
-## + 9/31 vertices, named, from c6d41c8:
+## + 9/31 vertices, named, from edc90a4:
 ## [1] Los.Gigantes    Cienega         Tinaja          Spier.170      
 ## [5] Scribe.S        Pescado.Cluster Mirabal         Heshotauthla   
 ## [9] Yellowhouse
