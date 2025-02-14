@@ -67,7 +67,7 @@ Ceramic technological data from Peeples (2018): Additional data and documentatio
 
 * **[Cibola Ceramic Technological Clusters](data/Cibola_clust.csv)** - Counts of ceramic technological clusters for sites in the Cibola region sample.
 * **[Cibola Site Attributes](data/Cibola_attr.csv)** - Site location, public architectural feature types, and sub-region designations for sites in the Cibola region sample.
-* **[Cibola Binary Network Edge List](data/Cibola_edge list.csv)** - Binary edge list of Cibola technological similarity network.
+* **[Cibola Binary Network Edge List](data/Cibola_edgelist.csv)** - Binary edge list of Cibola technological similarity network.
 * **[Cibola Binary Network Adjacency Matrix](data/Cibola_adj.csv)** - Binary adjacency matrix of Cibola technological similarity network.
 * **[Peeples2018.Rdata](data/Peeples2018.Rdata)** - This file contains a number of objects in R format including the site attributes (`site_info`), a symmetric Brainerd-Robinson similarity matrix (`ceramic_br`), a binary network object in the `statnet/network` format (`brnet`), and a weighted network object in the `network` format (`brnet_w`) 
 
