@@ -76,7 +76,7 @@ locations_sf <-
 xy <- data.frame(x = nodes$long, y = nodes$lat)
 
 # Extract edgelist from network object
-edgelist <- get.edgelist(road_net)
+edgelist <- igraph::as_edgelist(road_net)
 
 # Create data frame of beginning and ending points of edges
 edges <- as.data.frame(matrix(NA, nrow(edgelist), 4))
@@ -314,7 +314,7 @@ ggraph(mst_net, layout = "kk") +
   geom_node_point(size = 4) +
   theme_graph()
 # Extract edgelist from network object
-edgelist <- get.edgelist(mst_net)
+edgelist <- igraph::as_edgelist(mst_net)
 # Create dataframe of beginning and ending points of edges
 edges <- as.data.frame(matrix(NA, nrow(edgelist), 4))
 colnames(edges) <- c("X1", "Y1", "X2", "Y2")
@@ -419,11 +419,11 @@ nn1 <- nng(x = nodes[, c(3, 2)], k = 1)
 # Calculate k=6 nearest neighbor graph
 nn6 <- nng(x = nodes[, c(3, 2)], k = 6)
 el1 <- as.data.frame(
-  rbind(cbind(get.edgelist(nn6),
-         rep("K=6", nrow(get.edgelist(nn1))
+  rbind(cbind(igraph::as_edgelist(nn6),
+         rep("K=6", nrow(igraph::as_edgelist(nn1))
              )),
-        cbind(get.edgelist(nn1),
-          rep("K=1", nrow(get.edgelist(nn1))
+        cbind(igraph::as_edgelist(nn1),
+          rep("K=1", nrow(igraph::as_edgelist(nn1))
              ))))
 colnames(el1) <- c("from", "to", "K")
 g <- graph_from_data_frame(el1)
@@ -813,7 +813,7 @@ base <- get_stamenmap(
   color = "bw"
 )
 # Extract edgelist from network object
-edgelist <- get.edgelist(g36_net)
+edgelist <- igraph::as_edgelist(g36_net)
 # Create dataframe of beginning and ending points of edges
 edges <- as.data.frame(matrix(NA, nrow(edgelist), 4))
 colnames(edges) <- c("X1", "Y1", "X2", "Y2")

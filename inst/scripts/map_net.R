@@ -25,14 +25,35 @@ map_net <-
     xy <- as.data.frame(coord1)
     colnames(xy) <- c("x", "y")
 
-    # Download and extract stamenmap data
-    my_map <-
-      get_stamenmap(bbox = bounds,
-                    maptype = gg_maptype,
-                    zoom = zoom_lev)
+    # Normalize legacy Stamen map names to Stadia's current naming scheme.
+    stadia_maptype <- switch(
+      gg_maptype,
+      watercolor = "stamen_watercolor",
+      toner = "stamen_toner",
+      terrain = "stamen_terrain",
+      terrain_background = "stamen_terrain_background",
+      terrain_labels = "stamen_terrain_labels",
+      terrain_lines = "stamen_terrain_lines",
+      toner_background = "stamen_toner_background",
+      toner_labels = "stamen_toner_labels",
+      toner_lines = "stamen_toner_lines",
+      gg_maptype
+    )
+
+    # Use a bundled fallback map when no Stadia API key is configured.
+    if (nzchar(Sys.getenv("STADIAMAPS_API_KEY"))) {
+      my_map <-
+        ggmap::get_stadiamap(
+          bbox = bounds,
+          maptype = stadia_maptype,
+          zoom = zoom_lev
+        )
+    } else {
+      load("data/road_base.Rdata")
+    }
 
     # Extract edgelist from network object for road_net
-    edgelist1 <- get.edgelist(net)
+    edgelist1 <- igraph::as_edgelist(net)
 
     # Create dataframe of beginning and ending points of edges
     edges1 <- as.data.frame(matrix(NA, nrow(edgelist1), 4))

@@ -222,7 +222,9 @@ We describe the specifics of spatial data handling, geographic coordinates, and 
 ```
 
 ```{r, echo=F, warning=F}
-source("stadia_API.R")
+if (file.exists("stadia_API.R")) {
+  source("stadia_API.R")
+}
 ```
 
 
@@ -230,6 +232,7 @@ source("stadia_API.R")
 ```{r geo_layout, warning=F, message=F, fig.heigh=7, fig.width=7, cache=T}
 library(sf)
 library(ggmap)
+library(ggplot2)
 
 # Convert attribute location data to sf coordinates and change
 # map projection
@@ -243,25 +246,35 @@ coord1 <- do.call(rbind, st_geometry(loc_trans)) %>%
 xy <- as.data.frame(coord1)
 colnames(xy) <- c("x", "y")
 
-# Get basemap "stamen_terrain_background" data for map in black and white
-# the bbox argument is used to specify the corners of the box to be
-# used and zoom determines the detail.
-base_cibola <- get_stadiamap(
-  bbox = c(-110.2, 33.4, -107.8, 35.3),
-  zoom = 10,
-  maptype = "stamen_terrain_background",
-  color = "bw"
-)
+# Get a basemap when a Stadia API key is available; otherwise fall back
+# to a simple coordinate plot so the document still renders.
+if (nzchar(Sys.getenv("STADIAMAPS_API_KEY"))) {
+  base_cibola <- get_stadiamap(
+    bbox = c(-110.2, 33.4, -107.8, 35.3),
+    zoom = 10,
+    maptype = "stamen_terrain_background",
+    color = "bw"
+  )
+  base_plot <- ggmap(base_cibola, darken = 0.35)
+} else {
+  base_plot <- ggplot() +
+    coord_quickmap(xlim = c(-110.2, -107.8), ylim = c(33.4, 35.3)) +
+    theme_void() +
+    theme(
+      panel.background = element_rect(fill = "grey20", color = NA),
+      plot.background = element_rect(fill = "grey20", color = NA)
+    )
+}
 
 # Extract edge list from network object
-edgelist <- get.edgelist(net)
+edgelist <- igraph::as_edgelist(net)
 
 # Create data frame of beginning and ending points of edges
 edges <- data.frame(xy[edgelist[, 1], ], xy[edgelist[, 2], ])
 colnames(edges) <- c("X1", "Y1", "X2", "Y2")
 
 # Plot original data on map
-ggmap(base_cibola, darken = 0.35) +
+base_plot +
   geom_segment(
     data = edges,
     aes(
@@ -806,14 +819,27 @@ colnames(xy) <- c("x", "y", "Region")
 
 # Run hammer bundling routine
 g <- asIgraph(brnet)
-hbundle <- edge_bundle_hammer(g, xy, bw = 5, decay = 0.3)
+if (reticulate::py_module_available("datashader.bundling")) {
+  hbundle <- edge_bundle_hammer(g, xy, bw = 5, decay = 0.3)
 
-f6_3c <-   ggplot() +
-  geom_path(data = hbundle, aes(x, y, group = group),
-            col = "gray66", size = 0.5) +
-  geom_point(data = xy, aes(x, y, col = Region),
-             size = 5, alpha = 0.75, show.legend = FALSE) +
-  theme_void()
+  f6_3c <- ggplot() +
+    geom_path(data = hbundle, aes(x, y, group = group),
+              col = "gray66", size = 0.5) +
+    geom_point(data = xy, aes(x, y, col = Region),
+               size = 5, alpha = 0.75, show.legend = FALSE) +
+    theme_void()
+} else {
+  edgelist <- igraph::as_edgelist(g)
+  edges <- data.frame(xy[edgelist[, 1], 1:2], xy[edgelist[, 2], 1:2])
+  colnames(edges) <- c("x", "y", "xend", "yend")
+
+  f6_3c <- ggplot() +
+    geom_segment(data = edges, aes(x = x, y = y, xend = xend, yend = yend),
+                 col = "gray66", alpha = 0.35, size = 0.4) +
+    geom_point(data = xy, aes(x, y, col = Region),
+               size = 5, alpha = 0.75, show.legend = FALSE) +
+    theme_void()
+}
 f6_3c
 ```
 
@@ -834,7 +860,6 @@ Let's now look at the figure code:
 ```{r Fig6_3d, message=F, warning=F, fig.width=10, fig.height=10}
 # Initialize libraries
 
-library(ggwaffle)
 library(tidyverse)
 
 # Create igraph object from data imported above
@@ -877,7 +902,7 @@ nodes_wide <- igraph::as_data_frame(g, "vertices")
 nodes_long <- nodes_wide %>%
   dplyr::select(c1:c4) %>%
   mutate(id = seq_len(nrow(nodes_wide))) %>%
-  gather("attr", "value", c1:c4)
+  tidyr::pivot_longer(c1:c4, names_to = "attr", values_to = "value")
 nodes_out <- NULL
 for (j in seq_len(nrow(nodes_long))) {
   temp <- do.call("rbind", replicate(round(nodes_long[j, ]$value * 50, 0),
@@ -885,48 +910,59 @@ for (j in seq_len(nrow(nodes_long))) {
   nodes_out <- rbind(nodes_out, temp)
 }
 
-# Create a list object for the call to each bar chart by node
-bar_list <- lapply(1:vcount(g), function(i) {
-  gt_plot <- ggplotGrob(
-    ggplot(waffle_iron(nodes_out[nodes_out$id == i, ],
-                       aes_d(group = attr))) +
-      geom_waffle(aes(x, y, fill = group), size = 10) +
-      coord_equal() +
-      labs(x = NULL, y = NULL) +
-      theme(
-        legend.position = "none",
-        panel.background = element_rect(fill = "white", colour = NA),
-        line = element_blank(),
-        text = element_blank()
-      )
-  )
-  panel_coords <- gt_plot$layout[gt_plot$layout$name == "panel", ]
-  gt_plot[panel_coords$t:panel_coords$b, panel_coords$l:panel_coords$r]
-})
+if (requireNamespace("ggwaffle", quietly = TRUE)) {
+  library(ggwaffle)
 
-# Convert the results above into custom annotation
-annot_list <- lapply(1:vcount(g), function(i) {
-  xmin <- nodes_wide$x[i] - .25
-  xmax <- nodes_wide$x[i] + .25
-  ymin <- nodes_wide$y[i] - .25
-  ymax <- nodes_wide$y[i] + .25
-  annotation_custom(
-    bar_list[[i]],
-    xmin = xmin,
-    xmax = xmax,
-    ymin = ymin,
-    ymax = ymax
-  )
-})
+  # Create a list object for the call to each bar chart by node
+  bar_list <- lapply(1:vcount(g), function(i) {
+    gt_plot <- ggplotGrob(
+      ggplot(waffle_iron(nodes_out[nodes_out$id == i, ],
+                         aes_d(group = attr))) +
+        geom_waffle(aes(x, y, fill = group), size = 10) +
+        coord_equal() +
+        labs(x = NULL, y = NULL) +
+        theme(
+          legend.position = "none",
+          panel.background = element_rect(fill = "white", colour = NA),
+          line = element_blank(),
+          text = element_blank()
+        )
+    )
+    panel_coords <- gt_plot$layout[gt_plot$layout$name == "panel", ]
+    gt_plot[panel_coords$t:panel_coords$b, panel_coords$l:panel_coords$r]
+  })
 
-# create basic network
-p <- ggraph(g, "manual", x = V(g)$x, y = V(g)$y) +
-  geom_edge_link0() +
-  theme_graph() +
-  coord_fixed()
+  # Convert the results above into custom annotation
+  annot_list <- lapply(1:vcount(g), function(i) {
+    xmin <- nodes_wide$x[i] - .25
+    xmax <- nodes_wide$x[i] + .25
+    ymin <- nodes_wide$y[i] - .25
+    ymax <- nodes_wide$y[i] + .25
+    annotation_custom(
+      bar_list[[i]],
+      xmin = xmin,
+      xmax = xmax,
+      ymin = ymin,
+      ymax = ymax
+    )
+  })
 
-# put everything together by combining with the annotation (bar plots + network)
-f6_3d <- Reduce("+", annot_list, p)
+  # create basic network
+  p <- ggraph(g, "manual", x = V(g)$x, y = V(g)$y) +
+    geom_edge_link0() +
+    theme_graph() +
+    coord_fixed()
+
+  # put everything together by combining with the annotation (bar plots + network)
+  f6_3d <- Reduce("+", annot_list, p)
+} else {
+  f6_3d <- ggraph(g, "manual", x = V(g)$x, y = V(g)$y) +
+    geom_edge_link0(alpha = 0.4) +
+    geom_node_point(aes(fill = c1), shape = 21, size = 8, color = "black") +
+    scale_fill_gradient(low = "white", high = "steelblue") +
+    theme_graph() +
+    coord_fixed()
+}
 f6_3d
 ```
 
@@ -1067,7 +1103,7 @@ xy <- as.data.frame(coord1)
 colnames(xy) <- c("x", "y")
 
 # Extract edge list from network object
-edgelist <- get.edgelist(road_net)
+edgelist <- igraph::as_edgelist(road_net)
 
 # Create data frame of beginning and ending points of edges
 edges <- as.data.frame(matrix(NA, nrow(edgelist), 4))
@@ -1156,7 +1192,7 @@ colnames(zz) <- c("x", "y")
 
 
 # Extract edge list from network object
-edgelist <- get.edgelist(g.net)
+edgelist <- igraph::as_edgelist(g.net)
 
 # Create data frame of beginning and ending points of edges
 edges2 <- data.frame(zz[edgelist[, 1], ], zz[edgelist[, 2], ])
@@ -1236,7 +1272,7 @@ colnames(xy) <- c("x", "y")
 
 
 # Extract edge list from network object for road_net
-edgelist1 <- get.edgelist(aegean_net)
+edgelist1 <- igraph::as_edgelist(aegean_net)
 
 # Create data frame of beginning and ending points of edges
 edges1 <- as.data.frame(matrix(NA, nrow(edgelist1), 4))
@@ -1853,37 +1889,68 @@ coord1 <- do.call(rbind, st_geometry(z)) %>%
 xy <- as.data.frame(coord1)
 colnames(xy) <- c("x", "y")
 
-hbundle <- edge_bundle_hammer(g.net, xy, bw = 0.9, decay = 0.2)
+if (reticulate::py_module_available("datashader.bundling")) {
+  hbundle <- edge_bundle_hammer(g.net, xy, bw = 0.9, decay = 0.2)
 
-ggmap(base2, darken = 0.15) +
-  geom_polygon(
-    data = map3,
-    aes(x, y,
-        group = Group.1),
-    col = "black",
-    size = 0.5,
-    fill = NA
-  ) +
-  geom_path(
-    data = hbundle,
-    aes(x, y, group = group),
-    color = "white",
-    show.legend = FALSE
-  ) +
-  geom_path(
-    data = hbundle,
-    aes(x, y, group = group),
-    color = "darkorchid4",
-    show.legend = FALSE
-  ) +
-  geom_point(
-    data = xy,
-    aes(x, y),
-    alpha = 0.4,
-    size = 2.5,
-    show.legend = FALSE
-  ) +
-  theme_graph()
+  ggmap(base2, darken = 0.15) +
+    geom_polygon(
+      data = map3,
+      aes(x, y,
+          group = Group.1),
+      col = "black",
+      size = 0.5,
+      fill = NA
+    ) +
+    geom_path(
+      data = hbundle,
+      aes(x, y, group = group),
+      color = "white",
+      show.legend = FALSE
+    ) +
+    geom_path(
+      data = hbundle,
+      aes(x, y, group = group),
+      color = "darkorchid4",
+      show.legend = FALSE
+    ) +
+    geom_point(
+      data = xy,
+      aes(x, y),
+      alpha = 0.4,
+      size = 2.5,
+      show.legend = FALSE
+    ) +
+    theme_graph()
+} else {
+  edgelist <- igraph::as_edgelist(g.net)
+  edges <- data.frame(xy[edgelist[, 1], ], xy[edgelist[, 2], ])
+  colnames(edges) <- c("x", "y", "xend", "yend")
+
+  ggmap(base2, darken = 0.15) +
+    geom_polygon(
+      data = map3,
+      aes(x, y,
+          group = Group.1),
+      col = "black",
+      size = 0.5,
+      fill = NA
+    ) +
+    geom_segment(
+      data = edges,
+      aes(x = x, y = y, xend = xend, yend = yend),
+      color = "darkorchid4",
+      alpha = 0.3,
+      show.legend = FALSE
+    ) +
+    geom_point(
+      data = xy,
+      aes(x, y),
+      alpha = 0.4,
+      size = 2.5,
+      show.legend = FALSE
+    ) +
+    theme_graph()
+}
 ```
 
 ### Figure 6.18: Group-in-a-box {- #Figure_6_18}
@@ -2130,8 +2197,6 @@ Note that the data required is a list object that contains multiple temporal sli
 
 library(networkDynamic)
 library(ndtv)
-library(scatterplot3d)
-library(prettyGraphs)
 library(statnet)
 
 load("data/Figure6_23.Rdata")
@@ -2145,42 +2210,54 @@ compute.animation(sanpedro, default.dist = 7, animation.mode = "kamadakawai")
 
 # Define colors for regions
 mycol <- c(
-  add.alpha("#1b9e77", 0.75),
-  add.alpha("#d95f02", 0.75),
-  add.alpha("#7570b3", 0.75),
-  add.alpha("#e7298a", 0.75),
-  add.alpha("#66a61e", 0.75),
-  add.alpha("#e6ab02", 0.75)
+  scales::alpha("#1b9e77", 0.75),
+  scales::alpha("#d95f02", 0.75),
+  scales::alpha("#7570b3", 0.75),
+  scales::alpha("#e7298a", 0.75),
+  scales::alpha("#66a61e", 0.75),
+  scales::alpha("#e6ab02", 0.75)
 )
 
-# Plot time prism
-set.seed(364467)
-timePrism(
-  sanpedro,
-  at = c(1, 2, 3),
-  displaylabels = FALSE,
-  planes = TRUE,
-  display.isolates = FALSE,
-  label.cex = 0.5,
-  usearrows = FALSE,
-  vertex.cex = 0.5,
-  edge.col = "gray50",
-  vertex.col = mycol[factor(sp_attr$SWSN_MacroGroup)]
-)
+if (requireNamespace("scatterplot3d", quietly = TRUE) &&
+    requireNamespace("prettyGraphs", quietly = TRUE)) {
+  library(scatterplot3d)
+  library(prettyGraphs)
 
-# Plot proximity timeline
-set.seed(235254)
-proximity.timeline(
-  sanpedro,
-  default.dist = 10,
-  mode = "sammon",
-  labels.at = 17,
-  vertex.cex = 4,
-  render.edges = FALSE,
-  vertex.col = mycol[factor(sp_attr$SWSN_MacroGroup)],
-  chain.direction = "reverse",
-  xaxt = "n"
-)
+  # Plot time prism
+  set.seed(364467)
+  timePrism(
+    sanpedro,
+    at = c(1, 2, 3),
+    displaylabels = FALSE,
+    planes = TRUE,
+    display.isolates = FALSE,
+    label.cex = 0.5,
+    usearrows = FALSE,
+    vertex.cex = 0.5,
+    edge.col = "gray50",
+    vertex.col = mycol[factor(sp_attr$SWSN_MacroGroup)]
+  )
+
+  # Plot proximity timeline
+  set.seed(235254)
+  proximity.timeline(
+    sanpedro,
+    default.dist = 10,
+    mode = "sammon",
+    labels.at = 17,
+    vertex.cex = 4,
+    render.edges = FALSE,
+    vertex.col = mycol[factor(sp_attr$SWSN_MacroGroup)],
+    chain.direction = "reverse",
+    xaxt = "n"
+  )
+} else {
+  plot(
+    sp_nets[[1]],
+    vertex.col = mycol[factor(sp_attr$SWSN_MacroGroup)],
+    displaylabels = FALSE
+  )
+}
 ```
 
 ### Figure 6.24: Animation {- #Figure_6_24}
@@ -2331,7 +2408,7 @@ xy <- as.data.frame(coord1)
 colnames(xy) <- c("x", "y")
 
 # Create edge list with xy coordinates for each source and target
-edgelist2 <- get.edgelist(r_net)
+edgelist2 <- igraph::as_edgelist(r_net)
 edges2 <- data.frame(xy[edgelist2[, 1], ], xy[edgelist2[, 2], ])
 colnames(edges2) <- c("X1", "Y1", "X2", "Y2")
 

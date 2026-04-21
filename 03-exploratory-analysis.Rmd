@@ -125,10 +125,10 @@ igraph::degree(directed_net, mode = "out")[1:5] # out-degree
 igraph::degree(simple_net, normalize = T)[1:5]
 
 # it is also possible to directly plot the degree distribution for
-# a given network using the degree.distribution function.
+# a given network using the degree_distribution function.
 # Here we embed that call directly in a call for a histogram plot
 # using the "hist" function
-hist(igraph::degree.distribution(simple_net))
+hist(igraph::degree_distribution(simple_net))
 
 # graph level centralization
 igraph::centr_degree(simple_net)
@@ -444,10 +444,10 @@ R allows you to use a variety of common cluster detection algorithms to define g
 
 #### Girvan-Newman Clustering{#GirvanNewman}
 
-Girvan-Newman clustering is a divisive algorithm based on betweenness that defines a partition of network that maximizes modularity by removing nodes with high betweenness iteratively (see discussion in Brughmans and Peeples 2023 Chapter 4.6). In R this is referred to as the `igraph::edge.betweenness.community` function. This function can be used on directed or undirected networks with or without edge weights. This function outputs a variety of information including individual edge betweenness scores, modularity information, and partition membership. See the help documents for more information
+Girvan-Newman clustering is a divisive algorithm based on betweenness that defines a partition of network that maximizes modularity by removing nodes with high betweenness iteratively (see discussion in Brughmans and Peeples 2023 Chapter 4.6). In R this is implemented with the `igraph::cluster_edge_betweenness` function. This function can be used on directed or undirected networks with or without edge weights. This function outputs a variety of information including individual edge betweenness scores, modularity information, and partition membership. See the help documents for more information
 
 ```{r}
-gn <- igraph::edge.betweenness.community(simple_net)
+gn <- igraph::cluster_edge_betweenness(simple_net)
 set.seed(4353)
 plot(simple_net, vertex.color = gn$membership)
 ```

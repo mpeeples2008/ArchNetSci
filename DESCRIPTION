@@ -55,8 +55,6 @@ Suggests:
   networkD3,
   visNetwork,
   GISTools,
-  rgeos,
-  maptools,
   networkDynamic,
   scatterplot3d,
   patchwork,

@@ -4,16 +4,6 @@ bookdown::bs4_book:
   theme:
     primary: "#1e90ff"
     info: "#0dcaf0"
-    base_font:
-      google:
-        family: Lato
-    heading_font:
-      google:
-        family: News Cycle
-        wght: 700
-    code_font:
-      google:
-        family: Source Code Pro
   repo:
     base: https://github.com/mpeeples2008/ArchNetSci
     branch: main

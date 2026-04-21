@@ -171,7 +171,7 @@ xy <- as.data.frame(coord1)
 colnames(xy) <- c("x", "y")
 
 # Extract edge list from network object for road_net
-edgelist1 <- get.edgelist(road_net3)
+edgelist1 <- igraph::as_edgelist(road_net3)
 
 # Create data frame of beginning and ending points of edges
 edges1 <- as.data.frame(matrix(NA, nrow(edgelist1), 4))

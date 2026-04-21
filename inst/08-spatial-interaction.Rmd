@@ -143,7 +143,7 @@ net <-
                               weighted = TRUE)
 
 # Extract edgelist from network object
-edgelist <- get.edgelist(net)
+edgelist <- igraph::as_edgelist(net)
 
 # Create dataframe of beginning and ending points of edges
 edges <- data.frame(xy[edgelist[, 1], ], xy[edgelist[, 2], ])
@@ -222,7 +222,7 @@ net2 <-
                               weighted = TRUE)
 
 # Extract edgelist from network object
-edgelist <- get.edgelist(net2)
+edgelist <- igraph::as_edgelist(net2)
 
 # Create dataframe of beginning and ending points of edges
 edges <- data.frame(xy[edgelist[, 1], ], xy[edgelist[, 2], ])
@@ -741,7 +741,7 @@ net <-
                               weighted = TRUE)
 
 # Extract edgelist from network object
-edgelist <- get.edgelist(net)
+edgelist <- igraph::as_edgelist(net)
 
 # Create dataframe of beginning and ending points of edges
 edges <-

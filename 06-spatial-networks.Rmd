@@ -65,7 +65,9 @@ activate(key="YOUR KEY HERE")
 Note, for the ease of demonstration, in the remainder of this online guide we pre-download the maps and provide them as a file instead of using the `get_stadiamap` function.
 
 ```{r, echo=F, warning=F}
-source("stadia_API.R")
+if (file.exists("stadia_API.R")) {
+  source("stadia_API.R")
+}
 ```
 
 Now you're ready to run code that can download the stadia map backgrounds automatically:
@@ -73,9 +75,14 @@ Now you're ready to run code that can download the stadia map backgrounds automa
 
 ```{r, warning=F, message=F, cache=T}
 library(ggmap)
-map <- get_stadiamap(bbox = c(-9.5, 36, 3, 43.8),
-                       maptype = "stamen_terrain_background",
-                       zoom = 6)
+if (nzchar(Sys.getenv("STADIAMAPS_API_KEY"))) {
+  map <- get_stadiamap(bbox = c(-9.5, 36, 3, 43.8),
+                         maptype = "stamen_terrain_background",
+                         zoom = 6)
+} else {
+  load("data/road_base.Rdata")
+  map <- my_map
+}
 ggmap(map)
 ```
 
@@ -89,6 +96,7 @@ First we map the basic road network. We have commented the code below to explain
 library(igraph)
 library(ggmap)
 library(sf)
+library(ggplot2)
 
 # Read in edge list and node location data and covert to network object
 edges1 <- read.csv("data/Hispania_roads.csv", header = TRUE)
@@ -104,7 +112,7 @@ locations_sf <-
 xy <- data.frame(x = nodes$long, y = nodes$lat)
 
 # Extract edge list from network object
-edgelist <- get.edgelist(road_net)
+edgelist <- igraph::as_edgelist(road_net)
 
 # Create data frame of beginning and ending points of edges
 edges <- as.data.frame(matrix(NA, nrow(edgelist), 4))
@@ -118,10 +126,15 @@ for (i in seq_len(nrow(edgelist))) {
                   nodes[which(nodes$Id == edgelist[i, 2]), 2])
 }
 
-# Download stamenmap background data.
-my_map <- get_stadiamap(bbox = c(-9.5, 36, 3, 43.8),
-                       maptype = "stamen_terrain_background",
-                       zoom = 6)
+# Download basemap data when a Stadia API key is available; otherwise
+# use the bundled fallback map included with the repo.
+if (nzchar(Sys.getenv("STADIAMAPS_API_KEY"))) {
+  my_map <- get_stadiamap(bbox = c(-9.5, 36, 3, 43.8),
+                         maptype = "stamen_terrain_background",
+                         zoom = 6)
+} else {
+  load("data/road_base.Rdata")
+}
 
 # Produce map starting with background
 ggmap(my_map) +
@@ -336,7 +349,7 @@ ggraph(mst_net, layout = "kk") +
   geom_node_point(size = 4) +
   theme_graph()
 # Extract edge list from network object
-edgelist <- get.edgelist(mst_net)
+edgelist <- igraph::as_edgelist(mst_net)
 # Create data frame of beginning and ending points of edges
 edges <- as.data.frame(matrix(NA, nrow(edgelist), 4))
 colnames(edges) <- c("X1", "Y1", "X2", "Y2")
@@ -441,11 +454,11 @@ nn1 <- nng(x = nodes[, c(3, 2)], k = 1)
 # Calculate k=6 nearest neighbor graph
 nn6 <- nng(x = nodes[, c(3, 2)], k = 6)
 el1 <- as.data.frame(
-  rbind(cbind(get.edgelist(nn6),
-         rep("K=6", nrow(get.edgelist(nn1))
+  rbind(cbind(igraph::as_edgelist(nn6),
+         rep("K=6", nrow(igraph::as_edgelist(nn1))
              )),
-        cbind(get.edgelist(nn1),
-          rep("K=1", nrow(get.edgelist(nn1))
+        cbind(igraph::as_edgelist(nn1),
+          rep("K=1", nrow(igraph::as_edgelist(nn1))
              ))))
 colnames(el1) <- c("from", "to", "K")
 g <- graph_from_data_frame(el1)
@@ -828,14 +841,25 @@ coord1 <- do.call(rbind, st_geometry(z)) %>%
   setNames(c("lon", "lat"))
 xy <- as.data.frame(cbind(attr$SWSN_Site, coord1))
 colnames(xy) <- c("site", "x", "y")
-base <- get_stadiamap(
-  bbox = c(-110.75, 33.5, -107, 38),
-  zoom = 8,
-  maptype = "stamen_terrain_background",
-  color = "bw"
-)
+if (nzchar(Sys.getenv("STADIAMAPS_API_KEY"))) {
+  base <- get_stadiamap(
+    bbox = c(-110.75, 33.5, -107, 38),
+    zoom = 8,
+    maptype = "stamen_terrain_background",
+    color = "bw"
+  )
+  base_plot <- ggmap(base, darken = 0.15)
+} else {
+  base_plot <- ggplot() +
+    coord_quickmap(xlim = c(-110.75, -107), ylim = c(33.5, 38)) +
+    theme_void() +
+    theme(
+      panel.background = element_rect(fill = "grey92", color = NA),
+      plot.background = element_rect(fill = "white", color = NA)
+    )
+}
 # Extract edge list from network object
-edgelist <- get.edgelist(g36_net)
+edgelist <- igraph::as_edgelist(g36_net)
 # Create data frame of beginning and ending points of edges
 edges <- as.data.frame(matrix(NA, nrow(edgelist), 4))
 colnames(edges) <- c("X1", "Y1", "X2", "Y2")
@@ -845,7 +869,7 @@ for (i in seq_len(nrow(edgelist))) {
                   xy[which(xy$site == edgelist[i, 2]), 2],
                   xy[which(xy$site == edgelist[i, 2]), 3])
 }
-figure7_8 <- ggmap(base, darken = 0.15) +
+figure7_8 <- base_plot +
   geom_segment(
     data = edges,
     aes(

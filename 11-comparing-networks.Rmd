@@ -649,7 +649,7 @@ Importantly, the quantification of graphlets for graphlet-based methods discusse
 ```
 
 
-Let's start by using learning how to use the `orca` package in R to calculate all orbits for a given $k$ for network objects. By way of example, we will once again use the [Roman Roads network data](data/road_networks.RData) as the first network and the [Cibola ceramic similarity network](data/Cibola_adj.csv) as the second (click on the links for each to download and follow along). To use the `orca` package, we need to convert our igraph network objects into edge list with all each column defined as integer data. We do this using the `apply` function with a `get.edgelist` function nested within it. After making this conversion we use the `orca::count4` and `orca::count5` functions to define counts of orbits for the $k=4$ and $k=5$ node configurations respectively. We then view the first few rows of each. These output data frames have a row for each node and the columns represent the counts of orbits of each configuration using the same numbering scheme shown in the figure above.
+Let's start by using learning how to use the `orca` package in R to calculate all orbits for a given $k$ for network objects. By way of example, we will once again use the [Roman Roads network data](data/road_networks.RData) as the first network and the [Cibola ceramic similarity network](data/Cibola_adj.csv) as the second (click on the links for each to download and follow along). To use the `orca` package, we need to convert our igraph network objects into edge list with all each column defined as integer data. We do this using the `apply` function with an `igraph::as_edgelist` call nested within it. After making this conversion we use the `orca::count4` and `orca::count5` functions to define counts of orbits for the $k=4$ and $k=5$ node configurations respectively. We then view the first few rows of each. These output data frames have a row for each node and the columns represent the counts of orbits of each configuration using the same numbering scheme shown in the figure above.
 
 ```{r}
 library(orca)
@@ -665,7 +665,7 @@ cibola_net <- igraph::graph_from_adjacency_matrix(as.matrix(cibola),
 
 # Calculate orbits for k = 4 and 5 for the Roman road network
 road_net_int <-
-  t(apply(igraph::get.edgelist(road_net, names = F), 1, as.integer))
+  t(apply(igraph::as_edgelist(road_net, names = FALSE), 1, as.integer))
 
 road_orb4 <- orca::count4(road_net_int)
 road_orb5 <- orca::count5(road_net_int)
@@ -676,7 +676,7 @@ head(road_orb5)
 
 # Calculate orbits for k = 4 and 5 for the Cibola network
 cibola_net_int <-
-  t(apply(igraph::get.edgelist(cibola_net, names = F), 1, as.integer))
+  t(apply(igraph::as_edgelist(cibola_net, names = FALSE), 1, as.integer))
 
 cibola_orb4 <- orca::count4(cibola_net_int)
 cibola_orb5 <- orca::count5(cibola_net_int)
@@ -827,8 +827,8 @@ require(orca)
 
 netGCD <- function(net1, net2) {
   # Convert igraph objects into integer edge lists
-  net1a <- t(apply(igraph::get.edgelist(net1, names = F), 1, as.integer))
-  net2a <- t(apply(igraph::get.edgelist(net2, names = F), 1, as.integer))
+  net1a <- t(apply(igraph::as_edgelist(net1, names = FALSE), 1, as.integer))
+  net2a <- t(apply(igraph::as_edgelist(net2, names = FALSE), 1, as.integer))
   
   # Calculate orbit counts for 4 nodes and exclude redundant indexes
   orb1 <- orca::count4(net1a)[, -c(4, 13, 14, 15)]

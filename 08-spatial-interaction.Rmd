@@ -31,8 +31,8 @@ First, let's read in the data and create a quick plot showing site locations wit
 
 ```{r, fig.width=7, fig.height=3, warning=F, message=F}
 wankarani <- read.csv("data/Wankarani_siteinfo.csv")
-wankarani <- wankarani[which(wankarani$Period == "Late Intermediate"), ]
-wankarani <- wankarani[which(wankarani$Type == "habitation"), ]
+wankarani <- wankarani[which(wankarani[["Period"]] == "Late Intermediate"), ]
+wankarani <- wankarani[which(wankarani[["Type"]] == "habitation"), ]
 load("data/bolivia.Rdata")
 
 library(ggmap)
@@ -55,7 +55,7 @@ colnames(xy) <- c("x", "y")
 ggmap(base_bolivia, darken = 0.35) +
   geom_point(
     data = xy,
-    aes(x, y, size = wankarani$Area),
+    aes(x, y, size = wankarani[["Area"]]),
     color = "red",
     alpha = 0.8,
     show.legend = FALSE
@@ -95,7 +95,7 @@ Now let's try an example using the Wankarani data. For this first example we wil
 d_mat <- as.matrix(dist(wankarani[, 5:6])) / 1000
 
 test1 <-
-  grav_mod(attract = wankarani$Area,
+  grav_mod(attract = wankarani[["Area"]],
            B = 1,
            d = d_mat)
 
@@ -103,7 +103,7 @@ library(superheat)
 superheat(test1)
 
 library(scales)
-df <- data.frame(Flow = rowSums(test1), Area = wankarani$Area)
+df <- data.frame(Flow = rowSums(test1), Area = wankarani[["Area"]])
 
 ggplot(data = df) +
   geom_point(aes(x = Area, y = Flow)) +
@@ -136,7 +136,7 @@ net <-
   graph_from_adjacency_matrix(test1_plot, weighted = TRUE)
 
 # Extract edge list from network object
-edgelist <- get.edgelist(net)
+edgelist <- igraph::as_edgelist(net)
 
 # Create data frame of beginning and ending points of edges
 edges <- data.frame(xy[edgelist[, 1], ], xy[edgelist[, 2], ])
@@ -181,14 +181,14 @@ d_mat <- as.matrix(dist(wankarani[, 5:6])) / 1000
 
 test2 <-
   grav_mod(
-    attract = wankarani$Area,
+    attract = wankarani[["Area"]],
     B = 0.1,
     d = d_mat
   )
 
 superheat(test2)
 
-df <- data.frame(Flow = rowSums(test2), Area = wankarani$Area)
+df <- data.frame(Flow = rowSums(test2), Area = wankarani[["Area"]])
 
 ggplot(data = df) +
   geom_point(aes(x = Area, y = Flow)) +
@@ -209,13 +209,15 @@ ggplot(data = df) +
 ```{r, message=F, warning=F, cache=T, fig.height = 3, fig.width=7}
 sel_edges <- event2dichot(test2, method = "quantile", thresh = 0.25)
 test2_plot <- test2 * sel_edges
+test2_plot <- (test2_plot + t(test2_plot)) / 2
+test2_plot[is.na(test2_plot)] <- 0
 
 net2 <-
   graph_from_adjacency_matrix(test2_plot, mode = "undirected",
                               weighted = TRUE)
 
 # Extract edge list from network object
-edgelist <- get.edgelist(net2)
+edgelist <- igraph::as_edgelist(net2)
 
 # Create data frame of beginning and ending points of edges
 edges <- data.frame(xy[edgelist[, 1], ], xy[edgelist[, 2], ])
@@ -690,12 +692,12 @@ In order to test this model, we will use the same Wankarani settlement data we u
 
 ```{r}
 wankarani <- read.csv("data/Wankarani_siteinfo.csv")
-wankarani <- wankarani[which(wankarani$Period == "Late Intermediate"), ]
-wankarani <- wankarani[which(wankarani$Type == "habitation"), ]
+wankarani <- wankarani[which(wankarani[["Period"]] == "Late Intermediate"), ]
+wankarani <- wankarani[which(wankarani[["Type"]] == "habitation"), ]
 
 d <- as.matrix(dist(wankarani[, 5:6]))
 
-rad_test <- radiation(pop = wankarani$Area / 500, d_mat = d)
+rad_test <- radiation(pop = wankarani[["Area"]] / 500, d_mat = d)
 ```
 
 Now let's plot the resulting network with each node scaled by the total incident flow (row sums of the output of the function above). We plot network edges with weights indicated by color (blue indicates low weight and yellow indicates high weight).
@@ -724,7 +726,7 @@ net <-
                               weighted = TRUE)
 
 # Extract edge list from network object
-edgelist <- get.edgelist(net)
+edgelist <- igraph::as_edgelist(net)
 
 # Create data frame of beginning and ending points of edges
 edges <-
@@ -765,7 +767,7 @@ This map shows clusters of higher and lower edge weights and again variation in 
 
 ```{r, fig.width = 7, fig.heigh = 7, warning=F, message=F}
 dg_grav <-  rowSums(grav_mod(
-  attract = wankarani$Area / 1000,
+  attract = wankarani[["Area"]] / 1000,
   B = 1,
   d = d_mat
 ))

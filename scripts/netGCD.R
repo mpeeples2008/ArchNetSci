@@ -5,8 +5,8 @@ require(orca)
 netGCD <- function(net1,net2) {
 
 
-net1a <- t(apply(igraph::get.edgelist(net1,names = F),1,as.integer))
-net2a <- t(apply(igraph::get.edgelist(net2,names = F),1,as.integer))
+net1a <- t(apply(igraph::as_edgelist(net1, names = FALSE), 1, as.integer))
+net2a <- t(apply(igraph::as_edgelist(net2, names = FALSE), 1, as.integer))
 
 orb1 <- orca::count4(net1a)[,-c(4,13,14,15)]
 orb2 <- orca::count4(net2a)[,-c(4,13,14,15)]

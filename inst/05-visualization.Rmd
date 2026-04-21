@@ -223,7 +223,7 @@ base_cibola <- get_stamenmap(
 )
 
 # Extract edgelist from network object
-edgelist <- get.edgelist(net)
+edgelist <- igraph::as_edgelist(net)
 
 # Create dataframe of beginning and ending points of edges
 edges <- data.frame(xy[edgelist[, 1], ], xy[edgelist[, 2], ])
@@ -839,7 +839,7 @@ nodes_wide <- igraph::as_data_frame(g, "vertices")
 nodes_long <- nodes_wide %>%
   dplyr::select(c1:c4) %>%
   mutate(id = seq_len(nrow(nodes_wide))) %>%
-  gather("attr", "value", c1:c4)
+  tidyr::pivot_longer(c1:c4, names_to = "attr", values_to = "value")
 nodes_out <- NULL
 for (j in seq_len(nrow(nodes_long))) {
   temp <- do.call("rbind", replicate(round(nodes_long[j, ]$value * 50, 0),
@@ -1026,7 +1026,7 @@ xy <- as.data.frame(coord1)
 colnames(xy) <- c("x", "y")
 
 # Extract edgelist from network object
-edgelist <- get.edgelist(road_net)
+edgelist <- igraph::as_edgelist(road_net)
 
 # Create dataframe of beginning and ending points of edges
 edges <- as.data.frame(matrix(NA, nrow(edgelist), 4))
@@ -1129,7 +1129,7 @@ base3 <- get_stamenmap(
 )
 
 # Extract edgelist from network object
-edgelist <- get.edgelist(g.net)
+edgelist <- igraph::as_edgelist(g.net)
 
 # Create dataframe of beginning and ending points of edges
 edges2 <- data.frame(zz[edgelist[, 1], ], zz[edgelist[, 2], ])
@@ -1222,7 +1222,7 @@ my_map <- get_stamenmap(bbox = c(22, 34.5, 29, 38.8),
                        maptype = "terrain-background")
 
 # Extract edgelist from network object for road_net
-edgelist1 <- get.edgelist(aegean_net)
+edgelist1 <- igraph::as_edgelist(aegean_net)
 
 # Create dataframe of beginning and ending points of edges
 edges1 <- as.data.frame(matrix(NA, nrow(edgelist1), 4))
@@ -2316,7 +2316,7 @@ xy <- as.data.frame(coord1)
 colnames(xy) <- c("x", "y")
 
 # Create edgelist with xy coordinates for each source and target
-edgelist2 <- get.edgelist(r_net)
+edgelist2 <- igraph::as_edgelist(r_net)
 edges2 <- data.frame(xy[edgelist2[, 1], ], xy[edgelist2[, 2], ])
 colnames(edges2) <- c("X1", "Y1", "X2", "Y2")
 
