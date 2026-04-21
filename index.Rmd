@@ -657,6 +657,7 @@ colnames(mat4) <- c("A", "B", "C") #assign col names
 mat4 # view matrix
 
 # Export the matrix as a csv file
+dir.create("data", showWarnings = FALSE)
 write.csv(mat4, file = "data/output_mat.csv")
 ```
 

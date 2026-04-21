@@ -278,7 +278,7 @@ weighted_net <-
 E(weighted_net)$weight <- cibola_edgelist$weight
 
 # Explore the first few rows and columns of network object
-head(get.data.frame(weighted_net))
+head(igraph::as_data_frame(weighted_net))
 
 # View network as adjacency matrix. Notice the attr="weight" command that
 # indicates which edge attribute to use for values in the matrix

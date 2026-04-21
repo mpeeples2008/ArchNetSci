@@ -346,12 +346,12 @@ where $N_p$ is the number of connections from mode 1 to mode 2 for node $p$ and 
 The Newman method of weighting bipartite networks has been implemented in an R package called `tnet`. This package has a few other useful functions for the analysis of bipartite, weighted, and longitudinal networks so it is worth investigating (see `?tnet`). Unfortunately, it is no longer being actively maintained.
 ```
 
-Let's take a look at Newman's method using the `tnet` package. This package expects a simple two-column edge list with only integers for the node identifiers which we can generate using the `igraph` `get.edgelist` function and including the `names = FALSE` argument:
+Let's take a look at Newman's method using the `tnet` package. This package expects a simple two-column edge list with only integers for the node identifiers which we can generate using the `igraph::as_edgelist` function and including the `names = FALSE` argument:
 
 ```{r, warning=F, message=F, fig.height=7, fig.width=7}
 library(tnet)
 
-tm_el <- get.edgelist(cibola_inc, names = FALSE)
+tm_el <- igraph::as_edgelist(cibola_inc, names = FALSE)
 head(tm_el)
 
 proj_newman <- as.matrix(projecting_tm(tm_el, method = "Newman"))
@@ -416,7 +416,7 @@ col_net <- graph_from_adjacency_matrix(crossprod(as.matrix(cibola_clust)),
                                        diag = FALSE)
 
 # Combine both edgelists into a single frame
-el_com <-  rbind(get.edgelist(cibola_om_reduced), get.edgelist(col_net))
+el_com <-  rbind(igraph::as_edgelist(cibola_om_reduced), igraph::as_edgelist(col_net))
 
 # Define composite network object and add Edge and Vertex attributes
 net2 <- graph_from_edgelist(el_com, directed = FALSE)
